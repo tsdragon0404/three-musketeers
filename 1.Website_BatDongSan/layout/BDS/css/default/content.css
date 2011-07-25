@@ -9,8 +9,25 @@
 	float:left;
 }
 #top_news{
+	background:url(../../images/templates/default/top_news/bg.png) no-repeat;
+	float:right;
+	width:310px;
+	height:310px;
+}
+.section_content{
+	margin:auto;
+	padding:1px 15px 15px 15px;
+}
+p.section_title{
 	float:left;
-	width:305px;
-	height:300px;
-	border:thin solid black;
+	padding:10px 0 0 10px;
+}
+.section_body{
+	padding:10px 0 0 10px;
+}
+img.icon{
+	float:left;
+}
+#top_news ul li{
+	padding-bottom:10px;
 }
