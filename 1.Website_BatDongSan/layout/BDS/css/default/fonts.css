@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+#nav a{
+	text-decoration:none;
+	color:#eee;
+	font-weight:bold;
+	line-height:35px;
+}
+#nav a:hover{
+	color:#fff;
+}
