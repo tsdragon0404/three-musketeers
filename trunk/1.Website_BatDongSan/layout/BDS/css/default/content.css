@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+#new_pj{
+	width:435px;
+	height:300px;
+	border:thin solid red;
+	float:left;
+}
+#top_news{
+	float:left;
+	width:305px;
+	height:300px;
+	border:thin solid black;
+}
