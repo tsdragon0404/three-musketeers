@@ -53,13 +53,60 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
+    <Content Include="css\default.css" />
+    <Content Include="css\default\content.css" />
+    <Content Include="css\default\fonts.css" />
+    <Content Include="css\default\header.css" />
+    <Content Include="css\default\sidebar.css" />
+    <Content Include="css\default\styles.css" />
+    <Content Include="images\templates\default\body_bg.png" />
+    <Content Include="images\templates\default\nav_bar\bg.png" />
+    <Content Include="images\templates\default\nav_bar\bg_hover.png" />
+    <Content Include="images\templates\default\nav_bar\end_nav.png" />
+    <Content Include="images\templates\default\nav_bar\home_off.png" />
+    <Content Include="images\templates\default\nav_bar\home_on.png" />
+    <Content Include="images\templates\default\nav_bar\seperator.png" />
+    <Content Include="images\templates\default\pic.png" />
+    <Content Include="images\templates\default\sidebar\icon_1.png" />
+    <Content Include="images\templates\default\sidebar\icon_2.png" />
+    <Content Include="images\templates\default\sidebar\icon_3.png" />
+    <Content Include="images\templates\default\sidebar\icon_4.png" />
+    <Content Include="images\templates\default\sidebar\icon_5.png" />
+    <Content Include="images\templates\default\sidebar\icon_7.png" />
+    <Content Include="images\templates\default\sidebar\sec_body.png" />
+    <Content Include="images\templates\default\sidebar\sec_bottom.png" />
+    <Content Include="images\templates\default\sidebar\sec_title.png" />
+    <Content Include="images\templates\default\top_news\bg.png" />
+    <Content Include="images\templates\default\top_news\icon.png" />
+    <Content Include="images\templates\default\wrapper_shadow.png" />
+    <Content Include="js\rollover.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
+    <Compile Include="Admin\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Client.Master.cs">
+      <DependentUpon>Client.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Client.Master.designer.cs">
+      <DependentUpon>Client.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -67,7 +114,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client.Master" />
+    <Content Include="Default.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Admin.Master" />
+    <Content Include="Admin\Default.aspx" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\header_pic\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -11,7 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
 
-namespace BatDongSan
+namespace BatDongSan.Admin
 {
     public partial class Default : System.Web.UI.Page
     {
