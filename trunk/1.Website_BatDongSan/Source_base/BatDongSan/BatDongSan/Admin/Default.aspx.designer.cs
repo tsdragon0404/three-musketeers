@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BatDongSan
+namespace BatDongSan.Admin
 {
 
 
