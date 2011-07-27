@@ -93,12 +93,55 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ManageArticle.aspx.cs">
+      <DependentUpon>ManageArticle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageArticle.aspx.designer.cs">
+      <DependentUpon>ManageArticle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageCategory.aspx.cs">
+      <DependentUpon>ManageCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageCategory.aspx.designer.cs">
+      <DependentUpon>ManageCategory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManagePartner.aspx.cs">
+      <DependentUpon>ManagePartner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManagePartner.aspx.designer.cs">
+      <DependentUpon>ManagePartner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageQuestion.aspx.cs">
+      <DependentUpon>ManageQuestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageQuestion.aspx.designer.cs">
+      <DependentUpon>ManageQuestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageSupporter.aspx.cs">
+      <DependentUpon>ManageSupporter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageSupporter.aspx.designer.cs">
+      <DependentUpon>ManageSupporter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BDS.cs">
+      <DependentUpon>BDS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="BDS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BDS.dbml</DependentUpon>
     </Compile>
     <Compile Include="Client.Master.cs">
       <DependentUpon>Client.Master</DependentUpon>
@@ -122,10 +165,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Admin.Master" />
+    <Content Include="Admin\ManageArticle.aspx" />
+    <Content Include="Admin\ManageCategory.aspx" />
     <Content Include="Admin\Default.aspx" />
+    <Content Include="Admin\ManagePartner.aspx" />
+    <Content Include="Admin\ManageQuestion.aspx" />
+    <Content Include="Admin\ManageSupporter.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BDS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BDS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BDS.dbml.layout">
+      <DependentUpon>BDS.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
