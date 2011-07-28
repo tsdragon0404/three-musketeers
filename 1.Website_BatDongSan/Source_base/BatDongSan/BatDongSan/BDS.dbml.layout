@@ -1,43 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="BDS">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.5" name="BDS">
   <DataContextMoniker Name="/BDSDataContext" />
   <nestedChildShapes>
-    <classShape Id="60263c66-d134-4748-b512-3c3ec6e0cf3c" absoluteBounds="3.5, 1, 2, 2.5401025390625005">
-      <DataClassMoniker Name="/BDSDataContext/Article" />
+    <classShape Id="7c32e317-03c9-40ec-86b1-36b31abe7aad" absoluteBounds="0.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/BDSDataContext/Administrator" />
       <nestedChildShapes>
-        <elementListCompartment Id="7580a276-661c-463d-a37a-b794c9522fce" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="009af3aa-4405-4461-bc83-ad044b4f4197" absoluteBounds="0.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a88abe3b-2bfa-40f5-acac-9f1de9683b08" absoluteBounds="0.75, 1.375, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/BDSDataContext/Category" />
-      <nestedChildShapes>
-        <elementListCompartment Id="9b3a24c3-b901-42b0-888d-ad8c5b287123" absoluteBounds="0.765, 1.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="7e2fca11-7e82-4e42-81ec-d1038dee7da9" absoluteBounds="0.75, 4.75, 2, 1.9631982421875005">
-      <DataClassMoniker Name="/BDSDataContext/Partner" />
-      <nestedChildShapes>
-        <elementListCompartment Id="793a3a8d-0d3a-40e7-9ad3-ee7459536e6d" absoluteBounds="0.765, 5.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="31b549b4-d03d-45d9-a99d-04b98b7713f6" absoluteBounds="3.75, 4.75, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/BDSDataContext/Question" />
-      <nestedChildShapes>
-        <elementListCompartment Id="ace45531-0069-46af-bd4b-4ead95549047" absoluteBounds="3.765, 5.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="256587fb-3fe1-4d5b-a5f7-ab36d2284fd7" absoluteBounds="6.75, 0.75, 2, 1.7708968098958329">
+    <classShape Id="66d65858-b61f-44c2-8ee1-571155b69ad2" absoluteBounds="3.75, 0.75, 2, 1.7708968098958331">
       <DataClassMoniker Name="/BDSDataContext/Supporter" />
       <nestedChildShapes>
-        <elementListCompartment Id="a2258d52-d6e6-4e15-a1f1-387c443896b0" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6ff9501b-fbbe-4236-8c07-4fb586de598b" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.16429768880208); (3.5 : 2.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/BDSDataContext/Category/Category_Article" />
-      <nodes>
-        <classShapeMoniker Id="a88abe3b-2bfa-40f5-acac-9f1de9683b08" />
-        <classShapeMoniker Id="60263c66-d134-4748-b512-3c3ec6e0cf3c" />
-      </nodes>
-    </associationConnector>
+    <classShape Id="e949a24f-fb63-405f-878f-8329691c7cf9" absoluteBounds="0.75, 3.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/BDSDataContext/Article" />
+      <nestedChildShapes>
+        <elementListCompartment Id="32446614-b9b7-4c66-866f-d36adc0a7cb5" absoluteBounds="0.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0e4eb54b-79cc-47c4-8e7d-2e1c3a2e5feb" absoluteBounds="3.75, 3.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/BDSDataContext/House" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e2568752-2bd8-4c3c-a4e0-35aa784d9814" absoluteBounds="3.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f6e82fc6-ac97-4cc2-8bfd-8ba64a34ae39" absoluteBounds="6.75, 0.75, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/BDSDataContext/Partner" />
+      <nestedChildShapes>
+        <elementListCompartment Id="00ed3b9d-2da2-4e8a-9d45-aa1311a8eb65" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cebbfdd0-d72e-498a-9e1f-7d6fbdd30b44" absoluteBounds="0.75, 6.75, 2, 2.5401025390624996">
+      <DataClassMoniker Name="/BDSDataContext/Project" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a2de9bc2-8048-494f-92d4-2d40bada2532" absoluteBounds="0.765, 7.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5c2ce8ad-d03a-4c66-b273-798d0b462b5f" absoluteBounds="6.75, 3.75, 2, 2.347801106770834">
+      <DataClassMoniker Name="/BDSDataContext/Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3fa17762-1a0f-4cf6-9342-2e0287f97239" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
