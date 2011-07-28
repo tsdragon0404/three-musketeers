@@ -30,21 +30,24 @@ namespace BatDongSan
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertAdministrator(Administrator instance);
+    partial void UpdateAdministrator(Administrator instance);
+    partial void DeleteAdministrator(Administrator instance);
+    partial void InsertSupporter(Supporter instance);
+    partial void UpdateSupporter(Supporter instance);
+    partial void DeleteSupporter(Supporter instance);
     partial void InsertArticle(Article instance);
     partial void UpdateArticle(Article instance);
     partial void DeleteArticle(Article instance);
-    partial void InsertCategory(Category instance);
-    partial void UpdateCategory(Category instance);
-    partial void DeleteCategory(Category instance);
+    partial void InsertHouse(House instance);
+    partial void UpdateHouse(House instance);
+    partial void DeleteHouse(House instance);
     partial void InsertPartner(Partner instance);
     partial void UpdatePartner(Partner instance);
     partial void DeletePartner(Partner instance);
     partial void InsertQuestion(Question instance);
     partial void UpdateQuestion(Question instance);
     partial void DeleteQuestion(Question instance);
-    partial void InsertSupporter(Supporter instance);
-    partial void UpdateSupporter(Supporter instance);
-    partial void DeleteSupporter(Supporter instance);
     #endregion
 		
 		public BDSDataContext() : 
@@ -77,6 +80,22 @@ namespace BatDongSan
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<Administrator> Administrators
+		{
+			get
+			{
+				return this.GetTable<Administrator>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Supporter> Supporters
+		{
+			get
+			{
+				return this.GetTable<Supporter>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Article> Articles
 		{
 			get
@@ -85,11 +104,11 @@ namespace BatDongSan
 			}
 		}
 		
-		public System.Data.Linq.Table<Category> Categories
+		public System.Data.Linq.Table<House> Houses
 		{
 			get
 			{
-				return this.GetTable<Category>();
+				return this.GetTable<House>();
 			}
 		}
 		
@@ -101,6 +120,14 @@ namespace BatDongSan
 			}
 		}
 		
+		public System.Data.Linq.Table<Project> Projects
+		{
+			get
+			{
+				return this.GetTable<Project>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Question> Questions
 		{
 			get
@@ -108,12 +135,272 @@ namespace BatDongSan
 				return this.GetTable<Question>();
 			}
 		}
+	}
+	
+	[Table(Name="dbo.Administrator")]
+	public partial class Administrator : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<Supporter> Supporters
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ID;
+		
+		private string _UserName;
+		
+		private string _Password;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(long value);
+    partial void OnIDChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    #endregion
+		
+		public Administrator()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ID
 		{
 			get
 			{
-				return this.GetTable<Supporter>();
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UserName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Password", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Supporter")]
+	public partial class Supporter : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Name;
+		
+		private string _Phone;
+		
+		private string _Yahoo;
+		
+		private System.Nullable<bool> _IsValid;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnYahooChanging(string value);
+    partial void OnYahooChanged();
+    partial void OnIsValidChanging(System.Nullable<bool> value);
+    partial void OnIsValidChanged();
+    #endregion
+		
+		public Supporter()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(100)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Phone", DbType="VarChar(20)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Yahoo", DbType="VarChar(50)")]
+		public string Yahoo
+		{
+			get
+			{
+				return this._Yahoo;
+			}
+			set
+			{
+				if ((this._Yahoo != value))
+				{
+					this.OnYahooChanging(value);
+					this.SendPropertyChanging();
+					this._Yahoo = value;
+					this.SendPropertyChanged("Yahoo");
+					this.OnYahooChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsValid", DbType="Bit")]
+		public System.Nullable<bool> IsValid
+		{
+			get
+			{
+				return this._IsValid;
+			}
+			set
+			{
+				if ((this._IsValid != value))
+				{
+					this.OnIsValidChanging(value);
+					this.SendPropertyChanging();
+					this._IsValid = value;
+					this.SendPropertyChanged("IsValid");
+					this.OnIsValidChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -130,19 +417,13 @@ namespace BatDongSan
 		
 		private string _Summary;
 		
-		private System.Nullable<long> _CategoryID;
-		
-		private string _Text;
+		private string _Contents;
 		
 		private System.Nullable<System.DateTime> _PostDate;
 		
 		private System.Nullable<System.DateTime> _LatestModifiedDate;
 		
-		private System.Nullable<long> _ViewCount;
-		
 		private System.Nullable<bool> _IsValid;
-		
-		private EntityRef<Category> _Category;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -154,23 +435,18 @@ namespace BatDongSan
     partial void OnTitleChanged();
     partial void OnSummaryChanging(string value);
     partial void OnSummaryChanged();
-    partial void OnCategoryIDChanging(System.Nullable<long> value);
-    partial void OnCategoryIDChanged();
-    partial void OnTextChanging(string value);
-    partial void OnTextChanged();
+    partial void OnContentsChanging(string value);
+    partial void OnContentsChanged();
     partial void OnPostDateChanging(System.Nullable<System.DateTime> value);
     partial void OnPostDateChanged();
     partial void OnLatestModifiedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnLatestModifiedDateChanged();
-    partial void OnViewCountChanging(System.Nullable<long> value);
-    partial void OnViewCountChanged();
     partial void OnIsValidChanging(System.Nullable<bool> value);
     partial void OnIsValidChanged();
     #endregion
 		
 		public Article()
 		{
-			this._Category = default(EntityRef<Category>);
 			OnCreated();
 		}
 		
@@ -234,46 +510,22 @@ namespace BatDongSan
 			}
 		}
 		
-		[Column(Storage="_CategoryID", DbType="BigInt")]
-		public System.Nullable<long> CategoryID
+		[Column(Storage="_Contents", DbType="NVarChar(MAX)")]
+		public string Contents
 		{
 			get
 			{
-				return this._CategoryID;
+				return this._Contents;
 			}
 			set
 			{
-				if ((this._CategoryID != value))
+				if ((this._Contents != value))
 				{
-					if (this._Category.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCategoryIDChanging(value);
+					this.OnContentsChanging(value);
 					this.SendPropertyChanging();
-					this._CategoryID = value;
-					this.SendPropertyChanged("CategoryID");
-					this.OnCategoryIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Text", DbType="NVarChar(MAX)")]
-		public string Text
-		{
-			get
-			{
-				return this._Text;
-			}
-			set
-			{
-				if ((this._Text != value))
-				{
-					this.OnTextChanging(value);
-					this.SendPropertyChanging();
-					this._Text = value;
-					this.SendPropertyChanged("Text");
-					this.OnTextChanged();
+					this._Contents = value;
+					this.SendPropertyChanged("Contents");
+					this.OnContentsChanged();
 				}
 			}
 		}
@@ -318,26 +570,6 @@ namespace BatDongSan
 			}
 		}
 		
-		[Column(Storage="_ViewCount", DbType="BigInt")]
-		public System.Nullable<long> ViewCount
-		{
-			get
-			{
-				return this._ViewCount;
-			}
-			set
-			{
-				if ((this._ViewCount != value))
-				{
-					this.OnViewCountChanging(value);
-					this.SendPropertyChanging();
-					this._ViewCount = value;
-					this.SendPropertyChanged("ViewCount");
-					this.OnViewCountChanged();
-				}
-			}
-		}
-		
 		[Column(Storage="_IsValid", DbType="Bit")]
 		public System.Nullable<bool> IsValid
 		{
@@ -354,40 +586,6 @@ namespace BatDongSan
 					this._IsValid = value;
 					this.SendPropertyChanged("IsValid");
 					this.OnIsValidChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Category_Article", Storage="_Category", ThisKey="CategoryID", IsForeignKey=true)]
-		public Category Category
-		{
-			get
-			{
-				return this._Category.Entity;
-			}
-			set
-			{
-				Category previousValue = this._Category.Entity;
-				if (((previousValue != value) 
-							|| (this._Category.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Category.Entity = null;
-						previousValue.Articles.Remove(this);
-					}
-					this._Category.Entity = value;
-					if ((value != null))
-					{
-						value.Articles.Add(this);
-						this._CategoryID = value.ID;
-					}
-					else
-					{
-						this._CategoryID = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("Category");
 				}
 			}
 		}
@@ -413,21 +611,25 @@ namespace BatDongSan
 		}
 	}
 	
-	[Table(Name="dbo.Category")]
-	public partial class Category : INotifyPropertyChanging, INotifyPropertyChanged
+	[Table(Name="dbo.House")]
+	public partial class House : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _ID;
 		
-		private string _Name;
+		private string _Title;
 		
-		private System.Nullable<bool> _IsValid;
+		private string _Picture;
+		
+		private string _Price;
 		
 		private string _Description;
 		
-		private EntitySet<Article> _Articles;
+		private System.Nullable<bool> _IsValid;
+		
+		private System.Nullable<long> _ViewCount;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -435,17 +637,22 @@ namespace BatDongSan
     partial void OnCreated();
     partial void OnIDChanging(long value);
     partial void OnIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnIsValidChanging(System.Nullable<bool> value);
-    partial void OnIsValidChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnPictureChanging(string value);
+    partial void OnPictureChanged();
+    partial void OnPriceChanging(string value);
+    partial void OnPriceChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
+    partial void OnIsValidChanging(System.Nullable<bool> value);
+    partial void OnIsValidChanged();
+    partial void OnViewCountChanging(System.Nullable<long> value);
+    partial void OnViewCountChanged();
     #endregion
 		
-		public Category()
+		public House()
 		{
-			this._Articles = new EntitySet<Article>(new Action<Article>(this.attach_Articles), new Action<Article>(this.detach_Articles));
 			OnCreated();
 		}
 		
@@ -469,42 +676,62 @@ namespace BatDongSan
 			}
 		}
 		
-		[Column(Storage="_Name", DbType="NVarChar(100)")]
-		public string Name
+		[Column(Storage="_Title", DbType="NVarChar(200)")]
+		public string Title
 		{
 			get
 			{
-				return this._Name;
+				return this._Title;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._Title != value))
 				{
-					this.OnNameChanging(value);
+					this.OnTitleChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_IsValid", DbType="Bit")]
-		public System.Nullable<bool> IsValid
+		[Column(Storage="_Picture", DbType="VarChar(100)")]
+		public string Picture
 		{
 			get
 			{
-				return this._IsValid;
+				return this._Picture;
 			}
 			set
 			{
-				if ((this._IsValid != value))
+				if ((this._Picture != value))
 				{
-					this.OnIsValidChanging(value);
+					this.OnPictureChanging(value);
 					this.SendPropertyChanging();
-					this._IsValid = value;
-					this.SendPropertyChanged("IsValid");
-					this.OnIsValidChanged();
+					this._Picture = value;
+					this.SendPropertyChanged("Picture");
+					this.OnPictureChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Price", DbType="NVarChar(100)")]
+		public string Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
 				}
 			}
 		}
@@ -529,16 +756,43 @@ namespace BatDongSan
 			}
 		}
 		
-		[Association(Name="Category_Article", Storage="_Articles", OtherKey="CategoryID")]
-		public EntitySet<Article> Articles
+		[Column(Storage="_IsValid", DbType="Bit")]
+		public System.Nullable<bool> IsValid
 		{
 			get
 			{
-				return this._Articles;
+				return this._IsValid;
 			}
 			set
 			{
-				this._Articles.Assign(value);
+				if ((this._IsValid != value))
+				{
+					this.OnIsValidChanging(value);
+					this.SendPropertyChanging();
+					this._IsValid = value;
+					this.SendPropertyChanged("IsValid");
+					this.OnIsValidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ViewCount", DbType="BigInt")]
+		public System.Nullable<long> ViewCount
+		{
+			get
+			{
+				return this._ViewCount;
+			}
+			set
+			{
+				if ((this._ViewCount != value))
+				{
+					this.OnViewCountChanging(value);
+					this.SendPropertyChanging();
+					this._ViewCount = value;
+					this.SendPropertyChanged("ViewCount");
+					this.OnViewCountChanged();
+				}
 			}
 		}
 		
@@ -560,18 +814,6 @@ namespace BatDongSan
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Articles(Article entity)
-		{
-			this.SendPropertyChanging();
-			entity.Category = this;
-		}
-		
-		private void detach_Articles(Article entity)
-		{
-			this.SendPropertyChanging();
-			entity.Category = null;
 		}
 	}
 	
@@ -757,6 +999,177 @@ namespace BatDongSan
 		}
 	}
 	
+	[Table(Name="dbo.Project")]
+	public partial class Project
+	{
+		
+		private long _ID;
+		
+		private string _Title;
+		
+		private string _Picture;
+		
+		private string _Summary;
+		
+		private string _Description;
+		
+		private System.Nullable<System.DateTime> _PostDate;
+		
+		private System.Nullable<System.DateTime> _LastestModifiedDate;
+		
+		private System.Nullable<long> _ViewCount;
+		
+		private System.Nullable<bool> _IsValid;
+		
+		public Project()
+		{
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.Always, DbType="BigInt NOT NULL IDENTITY", IsDbGenerated=true)]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_Title", DbType="NVarChar(200)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this._Title = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_Picture", DbType="VarChar(100)")]
+		public string Picture
+		{
+			get
+			{
+				return this._Picture;
+			}
+			set
+			{
+				if ((this._Picture != value))
+				{
+					this._Picture = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_Summary", DbType="NVarChar(250)")]
+		public string Summary
+		{
+			get
+			{
+				return this._Summary;
+			}
+			set
+			{
+				if ((this._Summary != value))
+				{
+					this._Summary = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_PostDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PostDate
+		{
+			get
+			{
+				return this._PostDate;
+			}
+			set
+			{
+				if ((this._PostDate != value))
+				{
+					this._PostDate = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_LastestModifiedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> LastestModifiedDate
+		{
+			get
+			{
+				return this._LastestModifiedDate;
+			}
+			set
+			{
+				if ((this._LastestModifiedDate != value))
+				{
+					this._LastestModifiedDate = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_ViewCount", DbType="BigInt")]
+		public System.Nullable<long> ViewCount
+		{
+			get
+			{
+				return this._ViewCount;
+			}
+			set
+			{
+				if ((this._ViewCount != value))
+				{
+					this._ViewCount = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_IsValid", DbType="Bit")]
+		public System.Nullable<bool> IsValid
+		{
+			get
+			{
+				return this._IsValid;
+			}
+			set
+			{
+				if ((this._IsValid != value))
+				{
+					this._IsValid = value;
+				}
+			}
+		}
+	}
+	
 	[Table(Name="dbo.Question")]
 	public partial class Question : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -773,9 +1186,11 @@ namespace BatDongSan
 		
 		private string _Text;
 		
-		private System.Nullable<bool> _IsAnswered;
+		private System.Nullable<System.DateTime> _PostDate;
 		
-		private System.Nullable<bool> _IsValid;
+		private System.Nullable<System.DateTime> _AnswerDate;
+		
+		private System.Nullable<bool> _IsAnswered;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -791,10 +1206,12 @@ namespace BatDongSan
     partial void OnPhoneChanged();
     partial void OnTextChanging(string value);
     partial void OnTextChanged();
+    partial void OnPostDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPostDateChanged();
+    partial void OnAnswerDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAnswerDateChanged();
     partial void OnIsAnsweredChanging(System.Nullable<bool> value);
     partial void OnIsAnsweredChanged();
-    partial void OnIsValidChanging(System.Nullable<bool> value);
-    partial void OnIsValidChanged();
     #endregion
 		
 		public Question()
@@ -902,6 +1319,46 @@ namespace BatDongSan
 			}
 		}
 		
+		[Column(Storage="_PostDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PostDate
+		{
+			get
+			{
+				return this._PostDate;
+			}
+			set
+			{
+				if ((this._PostDate != value))
+				{
+					this.OnPostDateChanging(value);
+					this.SendPropertyChanging();
+					this._PostDate = value;
+					this.SendPropertyChanged("PostDate");
+					this.OnPostDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_AnswerDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> AnswerDate
+		{
+			get
+			{
+				return this._AnswerDate;
+			}
+			set
+			{
+				if ((this._AnswerDate != value))
+				{
+					this.OnAnswerDateChanging(value);
+					this.SendPropertyChanging();
+					this._AnswerDate = value;
+					this.SendPropertyChanged("AnswerDate");
+					this.OnAnswerDateChanged();
+				}
+			}
+		}
+		
 		[Column(Storage="_IsAnswered", DbType="Bit")]
 		public System.Nullable<bool> IsAnswered
 		{
@@ -918,184 +1375,6 @@ namespace BatDongSan
 					this._IsAnswered = value;
 					this.SendPropertyChanged("IsAnswered");
 					this.OnIsAnsweredChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsValid", DbType="Bit")]
-		public System.Nullable<bool> IsValid
-		{
-			get
-			{
-				return this._IsValid;
-			}
-			set
-			{
-				if ((this._IsValid != value))
-				{
-					this.OnIsValidChanging(value);
-					this.SendPropertyChanging();
-					this._IsValid = value;
-					this.SendPropertyChanged("IsValid");
-					this.OnIsValidChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.Supporter")]
-	public partial class Supporter : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Name;
-		
-		private string _Yahoo;
-		
-		private string _Skype;
-		
-		private System.Nullable<bool> _IsValid;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnYahooChanging(string value);
-    partial void OnYahooChanged();
-    partial void OnSkypeChanging(string value);
-    partial void OnSkypeChanged();
-    partial void OnIsValidChanging(System.Nullable<bool> value);
-    partial void OnIsValidChanged();
-    #endregion
-		
-		public Supporter()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="NVarChar(100)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Yahoo", DbType="VarChar(50)")]
-		public string Yahoo
-		{
-			get
-			{
-				return this._Yahoo;
-			}
-			set
-			{
-				if ((this._Yahoo != value))
-				{
-					this.OnYahooChanging(value);
-					this.SendPropertyChanging();
-					this._Yahoo = value;
-					this.SendPropertyChanged("Yahoo");
-					this.OnYahooChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Skype", DbType="VarChar(50)")]
-		public string Skype
-		{
-			get
-			{
-				return this._Skype;
-			}
-			set
-			{
-				if ((this._Skype != value))
-				{
-					this.OnSkypeChanging(value);
-					this.SendPropertyChanging();
-					this._Skype = value;
-					this.SendPropertyChanged("Skype");
-					this.OnSkypeChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsValid", DbType="Bit")]
-		public System.Nullable<bool> IsValid
-		{
-			get
-			{
-				return this._IsValid;
-			}
-			set
-			{
-				if ((this._IsValid != value))
-				{
-					this.OnIsValidChanging(value);
-					this.SendPropertyChanging();
-					this._IsValid = value;
-					this.SendPropertyChanged("IsValid");
-					this.OnIsValidChanged();
 				}
 			}
 		}
