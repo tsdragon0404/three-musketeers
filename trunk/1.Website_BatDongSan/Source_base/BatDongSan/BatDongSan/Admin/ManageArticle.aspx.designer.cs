@@ -23,57 +23,48 @@ namespace BatDongSan.Admin {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// txttieude control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttieude;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// Label2 control.
+        /// btnThem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Button btnThem;
         
         /// <summary>
-        /// txttomtat control.
+        /// LinqDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttomtat;
+        protected global::System.Web.UI.WebControls.LinqDataSource LinqDataSource1;
         
         /// <summary>
-        /// Label3 control.
+        /// ucAddArticle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::BatDongSan.Admin.uc.ucAddArticle ucAddArticle1;
         
         /// <summary>
-        /// ckeNoidung control.
+        /// ucEditArticle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CKEditor.NET.CKEditorControl ckeNoidung;
-        
-        /// <summary>
-        /// btnOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOk;
+        protected global::BatDongSan.Admin.uc.ucEditArticle ucEditArticle1;
     }
 }

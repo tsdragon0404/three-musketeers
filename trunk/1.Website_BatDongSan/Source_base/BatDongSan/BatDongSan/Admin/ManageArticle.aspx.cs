@@ -17,15 +17,23 @@ namespace BatDongSan.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Request.QueryString["action"] == "add")
+            {
+                GridView1.Visible = false;
+                ucAddArticle1.Visible = true;
+            }
+            if (Request.QueryString["action"] == "edit")
+            {
+                GridView1.Visible = false;
+                ucEditArticle1.Visible = true;
+            }
         }
 
-        protected void btnOk_Click(object sender, EventArgs e)
+        protected void btnThem_Click(object sender, EventArgs e)
         {
-            Article ar = new Article();
-            ar.Title = txttieude.Text.Trim();
-            ar.Summary = txttomtat.Text.Trim();
-            ar.Text = ckeNoidung.Text.Trim();
+            Response.Redirect("ManageArticle.aspx?action=add");
+            
         }
+   
     }
 }
