@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+#headerpic
+{
+	height:300px;
+	overflow:hidden;
+}
+#nav{
+	margin:3px 0 0 0;
+	background:url(../../images/templates/default/nav_bar/end_nav.png) right 0 repeat-y;
+	float:left;
+}
+#nav img{
+	float:left;
+}
+.sf-menu{
+	margin:0 0 0 45px;
+	height:35px;
+	width:955px;
+	background:url(../../images/templates/default/nav_bar/bg.png) repeat-x;
+}
+.sf-menu li{
+	float:left;
+	height:35px;
+	text-align:center;
+	position:relative;
+}
+.sf-menu li:hover{
+	background:url(../../images/templates/default/nav_bar/bg_hover.png) repeat-x;
+}
+.sf-menu li a{
+	display:block;
+	min-width:130px;
+	background:url(../../images/templates/default/nav_bar/seperator.png) left 1px repeat-y;
+}
+.end_menu
+{
+	width:1px;
+}
+.end_menu:hover{
+	background:none !important;
+}
+ul.sub li
+{
+	background:url(../../images/templates/default/nav_bar/bg.png) repeat-x;
+	float:none !important;
+}
+ul.sub
+{
+	position: absolute;  
+}
+ul.sub li a
+{
+	white-space:nowrap;
+	padding:0 10px;
+	background:none;
+}
+.dropdown
+{
+	cursor:pointer;
+}
