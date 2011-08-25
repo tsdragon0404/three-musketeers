@@ -1,0 +1,66 @@
+﻿.GridRow
+{
+}
+.AltGridRow
+{
+}
+.SelectedGridRow
+{
+}
+.datagrid
+{
+	width:695px;
+}
+
+.tbl
+{
+	width:695px;
+}
+.tbl td
+{
+	padding:0;
+	border:none;
+}
+.textarea
+{
+	min-width:652px;
+	max-width:652px;
+}
+.textarea2
+{
+	min-width:600px;
+	max-width:600px;
+}
+.textbox
+{
+	min-width:600px;
+	max-width:600px;
+}
+.add
+{
+	margin-left:20px;
+}
+.login
+{
+	margin:auto;
+}
+.login td
+{
+	border:none;
+}
+ul.menuacc li
+{
+	padding:5px 0;
+}
+ul.menuacc img
+{
+	margin:0 10px;
+}
+.fup
+{
+	width:180px;
+}
+.smalltb
+{
+	width:140px;
+}
