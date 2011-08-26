@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+#mainbody{
+	height:600px;
+	padding:0 50px;
+}
+#news{
+	float:left;
+	width:400px;
+}
+#tit{
+	height:350px;
+	padding-top:50px;
+}
+#tit h1{
+	font-size:400%;
+	color:#fff;
+}
+#tit h3{
+	font-size:150%;
+	color:#eee;
+}
+#newslist{
+	color:#ddd;
+	height:150px;
+}
+#newslist li{
+	font-size:80%;
+	padding-bottom:15px;
+}
+#newslist li a{
+	font-weight:bold;
+	color:#ccc;
+	font-size:80%;
+	text-decoration:underline;
+}
+#newslist li a:hover{
+	color:#fff;
+}
+
+#slide {
+    position:relative;
+    height:550px;
+	width:400px;
+	float:right;
+	margin-top:50px;
+}
+
+#slide img {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:8;
+    opacity:0.0;
+}
+
+#slide img.active {
+    z-index:10;
+    opacity:1.0;
+}
+
+#slide img.last-active {
+    z-index:9;
+}
+
+/* scrollbar styles*/
+#newslist div .scrollgeneric {
+	line-height:1px;
+	font-size:1px;
+	position: absolute;
+	top: 0; 
+	left: 0;
+}
+
+/* scrollbar styles homepage */
+#newlist{
+	overflow:auto;
+	position:relative;
+}
+#newslist .scrollwrapper{
+	padding:6px 0;
+}
+#newslist .mcontentwrapper{
+left:15px !important;	
+}
+
+#newslist div .vscrollerbase {
+width: 7px;
+height:150px !important;
+left:0 !important;
+background:url(../images/scroll/home_bar.png) center center repeat-y;
+}
+#newslist div .vscrollerbar {
+width: 7px;
+height:7px !important;
+background:url(../images/scroll/home_handle.png) 0 0 no-repeat;
+z-index: 2;
+cursor:pointer;
+}
+#newslist div .vscrollerbar:hover{
+background:url(../images/scroll/home_handle.png) 0 -7px no-repeat;
+}

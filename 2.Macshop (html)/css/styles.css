@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+@import "header.css";
+@import "footer.css";
+@import "content.css";
+
+*{
+	margin:0;
+	padding:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12pt;
+}
+
+body{
+	background:url(../images/bg.jpg) no-repeat fixed center center;
+	cursor:default;
+}
+
+img{
+	border:0;
+}
+
+a{
+	text-decoration:none;
+}
+
+ul{
+	list-style:none;
+}
+
+#wrapper{
+	width:1000px;
+	margin:auto;
+}
+
+.clear{
+	clear:both;
+}

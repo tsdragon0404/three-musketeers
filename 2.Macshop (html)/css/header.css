@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+#logo{
+	float:right;
+	margin:15px 100px 15px 0;
+}
+
+#topmenu{
+	height:62px;
+}
+#topmenu li{
+	background:url(../images/topmenubg.png) no-repeat center 0;
+	float:left;
+	height:40px;
+}
+#topmenu li a:hover{
+	background:url(../images/topmenubg.png) no-repeat center -40px;
+	color:#ccc;
+}
+#topmenu .menu_l{
+	background:url(../images/topmenubg.png) no-repeat left 0;
+}
+#topmenu .menu_l a:hover{
+	background:url(../images/topmenubg.png) no-repeat left -40px;
+}
+#topmenu .menu_r{
+	background:url(../images/topmenubg.png) no-repeat right 0;
+}
+#topmenu .menu_r a:hover{
+	background:url(../images/topmenubg.png) no-repeat right -40px;
+}
+#topmenu .sepa{
+	background:url(../images/topmenubg.png) no-repeat center 0;
+	width:2px;
+}
+#topmenu a{
+	display:block;
+	min-width:165px;
+	text-align:center;
+	line-height:38px;
+	font-weight:bold;
+	color:#333;
+}
