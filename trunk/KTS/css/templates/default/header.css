@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+
+#header{
+	
+}
+#navmenu{
+	float:right;
+}
+#navmenu ul{
+	list-style:none;	
+}
+#navmenu ul li{
+	float:left;
+	background:url(../../../images/templates/default/menu-bg.png);
+	text-align:center;
+	width:100px;
+	margin-right:5px;
+	position:relative;
+}
+#navmenu ul li.active a{
+	background:url(../../../images/templates/default/menu-bg2.png);
+}
+
+#navmenu ul li a{
+	display:block;
+	height:120px;
+}
+#navmenu ul li a p{
+	color:#fff;
+	font-size:120%;
+	font-weight:bold;
+	position:absolute;
+	top:-20px;
+	width:100%;
+	text-align:center;
+}
+#navmenu ul li.active a p{
+	top:5px;
+}
+#navmenu .menuimg{
+	position:absolute;
+	bottom:10px;
+	left:10px;
+}
+#navmenu ul li a:hover{
+	background:url(../../../images/templates/default/menu-bg2.png);
+	text-decoration:none;
+}
+#logo{
+	float:left;	
+}
+
+#banner{
+	height:100px;
+	margin:2px;
+}

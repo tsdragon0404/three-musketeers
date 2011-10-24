@@ -1,0 +1,137 @@
+@charset "utf-8";
+/* CSS Document */
+
+#left .content{
+	height:500px; /* sau nay bo di*/
+	padding:0 3px;
+}
+
+#left{
+	width:754px;
+	float:left;
+}
+
+#left .bortop
+{
+	background:url(../../../images/templates/default/bortop.png) no-repeat;
+	height:6px;
+}
+#left .borbottom
+{
+	background:url(../../../images/templates/default/borbottom.png) no-repeat;
+	height:6px;
+}
+#left .title{
+	height:32px;
+	line-height:27px;
+	background:url(../../../images/templates/default/title_bg.png) bottom left repeat-x;
+	font-weight:bold;
+	font-size:120%;
+	text-align:center;
+	margin:0 3px;
+}
+.borleft{
+	background:url(../../../images/templates/default/borleft.png) repeat-y top left;
+}
+
+.borright{
+	background:url(../../../images/templates/default/borright.png) repeat-y top right;
+}
+
+#tab{
+	background:url(../../../images/templates/default/tab_bg.png) bottom left repeat-x;
+	height:32px;
+	position:relative;
+}
+
+#tab ul{
+	list-style:none;
+	float:left;
+	margin-left:15px;
+}
+
+#tab ul li{
+	float:left;
+	min-width:103px;
+	text-align:center;
+	background:url(../../../images/templates/default/tab_sepa.png) right top no-repeat;
+}
+#tab ul li.last-item{
+	background:none;
+}
+#tab ul li a{
+	display:block;
+	line-height:32px;
+}
+#tab ul li a:hover{
+	text-decoration:none;
+}
+#tab ul li.current a{
+	background:#fff;
+}
+
+#tab_content{
+	padding:5px;
+}
+
+.search{
+	padding:5px 0 5px 10px;
+	border:1px solid #ccc;
+}
+
+.search select{
+	width:125px;
+}
+
+#btnsearch{
+	border:0;
+	background:url(../../../images/templates/default/btnsearch.png) no-repeat;
+	width:80px;
+	height:20px;
+}
+#btnAdvance{
+	cursor:pointer;
+}
+#nav-arrow{
+	position:absolute;
+	width:16px;
+	height:9px;
+	background:url(../../../images/templates/default/nav_arrow.png) no-repeat top center;
+	top:-3px;
+	left:58px;
+}
+#frm_reg table{
+	width:70%;
+	margin:15px auto;
+}
+#frm_reg input[type=text], #frm_reg input[type=password]{
+	width:100%;
+	padding:2px;
+}
+#frm_reg select{
+	padding:2px;
+}
+#frm_reg .col1{
+	width:30%;
+}
+#frm_reg .col2{
+	width:40%;
+}
+#frm_reg .col3{
+	width:30%;
+}
+#frm_reg th{
+	text-align:left;
+}
+#btnreg{
+	background:url(../../../images/templates/default/btnreg.png) no-repeat;
+	width:80px;
+	height:20px;
+	border:0;
+}
+#btnforget{
+	background:url(../../../images/templates/default/btnOK.png) no-repeat;
+	width:80px;
+	height:20px;
+	border:0;
+}
