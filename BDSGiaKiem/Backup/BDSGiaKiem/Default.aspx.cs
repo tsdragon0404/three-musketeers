@@ -17,12 +17,7 @@ namespace BDSGiaKiem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BDSDAO bds = new BDSDAO();
-            FilterParameterCollection param = new FilterParameterCollection();
-            param.Add(new FilterParameter("@Id", "1", DbType.Int32));
-            //DataTable table = bds.GetReports("spa_GetSample", param);
-            Gridview1.DataSource = bds.GetReports("spa_GetSample", param);
-            Gridview1.DataBind();
+
         }
     }
 }
