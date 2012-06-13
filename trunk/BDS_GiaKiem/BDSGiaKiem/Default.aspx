@@ -1,16 +1,23 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BDSGiaKiem._Default" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
+    Inherits="BDSGiaKiem.Default" Title="Untitled Page" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title>Untitled Page</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div id="home_pic">
+        <img src="images/home_pic/1.jpg" />
     </div>
-    </form>
-</body>
-</html>
+    <div id="topics">
+        <div class="topic">
+            <a href="#">Chi tiết quy hoạch<img src="images/topic_1.png" /></a>
+        </div>
+        <div class="topic">
+            <a href="#">Các khu vực<img src="images/topic_1.png" /></a>
+        </div>
+        <div class="topic">
+            <a href="#">Tin tức liên quan<img src="images/topic_1.png" /></a>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</asp:Content>
