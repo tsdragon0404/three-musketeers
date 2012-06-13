@@ -2,56 +2,16 @@
 /* CSS Document */
 /* Created by LamVu */
 
-#wrapper_shadow{
-	background:url(../../images/templates/default/wrapper_shadow.png) repeat-y;
-	margin:auto;
-	width:1042px;
-	
-}
-
-.wrapper{
+#wrapper{
 	background:white;
 	margin:auto;
 	width:1000px;
-	
 }
 
 #header{
-	height:300px;
+	height:36px;
+	margin:18px 0;
 }
 
-#content_main{
-	width:750px;
-	float:left;
-	margin:3px 0 0 5px;
-}
-#content{
-	width:750px;
-	float:left;
-	margin:3px 0 0 5px;
-}
-.wrapper:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
-}
-
-#sidebar{
-	width:240px;
-	float:right;
-	margin:3px 5px 0 0;
-}
-#footer
-{
-	height:50px;
-	background:url("../../images/templates/default/footer.png") repeat-x;
-	
-}
-#footer .wrapper
-{
-	padding-top:20px;
-	background:transparent;
+#footer{
 }

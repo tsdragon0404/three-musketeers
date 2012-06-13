@@ -1,3 +1,38 @@
 @charset "utf-8";
 /* CSS Document */
 /* Created by LamVu */
+#support{
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+#support ul{
+	padding: 3px 15px;
+	height: 30px;
+	width:600px;
+	margin:auto;
+}
+#support li{
+	float:left;
+	line-height:30px;
+}
+#support li.yahoo a{
+	padding-left:30px;
+	color:#08C;
+}
+#support li.yahoo.on{
+	background:url("../../images/online.png") no-repeat;
+	padding-right:15px;
+}
+#support li.yahoo.off{
+	background:url("../../images/offline.png") no-repeat;
+}
+#support li.hotline{
+	color:#F00;
+	font-weight:bold;
+	font-size:110%;
+	padding-right:100px;
+}
+#copyright{
+	margin:10px 0;
+	text-align:center;
+}
