@@ -17,3 +17,17 @@ C:\Users\Mr Duy\Desktop\three-musketeers\BDSGiaKiem\BDSGiaKiem\bin\Microsoft.Pra
 C:\Users\Mr Duy\Desktop\three-musketeers\BDSGiaKiem\BDSGiaKiem\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
 C:\Users\Mr Duy\Desktop\three-musketeers\BDSGiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.dll
 C:\Users\Mr Duy\Desktop\three-musketeers\BDSGiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\BDSGiaKiem.dll
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\BDSGiaKiem.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.Unity.Interception.dll
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.Unity.Configuration.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.Unity.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.ServiceLocation.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.Unity.Interception.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\ResolveAssemblyReference.cache
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.dll
+D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.pdb
