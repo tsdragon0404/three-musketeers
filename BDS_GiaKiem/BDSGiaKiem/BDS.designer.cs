@@ -184,7 +184,7 @@ namespace BDSGiaKiem
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long ID
 		{
 			get
@@ -640,7 +640,7 @@ namespace BDSGiaKiem
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long ID
 		{
 			get
@@ -738,7 +738,7 @@ namespace BDSGiaKiem
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long ID
 		{
 			get
@@ -892,7 +892,7 @@ namespace BDSGiaKiem
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long ID
 		{
 			get
@@ -1026,7 +1026,7 @@ namespace BDSGiaKiem
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long ID
 		{
 			get
