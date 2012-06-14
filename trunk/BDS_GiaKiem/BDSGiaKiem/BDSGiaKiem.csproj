@@ -43,6 +43,9 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -76,6 +79,11 @@
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
     <Compile Include="BaseDAO.cs" />
+    <Compile Include="BDS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BDS.dbml</DependentUpon>
+    </Compile>
     <Compile Include="BDSDAO.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Default.aspx.cs">
@@ -147,6 +155,21 @@
     <Content Include="Admin.aspx" />
     <Content Include="Admin.Master" />
     <Content Include="ucAdmin\default.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BDS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BDS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BDS.dbml.layout">
+      <DependentUpon>BDS.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
