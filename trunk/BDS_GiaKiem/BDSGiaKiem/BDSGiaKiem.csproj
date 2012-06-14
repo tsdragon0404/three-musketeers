@@ -61,6 +61,20 @@
     <Content Include="Web2.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
     <Compile Include="BaseDAO.cs" />
     <Compile Include="BDSDAO.cs" />
     <Compile Include="DBManager.cs" />
@@ -81,6 +95,20 @@
       <DependentUpon>Master.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucAdmin\default.ascx.cs">
+      <DependentUpon>default.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\default.ascx.designer.cs">
+      <DependentUpon>default.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucAdmin\homepic.ascx.cs">
+      <DependentUpon>homepic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\homepic.ascx.designer.cs">
+      <DependentUpon>homepic.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\default.css" />
@@ -112,7 +140,13 @@
     <Content Include="Master.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ucAdmin\homepic.ascx" />
     <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin.aspx" />
+    <Content Include="Admin.Master" />
+    <Content Include="ucAdmin\default.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
