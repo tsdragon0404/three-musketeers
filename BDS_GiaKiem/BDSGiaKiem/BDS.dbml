@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="BDSWebsite" Class="BDSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=BDSWebsite;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BDSWebsiteConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Area" Member="Areas">
+    <Type Name="Area">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProjectID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Supporter" Member="Supporters">
+    <Type Name="Supporter">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Yahoo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Article" Member="Articles">
+    <Type Name="Article">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ContentText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HomeLink" Member="HomeLinks">
+    <Type Name="HomeLink">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HomePic" Member="HomePics">
+    <Type Name="HomePic">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="New">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProjectID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ContentText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastUpdatedTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Planning" Member="Plannings">
+    <Type Name="Planning">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProjectID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project" Member="Projects">
+    <Type Name="Project">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ContentText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+</Database>
