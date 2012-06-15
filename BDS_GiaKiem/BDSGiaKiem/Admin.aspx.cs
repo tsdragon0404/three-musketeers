@@ -19,16 +19,16 @@ namespace BDSGiaKiem
         {
             if (!IsPostBack)
             {
+                String[] sections = new String[] { "area", "article", "homelink", "homepic", 
+                    "news", "planning", "project", "supporter" };
+
+                Control ctrl;
                 String section = "default";
                 if (Request.QueryString["section"] != null && Request.QueryString["section"].ToString().Trim() != "")
                     section = Request.QueryString["section"].ToString().Trim();
-
-                Control ctrl;
-                if (section == "homepic")
-                {
-                    ctrl = Page.LoadControl("ucAdmin/homepic.ascx");
-                }
-                else // include section default
+                if(sections.Contains(section))
+                    ctrl = Page.LoadControl("ucAdmin/" + section + ".ascx");
+                else
                     ctrl = Page.LoadControl("ucAdmin/default.ascx");
 
                 Body.Controls.Add(ctrl);

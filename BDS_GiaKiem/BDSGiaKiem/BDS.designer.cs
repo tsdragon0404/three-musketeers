@@ -488,7 +488,7 @@ namespace BDSGiaKiem
 			}
 		}
 		
-		[Column(Storage="_ContentText", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[Column(Storage="_ContentText", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string ContentText
 		{
 			get
@@ -625,6 +625,8 @@ namespace BDSGiaKiem
 		
 		private string _ImageUrl;
 		
+		private System.Nullable<bool> _IsUsed;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -633,6 +635,8 @@ namespace BDSGiaKiem
     partial void OnIDChanged();
     partial void OnImageUrlChanging(string value);
     partial void OnImageUrlChanged();
+    partial void OnIsUsedChanging(System.Nullable<bool> value);
+    partial void OnIsUsedChanged();
     #endregion
 		
 		public HomePic()
@@ -676,6 +680,26 @@ namespace BDSGiaKiem
 					this._ImageUrl = value;
 					this.SendPropertyChanged("ImageUrl");
 					this.OnImageUrlChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsUsed", DbType="Bit")]
+		public System.Nullable<bool> IsUsed
+		{
+			get
+			{
+				return this._IsUsed;
+			}
+			set
+			{
+				if ((this._IsUsed != value))
+				{
+					this.OnIsUsedChanging(value);
+					this.SendPropertyChanging();
+					this._IsUsed = value;
+					this.SendPropertyChanged("IsUsed");
+					this.OnIsUsedChanged();
 				}
 			}
 		}
@@ -798,7 +822,7 @@ namespace BDSGiaKiem
 			}
 		}
 		
-		[Column(Storage="_ContentText", DbType="NVarChar(MAX)")]
+		[Column(Storage="_ContentText", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string ContentText
 		{
 			get
@@ -1086,7 +1110,7 @@ namespace BDSGiaKiem
 			}
 		}
 		
-		[Column(Storage="_ContentText", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[Column(Storage="_ContentText", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string ContentText
 		{
 			get
