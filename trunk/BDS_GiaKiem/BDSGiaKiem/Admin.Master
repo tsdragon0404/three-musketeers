@@ -13,10 +13,10 @@
     <div id="wrapper">
         <div id="header">
             <ul id="topnav">
-                <li id="menu1"><a href="#"><span>Home</span></a></li>
-                <li id="menu2"><a href="#"><span>Giới thiệu</span></a></li>
-                <li id="menu3"><a href="detail.html"><span>Dự án</span></a></li>
-                <li id="menu4"><a href="#"><span>Tin tức</span></a></li>
+                <li id="menu1"><a href="Admin.aspx"><span>Home</span></a></li>
+                <li id="menu2"><a href="?section=article&name=about"><span>Giới thiệu</span></a></li>
+                <li id="menu3"><a href="?section=project"><span>Dự án</span></a></li>
+                <li id="menu4"><a href="?section=news"><span>Tin tức</span></a></li>
             </ul>
         </div>
         <div id="content">
@@ -29,8 +29,8 @@
             <div id="support">
                 <ul>
                     <li class="hotline">Hotline: 083.888.4444</li>
-                    <li class="yahoo on"><a href="#">Tên - 0987.654.321</a></li>
-                    <li class="yahoo off"><a href="#">Tên - 0123.456.7890</a></li>
+                    <li class="yahoo on"><a href="?section=supporter">Tên - 0987.654.321</a></li>
+                    <li class="yahoo off"><a href="?section=supporter">Tên - 0123.456.7890</a></li>
                 </ul>
             </div>
             <div id="copyright">
