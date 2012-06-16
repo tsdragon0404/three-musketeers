@@ -17,8 +17,8 @@ namespace BDSGiaKiem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+            //if (!IsPostBack)
+            //{
                 String[] sections = new String[] { "area", "article", "homelink", "homepic", 
                     "news", "planning", "project", "supporter" };
 
@@ -32,7 +32,7 @@ namespace BDSGiaKiem
                     ctrl = Page.LoadControl("ucAdmin/default.ascx");
 
                 Body.Controls.Add(ctrl);
-            } 
+            //} 
         }
     }
 }

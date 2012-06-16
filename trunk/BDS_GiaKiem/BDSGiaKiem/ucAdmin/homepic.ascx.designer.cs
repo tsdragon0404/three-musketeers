@@ -23,22 +23,31 @@ namespace BDSGiaKiem.ucAdmin {
         protected global::System.Web.UI.WebControls.FileUpload PicUpload;
         
         /// <summary>
-        /// Button1 control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
         
         /// <summary>
-        /// PicUploadError control.
+        /// PicUploadMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PicUploadError;
+        protected global::System.Web.UI.WebControls.Label PicUploadMsg;
+        
+        /// <summary>
+        /// PicMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PicMsg;
         
         /// <summary>
         /// PicDataList control.
