@@ -4,13 +4,13 @@
 </div>
 <div id="topics">
     <div class="topic">
-        <a href="#">Chi tiết quy hoạch<img src="images/topic_1.png" /></a>
+        <a href="?section=homelink">Chi tiết quy hoạch<img src="images/topic_1.png" /></a>
     </div>
     <div class="topic">
-        <a href="#">Các khu vực<img src="images/topic_1.png" /></a>
+        <a href="?section=homelink">Các khu vực<img src="images/topic_1.png" /></a>
     </div>
     <div class="topic">
-        <a href="#">Tin tức liên quan<img src="images/topic_1.png" /></a>
+        <a href="?section=homelink">Tin tức liên quan<img src="images/topic_1.png" /></a>
     </div>
     <div class="clear">
     </div>
