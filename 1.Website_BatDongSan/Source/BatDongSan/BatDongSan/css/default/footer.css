@@ -25,6 +25,7 @@
 }
 #support li.yahoo.off{
 	background:url("../../images/offline.png") no-repeat;
+	padding-right:15px;
 }
 #support li.hotline{
 	color:#F00;
