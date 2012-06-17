@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+/* Created by LamVu */
+
+#home_pic{
+	width:1000px;
+	height:600px;
+	position:relative;	
+}
+#home_pic img
+{
+	position:absolute;
+	top:0;
+	left:0;
+}
+#topics{
+	margin:10px 0;
+}
+.topic{
+	background:url("../../images/topic_bg.jpg");
+	width:300px;
+	height:200px;
+	float:left;
+	margin:0px 15px;
+}
+.topic:hover{
+	background:url("../../images/topic_bg_hover.jpg");
+}
+.topic a{
+	display:block;
+	height:200px;
+	text-align:center;
+	font-size:120%;
+	font-weight:bold;
+	color:#777;
+	padding-top:15px;
+}
+.topic a img{
+	margin-top:15px;
+}
+
+#pictures .prev, #pictures .next{
+	padding-top:20px;
+	float:left;
+	width:100px;
+}
+#pictures .pic{
+	width:800px;
+	float:left;
+}
+#pictures .pic img.zoompic{
+	width:800px;
+}
+#article
+{
+	border-left:1px solid #DDD;
+	border-right:1px solid #DDD;
+	margin-bottom:10px;
+	padding:10px;
+}
+#article .title
+{
+	font-weight: bold;
+	font-size: 120%;
+	border-bottom: 1px solid #AAA;
+	margin-bottom: 10px;
+	padding-left: 10px;
+}
