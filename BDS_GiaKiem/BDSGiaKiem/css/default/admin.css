@@ -1,0 +1,72 @@
+﻿.fset
+{
+	padding:10px;
+	margin-bottom:10px;
+	khtml-box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
+	-ms-box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
+	-o-box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
+	-moz-box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px;
+	khtml-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.fset legend
+{
+	margin-left:15px;
+	padding:0 5px;
+}
+span.error
+{
+	color:#F00;
+}
+span.success
+{
+	color:#00A;
+}
+.tblData
+{
+	width:900px;
+	margin:auto;
+}
+.tblData td
+{
+	width:25%;
+}
+.txtBox400
+{
+	width:400px;
+}
+.txtBox200
+{
+	width:200px;
+}
+.funcBox
+{
+	margin-top:5px;
+}
+.tblSupport
+{
+	width:400px;
+}
+.tblSupport td, .tblArticleDetail td
+{
+	border:none;
+}
+.tblArticleList
+{
+	width:500px;
+	margin:auto;
+}
+.tblArticleDetail
+{
+	width:900px;
+	margin:auto;
+}
+.tblArticleList td, .tblArticleList th
+{
+	border:1px solid #89B4D6;
+}
