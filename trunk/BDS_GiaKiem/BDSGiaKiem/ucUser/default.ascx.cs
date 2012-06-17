@@ -24,7 +24,8 @@ namespace BDSGiaKiem.ucUser
         {
             BDSDataContext db = new BDSDataContext();
             HLPic.NavigateUrl = db.getHomeLink(PicLinkID);
-
+            HLPlanning.NavigateUrl = db.getHomeLink(PlanningLinkID);
+            HLArea.NavigateUrl = db.getHomeLink(AreaLinkID);
         }
     }
 }

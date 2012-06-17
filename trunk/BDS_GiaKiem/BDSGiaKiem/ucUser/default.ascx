@@ -17,10 +17,12 @@
 </div>
 <div id="topics">
     <div class="topic">
-        <a href="#">Chi tiết quy hoạch<img src="images/topic_1.png" /></a>
+        <asp:HyperLink ID="HLPlanning" runat="server">Chi tiết quy hoạch<img src="images/topic_1.png" />
+        </asp:HyperLink>
     </div>
     <div class="topic">
-        <a href="#">Các khu vực<img src="images/topic_1.png" /></a>
+        <asp:HyperLink ID="HLArea" runat="server">Các khu vực<img src="images/topic_1.png" />
+        </asp:HyperLink>
     </div>
     <div class="topic">
         <a href="#">Tin tức liên quan<img src="images/topic_1.png" /></a>

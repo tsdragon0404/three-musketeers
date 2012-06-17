@@ -149,12 +149,26 @@
     <Compile Include="ucAdmin\homepic.ascx.designer.cs">
       <DependentUpon>homepic.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ucUser\article.ascx.cs">
+      <DependentUpon>article.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\article.ascx.designer.cs">
+      <DependentUpon>article.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucUser\default.ascx.cs">
       <DependentUpon>default.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ucUser\default.ascx.designer.cs">
       <DependentUpon>default.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucUser\project.ascx.cs">
+      <DependentUpon>project.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\project.ascx.designer.cs">
+      <DependentUpon>project.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +212,9 @@
     <Content Include="ucAdmin\supporter.ascx" />
     <Content Include="ucAdmin\homelink.ascx" />
     <Content Include="ucAdmin\default.ascx" />
+    <Content Include="ucUser\article.ascx" />
     <Content Include="ucUser\default.ascx" />
+    <Content Include="ucUser\project.ascx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDS.dbml">

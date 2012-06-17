@@ -25,28 +25,32 @@ namespace BDSGiaKiem
             hotline.InnerText = "Hotline: " + db.getSupporter(HotlineID).Phone;
 
             Supporter sup1 = db.getSupporter(Supporter1ID);
-            
+            formatSupporterTag(sup1, yahoo1);
+
+            Supporter sup2 = db.getSupporter(Supporter2ID);
+            formatSupporterTag(sup2, yahoo2);
         }
         private void formatSupporterTag(Supporter sup, HtmlGenericControl element)
         {
             element.InnerHtml = String.Format("<a href='ymsgr:sendIM?{0}'>{1} - {2}</a>", sup.Yahoo, sup.Name, sup.Phone);
-            //try
-            //{
-            //    System.Net.WebRequest request =
-            //        System.Net.WebRequest.Create(
-            //        "http://www.microsoft.com//h/en-us/r/ms_masthead_ltr.gif");
-            //    System.Net.WebResponse response = request.GetResponse();
-            //    System.IO.Stream responseStream =
-            //        response.GetResponseStream();
-            //    Bitmap bitmap2 = new Bitmap(responseStream);
-            //    PictureBox1.Image = bitmap2;
+            try
+            {
+                System.Net.WebRequest request =
+                    System.Net.WebRequest.Create(
+                    "http://opi.yahoo.com/online?u=" + sup.Yahoo +"&t=5");
+                System.Net.WebResponse response = request.GetResponse();
+                System.IO.Stream responseStream =
+                    response.GetResponseStream();
+                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(responseStream);
+                System.Drawing.Color pixelcolor = bmp.GetPixel(5, 5);
+                if (pixelcolor.R == 249 && pixelcolor.G == 249 && pixelcolor.B == 102)
+                    element.Attributes.Add("class", "yahoo on");
+                else
+                    element.Attributes.Add("class", "yahoo off");
 
-            //}
-            //catch (System.Net.WebException)
-            //{
-            //    MessageBox.Show("There was an error opening the image file."
-            //       + "Check the URL");
-            //}
+            }
+            catch (System.Net.WebException)
+            { element.Attributes.Add("class", "on"); }
         }
     }
 }
