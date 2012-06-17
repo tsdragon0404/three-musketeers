@@ -19,7 +19,7 @@ namespace BDSGiaKiem
         {
             //if (!IsPostBack)
             //{
-                String[] sections = new String[] { "area", "article", "homelink", "homepic", 
+                String[] sections = new String[] { "area", "article", "article_detail", "homelink", "homepic", 
                     "news", "planning", "project", "supporter" };
 
                 Control ctrl;

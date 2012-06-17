@@ -73,6 +73,34 @@ namespace BDSGiaKiem
             SubmitChanges();
         }
         #endregion
+        #region Article
+        public Article getArticle(int id)
+        {
+            var target = Articles.Where(a => a.ID == id);
+            if (target.Count() == 0)
+                return new Article();
+            else
+                return target.First();
+        }
+        public void UpdateArticle(int id, string title, string contenttext)
+        {
+            if (id <= 0)
+            {
+                if (Articles.Count() > 0)
+                    id = (int)Articles.Max(a => a.ID) + 1;
+                else
+                    id = 1;
+                Articles.InsertOnSubmit(new Article(id, title, contenttext));
+            }
+            else
+            {
+                var target = Articles.First(a => a.ID == id);
+                target.Title = title;
+                target.ContentText = contenttext;
+            }
+            SubmitChanges();
+        }
+        #endregion
     }
 
     partial class HomePic
@@ -107,6 +135,16 @@ namespace BDSGiaKiem
             Name = name;
             Phone = phone;
             Yahoo = yahoo;
+            OnCreated();
+        }
+    }
+    partial class Article
+    {
+        public Article(long id, string title, string content)
+        {
+            ID = id;
+            Title = title;
+            ContentText = content;
             OnCreated();
         }
     }

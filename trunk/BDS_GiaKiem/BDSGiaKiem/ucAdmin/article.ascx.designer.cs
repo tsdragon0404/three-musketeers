@@ -8,18 +8,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BDSGiaKiem {
+namespace BDSGiaKiem.ucAdmin {
     
     
-    public partial class Default {
+    public partial class article {
         
         /// <summary>
-        /// Body control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder Body;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// LinqDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinqDataSource LinqDataSource1;
     }
 }

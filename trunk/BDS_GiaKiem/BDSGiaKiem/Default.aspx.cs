@@ -17,7 +17,19 @@ namespace BDSGiaKiem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            String[] sections = new String[] { "area", "article", "article_detail", "homelink", "homepic", 
+                    "news", "planning", "project", "supporter" };
 
+            Control ctrl;
+            String section = "default";
+            if (Request.QueryString["section"] != null && Request.QueryString["section"].ToString().Trim() != "")
+                section = Request.QueryString["section"].ToString().Trim();
+            if (sections.Contains(section))
+                ctrl = Page.LoadControl("ucUser/" + section + ".ascx");
+            else
+                ctrl = Page.LoadControl("ucUser/default.ascx");
+
+            Body.Controls.Add(ctrl);
         }
     }
 }
