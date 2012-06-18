@@ -2,9 +2,9 @@
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <fieldset class="fset">
 <legend>Danh sách các khu vực</legend>
-
+    <p class="funcBox">
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
-            Text="Thêm mới" />
+            Text="Thêm mới" /></p>
         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID" 
             DataSourceID="LinqDataSource1" onrowdeleted="GridView1_RowDeleted" 
@@ -33,11 +33,11 @@
             </DeleteParameters>
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
-            DataKeyNames="ID" DataSourceID="LinqDataSource2" Height="50px" 
+            DataKeyNames="ID" DataSourceID="LinqDataSource2"
             oniteminserted="DetailsView1_ItemInserted" 
             oniteminserting="DetailsView1_ItemInserting" 
             onitemupdated="DetailsView1_ItemUpdated" 
-            onitemupdating="DetailsView1_ItemUpdating" Width="125px">
+            onitemupdating="DetailsView1_ItemUpdating">
             <Fields>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
                     ReadOnly="True" SortExpression="ID" Visible="False" />

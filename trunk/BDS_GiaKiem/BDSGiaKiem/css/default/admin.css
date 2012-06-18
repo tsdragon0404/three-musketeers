@@ -70,3 +70,12 @@ span.success
 {
 	border:1px solid #89B4D6;
 }
+.tblProject
+{
+	width:500px;
+	margin:auto;
+}
+.tblProject td,.tblProject th
+{
+	border:1px solid #89B4D6;
+}

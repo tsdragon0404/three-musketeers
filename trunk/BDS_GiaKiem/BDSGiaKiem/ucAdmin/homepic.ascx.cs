@@ -15,9 +15,25 @@ namespace BDSGiaKiem.ucAdmin
 {
     public partial class homepic : System.Web.UI.UserControl
     {
+        private int PicLinkID = 1;
+        private int PlanningLinkID = 2;
+        private int AreaLinkID = 3;
+        private int NewsLinkID = 4;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            BDSDataContext db = new BDSDataContext();
+            string piclink = db.getHomeLink(PicLinkID);
+            txtPicLink.Text = piclink;
+            HLPic.NavigateUrl = piclink;
+
+            string planninglink = db.getHomeLink(PlanningLinkID);
+            txtPlanningLink.Text = planninglink;
+            HLPlanning.NavigateUrl = planninglink;
+
+            string arealink = db.getHomeLink(AreaLinkID);
+            txtAreaLink.Text = arealink;
+            HLArea.NavigateUrl = arealink;
         }
 
         public System.Drawing.Bitmap ResizeBitmap(System.Drawing.Bitmap src, int newWidth, int newHeight)
@@ -114,7 +130,6 @@ namespace BDSGiaKiem.ucAdmin
                 PicMsg.Text = "<span class='error'>Có lỗi xảy ra. Vui lòng refresh lại trình duyệt</span>";
             PicDataList.DataBind();
         }
-
         protected void PicDataList_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -128,7 +143,6 @@ namespace BDSGiaKiem.ucAdmin
                 }
             }
         }
-
         protected void PicDataList_DeleteCommand(object source, DataListCommandEventArgs e)
         {
             int id = Int32.Parse(PicDataList.DataKeys[e.Item.ItemIndex].ToString());
@@ -149,6 +163,31 @@ namespace BDSGiaKiem.ucAdmin
                 PicMsg.Text = "<span class='success'>Xóa hình ảnh hoàn tất.</span>";
             }
             PicDataList.DataBind();
+        }
+
+        protected void btnSavePicLink_Click(object sender, EventArgs e)
+        {
+            BDSDataContext db = new BDSDataContext();
+            db.UpdateHomeLink(PicLinkID, txtPicLink.Text);
+            HLPic.NavigateUrl = txtPicLink.Text;
+            PicLinkMsg.Visible = true;
+            PicLinkMsg.Text = "<span class='success'>Cập nhật liên kết thành công</span>";
+        }
+        protected void btnSavePlanningLink_Click(object sender, EventArgs e)
+        {
+            BDSDataContext db = new BDSDataContext();
+            db.UpdateHomeLink(PlanningLinkID, txtPlanningLink.Text);
+            HLPlanning.NavigateUrl = txtPlanningLink.Text;
+            PlanningLinkMsg.Visible = true;
+            PlanningLinkMsg.Text = "<span class='success'>Cập nhật liên kết thành công</span>";
+        }
+        protected void btnSaveAreaLink_Click(object sender, EventArgs e)
+        {
+            BDSDataContext db = new BDSDataContext();
+            db.UpdateHomeLink(AreaLinkID, txtAreaLink.Text);
+            HLArea.NavigateUrl = txtAreaLink.Text;
+            AreaLinkMsg.Visible = true;
+            AreaLinkMsg.Text = "<span class='success'>Cập nhật liên kết thành công</span>";
         }
     }
 }
