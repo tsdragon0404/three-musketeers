@@ -11,16 +11,7 @@
 namespace BDSGiaKiem.ucUser {
     
     
-    public partial class project {
-        
-        /// <summary>
-        /// title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label title;
+    public partial class news {
         
         /// <summary>
         /// Repeater1 control.
