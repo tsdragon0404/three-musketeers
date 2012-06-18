@@ -1,7 +1,7 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="area.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.area" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="news.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.news" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <fieldset class="fset">
-<legend>Danh sách các khu vực</legend>
+<legend>Tin tức</legend>
 
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm mới" />
@@ -13,24 +13,15 @@
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
                 <asp:BoundField DataField="Name" HeaderText="Dự án" SortExpression="Name" />
-                <asp:BoundField DataField="ImageUrl" Visible="False" />
-                <asp:TemplateField HeaderText="Hình ảnh">
-                    <ItemTemplate>
-                        <asp:Image ID="Image2" runat="server" Height="50px" ImageAlign="Middle" 
-                            ImageUrl='<%# Eval("ImageUrl", "../{0}") %>' Width="50px" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:BoundField DataField="Description" HeaderText="Mô tả" />
-                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="Title" HeaderText="Tiêu đề" SortExpression="Title">
+                    <ItemStyle Width="300px" />
+                </asp:BoundField>
+                <asp:CommandField SelectText="Sửa" ShowSelectButton="True" />
                 <asp:ButtonField CommandName="Delete" Text="Xóa" />
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-            onselecting="LinqDataSource1_Selecting" ContextTypeName="" TableName="">
-            <DeleteParameters>
-                <asp:ControlParameter ControlID="GridView1" Name="newparameter" 
-                    PropertyName="SelectedValue" />
-            </DeleteParameters>
+            onselecting="LinqDataSource1_Selecting">
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataKeyNames="ID" DataSourceID="LinqDataSource2" Height="50px" 
@@ -63,40 +54,33 @@
                         </asp:LinqDataSource>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Hình ảnh">
-                    <EditItemTemplate>
-                        <asp:Image ID="Image1" runat="server" 
-                            ImageUrl='<%# Eval("ImageUrl", "../{0}") %>' Height="40px" Width="40px" />
-                        <br />
-                        <asp:FileUpload ID="FileUpload1B" runat="server" />
-                        <br />
-                        <asp:Label ID="Label1" runat="server" Font-Italic="True" Font-Size="9pt" 
-                            ForeColor="#FF3300" Text="* Dung lượng không vượt quá 4MB"></asp:Label>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:FileUpload ID="FileUpload1B" runat="server" />
-                        <br />
-                        <asp:Label ID="Label1" runat="server" Font-Size="9pt" ForeColor="#FF3300" 
-                            Text="* Dung lượng không vượt quá 4MB"></asp:Label>
-                    </InsertItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Mô tả">
+                <asp:TemplateField HeaderText="Tiêu đề">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" Height="50px" 
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Title") %>' TextMode="MultiLine"></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox2" runat="server" Height="50px" 
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Title") %>' TextMode="MultiLine"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:CommandField CancelText="Hủy bỏ" EditText="Sửa" InsertText="Thêm mới" 
+                <asp:TemplateField HeaderText="Nội dung chính">
+                    <EditItemTemplate>
+                        <CKEditor:CKEditorControl ID="editorContent" runat="server" 
+                            Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width=""></CKEditor:CKEditorControl>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <CKEditor:CKEditorControl ID="editorContent" runat="server" 
+                            Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width=""></CKEditor:CKEditorControl>
+                    </InsertItemTemplate>
+                </asp:TemplateField>
+                <asp:CommandField CancelText="Hủy bỏ" InsertText="Thêm mới" 
                     ShowEditButton="True" ShowInsertButton="True" UpdateText="Lưu" />
             </Fields>
         </asp:DetailsView>
         <asp:LinqDataSource ID="LinqDataSource2" runat="server" 
             ContextTypeName="BDSGiaKiem.BDSDataContext" EnableInsert="True" 
-            EnableUpdate="True" TableName="Areas" Where="ID == @ID">
+            EnableUpdate="True" TableName="News" Where="ID == @ID">
             <WhereParameters>
                 <asp:ControlParameter ControlID="GridView1" DefaultValue="0" Name="ID" 
                     PropertyName="SelectedValue" Type="Int64" />

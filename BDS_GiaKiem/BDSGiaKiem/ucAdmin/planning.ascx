@@ -1,7 +1,7 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="area.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.area" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="planning.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.planning" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <fieldset class="fset">
-<legend>Danh sách các khu vực</legend>
+<legend>Danh sách</legend>
 
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm mới" />
@@ -13,24 +13,28 @@
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
                 <asp:BoundField DataField="Name" HeaderText="Dự án" SortExpression="Name" />
-                <asp:BoundField DataField="ImageUrl" Visible="False" />
+                <asp:BoundField DataField="ImageUrl" HeaderText="ImageUrl" Visible="False" />
                 <asp:TemplateField HeaderText="Hình ảnh">
                     <ItemTemplate>
-                        <asp:Image ID="Image2" runat="server" Height="50px" ImageAlign="Middle" 
+                        <asp:Image ID="Image1" runat="server" Height="50px" 
                             ImageUrl='<%# Eval("ImageUrl", "../{0}") %>' Width="50px" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="Description" HeaderText="Mô tả" />
-                <asp:CommandField ShowSelectButton="True" />
+                <asp:CommandField SelectText="Sửa" ShowSelectButton="True" />
                 <asp:ButtonField CommandName="Delete" Text="Xóa" />
             </Columns>
         </asp:GridView>
+        <asp:LinqDataSource ID="LinqDataSource2" runat="server" 
+            ContextTypeName="BDSGiaKiem.BDSDataContext" EnableInsert="True" 
+            EnableUpdate="True" TableName="Plannings" Where="ID == @ID">
+            <WhereParameters>
+                <asp:ControlParameter ControlID="GridView1" DefaultValue="0" Name="ID" 
+                    PropertyName="SelectedValue" Type="Int64" />
+            </WhereParameters>
+        </asp:LinqDataSource>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-            onselecting="LinqDataSource1_Selecting" ContextTypeName="" TableName="">
-            <DeleteParameters>
-                <asp:ControlParameter ControlID="GridView1" Name="newparameter" 
-                    PropertyName="SelectedValue" />
-            </DeleteParameters>
+            onselecting="LinqDataSource1_Selecting">
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataKeyNames="ID" DataSourceID="LinqDataSource2" Height="50px" 
@@ -65,8 +69,8 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Hình ảnh">
                     <EditItemTemplate>
-                        <asp:Image ID="Image1" runat="server" 
-                            ImageUrl='<%# Eval("ImageUrl", "../{0}") %>' Height="40px" Width="40px" />
+                        <asp:Image ID="Image1" runat="server" Height="40px" 
+                            ImageUrl='<%# Eval("ImageUrl", "../{0}") %>' Width="40px" />
                         <br />
                         <asp:FileUpload ID="FileUpload1B" runat="server" />
                         <br />
@@ -90,17 +94,9 @@
                             Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:CommandField CancelText="Hủy bỏ" EditText="Sửa" InsertText="Thêm mới" 
+                <asp:CommandField CancelText="Hủy bỏ" InsertText="Thêm mới" 
                     ShowEditButton="True" ShowInsertButton="True" UpdateText="Lưu" />
             </Fields>
         </asp:DetailsView>
-        <asp:LinqDataSource ID="LinqDataSource2" runat="server" 
-            ContextTypeName="BDSGiaKiem.BDSDataContext" EnableInsert="True" 
-            EnableUpdate="True" TableName="Areas" Where="ID == @ID">
-            <WhereParameters>
-                <asp:ControlParameter ControlID="GridView1" DefaultValue="0" Name="ID" 
-                    PropertyName="SelectedValue" Type="Int64" />
-            </WhereParameters>
-        </asp:LinqDataSource>
 
 </fieldset>
