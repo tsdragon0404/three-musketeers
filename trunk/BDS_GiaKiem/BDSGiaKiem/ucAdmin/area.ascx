@@ -39,7 +39,7 @@
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataKeyNames="ID" DataSourceID="LinqDataSource2"
-            oniteminserted="DetailsView1_ItemInserted" 
+            oniteminserted="DetailsView1_ItemInserted"  CssClass="tbl"
             oniteminserting="DetailsView1_ItemInserting" 
             onitemupdated="DetailsView1_ItemUpdated" 
             onitemupdating="DetailsView1_ItemUpdating">
@@ -87,11 +87,11 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Mô tả">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" Height="50px" 
+                        <asp:TextBox ID="TextBox1" runat="server" Height="50px" CssClass="txtBox400"
                             Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Height="50px" 
+                        <asp:TextBox ID="TextBox2" runat="server" Height="50px" CssClass="txtBox400"
                             Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>

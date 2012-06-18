@@ -34,7 +34,7 @@
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataKeyNames="ID" DataSourceID="LinqDataSource2"
-            oniteminserted="DetailsView1_ItemInserted" 
+            oniteminserted="DetailsView1_ItemInserted" CssClass="tbl" 
             onitemupdated="DetailsView1_ItemUpdated">
             <Fields>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 

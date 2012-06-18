@@ -29,6 +29,7 @@ namespace BDSGiaKiem.ucAdmin
             BDSDataContext db = new BDSDataContext();
             var rs = from a in db.Plannings
                      join p in db.Projects on new { ProjectID = Convert.ToInt64(a.ProjectID) } equals new { ProjectID = p.ID }
+                     orderby a.ProjectID
                      select new
                      {
                          a.ID,
@@ -52,20 +53,16 @@ namespace BDSGiaKiem.ucAdmin
             int id = int.Parse(e.Keys[0].ToString());
 
             BDSDataContext db = new BDSDataContext();
-            var queryAreas =
-                from t in db.Plannings
-                where
-                  t.ID == id
-                select t;
-            foreach (var del in queryAreas)
-            {
-                db.Plannings.DeleteOnSubmit(del);
-            }
+            var plans = db.Plannings.Where(a => a.ID == id);
+            if (plans.Count() == 0)
+                return;
+
+            Planning plan = plans.First();
+            string file = Server.MapPath(plan.ImageUrl);
+
+            db.Plannings.DeleteOnSubmit(plan);
             db.SubmitChanges();
 
-
-            //Đoạn này chưa chạy được
-            string file = Server.MapPath(GridView1.Rows[e.RowIndex].Cells[1].ToString());
             if (File.Exists(file))
                 File.Delete(file);
         }
@@ -85,22 +82,25 @@ namespace BDSGiaKiem.ucAdmin
             FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
             if (fup.HasFile)
             {
-                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
-                string extension = Path.GetExtension(fup.FileName).ToLower();
-                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                if (fup.PostedFile.ContentLength < 4 * 1024 * 1024)
                 {
-                    String savefile = Server.MapPath(@"~/images/Planning/") + filename;
-                    if (File.Exists(savefile))
-                        File.Delete(savefile);
-                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
-                    src.Save(savefile);
+                    string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
+                    string extension = Path.GetExtension(fup.FileName).ToLower();
+                    if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                    {
+                        String savefile = Server.MapPath(@"~/images/Planning/") + filename;
+                        Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
+                        src.Save(savefile);
 
-                    e.Values["ImageUrl"] = "images/Planning/" + filename;
+                        e.Values["ImageUrl"] = "images/Planning/" + filename;
+                    }
+                    else
+                    {
+                        Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
+                    }
                 }
                 else
-                {
-                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
-                }
+                    Response.Write("<script language='javascript'>alert(\"Tập tin tải lên quá lớn.\");</script>");
             }
         }
 
@@ -114,22 +114,27 @@ namespace BDSGiaKiem.ucAdmin
             FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
             if (fup.HasFile)
             {
-                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
-                string extension = Path.GetExtension(fup.FileName).ToLower();
-                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                if (fup.PostedFile.ContentLength < 4 * 1024 * 1024)
                 {
-                    String savefile = Server.MapPath(@"~/images/Planning/") + filename;
-                    if (File.Exists(savefile))
-                        File.Delete(savefile);
-                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
-                    src.Save(savefile);
+                    string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
+                    string extension = Path.GetExtension(fup.FileName).ToLower();
+                    if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                    {
+                        String savefile = Server.MapPath(@"~/images/Planning/") + filename;
+                        if (File.Exists(savefile))
+                            File.Delete(savefile);
+                        Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
+                        src.Save(savefile);
 
-                    e.NewValues["ImageUrl"] = "images/Planning/" + filename;
+                        e.NewValues["ImageUrl"] = "images/Planning/" + filename;
+                    }
+                    else
+                    {
+                        Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
+                    }
                 }
                 else
-                {
-                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
-                }
+                    Response.Write("<script language='javascript'>alert(\"Tập tin tải lên quá lớn.\");</script>");
             }
         }
 

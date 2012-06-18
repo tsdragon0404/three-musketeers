@@ -79,3 +79,7 @@ span.success
 {
 	border:1px solid #89B4D6;
 }
+.tbl td, .tbl th
+{
+	border:1px solid #89B4D6;
+}
