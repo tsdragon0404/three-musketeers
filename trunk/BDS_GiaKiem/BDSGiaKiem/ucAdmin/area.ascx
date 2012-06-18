@@ -2,13 +2,12 @@
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <fieldset class="fset">
 <legend>Danh sách các khu vực</legend>
-    <p class="funcBox">
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
-            Text="Thêm mới" /></p>
+            Text="Thêm mới" />
         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
-            AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID" 
+            AutoGenerateColumns="False" DataKeyNames="ID" 
             DataSourceID="LinqDataSource1" onrowdeleted="GridView1_RowDeleted" 
-            onrowdeleting="GridView1_RowDeleting" 
+            onrowdeleting="GridView1_RowDeleting" CssClass="tblProject"
             onselectedindexchanged="GridView1_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
@@ -21,8 +20,14 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="Description" HeaderText="Mô tả" />
-                <asp:CommandField ShowSelectButton="True" />
-                <asp:ButtonField CommandName="Delete" Text="Xóa" />
+                <asp:TemplateField ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                            CommandName="Select" Text="Chi tiết"></asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
+                            CommandName="Delete" Text="Xóa" OnClientClick="return confirm('Xóa hình này ?');"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" 

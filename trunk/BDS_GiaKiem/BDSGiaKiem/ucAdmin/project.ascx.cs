@@ -20,11 +20,13 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = true;
             DetailsView1.Visible = false;
             btnAddNew.Visible = true;
+            func.Visible = true;
         }
 
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
             btnAddNew.Visible = false;
+            func.Visible = false;
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Insert);;
@@ -38,6 +40,7 @@ namespace BDSGiaKiem.ucAdmin
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnAddNew.Visible = false;
+            func.Visible = false;
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Edit);

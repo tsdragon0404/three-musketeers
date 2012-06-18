@@ -128,6 +128,20 @@
     <Compile Include="ucAdmin\article_detail.ascx.designer.cs">
       <DependentUpon>article_detail.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ucAdmin\news.ascx.cs">
+      <DependentUpon>news.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\news.ascx.designer.cs">
+      <DependentUpon>news.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucAdmin\planning.ascx.cs">
+      <DependentUpon>planning.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\planning.ascx.designer.cs">
+      <DependentUpon>planning.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucAdmin\project.ascx.cs">
       <DependentUpon>project.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -224,6 +238,8 @@
     <Content Include="ucAdmin\area.ascx" />
     <Content Include="ucAdmin\article.ascx" />
     <Content Include="ucAdmin\article_detail.ascx" />
+    <Content Include="ucAdmin\news.ascx" />
+    <Content Include="ucAdmin\planning.ascx" />
     <Content Include="ucAdmin\project.ascx" />
     <Content Include="ucAdmin\supporter.ascx" />
     <Content Include="ucAdmin\homelink.ascx" />

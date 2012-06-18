@@ -29,13 +29,14 @@ namespace BDSGiaKiem.ucAdmin
             BDSDataContext db = new BDSDataContext();
             var rs = from a in db.Areas
                      join p in db.Projects on new { ProjectID = Convert.ToInt64(a.ProjectID) } equals new { ProjectID = p.ID }
+                     orderby a.ProjectID
                      select new
                      {
                          a.ID,
                          p.Name,
                          a.ImageUrl,
                          a.Description
-                     };
+                     } ;
             e.Result = rs;
         }
 
