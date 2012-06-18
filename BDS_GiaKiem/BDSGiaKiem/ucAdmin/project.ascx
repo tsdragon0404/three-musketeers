@@ -4,7 +4,9 @@
 <legend>Danh sách các dự án</legend>
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm dự án" />
-<asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" 
+    <p class="funcBox" id="func" runat="server"><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/admin.aspx?section=planning">Quản lý quy hoạch</asp:HyperLink> | 
+    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/admin.aspx?section=area">Quản lý khu vực</asp:HyperLink></p>
+<asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
             AutoGenerateColumns="False" DataKeyNames="ID" 
             DataSourceID="LinqDataSource1" Cssclass="tblProject"
             onselectedindexchanged="GridView1_SelectedIndexChanged">
@@ -16,8 +18,14 @@
             SortExpression="Description" />
         <asp:BoundField DataField="ContentText" HeaderText="Chi tiết" 
             SortExpression="ContentText" Visible="False" />
-        <asp:CommandField ShowDeleteButton="True" ShowSelectButton="True" 
-            DeleteText="Xóa" SelectText="Sửa" />
+        <asp:TemplateField ShowHeader="False">
+            <ItemTemplate>
+                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                    CommandName="Select" Text="Chi tiết"></asp:LinkButton>
+                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
+                    CommandName="Delete" Text="Xóa" OnClientClick="return confirm('Xóa dự án này ?');"></asp:LinkButton>
+            </ItemTemplate>
+        </asp:TemplateField>
     </Columns>
 </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
@@ -55,11 +63,13 @@
                     <EditItemTemplate>
                         <CKEditor:CKEditorControl ID="editorContent" runat="server" 
                             Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width="">
+&nbsp;&nbsp;&nbsp;
 </CKEditor:CKEditorControl>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <CKEditor:CKEditorControl ID="editorContent" runat="server" 
                             Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width="">
+&nbsp;&nbsp;&nbsp;
 </CKEditor:CKEditorControl>
                     </InsertItemTemplate>
                 </asp:TemplateField>
