@@ -15,7 +15,7 @@ using System.IO;
 
 namespace BDSGiaKiem.ucAdmin
 {
-    public partial class area : System.Web.UI.UserControl
+    public partial class planning : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +27,7 @@ namespace BDSGiaKiem.ucAdmin
         protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             BDSDataContext db = new BDSDataContext();
-            var rs = from a in db.Areas
+            var rs = from a in db.Plannings
                      join p in db.Projects on new { ProjectID = Convert.ToInt64(a.ProjectID) } equals new { ProjectID = p.ID }
                      select new
                      {
@@ -37,82 +37,6 @@ namespace BDSGiaKiem.ucAdmin
                          a.Description
                      };
             e.Result = rs;
-        }
-
-        protected void btnAddNew_Click(object sender, EventArgs e)
-        {
-            btnAddNew.Visible = false;
-            GridView1.Visible = false;
-            DetailsView1.Visible = true;
-            DetailsView1.ChangeMode(DetailsViewMode.Insert);
-        }
-
-        public Bitmap ResizeBitmap(Bitmap src, int newWidth, int newHeight)
-        {
-            Bitmap result = new Bitmap(newWidth, newHeight);
-            using (Graphics g = Graphics.FromImage((System.Drawing.Image)result))
-            {
-                g.DrawImage(src, 0, 0, newWidth, newHeight);
-            }
-            return result;
-        }
-
-        protected void DetailsView1_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
-        {
-            FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
-            if (fup.HasFile)
-            {
-                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
-                string extension = Path.GetExtension(fup.FileName).ToLower();
-                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
-                {
-                    String savefile = Server.MapPath(@"~/images/Area/") + filename;
-                    if (File.Exists(savefile))
-                        File.Delete(savefile);
-                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
-                    src.Save(savefile);
-
-                    e.NewValues["ImageUrl"] = "images/Area/" + filename;
-                }
-                else
-                {
-                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
-                }
-            }
-        }
-
-        protected void DetailsView1_ItemInserting(object sender, DetailsViewInsertEventArgs e)
-        {
-            FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
-            if (fup.HasFile)
-            {
-                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
-                string extension = Path.GetExtension(fup.FileName).ToLower();
-                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
-                {
-                    String savefile = Server.MapPath(@"~/images/Area/") + filename;
-                    if (File.Exists(savefile))
-                        File.Delete(savefile);
-                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
-                    src.Save(savefile);
-
-                    e.Values["ImageUrl"] = "images/Area/" + filename;
-                }
-                else
-                {
-                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
-                }
-            }
-        }
-
-        protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
-        {
-            Response.Redirect("admin.aspx?section=area");
-        }
-
-        protected void DetailsView1_ItemUpdated(object sender, DetailsViewUpdatedEventArgs e)
-        {
-            Response.Redirect("admin.aspx?section=area");
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,13 +53,13 @@ namespace BDSGiaKiem.ucAdmin
 
             BDSDataContext db = new BDSDataContext();
             var queryAreas =
-                from t in db.Areas
+                from t in db.Plannings
                 where
                   t.ID == id
                 select t;
             foreach (var del in queryAreas)
             {
-                db.Areas.DeleteOnSubmit(del);
+                db.Plannings.DeleteOnSubmit(del);
             }
             db.SubmitChanges();
 
@@ -148,7 +72,73 @@ namespace BDSGiaKiem.ucAdmin
 
         protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
         {
-            Response.Redirect("admin.aspx?section=area");
+            Response.Redirect("admin.aspx?section=planning");
+        }
+
+        protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
+        {
+            Response.Redirect("admin.aspx?section=planning");
+        }
+
+        protected void DetailsView1_ItemInserting(object sender, DetailsViewInsertEventArgs e)
+        {
+            FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
+            if (fup.HasFile)
+            {
+                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
+                string extension = Path.GetExtension(fup.FileName).ToLower();
+                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                {
+                    String savefile = Server.MapPath(@"~/images/Planning/") + filename;
+                    if (File.Exists(savefile))
+                        File.Delete(savefile);
+                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
+                    src.Save(savefile);
+
+                    e.Values["ImageUrl"] = "images/Planning/" + filename;
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
+                }
+            }
+        }
+
+        protected void DetailsView1_ItemUpdated(object sender, DetailsViewUpdatedEventArgs e)
+        {
+            Response.Redirect("admin.aspx?section=planning");
+        }
+
+        protected void DetailsView1_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
+        {
+            FileUpload fup = DetailsView1.FindControl("FileUpload1B") as FileUpload;
+            if (fup.HasFile)
+            {
+                string filename = DateTime.Now.ToString("dd-MM-yy") + "_" + DateTime.Now.ToString("HH-mm-ss") + "_" + Path.GetFileName(fup.FileName);
+                string extension = Path.GetExtension(fup.FileName).ToLower();
+                if ((extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".gif") || extension.Equals(".jpeg")) && (fup.PostedFile.ContentLength < 4 * 1024 * 1024))
+                {
+                    String savefile = Server.MapPath(@"~/images/Planning/") + filename;
+                    if (File.Exists(savefile))
+                        File.Delete(savefile);
+                    Bitmap src = Bitmap.FromStream(fup.PostedFile.InputStream) as Bitmap;
+                    src.Save(savefile);
+
+                    e.NewValues["ImageUrl"] = "images/Planning/" + filename;
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>alert(\"Tập tin không hợp lệ.\");</script>");
+                }
+            }
+        }
+
+        protected void btnAddNew_Click(object sender, EventArgs e)
+        {
+            btnAddNew.Visible = false;
+            GridView1.Visible = false;
+            DetailsView1.Visible = true;
+            DetailsView1.ChangeMode(DetailsViewMode.Insert);
         }
     }
 }
