@@ -107,6 +107,13 @@
       <DependentUpon>Master.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucAdmin\area.ascx.cs">
+      <DependentUpon>area.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\area.ascx.designer.cs">
+      <DependentUpon>area.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucAdmin\article.ascx.cs">
       <DependentUpon>article.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -120,6 +127,13 @@
     </Compile>
     <Compile Include="ucAdmin\article_detail.ascx.designer.cs">
       <DependentUpon>article_detail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucAdmin\project.ascx.cs">
+      <DependentUpon>project.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAdmin\project.ascx.designer.cs">
+      <DependentUpon>project.ascx</DependentUpon>
     </Compile>
     <Compile Include="ucAdmin\supporter.ascx.cs">
       <DependentUpon>supporter.ascx</DependentUpon>
@@ -207,8 +221,10 @@
     <Content Include="Admin.aspx" />
     <Content Include="Admin.Master" />
     <Content Include="js\script.js" />
+    <Content Include="ucAdmin\area.ascx" />
     <Content Include="ucAdmin\article.ascx" />
     <Content Include="ucAdmin\article_detail.ascx" />
+    <Content Include="ucAdmin\project.ascx" />
     <Content Include="ucAdmin\supporter.ascx" />
     <Content Include="ucAdmin\homelink.ascx" />
     <Content Include="ucAdmin\default.ascx" />

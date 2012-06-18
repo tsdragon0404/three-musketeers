@@ -6,7 +6,7 @@
             Text="Thêm dự án" />
 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" 
             AutoGenerateColumns="False" DataKeyNames="ID" 
-            DataSourceID="LinqDataSource1" 
+            DataSourceID="LinqDataSource1" Cssclass="tblProject"
             onselectedindexchanged="GridView1_SelectedIndexChanged">
     <Columns>
         <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
@@ -25,30 +25,30 @@
             EnableUpdate="True" OrderBy="Name" TableName="Projects">
         </asp:LinqDataSource>
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
-            DataKeyNames="ID" DataSourceID="LinqDataSource2" Height="50px" 
-            Width="125px" oniteminserted="DetailsView1_ItemInserted" 
+            DataKeyNames="ID" DataSourceID="LinqDataSource2"
+            oniteminserted="DetailsView1_ItemInserted" 
             onitemupdated="DetailsView1_ItemUpdated">
             <Fields>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
                     ReadOnly="True" SortExpression="ID" />
                 <asp:TemplateField HeaderText="Dự án">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" Height="50px" 
-                            Text='<%# Bind("Name") %>' TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="TextBox1" runat="server"
+                            Text='<%# Bind("Name") %>' Cssclass="txtBox400"></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Height="50px" 
-                            Text='<%# Bind("Name") %>' TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="TextBox2" runat="server"
+                            Text='<%# Bind("Name") %>' Cssclass="txtBox400"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Mô tả">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" Height="50px" 
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Description") %>' TextMode="MultiLine" Cssclass="txtBox400"></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox4" runat="server" Height="50px" 
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Description") %>' TextMode="MultiLine" Cssclass="txtBox400"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Chi tiết">
