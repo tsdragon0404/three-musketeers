@@ -101,8 +101,41 @@ namespace BDSGiaKiem
             SubmitChanges();
         }
         #endregion
+        #region Project
+        public Project getProject(int id)
+        {
+            var target = Projects.Where(p => p.ID == id);
+            if (target.Count() == 0)
+                return new Project();
+            else
+                return target.First();
+        }
+        #endregion
+        #region Planning
+        public Planning getPlanningbyProjectID(int id)
+        {
+            var target = Plannings.Where(p => p.ProjectID == id);
+            if (target.Count() == 0)
+                return new Planning();
+            else
+                return target.First();
+        }
+        #endregion
+        #region Area
+        public Area getAreabyProjectID(int id)
+        {
+            var target = Areas.Where(p => p.ProjectID == id);
+            if (target.Count() == 0)
+                return new Area();
+            else
+                return target.First();
+        }
+        #endregion
     }
 
+    partial class Project
+    {
+    }
     partial class HomePic
     {
         public HomePic(string imgurl) : this(imgurl, true) { }

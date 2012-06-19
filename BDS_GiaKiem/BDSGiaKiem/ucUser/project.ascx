@@ -6,11 +6,13 @@
             <asp:Repeater ID="Repeater1" runat="server" DataSourceID="LinqDataSource1">
             <ItemTemplate>
                 <li>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<% Eval("ID", "?section=project_detail&id={0}"); %>'><% Eval("Name"); %></asp:HyperLink></li>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "/default.aspx?section=project_detail&id={0}") %>'><%# Eval("Name") %></asp:HyperLink>
+                    <div class="shortdesc"><%# Eval("Description") %></div>
+                    </li>
             </ItemTemplate>
             </asp:Repeater>
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-                ContextTypeName="BDSGiaKiem.BDSDataContext" Select="new (ID, Name)" 
+                ContextTypeName="BDSGiaKiem.BDSDataContext" Select="new (ID, Name, Description)" 
                 TableName="Projects">
             </asp:LinqDataSource>
         </ul>
