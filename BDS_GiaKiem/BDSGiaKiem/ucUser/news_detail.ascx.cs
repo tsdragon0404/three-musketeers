@@ -17,7 +17,18 @@ namespace BDSGiaKiem.ucUser
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["pj_id"] != null)
+            {
 
+            }
+            else if (Request.QueryString["id"] != null)
+            {
+                string id = Request.QueryString["id"];
+                BDSDataContext db = new BDSDataContext();
+
+            }
+            else
+                Response.Redirect("Default.aspx?section=news");
         }
     }
 }
