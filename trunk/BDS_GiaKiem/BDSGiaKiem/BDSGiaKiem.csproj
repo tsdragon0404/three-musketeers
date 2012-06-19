@@ -177,6 +177,13 @@
     <Compile Include="ucAdmin\homepic.ascx.designer.cs">
       <DependentUpon>homepic.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ucUser\area.ascx.cs">
+      <DependentUpon>area.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\area.ascx.designer.cs">
+      <DependentUpon>area.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucUser\article.ascx.cs">
       <DependentUpon>article.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -191,12 +198,40 @@
     <Compile Include="ucUser\default.ascx.designer.cs">
       <DependentUpon>default.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ucUser\news.ascx.cs">
+      <DependentUpon>news.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\news.ascx.designer.cs">
+      <DependentUpon>news.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucUser\news_detail.ascx.cs">
+      <DependentUpon>news_detail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\news_detail.ascx.designer.cs">
+      <DependentUpon>news_detail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucUser\planning.ascx.cs">
+      <DependentUpon>planning.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\planning.ascx.designer.cs">
+      <DependentUpon>planning.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucUser\project.ascx.cs">
       <DependentUpon>project.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ucUser\project.ascx.designer.cs">
       <DependentUpon>project.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucUser\project_detail.ascx.cs">
+      <DependentUpon>project_detail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUser\project_detail.ascx.designer.cs">
+      <DependentUpon>project_detail.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +269,12 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="Admin.Master" />
+    <Content Include="images\Area\18-06-12_21-56-07_1.JPG" />
+    <Content Include="images\news.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\pj.png" />
+    <Content Include="images\Planning\18-06-12_23-34-26_View_3.jpg" />
+    <Content Include="images\Planning\18-06-12_23-34-35_1.JPG" />
     <Content Include="js\script.js" />
     <Content Include="ucAdmin\area.ascx" />
     <Content Include="ucAdmin\article.ascx" />
@@ -244,9 +285,14 @@
     <Content Include="ucAdmin\supporter.ascx" />
     <Content Include="ucAdmin\homelink.ascx" />
     <Content Include="ucAdmin\default.ascx" />
+    <Content Include="ucUser\area.ascx" />
     <Content Include="ucUser\article.ascx" />
     <Content Include="ucUser\default.ascx" />
+    <Content Include="ucUser\news.ascx" />
+    <Content Include="ucUser\news_detail.ascx" />
+    <Content Include="ucUser\planning.ascx" />
     <Content Include="ucUser\project.ascx" />
+    <Content Include="ucUser\project_detail.ascx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDS.dbml">

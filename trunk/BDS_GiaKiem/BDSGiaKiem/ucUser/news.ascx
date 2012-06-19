@@ -1,9 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="news.ascx.cs" Inherits="BDSGiaKiem.ucUser.news" %>
-    <ul>
+<div id="article">
+    <p class="title">Tin tức bất động sản</p>
+    <ul class="lstnews">
 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="LinqDataSource1">
            <ItemTemplate>
                 <li>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "/default.aspx?section=news_detail&id={0}") %>'> <%# formatTitle(Eval("Title").ToString()) %></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "/default.aspx?section=news_detail&id={0}") %>'>>> <%# formatTitle(Eval("Title").ToString()) %></asp:HyperLink>
                 </li>
                
             </ItemTemplate>
@@ -13,3 +15,4 @@
     ContextTypeName="BDSGiaKiem.BDSDataContext" OrderBy="LastUpdatedTime desc" 
     Select="new (ID, Title, LastUpdatedTime)" TableName="News">
 </asp:LinqDataSource>
+</div>

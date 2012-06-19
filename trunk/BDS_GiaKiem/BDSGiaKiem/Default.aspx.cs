@@ -17,8 +17,7 @@ namespace BDSGiaKiem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String[] sections = new String[] { "area", "article", "article_detail", "homelink", "homepic", 
-                    "news", "planning", "project", "supporter" };
+            String[] sections = new String[] { "area", "article", "news", "news_detail", "planning", "project", "project_detail" };
 
             Control ctrl;
             String section = "default";

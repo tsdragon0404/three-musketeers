@@ -43,6 +43,7 @@
 	padding-top:20px;
 	float:left;
 	width:100px;
+	text-align:center;
 }
 #pictures .pic{
 	width:800px;
@@ -58,11 +59,63 @@
 	margin-bottom:10px;
 	padding:10px;
 }
-#article .title
+#article .title, #pictures .title
 {
 	font-weight: bold;
 	font-size: 120%;
 	border-bottom: 1px solid #AAA;
 	margin-bottom: 10px;
 	padding-left: 10px;
+}
+#article .title a, #pictures .title a
+{
+	font-weight:normal;
+	font-size:80%;
+	color:#666;
+	margin-left:25px;
+}
+.lstPj
+{
+	margin:0 50px;
+}
+.lstPj li
+{
+	background:url("../../images/pj.png") no-repeat;
+	padding:0 60px 10px 60px;
+	margin-top:10px;
+	border-bottom:1px solid #DDD;
+}
+.lstPj li a
+{
+	font-size:130%;
+	font-weight:bold;
+	color:#d85233;
+	text-decoration:none;
+	line-height:40px;
+}
+.lstPj li a:hover
+{
+	color:#bc3212;
+}
+.lstPj .shortdesc
+{
+}
+.lstnews
+{
+	margin:10px 20px 0 20px;
+}
+.lstnews li
+{
+	padding:0 30px 5px 30px;
+}
+.lstnews li a
+{
+	font-size:100%;
+	color:#666;
+	text-decoration:none;
+}
+.lstnews li a:hover
+{
+	text-decoration:underline;
+	color:#333;
 }

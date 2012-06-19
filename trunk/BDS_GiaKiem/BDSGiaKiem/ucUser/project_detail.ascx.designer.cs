@@ -11,24 +11,42 @@
 namespace BDSGiaKiem.ucUser {
     
     
-    public partial class news {
+    public partial class project_detail {
         
         /// <summary>
-        /// Repeater1 control.
+        /// title control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.Label title;
         
         /// <summary>
-        /// LinqDataSource1 control.
+        /// text control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinqDataSource LinqDataSource1;
+        protected global::System.Web.UI.WebControls.Label text;
+        
+        /// <summary>
+        /// HLPlanning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLPlanning;
+        
+        /// <summary>
+        /// HLArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLArea;
     }
 }
