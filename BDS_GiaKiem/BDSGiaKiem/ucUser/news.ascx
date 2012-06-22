@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="news.ascx.cs" Inherits="BDSGiaKiem.ucUser.news" %>
+<%@ Register src="news_detail.ascx" tagname="news_detail" tagprefix="uc1" %>
 <div id="article">
     <p class="title">Tin tức bất động sản</p>
     <ul class="lstnews">
