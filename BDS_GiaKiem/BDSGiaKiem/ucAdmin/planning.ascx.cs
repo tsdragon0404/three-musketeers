@@ -22,6 +22,7 @@ namespace BDSGiaKiem.ucAdmin
             btnAddNew.Visible = true;
             GridView1.Visible = true;
             DetailsView1.Visible = false;
+            lblStatus.InnerHtml = "Danh sách quy hoạch";
         }
 
         protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -46,6 +47,7 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Edit);
+            lblStatus.InnerHtml = "Chi tiết quy hoạch";
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -144,6 +146,7 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
+            lblStatus.InnerHtml = "Thêm mới quy hoạch";
         }
     }
 }

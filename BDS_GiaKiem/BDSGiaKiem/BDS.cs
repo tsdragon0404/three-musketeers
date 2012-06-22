@@ -131,6 +131,11 @@ namespace BDSGiaKiem
                 return target.First();
         }
         #endregion
+
+        internal New getNew(int p)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     partial class Project

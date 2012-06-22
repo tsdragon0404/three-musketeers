@@ -22,3 +22,8 @@ D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\bin\BDSGiaKiem.pdb
 D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\ResolveAssemblyReference.cache
 D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.dll
 D:\SVN\SourceControl\three-musketeers\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.pdb
+D:\Study\Web\BDS_GiaKiem\BDSGiaKiem\bin\BDSGiaKiem.dll
+D:\Study\Web\BDS_GiaKiem\BDSGiaKiem\bin\BDSGiaKiem.pdb
+D:\Study\Web\BDS_GiaKiem\BDSGiaKiem\obj\Release\ResolveAssemblyReference.cache
+D:\Study\Web\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.dll
+D:\Study\Web\BDS_GiaKiem\BDSGiaKiem\obj\Release\BDSGiaKiem.pdb

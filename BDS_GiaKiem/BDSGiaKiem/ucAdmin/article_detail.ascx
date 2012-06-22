@@ -8,10 +8,9 @@
             <col width="85%" />
         </colgroup>
         <tr>
-            <td class="right">Tiêu đề: </td>
+            <td class="right">&nbsp;<asp:Label ID="Label1" runat="server" ForeColor="Red" 
+                    Text="Tiêu đề"></asp:Label></td>
             <td><asp:TextBox ID="txtTitle" runat="server" CssClass="txtBox400" Text=""></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                    ErrorMessage="RequiredFieldValidator" ControlToValidate="txtTitle">* Phải nhập tiêu đề</asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -20,8 +19,28 @@
         </tr>
         <tr>
             <td></td>
-            <td><asp:Button ID="btnSave" runat="server" Text="Save" 
-            onclick="btnSave_Click" /></td>
+            <td><asp:Button ID="btnSave" runat="server" Text="Lưu" onclick="btnSave_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text="Hủy bỏ" onclick="btnCancel_Click"/></td>
         </tr>
     </table>
 </fieldset>
+
+<script type="text/javascript">
+    function checkSave() {
+        var txtTitle = document.getElementById('ctl00_ContentPlaceHolder1_ctl00_txtTitle');
+        if (trim(txtTitle.value) == '') {
+            alert("Chưa nhập đầy đủ thông tin");
+            txtTitle.value.value = '';
+            txtTitle.focus();
+            return false;
+        }
+    }
+    function trim(str)
+     {
+        var start = 0;
+        var end = str.length;
+        while (start < str.length && str.charAt(start) == ' ') start++;
+        while (end > 0 && str.charAt(end - 1) == ' ') end--;
+        return str.substr(start, end - start);
+    }
+</script>
