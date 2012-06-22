@@ -25,7 +25,9 @@ namespace BDSGiaKiem.ucUser
             {
                 string id = Request.QueryString["id"];
                 BDSDataContext db = new BDSDataContext();
-
+                New news = db.getNew(int.Parse(id));
+                lbtTitle.Text = news.Title;
+                lrtContent.Text = news.ContentText;
             }
             else
                 Response.Redirect("Default.aspx?section=news");
