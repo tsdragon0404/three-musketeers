@@ -31,6 +31,7 @@ namespace BDSGiaKiem.ucAdmin
                 txtTitle.Text = ar.Title;
                 editorContent.Text = ar.ContentText;
             }
+            btnSave.Attributes.Add("onclick", "return checkSave()");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -38,6 +39,11 @@ namespace BDSGiaKiem.ucAdmin
             int id = isAddNew == true ? 0 : Int32.Parse(Request.QueryString["id"]);
             BDSDataContext db = new BDSDataContext();
             db.UpdateArticle(id, txtTitle.Text, editorContent.Text);
+            Response.Redirect("Admin.aspx?section=article");
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
             Response.Redirect("Admin.aspx?section=article");
         }
     }

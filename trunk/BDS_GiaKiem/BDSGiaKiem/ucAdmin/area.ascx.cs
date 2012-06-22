@@ -22,6 +22,7 @@ namespace BDSGiaKiem.ucAdmin
             btnAddNew.Visible = true;
             GridView1.Visible = true;
             DetailsView1.Visible = false;
+            lblstatus.InnerHtml = "Danh sách khu vực";
         }
 
         protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -46,6 +47,7 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
+            lblstatus.InnerHtml = "Thêm mới một khu vực";
         }
 
         public Bitmap ResizeBitmap(Bitmap src, int newWidth, int newHeight)
@@ -130,6 +132,7 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Edit);
+            lblstatus.InnerHtml = "Chi tiết khu vực";
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)

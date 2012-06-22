@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="area.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.area" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
+    <p class="funcBox" id="func" runat="server"><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/admin.aspx?section=project">Quản lý dự án</asp:HyperLink> | 
+    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/admin.aspx?section=planning">Quản lý quy hoạch</asp:HyperLink></p>
 <fieldset class="fset">
-<legend>Danh sách các khu vực</legend>
+<legend id="lblstatus" runat="server">Danh sách các khu vực</legend>
+
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm mới" />
         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
@@ -42,11 +45,11 @@
             oniteminserted="DetailsView1_ItemInserted"  CssClass="tbl"
             oniteminserting="DetailsView1_ItemInserting" 
             onitemupdated="DetailsView1_ItemUpdated" 
-            onitemupdating="DetailsView1_ItemUpdating">
+            onitemupdating="DetailsView1_ItemUpdating" Width="600px">
             <Fields>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
                     ReadOnly="True" SortExpression="ID" Visible="False" />
-                <asp:TemplateField HeaderText="Dự án">
+                <asp:TemplateField HeaderText="Tên dự án">
                     <EditItemTemplate>
                         <asp:DropDownList ID="DropDownList1" runat="server" 
                             DataSourceID="LinqDataSource3" DataTextField="Name" DataValueField="ID" 
@@ -88,11 +91,11 @@
                 <asp:TemplateField HeaderText="Mô tả">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" Height="50px" CssClass="txtBox400"
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Description") %>' TextMode="MultiLine" Width="100%"></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox2" runat="server" Height="50px" CssClass="txtBox400"
-                            Text='<%# Bind("Description") %>' TextMode="MultiLine"></asp:TextBox>
+                            Text='<%# Bind("Description") %>' TextMode="MultiLine" Width="100%"></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
                 <asp:CommandField CancelText="Hủy bỏ" EditText="Sửa" InsertText="Thêm mới" 

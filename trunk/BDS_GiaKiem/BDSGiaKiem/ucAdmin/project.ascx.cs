@@ -21,6 +21,7 @@ namespace BDSGiaKiem.ucAdmin
             DetailsView1.Visible = false;
             btnAddNew.Visible = true;
             func.Visible = true;
+            lblStatus.InnerHtml = "Danh sách dự án";
         }
 
         protected void btnAddNew_Click(object sender, EventArgs e)
@@ -29,7 +30,8 @@ namespace BDSGiaKiem.ucAdmin
             func.Visible = false;
             GridView1.Visible = false;
             DetailsView1.Visible = true;
-            DetailsView1.ChangeMode(DetailsViewMode.Insert);;
+            DetailsView1.ChangeMode(DetailsViewMode.Insert);
+            lblStatus.InnerHtml = "Thêm mới dự án";
         }
 
         protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
@@ -44,6 +46,7 @@ namespace BDSGiaKiem.ucAdmin
             GridView1.Visible = false;
             DetailsView1.Visible = true;
             DetailsView1.ChangeMode(DetailsViewMode.Edit);
+            lblStatus.InnerHtml = "Chi tiết dự án";
         }
 
         protected void DetailsView1_ItemUpdated(object sender, DetailsViewUpdatedEventArgs e)

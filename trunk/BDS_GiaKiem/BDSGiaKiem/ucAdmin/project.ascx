@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="project.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.project" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <fieldset class="fset">
-<legend>Danh sách các dự án</legend>
+<legend id="lblStatus" runat="server">Danh sách các dự án</legend>
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm dự án" />
     <p class="funcBox" id="func" runat="server"><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/admin.aspx?section=planning">Quản lý quy hoạch</asp:HyperLink> | 
@@ -38,16 +38,21 @@
             onitemupdated="DetailsView1_ItemUpdated">
             <Fields>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
-                    ReadOnly="True" SortExpression="ID" />
-                <asp:TemplateField HeaderText="Dự án">
+                    ReadOnly="True" SortExpression="ID" Visible="False" />
+                <asp:TemplateField HeaderText="Tên dự án">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server"
                             Text='<%# Bind("Name") %>' Cssclass="txtBox400"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="TextBox1" ErrorMessage="* Chưa nhập tên dự án"></asp:RequiredFieldValidator>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox2" runat="server"
                             Text='<%# Bind("Name") %>' Cssclass="txtBox400"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="TextBox2" ErrorMessage="* Chưa nhập tên dự án"></asp:RequiredFieldValidator>
                     </InsertItemTemplate>
+                    <HeaderStyle ForeColor="Red" />
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Mô tả">
                     <EditItemTemplate>
@@ -63,13 +68,19 @@
                     <EditItemTemplate>
                         <CKEditor:CKEditorControl ID="editorContent" runat="server" 
                             Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width="">
-&nbsp;&nbsp;&nbsp;
+                            
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </CKEditor:CKEditorControl>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <CKEditor:CKEditorControl ID="editorContent" runat="server" 
                             Text='<%# Bind("ContentText") %>' TextMode="MultiLine" Width="">
-&nbsp;&nbsp;&nbsp;
+                            
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </CKEditor:CKEditorControl>
                     </InsertItemTemplate>
                 </asp:TemplateField>
