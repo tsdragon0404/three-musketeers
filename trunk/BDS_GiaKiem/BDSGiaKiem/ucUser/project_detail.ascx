@@ -7,15 +7,26 @@
 </div>
 <div id="topics">
     <div class="topic">
-        <asp:HyperLink ID="HLPlanning" runat="server">Chi tiết quy hoạch<img src="images/topic_1.png" />
+        <asp:HyperLink ID="HLPlanning" runat="server" CssClass="topiclink">Chi tiết quy hoạch<img src="images/topic_1.png" />
         </asp:HyperLink>
     </div>
     <div class="topic">
-        <asp:HyperLink ID="HLArea" runat="server">Các khu vực<img src="images/topic_1.png" />
+        <asp:HyperLink ID="HLArea" runat="server" CssClass="topiclink">Các khu vực<img src="images/topic_1.png" />
         </asp:HyperLink>
     </div>
     <div class="topic">
-        <a href="#">Tin tức liên quan<img src="images/topic_1.png" /></a>
+        <p class="title">Tin tức liên quan</p>
+        <asp:Repeater ID="Repeater2" runat="server">
+            <HeaderTemplate>
+                <ul class="listNews">
+            </HeaderTemplate>
+            <ItemTemplate>
+                <li><a href='/Default.aspx?section=news_detail&id=<%# Eval("ID") %>'>» <%# cutTitle(Eval("Title").ToString()) %></a></li>
+            </ItemTemplate>
+            <FooterTemplate>
+                </ul>
+            </FooterTemplate>
+        </asp:Repeater>
     </div>
     <div class="clear">
     </div>

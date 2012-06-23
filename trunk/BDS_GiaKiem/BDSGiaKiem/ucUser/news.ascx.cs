@@ -22,7 +22,7 @@ namespace BDSGiaKiem.ucUser
         protected string formatTitle(string title)
         {
             if (title.Length > 50)
-                return title.Substring(0, 30) + "...";
+                return title.Substring(0, 47) + "...";
             else
                 return title;
         }

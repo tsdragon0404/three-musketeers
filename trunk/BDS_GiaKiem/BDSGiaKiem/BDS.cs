@@ -111,31 +111,24 @@ namespace BDSGiaKiem
                 return target.First();
         }
         #endregion
-        #region Planning
-        public Planning getPlanningbyProjectID(int id)
+        #region News
+        public System.Collections.Generic.List<New> getLatestNews(int number)
         {
-            var target = Plannings.Where(p => p.ProjectID == id);
+            return News.OrderByDescending(n => n.LastUpdatedTime).Take(number).ToList();
+        }
+        public System.Collections.Generic.List<New> getLatestNews(int projectid, int number)
+        {
+            return News.Where(n => n.ProjectID == projectid).OrderByDescending(n => n.LastUpdatedTime).Take(number).ToList();
+        }
+        public New getNews(int id)
+        {
+            var target = News.Where(n => n.ID == id);
             if (target.Count() == 0)
-                return new Planning();
+                return new New();
             else
                 return target.First();
         }
         #endregion
-        #region Area
-        public Area getAreabyProjectID(int id)
-        {
-            var target = Areas.Where(p => p.ProjectID == id);
-            if (target.Count() == 0)
-                return new Area();
-            else
-                return target.First();
-        }
-        #endregion
-
-        internal New getNew(int p)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 
     partial class Project

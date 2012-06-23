@@ -6,9 +6,9 @@
 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="LinqDataSource1">
            <ItemTemplate>
                 <li>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "/default.aspx?section=news_detail&id={0}") %>'>>> <%# formatTitle(Eval("Title").ToString()) %></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "/default.aspx?section=news_detail&id={0}") %>'>» <%# formatTitle(Eval("Title").ToString()) %></asp:HyperLink>
+                    <span class="date">(<%#Eval("LastUpdatedTime", "{0:dd-MM-yyyy}")%>)</span>
                 </li>
-               
             </ItemTemplate>
 </asp:Repeater>
 </ul>

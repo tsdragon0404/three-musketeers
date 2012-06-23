@@ -17,20 +17,24 @@ namespace BDSGiaKiem.ucUser
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["pj_id"] != null)
+            if (Request.QueryString["id"] != null)
             {
-
-            }
-            else if (Request.QueryString["id"] != null)
-            {
-                string id = Request.QueryString["id"];
-                BDSDataContext db = new BDSDataContext();
-                New news = db.getNew(int.Parse(id));
-                lbtTitle.Text = news.Title;
-                lrtContent.Text = news.ContentText;
+                try
+                {
+                    int id = Int32.Parse(Request.QueryString["id"]);
+                    BDSDataContext db = new BDSDataContext();
+                    New news = db.getNews(id);
+                    lblTitle.Text = news.Title;
+                    lblDate.Text = news.LastUpdatedTime.Value.ToString("( dd-MM-yyyy )");
+                    lblContent.Text = news.ContentText;
+                }
+                catch
+                {
+                    Response.Redirect("/Default.aspx?section=news");
+                }
             }
             else
-                Response.Redirect("Default.aspx?section=news");
+                Response.Redirect("/Default.aspx?section=news");
         }
     }
 }

@@ -18,7 +18,6 @@ namespace BDSGiaKiem.ucUser
         private int PicLinkID = 1;
         private int PlanningLinkID = 2;
         private int AreaLinkID = 3;
-        private int NewsLinkID = 4;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,6 +25,16 @@ namespace BDSGiaKiem.ucUser
             HLPic.NavigateUrl = db.getHomeLink(PicLinkID);
             HLPlanning.NavigateUrl = db.getHomeLink(PlanningLinkID);
             HLArea.NavigateUrl = db.getHomeLink(AreaLinkID);
+            System.Collections.Generic.List<New> lstNew = db.getLatestNews(5);
+            Repeater2.DataSource = lstNew;
+            Repeater2.DataBind();
+        }
+
+        protected string cutTitle(string title)
+        {
+            if (title.Length > 33)
+                return title.Substring(0, 30) + "...";
+            return title;
         }
     }
 }
