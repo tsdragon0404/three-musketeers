@@ -30,12 +30,22 @@ namespace BDSGiaKiem.ucUser
                     text.Text = pj.ContentText;
                     HLPlanning.NavigateUrl = "/default.aspx?section=planning&pid=" + id;
                     HLArea.NavigateUrl = "/default.aspx?section=area&pid=" + id;
+                    System.Collections.Generic.List<New> lstNews = db.getLatestNews(id, 5);
+                    Repeater2.DataSource = lstNews;
+                    Repeater2.DataBind();
                 }
                 else
                     Response.Redirect("/default.aspx?section=project");
             }
             else
                 Response.Redirect("/default.aspx?section=project");
+        }
+
+        protected string cutTitle(string title)
+        {
+            if (title.Length > 33)
+                return title.Substring(0, 30) + "...";
+            return title;
         }
     }
 }

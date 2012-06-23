@@ -26,19 +26,49 @@
 .topic:hover{
 	background:url("../../images/topic_bg_hover.jpg");
 }
-.topic a{
-	display:block;
+.topic a.topiclink
+{
 	height:200px;
+}
+.topic a.topiclink, .topic .title{
+	display:block;
 	text-align:center;
 	font-size:120%;
 	font-weight:bold;
 	color:#777;
 	padding-top:15px;
 }
-.topic a img{
+.topic a.topiclink img{
 	margin-top:15px;
 }
-
+.topic ul.listNews
+{
+	margin:5px 25px 0 25px;
+}
+.topic ul.listNews li
+{
+	margin-bottom:9px;
+}
+.topic ul.listNews li a
+{
+	display:block;
+	color:#777;
+	font-weight:bold;
+}
+.topic ul.listNews li a:hover
+{
+	color:#333;
+}
+.topic p.more
+{
+	text-align:right;
+	padding:0 25px;
+}
+.topic p.more a
+{
+	color:#08C;
+	font-weight:bold;
+}
 #pictures .prev, #pictures .next{
 	padding-top:20px;
 	float:left;
@@ -106,7 +136,7 @@
 }
 .lstnews li
 {
-	padding:0 30px 5px 30px;
+	padding:0 30px 10px 30px;
 }
 .lstnews li a
 {
@@ -118,4 +148,10 @@
 {
 	text-decoration:underline;
 	color:#333;
+}
+.lstnews span.date, #article .title span.date
+{
+	color:#888;
+	font-size:80%;
+	margin-left:25px;
 }
