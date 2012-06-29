@@ -24,9 +24,26 @@ namespace BDSGiaKiem
             if (Request.QueryString["section"] != null && Request.QueryString["section"].ToString().Trim() != "")
                 section = Request.QueryString["section"].ToString().Trim();
             if (sections.Contains(section))
+            {
+                if (section == "article")
+                    Page.Title = "Gioi thieu";
+                else if (section == "news" || section == "news_detail")
+                    Page.Title = "Tin tuc";
+                else if (section == "project" || section == "project_detail")
+                    Page.Title = "Du an";
+                else if (section == "area")
+                    Page.Title = "Khu vuc";
+                else
+                    Page.Title = "Ke hoach dau tu";
+;
+
                 ctrl = Page.LoadControl("ucUser/" + section + ".ascx");
+            }
             else
+            {
+                Page.Title = "Trang chu";
                 ctrl = Page.LoadControl("ucUser/default.ascx");
+            }
 
             Body.Controls.Add(ctrl);
         }
