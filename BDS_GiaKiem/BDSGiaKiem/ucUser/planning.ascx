@@ -11,7 +11,8 @@
             <ItemTemplate>
                 <div class="zoomArea">
                     <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("ImageUrl", "/{0}") %>'
-                        AlternateText='<%# Eval("Description") %>' CssClass='zoompic' /></div>
+                        AlternateText='<%# Eval("Description") %>' CssClass='zoompic' /><asp:Label ID="lblDescription" runat="server" Text ='<%# Eval("Description") %>'></asp:Label></div>
+                    
             </ItemTemplate>
         </asp:Repeater>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="BDSGiaKiem.BDSDataContext"
@@ -26,5 +27,6 @@
         <a href="javascript:void(0)">
             <img src="../images/next.jpg" title='Next' alt="next" /></a>
     </div>
+    
     <div class="clear"></div>
 </div>

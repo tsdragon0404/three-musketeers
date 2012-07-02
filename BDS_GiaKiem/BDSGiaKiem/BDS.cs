@@ -1,6 +1,7 @@
 namespace BDSGiaKiem
 {
     using System.Linq;
+    using System.Collections.Generic;
     partial class BDSDataContext
     {
         #region HomePic
@@ -101,6 +102,34 @@ namespace BDSGiaKiem
             SubmitChanges();
         }
         #endregion
+        #region News
+        public New getNew(int id)
+        {
+            var target = News.Where(a => a.ID == id);
+            if (target.Count() == 0)
+                return new New();
+            else
+                return target.First();
+        }
+
+        public List<New> getListNew(int pj_id)
+        {
+            List<New> lst = new List<New>();
+            var target = News.Where(a => a.ProjectID == pj_id);
+            if (target.Count() == 0)
+            {
+               // target.ToList<New>();
+                lst.Add(new New());
+            }
+            else
+            {
+
+                lst = target.ToList<New>();
+            }
+            return lst;
+
+        }
+        #endregion
         #region Project
         public Project getProject(int id)
         {
@@ -176,6 +205,18 @@ namespace BDSGiaKiem
             ID = id;
             Title = title;
             ContentText = content;
+            OnCreated();
+        }
+    }
+
+    partial class New
+    {
+        public New(long id, string title, string content, string date)
+        {
+            ID = id;
+            Title = title;
+            ContentText = content;
+            LastUpdatedTime = System.DateTime.Parse(date);
             OnCreated();
         }
     }
