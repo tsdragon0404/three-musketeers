@@ -27,6 +27,7 @@ namespace BDSGiaKiem.ucUser
                     lblTitle.Text = news.Title;
                     lblDate.Text = news.LastUpdatedTime.Value.ToString("( dd-MM-yyyy )");
                     lblContent.Text = news.ContentText;
+                    hblBack.NavigateUrl = "/Default.aspx?section=news";
                 }
                 catch
                 {

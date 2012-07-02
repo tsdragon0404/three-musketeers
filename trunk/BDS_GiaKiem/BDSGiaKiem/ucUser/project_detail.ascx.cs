@@ -28,6 +28,7 @@ namespace BDSGiaKiem.ucUser
                         Response.Redirect("/default.aspx?section=project");
                     title.Text = pj.Name;
                     text.Text = pj.ContentText;
+                    hblBack.NavigateUrl = "/default.aspx?section=project";
                     HLPlanning.NavigateUrl = "/default.aspx?section=planning&pid=" + id;
                     HLArea.NavigateUrl = "/default.aspx?section=area&pid=" + id;
                     System.Collections.Generic.List<New> lstNews = db.getLatestNews(id, 5);
