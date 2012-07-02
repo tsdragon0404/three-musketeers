@@ -8,6 +8,7 @@
     }
     // zoom picture
     $('#pictures .pic .zoomArea:gt(0)').hide();
+    $('#pictures .pic .desc:gt(0)').hide();
     $('#pictures .pic .zoomArea:eq(0)').addClass('current');
     $('#pictures .pic .zoomArea').zoom();
 
@@ -40,11 +41,13 @@ function nextPicture()
     var cur = $('#pictures .pic .zoomArea.current');
     var next;
     if($('#pictures .pic .zoomArea').index(cur) < $('#pictures .pic .zoomArea').length - 1)
-	    next = cur.next();
+	    next = cur.next().next();
     else
 	    next = $('#pictures .pic .zoomArea:first');
     next.show();
+    next.next().show();
     cur.hide();
+    cur.next().hide();
 	
     cur.removeClass('current');
     next.addClass('current');
@@ -54,11 +57,13 @@ function prevPicture()
     var cur = $('#pictures .pic .zoomArea.current');
     var prev;
     if($('#pictures .pic .zoomArea').index(cur) > 0)
-	    prev= cur.prev();
+	    prev= cur.prev('.zoomArea');
     else
 	    prev = $('#pictures .pic .zoomArea:last');
     prev.show();
+    prev.next().show();
     cur.hide();
+    cur.next().hide();
 	
     cur.removeClass('current');
     prev.addClass('current');

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="area.ascx.cs" Inherits="BDSGiaKiem.ucUser.area" %>
 <div id="pictures">
-    <p class="title">Các khu vực dự án<asp:HyperLink ID="HyperLink1" runat="server" CssClass="link">Quay lại trang dự án</asp:HyperLink></p>
+    <p class="title">Các khu vực dự án<asp:HyperLink ID="HyperLink1" NavigateUrl="/Default.aspx?section=project" runat="server" CssClass="link">Quay lại trang dự án</asp:HyperLink></p>
     <p class="func"></p>
     <div class="prev">
         <a href="javascript:void(0)">
