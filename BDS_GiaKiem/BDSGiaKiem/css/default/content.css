@@ -82,6 +82,11 @@
 #pictures .pic img.zoompic{
 	width:800px;
 }
+#pictures .pic .desc{
+	margin:10px auto 0 auto;
+	text-align:center;
+	font-style:italic;
+}
 #article
 {
 	border-left:1px solid #DDD;
@@ -102,7 +107,7 @@
 	font-weight:normal;
 	font-size:80%;
 	color:#666;
-	margin-left:25px;
+	margin-left:35px;
 }
 .lstPj
 {

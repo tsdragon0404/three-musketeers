@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="planning.ascx.cs" Inherits="BDSGiaKiem.ucAdmin.planning" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
-<p class="funcBox" id="func" runat="server"><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/admin.aspx?section=project">Quản lý dự án</asp:HyperLink> | 
-    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/admin.aspx?section=area">Quản lý khu vực</asp:HyperLink></p>
 <fieldset class="fset">
 <legend id="lblStatus" runat="server">Danh sách quy hoạch</legend>
         
         <asp:Button ID="btnAddNew" runat="server" onclick="btnAddNew_Click" 
             Text="Thêm mới" />
+<p class="funcBox" id="func" runat="server"><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/admin.aspx?section=project">Quản lý dự án</asp:HyperLink> | 
+    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/admin.aspx?section=area">Quản lý khu vực</asp:HyperLink></p>
         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
             AutoGenerateColumns="False" DataKeyNames="ID" 
             DataSourceID="LinqDataSource1" onrowdeleted="GridView1_RowDeleted" 

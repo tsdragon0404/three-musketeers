@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="project_detail.ascx.cs" Inherits="BDSGiaKiem.ucUser.project_detail" %>
-<asp:HyperLink ID = "hblBack" runat="server">Tro lai</asp:HyperLink>
 <div id="article">
 <p class="title">
     <asp:Label ID="title" runat="server" Text="Label"></asp:Label>
+    <asp:Hyperlink ID="back" runat="server" CssClass="link" Text="Quay lại trang dự án" NavigateUrl="/Default.aspx?section=project"></asp:Hyperlink>
 </p>
     <div class="text">
-        <asp:Label ID="text" runat="server" Text="Label">Tro lai</asp:Label></div>
+        <asp:Label ID="text" runat="server" Text="Label"></asp:Label></div>
 </div>
 <div id="topics">
     <div class="topic">

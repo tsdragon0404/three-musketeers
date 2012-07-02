@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="planning.ascx.cs" Inherits="BDSGiaKiem.ucUser.planning" %>
 <div id="pictures">
-    <p class="title">Chi tiết quy hoạch dự án<asp:HyperLink ID="HyperLink1" runat="server" CssClass="link">Quay lại trang dự án</asp:HyperLink></p>
+    <p class="title">Chi tiết quy hoạch dự án<asp:HyperLink ID="HyperLink1" NavigateUrl="/Default.aspx?section=project" runat="server" CssClass="link">Quay lại trang dự án</asp:HyperLink></p>
     <p class="func"></p>
     <div class="prev">
         <a href="javascript:void(0)">
@@ -11,8 +11,11 @@
             <ItemTemplate>
                 <div class="zoomArea">
                     <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("ImageUrl", "/{0}") %>'
-                        AlternateText='<%# Eval("Description") %>' CssClass='zoompic' /><asp:Label ID="lblDescription" runat="server" Text ='<%# Eval("Description") %>'></asp:Label></div>
-                    
+                        AlternateText='<%# Eval("Description") %>' CssClass='zoompic' />
+                </div>
+                <div class="desc">
+                    <asp:Label ID="lblDescription" runat="server" Text ='<%# Eval("Description") %>'></asp:Label>                
+                </div>
             </ItemTemplate>
         </asp:Repeater>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="BDSGiaKiem.BDSDataContext"
