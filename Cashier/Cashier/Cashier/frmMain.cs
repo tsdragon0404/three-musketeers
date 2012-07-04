@@ -11,8 +11,6 @@ namespace Cashier
 {
     public partial class frmMain : Form
     {
-        private int childFormNumber = 0;
-
         public frmMain()
         {
             InitializeComponent();
@@ -21,9 +19,27 @@ namespace Cashier
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmImport frm = new frmImport();
-            frm.MdiParent = this;
-            frm.WindowState = FormWindowState.Maximized;
-            frm.Show();
+            showChildForm(frm);
         }
+
+        #region show form
+        private void showChildForm(Form f)
+        {
+            f.MdiParent = this;
+            f.Resize += new EventHandler(childForm_Resize);
+            f.Show();
+            f.WindowState = FormWindowState.Maximized;
+        }
+
+        private void childForm_Resize(object sender, EventArgs e)
+        {
+            Form f = ((Form)sender);
+            if (f.WindowState == FormWindowState.Maximized)
+            {
+                f.MaximizeBox = false;
+                f.MinimizeBox = false;
+            }
+        }
+        #endregion
     }
 }
