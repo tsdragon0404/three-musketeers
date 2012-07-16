@@ -71,15 +71,37 @@ namespace Cashier.Command
                     AbstractCommand command = AbstractCommand.CommandFactory((AbstractCommand.CommandType)Int32.Parse(menuList.Rows[i]["MenuCommandEnumValue"].ToString()),
                         menuList.Rows[i]["Name"].ToString(), img);
 
-                    var list = GroupList.Where(g => g.ID == Int32.Parse(menuList.Rows[i]["Parent"].ToString()));
-                    if (list.Count() > 0)
+                    //var list = GroupList.Where(g => g.ID == Int32.Parse(menuList.Rows[i]["Parent"].ToString()));
+                    //if (list.Count() > 0)
+                    //{
+                    //    var g = list.First();
+                    //    g.ControlOrder.Add(0);
+                    //    g.CommandList.Add(command);
+                    //}
+                    var p = FindCommandGroup(GroupList, Int32.Parse(menuList.Rows[i]["Parent"].ToString()));
+                    if (p != null)
                     {
-                        var g = list.First();
-                        g.ControlOrder.Add(0);
-                        g.CommandList.Add(command);
+                        p.ControlOrder.Add(0);
+                        p.CommandList.Add(command);
                     }
                 }
             }
+        }
+
+        private CommandGroup FindCommandGroup(List<CommandGroup> list, Int32 id)
+        {
+            foreach (CommandGroup g in list)
+            {
+                if (g.ID == id)
+                    return g;
+                if (g.GroupList.Count > 0)
+                {
+                    var rs = FindCommandGroup(g.GroupList, id);
+                    if (rs != null)
+                        return rs;
+                }
+            }
+            return null;
         }
         #endregion
 
