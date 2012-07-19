@@ -142,5 +142,13 @@ namespace Cashier
             f.ShowDialog();
                
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
+            //DataTable table = new DataTable();
+            //table = dbManager.GetReports("spa_test", new DBManager.FilterParameterCollection());
+            //dataGridView1.DataSource = table;
+        }
     }
 }
