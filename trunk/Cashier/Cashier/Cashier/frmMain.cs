@@ -135,5 +135,12 @@ namespace Cashier
             }
         }
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmImport f = new frmImport();
+            f.ShowDialog();
+               
+        }
     }
 }
