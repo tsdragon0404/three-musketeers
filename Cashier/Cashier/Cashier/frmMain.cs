@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Cashier.Command;
-
+using Cashier.DBManager;
 namespace Cashier
 {
     public partial class frmMain : Form
@@ -145,10 +145,19 @@ namespace Cashier
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
-            //DataTable table = new DataTable();
-            //table = dbManager.GetReports("spa_test", new DBManager.FilterParameterCollection());
-            //dataGridView1.DataSource = table;
+            DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
+            DataTable table = new DataTable();
+            FilterParameterCollection inparams = new FilterParameterCollection();
+            inparams.Add("@a", 1,SqlDbType.Int);
+            inparams.Add("@b", 0, SqlDbType.Int, true);
+
+            FilterParameterCollection outparams = new FilterParameterCollection();
+            //FilterParameter outparam = new FilterParameter("@b",0, SqlDbType.Int, false);
+            //outparams.Add(outparam);
+            int a = dbManager.ExecuteNonQueryCommand("spa_test", inparams, out outparams);
+            string result = outparams[0].ParamaterValue.ToString();
+            MessageBox.Show(result);
+            dataGridView1.DataSource = table;
         }
     }
 }
