@@ -38,6 +38,7 @@ namespace Cashier
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+
             for (int i = 0; i < dgvData.Rows.Count; i++)
             {
                 if (dgvData.Rows[i].Cells[0].Value.ToString().ToLower() == "true")
@@ -323,7 +324,7 @@ namespace Cashier
             DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
 
             FilterParameterCollection outparams = new FilterParameterCollection();
-            _inparam.Add(new FilterParameter("@ReturnMess","", SqlDbType.NVarChar, true));
+            _inparam.Add("@ReTurnMess", "", SqlDbType.NVarChar,true);
             int a = dbManager.ExecuteNonQueryCommand(storeName, _inparam, out outparams);
 
             string result = outparams[0].ParamaterValue.ToString();
