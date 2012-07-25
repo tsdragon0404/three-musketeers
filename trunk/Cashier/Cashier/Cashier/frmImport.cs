@@ -53,7 +53,7 @@ namespace Cashier
                     {
                         dgvData.Rows[i].Cells[0].Value = "Insert";
                     }
-                    else if (result == "Unpdate")
+                    else if (result == "Update")
                     {
                         dgvData.Rows[i].Cells[0].Value = "Update";
                     }
@@ -321,11 +321,10 @@ namespace Cashier
             DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
 
             FilterParameterCollection outparams = new FilterParameterCollection();
-            FilterParameter outparam = new FilterParameter("ReturnMess", SqlDbType.NVarChar, true);
-            outparams.Add(outparam);
+            _inparam.Add(new FilterParameter("@ReturnMess","", SqlDbType.NVarChar, true));
             int a = dbManager.ExecuteNonQueryCommand(storeName, _inparam, out outparams);
 
-            string result = outparam.ParamaterValue.ToString();
+            string result = outparams[0].ParamaterValue.ToString();
 
             return result;
         }
