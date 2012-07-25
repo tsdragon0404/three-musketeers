@@ -45,21 +45,23 @@ namespace Cashier
                     FilterParameterCollection inparams = new FilterParameterCollection();
                     for (int j = 1; j < countColumn; j++)
                     {
-                        inparams.Add(new FilterParameter("@"+param[j], dgvData.Rows[i].Cells[j+1].Value.ToString().Trim(), SqlDbType.NVarChar));
+                        string par1 = "@"+param[j];
+                        string par2 = dgvData.Rows[i].Cells[j + 1].Value.ToString().Trim();
+                        inparams.Add(new FilterParameter(par1, par2, SqlDbType.NVarChar));
                     }
 
                     string result = SaveRow(storeName, inparams);
                     if (result == "Insert")
                     {
-                        dgvData.Rows[i].Cells[0].Value = "Insert";
+                        dgvData.Rows[i].Cells[1].Value = "Insert";
                     }
                     else if (result == "Update")
                     {
-                        dgvData.Rows[i].Cells[0].Value = "Update";
+                        dgvData.Rows[i].Cells[1].Value = "Update";
                     }
                     else
                     {
-                        dgvData.Rows[i].Cells[0].Value = result;
+                        dgvData.Rows[i].Cells[1].Value = result;
                     }
                 }
             }

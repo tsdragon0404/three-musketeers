@@ -98,8 +98,8 @@ namespace Cashier.DBManager
 
                 foreach (FilterParameter param in _paramaters)
                 {
-                    if (param.IsOutParameter) dbManager.AddOutParameter(command, param.ParamaterName, (DbType)Enum.ToObject(typeof(DbType), param.ParamaterType), 100);
-                    else dbManager.AddInParameter(command, param.ParamaterName, (DbType)Enum.ToObject(typeof(DbType), param.ParamaterType), param.ParamaterValue);
+                    if (param.IsOutParameter) dbManager.AddOutParameter(command, param.ParamaterName, (SqlDbType)Enum.ToObject(typeof(SqlDbType), param.ParamaterType), 100);
+                    else dbManager.AddInParameter(command, param.ParamaterName, (SqlDbType)Enum.ToObject(typeof(SqlDbType), param.ParamaterType), param.ParamaterValue);
                 }
                 int AffectedRows = dbManager.ExecuteNonQuery(command);
                 FilterParameter outParam = null;
