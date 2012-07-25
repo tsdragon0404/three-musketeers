@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Cashier.DBManager;
 
 namespace Cashier
 {
@@ -19,6 +20,10 @@ namespace Cashier
         private DataTable dt;
         private string startcell = "";
         private string endcell = "";
+        //private FilterParameterCollection inparams;
+        private string[] param;
+        private int countColumn;
+        private string storeName = "spa_Test";
         
         public frmImport()
         {
@@ -35,9 +40,27 @@ namespace Cashier
         {
             for (int i = 0; i < dgvData.Rows.Count; i++)
             {
-                if (dgvData.Rows[i].Cells["colStatus"].Value.ToString().ToLower() == "true")
+                if (dgvData.Rows[i].Cells[0].Value.ToString().ToLower() == "true")
                 {
+                    FilterParameterCollection inparams = new FilterParameterCollection();
+                    for (int j = 1; j < countColumn; j++)
+                    {
+                        inparams.Add(new FilterParameter("@"+param[j], dgvData.Rows[i].Cells[j+1].Value.ToString().Trim(), SqlDbType.NVarChar));
+                    }
 
+                    string result = SaveRow(storeName, inparams);
+                    if (result == "Insert")
+                    {
+                        dgvData.Rows[i].Cells[0].Value = "Insert";
+                    }
+                    else if (result == "Unpdate")
+                    {
+                        dgvData.Rows[i].Cells[0].Value = "Update";
+                    }
+                    else
+                    {
+                        dgvData.Rows[i].Cells[0].Value = result;
+                    }
                 }
             }
         }
@@ -225,8 +248,6 @@ namespace Cashier
         CheckBox ckBox;
         private void bind()
         {
-
-
             dgvData.Rows.Clear();
             dgvData.Columns.Clear();
 
@@ -259,9 +280,12 @@ namespace Cashier
             DataGridViewImageColumn imgcol = new DataGridViewImageColumn();
             dgvData.Columns.Add(imgcol);
 
-            for (int i = 0; i < dt.Columns.Count; i++)
+            countColumn = dt.Columns.Count;
+            param = new string[countColumn];
+
+            for (int i = 1; i < countColumn; i++)
             {
-                
+                param[i] = dt.Rows[0][i].ToString().Trim();
             }
 
             for (int i = 1; i < dt.Rows.Count; i++)
@@ -290,6 +314,20 @@ namespace Cashier
                 this.dgvData[0, j].Value = this.ckBox.Checked;
             }
             this.dgvData.EndEdit();
+        }
+
+        private string SaveRow(string storeName, FilterParameterCollection _inparam)
+        {
+            DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
+
+            FilterParameterCollection outparams = new FilterParameterCollection();
+            FilterParameter outparam = new FilterParameter("ReturnMess", SqlDbType.NVarChar, true);
+            outparams.Add(outparam);
+            int a = dbManager.ExecuteNonQueryCommand(storeName, _inparam, out outparams);
+
+            string result = outparam.ParamaterValue.ToString();
+
+            return result;
         }
     }
 }
