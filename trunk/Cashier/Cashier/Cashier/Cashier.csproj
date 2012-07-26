@@ -130,12 +130,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CmdExit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\MenuTool.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="3rdLibrary\" />
   </ItemGroup>
   <ItemGroup>
