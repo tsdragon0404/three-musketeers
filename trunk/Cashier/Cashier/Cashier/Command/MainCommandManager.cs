@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Reflection;
 using System.Drawing;
+using Resource;
 
 namespace Cashier.Command
 {
@@ -36,14 +37,14 @@ namespace Cashier.Command
 
             for (int i = 0; i < menuList.Rows.Count; i++)
             {
-                Image img = null;
-                if (menuList.Rows[i]["Image"].ToString().Trim() != "")
-                {
-                    System.IO.Stream file = Assembly.GetExecutingAssembly().
-                        GetManifestResourceStream(GetType().Namespace.ToString().Replace(".Command", "") + ".Resources." + menuList.Rows[i]["Image"].ToString());
-                    if(file != null)
-                        img = Image.FromStream(file);
-                }
+                //Image img = null;
+                //if (menuList.Rows[i]["Image"].ToString().Trim() != "")
+                //{
+                //    System.IO.Stream file = Assembly.GetExecutingAssembly().
+                //        GetManifestResourceStream(GetType().Namespace.ToString().Replace(".Command", "") + ".Resources." + menuList.Rows[i]["Image"].ToString());
+                //    if(file != null)
+                //        img = Image.FromStream(file);
+                //}
 
                 if (Int32.Parse(menuList.Rows[i]["IsGroup"].ToString()) == 1)
                 {
@@ -51,7 +52,7 @@ namespace Cashier.Command
                     group.ID = Int32.Parse(menuList.Rows[i]["ID"].ToString());
                     group.Name = menuList.Rows[i]["Name"].ToString();
                     group.Type |= (CommandGroup.CommandGroupType)Int32.Parse(menuList.Rows[i]["MenuGroupEnumValue"].ToString());
-                    group.Image = img;
+                    group.Image = ResourceManager.GetResource(menuList.Rows[i]["Image"].ToString().Trim());
 
                     if (Int32.Parse(menuList.Rows[i]["Parent"].ToString()) == 0)
                         GroupList.Add(group);
@@ -69,7 +70,7 @@ namespace Cashier.Command
                 else
                 {
                     AbstractCommand command = AbstractCommand.CommandFactory((AbstractCommand.CommandType)Int32.Parse(menuList.Rows[i]["MenuCommandEnumValue"].ToString()),
-                        menuList.Rows[i]["Name"].ToString(), img);
+                        menuList.Rows[i]["Name"].ToString(), ResourceManager.GetResource(menuList.Rows[i]["Image"].ToString().Trim()));
 
                     //var list = GroupList.Where(g => g.ID == Int32.Parse(menuList.Rows[i]["Parent"].ToString()));
                     //if (list.Count() > 0)
