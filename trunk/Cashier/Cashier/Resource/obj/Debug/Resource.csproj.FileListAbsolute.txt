@@ -1,5 +1,0 @@
-D:\SVN\SourceControl\three-musketeers\Cashier\Cashier\Resource\bin\Debug\Resource.dll
-D:\SVN\SourceControl\three-musketeers\Cashier\Cashier\Resource\bin\Debug\Resource.pdb
-D:\SVN\SourceControl\three-musketeers\Cashier\Cashier\Resource\obj\Debug\ResolveAssemblyReference.cache
-D:\SVN\SourceControl\three-musketeers\Cashier\Cashier\Resource\obj\Debug\Resource.dll
-D:\SVN\SourceControl\three-musketeers\Cashier\Cashier\Resource\obj\Debug\Resource.pdb
