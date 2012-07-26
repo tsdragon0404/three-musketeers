@@ -52,7 +52,7 @@ namespace Cashier.Command
                     group.ID = Int32.Parse(menuList.Rows[i]["ID"].ToString());
                     group.Name = menuList.Rows[i]["Name"].ToString();
                     group.Type |= (CommandGroup.CommandGroupType)Int32.Parse(menuList.Rows[i]["MenuGroupEnumValue"].ToString());
-                    group.Image = ResourceManager.GetResource(menuList.Rows[i]["Image"].ToString().Trim());
+                    group.Image = ResourceManager.GetImage(menuList.Rows[i]["Image"].ToString().Trim());
 
                     if (Int32.Parse(menuList.Rows[i]["Parent"].ToString()) == 0)
                         GroupList.Add(group);
@@ -70,7 +70,7 @@ namespace Cashier.Command
                 else
                 {
                     AbstractCommand command = AbstractCommand.CommandFactory((AbstractCommand.CommandType)Int32.Parse(menuList.Rows[i]["MenuCommandEnumValue"].ToString()),
-                        menuList.Rows[i]["Name"].ToString(), ResourceManager.GetResource(menuList.Rows[i]["Image"].ToString().Trim()));
+                        menuList.Rows[i]["Name"].ToString(), ResourceManager.GetImage(menuList.Rows[i]["Image"].ToString().Trim()));
 
                     //var list = GroupList.Where(g => g.ID == Int32.Parse(menuList.Rows[i]["Parent"].ToString()));
                     //if (list.Count() > 0)

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cashier", "Cashier\Cashier.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMControl", "TMControl\TMControl.csproj", "{94F1B013-6E02-4F37-8C55-1F2945A2F392}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resource", "Resource\Resource.csproj", "{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{94F1B013-6E02-4F37-8C55-1F2945A2F392}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{94F1B013-6E02-4F37-8C55-1F2945A2F392}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{94F1B013-6E02-4F37-8C55-1F2945A2F392}.Release|x86.ActiveCfg = Release|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

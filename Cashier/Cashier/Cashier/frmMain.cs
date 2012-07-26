@@ -55,7 +55,7 @@ namespace Cashier
             dr["MenuCommandEnumValue"] = 0;
             dr["Parent"] = 0;
             dr["Order"] = 1;
-            dr["Image"] = "MenuTool.png";
+            dr["Image"] = "Menu.MenuTool.png";
             dr["ModuleID"] = "1";
             dr["IsGroup"] = "1";
 
@@ -77,7 +77,7 @@ namespace Cashier
             dr4["MenuCommandEnumValue"] = 0;
             dr4["Parent"] = 2;
             dr4["Order"] = 4;
-            dr4["Image"] = "MenuTool.png";
+            dr4["Image"] = "Menu.MenuTool.png";
             dr4["ModuleID"] = "2";
             dr4["IsGroup"] = "1";
 
@@ -88,7 +88,7 @@ namespace Cashier
             dr3["MenuCommandEnumValue"] = 1;
             dr3["Parent"] = 4;
             dr3["Order"] = 5;
-            dr3["Image"] = "CmdExit.png";
+            dr3["Image"] = "Menu.CmdExit.png";
             dr3["ModuleID"] = "2";
             dr3["IsGroup"] = "0";
 
@@ -99,7 +99,7 @@ namespace Cashier
             dr5["MenuCommandEnumValue"] = 1;
             dr5["Parent"] = 1;
             dr5["Order"] = 5;
-            dr5["Image"] = "CmdExit.png";
+            dr5["Image"] = "Menu.CmdExit.png";
             dr5["ModuleID"] = "1";
             dr5["IsGroup"] = "0";
 
