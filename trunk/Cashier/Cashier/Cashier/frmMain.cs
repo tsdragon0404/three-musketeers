@@ -157,7 +157,7 @@ namespace Cashier
             int a = dbManager.ExecuteNonQueryCommand("spa_test", inparams, out outparams);
             string result = outparams[0].ParamaterValue.ToString();
             MessageBox.Show(result);
-            dataGridView1.DataSource = table;
+            //dataGridView1.DataSource = table;
         }
     }
 }

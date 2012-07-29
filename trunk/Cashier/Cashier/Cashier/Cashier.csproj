@@ -137,6 +137,10 @@
       <Project>{EFEA9B3C-A9DD-44E9-9EA3-C7F080E64483}</Project>
       <Name>Resource</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TMControl\TMControl.csproj">
+      <Project>{94F1B013-6E02-4F37-8C55-1F2945A2F392}</Project>
+      <Name>TMControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

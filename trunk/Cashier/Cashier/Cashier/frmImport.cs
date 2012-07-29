@@ -38,7 +38,6 @@ namespace Cashier
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-
             for (int i = 0; i < dgvData.Rows.Count; i++)
             {
                 if (dgvData.Rows[i].Cells[0].Value.ToString().ToLower() == "true")
@@ -97,6 +96,7 @@ namespace Cashier
             {
                 dt = readExcel();
                 bind();
+                //tmDataGridView1.BindData(dt);
             }
         }
         private List<string> getSheetList(out List<int> rowcount)
@@ -322,7 +322,6 @@ namespace Cashier
         private string SaveRow(string storeName, FilterParameterCollection _inparam)
         {
             DBManager.BDSDAO dbManager = new DBManager.BDSDAO();
-
             FilterParameterCollection outparams = new FilterParameterCollection();
             _inparam.Add("@ReTurnMess", "", SqlDbType.NVarChar,true);
             int a = dbManager.ExecuteNonQueryCommand(storeName, _inparam, out outparams);
@@ -330,6 +329,11 @@ namespace Cashier
             string result = outparams[0].ParamaterValue.ToString();
 
             return result;
+        }
+
+        private void tmDataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //tmDataGridView1.BindData(
         }
     }
 }
