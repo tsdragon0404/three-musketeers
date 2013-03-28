@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopManagement", "ShopManagement\ShopManagement.csproj", "{1175895E-B146-4423-A473-F99385AE542A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2484AA0B-5D6B-4E67-8F2C-9535C5FD7DB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM", "TM\TM.csproj", "{10CBAE8F-9079-4D41-984E-855EB6217AE8}"
@@ -45,10 +43,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1175895E-B146-4423-A473-F99385AE542A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1175895E-B146-4423-A473-F99385AE542A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1175895E-B146-4423-A473-F99385AE542A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1175895E-B146-4423-A473-F99385AE542A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10CBAE8F-9079-4D41-984E-855EB6217AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10CBAE8F-9079-4D41-984E-855EB6217AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10CBAE8F-9079-4D41-984E-855EB6217AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
