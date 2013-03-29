@@ -1,4 +1,0 @@
-E:\Work\TM\ShopManagement\TM.Framework.Data.Models\bin\Debug\TM.Framework.Data.Models.dll
-E:\Work\TM\ShopManagement\TM.Framework.Data.Models\bin\Debug\TM.Framework.Data.Models.pdb
-E:\Work\TM\ShopManagement\TM.Framework.Data.Models\obj\Debug\TM.Framework.Data.Models.dll
-E:\Work\TM\ShopManagement\TM.Framework.Data.Models\obj\Debug\TM.Framework.Data.Models.pdb
