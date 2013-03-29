@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E2C07320-D67D-4740-B78D-5846C4883C1D}</ProjectGuid>
+    <ProjectGuid>{1F8129CE-12AC-45E2-8D00-234067DED837}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TM.Infrastructure.Entities</RootNamespace>
-    <AssemblyName>TM.Infrastructure.Entities</AssemblyName>
+    <RootNamespace>TM.Framework.Data.Models</RootNamespace>
+    <AssemblyName>TM.Framework.Data.Models</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,17 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="IEntityWithTypedId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PutAllEntityHere.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TM.Framework.Data.Models\TM.Framework.Data.Models.csproj">
-      <Project>{1F8129CE-12AC-45E2-8D00-234067DED837}</Project>
-      <Name>TM.Framework.Data.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
