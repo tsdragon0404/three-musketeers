@@ -51,9 +51,9 @@
       <Project>{27653601-FB75-43D4-A336-9AB6A563D52A}</Project>
       <Name>TM.DataContracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TM.Interfaces.ApplicationServices\TM.Interfaces.ApplicationServices.csproj">
-      <Project>{61EB2A94-4885-49A8-8922-672E4DB0A78F}</Project>
-      <Name>TM.Interfaces.ApplicationServices</Name>
+    <ProjectReference Include="..\TM.Interfaces\TM.Interfaces.csproj">
+      <Project>{F4D25DF2-95C1-4F25-A3ED-32B0F7E30871}</Project>
+      <Name>TM.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TM\TM.csproj">
       <Project>{10CBAE8F-9079-4D41-984E-855EB6217AE8}</Project>

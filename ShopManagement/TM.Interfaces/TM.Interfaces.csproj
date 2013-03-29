@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{949EF691-86FF-444A-AAB8-F771B0735BCA}</ProjectGuid>
+    <ProjectGuid>{F4D25DF2-95C1-4F25-A3ED-32B0F7E30871}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TM.CoreServices.Contracts</RootNamespace>
-    <AssemblyName>TM.CoreServices.Contracts</AssemblyName>
+    <RootNamespace>TM.Interfaces</RootNamespace>
+    <AssemblyName>TM.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,9 +43,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ApplicationServices\" />
+    <Folder Include="BusinessServices\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TM.DataContracts\TM.DataContracts.csproj">
       <Project>{27653601-FB75-43D4-A336-9AB6A563D52A}</Project>
       <Name>TM.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Infrastructure.Entities\TM.Infrastructure.Entities.csproj">
+      <Project>{E2C07320-D67D-4740-B78D-5846C4883C1D}</Project>
+      <Name>TM.Infrastructure.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\TM\TM.csproj">
       <Project>{10CBAE8F-9079-4D41-984E-855EB6217AE8}</Project>
