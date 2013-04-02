@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Castle.Windsor;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TM.Infrastructure.Data;
 using TM.Infrastructure.Data.BusinessServices;
 using TM.Infrastructure.Entities;
 using TM.Interfaces.BusinessServices;
@@ -11,7 +13,8 @@ namespace UnitTest
         [TestInitialize]
         public void TestInitialize()
         {
-            CategoryBusinessServices = new CategoryBusinessServices();
+            var container = new WindsorContainer();
+            container.Install(new DomainInstaller());
         }
         public ICategoryBusinessServices CategoryBusinessServices { get; set; }
 
