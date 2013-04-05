@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using TM.Framework.Data.Models;
+using TM.Framework.Models;
 
 namespace TM.Infrastructure.Data
 {

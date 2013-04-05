@@ -1,9 +1,10 @@
-﻿using TM.Infrastructure.Entities;
+﻿using TM.Framework;
+using TM.Infrastructure.Entities;
 
 namespace TM.Interfaces.BusinessServices
 {
     public interface ICategoryBusinessServices
     {
-        void AddCategory(Category category);
+        ServiceResult<Category> AddCategory(Category category);
     }
 }

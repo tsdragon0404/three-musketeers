@@ -42,9 +42,9 @@
     <Content Include="PutAllEntityHere.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TM.Framework.Data.Models\TM.Framework.Data.Models.csproj">
-      <Project>{1F8129CE-12AC-45E2-8D00-234067DED837}</Project>
-      <Name>TM.Framework.Data.Models</Name>
+    <ProjectReference Include="..\TM.Framework\TM.Framework.csproj">
+      <Project>{E5714AEA-1E4B-457B-A107-AE783C32E20F}</Project>
+      <Name>TM.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

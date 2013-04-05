@@ -1,5 +1,5 @@
 ﻿using System;
-using TM.Framework.Data.Models;
+using TM.Framework.Models;
 
 namespace TM.Infrastructure.Entities
 {
