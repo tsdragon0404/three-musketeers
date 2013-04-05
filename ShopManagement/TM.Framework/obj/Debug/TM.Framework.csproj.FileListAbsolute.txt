@@ -1,6 +1,0 @@
-E:\Work\TM\ShopManagement\TM.Framework\bin\Debug\TM.Framework.dll
-E:\Work\TM\ShopManagement\TM.Framework\bin\Debug\TM.Framework.pdb
-E:\Work\TM\ShopManagement\TM.Framework\bin\Debug\AutoMapper.dll
-E:\Work\TM\ShopManagement\TM.Framework\obj\Debug\TM.Framework.csprojResolveAssemblyReference.cache
-E:\Work\TM\ShopManagement\TM.Framework\obj\Debug\TM.Framework.dll
-E:\Work\TM\ShopManagement\TM.Framework\obj\Debug\TM.Framework.pdb
