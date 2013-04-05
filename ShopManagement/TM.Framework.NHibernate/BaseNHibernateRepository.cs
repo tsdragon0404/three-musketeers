@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using NHibernate;
 using NHibernate.Linq;
-using TM.Framework.Data.Models;
+using TM.Framework.Models;
 
 namespace TM.Framework.NHibernate
 {

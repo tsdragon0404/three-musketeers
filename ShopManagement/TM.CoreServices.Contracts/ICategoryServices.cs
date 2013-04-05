@@ -1,9 +1,9 @@
 ﻿using TM.DataContracts;
 using TM.Framework;
 
-namespace TM.Interfaces.ApplicationServices
+namespace TM.CoreServices.Contracts
 {
-    public interface ICategoryApplicationServices
+    public interface ICategoryServices
     {
         ServiceResult<CategoryDTO> AddCategory(CategoryDTO categoryDTO);
     }

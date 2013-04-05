@@ -5,7 +5,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Persister.Entity;
-using TM.Framework.Data.Models;
+using TM.Framework.Models;
 using TM.Framework.NHibernate;
 
 namespace TM.Infrastructure.Data.Repositories

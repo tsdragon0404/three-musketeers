@@ -1,32 +1,30 @@
-﻿using Castle.Windsor;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TM.Infrastructure.Data;
-using TM.Infrastructure.Data.BusinessServices;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TM.CoreServices;
+using TM.CoreServices.Contracts;
+using TM.DataContracts;
 using TM.Infrastructure.Entities;
-using TM.Interfaces.BusinessServices;
 
 namespace UnitTest
 {
     [TestClass]
     public class RepositoryTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        private ICategoryServices _categoryServices;
+        public ICategoryServices CategoryBusinessServices
         {
-            var container = new WindsorContainer();
-            container.Install(new DomainInstaller());
+            get { return _categoryServices ?? (_categoryServices = new CategoryServices()); }
         }
-        public ICategoryBusinessServices CategoryBusinessServices { get; set; }
 
         [TestMethod]
         public void AddCategoryTest()
         {
-            var category = new Category
+            var categoryDTO = new CategoryDTO
                                {
                                    CategoryName = "cat1"
                                };
-            CategoryBusinessServices.AddCategory(category);
-
+            var result = CategoryBusinessServices.AddCategory(categoryDTO);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Data);
         }
     }
 }

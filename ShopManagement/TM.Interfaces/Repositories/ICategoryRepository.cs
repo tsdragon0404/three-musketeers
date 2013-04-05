@@ -1,4 +1,4 @@
-﻿using TM.Framework.Data.Models;
+﻿using TM.Framework.Models;
 using TM.Infrastructure.Entities;
 
 namespace TM.Interfaces.Repositories

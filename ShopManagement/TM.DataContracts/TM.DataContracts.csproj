@@ -35,9 +35,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TM.Framework\TM.Framework.csproj">
+      <Project>{E5714AEA-1E4B-457B-A107-AE783C32E20F}</Project>
+      <Name>TM.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TM\TM.csproj">
       <Project>{10CBAE8F-9079-4D41-984E-855EB6217AE8}</Project>
       <Name>TM</Name>
