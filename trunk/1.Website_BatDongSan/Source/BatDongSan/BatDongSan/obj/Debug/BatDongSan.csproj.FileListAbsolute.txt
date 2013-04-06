@@ -1,9 +1,0 @@
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\BatDongSan.dll
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\BatDongSan.pdb
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\obj\Debug\ResolveAssemblyReference.cache
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\obj\Debug\BatDongSan.dll
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\obj\Debug\BatDongSan.pdb
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\HtmlAgilityPack.dll
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\obout_Editor.dll
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\MSCaptcha.xml
-D:\GoogleCode\1.Website_BatDongSan\Source_base\BatDongSan\BatDongSan\bin\obout_FileUpload.dll
