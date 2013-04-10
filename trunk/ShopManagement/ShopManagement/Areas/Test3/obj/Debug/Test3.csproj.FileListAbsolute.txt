@@ -1,0 +1,4 @@
+E:\Work\TM\ShopManagement\ShopManagement\bin\Test3.dll
+E:\Work\TM\ShopManagement\ShopManagement\bin\Test3.pdb
+E:\Work\TM\ShopManagement\ShopManagement\Areas\Test3\obj\Debug\Test3.dll
+E:\Work\TM\ShopManagement\ShopManagement\Areas\Test3\obj\Debug\Test3.pdb
