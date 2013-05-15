@@ -1,0 +1,12 @@
+/*
+	Theme Name: Wordpress theme for Website Can Ho 5 Sao
+	Author: LamVu
+	Description:  Child theme based on Twenty Eleven.
+	Template: twentyeleven
+	Version: 1.0
+ */
+@import url("../twentyeleven/style.css");
+
+@import url("../twentyeleven/style_L.css");
+@import url("../twentyeleven/style_S.css");
+@import url("../twentyeleven/style_D.css");
