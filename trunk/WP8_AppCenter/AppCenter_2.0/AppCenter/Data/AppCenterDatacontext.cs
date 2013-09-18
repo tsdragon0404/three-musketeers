@@ -4,6 +4,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
+using AppCenter.Model;
 
 namespace AppCenter.Data
 {
@@ -15,7 +16,7 @@ namespace AppCenter.Data
             : base(ConnectionString)
         { }
 
-        public Table<Model.App> Apps;
+        public Table<PhoneApp> PhoneApps;
 
         public void InitializeData()
         {
@@ -23,11 +24,11 @@ namespace AppCenter.Data
 
             var appDataXml = XElement.Load(resourceInfo.Stream);
 
-            var apps = new List<Model.App>();
+            var apps = new List<PhoneApp>();
 
             foreach (var category in appDataXml.Elements())
             {
-                apps.AddRange(category.Elements().Select(app => new Model.App
+                apps.AddRange(category.Elements().Select(app => new PhoneApp
                                                                     {
                                                                         AppID = app.Attribute("ID") == null ? String.Empty : app.Attribute("ID").Value,
                                                                         AppIcon = app.Attribute("Icon") == null ? String.Empty : app.Attribute("Icon").Value,
@@ -37,7 +38,7 @@ namespace AppCenter.Data
                                                                     }));
             }
 
-            Apps.InsertAllOnSubmit(apps);
+            PhoneApps.InsertAllOnSubmit(apps);
             SubmitChanges();
         }
     }

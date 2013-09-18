@@ -1,11 +1,33 @@
-﻿using System.Data.Linq.Mapping;
+﻿using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using LS.Core;
 
 namespace AppCenter.Model
 {
     [Table(Name = "Application")]
-    public class App : BaseModel
+    public class PhoneApp : BaseModel
     {
+        #region Mandatory fields
+        private int _id;
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int ID
+        {
+            get { return _id; }
+            set
+            {
+                if (_id == value) return;
+
+                NotifyPropertyChanging("ID");
+                _id = value;
+                NotifyPropertyChanged("ID");
+            }
+        }
+
+        [Column(IsVersion = true)]
+        private Binary _version; 
+        #endregion
+
         private string _appID;
 
         [Column]

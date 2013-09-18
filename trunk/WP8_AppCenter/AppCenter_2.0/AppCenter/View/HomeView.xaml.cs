@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
+using AppCenter.ViewModel;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+
+namespace AppCenter.View
+{
+    public partial class HomeView : PhoneApplicationPage
+    {
+        public HomeViewModel ViewModel;
+
+        public HomeView()
+        {
+            InitializeComponent();
+            ViewModel = new HomeViewModel();
+            DataContext = ViewModel;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            ViewModel.GetAllData();
+        }
+    }
+}
