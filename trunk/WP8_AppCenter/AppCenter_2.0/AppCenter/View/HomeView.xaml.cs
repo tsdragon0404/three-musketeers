@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
 using AppCenter.ViewModel;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
+using LS.Utilities;
 
 namespace AppCenter.View
 {
-    public partial class HomeView : PhoneApplicationPage
+    public partial class HomeView
     {
         public HomeViewModel ViewModel;
 
@@ -26,7 +19,22 @@ namespace AppCenter.View
         {
             base.OnNavigatedTo(e);
 
-            ViewModel.GetAllData();
+            if (!StateUtility.IsLaunching && State.ContainsKey("HomeViewModel"))
+                ViewModel = (HomeViewModel)State["HomeViewModel"];
+            else
+                ViewModel.GetAllData();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            if (State.ContainsKey("HomeViewModel"))
+                State["HomeViewModel"] = ViewModel;
+            else
+                State.Add("HomeViewModel", ViewModel);
+
+            StateUtility.IsLaunching = false;
         }
     }
 }

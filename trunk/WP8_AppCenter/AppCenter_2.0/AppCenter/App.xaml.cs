@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using AppCenter.Data;
+using LS.Utilities;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using AppCenter.Resources;
@@ -70,12 +71,14 @@ namespace AppCenter
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            StateUtility.IsLaunching = true;
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            StateUtility.IsLaunching = false;
         }
 
         // Code to execute when the application is deactivated (sent to background)
