@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Model;
 using LS.Core;
@@ -10,7 +12,7 @@ namespace AppCenter.ViewModel
     {
         #region Private variables
         
-        private AppCenterDataContext _db; 
+        private readonly AppCenterDataContext _db; 
 
         #endregion
 
@@ -82,6 +84,32 @@ namespace AppCenter.ViewModel
 
         #endregion
 
+        #region Commands
+
+        private ICommand _viewAppCommand;
+        
+        public ICommand ViewAppCommand
+        {
+            get
+            {
+                return _viewAppCommand ??
+                     (_viewAppCommand = new BaseCommand(ViewApp));
+            }
+        }
+        
+        #endregion
+
+        #region Command methods
+
+        public void ViewApp()
+        {
+            MessageBox.Show("done");
+        }
+
+        #endregion
+
+        #region Get AppList from database
+
         public void GetAllData()
         {
             _nokiaAppList = GetData("Nokia");
@@ -94,6 +122,8 @@ namespace AppCenter.ViewModel
         private ObservableCollection<PhoneApp> GetData(string categoryName)
         {
             return new ObservableCollection<PhoneApp>(_db.PhoneApps.Where(app => app.Category == categoryName).ToList());
-        }
+        } 
+
+        #endregion
     }
 }
