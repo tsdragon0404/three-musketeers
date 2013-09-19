@@ -143,4 +143,19 @@
   <data name="Category_UserApps" xml:space="preserve">
     <value>Apps</value>
   </data>
+  <data name="About_Email1" xml:space="preserve">
+    <value>tsdragon0404@gmail.com</value>
+  </data>
+  <data name="About_PageTitle" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="About_RateMe" xml:space="preserve">
+    <value>Rate me</value>
+  </data>
+  <data name="About_ThankYou" xml:space="preserve">
+    <value>Thank you for using my app :)</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version: 2.0.0.0</value>
+  </data>
 </root>

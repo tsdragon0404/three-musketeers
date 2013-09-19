@@ -6,17 +6,17 @@ namespace LS.Core
     public class BaseCommand : ICommand
     {
         protected Action Action = null;
-        protected Action<object> ParameterizedAction = null;
+        protected Action<Object> ParameterizedAction = null;
 
         #region Constructors
 
-        public BaseCommand(Action action, bool canExecute = true)
+        public BaseCommand(Action action, Boolean canExecute = true)
         {
             Action = action;
             _canExecute = canExecute;
         }
 
-        public BaseCommand(Action<object> parameterizedAction, bool canExecute = true)
+        public BaseCommand(Action<Object> parameterizedAction, Boolean canExecute = true)
         {
             ParameterizedAction = parameterizedAction;
             _canExecute = canExecute;
@@ -24,9 +24,9 @@ namespace LS.Core
 
         #endregion
 
-        private bool _canExecute;
+        private Boolean _canExecute;
 
-        public bool CanExecute
+        public Boolean CanExecute
         {
             get { return _canExecute; }
             set
@@ -41,12 +41,12 @@ namespace LS.Core
             }
         }
 
-        bool ICommand.CanExecute(object parameter)
+        bool ICommand.CanExecute(Object parameter)
         {
             return _canExecute;
         }
 
-        void ICommand.Execute(object parameter)
+        void ICommand.Execute(Object parameter)
         {
             if(Action != null)
                 Action();

@@ -61,6 +61,51 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tsdragon0404@gmail.com.
+        /// </summary>
+        public static string About_Email1 {
+            get {
+                return ResourceManager.GetString("About_Email1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string About_PageTitle {
+            get {
+                return ResourceManager.GetString("About_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate me.
+        /// </summary>
+        public static string About_RateMe {
+            get {
+                return ResourceManager.GetString("About_RateMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for using my app :).
+        /// </summary>
+        public static string About_ThankYou {
+            get {
+                return ResourceManager.GetString("About_ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: 2.0.0.0.
+        /// </summary>
+        public static string About_Version {
+            get {
+                return ResourceManager.GetString("About_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MY APP PUSHER.
         /// </summary>
         public static string ApplicationTitle {

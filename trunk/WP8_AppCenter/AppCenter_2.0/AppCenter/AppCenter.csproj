@@ -103,6 +103,9 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +128,7 @@
     <Resource Include="Data\InitialData.xsd">
       <SubType>Designer</SubType>
     </Resource>
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
@@ -146,7 +154,13 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\appbar.delete.rest.png" />
+    <Content Include="Images\ApplicationBar\Add.png" />
+    <Content Include="Images\ApplicationBar\Cancel.png" />
+    <Content Include="Images\ApplicationBar\Check.png" />
+    <Content Include="Images\ApplicationBar\Delete.png" />
+    <Content Include="Images\ApplicationBar\Info.png" />
+    <Content Include="Images\ApplicationBar\Refresh.png" />
+    <Content Include="Images\ApplicationBar\Select.png" />
     <Content Include="Images\Apps\HTC\45.png" />
     <Content Include="Images\Apps\HTC\52.png" />
     <Content Include="Images\Apps\HTC\53.png" />
@@ -225,6 +239,12 @@
     <Content Include="Images\Apps\Samsung\59.png" />
     <Content Include="Images\Apps\Samsung\60.png" />
     <Content Include="Images\Apps\User\myapp.png" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Resource Include="Data\InitialData.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +266,9 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

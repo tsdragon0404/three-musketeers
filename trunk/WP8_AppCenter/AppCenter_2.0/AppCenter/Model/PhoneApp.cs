@@ -1,4 +1,5 @@
-﻿using System.Data.Linq;
+﻿using System;
+using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using LS.Core;
 
@@ -8,10 +9,10 @@ namespace AppCenter.Model
     public class PhoneApp : BaseModel
     {
         #region Mandatory fields
-        private int _id;
+        private Int32 _id;
 
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public int ID
+        public Int32 ID
         {
             get { return _id; }
             set
@@ -28,10 +29,10 @@ namespace AppCenter.Model
         private Binary _version; 
         #endregion
 
-        private string _appID;
+        private Guid _appID;
 
         [Column]
-        public string AppID
+        public Guid AppID
         {
             get { return _appID; }
             set
@@ -44,10 +45,10 @@ namespace AppCenter.Model
             }
         }
 
-        private string _appName;
+        private String _appName;
 
         [Column]
-        public string AppName
+        public String AppName
         {
             get { return _appName; }
             set
@@ -60,10 +61,10 @@ namespace AppCenter.Model
             }
         }
 
-        private string _appIcon;
+        private String _appIcon;
 
         [Column]
-        public string AppIcon
+        public String AppIcon
         {
             get { return _appIcon; }
             set
@@ -76,10 +77,10 @@ namespace AppCenter.Model
             }
         }
 
-        private string _appVersion;
+        private String _appVersion;
 
         [Column]
-        public string AppVersion
+        public String AppVersion
         {
             get { return _appVersion; }
             set
@@ -92,10 +93,10 @@ namespace AppCenter.Model
             }
         }
 
-        private string _category;
+        private String _category;
 
         [Column]
-        public string Category
+        public String Category
         {
             get { return _category; }
             set
@@ -108,54 +109,52 @@ namespace AppCenter.Model
             }
         }
 
-        #region not use yet
-        //private string _lastUpdate;
+        private DateTime? _lastUpdate;
 
-        //[Column]
-        //public string LastUpdate
-        //{
-        //    get { return _lastUpdate; }
-        //    set
-        //    {
-        //        if (_lastUpdate == value) return;
+        [Column]
+        public DateTime? LastUpdate
+        {
+            get { return _lastUpdate; }
+            set
+            {
+                if (_lastUpdate == value) return;
 
-        //        NotifyPropertyChanging("LastUpdate");
-        //        _lastUpdate = value;
-        //        NotifyPropertyChanged("LastUpdate");
-        //    }
-        //}
+                NotifyPropertyChanging("LastUpdate");
+                _lastUpdate = value;
+                NotifyPropertyChanged("LastUpdate");
+            }
+        }
 
-        //private string _isUpdate;
+        private Boolean _isUpdate;
 
-        //[Column]
-        //public string IsUpdate
-        //{
-        //    get { return _isUpdate; }
-        //    set
-        //    {
-        //        if (_isUpdate == value) return;
+        [Column]
+        public Boolean IsUpdate
+        {
+            get { return _isUpdate; }
+            set
+            {
+                if (_isUpdate == value) return;
 
-        //        NotifyPropertyChanging("IsUpdate");
-        //        _isUpdate = value;
-        //        NotifyPropertyChanged("IsUpdate");
-        //    }
-        //}
+                NotifyPropertyChanging("IsUpdate");
+                _isUpdate = value;
+                NotifyPropertyChanged("IsUpdate");
+            }
+        }
 
-        //private string _isUserDefine;
+        private Boolean _isUserDefined;
 
-        //[Column]
-        //public string IsUserDefine
-        //{
-        //    get { return _isUserDefine; }
-        //    set
-        //    {
-        //        if (_isUserDefine == value) return;
+        [Column]
+        public Boolean IsUserDefined
+        {
+            get { return _isUserDefined; }
+            set
+            {
+                if (_isUserDefined == value) return;
 
-        //        NotifyPropertyChanging("IsUserDefine");
-        //        _isUserDefine = value;
-        //        NotifyPropertyChanged("IsUserDefine");
-        //    }
-        //} 
-        #endregion
+                NotifyPropertyChanging("IsUserDefined");
+                _isUserDefined = value;
+                NotifyPropertyChanged("IsUserDefined");
+            }
+        } 
     }
 }

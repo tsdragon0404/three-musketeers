@@ -2,7 +2,7 @@
 
 namespace LS.Core
 {
-    public class BaseModel : INotifyPropertyChanged, INotifyPropertyChanging
+    public abstract class BaseModel : INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region INotifyPropertyChanged Members
 

@@ -83,6 +83,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="StateUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
