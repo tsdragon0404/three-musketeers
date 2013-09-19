@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Model;
@@ -103,7 +103,7 @@ namespace AppCenter.ViewModel
 
         public void ViewApp()
         {
-            MessageBox.Show("done");
+            
         }
 
         #endregion
@@ -119,7 +119,7 @@ namespace AppCenter.ViewModel
             _userAppList = GetData("Application");
         }
 
-        private ObservableCollection<PhoneApp> GetData(string categoryName)
+        private ObservableCollection<PhoneApp> GetData(String categoryName)
         {
             return new ObservableCollection<PhoneApp>(_db.PhoneApps.Where(app => app.Category == categoryName).ToList());
         } 

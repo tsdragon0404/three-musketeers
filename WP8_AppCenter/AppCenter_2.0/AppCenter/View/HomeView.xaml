@@ -6,7 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" x:Name="View"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:converter="clr-namespace:LS.Utilities.Converters;assembly=LS.Utilities" mc:Ignorable="d" x:Name="View"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -14,6 +15,7 @@
     shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style TargetType="Button">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="0" />
@@ -27,12 +29,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}">
-                    <Image Height="60" Width="60" Margin="5"
-                           Source="{Binding AppIcon}"/>
+                    <Image Height="60" Width="60" Source="{Binding AppIcon}"/>
                 </Button>
                 <HyperlinkButton Grid.Column="1" FontSize="25"
                                  VerticalAlignment="Center"
-                                 ClickMode="Release"
+                                 ClickMode="Release" toolkit:TiltEffect.IsTiltEnabled="True"
                                  Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}">
                     <HyperlinkButton.Template>
                         <ControlTemplate>
@@ -40,8 +41,8 @@
                         </ControlTemplate>
                     </HyperlinkButton.Template>
                 </HyperlinkButton>
-                <Button Grid.Column="2">
-                    <Image Source="/Images/appbar.delete.rest.png" Height="45" Width="45" Margin="5"/>
+                <Button Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image Source="/Images/ApplicationBar/Delete.png" Height="45" Width="45" Margin="5"/>
                 </Button>
             </Grid>
         </DataTemplate>
@@ -74,19 +75,18 @@
         <shell:ApplicationBar>
 
             <shell:ApplicationBarIconButton 
-                IconUri="/Images/appbar.delete.rest.png" 
-                Text="add">
-                
-            </shell:ApplicationBarIconButton>
-            <!--<shell:ApplicationBarIconButton 
-                IconUri="/Images/active.png" 
-                Text="check" 
-                x:Name="checkUpdateBarButton" Click="checkUpdateBarButton_Click" />
+                IconUri="/Images/ApplicationBar/Delete.png" 
+                Text="delete" Click="AppBarDelete"/>
+            
             <shell:ApplicationBarIconButton 
-                IconUri="/Images/info.png" 
+                IconUri="/Images/ApplicationBar/Refresh.png" 
+                Text="check" 
+                x:Name="checkUpdateBarButton" Click="AppBarCheckUpdate" />
+            <shell:ApplicationBarIconButton 
+                IconUri="/Images/ApplicationBar/Info.png" 
                 Text="about" 
-                x:Name="about" Click="about_Click" />
--->
+                x:Name="about" Click="AppBarAbout" />
+            
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

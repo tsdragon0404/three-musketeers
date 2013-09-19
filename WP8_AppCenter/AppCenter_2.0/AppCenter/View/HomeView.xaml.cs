@@ -1,4 +1,6 @@
-﻿using System.Windows.Navigation;
+﻿using System;
+using System.Windows;
+using System.Windows.Navigation;
 using AppCenter.ViewModel;
 using LS.Utilities;
 
@@ -14,6 +16,26 @@ namespace AppCenter.View
             ViewModel = new HomeViewModel();
             DataContext = ViewModel;
         }
+
+        #region ApplicationBar event methods
+
+        public void AppBarDelete(Object sender, EventArgs e)
+        {
+           
+        }
+
+        public void AppBarCheckUpdate(Object sender, EventArgs e)
+        {
+
+        }
+
+        public void AppBarAbout(Object sender, EventArgs e)
+        {
+            
+        }
+        #endregion
+
+        #region Navigation
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -35,6 +57,8 @@ namespace AppCenter.View
                 State.Add("HomeViewModel", ViewModel);
 
             StateUtility.IsLaunching = false;
-        }
+        } 
+
+        #endregion
     }
 }
