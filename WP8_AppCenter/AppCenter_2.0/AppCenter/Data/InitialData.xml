@@ -97,7 +97,7 @@
     <App Icon="/Images/Apps/HTC/55.png" Name="Flashlight" ID="0be0455c-c8d5-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/HTC/52.png" Name="Make More Space" ID="fc388ddb-433d-4c70-ac48-455175a2cbf5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
-  <Category Name="Application">
+  <Category Name="Applications">
     <App Icon="/Images/Apps/User/myapp.png" Name="My app pusher" ID="8768a942-8f14-471b-85d7-9e67b16c11b4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
 </InitialData>

@@ -106,11 +106,65 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string AppBar_About {
+            get {
+                return ResourceManager.GetString("AppBar_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add.
+        /// </summary>
+        public static string AppBar_Add {
+            get {
+                return ResourceManager.GetString("AppBar_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string AppBar_Cancel {
+            get {
+                return ResourceManager.GetString("AppBar_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to check.
+        /// </summary>
+        public static string AppBar_Check {
+            get {
+                return ResourceManager.GetString("AppBar_Check", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ok.
+        /// </summary>
+        public static string AppBar_Ok {
+            get {
+                return ResourceManager.GetString("AppBar_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MY APP PUSHER.
         /// </summary>
         public static string ApplicationTitle {
             get {
                 return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        public static string Category_Games {
+            get {
+                return ResourceManager.GetString("Category_Games", resourceCulture);
             }
         }
         
@@ -156,6 +210,60 @@ namespace AppCenter.Resources {
         public static string Category_UserApps {
             get {
                 return ResourceManager.GetString("Category_UserApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input your new App ID....
+        /// </summary>
+        public static string NewApp_AppID {
+            get {
+                return ResourceManager.GetString("NewApp_AppID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppID is not valid.
+        /// </summary>
+        public static string NewApp_AppIDNotValid {
+            get {
+                return ResourceManager.GetString("NewApp_AppIDNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string NewApp_Category {
+            get {
+                return ResourceManager.GetString("NewApp_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applications.
+        /// </summary>
+        public static string NewApp_Category_Applications {
+            get {
+                return ResourceManager.GetString("NewApp_Category_Applications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        public static string NewApp_Category_Games {
+            get {
+                return ResourceManager.GetString("NewApp_Category_Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new app.
+        /// </summary>
+        public static string NewApp_PageTitle {
+            get {
+                return ResourceManager.GetString("NewApp_PageTitle", resourceCulture);
             }
         }
         

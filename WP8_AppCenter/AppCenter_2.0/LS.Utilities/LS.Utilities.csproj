@@ -84,7 +84,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="GlobalConstants.cs" />
     <Compile Include="StateUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

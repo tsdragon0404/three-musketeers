@@ -58,8 +58,8 @@ namespace AppCenter
             }
 
             var db = new AppCenterDataContext();
-            //if(db.DatabaseExists())
-            //    db.DeleteDatabase();
+            if(GlobalConstants.ResetDatabase && db.DatabaseExists())
+                db.DeleteDatabase();
             if(!db.DatabaseExists())
             {
                 db.CreateDatabase();

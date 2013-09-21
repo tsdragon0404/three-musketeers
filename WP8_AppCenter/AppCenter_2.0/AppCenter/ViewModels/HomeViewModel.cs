@@ -3,10 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using AppCenter.Data;
-using AppCenter.Model;
+using AppCenter.Models;
 using LS.Core;
+using LS.Utilities;
+using Microsoft.Phone.Tasks;
 
-namespace AppCenter.ViewModel
+namespace AppCenter.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
@@ -34,7 +36,7 @@ namespace AppCenter.ViewModel
             set
             {
                 _nokiaAppList = value;
-                NotifyPropertyChanged("NokiaAppList");
+                RaisePropertyChanged("NokiaAppList");
             }
         }
 
@@ -45,7 +47,7 @@ namespace AppCenter.ViewModel
             set
             {
                 _samsungAppList = value;
-                NotifyPropertyChanged("SamsungAppList");
+                RaisePropertyChanged("SamsungAppList");
             }
         }
 
@@ -56,7 +58,7 @@ namespace AppCenter.ViewModel
             set
             {
                 _htcAppList = value;
-                NotifyPropertyChanged("HTCAppList");
+                RaisePropertyChanged("HTCAppList");
             }
         }
 
@@ -67,7 +69,7 @@ namespace AppCenter.ViewModel
             set
             {
                 _microsoftAppList = value;
-                NotifyPropertyChanged("MicrosoftAppList");
+                RaisePropertyChanged("MicrosoftAppList");
             }
         }
 
@@ -78,9 +80,42 @@ namespace AppCenter.ViewModel
             set
             {
                 _userAppList = value;
-                NotifyPropertyChanged("UserAppList");
+                RaisePropertyChanged("UserAppList");
             }
-        } 
+        }
+
+        private ObservableCollection<PhoneApp> _gameList;
+        public ObservableCollection<PhoneApp> GameList
+        {
+            get { return _gameList; }
+            set
+            {
+                _gameList = value;
+                RaisePropertyChanged("GameList");
+            }
+        }
+
+        //private Int32 _selectedCategoryIndex;
+        //public Int32 SelectedCategoryIndex
+        //{
+        //    get { return _selectedCategoryIndex; }
+        //    set
+        //    {
+        //        _selectedCategoryIndex = value;
+        //        RaisePropertyChanged("SelectedCategoryIndex");
+        //    }
+        //}
+
+        //private PhoneApp _selectedNokiaApp;
+        //public PhoneApp SelectedNokiaApp
+        //{
+        //    get { return _selectedNokiaApp; }
+        //    set
+        //    {
+        //        _selectedNokiaApp = value;
+        //        RaisePropertyChanged("SelectedNokiaApp");
+        //    }
+        //}
 
         #endregion
 
@@ -101,22 +136,37 @@ namespace AppCenter.ViewModel
 
         #region Command methods
 
-        public void ViewApp()
+        public void ViewApp(Object param)
         {
-            
+            if (param == null || param.ToString().ToGuid() == Guid.Empty)
+                return;
+
+            var detailapp = new MarketplaceDetailTask {ContentIdentifier = param.ToString()};
+            detailapp.Show();
+        }
+
+        public void AppBarAboutCommand()
+        {
+            SendNavigationRequestMessage(GlobalConstants.ViewUri.About);
+        }
+
+        public void AppBarAddNewCommand()
+        {
+            SendNavigationRequestMessage(GlobalConstants.ViewUri.NewApp);            
         }
 
         #endregion
 
-        #region Get AppList from database
+        #region Initialize
 
-        public void GetAllData()
+        public void InitializeData()
         {
             _nokiaAppList = GetData("Nokia");
             _samsungAppList = GetData("Samsung");
             _htcAppList = GetData("HTC");
             _microsoftAppList = GetData("Microsoft");
-            _userAppList = GetData("Application");
+            _userAppList = GetData("Applications");
+            _gameList = GetData("Games");
         }
 
         private ObservableCollection<PhoneApp> GetData(String categoryName)

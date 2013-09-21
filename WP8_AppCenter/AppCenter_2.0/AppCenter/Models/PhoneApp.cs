@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System.Xml.Linq;
 using LS.Core;
+using LS.Utilities;
 
-namespace AppCenter.Model
+namespace AppCenter.Models
 {
     [Table(Name = "Application")]
     public class PhoneApp : BaseModel
@@ -19,9 +21,9 @@ namespace AppCenter.Model
             {
                 if (_id == value) return;
 
-                NotifyPropertyChanging("ID");
+                RaisePropertyChanging("ID");
                 _id = value;
-                NotifyPropertyChanged("ID");
+                RaisePropertyChanged("ID");
             }
         }
 
@@ -39,9 +41,9 @@ namespace AppCenter.Model
             {
                 if (_appID == value) return;
 
-                NotifyPropertyChanging("AppID");
+                RaisePropertyChanging("AppID");
                 _appID = value;
-                NotifyPropertyChanged("AppID");
+                RaisePropertyChanged("AppID");
             }
         }
 
@@ -55,9 +57,9 @@ namespace AppCenter.Model
             {
                 if (_appName == value) return;
 
-                NotifyPropertyChanging("AppName");
+                RaisePropertyChanging("AppName");
                 _appName = value;
-                NotifyPropertyChanged("AppName");
+                RaisePropertyChanged("AppName");
             }
         }
 
@@ -71,9 +73,9 @@ namespace AppCenter.Model
             {
                 if (_appIcon == value) return;
 
-                NotifyPropertyChanging("AppIcon");
+                RaisePropertyChanging("AppIcon");
                 _appIcon = value;
-                NotifyPropertyChanged("AppIcon");
+                RaisePropertyChanged("AppIcon");
             }
         }
 
@@ -87,9 +89,9 @@ namespace AppCenter.Model
             {
                 if (_appVersion == value) return;
 
-                NotifyPropertyChanging("AppVersion");
+                RaisePropertyChanging("AppVersion");
                 _appVersion = value;
-                NotifyPropertyChanged("AppVersion");
+                RaisePropertyChanged("AppVersion");
             }
         }
 
@@ -103,9 +105,9 @@ namespace AppCenter.Model
             {
                 if (_category == value) return;
 
-                NotifyPropertyChanging("Category");
+                RaisePropertyChanging("Category");
                 _category = value;
-                NotifyPropertyChanged("Category");
+                RaisePropertyChanged("Category");
             }
         }
 
@@ -119,9 +121,9 @@ namespace AppCenter.Model
             {
                 if (_lastUpdate == value) return;
 
-                NotifyPropertyChanging("LastUpdate");
+                RaisePropertyChanging("LastUpdate");
                 _lastUpdate = value;
-                NotifyPropertyChanged("LastUpdate");
+                RaisePropertyChanged("LastUpdate");
             }
         }
 
@@ -135,9 +137,9 @@ namespace AppCenter.Model
             {
                 if (_isUpdate == value) return;
 
-                NotifyPropertyChanging("IsUpdate");
+                RaisePropertyChanging("IsUpdate");
                 _isUpdate = value;
-                NotifyPropertyChanged("IsUpdate");
+                RaisePropertyChanged("IsUpdate");
             }
         }
 
@@ -151,10 +153,41 @@ namespace AppCenter.Model
             {
                 if (_isUserDefined == value) return;
 
-                NotifyPropertyChanging("IsUserDefined");
+                RaisePropertyChanging("IsUserDefined");
                 _isUserDefined = value;
-                NotifyPropertyChanged("IsUserDefined");
+                RaisePropertyChanged("IsUserDefined");
             }
+        }
+
+        #region Constructors
+
+        public PhoneApp()
+        {
+
+        }
+
+        public PhoneApp(XElement appData, XElement categoryData)
+        {
+            Category = categoryData.Attribute("Name") == null ? String.Empty : categoryData.Attribute("Name").Value;
+
+            AppID = appData.Attribute("ID") == null ? Guid.Empty : appData.Attribute("ID").Value.ToGuid();
+            AppIcon = appData.Attribute("Icon") == null ? String.Empty : appData.Attribute("Icon").Value;
+            AppName = appData.Attribute("Name") == null ? String.Empty : appData.Attribute("Name").Value;
+            AppVersion = appData.Attribute("Version") == null ? String.Empty : appData.Attribute("Version").Value;
+            LastUpdate = appData.Attribute("LastUpdate") == null ? null : appData.Attribute("LastUpdate").Value.ToDateTime();
+            IsUpdate = appData.Attribute("IsUpdate") != null && appData.Attribute("IsUpdate").Value.ToBoolean();
+            IsUserDefined = appData.Attribute("IsUserDefine") != null && appData.Attribute("IsUserDefine").Value.ToBoolean();
         } 
+
+        public static PhoneApp NewUserDefinedApp()
+        {
+            return new PhoneApp
+                       {
+                           IsUserDefined = true,
+                           LastUpdate = DateTime.Now,
+                       };
+        }
+
+        #endregion
     }
 }
