@@ -158,4 +158,40 @@
   <data name="About_Version" xml:space="preserve">
     <value>Version: 2.0.0.0</value>
   </data>
+  <data name="AppBar_About" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="AppBar_Add" xml:space="preserve">
+    <value>add</value>
+  </data>
+  <data name="AppBar_Cancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="AppBar_Check" xml:space="preserve">
+    <value>check</value>
+  </data>
+  <data name="AppBar_Ok" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="Category_Games" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="NewApp_AppID" xml:space="preserve">
+    <value>Input your new App ID...</value>
+  </data>
+  <data name="NewApp_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="NewApp_Category_Applications" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="NewApp_Category_Games" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="NewApp_PageTitle" xml:space="preserve">
+    <value>Add new app</value>
+  </data>
+  <data name="NewApp_AppIDNotValid" xml:space="preserve">
+    <value>AppID is not valid</value>
+  </data>
 </root>

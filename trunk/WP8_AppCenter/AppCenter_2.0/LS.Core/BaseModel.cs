@@ -8,7 +8,7 @@ namespace LS.Core
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
@@ -22,7 +22,7 @@ namespace LS.Core
 
         public event PropertyChangingEventHandler PropertyChanging;
 
-        protected void NotifyPropertyChanging(string propertyName)
+        protected void RaisePropertyChanging(string propertyName)
         {
             if (PropertyChanging != null)
             {
