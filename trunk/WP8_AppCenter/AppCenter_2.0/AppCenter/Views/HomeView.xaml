@@ -58,15 +58,16 @@
                     </StackPanel>
                 </Grid>
                 <HyperlinkButton Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
-                                 Margin="0,0,10,0"
-                        Command="{Binding ElementName=View, Path=DataContext.CheckUpdateCommand}" CommandParameter="{Binding AppID}">
+                                 Margin="0,0,10,0" toolkit:TiltEffect.IsTiltEnabled="True"
+                                 Command="{Binding ElementName=View, Path=DataContext.CheckUpdateCommand}" CommandParameter="{Binding AppID}">
                     <HyperlinkButton.Template>
                         <ControlTemplate>
                             <Image Source="/Images/ApplicationBar/Refresh.png" Height="45" Width="45" Margin="5"/>
                         </ControlTemplate>
                     </HyperlinkButton.Template>
                 </HyperlinkButton>
-                <HyperlinkButton Grid.Column="3" Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <HyperlinkButton Grid.Column="3" toolkit:TiltEffect.IsTiltEnabled="True"
+                                 Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <HyperlinkButton.Template>
                         <ControlTemplate>
                             <Image Source="/Images/ApplicationBar/Delete.png" Height="45" Width="45" Margin="5"/>
