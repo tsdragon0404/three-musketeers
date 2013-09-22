@@ -111,19 +111,19 @@ namespace AppCenter.Models
             }
         }
 
-        private DateTime? _lastUpdate;
+        private DateTime? _lastUpdated;
 
         [Column]
-        public DateTime? LastUpdate
+        public DateTime? LastUpdated
         {
-            get { return _lastUpdate; }
+            get { return _lastUpdated; }
             set
             {
-                if (_lastUpdate == value) return;
+                if (_lastUpdated == value) return;
 
-                RaisePropertyChanging("LastUpdate");
-                _lastUpdate = value;
-                RaisePropertyChanged("LastUpdate");
+                RaisePropertyChanging("LastUpdated");
+                _lastUpdated = value;
+                RaisePropertyChanged("LastUpdated");
             }
         }
 
@@ -174,7 +174,7 @@ namespace AppCenter.Models
             AppIcon = appData.Attribute("Icon") == null ? String.Empty : appData.Attribute("Icon").Value;
             AppName = appData.Attribute("Name") == null ? String.Empty : appData.Attribute("Name").Value;
             AppVersion = appData.Attribute("Version") == null ? String.Empty : appData.Attribute("Version").Value;
-            LastUpdate = appData.Attribute("LastUpdate") == null ? null : appData.Attribute("LastUpdate").Value.ToDateTime();
+            LastUpdated = appData.Attribute("LastUpdate") == null ? null : appData.Attribute("LastUpdate").Value.ToDateTime();
             IsUpdate = appData.Attribute("IsUpdate") != null && appData.Attribute("IsUpdate").Value.ToBoolean();
             IsUserDefined = appData.Attribute("IsUserDefine") != null && appData.Attribute("IsUserDefine").Value.ToBoolean();
         } 
@@ -184,7 +184,7 @@ namespace AppCenter.Models
             return new PhoneApp
                        {
                            IsUserDefined = true,
-                           LastUpdate = DateTime.Now,
+                           LastUpdated = DateTime.Now,
                        };
         }
 

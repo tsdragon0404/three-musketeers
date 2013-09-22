@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
@@ -95,28 +96,6 @@ namespace AppCenter.ViewModels
             }
         }
 
-        //private Int32 _selectedCategoryIndex;
-        //public Int32 SelectedCategoryIndex
-        //{
-        //    get { return _selectedCategoryIndex; }
-        //    set
-        //    {
-        //        _selectedCategoryIndex = value;
-        //        RaisePropertyChanged("SelectedCategoryIndex");
-        //    }
-        //}
-
-        //private PhoneApp _selectedNokiaApp;
-        //public PhoneApp SelectedNokiaApp
-        //{
-        //    get { return _selectedNokiaApp; }
-        //    set
-        //    {
-        //        _selectedNokiaApp = value;
-        //        RaisePropertyChanged("SelectedNokiaApp");
-        //    }
-        //}
-
         #endregion
 
         #region Commands
@@ -131,10 +110,30 @@ namespace AppCenter.ViewModels
                      (_viewAppCommand = new BaseCommand(ViewApp));
             }
         }
-        
+
+        private ICommand _checkUpdateCommand;
+
+        public ICommand CheckUpdateCommand
+        {
+            get { return _checkUpdateCommand ?? (_checkUpdateCommand = new BaseCommand(CheckUpdate)); }
+        }
+
         #endregion
 
         #region Command methods
+
+        public void CheckUpdate(Object param)
+        {
+            if (param == null || param.ToString().ToGuid() == Guid.Empty)
+                return;
+
+            RequestApplicationInfo.GetApplicationInfoAsync(param.ToString(), appInfo =>
+                                                                                 {
+                                                                                     String categoryName;
+                                                                                     _db.UpdateApplication(appInfo, out categoryName);
+                                                                                     RefetchCategory(categoryName);
+                                                                                 });
+        }
 
         public void ViewApp(Object param)
         {
@@ -161,18 +160,45 @@ namespace AppCenter.ViewModels
 
         public void InitializeData()
         {
-            _nokiaAppList = GetData("Nokia");
-            _samsungAppList = GetData("Samsung");
-            _htcAppList = GetData("HTC");
-            _microsoftAppList = GetData("Microsoft");
-            _userAppList = GetData("Applications");
-            _gameList = GetData("Games");
+            _nokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Nokia).ToObservableCollection();
+            _samsungAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Samsung).ToObservableCollection();
+            _htcAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.HTC).ToObservableCollection();
+            _microsoftAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Microsoft).ToObservableCollection();
+            _userAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Applications).ToObservableCollection();
+            _gameList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Games).ToObservableCollection();
         }
 
-        private ObservableCollection<PhoneApp> GetData(String categoryName)
+        #endregion
+
+        #region Refetch data
+
+        public void RefetchCategory(String categoryName)
         {
-            return new ObservableCollection<PhoneApp>(_db.PhoneApps.Where(app => app.Category == categoryName).ToList());
-        } 
+            switch (categoryName)
+            {
+                case GlobalConstants.CategoryName.Nokia:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Nokia).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.Samsung:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Samsung).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.HTC:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.HTC).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.Microsoft:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Microsoft).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.Applications:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Applications).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.Games:
+                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Games).ToObservableCollection();
+                    break;
+                case GlobalConstants.CategoryName.All:
+                    InitializeData();
+                    break;
+            }
+        }
 
         #endregion
     }

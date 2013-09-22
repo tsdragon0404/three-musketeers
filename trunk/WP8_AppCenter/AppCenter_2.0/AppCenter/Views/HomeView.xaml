@@ -29,7 +29,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}">
+                <Button Command="{Binding ElementName=View, Path=DataContext.CheckUpdateCommand}" CommandParameter="{Binding AppID}">
                     <Image Height="60" Width="60" Source="{Binding AppIcon}"/>
                 </Button>
                 <HyperlinkButton Grid.Column="1" FontSize="25"
@@ -77,21 +77,4 @@
         </phone:Pivot>
         
     </Grid>
-   <!-- <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar>
-
-            <shell:ApplicationBarIconButton 
-                IconUri="/Images/ApplicationBar/Add.png" 
-                Text="add" Click="AppBarAddNew" x:Name="barbtnAdd" />
-            <shell:ApplicationBarIconButton 
-                IconUri="/Images/ApplicationBar/Refresh.png" 
-                Text="check"  x:Name="barbtnCheck" 
-                Click="AppBarCheckUpdate" />
-            <shell:ApplicationBarIconButton 
-                IconUri="/Images/ApplicationBar/Info.png" 
-                Text="about"  x:Name="barbtnAbout" 
-                Click="AppBarAbout" />
-            
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 </Core:BaseView>

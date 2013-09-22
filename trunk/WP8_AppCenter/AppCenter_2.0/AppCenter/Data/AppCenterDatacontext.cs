@@ -31,5 +31,26 @@ namespace AppCenter.Data
             PhoneApps.InsertAllOnSubmit(apps);
             SubmitChanges();
         }
+
+        public List<PhoneApp> GetAppsByCategoryName(String categoryName)
+        {
+            return PhoneApps.Where(app => app.Category == categoryName).ToList();
+        } 
+
+        public void UpdateApplication(ApplicationInfo appInfo, out String categoryName)
+        {
+            var app = PhoneApps.FirstOrDefault(a => a.AppID == appInfo.AppID);
+            if (app == null)
+            {
+                categoryName = String.Empty;
+                return;
+            }
+
+            categoryName = app.Category;
+
+            app.AppVersion = appInfo.Version;
+            app.LastUpdated = appInfo.LastUpdated;
+            SubmitChanges();
+        }
     }
 }

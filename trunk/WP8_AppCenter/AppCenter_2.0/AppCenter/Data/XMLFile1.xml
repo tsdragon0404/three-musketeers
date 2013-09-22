@@ -1,0 +1,39 @@
+﻿<a:entry xmlns:a="http://www.w3.org/2005/Atom">
+  <a:updated>2013-09-22T04:48:06.160246Z</a:updated>
+  <a:title type="text">App Social 3.2.0.88</a:title>
+  <a:id>urn:uuid:92cb9c4e-be3c-49b0-87be-884c8321b127</a:id>
+  <version xmlns="http://schemas.zune.net/catalog/apps/2008/02">3.2.0.88</version>
+  <payloadId xmlns="http://schemas.zune.net/catalog/apps/2008/02">urn:uuid:c56c95de-2f29-40f8-aed2-b8f8a6dbc686</payloadId>
+  <skuId xmlns="http://schemas.zune.net/catalog/apps/2008/02">urn:uuid:92cb9c4e-be3c-49b0-87be-884c8321b127</skuId>
+  <skuLastUpdated xmlns="http://schemas.zune.net/catalog/apps/2008/02">2013-09-19T16:45:18.573000Z</skuLastUpdated>
+  <isAvailableInCountry xmlns="http://schemas.zune.net/catalog/apps/2008/02">true</isAvailableInCountry>
+  <isAvailableInStore xmlns="http://schemas.zune.net/catalog/apps/2008/02">false</isAvailableInStore>
+  <isClientTypeCompatible xmlns="http://schemas.zune.net/catalog/apps/2008/02">true</isClientTypeCompatible>
+  <isHardwareCompatible xmlns="http://schemas.zune.net/catalog/apps/2008/02">true</isHardwareCompatible>
+  <isBlacklisted xmlns="http://schemas.zune.net/catalog/apps/2008/02">false</isBlacklisted>
+  <url xmlns="http://schemas.zune.net/catalog/apps/2008/02">http://cdn.marketplacecontent.windowsphone.com/public/5c82acaf-8d58-4c9f-89e9-2654577475c7</url>
+  <packageSize xmlns="http://schemas.zune.net/catalog/apps/2008/02">7452762</packageSize>
+  <installSize xmlns="http://schemas.zune.net/catalog/apps/2008/02">16342016</installSize>
+  <clientTypes xmlns="http://schemas.zune.net/catalog/apps/2008/02">
+    <clientType>WindowsPhone80</clientType>
+    <clientType>WindowsPhone81</clientType>
+  </clientTypes>
+  <supportedLanguages xmlns="http://schemas.zune.net/catalog/apps/2008/02">
+    <supportedLanguage>Deutsch</supportedLanguage>
+    <supportedLanguage>English</supportedLanguage>
+    <supportedLanguage>English (United States)</supportedLanguage>
+    <supportedLanguage>español (México)</supportedLanguage>
+    <supportedLanguage>suomi</supportedLanguage>
+    <supportedLanguage>français</supportedLanguage>
+    <supportedLanguage>हिंदी</supportedLanguage>
+    <supportedLanguage>Bahasa Indonesia</supportedLanguage>
+    <supportedLanguage>italiano</supportedLanguage>
+    <supportedLanguage>polski</supportedLanguage>
+    <supportedLanguage>português (Brasil)</supportedLanguage>
+    <supportedLanguage>русский</supportedLanguage>
+    <supportedLanguage>ไทย</supportedLanguage>
+    <supportedLanguage>Tiếng Việt</supportedLanguage>
+    <supportedLanguage>中文(繁體)</supportedLanguage>
+  </supportedLanguages>
+  <deviceCapabilities xmlns="http://schemas.zune.net/catalog/apps/2008/02">&lt;capability&gt;&lt;id&gt;ID_CAP_IDENTITY_DEVICE&lt;/id&gt;&lt;string&gt;phone identity&lt;/string&gt;&lt;disclosure&gt;Disclose&lt;/disclosure&gt;&lt;/capability&gt;&lt;capability&gt;&lt;id&gt;ID_CAP_IDENTITY_USER&lt;/id&gt;&lt;string&gt;owner identity&lt;/string&gt;&lt;disclosure&gt;Disclose&lt;/disclosure&gt;&lt;/capability&gt;&lt;capability&gt;&lt;id&gt;ID_CAP_NETWORKING&lt;/id&gt;&lt;string&gt;data services&lt;/string&gt;&lt;disclosure&gt;Disclose&lt;/disclosure&gt;&lt;/capability&gt;&lt;capability&gt;&lt;id&gt;ID_CAP_PROXIMITY&lt;/id&gt;&lt;string&gt;Proximity&lt;/string&gt;&lt;disclosure&gt;Disclose&lt;/disclosure&gt;&lt;/capability&gt;&lt;capability&gt;&lt;id&gt;ID_FNCTL_LIVETILE&lt;/id&gt;&lt;string&gt;&lt;/string&gt;&lt;disclosure&gt;DoNotShow&lt;/disclosure&gt;&lt;/capability&gt;&lt;hwCapability&gt;&lt;requirementType&gt;Resolution&lt;/requirementType&gt;&lt;id&gt;ID_RESOLUTION_HD720P&lt;/id&gt;&lt;string&gt;HD720P (720x1280)&lt;/string&gt;&lt;required&gt;true&lt;/required&gt;&lt;/hwCapability&gt;&lt;hwCapability&gt;&lt;requirementType&gt;Resolution&lt;/requirementType&gt;&lt;id&gt;ID_RESOLUTION_WVGA&lt;/id&gt;&lt;string&gt;WVGA (480x800)&lt;/string&gt;&lt;required&gt;true&lt;/required&gt;&lt;/hwCapability&gt;&lt;hwCapability&gt;&lt;requirementType&gt;Resolution&lt;/requirementType&gt;&lt;id&gt;ID_RESOLUTION_WXGA&lt;/id&gt;&lt;string&gt;WXGA (768x1280)&lt;/string&gt;&lt;required&gt;true&lt;/required&gt;&lt;/hwCapability&gt;</deviceCapabilities>
+</a:entry>

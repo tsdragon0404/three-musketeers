@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace LS.Utilities
 {
@@ -38,6 +36,11 @@ namespace LS.Utilities
             }
 
             return booleanValue;
+        }
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this List<T> list)
+        {
+            return new ObservableCollection<T>(list);
         }
     }
 }
