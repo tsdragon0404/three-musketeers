@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
+using System.Net.NetworkInformation;
 using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
@@ -124,7 +123,7 @@ namespace AppCenter.ViewModels
 
         public void CheckUpdate(Object param)
         {
-            if (param == null || param.ToString().ToGuid() == Guid.Empty)
+            if (param == null || param.ToString().ToGuid() == Guid.Empty || !NetworkInterface.GetIsNetworkAvailable())
                 return;
 
             RequestApplicationInfo.GetApplicationInfoAsync(param.ToString(), appInfo =>

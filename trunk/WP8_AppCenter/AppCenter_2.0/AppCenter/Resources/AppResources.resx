@@ -194,4 +194,7 @@
   <data name="NewApp_AppIDNotValid" xml:space="preserve">
     <value>AppID is not valid</value>
   </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version: </value>
+  </data>
 </root>
