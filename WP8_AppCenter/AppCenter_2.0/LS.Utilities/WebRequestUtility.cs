@@ -15,8 +15,15 @@ namespace LS.Utilities
             var requestUrl = String.Format(GlobalConstants.RequestAppInfo.Url, appID, os, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
             
             var client = new HttpClient();
-            var responseString = await client.GetStringAsync(requestUrl);
-
+            string responseString;
+            try
+            {
+                responseString = await client.GetStringAsync(requestUrl);
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
             var xmlData = XElement.Parse(responseString);
             var entry = xmlData.Element(GlobalConstants.RequestAppInfo.XNameEntry);
             if (entry == null)

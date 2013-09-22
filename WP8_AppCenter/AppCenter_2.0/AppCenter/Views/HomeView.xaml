@@ -18,29 +18,31 @@
     <Core:BaseView.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
-        <Style TargetType="Button">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0" />
-        </Style>
         <DataTemplate x:Key="ApplicationItemTemplate">
-            <Grid Width="450">
+            <Grid Width="450" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}" CommandParameter="{Binding AppID}">
-                    <Image Height="60" Width="60" Source="{Binding AppIcon}"/>
-                </Button>
+                <HyperlinkButton VerticalAlignment="Center" Margin="0,0,10,0"
+                                 ClickMode="Release" toolkit:TiltEffect.IsTiltEnabled="True"
+                                 Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}"
+                                 CommandParameter="{Binding AppID}">
+                    <HyperlinkButton.Template>
+                        <ControlTemplate>
+                            <Image Height="60" Width="60" Source="{Binding AppIcon}"/>
+                        </ControlTemplate>
+                    </HyperlinkButton.Template>
+                </HyperlinkButton>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <HyperlinkButton FontSize="25"
-                                 VerticalAlignment="Center"
+                    <HyperlinkButton FontSize="25" Margin="0,10,0,0"
+                                 VerticalAlignment="Top"
                                  ClickMode="Release" toolkit:TiltEffect.IsTiltEnabled="True"
                                  Command="{Binding ElementName=View, Path=DataContext.ViewAppCommand}"
                                  CommandParameter="{Binding AppID}">
@@ -50,18 +52,27 @@
                             </ControlTemplate>
                         </HyperlinkButton.Template>
                     </HyperlinkButton>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-30,0,0">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-20,0,0">
                         <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Version, Source={StaticResource LocalizedStrings}}" />
                         <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding AppVersion}" />
                     </StackPanel>
                 </Grid>
-                <Button Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                <HyperlinkButton Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                                 Margin="0,0,10,0"
                         Command="{Binding ElementName=View, Path=DataContext.CheckUpdateCommand}" CommandParameter="{Binding AppID}">
-                    <Image Source="/Images/ApplicationBar/Refresh.png" Height="45" Width="45" Margin="5"/>
-                </Button>
-                <Button Grid.Column="3" Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Image Source="/Images/ApplicationBar/Delete.png" Height="45" Width="45" Margin="5"/>
-                </Button>
+                    <HyperlinkButton.Template>
+                        <ControlTemplate>
+                            <Image Source="/Images/ApplicationBar/Refresh.png" Height="45" Width="45" Margin="5"/>
+                        </ControlTemplate>
+                    </HyperlinkButton.Template>
+                </HyperlinkButton>
+                <HyperlinkButton Grid.Column="3" Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <HyperlinkButton.Template>
+                        <ControlTemplate>
+                            <Image Source="/Images/ApplicationBar/Delete.png" Height="45" Width="45" Margin="5"/>
+                        </ControlTemplate>
+                    </HyperlinkButton.Template>
+                </HyperlinkButton>
             </Grid>
         </DataTemplate>
     </Core:BaseView.Resources>
@@ -91,6 +102,5 @@
                 <ListBox ItemsSource="{Binding GameList}" ItemTemplate="{StaticResource ApplicationItemTemplate}" />
             </phone:PivotItem>
         </phone:Pivot>
-        
     </Grid>
 </Core:BaseView>
