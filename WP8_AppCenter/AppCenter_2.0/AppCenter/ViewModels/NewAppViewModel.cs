@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
 using AppCenter.Resources;
@@ -85,6 +86,21 @@ namespace AppCenter.ViewModels
 
         #endregion
 
+        #region Commands
+
+        private ICommand _scanQRCodeCommand;
+
+        public ICommand ScanQRCodeCommand
+        {
+            get
+            {
+                return _scanQRCodeCommand ??
+                     (_scanQRCodeCommand = new BaseCommand(ScanQRCode));
+            }
+        }
+
+        #endregion
+
         #region Command methods
 
         public void AppBarOkCommand()
@@ -100,6 +116,11 @@ namespace AppCenter.ViewModels
             SendNavigationRequestMessage(GlobalConstants.ViewUri.Home);
         }
         
+        public void ScanQRCode()
+        {
+            
+        }
+
         #endregion
 
         #region Initialize

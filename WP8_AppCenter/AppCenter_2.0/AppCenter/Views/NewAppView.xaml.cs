@@ -25,6 +25,7 @@ namespace AppCenter.Views
         }
 
         #region Control events
+
         private void AppIDLoaded(Object sender, EventArgs e)
         {
             var textBox = sender as TextBox;
@@ -33,6 +34,7 @@ namespace AppCenter.Views
             if (textBox.Text == String.Empty)
                 textBox.Text = AppResources.NewApp_AppID;
         }
+
         private void AppIDGotFocus(Object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
@@ -44,6 +46,7 @@ namespace AppCenter.Views
 
             ViewModel.AppIdChanged = true;
         }
+
         private void AppIDLostFocus(Object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
@@ -53,6 +56,7 @@ namespace AppCenter.Views
             if (string.IsNullOrEmpty(textBox.Text))
                 textBox.Text = AppResources.NewApp_AppID;
         }
+        
         #endregion
 
         #region ApplicationBar event methods

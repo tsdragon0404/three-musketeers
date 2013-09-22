@@ -5,13 +5,14 @@ namespace LS.Utilities
 {
     public static class GlobalConstants
     {
-        public static Boolean ResetDatabase = true;
+        public static Boolean ResetDatabase = false;
 
         public static class ViewUri
         {
             public static Uri Home = new Uri("/Views/HomeView.xaml", UriKind.Relative);
             public static Uri About = new Uri("/Views/AboutView.xaml", UriKind.Relative);
             public static Uri NewApp = new Uri("/Views/NewAppView.xaml", UriKind.Relative);
+            public static Uri ScanQRCode = new Uri("/Views/ScanQRCodeView.xaml", UriKind.Relative);
         }
 
         public static class Data

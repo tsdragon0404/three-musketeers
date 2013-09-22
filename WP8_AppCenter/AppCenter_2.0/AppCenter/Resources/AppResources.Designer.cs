@@ -268,6 +268,15 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scan QR Code.
+        /// </summary>
+        public static string NewApp_UseQRScanner {
+            get {
+                return ResourceManager.GetString("NewApp_UseQRScanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {
