@@ -57,13 +57,15 @@ namespace AppCenter
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            var db = new AppCenterDataContext();
-            if(GlobalConstants.ResetDatabase && db.DatabaseExists())
-                db.DeleteDatabase();
-            if(!db.DatabaseExists())
+            using (var db = new AppCenterDataContext())
             {
-                db.CreateDatabase();
-                db.InitializeData();
+                if (GlobalConstants.ResetDatabase && db.DatabaseExists())
+                    db.DeleteDatabase();
+                if (!db.DatabaseExists())
+                {
+                    db.CreateDatabase();
+                    db.InitializeData();
+                }
             }
         }
 
