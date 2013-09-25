@@ -102,10 +102,19 @@ namespace AppCenter.Views
         {
             base.OnNavigatedTo(e);
 
+            var id = String.Empty;
+
+            if (e.Uri.OriginalString.Contains("?"))
+            {
+                var query = e.Uri.OriginalString.Split('?')[1].Split('=');
+                if (query.Length >= 2)
+                    id = query[1];
+            }
+
             if (!StateUtility.IsLaunching && State.ContainsKey("NewAppViewModel"))
                 ViewModel = (NewAppViewModel)State["NewAppViewModel"];
             else
-                ViewModel.InitializeData();
+                ViewModel.InitializeData(id);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

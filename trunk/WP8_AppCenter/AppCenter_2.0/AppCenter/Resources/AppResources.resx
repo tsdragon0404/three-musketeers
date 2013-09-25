@@ -200,4 +200,16 @@
   <data name="NewApp_UseQRScanner" xml:space="preserve">
     <value>Scan QR Code</value>
   </data>
+  <data name="ScanQR_Cancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="ScanQR_Ok" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="ScanQR_PageTitle" xml:space="preserve">
+    <value>QR Code Scanner</value>
+  </data>
+  <data name="ScanQR_Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
 </root>

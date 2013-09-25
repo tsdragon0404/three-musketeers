@@ -13,7 +13,6 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,28 +20,31 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0,15,0,20">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=LocalizedResources.NewApp_UseQRScanner, Source={StaticResource LocalizedStrings}}"
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=LocalizedResources.ScanQR_PageTitle, Source={StaticResource LocalizedStrings}}"
                 Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
-        <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10">
-            <!-- rectangle which acts as the 'camera window' -->
-            <Rectangle Height="300" HorizontalAlignment="Center" Margin="0,65,0,0"
-                Name="videoRectangle" Stroke="White" StrokeThickness="5"
-                VerticalAlignment="Top" Width="300">
-                <Rectangle.RenderTransform>
-                    <RotateTransform x:Name="videoRotateTransform"/>
-                </Rectangle.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Rectangle x:Name="_previewRect" Height="400" Stroke="White" StrokeThickness="3"
+                       Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
                 <Rectangle.Fill>
-                    <VideoBrush x:Name="viewfinderBrush"/>
+                    <VideoBrush x:Name="_previewVideo">
+                        <VideoBrush.RelativeTransform>
+                            <CompositeTransform x:Name="_previewTransform" CenterX=".5" CenterY=".5" />
+                        </VideoBrush.RelativeTransform>
+                    </VideoBrush>
                 </Rectangle.Fill>
             </Rectangle>
-
-            <!-- Textblock which will hold the output of the QR Code -->
-            <TextBlock Height="171" HorizontalAlignment="Left" Margin="31,406,0,0"
-                Name="resultText" Text=""
-                VerticalAlignment="Top" Width="399" TextWrapping="Wrap"
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0"
+                       Text="{Binding Path=LocalizedResources.ScanQR_Result, Source={StaticResource LocalizedStrings}}"/>
+            <TextBlock Height="100" HorizontalAlignment="Center"
+                Name="resultText" Text="{Binding ResultText, Mode=TwoWay}" Grid.Row="2"
+                VerticalAlignment="Center" Width="400" TextWrapping="Wrap"
                 TextAlignment="Center" />
         </Grid>
     </Grid>

@@ -295,6 +295,42 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string ScanQR_Cancel {
+            get {
+                return ResourceManager.GetString("ScanQR_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ok.
+        /// </summary>
+        public static string ScanQR_Ok {
+            get {
+                return ResourceManager.GetString("ScanQR_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QR Code Scanner.
+        /// </summary>
+        public static string ScanQR_PageTitle {
+            get {
+                return ResourceManager.GetString("ScanQR_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string ScanQR_Result {
+            get {
+                return ResourceManager.GetString("ScanQR_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version: .
         /// </summary>
         public static string Version {

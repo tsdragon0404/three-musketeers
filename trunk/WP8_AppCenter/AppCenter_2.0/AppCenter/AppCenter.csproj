@@ -119,6 +119,7 @@
     <Compile Include="Views\ScanQRCodeView.xaml.cs">
       <DependentUpon>ScanQRCodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ZXing\PhotoCameraLumianceSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

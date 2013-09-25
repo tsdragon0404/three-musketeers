@@ -118,14 +118,14 @@ namespace AppCenter.ViewModels
         
         public void ScanQRCode()
         {
-            
+            SendNavigationRequestMessage(GlobalConstants.ViewUri.ScanQRCode);
         }
 
         #endregion
 
         #region Initialize
 
-        public void InitializeData()
+        public void InitializeData(String id)
         {
             App = PhoneApp.NewUserDefinedApp();
             Categories = new List<String>
@@ -134,7 +134,9 @@ namespace AppCenter.ViewModels
                                  AppResources.NewApp_Category_Games
                              };
             SelectedCategory = Categories[0];
-            AppID = String.Empty;
+            if (id != String.Empty)
+                AppIdChanged = true;
+            AppID = id;
         }
 
         #endregion
