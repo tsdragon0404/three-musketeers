@@ -214,6 +214,33 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last updated: .
+        /// </summary>
+        public static string Home_LastUpdated {
+            get {
+                return ResourceManager.GetString("Home_LastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unknown.
+        /// </summary>
+        public static string Home_Unknown {
+            get {
+                return ResourceManager.GetString("Home_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        public static string Home_Version {
+            get {
+                return ResourceManager.GetString("Home_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input your new App ID....
         /// </summary>
         public static string NewApp_AppID {
@@ -327,15 +354,6 @@ namespace AppCenter.Resources {
         public static string ScanQR_Result {
             get {
                 return ResourceManager.GetString("ScanQR_Result", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Version: .
-        /// </summary>
-        public static string Version {
-            get {
-                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

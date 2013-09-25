@@ -53,8 +53,19 @@
                         </HyperlinkButton.Template>
                     </HyperlinkButton>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-20,0,0">
-                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Version, Source={StaticResource LocalizedStrings}}" />
-                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding AppVersion}" />
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Home_Version, Source={StaticResource LocalizedStrings}}" />
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Home_Unknown, Source={StaticResource LocalizedStrings}}" 
+                                   Visibility="{Binding IsUnknownVersion, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding AppVersion}" 
+                                   Visibility="{Binding IsUnknownVersion, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+                        
+                        <TextBlock FontSize="15" FontStyle="Italic" Text=" - " />
+                        
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Home_LastUpdated, Source={StaticResource LocalizedStrings}}" />
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding Path=LocalizedResources.Home_Unknown, Source={StaticResource LocalizedStrings}}" 
+                                   Visibility="{Binding IsUnknownLastUpdated, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding LastUpdated, StringFormat=d}" 
+                                   Visibility="{Binding IsUnknownLastUpdated, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
                     </StackPanel>
                 </Grid>
                 <HyperlinkButton Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"

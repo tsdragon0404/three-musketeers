@@ -194,7 +194,7 @@
   <data name="NewApp_AppIDNotValid" xml:space="preserve">
     <value>AppID is not valid</value>
   </data>
-  <data name="Version" xml:space="preserve">
+  <data name="Home_Version" xml:space="preserve">
     <value>Version: </value>
   </data>
   <data name="NewApp_UseQRScanner" xml:space="preserve">
@@ -211,5 +211,11 @@
   </data>
   <data name="ScanQR_Result" xml:space="preserve">
     <value>Result</value>
+  </data>
+  <data name="Home_LastUpdated" xml:space="preserve">
+    <value>Last updated: </value>
+  </data>
+  <data name="Home_Unknown" xml:space="preserve">
+    <value>unknown</value>
   </data>
 </root>

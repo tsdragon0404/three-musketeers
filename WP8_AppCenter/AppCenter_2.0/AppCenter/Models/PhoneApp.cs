@@ -95,6 +95,11 @@ namespace AppCenter.Models
             }
         }
 
+        public Boolean IsUnknownVersion
+        {
+            get { return String.IsNullOrEmpty(_appVersion); }
+        }
+
         private String _category;
 
         [Column]
@@ -125,6 +130,11 @@ namespace AppCenter.Models
                 _lastUpdated = value;
                 RaisePropertyChanged("LastUpdated");
             }
+        }
+
+        public Boolean IsUnknownLastUpdated
+        {
+            get { return LastUpdated == null; }
         }
 
         private Boolean _isUpdate;

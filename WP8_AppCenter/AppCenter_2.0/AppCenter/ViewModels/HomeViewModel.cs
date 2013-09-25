@@ -180,19 +180,19 @@ namespace AppCenter.ViewModels
                     NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Nokia).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.Samsung:
-                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Samsung).ToObservableCollection();
+                    SamsungAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Samsung).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.HTC:
-                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.HTC).ToObservableCollection();
+                    HTCAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.HTC).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.Microsoft:
-                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Microsoft).ToObservableCollection();
+                    MicrosoftAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Microsoft).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.Applications:
-                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Applications).ToObservableCollection();
+                    UserAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Applications).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.Games:
-                    NokiaAppList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Games).ToObservableCollection();
+                    GameList = _db.GetAppsByCategoryName(GlobalConstants.CategoryName.Games).ToObservableCollection();
                     break;
                 case GlobalConstants.CategoryName.All:
                     InitializeData();
