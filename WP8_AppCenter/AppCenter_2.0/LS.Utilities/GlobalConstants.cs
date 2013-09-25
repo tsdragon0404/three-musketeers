@@ -12,6 +12,10 @@ namespace LS.Utilities
             public static Uri Home = new Uri("/Views/HomeView.xaml", UriKind.Relative);
             public static Uri About = new Uri("/Views/AboutView.xaml", UriKind.Relative);
             public static Uri NewApp = new Uri("/Views/NewAppView.xaml", UriKind.Relative);
+            public static Uri NewAppWithID(String id)
+            {
+                return new Uri("/Views/NewAppView.xaml?id=" + id, UriKind.Relative);
+            }
             public static Uri ScanQRCode = new Uri("/Views/ScanQRCodeView.xaml", UriKind.Relative);
         }
 
