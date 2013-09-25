@@ -114,6 +114,8 @@ namespace AppCenter.Views
 
         private void DisplayResult(string text)
         {
+            if (text.ToLower().Contains(GlobalConstants.QrCodeSeparator))
+                text = text.ToLower().Split(new[] { GlobalConstants.QrCodeSeparator }, StringSplitOptions.RemoveEmptyEntries)[1];
             resultText.Text = text;
         } 
 
