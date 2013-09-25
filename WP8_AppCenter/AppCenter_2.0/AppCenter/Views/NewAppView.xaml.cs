@@ -104,14 +104,14 @@ namespace AppCenter.Views
 
             var id = String.Empty;
 
-            if (e.Uri.OriginalString.Contains("?"))
+            if (e.NavigationMode == NavigationMode.Back)
             {
-                var query = e.Uri.OriginalString.Split('?')[1].Split('=');
-                if (query.Length >= 2)
-                    id = query[1];
+                var param = GlobalConstants.Navigation.Param as String;
+                if (param != null) 
+                    id = param;
             }
 
-            if (!StateUtility.IsLaunching && State.ContainsKey("NewAppViewModel"))
+            if (!StateUtility.IsLaunching && State.ContainsKey("NewAppViewModel") && String.IsNullOrEmpty(id))
                 ViewModel = (NewAppViewModel)State["NewAppViewModel"];
             else
                 ViewModel.InitializeData(id);

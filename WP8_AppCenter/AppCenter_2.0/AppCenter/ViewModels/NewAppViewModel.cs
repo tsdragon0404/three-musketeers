@@ -5,6 +5,7 @@ using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
 using AppCenter.Resources;
+using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
 
@@ -95,7 +96,7 @@ namespace AppCenter.ViewModels
             get
             {
                 return _scanQRCodeCommand ??
-                     (_scanQRCodeCommand = new BaseCommand(ScanQRCode));
+                     (_scanQRCodeCommand = new RelayCommand(ScanQRCode));
             }
         }
 
@@ -113,7 +114,7 @@ namespace AppCenter.ViewModels
 
         public void AppBarCancelCommand()
         {
-            SendNavigationRequestMessage(GlobalConstants.ViewUri.Home);
+            SendNavigationBack();
         }
         
         public void ScanQRCode()
