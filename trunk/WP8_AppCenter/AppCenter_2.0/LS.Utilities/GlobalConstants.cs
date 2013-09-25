@@ -58,5 +58,13 @@ namespace LS.Utilities
             public static XName XNameVersion = XName.Get("version", ZuneNamespace);
             public static XName XNameLastUpdated = XName.Get("skuLastUpdated", ZuneNamespace);
         }
+
+        public static class Navigation
+        {
+            public static Object Param = null;
+
+            public const String Request = "NavigationRequest";
+            public const String Back = "NavigationBack";
+        }
     }
 }

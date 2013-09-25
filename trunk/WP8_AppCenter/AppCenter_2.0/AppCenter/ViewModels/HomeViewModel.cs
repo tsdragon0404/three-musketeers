@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
+using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
 using Microsoft.Phone.Tasks;
@@ -106,7 +107,7 @@ namespace AppCenter.ViewModels
             get
             {
                 return _viewAppCommand ??
-                     (_viewAppCommand = new BaseCommand(ViewApp));
+                     (_viewAppCommand = new RelayCommand<Object>(ViewApp));
             }
         }
 
@@ -114,7 +115,7 @@ namespace AppCenter.ViewModels
 
         public ICommand CheckUpdateCommand
         {
-            get { return _checkUpdateCommand ?? (_checkUpdateCommand = new BaseCommand(CheckUpdate)); }
+            get { return _checkUpdateCommand ?? (_checkUpdateCommand = new RelayCommand<Object>(CheckUpdate)); }
         }
 
         #endregion
@@ -150,7 +151,7 @@ namespace AppCenter.ViewModels
 
         public void AppBarAddNewCommand()
         {
-            SendNavigationRequestMessage(GlobalConstants.ViewUri.NewApp);            
+            SendNavigationRequestMessage(GlobalConstants.ViewUri.NewApp);
         }
 
         #endregion

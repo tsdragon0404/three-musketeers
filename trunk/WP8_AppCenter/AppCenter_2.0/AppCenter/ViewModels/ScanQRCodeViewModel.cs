@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 using LS.Core;
 using LS.Utilities;
 
@@ -26,15 +25,14 @@ namespace AppCenter.ViewModels
 
         public void SendIDToNewAppView()
         {
-            _resultText = "aaa";
             if(ResultText != String.Empty)
-                SendNavigationRequestMessage(GlobalConstants.ViewUri.NewAppWithID(ResultText));
+                SendNavigationBack(ResultText);
         }
 
         public void ClearID()
         {
             if(ResultText == String.Empty)
-                SendNavigationRequestMessage(GlobalConstants.ViewUri.NewApp);
+                SendNavigationBack();
             ResultText = String.Empty;
         }
 

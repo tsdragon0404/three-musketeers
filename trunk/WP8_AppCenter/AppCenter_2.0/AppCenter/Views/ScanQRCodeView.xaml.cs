@@ -138,6 +138,7 @@ namespace AppCenter.Views
         {
             base.OnNavigatedFrom(e);
 
+            _timer.Stop();
             _photoCamera.Dispose();
         }
 
