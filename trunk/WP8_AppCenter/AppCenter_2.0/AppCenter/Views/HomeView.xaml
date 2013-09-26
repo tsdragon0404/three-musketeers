@@ -89,7 +89,7 @@
         </DataTemplate>
     </Core:BaseView.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <phone:Pivot Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}">
+        <phone:Pivot Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" x:Name="pivot">
             <phone:PivotItem Header="{Binding Path=LocalizedResources.Category_Nokia, Source={StaticResource LocalizedStrings}}">
                 <ListBox ItemsSource="{Binding NokiaAppList}" ItemTemplate="{StaticResource ApplicationItemTemplate}"/>
             </phone:PivotItem>

@@ -86,7 +86,7 @@ namespace AppCenter.Views
 
         public void AppBarOk(Object sender, EventArgs e)
         {
-            ViewModel.AppBarOkCommand(txtAppIDInput.Text.Trim(), cmbCategory.SelectedItem.ToString());
+            ViewModel.AppBarOkCommand();
         }
 
         public void AppBarCancel(Object sender, EventArgs e)

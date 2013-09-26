@@ -39,7 +39,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBox x:Name="txtAppIDInput" Text="{Binding AppID, Mode=TwoWay}" Loaded="AppIDLoaded"
-                     FontStyle="Italic" Margin="0" Padding="0"
+                     FontStyle="Italic" Margin="0" Padding="0" FontSize="20"
                      GotFocus="AppIDGotFocus" LostFocus="AppIDLostFocus"/>
             <TextBlock Text="{Binding Path=LocalizedResources.NewApp_AppIDNotValid, Source={StaticResource LocalizedStrings}}" 
                        Grid.Row="1" Visibility="{Binding IsAppIDValid, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"

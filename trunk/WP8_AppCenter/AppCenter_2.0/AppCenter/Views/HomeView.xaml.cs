@@ -80,10 +80,41 @@ namespace AppCenter.Views
         {
             base.OnNavigatedTo(e);
 
-            if (!StateUtility.IsLaunching && State.ContainsKey("HomeViewModel"))
+            var category = String.Empty;
+
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                var param = GlobalConstants.Navigation.Param as String;
+                if (param != null)
+                    category = param;
+            }
+
+            if (!StateUtility.IsLaunching && State.ContainsKey("HomeViewModel") && String.IsNullOrEmpty(category))
                 ViewModel = (HomeViewModel)State["HomeViewModel"];
             else
-                ViewModel.InitializeData();
+                ViewModel.InitializeData(category);
+
+            switch (category)
+            {
+                case GlobalConstants.CategoryName.Nokia:
+                    pivot.SelectedIndex = 0;
+                    break;
+                case GlobalConstants.CategoryName.Samsung:
+                    pivot.SelectedIndex = 1;
+                    break;
+                case GlobalConstants.CategoryName.HTC:
+                    pivot.SelectedIndex = 2;
+                    break;
+                case GlobalConstants.CategoryName.Microsoft:
+                    pivot.SelectedIndex = 3;
+                    break;
+                case GlobalConstants.CategoryName.Applications:
+                    pivot.SelectedIndex = 4;
+                    break;
+                case GlobalConstants.CategoryName.Games:
+                    pivot.SelectedIndex = 5;
+                    break;
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
