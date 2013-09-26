@@ -16,6 +16,7 @@ namespace AppCenter.Data
         { }
 
         public Table<PhoneApp> PhoneApps;
+        public Table<Setting> Settings;
 
         public void InitializeData()
         {
@@ -24,10 +25,15 @@ namespace AppCenter.Data
             var appDataXml = XElement.Load(resourceInfo.Stream);
 
             var apps = new List<PhoneApp>();
+            var settings = new List<Setting>();
 
             foreach (var category in appDataXml.Elements())
+            {
                 apps.AddRange(category.Elements().Select(app => new PhoneApp(app, category)));
+                settings.Add(new Setting(category));
+            }
 
+            Settings.InsertAllOnSubmit(settings);
             PhoneApps.InsertAllOnSubmit(apps);
             SubmitChanges();
         }
@@ -35,7 +41,12 @@ namespace AppCenter.Data
         public List<PhoneApp> GetAppsByCategoryName(String categoryName)
         {
             return PhoneApps.Where(app => app.Category == categoryName).ToList();
-        } 
+        }
+
+        public List<Setting> GetSetting()
+        {
+            return Settings.ToList();
+        }
 
         public void UpdateApplication(ApplicationInfo appInfo, out String categoryName)
         {

@@ -120,6 +120,9 @@
     <Compile Include="Views\ScanQRCodeView.xaml.cs">
       <DependentUpon>ScanQRCodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Setting.xaml.cs">
+      <DependentUpon>Setting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZXing\PhotoCameraLumianceSource.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ScanQRCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
