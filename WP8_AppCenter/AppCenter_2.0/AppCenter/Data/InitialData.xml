@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <InitialData>
-  <Category Name="Nokia">
+  <Category Name="Nokia" IsCheck="1">
     <App Icon="/Images/Apps/Nokia/5.png" Name="App Social" ID="51f96aba-9924-43d7-8d6c-76a24018d3e0" IsUserDefine="0" Version=""  LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Nokia/20.png" Name="Lumia storage check beta" ID="c2adc981-83c2-4f19-8161-67149e44214c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Nokia/21.png" Name="Nokia Chat beta" ID="386213a7-7cff-4e0a-b658-03646dcc6f50" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
@@ -43,7 +43,7 @@
     <App Icon="/Images/Apps/Nokia/32.png" Name="Nokia account" ID="5c2f810e-7445-4ecb-92d9-99514a5133f4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Nokia/20.png" Name="storage check" ID="b4cf45cc-a355-40d2-8b74-51517a042a18" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
-  <Category Name="Samsung">
+  <Category Name="Samsung" IsCheck="1">
     <App Icon="/Images/Apps/Samsung/47.png" Name="Video Trimmer" ID="e1104603-4b3c-4892-a2f1-dd4c569cc4fb" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Samsung/43.png" Name="Now" ID="4bc2a02b-86b0-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Samsung/44.png" Name="Collins Advanced Dictionary" ID="3a6b5578-9a92-e011-986b-78e7d1fa76f8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
@@ -69,7 +69,7 @@
     <App Icon="/Images/Apps/Samsung/39.png" Name="Mini Diary" ID="1af954eb-a84e-4968-9687-bd65e58cef37" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Samsung/60.png" Name="Mobile Care" ID="5c4fede5-ce12-49ba-a27d-4ff7b631a809" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
-  <Category Name="Microsoft">
+  <Category Name="Microsoft" IsCheck="1">
     <App Icon="/Images/Apps/Microsoft/65.png" Name="Authenticator" ID="e7994dbc-2336-4950-91ba-ca22d653759b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Microsoft/66.png" Name="Bing Finance" ID="1e0440f1-7abf-4b9a-863d-177970eefb5e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Microsoft/67.png" Name="Bing Sports" ID="0f4c8c7e-7114-4e1e-a84c-50664db13b17" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
@@ -86,7 +86,7 @@
     <App Icon="/Images/Apps/Microsoft/79.png" Name="Unit Converter" ID="0f69cc30-1bd8-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/Microsoft/80.png" Name="SkyDrive" ID="ad543082-80ec-45bb-aa02-ffe7f4182ba8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
-  <Category Name="HTC">
+  <Category Name="HTC" IsCheck="1">
     <App Icon="/Images/Apps/HTC/45.png" Name="HTC" ID="e462a4e4-0798-4e01-9ed7-fada88e38357" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/HTC/54.png" Name="Photo Enhancer" ID="8e17bc66-2bb2-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/HTC/61.png" Name="attentive phone" ID="59fba4ce-c8d6-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
@@ -97,7 +97,7 @@
     <App Icon="/Images/Apps/HTC/55.png" Name="Flashlight" ID="0be0455c-c8d5-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
     <App Icon="/Images/Apps/HTC/52.png" Name="Make More Space" ID="fc388ddb-433d-4c70-ac48-455175a2cbf5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
-  <Category Name="Applications">
+  <Category Name="Applications" IsCheck="1">
     <App Icon="/Images/Apps/User/myapp.png" Name="My app pusher" ID="8768a942-8f14-471b-85d7-9e67b16c11b4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
   </Category>
 </InitialData>
