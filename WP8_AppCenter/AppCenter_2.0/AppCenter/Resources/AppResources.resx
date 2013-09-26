@@ -218,4 +218,16 @@
   <data name="Home_Unknown" xml:space="preserve">
     <value>unknown</value>
   </data>
+  <data name="ErrorMessage_ConnectionNotAvailable" xml:space="preserve">
+    <value>An internet connection is not available.\nPlease check your connection and try again.</value>
+  </data>
+  <data name="ErrorMessage_ConnectionNotAvailable_Caption" xml:space="preserve">
+    <value>No connection</value>
+  </data>
+  <data name="ErrorMessage_NewApp_CannotGetAppInfo" xml:space="preserve">
+    <value>Cannot retrieve application information. Please check the application id or try again later.</value>
+  </data>
+  <data name="ErrorMessage_NewApp_CannotGetAppInfo_Caption" xml:space="preserve">
+    <value>Server not response.</value>
+  </data>
 </root>

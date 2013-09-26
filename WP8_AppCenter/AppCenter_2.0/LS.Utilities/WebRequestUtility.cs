@@ -20,10 +20,11 @@ namespace LS.Utilities
             {
                 responseString = await client.GetStringAsync(requestUrl);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                return;
+                throw new HttpRequestException();
             }
+
             var xmlData = XElement.Parse(responseString);
             var entry = xmlData.Element(GlobalConstants.RequestAppInfo.XNameEntry);
             if (entry == null)
@@ -34,7 +35,7 @@ namespace LS.Utilities
             var appName = xmlData.Element(GlobalConstants.RequestAppInfo.XNameAppName);
             if (appName == null)
                 return;
-            var imageUrl = image.Element(GlobalConstants.RequestAppInfo.XNameImageUrl);
+            var imageUrl = image.Element(GlobalConstants.RequestAppInfo.XNameImageID);
             if (imageUrl == null)
                 return;
             var version = entry.Element(GlobalConstants.RequestAppInfo.XNameVersion);
@@ -48,7 +49,7 @@ namespace LS.Utilities
                               Version = version.Value,
                               LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime(),
                               AppName = appName.Value,
-                              ImageUrl = "http://cdn.marketplaceimages.windowsphone.com/v8/images/" + imageUrl.Value.Replace("urn:uuid:", "")
+                              ImageUrl = String.Format(GlobalConstants.RequestAppInfo.ImgUrl, imageUrl.Value.Replace("urn:uuid:", "")) 
                           };
             callBack(appInfo);
         }

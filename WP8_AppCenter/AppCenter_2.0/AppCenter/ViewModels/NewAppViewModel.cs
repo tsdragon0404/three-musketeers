@@ -8,7 +8,7 @@ using AppCenter.Resources;
 using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
-using Microsoft.Phone.Net.NetworkInformation;
+using System.Net.NetworkInformation;
 
 namespace AppCenter.ViewModels
 {
@@ -105,29 +105,33 @@ namespace AppCenter.ViewModels
 
         #region Command methods
 
-        public void AppBarOkCommand(string AppID, string Category)
+        public void AppBarOkCommand()
         {
-            bool isNetwork = NetworkInterface.GetIsNetworkAvailable();
-            if (isNetwork == true)
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
-                if (AppID == String.Empty)
-                {
-                    MessageBox.Show("Not implemented");
-                }
+                AppIdChanged = true;
+                if (!IsAppIDValid)
+                    RaisePropertyChanged("IsAppIDValid");
                 else
                 {
-                    RequestApplicationInfo.GetApplicationInfoAsync(AppID.ToString(), appInfo =>
-                                                                                {
-                                                                                    _db.InsertApplication(appInfo, Category);
-                                                                                    SendNavigationBack();
-                                                                                });
-                    
+                    try
+                    {
+                        RequestApplicationInfo.GetApplicationInfoAsync(AppID, appInfo =>
+                                                                                  {
+                                                                                      _db.InsertApplication(appInfo, SelectedCategory);
+                                                                                      SendNavigationBack(SelectedCategory);
+                                                                                  });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(AppResources.ErrorMessage_NewApp_CannotGetAppInfo,
+                                        AppResources.ErrorMessage_NewApp_CannotGetAppInfo_Caption, MessageBoxButton.OK);
+                    }
                 }
+                    
             }
             else
-            {
-                MessageBox.Show("An internet connection not available.\nPlease check your connection and try again.", "No Connection", MessageBoxButton.OK);
-            }
+                MessageBox.Show(AppResources.ErrorMessage_ConnectionNotAvailable, AppResources.ErrorMessage_ConnectionNotAvailable_Caption, MessageBoxButton.OK);
         }
 
         public void AppBarCancelCommand()
@@ -149,8 +153,8 @@ namespace AppCenter.ViewModels
             App = PhoneApp.NewUserDefinedApp();
             Categories = new List<String>
                              {
-                                 AppResources.NewApp_Category_Applications, 
-                                 AppResources.NewApp_Category_Games
+                                 GlobalConstants.CategoryName.Applications, 
+                                 GlobalConstants.CategoryName.Games
                              };
             SelectedCategory = Categories[0];
             if (id != String.Empty)

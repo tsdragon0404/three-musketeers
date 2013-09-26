@@ -36,7 +36,6 @@ namespace LS.Utilities
 
         public static class CategoryName
         {
-            public const String All = "All";
             public const String Nokia = "Nokia";
             public const String Samsung = "Samsung";
             public const String Microsoft = "Microsoft";
@@ -50,14 +49,14 @@ namespace LS.Utilities
             private const String AtomNamespace = "http://www.w3.org/2005/Atom";
             private const String ZuneNamespace = "http://schemas.zune.net/catalog/apps/2008/02";
 
-
             public const String Url = "http://marketplaceedgeservice.windowsphone.com/v8/catalog/apps/{0}?os={1}&cc=us&lang=en-us&ignored={2}";
+            public const String ImgUrl = "http://cdn.marketplaceimages.windowsphone.com/v8/images/{0}";
             public static XName XNameEntry = XName.Get("entry", AtomNamespace);
             public static XName XNameImage = XName.Get("image", ZuneNamespace);
             public static XName XNameAppName = XName.Get("sortTitle", ZuneNamespace);
             public static XName XNameVersion = XName.Get("version", ZuneNamespace);
             public static XName XNameLastUpdated = XName.Get("skuLastUpdated", ZuneNamespace);
-            public static XName XNameImageUrl = XName.Get("id", ZuneNamespace);
+            public static XName XNameImageID = XName.Get("id", ZuneNamespace);
         }
 
         public static class Navigation
