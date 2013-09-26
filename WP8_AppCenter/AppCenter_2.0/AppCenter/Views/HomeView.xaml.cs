@@ -65,7 +65,7 @@ namespace AppCenter.Views
 
         public void AppBarCheckUpdate(Object sender, EventArgs e)
         {
-
+            ViewModel.AppBarCheckUpdate();
         }
 
         public void AppBarAbout(Object sender, EventArgs e)
