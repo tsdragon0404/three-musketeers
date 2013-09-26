@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
 using Microsoft.Phone.Tasks;
+using System.Threading;
 
 namespace AppCenter.ViewModels
 {
@@ -152,6 +153,19 @@ namespace AppCenter.ViewModels
         public void AppBarAddNewCommand()
         {
             SendNavigationRequestMessage(GlobalConstants.ViewUri.NewApp);
+        }
+
+        public void AppBarCheckUpdate()
+        {
+            foreach (PhoneApp phoneApp in NokiaAppList)
+            {
+                RequestApplicationInfo.GetApplicationInfoAsync(phoneApp.AppID.ToString(), appInfo =>
+                                                                                    {
+                                                                                        String categoryName;
+                                                                                        _db.UpdateApplication(appInfo, out categoryName);
+                                                                                    });
+            }
+            RefetchCategory("Nokia");
         }
 
         #endregion

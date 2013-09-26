@@ -195,7 +195,7 @@
     <value>AppID is not valid</value>
   </data>
   <data name="Home_Version" xml:space="preserve">
-    <value>Version: </value>
+    <value>Version </value>
   </data>
   <data name="NewApp_UseQRScanner" xml:space="preserve">
     <value>Scan QR Code</value>
@@ -213,7 +213,7 @@
     <value>Result</value>
   </data>
   <data name="Home_LastUpdated" xml:space="preserve">
-    <value>Last updated: </value>
+    <value>Last updated </value>
   </data>
   <data name="Home_Unknown" xml:space="preserve">
     <value>unknown</value>
