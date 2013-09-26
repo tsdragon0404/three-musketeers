@@ -53,8 +53,11 @@ namespace LS.Utilities
 
             public const String Url = "http://marketplaceedgeservice.windowsphone.com/v8/catalog/apps/{0}?os={1}&cc=us&lang=en-us&ignored={2}";
             public static XName XNameEntry = XName.Get("entry", AtomNamespace);
+            public static XName XNameImage = XName.Get("image", ZuneNamespace);
+            public static XName XNameAppName = XName.Get("sortTitle", ZuneNamespace);
             public static XName XNameVersion = XName.Get("version", ZuneNamespace);
             public static XName XNameLastUpdated = XName.Get("skuLastUpdated", ZuneNamespace);
+            public static XName XNameImageUrl = XName.Get("id", ZuneNamespace);
         }
 
         public static class Navigation
