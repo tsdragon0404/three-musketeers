@@ -28,6 +28,15 @@ namespace LS.Utilities
             var entry = xmlData.Element(GlobalConstants.RequestAppInfo.XNameEntry);
             if (entry == null)
                 return;
+            var image = xmlData.Element(GlobalConstants.RequestAppInfo.XNameImage);
+            if (image == null)
+                return;
+            var appName = xmlData.Element(GlobalConstants.RequestAppInfo.XNameAppName);
+            if (appName == null)
+                return;
+            var imageUrl = image.Element(GlobalConstants.RequestAppInfo.XNameImageUrl);
+            if (imageUrl == null)
+                return;
             var version = entry.Element(GlobalConstants.RequestAppInfo.XNameVersion);
             if (version == null)
                 return;
@@ -37,7 +46,9 @@ namespace LS.Utilities
                           {
                               AppID = appID.ToGuid(),
                               Version = version.Value,
-                              LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime()
+                              LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime(),
+                              AppName = appName.Value,
+                              ImageUrl = "http://cdn.marketplaceimages.windowsphone.com/v8/images/" + imageUrl.Value.Replace("urn:uuid:", "")
                           };
             callBack(appInfo);
         }
@@ -50,5 +61,7 @@ namespace LS.Utilities
         public Guid AppID { get; set; }
         public String Version { get; set; }
         public DateTime? LastUpdated { get; set; }
+        public String AppName { get; set; }
+        public String ImageUrl { get; set; }
     }
 }

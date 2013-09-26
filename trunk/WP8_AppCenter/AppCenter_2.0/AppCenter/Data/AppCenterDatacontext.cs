@@ -52,5 +52,18 @@ namespace AppCenter.Data
             app.LastUpdated = appInfo.LastUpdated;
             SubmitChanges();
         }
+
+        public void InsertApplication(ApplicationInfo appInfo, String Category)
+        {
+            PhoneApp A = new PhoneApp();
+            A.AppID = appInfo.AppID;
+            A.AppName = appInfo.AppName;
+            A.AppVersion = appInfo.Version;
+            A.AppIcon = appInfo.ImageUrl;
+            A.Category = Category;
+            A.IsUserDefined = true;
+            PhoneApps.InsertOnSubmit(A);
+            SubmitChanges();
+        }
     }
 }

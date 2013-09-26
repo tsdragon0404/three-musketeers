@@ -38,7 +38,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding AppID, Mode=TwoWay}" Loaded="AppIDLoaded"
+            <TextBox x:Name="txtAppIDInput" Text="{Binding AppID, Mode=TwoWay}" Loaded="AppIDLoaded"
                      FontStyle="Italic" Margin="0" Padding="0"
                      GotFocus="AppIDGotFocus" LostFocus="AppIDLostFocus"/>
             <TextBlock Text="{Binding Path=LocalizedResources.NewApp_AppIDNotValid, Source={StaticResource LocalizedStrings}}" 
@@ -50,7 +50,7 @@
             </Button>
             <TextBlock Grid.Row="2" FontSize="22"
                        Text="{Binding Path=LocalizedResources.NewApp_Category, Source={StaticResource LocalizedStrings}}" />
-            <toolkit:ListPicker Grid.Row="3" Margin="10, 0"
+            <toolkit:ListPicker x:Name="cmbCategory" Grid.Row="3" Margin="10, 0"
                                 ItemsSource="{Binding Categories}"
                                 SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
 

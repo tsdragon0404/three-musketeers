@@ -8,6 +8,7 @@ using AppCenter.Resources;
 using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace AppCenter.ViewModels
 {
@@ -104,12 +105,29 @@ namespace AppCenter.ViewModels
 
         #region Command methods
 
-        public void AppBarOkCommand()
+        public void AppBarOkCommand(string AppID, string Category)
         {
-            if (App.AppID == Guid.Empty)
-                return;
-
-            MessageBox.Show("Not implemented");
+            bool isNetwork = NetworkInterface.GetIsNetworkAvailable();
+            if (isNetwork == true)
+            {
+                if (AppID == String.Empty)
+                {
+                    MessageBox.Show("Not implemented");
+                }
+                else
+                {
+                    RequestApplicationInfo.GetApplicationInfoAsync(AppID.ToString(), appInfo =>
+                                                                                {
+                                                                                    _db.InsertApplication(appInfo, Category);
+                                                                                    SendNavigationBack();
+                                                                                });
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("An internet connection not available.\nPlease check your connection and try again.", "No Connection", MessageBoxButton.OK);
+            }
         }
 
         public void AppBarCancelCommand()
