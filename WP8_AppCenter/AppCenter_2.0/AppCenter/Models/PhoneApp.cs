@@ -11,6 +11,7 @@ namespace AppCenter.Models
     public class PhoneApp : BaseModel
     {
         #region Mandatory fields
+        
         private Int32 _id;
 
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
@@ -27,8 +28,6 @@ namespace AppCenter.Models
             }
         }
 
-        [Column(IsVersion = true)]
-        private Binary _version; 
         #endregion
 
         private Guid _appID;
@@ -169,6 +168,22 @@ namespace AppCenter.Models
             }
         }
 
+        private DateTime? _lastCheckVerison;
+
+        [Column]
+        public DateTime? LastCheckVerison
+        {
+            get { return _lastCheckVerison; }
+            set
+            {
+                if (_lastCheckVerison == value) return;
+
+                RaisePropertyChanging("LastCheckVerison");
+                _lastCheckVerison = value;
+                RaisePropertyChanged("LastCheckVerison");
+            }
+        }
+
         #region Constructors
 
         public PhoneApp()
@@ -187,6 +202,7 @@ namespace AppCenter.Models
             LastUpdated = appData.Attribute("LastUpdate") == null ? null : appData.Attribute("LastUpdate").Value.ToDateTime();
             IsUpdate = appData.Attribute("IsUpdate") != null && appData.Attribute("IsUpdate").Value.ToBoolean();
             IsUserDefined = appData.Attribute("IsUserDefine") != null && appData.Attribute("IsUserDefine").Value.ToBoolean();
+            LastCheckVerison = appData.Attribute("LastCheckVerison") == null ? null : appData.Attribute("LastCheckVerison").Value.ToDateTime();
         } 
 
         public PhoneApp(ApplicationInfo appInfo)
@@ -196,6 +212,7 @@ namespace AppCenter.Models
             AppIcon = appInfo.ImageUrl;
             LastUpdated = appInfo.LastUpdated;
             AppVersion = appInfo.Version;
+            LastCheckVerison = DateTime.Now;
         }
 
         public static PhoneApp NewUserDefinedApp()

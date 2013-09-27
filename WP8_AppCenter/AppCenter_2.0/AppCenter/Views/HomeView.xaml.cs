@@ -4,6 +4,7 @@ using AppCenter.Resources;
 using AppCenter.ViewModels;
 using LS.Utilities;
 using Microsoft.Phone.Shell;
+using System.Threading;
 
 namespace AppCenter.Views
 {
@@ -47,6 +48,16 @@ namespace AppCenter.Views
 
             ApplicationBar.Buttons.Add(barbtnCheckUpdate);
 
+            var barbtnSetting =
+                new ApplicationBarIconButton
+                    {
+                        Text = AppResources.AppBar_Settings,
+                        IconUri = GlobalConstants.ApplicationBarIcon.Setting,
+                    };
+            barbtnSetting.Click += AppBarSetting;
+
+            ApplicationBar.Buttons.Add(barbtnSetting);
+
             var barbtnAbout =
                 new ApplicationBarIconButton
                 {
@@ -72,6 +83,12 @@ namespace AppCenter.Views
         {
             ViewModel.AppBarAboutCommand();
         }
+
+        public void AppBarSetting(Object sender, EventArgs e)
+        {
+            ViewModel.AppBarSettingCommand();
+        }
+
         #endregion
 
         #region Navigation

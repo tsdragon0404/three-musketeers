@@ -216,7 +216,7 @@
     <value>Last updated </value>
   </data>
   <data name="Home_Unknown" xml:space="preserve">
-    <value>unknown</value>
+    <value />
   </data>
   <data name="ErrorMessage_ConnectionNotAvailable" xml:space="preserve">
     <value>An internet connection is not available.\nPlease check your connection and try again.</value>
@@ -229,5 +229,17 @@
   </data>
   <data name="ErrorMessage_NewApp_CannotGetAppInfo_Caption" xml:space="preserve">
     <value>Server not response.</value>
+  </data>
+  <data name="AppBar_Settings" xml:space="preserve">
+    <value>settings</value>
+  </data>
+  <data name="Setting_TextDescription" xml:space="preserve">
+    <value>Select vendor to check for updates</value>
+  </data>
+  <data name="Message_CheckUpdateSuccess" xml:space="preserve">
+    <value>Check for update successful</value>
+  </data>
+  <data name="Message_CheckUpdateSuccess_Caption" xml:space="preserve">
+    <value>Success</value>
   </data>
 </root>

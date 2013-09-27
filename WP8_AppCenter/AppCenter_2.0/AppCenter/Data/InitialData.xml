@@ -1,103 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <InitialData>
   <Category Name="Nokia" IsCheck="1">
-    <App Icon="/Images/Apps/Nokia/5.png" Name="App Social" ID="51f96aba-9924-43d7-8d6c-76a24018d3e0" IsUserDefine="0" Version=""  LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="Lumia storage check beta" ID="c2adc981-83c2-4f19-8161-67149e44214c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/21.png" Name="Nokia Chat beta" ID="386213a7-7cff-4e0a-b658-03646dcc6f50" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/22.png" Name="Nokia Conference beta" ID="0264f9a0-689a-40d9-86ad-b20b70ebaad8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/23.png" Name="Place Tag beta" ID="547610c8-e367-49db-8a6d-d279489b753a" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/24.png" Name="Play to" ID="8257b398-f4bf-4483-97c7-6fd6a1e60bbf" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/Nokia/5.png" Name="App Social" ID="51f96aba-9924-43d7-8d6c-76a24018d3e0" IsUserDefine="0" Version=""  LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="Lumia storage check beta" ID="c2adc981-83c2-4f19-8161-67149e44214c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/21.png" Name="Nokia Chat beta" ID="386213a7-7cff-4e0a-b658-03646dcc6f50" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/22.png" Name="Nokia Conference beta" ID="0264f9a0-689a-40d9-86ad-b20b70ebaad8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/23.png" Name="Place Tag beta" ID="547610c8-e367-49db-8a6d-d279489b753a" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/24.png" Name="Play to" ID="8257b398-f4bf-4483-97c7-6fd6a1e60bbf" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
     <App Icon="/Images/Apps/Nokia/34.png" Name="Nokia Reading" ID="ab0d89cb-73a4-4ff8-93dd-91bec9f855bd" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/1.png" Name="Nokia Trailers" ID="b0731ce2-cdee-4cad-af01-a74a0433fcea" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/25.png" Name="Nokia Music" ID="f5874252-1f04-4c3f-a335-4fa3b7b85329" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/33.png" Name="Nokia TV" ID="8f592862-8bb5-4391-b6ca-c79730d3f34a" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/17.png" Name="Ringtone Maker" ID="5a99cbd9-e82a-4892-8264-17a64f9142e5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/12.png" Name="My Nokia" ID="5e242463-ad9c-489b-b1db-cc94a26e513b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/11.png" Name="Nokia NFC Writer" ID="709e64e0-5849-4ce4-b252-b7b252aefacf" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/26.png" Name="Nokia Xpress" ID="cbf5f827-aa0a-4670-8ba6-775676f275b0" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/18.png" Name="Transfer my Data" ID="dc08943b-7b3d-4ee5-aa3c-30f1a826af02" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/64.png" Name="Contacts Transfer" ID="47621875-70b8-4755-b60c-435c0418e899" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/27.png" Name="YouSendt" ID="7cdfb28f-49a1-49af-92b9-16cff52bfd54" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/13.png" Name="Creative Studio" ID="a8ddc8f6-c12c-44e6-b22e-52e2f0905f3e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/2.png" Name="Nokia Cinemagraph" ID="594477c0-e991-4ed4-8be4-466055670e69" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/4.png" Name="Nokia Glam Me" ID="40b6a721-15d2-4843-a746-774bd7b9bda9" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/10.png" Name="Nokia Pro Cam" ID="bfd2d954-12da-415c-ad99-69a20f101e04" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/6.png" Name="Nokia Smart Cam" ID="73e1801b-916e-4db5-87ba-65fbc8dfd8fc" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/7.png" Name="Nokia Video Trimmer" ID="50ece96d-bb5d-4669-a7e1-37246d904d5c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/14.png" Name="Nokia Video Upload" ID="0aeb1b49-f255-41ec-bf47-897b56b15584" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/19.png" Name="Panorama" ID="8124bf8c-0db0-4688-8ec7-698a3c313f2b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/3.png" Name="PhotoBeamer" ID="971c41e5-3596-4a7a-ba2c-bcd7780d7db5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/9.png" Name="Smart Shoot" ID="bb534f9b-3f38-483b-a409-9285de9c62d4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/28.png" Name="HERE City Lens" ID="b0a0ac22-cf9e-45ba-8120-815450e2fd71" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/30.png" Name="HERE Drive+" ID="31bbc68c-503e-4561-8d85-a294d54df06f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/29.png" Name="HERE Maps" ID="efa4b4a7-7499-46ce-aa95-3e4ab3b39313" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/31.png" Name="HERE Transit" ID="adfdad16-b54a-4ec3-b11e-66bd691be4e6" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="access point" ID="ce3895c7-01d0-4daf-a4c3-25c10463942d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="accessories" ID="2fa58039-a6ea-4421-b5c6-9ffac0c3ec3d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="audio" ID="373cb76e-7f6c-45aa-8633-b00e85c73261" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="display+touch" ID="b08997ca-60ab-4dce-b088-f92e9c7994f3" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="extras+info" ID="2377fe1b-c10f-47da-92f3-fc517345a3c0" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="glance" ID="106e0a97-8b19-42cf-8879-a8ed2598fcbb" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="feedback to Nokia" ID="aec3bfad-e38c-4994-9c32-50bd030730ec" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="network+" ID="62f172d1-f552-4749-871c-2afd1c95c245" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/32.png" Name="Nokia account" ID="5c2f810e-7445-4ecb-92d9-99514a5133f4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Nokia/20.png" Name="storage check" ID="b4cf45cc-a355-40d2-8b74-51517a042a18" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/Nokia/1.png" Name="Nokia Trailers" ID="b0731ce2-cdee-4cad-af01-a74a0433fcea" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/25.png" Name="Nokia Music" ID="f5874252-1f04-4c3f-a335-4fa3b7b85329" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/33.png" Name="Nokia TV" ID="8f592862-8bb5-4391-b6ca-c79730d3f34a" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/17.png" Name="Ringtone Maker" ID="5a99cbd9-e82a-4892-8264-17a64f9142e5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/12.png" Name="My Nokia" ID="5e242463-ad9c-489b-b1db-cc94a26e513b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/11.png" Name="Nokia NFC Writer" ID="709e64e0-5849-4ce4-b252-b7b252aefacf" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/26.png" Name="Nokia Xpress" ID="cbf5f827-aa0a-4670-8ba6-775676f275b0" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/18.png" Name="Transfer my Data" ID="dc08943b-7b3d-4ee5-aa3c-30f1a826af02" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/64.png" Name="Contacts Transfer" ID="47621875-70b8-4755-b60c-435c0418e899" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/27.png" Name="YouSendt" ID="7cdfb28f-49a1-49af-92b9-16cff52bfd54" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/13.png" Name="Creative Studio" ID="a8ddc8f6-c12c-44e6-b22e-52e2f0905f3e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/2.png" Name="Nokia Cinemagraph" ID="594477c0-e991-4ed4-8be4-466055670e69" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/4.png" Name="Nokia Glam Me" ID="40b6a721-15d2-4843-a746-774bd7b9bda9" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/10.png" Name="Nokia Pro Cam" ID="bfd2d954-12da-415c-ad99-69a20f101e04" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/6.png" Name="Nokia Smart Cam" ID="73e1801b-916e-4db5-87ba-65fbc8dfd8fc" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/7.png" Name="Nokia Video Trimmer" ID="50ece96d-bb5d-4669-a7e1-37246d904d5c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/14.png" Name="Nokia Video Upload" ID="0aeb1b49-f255-41ec-bf47-897b56b15584" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/19.png" Name="Panorama" ID="8124bf8c-0db0-4688-8ec7-698a3c313f2b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/3.png" Name="PhotoBeamer" ID="971c41e5-3596-4a7a-ba2c-bcd7780d7db5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/9.png" Name="Smart Shoot" ID="bb534f9b-3f38-483b-a409-9285de9c62d4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/28.png" Name="HERE City Lens" ID="b0a0ac22-cf9e-45ba-8120-815450e2fd71" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/30.png" Name="HERE Drive+" ID="31bbc68c-503e-4561-8d85-a294d54df06f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/29.png" Name="HERE Maps" ID="efa4b4a7-7499-46ce-aa95-3e4ab3b39313" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/31.png" Name="HERE Transit" ID="adfdad16-b54a-4ec3-b11e-66bd691be4e6" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="access point" ID="ce3895c7-01d0-4daf-a4c3-25c10463942d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="accessories" ID="2fa58039-a6ea-4421-b5c6-9ffac0c3ec3d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="audio" ID="373cb76e-7f6c-45aa-8633-b00e85c73261" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="display+touch" ID="b08997ca-60ab-4dce-b088-f92e9c7994f3" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="extras+info" ID="2377fe1b-c10f-47da-92f3-fc517345a3c0" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="glance" ID="106e0a97-8b19-42cf-8879-a8ed2598fcbb" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="feedback to Nokia" ID="aec3bfad-e38c-4994-9c32-50bd030730ec" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="network+" ID="62f172d1-f552-4749-871c-2afd1c95c245" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/32.png" Name="Nokia account" ID="5c2f810e-7445-4ecb-92d9-99514a5133f4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Nokia/20.png" Name="storage check" ID="b4cf45cc-a355-40d2-8b74-51517a042a18" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
   </Category>
   <Category Name="Samsung" IsCheck="1">
-    <App Icon="/Images/Apps/Samsung/47.png" Name="Video Trimmer" ID="e1104603-4b3c-4892-a2f1-dd4c569cc4fb" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/43.png" Name="Now" ID="4bc2a02b-86b0-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/44.png" Name="Collins Advanced Dictionary" ID="3a6b5578-9a92-e011-986b-78e7d1fa76f8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/42.png" Name="RSS Times" ID="e7fd6b61-a095-4b06-9fba-005cc9b09267" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/35.png" Name="Artistic Effect" ID="c91eccb8-dbba-4ed8-b5e7-a67925c2a794" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/37.png" Name="Color effects" ID="efca9009-bccd-4763-8e2c-7545d4357dd6" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/41.png" Name="Beauty" ID="106245cc-94a2-4d89-b876-27d22aa7b168" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/36.png" Name="Fun Shot" ID="e07d192c-27c7-40e1-b01c-b8bdbeb65925" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/48.png" Name="MangaCamera" ID="a1634bc6-6be9-4f44-9299-5d7ef96a919e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/51.png" Name="Paper Artist" ID="a1d6b668-ceb2-430b-be62-26a515629d9f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/40.png" Name="Photo Editor" ID="c6cf28b1-f83b-42b9-b6fa-b84cbda80b5c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/50.png" Name="Photogram" ID="edcfb419-78ed-df11-9264-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/38.png" Name="ChatON" ID="adb7b0f1-27c6-4ca7-8d76-82c88101cd2f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/57.png" Name="additional call settings" ID="7df63b5e-131b-459a-a99a-7cd5abcb8f40" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/58.png" Name="advanced text messages" ID="66b14da3-2fa9-4f2f-a8fb-206437150e42" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/57.png" Name="apn" ID="d6ed0f16-898c-4579-b140-9942869b9bc4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/57.png" Name="call blocking" ID="41b58943-f500-4c13-8b9c-81c96d10e342" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/57.png" Name="extra settings" ID="522875f3-f379-4b81-ac6f-29ce06ff2daa" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/57.png" Name="APNs" ID="5e5c37c0-fb9f-4587-8934-d35228de7622" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/46.png" Name="App Folders" ID="1a248adb-1429-45ea-a507-f3d5f4cad58c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/59.png" Name="ATIV Beam" ID="0f38bc3b-f723-47b9-8444-6b7da64fe38b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/49.png" Name="Live Wallpaper" ID="227a4e87-e3eb-49b2-be02-526cf116631c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/39.png" Name="Mini Diary" ID="1af954eb-a84e-4968-9687-bd65e58cef37" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Samsung/60.png" Name="Mobile Care" ID="5c4fede5-ce12-49ba-a27d-4ff7b631a809" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/Samsung/47.png" Name="Video Trimmer" ID="e1104603-4b3c-4892-a2f1-dd4c569cc4fb" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/43.png" Name="Now" ID="4bc2a02b-86b0-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/44.png" Name="Collins Advanced Dictionary" ID="3a6b5578-9a92-e011-986b-78e7d1fa76f8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/42.png" Name="RSS Times" ID="e7fd6b61-a095-4b06-9fba-005cc9b09267" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/35.png" Name="Artistic Effect" ID="c91eccb8-dbba-4ed8-b5e7-a67925c2a794" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/37.png" Name="Color effects" ID="efca9009-bccd-4763-8e2c-7545d4357dd6" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/41.png" Name="Beauty" ID="106245cc-94a2-4d89-b876-27d22aa7b168" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/36.png" Name="Fun Shot" ID="e07d192c-27c7-40e1-b01c-b8bdbeb65925" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/48.png" Name="MangaCamera" ID="a1634bc6-6be9-4f44-9299-5d7ef96a919e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/51.png" Name="Paper Artist" ID="a1d6b668-ceb2-430b-be62-26a515629d9f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/40.png" Name="Photo Editor" ID="c6cf28b1-f83b-42b9-b6fa-b84cbda80b5c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/50.png" Name="Photogram" ID="edcfb419-78ed-df11-9264-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/38.png" Name="ChatON" ID="adb7b0f1-27c6-4ca7-8d76-82c88101cd2f" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/57.png" Name="additional call settings" ID="7df63b5e-131b-459a-a99a-7cd5abcb8f40" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/58.png" Name="advanced text messages" ID="66b14da3-2fa9-4f2f-a8fb-206437150e42" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/57.png" Name="apn" ID="d6ed0f16-898c-4579-b140-9942869b9bc4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/57.png" Name="call blocking" ID="41b58943-f500-4c13-8b9c-81c96d10e342" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/57.png" Name="extra settings" ID="522875f3-f379-4b81-ac6f-29ce06ff2daa" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/57.png" Name="APNs" ID="5e5c37c0-fb9f-4587-8934-d35228de7622" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/46.png" Name="App Folders" ID="1a248adb-1429-45ea-a507-f3d5f4cad58c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/59.png" Name="ATIV Beam" ID="0f38bc3b-f723-47b9-8444-6b7da64fe38b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/49.png" Name="Live Wallpaper" ID="227a4e87-e3eb-49b2-be02-526cf116631c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/39.png" Name="Mini Diary" ID="1af954eb-a84e-4968-9687-bd65e58cef37" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Samsung/60.png" Name="Mobile Care" ID="5c4fede5-ce12-49ba-a27d-4ff7b631a809" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
   </Category>
   <Category Name="Microsoft" IsCheck="1">
-    <App Icon="/Images/Apps/Microsoft/65.png" Name="Authenticator" ID="e7994dbc-2336-4950-91ba-ca22d653759b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/66.png" Name="Bing Finance" ID="1e0440f1-7abf-4b9a-863d-177970eefb5e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/67.png" Name="Bing Sports" ID="0f4c8c7e-7114-4e1e-a84c-50664db13b17" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/68.png" Name="Bing News" ID="9c3e8cad-6702-4842-8f61-b8b33cc9caf1" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/69.png" Name="Bing Weather" ID="63c2a117-8604-44e7-8cef-df10be3a57c8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/70.png" Name="Cellular Data" ID="cb9ca504-e5dc-4055-9f09-488399e3b950" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/71.png" Name="Photosynth" ID="ef860a79-5f68-4ed6-aa21-c038d1a55517" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/73.png" Name="Translator" ID="2cb7cda1-17d8-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/74.png" Name="PDF Reader" ID="8f6154d6-1b70-431a-a579-b6a43477e837" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/75.png" Name="Fresh Paint" ID="ab89f9f8-f78b-4fa0-a244-c87d53c14319" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/76.png" Name="Switch to Windows Phone" ID="3286dd5d-3f98-435a-b80c-3fccba05a867" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/77.png" Name="My Home Server" ID="b0dbd32b-908c-e011-986b-78e7d1fa76f8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/78.png" Name="Retail Advisor" ID="99a6bdaf-d631-4df6-9660-603bc64b7b0d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/79.png" Name="Unit Converter" ID="0f69cc30-1bd8-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/Microsoft/80.png" Name="SkyDrive" ID="ad543082-80ec-45bb-aa02-ffe7f4182ba8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/Microsoft/65.png" Name="Authenticator" ID="e7994dbc-2336-4950-91ba-ca22d653759b" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/66.png" Name="Bing Finance" ID="1e0440f1-7abf-4b9a-863d-177970eefb5e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/67.png" Name="Bing Sports" ID="0f4c8c7e-7114-4e1e-a84c-50664db13b17" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/68.png" Name="Bing News" ID="9c3e8cad-6702-4842-8f61-b8b33cc9caf1" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/69.png" Name="Bing Weather" ID="63c2a117-8604-44e7-8cef-df10be3a57c8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/70.png" Name="Cellular Data" ID="cb9ca504-e5dc-4055-9f09-488399e3b950" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/71.png" Name="Photosynth" ID="ef860a79-5f68-4ed6-aa21-c038d1a55517" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/73.png" Name="Translator" ID="2cb7cda1-17d8-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/74.png" Name="PDF Reader" ID="8f6154d6-1b70-431a-a579-b6a43477e837" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/75.png" Name="Fresh Paint" ID="ab89f9f8-f78b-4fa0-a244-c87d53c14319" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/76.png" Name="Switch to Windows Phone" ID="3286dd5d-3f98-435a-b80c-3fccba05a867" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/77.png" Name="My Home Server" ID="b0dbd32b-908c-e011-986b-78e7d1fa76f8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/78.png" Name="Retail Advisor" ID="99a6bdaf-d631-4df6-9660-603bc64b7b0d" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/79.png" Name="Unit Converter" ID="0f69cc30-1bd8-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/Microsoft/80.png" Name="SkyDrive" ID="ad543082-80ec-45bb-aa02-ffe7f4182ba8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
   </Category>
   <Category Name="HTC" IsCheck="1">
-    <App Icon="/Images/Apps/HTC/45.png" Name="HTC" ID="e462a4e4-0798-4e01-9ed7-fada88e38357" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/54.png" Name="Photo Enhancer" ID="8e17bc66-2bb2-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/61.png" Name="attentive phone" ID="59fba4ce-c8d6-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/62.png" Name="Beats Audio" ID="54b4b23e-c2cd-4433-9c34-17a4105d1679" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/56.png" Name="Connection Setup" ID="5edbdbbc-2ab2-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/63.png" Name="CSDDiag" ID="f81239cf-2e0f-4fc1-9141-a66e080b83f9" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/53.png" Name="Converter" ID="de54d3b1-47b1-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/55.png" Name="Flashlight" ID="0be0455c-c8d5-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
-    <App Icon="/Images/Apps/HTC/52.png" Name="Make More Space" ID="fc388ddb-433d-4c70-ac48-455175a2cbf5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/HTC/45.png" Name="HTC" ID="e462a4e4-0798-4e01-9ed7-fada88e38357" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/54.png" Name="Photo Enhancer" ID="8e17bc66-2bb2-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/61.png" Name="attentive phone" ID="59fba4ce-c8d6-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/62.png" Name="Beats Audio" ID="54b4b23e-c2cd-4433-9c34-17a4105d1679" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/56.png" Name="Connection Setup" ID="5edbdbbc-2ab2-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/63.png" Name="CSDDiag" ID="f81239cf-2e0f-4fc1-9141-a66e080b83f9" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/53.png" Name="Converter" ID="de54d3b1-47b1-df11-8a2f-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/55.png" Name="Flashlight" ID="0be0455c-c8d5-df11-a844-00237de2db9e" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+    <App Icon="/Images/Apps/HTC/52.png" Name="Make More Space" ID="fc388ddb-433d-4c70-ac48-455175a2cbf5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
   </Category>
   <Category Name="Applications" IsCheck="1">
-    <App Icon="/Images/Apps/User/myapp.png" Name="My app pusher" ID="8768a942-8f14-471b-85d7-9e67b16c11b4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" />
+    <App Icon="/Images/Apps/User/myapp.png" Name="My app pusher" ID="8768a942-8f14-471b-85d7-9e67b16c11b4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVerison="" />
+  </Category>
+  <Category Name="Games" IsCheck="1">
   </Category>
 </InitialData>
