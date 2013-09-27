@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
 using AppCenter.Data;
@@ -8,7 +9,6 @@ using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
 using Microsoft.Phone.Tasks;
-using System.Threading;
 
 namespace AppCenter.ViewModels
 {
@@ -132,7 +132,7 @@ namespace AppCenter.ViewModels
                                                                                  {
                                                                                      String categoryName;
                                                                                      _db.UpdateApplication(appInfo, out categoryName);
-                                                                                     RefetchCategory(categoryName);
+                                                                                     RefetchCategory(categoryName, appInfo);
                                                                                  });
         }
 
@@ -157,15 +157,22 @@ namespace AppCenter.ViewModels
 
         public void AppBarCheckUpdate()
         {
-            foreach (PhoneApp phoneApp in NokiaAppList)
+            if (!NetworkInterface.GetIsNetworkAvailable()) return;
+
+            var appIDList = _nokiaAppList.Concat(_samsungAppList).Concat(_htcAppList).Concat(_microsoftAppList)
+                            .Concat(_userAppList).Concat(_gameList).Select(app => app.AppID);
+
+            foreach (var appID in appIDList)
             {
-                RequestApplicationInfo.GetApplicationInfoAsync(phoneApp.AppID.ToString(), appInfo =>
-                                                                                    {
-                                                                                        String categoryName;
-                                                                                        _db.UpdateApplication(appInfo, out categoryName);
-                                                                                    });
+                RequestApplicationInfo.GetApplicationInfoAsync(appID.ToString(), appInfo =>
+                                                                                     {
+                                                                                         String categoryName;
+                                                                                         _db.UpdateApplication(appInfo,out categoryName);
+
+                                                                                         RefetchCategory(categoryName, appInfo);
+                                                                                     });
             }
-            RefetchCategory("Nokia");
+            RaisePropertyChanged("NokiaAppList");
         }
 
         #endregion
@@ -181,7 +188,7 @@ namespace AppCenter.ViewModels
 
         #region Refetch data
 
-        public void RefetchCategory(String categoryName)
+        public void RefetchCategory(String categoryName, ApplicationInfo appInfo = null)
         {
             switch (categoryName)
             {

@@ -25,7 +25,30 @@ namespace LS.Utilities
                 throw new HttpRequestException();
             }
 
-            var xmlData = XElement.Parse(responseString);
+            var appInfo = new ApplicationInfo(appID, XElement.Parse(responseString));
+            if(appInfo.AppID == Guid.Empty)
+                throw new Exception();
+
+            callBack(appInfo);
+        }
+
+        #endregion
+    }
+
+    public class ApplicationInfo
+    {
+        public Guid AppID { get; set; }
+        public String Version { get; set; }
+        public DateTime? LastUpdated { get; set; }
+        public String AppName { get; set; }
+        public String ImageUrl { get; set; }
+
+        public ApplicationInfo()
+        {
+            
+        }
+        public ApplicationInfo(String appID, XContainer xmlData)
+        {
             var entry = xmlData.Element(GlobalConstants.RequestAppInfo.XNameEntry);
             if (entry == null)
                 return;
@@ -43,26 +66,11 @@ namespace LS.Utilities
                 return;
             var lastUpdate = entry.Element(GlobalConstants.RequestAppInfo.XNameLastUpdated);
 
-            var appInfo = new ApplicationInfo
-                          {
-                              AppID = appID.ToGuid(),
-                              Version = version.Value,
-                              LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime(),
-                              AppName = appName.Value,
-                              ImageUrl = String.Format(GlobalConstants.RequestAppInfo.ImgUrl, imageUrl.Value.Replace("urn:uuid:", "")) 
-                          };
-            callBack(appInfo);
+            AppID = appID.ToGuid();
+            Version = version.Value;
+            LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime();
+            AppName = appName.Value;
+            ImageUrl = String.Format(GlobalConstants.RequestAppInfo.ImgUrl, imageUrl.Value.Replace("urn:uuid:", ""));
         }
-
-        #endregion
-    }
-
-    public class ApplicationInfo
-    {
-        public Guid AppID { get; set; }
-        public String Version { get; set; }
-        public DateTime? LastUpdated { get; set; }
-        public String AppName { get; set; }
-        public String ImageUrl { get; set; }
     }
 }
