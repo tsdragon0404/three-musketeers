@@ -43,7 +43,7 @@ namespace AppCenter.Data
             return PhoneApps.Where(app => app.Category == categoryName).ToList();
         }
 
-        public List<Setting> GetSetting()
+        public List<Setting> GetAllSettings()
         {
             return Settings.ToList();
         }
@@ -67,20 +67,22 @@ namespace AppCenter.Data
 
         public void InsertApplication(ApplicationInfo appInfo, String Category)
         {
-            PhoneApp A = new PhoneApp();
-            A.AppID = appInfo.AppID;
-            A.AppName = appInfo.AppName;
-            A.AppVersion = appInfo.Version;
-            A.AppIcon = appInfo.ImageUrl;
-            A.Category = Category;
-            A.IsUserDefined = true;
-            PhoneApps.InsertOnSubmit(A);
+            var app = new PhoneApp
+                        {
+                            AppID = appInfo.AppID,
+                            AppName = appInfo.AppName,
+                            AppVersion = appInfo.Version,
+                            AppIcon = appInfo.ImageUrl,
+                            Category = Category,
+                            IsUserDefined = true
+                        };
+            PhoneApps.InsertOnSubmit(app);
             SubmitChanges();
         }
 
-        public void DeleteApplication(Guid AppID, out String categoryName)
+        public void DeleteApplication(Guid appID, out String categoryName)
         {
-            var app = PhoneApps.FirstOrDefault(a => a.AppID == AppID);
+            var app = PhoneApps.FirstOrDefault(a => a.AppID == appID);
             if (app == null)
             {
                 categoryName = String.Empty;
@@ -92,9 +94,9 @@ namespace AppCenter.Data
             SubmitChanges();
         }
 
-        public void UpdateSetting(int ID)
+        public void UpdateSetting(int id)
         {
-            var setting = Settings.FirstOrDefault(a => a.ID == ID);
+            var setting = Settings.FirstOrDefault(a => a.ID == id);
             if (setting == null)
                 return;
 

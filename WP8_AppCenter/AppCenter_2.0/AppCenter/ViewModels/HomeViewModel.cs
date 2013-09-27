@@ -198,7 +198,7 @@ namespace AppCenter.ViewModels
                 MessageBox.Show(AppResources.ErrorMessage_ConnectionNotAvailable, AppResources.ErrorMessage_ConnectionNotAvailable_Caption, MessageBoxButton.OK);
             else
             {
-                SettingList = _db.GetSetting().ToObservableCollection();
+                SettingList = _db.GetAllSettings().ToObservableCollection();
                 foreach (Setting set in SettingList)
                 {
                     if (set.Value == true)

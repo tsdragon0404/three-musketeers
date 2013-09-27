@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Net.NetworkInformation;
 using System.Windows.Input;
 using AppCenter.Data;
 using AppCenter.Models;
 using GalaSoft.MvvmLight.Command;
 using LS.Core;
 using LS.Utilities;
-using Microsoft.Phone.Tasks;
-using System.Threading;
 
 namespace AppCenter.ViewModels
 {
@@ -84,7 +81,7 @@ namespace AppCenter.ViewModels
 
         public void LoadSettings()
         {
-            SettingList = _db.GetSetting().ToObservableCollection();
+            SettingList = _db.GetAllSettings().ToObservableCollection();
         }
 
         #endregion
