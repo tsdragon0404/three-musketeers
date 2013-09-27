@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Xml.Linq;
 using LS.Core;
@@ -26,6 +27,9 @@ namespace AppCenter.Models
                 RaisePropertyChanged("ID");
             }
         }
+
+        [Column(IsVersion = true)]
+        private Binary _version;
 
         #endregion
 
@@ -167,19 +171,28 @@ namespace AppCenter.Models
             }
         }
 
-        private DateTime? _lastCheckVerison;
+        private DateTime? _lastCheckVersion;
 
         [Column]
-        public DateTime? LastCheckVerison
+        public DateTime? LastCheckVersion
         {
-            get { return _lastCheckVerison; }
+            get { return _lastCheckVersion; }
             set
             {
-                if (_lastCheckVerison == value) return;
+                if (_lastCheckVersion == value) return;
 
-                RaisePropertyChanging("LastCheckVerison");
-                _lastCheckVerison = value;
-                RaisePropertyChanged("LastCheckVerison");
+                RaisePropertyChanging("LastCheckVersion");
+                _lastCheckVersion = value;
+                RaisePropertyChanged("LastCheckVersion");
+            }
+        }
+
+        public Boolean IsReadyToUpdate
+        {
+            get
+            {
+                return (LastCheckVersion == null || ((TimeSpan)(DateTime.Now - LastCheckVersion)).TotalMinutes > 30)
+                       && (LastUpdated == null || ((TimeSpan)(DateTime.Now - LastUpdated)).TotalDays >= 3);
             }
         }
 
@@ -201,7 +214,7 @@ namespace AppCenter.Models
             LastUpdated = appData.Attribute("LastUpdate") == null ? null : appData.Attribute("LastUpdate").Value.ToDateTime();
             IsUpdate = appData.Attribute("IsUpdate") != null && appData.Attribute("IsUpdate").Value.ToBoolean();
             IsUserDefined = appData.Attribute("IsUserDefine") != null && appData.Attribute("IsUserDefine").Value.ToBoolean();
-            LastCheckVerison = appData.Attribute("LastCheckVerison") == null ? null : appData.Attribute("LastCheckVerison").Value.ToDateTime();
+            LastCheckVersion = appData.Attribute("LastCheckVersion") == null ? null : appData.Attribute("LastCheckVersion").Value.ToDateTime();
         } 
 
         public PhoneApp(ApplicationInfo appInfo)
@@ -211,7 +224,7 @@ namespace AppCenter.Models
             AppIcon = appInfo.ImageUrl;
             LastUpdated = appInfo.LastUpdated;
             AppVersion = appInfo.Version;
-            LastCheckVerison = DateTime.Now;
+            LastCheckVersion = DateTime.Now;
         }
 
         public static PhoneApp NewUserDefinedApp()

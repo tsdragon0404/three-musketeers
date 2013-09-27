@@ -61,7 +61,7 @@ namespace AppCenter.Data
 
             app.AppVersion = appInfo.Version;
             app.LastUpdated = appInfo.LastUpdated;
-            app.LastCheckVerison = DateTime.Now;
+            app.LastCheckVersion = DateTime.Now;
             SubmitChanges();
         }
 
