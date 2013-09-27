@@ -189,6 +189,15 @@ namespace AppCenter.Models
             IsUserDefined = appData.Attribute("IsUserDefine") != null && appData.Attribute("IsUserDefine").Value.ToBoolean();
         } 
 
+        public PhoneApp(ApplicationInfo appInfo)
+        {
+            AppID = appInfo.AppID;
+            AppName = appInfo.AppName;
+            AppIcon = appInfo.ImageUrl;
+            LastUpdated = appInfo.LastUpdated;
+            AppVersion = appInfo.Version;
+        }
+
         public static PhoneApp NewUserDefinedApp()
         {
             return new PhoneApp
