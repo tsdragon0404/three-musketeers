@@ -61,6 +61,7 @@ namespace AppCenter.Data
 
             app.AppVersion = appInfo.Version;
             app.LastUpdated = appInfo.LastUpdated;
+            app.LastCheckVerison = DateTime.Now;
             SubmitChanges();
         }
 
@@ -74,6 +75,29 @@ namespace AppCenter.Data
             A.Category = Category;
             A.IsUserDefined = true;
             PhoneApps.InsertOnSubmit(A);
+            SubmitChanges();
+        }
+
+        public void DeleteApplication(Guid AppID, out String categoryName)
+        {
+            var app = PhoneApps.FirstOrDefault(a => a.AppID == AppID);
+            if (app == null)
+            {
+                categoryName = String.Empty;
+                return;
+            }
+            categoryName = app.Category;
+
+            PhoneApps.DeleteOnSubmit(app);
+            SubmitChanges();
+        }
+
+        public void UpdateSetting(int ID)
+        {
+            var setting = Settings.FirstOrDefault(a => a.ID == ID);
+            if (setting == null)
+                return;
+
             SubmitChanges();
         }
     }

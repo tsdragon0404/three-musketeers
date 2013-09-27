@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <!--<ColumnDefinition Width="Auto" />-->
                 </Grid.ColumnDefinitions>
                 <HyperlinkButton VerticalAlignment="Center" Margin="0,0,10,0"
                                  ClickMode="Release" toolkit:TiltEffect.IsTiltEnabled="True"
@@ -68,7 +68,7 @@
                                    Visibility="{Binding IsUnknownLastUpdated, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
                     </StackPanel>
                 </Grid>
-                <HyperlinkButton Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                <!--<HyperlinkButton Grid.Column="2" Visibility="{Binding IsUserDefined, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
                                  Margin="0,0,10,0" toolkit:TiltEffect.IsTiltEnabled="True"
                                  Command="{Binding ElementName=View, Path=DataContext.CheckUpdateCommand}" CommandParameter="{Binding AppID}">
                     <HyperlinkButton.Template>
@@ -76,12 +76,13 @@
                             <Image Source="/Images/ApplicationBar/Refresh.png" Height="45" Width="45" Margin="5"/>
                         </ControlTemplate>
                     </HyperlinkButton.Template>
-                </HyperlinkButton>
-                <HyperlinkButton Grid.Column="3" toolkit:TiltEffect.IsTiltEnabled="True"
-                                 Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}">
+                </HyperlinkButton>-->
+                <HyperlinkButton Grid.Column="2" toolkit:TiltEffect.IsTiltEnabled="True"
+                                 Visibility="{Binding IsUserDefined, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 Command="{Binding ElementName=View, Path=DataContext.DeleteAppCommand}" CommandParameter="{Binding AppID}">
                     <HyperlinkButton.Template>
                         <ControlTemplate>
-                            <Image Source="/Images/ApplicationBar/Delete.png" Height="45" Width="45" Margin="5"/>
+                            <Image Source="/Images/ApplicationBar/Delete.png" Height="60" Width="60" Margin="5"/>
                         </ControlTemplate>
                     </HyperlinkButton.Template>
                 </HyperlinkButton>
