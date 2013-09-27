@@ -18,7 +18,8 @@
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
-            <xs:attribute name="Name" />
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="IsCheck" type="xs:string" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>

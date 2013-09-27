@@ -1,9 +1,6 @@
-﻿using System;
-using System.Windows.Navigation;
-using AppCenter.Resources;
+﻿using System.Windows.Navigation;
 using AppCenter.ViewModels;
 using LS.Utilities;
-using Microsoft.Phone.Shell;
 
 namespace AppCenter.Views
 {
@@ -17,7 +14,32 @@ namespace AppCenter.Views
 
             ViewModel = new SettingViewModel();
             DataContext = ViewModel;
-            ViewModel.InitializeData();
         }
+
+        #region Navigation
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (!StateUtility.IsLaunching && State.ContainsKey("SettingViewModel"))
+                ViewModel = (SettingViewModel)State["SettingViewModel"];
+            else
+                ViewModel.InitializeData();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            if (State.ContainsKey("SettingViewModel"))
+                State["SettingViewModel"] = ViewModel;
+            else
+                State.Add("SettingViewModel", ViewModel);
+
+            StateUtility.IsLaunching = false;
+        }
+
+        #endregion
     }
 }
