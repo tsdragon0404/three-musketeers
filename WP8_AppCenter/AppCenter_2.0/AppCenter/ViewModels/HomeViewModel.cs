@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Data.Linq;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
@@ -11,8 +12,6 @@ using LS.Utilities;
 using Microsoft.Phone.Tasks;
 using System.Windows;
 using AppCenter.Resources;
-using System.Threading;
-using Microsoft.Phone.Shell;
 
 namespace AppCenter.ViewModels
 {
@@ -34,17 +33,6 @@ namespace AppCenter.ViewModels
         #endregion
 
         #region Public properties
-
-        private ObservableCollection<Setting> _settingList;
-        public ObservableCollection<Setting> SettingList
-        {
-            get { return _settingList; }
-            set
-            {
-                _settingList = value;
-                RaisePropertyChanged("SettingList");
-            }
-        }
 
         private ObservableCollection<PhoneApp> _nokiaAppList;
         public ObservableCollection<PhoneApp> NokiaAppList
@@ -198,87 +186,36 @@ namespace AppCenter.ViewModels
                 MessageBox.Show(AppResources.ErrorMessage_ConnectionNotAvailable, AppResources.ErrorMessage_ConnectionNotAvailable_Caption, MessageBoxButton.OK);
             else
             {
-                SettingList = _db.GetAllSettings().ToObservableCollection();
-                foreach (Setting set in SettingList)
+                var settingList = _db.GetAllSettings();
+                _db.Refresh(RefreshMode.OverwriteCurrentValues, settingList);
+                foreach (var setting in settingList.Where(setting => setting.Value))
                 {
-                    if (set.Value == true)
+                    switch (setting.VendorName)
                     {
-                        switch (set.VendorName)
-                        {
-                            case GlobalConstants.CategoryName.Nokia:
-                                foreach (PhoneApp phoneApp in NokiaAppList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-                                break;
-                            case GlobalConstants.CategoryName.Samsung:
-                                foreach (PhoneApp phoneApp in SamsungAppList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-
-                                break;
-                            case GlobalConstants.CategoryName.HTC:
-                                foreach (PhoneApp phoneApp in HTCAppList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-                                break;
-                            case GlobalConstants.CategoryName.Microsoft:
-                                foreach (PhoneApp phoneApp in MicrosoftAppList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-                                break;
-                            case GlobalConstants.CategoryName.Applications:
-                                foreach (PhoneApp phoneApp in UserAppList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-                                break;
-                            case GlobalConstants.CategoryName.Games:
-                                foreach (PhoneApp phoneApp in GameList)
-                                {
-                                    if (phoneApp.LastCheckVerison == null || ((TimeSpan)(DateTime.Now - phoneApp.LastCheckVerison)).TotalMinutes > 30)
-                                    {
-                                        if (phoneApp.LastUpdated == null || ((TimeSpan)(DateTime.Now - phoneApp.LastUpdated)).TotalDays >= 3)
-                                        {
-                                            CheckUpdate(phoneApp.AppID);
-                                        }
-                                    }
-                                }
-                                break;
-                        }
+                        case GlobalConstants.CategoryName.Nokia:
+                            foreach (var phoneApp in NokiaAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
+                        case GlobalConstants.CategoryName.Samsung:
+                            foreach (var phoneApp in SamsungAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
+                        case GlobalConstants.CategoryName.HTC:
+                            foreach (var phoneApp in HTCAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
+                        case GlobalConstants.CategoryName.Microsoft:
+                            foreach (PhoneApp phoneApp in MicrosoftAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
+                        case GlobalConstants.CategoryName.Applications:
+                            foreach (var phoneApp in UserAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
+                        case GlobalConstants.CategoryName.Games:
+                            foreach (var phoneApp in GameList.Where(phoneApp => phoneApp.IsReadyToUpdate))
+                                CheckUpdate(phoneApp.AppID);
+                            break;
                     }
                 }
                 MessageBox.Show(AppResources.Message_CheckUpdateSuccess, AppResources.Message_CheckUpdateSuccess_Caption, MessageBoxButton.OK);
