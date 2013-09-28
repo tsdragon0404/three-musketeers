@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using AppCenter.Resources;
@@ -26,37 +27,46 @@ namespace AppCenter.Views
 
         #region Control events
 
-        private void AppIDLoaded(Object sender, EventArgs e)
+        //private void AppIDLoaded(Object sender, EventArgs e)
+        //{
+        //    var textBox = sender as TextBox;
+        //    if (textBox == null)
+        //        return;
+        //    if (textBox.Text == String.Empty)
+        //        textBox.Text = AppResources.NewApp_AppID;
+        //}
+
+        //private void AppIDGotFocus(Object sender, RoutedEventArgs e)
+        //{
+        //    var textBox = sender as TextBox;
+        //    if (textBox == null)
+        //        return;
+
+        //    if (textBox.Text == AppResources.NewApp_AppID)
+        //        textBox.Text = String.Empty;
+
+        //    ViewModel.AppIdChanged = true;
+        //}
+
+        //private void AppIDLostFocus(Object sender, RoutedEventArgs e)
+        //{
+        //    var textBox = sender as TextBox;
+        //    if (textBox == null)
+        //        return;
+
+        //    if (string.IsNullOrEmpty(textBox.Text))
+        //        textBox.Text = AppResources.NewApp_AppID;
+        //}
+
+        private void txtAppIDInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = sender as TextBox;
-            if (textBox == null)
-                return;
-            if (textBox.Text == String.Empty)
-                textBox.Text = AppResources.NewApp_AppID;
+            if (textBox == null) return;
+
+            var bindingExpr = textBox.GetBindingExpression(TextBox.TextProperty);
+            bindingExpr.UpdateSource();
         }
 
-        private void AppIDGotFocus(Object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox == null)
-                return;
-
-            if (textBox.Text == AppResources.NewApp_AppID)
-                textBox.Text = String.Empty;
-
-            ViewModel.AppIdChanged = true;
-        }
-
-        private void AppIDLostFocus(Object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox == null)
-                return;
-
-            if (string.IsNullOrEmpty(textBox.Text))
-                textBox.Text = AppResources.NewApp_AppID;
-        }
-        
         #endregion
 
         #region ApplicationBar event methods

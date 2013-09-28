@@ -304,7 +304,7 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input your new App ID....
+        ///   Looks up a localized string similar to App ID.
         /// </summary>
         public static string NewApp_AppID {
             get {
