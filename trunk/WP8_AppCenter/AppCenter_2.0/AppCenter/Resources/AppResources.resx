@@ -177,7 +177,7 @@
     <value>Games</value>
   </data>
   <data name="NewApp_AppID" xml:space="preserve">
-    <value>Input your new App ID...</value>
+    <value>App ID</value>
   </data>
   <data name="NewApp_Category" xml:space="preserve">
     <value>Category</value>
