@@ -13,6 +13,7 @@ using LS.Utilities;
 using Microsoft.Phone.Tasks;
 using System.Windows;
 using AppCenter.Resources;
+using System.Threading;
 
 namespace AppCenter.ViewModels
 {
@@ -219,6 +220,7 @@ namespace AppCenter.ViewModels
                 foreach (var app in appList)
                     CheckUpdate(app.AppID);
 
+                Thread.Sleep(1000);
                 MessageBox.Show(AppResources.Message_CheckUpdateSuccess, AppResources.Message_CheckUpdateSuccess_Caption, MessageBoxButton.OK);
             }
         }

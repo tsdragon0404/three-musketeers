@@ -82,7 +82,7 @@
                                  Command="{Binding ElementName=View, Path=DataContext.DeleteAppCommand}" CommandParameter="{Binding AppID}">
                     <HyperlinkButton.Template>
                         <ControlTemplate>
-                            <Image Source="/Images/ApplicationBar/Delete.png" Height="60" Width="60" Margin="5"/>
+                            <Image Source="/Images/ApplicationBar/Delete.png" Height="60" Width="60" Margin="0"/>
                         </ControlTemplate>
                     </HyperlinkButton.Template>
                 </HyperlinkButton>
