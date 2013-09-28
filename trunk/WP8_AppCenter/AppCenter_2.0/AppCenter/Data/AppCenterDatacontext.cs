@@ -65,17 +65,8 @@ namespace AppCenter.Data
             SubmitChanges();
         }
 
-        public void InsertApplication(ApplicationInfo appInfo, String Category)
+        public void InsertApplication(PhoneApp app)
         {
-            var app = new PhoneApp
-                        {
-                            AppID = appInfo.AppID,
-                            AppName = appInfo.AppName,
-                            AppVersion = appInfo.Version,
-                            AppIcon = appInfo.ImageUrl,
-                            Category = Category,
-                            IsUserDefined = true
-                        };
             PhoneApps.InsertOnSubmit(app);
             SubmitChanges();
         }

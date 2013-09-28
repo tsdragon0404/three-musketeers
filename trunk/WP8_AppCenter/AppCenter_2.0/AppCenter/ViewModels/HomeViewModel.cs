@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Linq;
 using System.Linq;
@@ -139,11 +140,11 @@ namespace AppCenter.ViewModels
                 return;
 
             RequestApplicationInfo.GetApplicationInfoAsync(param.ToString(), appInfo =>
-            {
-                String categoryName;
-                _db.UpdateApplication(appInfo, out categoryName);
-                RefetchCategory(categoryName, appInfo);
-            });
+                                                                                 {
+                                                                                     String categoryName;
+                                                                                     _db.UpdateApplication(appInfo, out categoryName);
+                                                                                     RefetchCategory(categoryName, appInfo);
+                                                                                 });
         }
 
         public void DeleteApp(Object param)
@@ -188,36 +189,36 @@ namespace AppCenter.ViewModels
             {
                 var settingList = _db.GetAllSettings();
                 _db.Refresh(RefreshMode.OverwriteCurrentValues, settingList);
+
+                var appList = new List<PhoneApp>();
                 foreach (var setting in settingList.Where(setting => setting.Value))
                 {
                     switch (setting.VendorName)
                     {
                         case GlobalConstants.CategoryName.Nokia:
-                            foreach (var phoneApp in NokiaAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
+                            appList = appList.Concat(NokiaAppList).ToList();
                             break;
                         case GlobalConstants.CategoryName.Samsung:
-                            foreach (var phoneApp in SamsungAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
-                            break;
-                        case GlobalConstants.CategoryName.HTC:
-                            foreach (var phoneApp in HTCAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
+                            appList = appList.Concat(SamsungAppList).ToList();
                             break;
                         case GlobalConstants.CategoryName.Microsoft:
-                            foreach (PhoneApp phoneApp in MicrosoftAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
+                            appList = appList.Concat(MicrosoftAppList).ToList();
+                            break;
+                        case GlobalConstants.CategoryName.HTC:
+                            appList = appList.Concat(HTCAppList).ToList();
                             break;
                         case GlobalConstants.CategoryName.Applications:
-                            foreach (var phoneApp in UserAppList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
+                            appList = appList.Concat(UserAppList).ToList();
                             break;
                         case GlobalConstants.CategoryName.Games:
-                            foreach (var phoneApp in GameList.Where(phoneApp => phoneApp.IsReadyToUpdate))
-                                CheckUpdate(phoneApp.AppID);
+                            appList = appList.Concat(GameList).ToList();
                             break;
                     }
                 }
+
+                foreach (var app in appList)
+                    CheckUpdate(app.AppID);
+
                 MessageBox.Show(AppResources.Message_CheckUpdateSuccess, AppResources.Message_CheckUpdateSuccess_Caption, MessageBoxButton.OK);
             }
         }

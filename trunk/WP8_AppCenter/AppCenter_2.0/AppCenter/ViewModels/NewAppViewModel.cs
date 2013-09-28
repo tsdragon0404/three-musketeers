@@ -46,13 +46,13 @@ namespace AppCenter.ViewModels
                 {
                     _appID = value;
                     App.AppID = Guid.Empty;
-
-                    RaisePropertyChanged("AppID");
-                    RaisePropertyChanged("IsAppIDValid");
                 }
 
                 if (_appID.ToGuid() != App.AppID)
                     App.AppID = _appID.ToGuid();
+
+                RaisePropertyChanged("AppID");
+                RaisePropertyChanged("IsAppIDValid");
             }
         }
 
@@ -118,7 +118,11 @@ namespace AppCenter.ViewModels
                     {
                         RequestApplicationInfo.GetApplicationInfoAsync(AppID, appInfo =>
                                                                                   {
-                                                                                      _db.InsertApplication(appInfo, SelectedCategory);
+                                                                                      App.AppIcon = appInfo.ImageUrl;
+                                                                                      App.AppVersion = appInfo.Version;
+                                                                                      App.AppName = appInfo.AppName;
+                                                                                      App.LastUpdated = appInfo.LastUpdated;
+                                                                                      _db.InsertApplication(App);
                                                                                       SendNavigationBack(SelectedCategory);
                                                                                   });
                     }
