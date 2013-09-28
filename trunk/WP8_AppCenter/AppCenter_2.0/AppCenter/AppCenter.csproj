@@ -272,6 +272,7 @@
     <Content Include="Images\Apps\Samsung\59.png" />
     <Content Include="Images\Apps\Samsung\60.png" />
     <Content Include="Images\Apps\User\myapp.png" />
+    <Content Include="pro.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
