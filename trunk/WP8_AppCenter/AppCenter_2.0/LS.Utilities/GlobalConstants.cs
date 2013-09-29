@@ -5,7 +5,7 @@ namespace LS.Utilities
 {
     public static class GlobalConstants
     {
-        public static Boolean ResetDatabase = true;
+        public static Boolean ResetDatabase = false;
 
         public const String QrCodeSeparator = "?appid=";
 
