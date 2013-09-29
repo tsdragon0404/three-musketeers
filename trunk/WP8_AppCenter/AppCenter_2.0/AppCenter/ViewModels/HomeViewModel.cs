@@ -197,22 +197,22 @@ namespace AppCenter.ViewModels
                     switch (setting.VendorName)
                     {
                         case GlobalConstants.CategoryName.Nokia:
-                            appList = appList.Concat(NokiaAppList).ToList();
+                            appList = appList.Concat(NokiaAppList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                         case GlobalConstants.CategoryName.Samsung:
-                            appList = appList.Concat(SamsungAppList).ToList();
+                            appList = appList.Concat(SamsungAppList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                         case GlobalConstants.CategoryName.Microsoft:
-                            appList = appList.Concat(MicrosoftAppList).ToList();
+                            appList = appList.Concat(MicrosoftAppList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                         case GlobalConstants.CategoryName.HTC:
-                            appList = appList.Concat(HTCAppList).ToList();
+                            appList = appList.Concat(HTCAppList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                         case GlobalConstants.CategoryName.Applications:
-                            appList = appList.Concat(UserAppList).ToList();
+                            appList = appList.Concat(UserAppList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                         case GlobalConstants.CategoryName.Games:
-                            appList = appList.Concat(GameList).ToList();
+                            appList = appList.Concat(GameList.Where(app => app.IsReadyToUpdate)).ToList();
                             break;
                     }
                 }
