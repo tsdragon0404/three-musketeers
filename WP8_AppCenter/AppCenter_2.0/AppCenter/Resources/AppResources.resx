@@ -126,7 +126,7 @@
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>MY APP PUSHER</value>
+    <value>PUSHER CENTER</value>
   </data>
   <data name="Category_HTC" xml:space="preserve">
     <value>HTC</value>
@@ -144,7 +144,7 @@
     <value>Apps</value>
   </data>
   <data name="About_Email1" xml:space="preserve">
-    <value>tsdragon0404@gmail.com</value>
+    <value>tsdragon0404@hotmail.com</value>
   </data>
   <data name="About_PageTitle" xml:space="preserve">
     <value>about</value>
@@ -219,7 +219,7 @@
     <value />
   </data>
   <data name="ErrorMessage_ConnectionNotAvailable" xml:space="preserve">
-    <value>An internet connection is not available.\nPlease check your connection and try again.</value>
+    <value>An internet connection is not available. Please check your connection and try again.</value>
   </data>
   <data name="ErrorMessage_ConnectionNotAvailable_Caption" xml:space="preserve">
     <value>No connection</value>
@@ -250,5 +250,8 @@
   </data>
   <data name="Message_ConfirmDetete_Caption" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="About_Name" xml:space="preserve">
+    <value>Name: Pusher center</value>
   </data>
 </root>

@@ -26,7 +26,8 @@
 
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10">
             <TextBlock TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.About_Email1, Source={StaticResource LocalizedStrings}}" />
-            <TextBlock Margin="0,37,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.About_Version, Source={StaticResource LocalizedStrings}}" />
+            <TextBlock Margin="0,30,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.About_Name, Source={StaticResource LocalizedStrings}}" />
+            <TextBlock Margin="0,62,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.About_Version, Source={StaticResource LocalizedStrings}}" />
             <TextBlock HorizontalAlignment="Center" Margin="0,547,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.About_ThankYou, Source={StaticResource LocalizedStrings}}" />
             <Button Content="{Binding Path=LocalizedResources.About_RateMe, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Margin="0,475,0,0" VerticalAlignment="Top" />
         </Grid>

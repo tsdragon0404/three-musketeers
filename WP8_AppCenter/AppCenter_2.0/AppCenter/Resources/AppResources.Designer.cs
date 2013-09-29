@@ -61,11 +61,20 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tsdragon0404@gmail.com.
+        ///   Looks up a localized string similar to tsdragon0404@hotmail.com.
         /// </summary>
         public static string About_Email1 {
             get {
                 return ResourceManager.GetString("About_Email1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name: Pusher center.
+        /// </summary>
+        public static string About_Name {
+            get {
+                return ResourceManager.GetString("About_Name", resourceCulture);
             }
         }
         
@@ -160,7 +169,7 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MY APP PUSHER.
+        ///   Looks up a localized string similar to PUSHER CENTER.
         /// </summary>
         public static string ApplicationTitle {
             get {
@@ -223,7 +232,7 @@ namespace AppCenter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An internet connection is not available.\nPlease check your connection and try again..
+        ///   Looks up a localized string similar to An internet connection is not available. Please check your connection and try again..
         /// </summary>
         public static string ErrorMessage_ConnectionNotAvailable {
             get {
