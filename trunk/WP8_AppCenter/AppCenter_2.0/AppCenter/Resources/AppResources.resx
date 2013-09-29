@@ -245,4 +245,10 @@
   <data name="Setting_PageTitle" xml:space="preserve">
     <value>settings</value>
   </data>
+  <data name="Message_ConfirmDelete" xml:space="preserve">
+    <value>Are you deleting item?</value>
+  </data>
+  <data name="Message_ConfirmDetete_Caption" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
