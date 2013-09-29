@@ -46,7 +46,7 @@
                      FontStyle="Italic" Margin="0" Padding="0" FontSize="20"/>
             <TextBlock Text="{Binding Path=LocalizedResources.NewApp_AppIDNotValid, Source={StaticResource LocalizedStrings}}" 
                        Grid.Row="2" Visibility="{Binding IsAppIDValid, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"
-                       FontStyle="Italic" Margin="30,0,0,0" x:Name="txtblkAppIDError"/>
+                       FontStyle="Italic" Margin="30,0,0,0" x:Name="txtblkAppIDError" Foreground="Red"/>
             <Button Grid.Row="2" HorizontalAlignment="Right" Padding="4" Margin="0,-15,0,0"
                     Command="{Binding ScanQRCodeCommand}">
                 <TextBlock Text="{Binding Path=LocalizedResources.NewApp_UseQRScanner, Source={StaticResource LocalizedStrings}}" FontSize="20"/>
