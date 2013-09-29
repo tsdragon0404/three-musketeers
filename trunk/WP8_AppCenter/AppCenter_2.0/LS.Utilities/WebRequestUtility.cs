@@ -42,6 +42,7 @@ namespace LS.Utilities
         public DateTime? LastUpdated { get; set; }
         public String AppName { get; set; }
         public String ImageUrl { get; set; }
+        public String Category { get; set; }
 
         public ApplicationInfo()
         {
@@ -54,6 +55,15 @@ namespace LS.Utilities
                 return;
             var image = xmlData.Element(GlobalConstants.RequestAppInfo.XNameImage);
             if (image == null)
+                return;
+            var categories = xmlData.Element(GlobalConstants.RequestAppInfo.XNameCategories);
+            if (categories == null)
+                return;
+            var category = categories.Element(GlobalConstants.RequestAppInfo.XNameCategory);
+            if (category == null)
+                return;
+            var categorytitle = category.Element(GlobalConstants.RequestAppInfo.XNameCategoryTitle);
+            if (categorytitle == null)
                 return;
             var appName = xmlData.Element(GlobalConstants.RequestAppInfo.XNameAppName);
             if (appName == null)
@@ -71,6 +81,7 @@ namespace LS.Utilities
             LastUpdated = lastUpdate == null ? null : lastUpdate.Value.ToDateTime();
             AppName = appName.Value;
             ImageUrl = String.Format(GlobalConstants.RequestAppInfo.ImgUrl, imageUrl.Value.Replace("urn:uuid:", ""));
+            Category = categorytitle.Value;
         }
     }
 }

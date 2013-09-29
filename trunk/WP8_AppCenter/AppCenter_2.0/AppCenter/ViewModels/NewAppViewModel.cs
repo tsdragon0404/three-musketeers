@@ -118,12 +118,14 @@ namespace AppCenter.ViewModels
                     {
                         RequestApplicationInfo.GetApplicationInfoAsync(AppID, appInfo =>
                                                                                   {
+                                                                                      String Category = appInfo.Category == "games" ? GlobalConstants.CategoryName.Games : GlobalConstants.CategoryName.Applications;
                                                                                       App.AppIcon = appInfo.ImageUrl;
                                                                                       App.AppVersion = appInfo.Version;
                                                                                       App.AppName = appInfo.AppName;
                                                                                       App.LastUpdated = appInfo.LastUpdated;
+                                                                                      App.Category = Category;
                                                                                       _db.InsertApplication(App);
-                                                                                      SendNavigationBack(SelectedCategory);
+                                                                                      SendNavigationBack(Category);
                                                                                   });
                     }
                     catch (Exception)
