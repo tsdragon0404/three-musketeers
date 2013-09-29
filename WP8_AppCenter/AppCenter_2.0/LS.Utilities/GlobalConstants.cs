@@ -55,10 +55,13 @@ namespace LS.Utilities
             public const String ImgUrl = "http://cdn.marketplaceimages.windowsphone.com/v8/images/{0}";
             public static XName XNameEntry = XName.Get("entry", AtomNamespace);
             public static XName XNameImage = XName.Get("image", ZuneNamespace);
+            public static XName XNameCategories = XName.Get("categories", ZuneNamespace);
             public static XName XNameAppName = XName.Get("sortTitle", ZuneNamespace);
             public static XName XNameVersion = XName.Get("version", ZuneNamespace);
             public static XName XNameLastUpdated = XName.Get("skuLastUpdated", ZuneNamespace);
             public static XName XNameImageID = XName.Get("id", ZuneNamespace);
+            public static XName XNameCategory = XName.Get("category", ZuneNamespace);
+            public static XName XNameCategoryTitle = XName.Get("title", ZuneNamespace);
         }
 
         public static class Navigation

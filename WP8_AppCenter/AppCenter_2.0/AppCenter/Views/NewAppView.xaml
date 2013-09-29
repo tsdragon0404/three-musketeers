@@ -40,7 +40,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock FontSize="22"
-                       Text="{Binding Path=LocalizedResources.NewApp_AppID, Source={StaticResource LocalizedStrings}}" />
+                       Text="{Binding Path=LocalizedResources.NewApp_AppID, Source={StaticResource LocalizedStrings}}" Margin="10,0,0,0" />
             <TextBox Grid.Row="1" x:Name="txtAppIDInput" Text="{Binding AppID, Mode=TwoWay, UpdateSourceTrigger=Explicit}" 
                      TextChanged="txtAppIDInput_TextChanged"
                      FontStyle="Italic" Margin="0" Padding="0" FontSize="20"/>
@@ -51,9 +51,9 @@
                     Command="{Binding ScanQRCodeCommand}">
                 <TextBlock Text="{Binding Path=LocalizedResources.NewApp_UseQRScanner, Source={StaticResource LocalizedStrings}}" FontSize="20"/>
             </Button>
-            <TextBlock Grid.Row="3" FontSize="22"
+            <TextBlock Grid.Row="3" FontSize="22" Visibility="Collapsed"
                        Text="{Binding Path=LocalizedResources.NewApp_Category, Source={StaticResource LocalizedStrings}}" />
-            <toolkit:ListPicker x:Name="cmbCategory" Grid.Row="4" Margin="10, 0"
+            <toolkit:ListPicker Visibility="Collapsed" x:Name="cmbCategory" Grid.Row="4" Margin="10, 0"
                                 ItemsSource="{Binding Categories}"
                                 SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
 
