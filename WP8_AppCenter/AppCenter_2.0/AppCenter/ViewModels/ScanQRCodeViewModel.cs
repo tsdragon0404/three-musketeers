@@ -25,6 +25,7 @@ namespace AppCenter.ViewModels
 
         public void SendIDToNewAppView()
         {
+            ResultText = "6cd31275-c5dd-df11-a844-00237de2db9d";
             if(ResultText != String.Empty)
                 SendNavigationBack(ResultText);
         }
