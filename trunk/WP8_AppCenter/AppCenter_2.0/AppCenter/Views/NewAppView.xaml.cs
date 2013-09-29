@@ -18,7 +18,6 @@ namespace AppCenter.Views
         public NewAppView()
         {
             InitializeComponent();
-            txtblkAppIDError.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             BuildApplicationBar();
 
             ViewModel = new NewAppViewModel();
