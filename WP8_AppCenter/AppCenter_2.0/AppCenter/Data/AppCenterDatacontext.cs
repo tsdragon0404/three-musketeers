@@ -59,6 +59,11 @@ namespace AppCenter.Data
 
             categoryName = app.Category;
 
+            if (app.AppVersion != null && app.LastUpdated != null && (app.AppVersion != appInfo.Version || app.LastUpdated < appInfo.LastUpdated))
+                app.IsUpdate = true;
+            else
+                app.IsUpdate = false;
+
             app.AppVersion = appInfo.Version;
             app.LastUpdated = appInfo.LastUpdated;
             app.LastCheckVersion = DateTime.Now;
