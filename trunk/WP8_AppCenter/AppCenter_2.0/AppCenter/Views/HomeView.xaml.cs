@@ -4,7 +4,6 @@ using AppCenter.Resources;
 using AppCenter.ViewModels;
 using LS.Utilities;
 using Microsoft.Phone.Shell;
-using System.Threading;
 
 namespace AppCenter.Views
 {

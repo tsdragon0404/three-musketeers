@@ -97,7 +97,6 @@
     </Compile>
     <Compile Include="Data\AppCenterDataContext.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="Models\ManagedApp.cs" />
     <Compile Include="Models\PhoneApp.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
