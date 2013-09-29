@@ -4,8 +4,8 @@
   <Languages xmlns="">
     <Language code="vi-VN" />
   </Languages>
-  <App xmlns="" ProductID="{406ea6c9-2763-4f87-9261-c595f597d170}" Title="My app pusher" RuntimeType="Silverlight" Version="2.0.0.0" Genre="apps.normal" Author="graybone-tsdragon" Description="" Publisher="tsdragon" PublisherID="{533e9e3f-8993-4670-91a5-99db7bcd5c3a}">
-    <IconPath IsRelative="true" IsResource="false">pro.png</IconPath>
+  <App xmlns="" ProductID="{406ea6c9-2763-4f87-9261-c595f597d170}" Title="Pusher center" RuntimeType="Silverlight" Version="2.0.0.0" Genre="apps.normal" Author="graybone-tsdragon" Description="" Publisher="tsdragon" PublisherID="{533e9e3f-8993-4670-91a5-99db7bcd5c3a}">
+    <IconPath IsRelative="true" IsResource="false">icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -20,10 +20,10 @@
     <Tokens>
       <PrimaryToken TokenID="AppCenterToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">pro.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">icon.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">pro.png</BackgroundImageURI>
-          <Title>AppCenter</Title>
+          <BackgroundImageURI IsRelative="true" IsResource="false">livetile.png</BackgroundImageURI>
+          <Title>Pusher center</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
