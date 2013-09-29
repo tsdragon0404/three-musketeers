@@ -113,27 +113,7 @@ namespace AppCenter.ViewModels
                 if (!IsAppIDValid)
                     RaisePropertyChanged("IsAppIDValid");
                 else
-                {
-                    try
-                    {
-                        RequestApplicationInfo.GetApplicationInfoAsync(AppID, appInfo =>
-                                                                                  {
-                                                                                      String Category = appInfo.Category == "games" ? GlobalConstants.CategoryName.Games : GlobalConstants.CategoryName.Applications;
-                                                                                      App.AppIcon = appInfo.ImageUrl;
-                                                                                      App.AppVersion = appInfo.Version;
-                                                                                      App.AppName = appInfo.AppName;
-                                                                                      App.LastUpdated = appInfo.LastUpdated;
-                                                                                      App.Category = Category;
-                                                                                      _db.InsertApplication(App);
-                                                                                      SendNavigationBack(Category);
-                                                                                  });
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(AppResources.ErrorMessage_NewApp_CannotGetAppInfo,
-                                        AppResources.ErrorMessage_NewApp_CannotGetAppInfo_Caption, MessageBoxButton.OK);
-                    }
-                }
+                    RequestApplicationInfo.GetApplicationInfoAsync(AppID, HandleApplicationResult);
                     
             }
             else
@@ -148,6 +128,23 @@ namespace AppCenter.ViewModels
         public void ScanQRCode()
         {
             SendNavigationRequestMessage(GlobalConstants.ViewUri.ScanQRCode);
+        }
+
+        private void HandleApplicationResult(ApplicationInfo appInfo)
+        {
+            if (appInfo == null)
+            {
+                MessageBox.Show(AppResources.ErrorMessage_NewApp_CannotGetAppInfo,
+                                AppResources.ErrorMessage_NewApp_CannotGetAppInfo_Caption, MessageBoxButton.OK);
+                return;
+            }
+            App.AppIcon = appInfo.ImageUrl;
+            App.AppVersion = appInfo.Version;
+            App.AppName = appInfo.AppName;
+            App.LastUpdated = appInfo.LastUpdated;
+            App.Category = appInfo.Category == "games" ? GlobalConstants.CategoryName.Games : GlobalConstants.CategoryName.Applications;
+            _db.InsertApplication(App);
+            SendNavigationBack(App.Category);
         }
 
         #endregion

@@ -22,7 +22,8 @@ namespace LS.Utilities
             }
             catch(Exception)
             {
-                throw new HttpRequestException();
+                callBack(null);
+                return;
             }
 
             var appInfo = new ApplicationInfo(appID, XElement.Parse(responseString));

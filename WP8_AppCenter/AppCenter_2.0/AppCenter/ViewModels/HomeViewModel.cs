@@ -142,6 +142,8 @@ namespace AppCenter.ViewModels
 
             RequestApplicationInfo.GetApplicationInfoAsync(param.ToString(), appInfo =>
                                                                                  {
+                                                                                     if (appInfo == null)
+                                                                                         return;
                                                                                      String categoryName;
                                                                                      _db.UpdateApplication(appInfo, out categoryName);
                                                                                      RefetchCategory(categoryName, appInfo);
@@ -150,15 +152,15 @@ namespace AppCenter.ViewModels
 
         public void DeleteApp(Object param)
         {
-            if (MessageBox.Show(AppResources.Message_ConfirmDelete, AppResources.Message_ConfirmDetete_Caption, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            {
-                if (param == null || param.ToString().ToGuid() == Guid.Empty)
-                    return;
+            if (
+                MessageBox.Show(AppResources.Message_ConfirmDelete, AppResources.Message_ConfirmDetete_Caption,
+                                MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
+            if (param == null || param.ToString().ToGuid() == Guid.Empty)
+                return;
 
-                String categoryName;
-                _db.DeleteApplication(param.ToString().ToGuid(), out categoryName);
-                RefetchCategory(categoryName);
-            }
+            String categoryName;
+            _db.DeleteApplication(param.ToString().ToGuid(), out categoryName);
+            RefetchCategory(categoryName);
         }
 
         public void ViewApp(Object param)
