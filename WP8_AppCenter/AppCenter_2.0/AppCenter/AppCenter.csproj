@@ -19,7 +19,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>AppCenter_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>Pusher center.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>AppCenter.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
