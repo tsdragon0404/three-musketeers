@@ -2,6 +2,7 @@
 <InitialData>
   <Category Name="Nokia" IsCheck="1">
     <App Icon="/Images/Apps/Nokia/5.png" Name="App Social" ID="51f96aba-9924-43d7-8d6c-76a24018d3e0" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
+    <App Icon="http://cdn.marketplaceimages.windowsphone.com/v8/images/c8e829d1-9ce9-4d87-9081-ce9548daa8e1" Name="Glance Background" ID="7c3378ff-2844-480b-b2e2-783537201b84" IsUserDefine="0" Version="1.0.1.1" LastUpdate="2013-10-10" IsUpdate="0" LastCheckVersion="" />
     <App Icon="/Images/Apps/Nokia/20.png" Name="Lumia storage check beta" ID="c2adc981-83c2-4f19-8161-67149e44214c" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
     <App Icon="/Images/Apps/Nokia/21.png" Name="Nokia Chat beta" ID="386213a7-7cff-4e0a-b658-03646dcc6f50" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
     <App Icon="/Images/Apps/Nokia/22.png" Name="Nokia Conference beta" ID="0264f9a0-689a-40d9-86ad-b20b70ebaad8" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
@@ -98,7 +99,7 @@
     <App Icon="/Images/Apps/HTC/52.png" Name="Make More Space" ID="fc388ddb-433d-4c70-ac48-455175a2cbf5" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
   </Category>
   <Category Name="Applications" IsCheck="1">
-    <App Icon="/Images/Apps/User/myapp.png" Name="My app pusher" ID="8768a942-8f14-471b-85d7-9e67b16c11b4" IsUserDefine="0" Version="" LastUpdate="" IsUpdate="0" LastCheckVersion="" />
+    <App Icon="http://cdn.marketplaceimages.windowsphone.com/v8/images/f7bd799f-3d13-4120-829d-c86664f99567" Name="Pusher center" ID="f9ac0798-6f79-4944-8932-7b6c29b44d48" IsUserDefine="0" Version="2.0.0.0" LastUpdate="2013-10-14" IsUpdate="0" LastCheckVersion="" />
   </Category>
   <Category Name="Games" IsCheck="1">
   </Category>
