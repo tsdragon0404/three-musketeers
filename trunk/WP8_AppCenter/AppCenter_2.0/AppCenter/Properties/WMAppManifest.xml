@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <Languages xmlns="">
-    <Language code="vi-VN" />
-  </Languages>
   <App xmlns="" ProductID="{406ea6c9-2763-4f87-9261-c595f597d170}" Title="Pusher center" RuntimeType="Silverlight" Version="2.0.0.0" Genre="apps.normal" Author="graybone-tsdragon" Description="" Publisher="tsdragon" PublisherID="{533e9e3f-8993-4670-91a5-99db7bcd5c3a}">
     <IconPath IsRelative="true" IsResource="false">icon.png</IconPath>
     <Capabilities>

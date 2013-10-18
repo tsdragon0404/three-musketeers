@@ -38,6 +38,41 @@ namespace AppCenter.Data
             SubmitChanges();
         }
 
+        public void UpdateAppVersion()
+        {
+            var resourceInfo = Application.GetResourceStream(GlobalConstants.Data.InitialDataUri);
+
+            var appDataXml = XElement.Load(resourceInfo.Stream);
+
+            var apps = new List<PhoneApp>();
+
+            foreach (var category in appDataXml.Elements())
+            {
+                apps.AddRange(category.Elements().Select(app => new PhoneApp(app, category)));
+            }
+
+            foreach (PhoneApp pa in PhoneApps)
+            {
+                var App = apps.FirstOrDefault(a => a.AppID == pa.AppID && ((a.Category != GlobalConstants.CategoryName.Applications && a.Category != GlobalConstants.CategoryName.Games) ||
+                                                                           (a.Category == GlobalConstants.CategoryName.Applications && a.IsUserDefined == false)));
+                if (App == null)
+                {
+                    if(pa.AppID != Guid.Parse("8768a942-8f14-471b-85d7-9e67b16c11b4"))
+                        apps.Add(pa);
+                }
+                else
+                {
+                    App.AppVersion = pa.AppVersion;
+                    App.LastCheckVersion = pa.LastCheckVersion;
+                    App.LastUpdated = pa.LastUpdated;
+                    App.IsUpdate = pa.IsUpdate;
+                }
+            }
+            PhoneApps.DeleteAllOnSubmit(PhoneApps);
+            PhoneApps.InsertAllOnSubmit(apps);
+            SubmitChanges();
+        }
+
         public List<PhoneApp> GetAppsByCategoryName(String categoryName)
         {
             return PhoneApps.Where(app => app.Category == categoryName).ToList();

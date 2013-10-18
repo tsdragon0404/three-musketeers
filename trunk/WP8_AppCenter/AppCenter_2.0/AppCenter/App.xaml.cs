@@ -66,6 +66,8 @@ namespace AppCenter
                     db.CreateDatabase();
                     db.InitializeData();
                 }
+                else
+                    db.UpdateAppVersion();
             }
         }
 
