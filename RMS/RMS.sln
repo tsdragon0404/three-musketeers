@@ -5,10 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMS", "RMS\RMS.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM.Utilities", "TM.Utilities\TM.Utilities.csproj", "{3FDC8A45-6341-4D27-B589-85B54B8D1279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM", "TM\TM.csproj", "{BD746951-2278-4FA6-BC96-0DCA6D6CBD1B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM.Core", "TM.Core\TM.Core.csproj", "{D7DF98D1-E6C2-4E14-8DE1-CEC4218C729D}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -27,14 +23,6 @@ Global
 		{3FDC8A45-6341-4D27-B589-85B54B8D1279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FDC8A45-6341-4D27-B589-85B54B8D1279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FDC8A45-6341-4D27-B589-85B54B8D1279}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD746951-2278-4FA6-BC96-0DCA6D6CBD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD746951-2278-4FA6-BC96-0DCA6D6CBD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD746951-2278-4FA6-BC96-0DCA6D6CBD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD746951-2278-4FA6-BC96-0DCA6D6CBD1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7DF98D1-E6C2-4E14-8DE1-CEC4218C729D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7DF98D1-E6C2-4E14-8DE1-CEC4218C729D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7DF98D1-E6C2-4E14-8DE1-CEC4218C729D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7DF98D1-E6C2-4E14-8DE1-CEC4218C729D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
