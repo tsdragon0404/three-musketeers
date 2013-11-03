@@ -1,0 +1,12 @@
+﻿<Window x:Class="RMS.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Content="button" x:Name="Click"/>
+        <ContentControl Grid.Row="1" x:Name="ActiveItem" />
+    </Grid>
+</Window>
