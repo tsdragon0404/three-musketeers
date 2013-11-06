@@ -9,15 +9,19 @@ namespace TM.Data
 {
     public class SprocParameters
     {
-        private IList<SprocParameter> _parameters;
-        public IList<SprocParameter> Parameters
-        {
-            get { return _parameters ?? (_parameters = new List<SprocParameter>()); }
-        }
-
+        public IList<SprocParameter> Parameters { get; private set; }
         public int Count
         {
             get { return Parameters.Count; }
+        }
+
+        public SprocParameters(Context context)
+        {
+            Parameters = new List<SprocParameter>();
+            AddParam(new SprocParameter("_returnValue", null, SqlDbType.Int, ParameterDirection.ReturnValue));
+            AddParam(new SprocParameter("I_vintCurUserID", context.CurUserID, SqlDbType.Int));
+            AddParam(new SprocParameter("I_vstrBranchID", context.BranchID, SqlDbType.NVarChar));
+            AddParam(new SprocParameter("I_vstrLang", context.LanguageCode, SqlDbType.NVarChar));
         }
  
         public void AddParam(SprocParameter param)

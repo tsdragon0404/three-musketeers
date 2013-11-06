@@ -41,8 +41,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="ObjectResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
