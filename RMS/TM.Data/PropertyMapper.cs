@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -45,12 +46,24 @@ namespace TM.Data
         {
             try
             {
-                if (propertyInfo.PropertyType == typeof (int))
-                    propertyInfo.SetValue(target, reader.GetInt32(reader.GetOrdinal(ordinal)));
-                if (propertyInfo.PropertyType == typeof (string))
-                    propertyInfo.SetValue(target, reader.GetString(reader.GetOrdinal(ordinal)));
-                if (propertyInfo.PropertyType == typeof (decimal))
-                    propertyInfo.SetValue(target, reader.GetDecimal(reader.GetOrdinal(ordinal)));
+                var index = reader.GetOrdinal(ordinal);
+                object value = null;
+
+                if (propertyInfo.PropertyType == typeof(bool))
+                    value = reader.GetBoolean(index);
+                else if (propertyInfo.PropertyType == typeof (int))
+                    value = reader.GetInt32(index);
+                else if (propertyInfo.PropertyType == typeof (string))
+                    value = reader.GetString(index);
+                else if (propertyInfo.PropertyType == typeof (decimal))
+                    value = reader.GetDecimal(index);
+                else if (propertyInfo.PropertyType == typeof(DateTime))
+                    value = reader.GetDateTime(index);
+                else if (propertyInfo.PropertyType == typeof(Guid))
+                    value = reader.GetGuid(index);
+
+                if(value != null)
+                    propertyInfo.SetValue(target, value);
             }
             catch
             {

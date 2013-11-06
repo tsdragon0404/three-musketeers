@@ -15,13 +15,14 @@ namespace TM.Data
             get { return Parameters.Count; }
         }
 
-        public SprocParameters(Context context)
+        public SprocParameters()
         {
             Parameters = new List<SprocParameter>();
-            AddParam(new SprocParameter("_returnValue", null, SqlDbType.Int, ParameterDirection.ReturnValue));
-            AddParam(new SprocParameter("I_vintCurUserID", context.CurUserID, SqlDbType.Int));
-            AddParam(new SprocParameter("I_vstrBranchID", context.BranchID, SqlDbType.NVarChar));
-            AddParam(new SprocParameter("I_vstrLang", context.LanguageCode, SqlDbType.NVarChar));
+        }
+
+        public SprocParameter GetParam(string paramName)
+        {
+            return Parameters.FirstOrDefault(p => p.Name == paramName);
         }
  
         public void AddParam(SprocParameter param)
@@ -41,6 +42,14 @@ namespace TM.Data
         {
             var newparam = new SprocParameter(paramName, paramValue, dbType, direction);
             AddParam(newparam);
+        }
+
+        public void AddSystemParam(Context context)
+        {
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.ReturnParameter, null, SqlDbType.Int, ParameterDirection.ReturnValue));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.CurrentUserID, context.CurUserID, SqlDbType.Int));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.BranchID, context.BranchID, SqlDbType.NVarChar));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.LanguageCode, context.LanguageCode, SqlDbType.NVarChar));
         }
 
         public void RemoveParam(string paramName)

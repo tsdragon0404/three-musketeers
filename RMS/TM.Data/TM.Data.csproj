@@ -51,6 +51,8 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMapper.cs" />
+    <Compile Include="ServiceError.cs" />
+    <Compile Include="ServiceResult.cs" />
     <Compile Include="SprocParameters.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,18 +10,18 @@ namespace RMS.ViewModels
 {
     public class HomeViewModel
     {
-        //private ICategoryCoreService CategoryCoreService;
+        //private IProductCategoryCoreService ProductCategoryCoreService;
 
-        //public HomeViewModel(ICategoryCoreService categoryCoreService)
+        //public HomeViewModel(IProductCategoryCoreService categoryCoreService)
         //{
-        //    CategoryCoreService = categoryCoreService;
+        //    ProductCategoryCoreService = categoryCoreService;
         //}
 
-        public ICategoryCoreService CategoryCoreService { get; set; }
+        public IProductCategoryCoreService ProductCategoryCoreService { get; set; }
 
         public void test()
         {
-            CategoryCoreService.DoTransaction();
+            
         }
     }
 }
