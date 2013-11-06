@@ -4,11 +4,14 @@ using System.Linq;
 using RMS.Core.Entities;
 using RMS.Data.Interfaces;
 using TM.Data;
+using TM.Utilities;
 
 namespace RMS.Data
 {
     public class CategoryDataService : DataServiceBase, ICategoryDataService 
     {
+        public Context Context { get; set; }
+
         public IList<ProductCategory> GetAll()
         {
             return new List<ProductCategory>();
@@ -16,7 +19,7 @@ namespace RMS.Data
 
         public void DoTransaction()
         {
-            var p = new SprocParameters();
+            var p = new SprocParameters(Context);
             p.AddParam("param1", "value", SqlDbType.NVarChar);
             p.AddParam("param2", 5, SqlDbType.Int, ParameterDirection.Output);
 
