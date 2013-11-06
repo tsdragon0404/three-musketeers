@@ -9,7 +9,7 @@ namespace RMS.ViewModels
     {
         public ProductCategoryViewModel ProductCategoryViewModel { get; set; }
 
-        public ICategoryCoreService CategoryCoreService { get; set; }
+        public IProductCategoryCoreService ProductCategoryCoreService { get; set; }
 
         public Context Context { get; set; }
 
@@ -21,7 +21,7 @@ namespace RMS.ViewModels
         public void Click()
         {
             Context.CurUserID = 2;
-            CategoryCoreService.DoTransaction();
+            
             //ActivateItem(ProductCategoryViewModel);
         }
 

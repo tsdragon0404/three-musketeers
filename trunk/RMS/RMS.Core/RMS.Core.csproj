@@ -37,7 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryCoreService.cs" />
+    <Compile Include="ProductCategoryCoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +56,10 @@
     <ProjectReference Include="..\TM.Data\TM.Data.csproj">
       <Project>{17AA5837-C1EA-40AD-BBAA-492220403DC4}</Project>
       <Name>TM.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Utilities\TM.Utilities.csproj">
+      <Project>{2f15cf04-80f1-4bdb-b8fc-88ab248bfdc6}</Project>
+      <Name>TM.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

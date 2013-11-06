@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Reflection;
 using Autofac;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
@@ -19,7 +18,7 @@ namespace RMS.Autofac
             var _sqlDatabase = BuildSqlDatabase();
             builder.RegisterInstance(_sqlDatabase).As<SqlDatabase>().SingleInstance();
 
-            var _context = new Context {BranchID = "aaa", CurUserID = 1, LanguageCode = "aa"};
+            var _context = new Context();
             builder.RegisterInstance(_context).As<Context>().SingleInstance();
 
             return builder;

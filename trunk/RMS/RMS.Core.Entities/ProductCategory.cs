@@ -6,10 +6,5 @@ namespace RMS.Core.Entities
     {
         [DataField("Name")]
         public virtual string Name { get; set; }
-
-        [DataField("TestValue")]
-        public virtual string Value { get; set; }
-
-        public virtual string TestValue { get; set; }
     }
 }
