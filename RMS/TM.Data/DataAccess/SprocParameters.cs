@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using TM.Utilities;
 
-namespace TM.Data
+namespace TM.Data.DataAccess
 {
     public class SprocParameters
     {
@@ -47,8 +47,8 @@ namespace TM.Data
         public void AddSystemParam(Context context)
         {
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.ReturnParameter, null, SqlDbType.Int, ParameterDirection.ReturnValue));
-            AddParam(new SprocParameter(GlobalConstants.SystemParameters.CurrentUserID, context.CurUserID, SqlDbType.Int));
-            AddParam(new SprocParameter(GlobalConstants.SystemParameters.BranchID, context.BranchID, SqlDbType.NVarChar));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.CurrentUserID, context.CurUserID, SqlDbType.UniqueIdentifier));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.BranchID, context.BranchID, SqlDbType.UniqueIdentifier));
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.LanguageCode, context.LanguageCode, SqlDbType.NVarChar));
         }
 
@@ -104,11 +104,12 @@ namespace TM.Data
         {
             if (sprocParameters == null || sprocParameters.Count == 0) return;
 
-            foreach (var param in parameterCollection.Cast<DbParameter>().Where(parameter => parameter.Direction == ParameterDirection.Output))
+            foreach (var param in parameterCollection.Cast<SqlParameter>()
+                .Where(parameter => parameter.Direction == ParameterDirection.Output || parameter.Direction == ParameterDirection.ReturnValue))
             {
                 var parameter = param;
                 sprocParameters.Parameters.Where(p => p.Name == parameter.ParameterName)
-                    .Apply(c => c.Value = parameter.Value.ToString());
+                    .Apply(c => c.Value = parameter.Value);
             }
         }
     }

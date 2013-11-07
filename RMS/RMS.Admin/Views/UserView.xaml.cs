@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace RMS.Admin.Views
 {
     /// <summary>
-    /// Interaction logic for ProductCategoryView.xaml
+    /// Interaction logic for UserView.xaml
     /// </summary>
-    public partial class ProductCategoryView : UserControl
+    public partial class UserView : UserControl
     {
-        public ProductCategoryView()
+        public UserView()
         {
             InitializeComponent();
         }

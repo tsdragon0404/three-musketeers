@@ -1,33 +1,36 @@
 ﻿using Caliburn.Micro;
 using RMS.Admin.ViewModels;
-using RMS.Core.Interfaces;
 using TM.Utilities;
 
 namespace RMS.ViewModels
 {
     public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShell
     {
-        public ProductCategoryViewModel ProductCategoryViewModel { get; set; }
+        #region Public Properties
 
-        public IProductCategoryCoreService ProductCategoryCoreService { get; set; }
+        public AdminHomeViewModel AdminHomeViewModel { get; set; }
 
-        public Context Context { get; set; }
+        public Context Context { get; set; } 
 
-        public bool CanClick
-        {
-            get { return true; }
-        }
-
-        public void Click()
-        {
-            Context.CurUserID = 2;
-            
-            //ActivateItem(ProductCategoryViewModel);
-        }
+        #endregion
 
         public ShellViewModel()
         {
             DisplayName = "RMS";
+        }
+
+        public void ActivateModule(IScreen viewModel)
+        {
+            if (viewModel != null && ActiveItem != null && viewModel.GetType() == ActiveItem.GetType())
+                return;
+
+            ActivateItem(viewModel);
+        }
+
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+            ActivateModule(AdminHomeViewModel);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using TM.Utilities;
 
-namespace TM.Data
+namespace TM.Data.Mapping
 {
     public static class PropertyMapper
     {

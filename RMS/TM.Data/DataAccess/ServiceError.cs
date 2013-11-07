@@ -1,4 +1,4 @@
-﻿namespace TM.Data
+﻿namespace TM.Data.DataAccess
 {
     public class ServiceError
     {
