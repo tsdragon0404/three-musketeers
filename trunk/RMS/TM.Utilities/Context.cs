@@ -1,9 +1,11 @@
-﻿namespace TM.Utilities
+﻿using System;
+
+namespace TM.Utilities
 {
     public class Context
     {
-        public int CurUserID { get; set; }
-        public string BranchID { get; set; }
+        public Guid CurUserID { get; set; }
+        public Guid BranchID { get; set; }
         public string LanguageCode { get; set; }
     }
 }

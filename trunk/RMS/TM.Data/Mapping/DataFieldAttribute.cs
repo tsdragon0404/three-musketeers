@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TM.Data
+namespace TM.Data.Mapping
 {
     public class DataFieldAttribute : Attribute
     {

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using TM.Data.DataAccess;
+using TM.Data.Mapping;
 using TM.Utilities;
 
-namespace TM.Data
+namespace TM.Data.BaseClasses
 {
     public abstract class DataServiceBase
     {
@@ -20,21 +23,12 @@ namespace TM.Data
 
         protected IEnumerable<TEntity> ExecuteGetEntity<TEntity>(string sprocName, SprocParameters parameters = null) where TEntity : new()
         {
-            using (var command = Database.GetStoredProcCommand(sprocName))
+            using (var command = CreateCommand(sprocName, ref parameters))
             {
-                if(parameters == null)
-                    parameters = new SprocParameters();
-
-                parameters.AddSystemParam(Context);
-
-                command.Parameters.AddSprocParameter(parameters);
-
-                var result = Database.ExecuteReader(command).Map<TEntity>();
+                var result = Database.ExecuteDataSet(command).Tables[0].Map<TEntity>();
                 command.Parameters.AssignOutputParameterValue(parameters);
-                
-                Error.Number = (int) parameters.GetParam(GlobalConstants.SystemParameters.ReturnParameter).Value;
-                if (Error.Number != 0)
-                    Error.Message = GetErrorMessage(Error.Number);
+
+                HandleError(parameters);
 
                 return result;
             }
@@ -42,21 +36,12 @@ namespace TM.Data
 
         protected TType ExecuteGetValue<TType>(string sprocName, SprocParameters parameters = null)
         {
-            using (var command = Database.GetStoredProcCommand(sprocName))
+            using (var command = CreateCommand(sprocName, ref parameters))
             {
-                if (parameters == null)
-                    parameters = new SprocParameters();
-
-                parameters.AddSystemParam(Context);
-
-                command.Parameters.AddSprocParameter(parameters);
-
                 var result = Database.ExecuteScalar(command);
                 command.Parameters.AssignOutputParameterValue(parameters);
 
-                Error.Number = (int)parameters.GetParam(GlobalConstants.SystemParameters.ReturnParameter).Value;
-                if (Error.Number != 0)
-                    Error.Message = GetErrorMessage(Error.Number);
+                HandleError(parameters);
 
                 return (TType)result;
             }
@@ -64,43 +49,47 @@ namespace TM.Data
 
         protected void Execute(string sprocName, SprocParameters parameters = null)
         {
-            using (var command = Database.GetStoredProcCommand(sprocName))
+            using (var command = CreateCommand(sprocName, ref parameters))
             {
-                if (parameters == null)
-                    parameters = new SprocParameters();
-
-                parameters.AddSystemParam(Context);
-
-                command.Parameters.AddSprocParameter(parameters);
                 Database.ExecuteNonQuery(command);
                 command.Parameters.AssignOutputParameterValue(parameters);
 
-                Error.Number = (int)parameters.GetParam(GlobalConstants.SystemParameters.ReturnParameter).Value;
-                if (Error.Number != 0)
-                    Error.Message = GetErrorMessage(Error.Number);
+                HandleError(parameters);
             }
         }
 
         protected DataSet ExecuteDataSet(string sprocName, SprocParameters parameters = null)
         {
-            using (var command = Database.GetStoredProcCommand(sprocName))
+            using (var command = CreateCommand(sprocName, ref parameters))
             {
-                if (parameters == null)
-                    parameters = new SprocParameters();
-
-                parameters.AddSystemParam(Context);
-
-                command.Parameters.AddSprocParameter(parameters);
-
                 var result = Database.ExecuteDataSet(command);
                 command.Parameters.AssignOutputParameterValue(parameters);
 
-                Error.Number = (int)parameters.GetParam(GlobalConstants.SystemParameters.ReturnParameter).Value;
-                if (Error.Number != 0)
-                    Error.Message = GetErrorMessage(Error.Number);
+                HandleError(parameters);
 
                 return result;
             }
+        }
+
+        private void HandleError(SprocParameters parameters)
+        {
+            if (parameters != null)
+                Error.Number = (int)parameters.GetParam(GlobalConstants.SystemParameters.ReturnParameter).Value;
+            if (Error.Number != 0)
+                Error.Message = GetErrorMessage(Error.Number);
+        }
+
+        private DbCommand CreateCommand(string sprocName, ref SprocParameters parameters)
+        {
+            var command = Database.GetStoredProcCommand(sprocName);
+            if (parameters == null)
+                parameters = new SprocParameters();
+
+            parameters.AddSystemParam(Context);
+
+            command.Parameters.AddSprocParameter(parameters);
+
+            return command;
         }
 
         private string GetErrorMessage(int errorNumber)

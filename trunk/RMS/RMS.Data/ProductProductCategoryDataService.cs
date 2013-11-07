@@ -1,5 +1,5 @@
 ﻿using RMS.Data.Interfaces;
-using TM.Data;
+using TM.Data.BaseClasses;
 
 namespace RMS.Data
 {

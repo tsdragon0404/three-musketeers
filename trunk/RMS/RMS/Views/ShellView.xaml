@@ -3,10 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="13" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Content="button" x:Name="Click"/>
-        <ContentControl Grid.Row="1" x:Name="ActiveItem" />
+        <Menu IsMainMenu="True">
+            <MenuItem Header="_Administration" x:Name="Click"/>
+            <MenuItem Header="_Cashier" />
+            <MenuItem Header="_Report" />
+            <MenuItem Header="_Logout" />
+            <MenuItem Header="_Exit" />
+        </Menu>
+        <ContentControl Grid.Row="2" x:Name="ActiveItem" Grid.ColumnSpan="2" />
     </Grid>
 </Window>
