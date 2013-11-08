@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using RMS.Core.Entities;
+﻿using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.Data.BaseClasses;
 
