@@ -12,6 +12,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="10" />
             <RowDefinition Height="*"/>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -26,5 +28,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Grid.Row="4" Grid.ColumnSpan="3">
+            <Button Content="Value"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -7,6 +7,8 @@
                 <ResourceDictionary>
                     <local:RMSBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
+                
+                <ResourceDictionary Source="Themes/Application.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
