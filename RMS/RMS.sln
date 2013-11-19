@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMS.Core.Entities", "RMS.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMS.Autofac", "RMS.Autofac\RMS.Autofac.csproj", "{197A3BC0-89FB-4E5D-B7D8-BDBB5C3AE266}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B647AFFA-EBA9-4D17-B49D-D10DA179807B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{B647AFFA-EBA9-4D17-B49D-D10DA179807B}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
