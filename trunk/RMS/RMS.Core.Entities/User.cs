@@ -11,7 +11,7 @@ namespace RMS.Core.Entities
         public virtual Guid ID { get; set; }
 
         [DataField("UserCode")]
-        public virtual string Code { get; set; }
+        public virtual string UserCode { get; set; }
 
         [DataField("UserLogin")]
         public virtual string Login { get; set; }
