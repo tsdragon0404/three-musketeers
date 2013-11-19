@@ -21,7 +21,7 @@ namespace RMS.Admin.ViewModels
 
         public override void InitializeData()
         {
-            GetAllUser();
+            //GetAllUser();
         }
 
         #endregion
