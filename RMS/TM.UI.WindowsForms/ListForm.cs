@@ -4,10 +4,30 @@ namespace TM.UI.WindowsForms
 {
     public class ListForm<TEntity> : BaseForm
     {
-        public IList<TEntity> Items { get; set; }
+        #region Properties
 
-        public TEntity SelectedItem { get; set; }
+        protected IList<TEntity> Items { get; set; }
 
-        public int SelectedIndex { get; set; }
+        protected TEntity SelectedItem
+        {
+            get { return Items[SelectedIndex]; }
+            set { SelectedIndex = Items.IndexOf(value); }
+        }
+
+        protected int SelectedIndex { get; set; } 
+
+        #endregion
+
+        public override void InitializeData()
+        {
+            base.InitializeData();
+            Items = GetItemList();
+            SelectedIndex = 0;
+        }
+
+        protected virtual IList<TEntity> GetItemList()
+        {
+            return new List<TEntity>();
+        }
     }
 }

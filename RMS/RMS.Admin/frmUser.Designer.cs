@@ -1,6 +1,6 @@
 ﻿namespace RMS.Admin
 {
-    partial class Form1
+    partial class frmUser
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(12, 12);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(185, 147);
+            this.listBox1.TabIndex = 0;
+            // 
+            // frmUser
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(404, 389);
+            this.Controls.Add(this.listBox1);
+            this.Name = "frmUser";
+            this.Text = "frmUser";
+            this.Load += new System.EventHandler(this.frmUser_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
-
