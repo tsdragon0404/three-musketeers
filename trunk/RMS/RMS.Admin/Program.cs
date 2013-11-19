@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using RMS.Autofac;
+using Autofac;
+using TM.UI.WindowsForms;
+using TM.Utilities;
 
 namespace RMS.Admin
 {
@@ -14,9 +15,15 @@ namespace RMS.Admin
         [STAThread]
         static void Main()
         {
+            Application.ThreadException += new ThreadExceptionHandler().ApplicationThreadException; 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var builder = new ContainerBuilder();
+            var container = builder.Install().InstallWindowsForms().Build();
+
+            var frm = container.Resolve<frmMain>();
+            Application.Run(frm);
         }
     }
 }

@@ -2,6 +2,10 @@
 {
     public class SingleForm<TEntity> : BaseForm
     {
-        public TEntity Model { get; set; }
+        #region Properties
+
+        protected TEntity Model { get; set; } 
+
+        #endregion
     }
 }

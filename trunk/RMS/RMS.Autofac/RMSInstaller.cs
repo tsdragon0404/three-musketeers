@@ -30,6 +30,14 @@ namespace RMS.Autofac
             return builder;
         }
 
+        public static ContainerBuilder InstallWindowsForms(this ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.Load("RMS.Admin")).Where(t => t.Name.StartsWith("frm"))
+                .AsSelf().PropertiesAutowired().InstancePerDependency();
+
+            return builder;
+        }
+
         private static SqlDatabase BuildSqlDatabase()
         {
             return new SqlDatabase(ConfigurationManager.ConnectionStrings["RMS"].ConnectionString);
