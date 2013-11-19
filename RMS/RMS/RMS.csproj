@@ -104,10 +104,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RMS.Admin\RMS.Admin.csproj">
-      <Project>{1C4F6585-D3BB-4FF8-AFDB-1AF73A9E5C4E}</Project>
-      <Name>RMS.Admin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RMS.Autofac\RMS.Autofac.csproj">
       <Project>{197A3BC0-89FB-4E5D-B7D8-BDBB5C3AE266}</Project>
       <Name>RMS.Autofac</Name>
