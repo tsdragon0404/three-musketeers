@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using RMS.Admin.ViewModels;
 using TM.Utilities;
 
 namespace RMS.ViewModels
@@ -8,7 +7,7 @@ namespace RMS.ViewModels
     {
         #region Public Properties
 
-        public AdminHomeViewModel AdminHomeViewModel { get; set; }
+        //public AdminHomeViewModel AdminHomeViewModel { get; set; }
 
         public Context Context { get; set; } 
 
@@ -30,7 +29,7 @@ namespace RMS.ViewModels
         protected override void OnActivate()
         {
             base.OnActivate();
-            ActivateModule(AdminHomeViewModel);
+            //ActivateModule(AdminHomeViewModel);
         }
     }
 }

@@ -7,7 +7,7 @@ using TM.Data.DataAccess;
 
 namespace RMS.Data
 {
-    public class UserDataService : DataServiceBase, IUserDataService
+    public class UserBaseDataService : BaseDataService, IUserDataService
     {
         #region Implementation of IUserDataService
 
