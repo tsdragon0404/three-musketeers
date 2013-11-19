@@ -42,6 +42,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
