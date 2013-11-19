@@ -8,7 +8,7 @@ using TM.Utilities;
 
 namespace TM.Data.BaseClasses
 {
-    public abstract class DataServiceBase
+    public abstract class BaseDataService
     {
         public SqlDatabase Database { get; set; }
 
