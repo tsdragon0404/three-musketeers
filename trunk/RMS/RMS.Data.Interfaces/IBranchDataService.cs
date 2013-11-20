@@ -7,7 +7,9 @@ namespace RMS.Data.Interfaces
     public interface IBranchDataService
     {
         ServiceResult<IList<Branch>> GetAllBranch();
-        ServiceResult<Guid> UpdateBranch(Branch branch);
+
+        ServiceResult<Guid> SaveBranch(Branch branch);
+
         ServiceResult DeleteBranch(Guid branchID);
     }
 }

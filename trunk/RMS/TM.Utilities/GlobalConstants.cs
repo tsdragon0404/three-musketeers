@@ -1,7 +1,13 @@
 ﻿namespace TM.Utilities
 {
+    /// <summary>
+    /// Contains all constants for global uses
+    /// </summary>
     public static class GlobalConstants
     {
+        /// <summary>
+        /// Contains parameters need for calling stored procedure
+        /// </summary>
          public static class SystemParameters
          {
              public const string ReturnParameter = "RETURN_VALUE";

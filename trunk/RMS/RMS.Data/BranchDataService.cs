@@ -10,10 +10,14 @@ using TM.Utilities;
 
 namespace RMS.Data
 {
-    public class BranchBaseDataService : BaseDataService, IBranchDataService
+    public class BranchDataService : BaseDataService, IBranchDataService
     {
         #region Implementation of IBranchDataService
 
+        /// <summary>
+        /// Gets all branch.
+        /// </summary>
+        /// <returns>ServiceResult object contains list of branchs</returns>
         public ServiceResult<IList<Branch>> GetAllBranch()
         {
             var result = ExecuteGetEntity<Branch>(StoreProcedure.GetAllBranch).ToList();
@@ -25,7 +29,12 @@ namespace RMS.Data
             };
         }
 
-        public ServiceResult<Guid> UpdateBranch(Branch branch)
+        /// <summary>
+        /// Saves branch.
+        /// </summary>
+        /// <param name="branch">The branch.</param>
+        /// <returns>ServiceResult object contains the new/updated branchID</returns>
+        public ServiceResult<Guid> SaveBranch(Branch branch)
         {
             var parameters =new SprocParameters();
             parameters.AddParam("I_vID", branch.BranchID, SqlDbType.UniqueIdentifier);
@@ -40,6 +49,11 @@ namespace RMS.Data
             return new ServiceResult<Guid>(Error, branchID);
         }
 
+        /// <summary>
+        /// Deletes a branch specify by branchID.
+        /// </summary>
+        /// <param name="branchID">The branch identifier.</param>
+        /// <returns>ServiceResult object</returns>
         public ServiceResult DeleteBranch(Guid branchID)
         {
             var parameters = new SprocParameters();
