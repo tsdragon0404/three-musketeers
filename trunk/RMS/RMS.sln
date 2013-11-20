@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMS.Admin", "RMS.Admin\RMS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM.UI.WindowsForms", "TM.UI.WindowsForms\TM.UI.WindowsForms.csproj", "{4A53F3DC-B595-482C-B13F-9C487F4394C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TM.UI.WindowsForms.Styles", "TM.UI.WindowsForms.Styles\TM.UI.WindowsForms.Styles.csproj", "{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -79,6 +81,10 @@ Global
 		{4A53F3DC-B595-482C-B13F-9C487F4394C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A53F3DC-B595-482C-B13F-9C487F4394C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A53F3DC-B595-482C-B13F-9C487F4394C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
