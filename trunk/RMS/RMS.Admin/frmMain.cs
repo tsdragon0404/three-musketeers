@@ -12,11 +12,15 @@ namespace RMS.Admin
         }
 
         public frmUser UserForm { get; set; }
+        public frmLoginAdmin LoginAdminForm { get; set; }
 
-        private void ShowForm(Form childForm)
+        private void ShowForm(Form childForm, bool isDialog = false)
         {
             childForm.MdiParent = this;
-            childForm.Show();
+            if (isDialog)
+                childForm.ShowDialog();
+            else
+                childForm.Show();
         }
 
         private void mItemExit_Click(object sender, EventArgs e)
@@ -33,6 +37,12 @@ namespace RMS.Admin
         {
             UserForm.InitializeData();
             ShowForm(UserForm);
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            LoginAdminForm.InitializeData();
+            ShowForm(LoginAdminForm);
         }
     }
 }
