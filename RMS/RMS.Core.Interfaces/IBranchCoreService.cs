@@ -7,7 +7,9 @@ namespace RMS.Core.Interfaces
     public interface IBranchCoreService
     {
         ServiceResult<IList<Branch>> GetAllBranch();
-        ServiceResult<Guid> UpdateBranch(Branch branch);
+
+        ServiceResult<Guid> SaveBranch(Branch branch);
+
         ServiceResult DeleteBranch(Guid branchID);
     }
 }

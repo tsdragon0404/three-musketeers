@@ -7,10 +7,14 @@ using TM.Data.DataAccess;
 
 namespace RMS.Data
 {
-    public class UserBaseDataService : BaseDataService, IUserDataService
+    public class UserDataService : BaseDataService, IUserDataService
     {
         #region Implementation of IUserDataService
 
+        /// <summary>
+        /// Gets all user.
+        /// </summary>
+        /// <returns>ServiceResult object contains list of users</returns>
         public ServiceResult<IList<User>> GetAllUser()
         {
             var result = ExecuteGetEntity<User>(StoreProcedure.GetAllUser).ToList();

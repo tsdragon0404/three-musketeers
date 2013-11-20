@@ -2,6 +2,10 @@
 
 namespace TM.UI.WindowsForms
 {
+    /// <summary>
+    /// Base class for forms that usually keep a list of items
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public class ListForm<TEntity> : BaseForm
     {
         #region Properties

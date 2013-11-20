@@ -9,7 +9,7 @@ namespace RMS.ViewModels
 
         //public AdminHomeViewModel AdminHomeViewModel { get; set; }
 
-        public Context Context { get; set; } 
+        public UserContext UserContext { get; set; } 
 
         #endregion
 

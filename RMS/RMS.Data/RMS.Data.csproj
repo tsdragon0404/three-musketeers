@@ -39,10 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BranchBaseDataService.cs" />
-    <Compile Include="ProductProductCategoryBaseDataService.cs" />
+    <Compile Include="BranchDataService.cs" />
+    <Compile Include="ProductCategoryDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserBaseDataService.cs" />
+    <Compile Include="UserDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RMS.Core.Entities\RMS.Core.Entities.csproj">

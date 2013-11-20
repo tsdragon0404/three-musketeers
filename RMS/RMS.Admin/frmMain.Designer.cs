@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.mItemUsers = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +62,21 @@
             this.mItemUsers.Size = new System.Drawing.Size(47, 20);
             this.mItemUsers.Text = "&Users";
             this.mItemUsers.Click += new System.EventHandler(this.mItemUsers_Click);
+            // 
+            // systemToolStripMenuItem
+            // 
+            this.systemToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemBranch});
+            this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
+            this.systemToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.systemToolStripMenuItem.Text = "System";
+            // 
+            // mItemBranch
+            // 
+            this.mItemBranch.Name = "mItemBranch";
+            this.mItemBranch.Size = new System.Drawing.Size(111, 22);
+            this.mItemBranch.Text = "Branch";
+            this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
             // 
             // mItemLogout
             // 
@@ -94,21 +109,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // systemToolStripMenuItem
-            // 
-            this.systemToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mItemBranch});
-            this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
-            this.systemToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.systemToolStripMenuItem.Text = "System";
-            // 
-            // mItemBranch
-            // 
-            this.mItemBranch.Name = "mItemBranch";
-            this.mItemBranch.Size = new System.Drawing.Size(152, 22);
-            this.mItemBranch.Text = "Branch";
-            this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
             // 
             // frmMain
             // 

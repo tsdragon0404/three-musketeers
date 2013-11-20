@@ -2,7 +2,6 @@
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
-using TM.Utilities;
 
 namespace RMS.Admin
 {
@@ -15,12 +14,22 @@ namespace RMS.Admin
 #endif
 
     {
+        #region Public properties
+
         public IUserCoreService UserCoreService { get; set; }
+
+        #endregion
+
+        #region Constructor(s)
 
         public frmUser()
         {
             InitializeComponent();
-        }
+        } 
+
+        #endregion
+
+        #region Override methods
 
         protected override IList<User> GetItemList()
         {
@@ -31,13 +40,19 @@ namespace RMS.Admin
             }
 
             return result.Data;
-        }
+        } 
+
+        #endregion
+
+        #region Event methods
 
         private void frmUser_Load(object sender, System.EventArgs e)
         {
             lsbUser.DataSource = Items;
             lsbUser.DisplayMember = "UserLogin";
-        }
+        } 
+
+        #endregion
     }
 
 #if DEBUG

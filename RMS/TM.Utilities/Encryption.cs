@@ -5,12 +5,20 @@ using System.Text;
 
 namespace TM.Utilities
 {
+    /// <summary>
+    /// Contains methods for encrypt and decrypt data
+    /// </summary>
     public static class Encryption
     {
         private const string PasswordHash = "P@@Sw0rd";
         private const string SaltKey = "S@LT&KEY";
         private const string VIKey = "@1B2c3D4e5F6g7H8";
 
+        /// <summary>
+        /// Encrypts the specified plain text.
+        /// </summary>
+        /// <param name="plainText">The plain text.</param>
+        /// <returns></returns>
         public static string Encrypt(string plainText)
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
@@ -35,6 +43,11 @@ namespace TM.Utilities
             return Convert.ToBase64String(cipherTextBytes);
         }
 
+        /// <summary>
+        /// Decrypts the specified encrypted text.
+        /// </summary>
+        /// <param name="encryptedText">The encrypted text.</param>
+        /// <returns></returns>
         public static string Decrypt(string encryptedText)
         {
             var cipherTextBytes = Convert.FromBase64String(encryptedText);

@@ -9,6 +9,12 @@ namespace TM.Data.Mapping
 {
     public static class PropertyMapper
     {
+        /// <summary>
+        /// Maps to an IEnumerable of TEntity from a DataReader.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <returns></returns>
         public static IEnumerable<TEntity> Map<TEntity>(this IDataReader reader) where TEntity : new()
         {
             using (reader)
@@ -36,12 +42,25 @@ namespace TM.Data.Mapping
             }
         }
 
+        /// <summary>
+        /// Maps the specified data table to an IEnumerable of TEntity.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="dataTable">The data table.</param>
+        /// <returns></returns>
         public static IEnumerable<TEntity> Map<TEntity>(this DataTable dataTable) where TEntity : new()
         {
             var reader = dataTable.CreateDataReader();
             return Map<TEntity>(reader);
         }
 
+        /// <summary>
+        /// Sets the property value.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="ordinal">The ordinal.</param>
         private static void SetPropertyValue(PropertyInfo propertyInfo, object target, IDataRecord reader, string ordinal)
         {
             try

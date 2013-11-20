@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
-using TM.Utilities;
 
 namespace RMS.Admin
 {
@@ -18,12 +17,22 @@ namespace RMS.Admin
 #endif
 
     {
-        public IBranchCoreService BranchCoreService { get; set; }
+        #region Public properties
+
+        public IBranchCoreService BranchCoreService { get; set; } 
+
+        #endregion
+
+        #region Constructor(s)
 
         public frmBranch()
         {
             InitializeComponent();
-        }
+        } 
+
+        #endregion
+
+        #region Override methods
 
         protected override IList<Branch> GetItemList()
         {
@@ -34,7 +43,11 @@ namespace RMS.Admin
             }
 
             return result.Data;
-        }
+        } 
+
+        #endregion
+
+        #region Event methods
 
         private void frmBranch_Load(object sender, EventArgs e)
         {
@@ -44,10 +57,10 @@ namespace RMS.Admin
             lsbBranch.SelectedIndex = SelectedIndex;
         }
 
-        private void lsbBranch_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void lsbBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedIndex = lsbBranch.SelectedIndex;
-            if(userBindingSource.IsBindingSuspended)
+            if (userBindingSource.IsBindingSuspended)
                 userBindingSource.ResumeBinding();
             userBindingSource.DataSource = SelectedItem;
         }
@@ -62,7 +75,7 @@ namespace RMS.Admin
                                  SEQ = int.Parse(txtSEQ.Text.Trim()),
                                  Enable = ckbEnable.Checked
                              };
-            var result = BranchCoreService.UpdateBranch(branch);
+            var result = BranchCoreService.SaveBranch(branch);
             if (result.Error != null && result.Error.Number != 0)
             {
                 MessageBox.Show(result.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -127,7 +140,9 @@ namespace RMS.Admin
             lsbBranch.SelectedIndex = SelectedIndex;
             btnCreateNew.Enabled = true;
             btnDelete.Enabled = true;
-        }
+        } 
+
+        #endregion
     }
 
 #if DEBUG

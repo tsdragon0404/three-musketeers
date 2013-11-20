@@ -10,6 +10,10 @@ namespace RMS.Core
     {
         public IUserDataService UserDataService { get; set; }
 
+        /// <summary>
+        /// Gets all user.
+        /// </summary>
+        /// <returns>ServiceResult object contains list of users</returns>
         public ServiceResult<IList<User>> GetAllUser()
         {
             return UserDataService.GetAllUser();

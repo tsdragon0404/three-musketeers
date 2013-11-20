@@ -16,15 +16,37 @@ namespace RMS.Admin
 #endif
 
     {
+        #region Public properties
+
         public IBranchCoreService BranchCoreService { get; set; }
-        public IList<Branch> ListBranch { get; set; }
+
+        public IList<Branch> ListBranch { get; set; } 
+
+        #endregion
+
+        #region Constructor(s)
 
         public frmLoginAdmin()
         {
             InitializeComponent();
-        }
+            WindowState = FormWindowState.Normal;
+        } 
 
-        protected IList<Branch> GetAllBranch()
+        #endregion
+
+        #region Override methods
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            e.Cancel = false;
+        } 
+
+        #endregion
+
+        #region Private methods
+
+        private IList<Branch> GetAllBranch()
         {
             var result = BranchCoreService.GetAllBranch();
             if (result.Error != null && result.Error.Number != 0)
@@ -33,7 +55,11 @@ namespace RMS.Admin
             }
 
             return result.Data;
-        }
+        } 
+
+        #endregion
+
+        #region Event methods
 
         private void frmLoginAdmin_Load(object sender, System.EventArgs e)
         {
@@ -49,12 +75,14 @@ namespace RMS.Admin
             var passWord = Encryption.Encrypt(Encryption.Encrypt(txtPassword.Text));
             var branchID = cmbBranch.SelectedValue.ToString();
 
-            if(userName == "system")
+            if (userName == "system")
             {
                 DialogResult = DialogResult.OK;
                 Close();
             }
-        }
+        } 
+
+        #endregion
     }
 
 #if DEBUG
