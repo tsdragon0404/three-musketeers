@@ -8,16 +8,16 @@ namespace RMS.Core.Entities
     public class User : Entity
     {
         [DataField("UserID")]
-        public virtual Guid ID { get; set; }
+        public virtual Guid UserID { get; set; }
 
         [DataField("UserCode")]
         public virtual string UserCode { get; set; }
 
         [DataField("UserLogin")]
-        public virtual string Login { get; set; }
+        public virtual string UserLogin { get; set; }
 
         [DataField("UserPassword")]
-        public virtual string Password { get; set; }
+        public virtual string UserPassword { get; set; }
 
         [DataField("FirstName")]
         public virtual string FirstName { get; set; }

@@ -28,7 +28,7 @@ namespace RMS.Data
 
         protected class StoreProcedure
         {
-            public const string GetAllUser = "spa_GetAllUser";
+            public const string GetAllUser = "spa_get_AllUser";
         } 
 
         #endregion

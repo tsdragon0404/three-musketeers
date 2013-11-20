@@ -50,6 +50,7 @@ namespace TM.Data.DataAccess
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.CurrentUserID, context.CurUserID, SqlDbType.UniqueIdentifier));
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.BranchID, context.BranchID, SqlDbType.UniqueIdentifier));
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.LanguageCode, context.LanguageCode, SqlDbType.NVarChar));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.FunctionID, context.FunctionID, SqlDbType.BigInt));
         }
 
         public void RemoveParam(string paramName)

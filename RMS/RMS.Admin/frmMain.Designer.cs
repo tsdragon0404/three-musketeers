@@ -103,6 +103,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.Name = "frmMain";
             this.Text = "frmMain";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

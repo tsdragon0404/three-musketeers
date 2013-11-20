@@ -35,8 +35,8 @@ namespace RMS.Admin
 
         private void frmUser_Load(object sender, System.EventArgs e)
         {
-            listBox1.DataSource = Items;
-            listBox1.DisplayMember = "Login";
+            lsbUser.DataSource = Items;
+            lsbUser.DisplayMember = "UserLogin";
         }
     }
 

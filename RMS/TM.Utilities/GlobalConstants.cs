@@ -5,10 +5,11 @@
          public static class SystemParameters
          {
              public const string ReturnParameter = "RETURN_VALUE";
-             public const string CurrentUserID = "I_vintCurUserID";
-             public const string BranchID = "I_vstrBranchID";
-             public const string LanguageCode = "I_vstrLang";
-             public const string ErrorNumber = "I_vintErrNumber";
+             public const string CurrentUserID = "I_vUserID";
+             public const string BranchID = "I_vBranchID";
+             public const string LanguageCode = "I_vLanguageID";
+             public const string FunctionID = "I_vFunctionID"; 
+             public const string ErrorNumber = "I_vErrNumber";
          }
     }
 }
