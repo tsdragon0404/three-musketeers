@@ -23,7 +23,11 @@ namespace RMS.Admin
             var container = builder.Install().InstallWindowsForms().Build();
 
             var frm = container.Resolve<frmMain>();
-            Application.Run(frm);
+            var frmLogin = container.Resolve<frmLoginAdmin>();
+            frmLogin.InitializeData();
+
+            if(frmLogin.ShowDialog() == DialogResult.OK)
+                Application.Run(frm);
         }
     }
 }
