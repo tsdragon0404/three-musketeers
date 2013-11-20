@@ -1,4 +1,6 @@
-﻿namespace RMS.Admin
+﻿using TM.UI.WindowsForms.Controls;
+
+namespace RMS.Admin
 {
     partial class frmMain
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new TMMenuStrip();
             this.mItemUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,7 +135,7 @@
         #endregion
 
 
-        private System.Windows.Forms.MenuStrip menuStrip;
+        private TMMenuStrip menuStrip;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem mItemUsers;

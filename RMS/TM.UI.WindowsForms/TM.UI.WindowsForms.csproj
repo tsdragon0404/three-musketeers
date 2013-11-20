@@ -34,15 +34,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TMMenuStrip.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListForm.cs">
       <SubType>Form</SubType>
@@ -54,7 +52,10 @@
     <Compile Include="ThreadExceptionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <ProjectReference Include="..\TM.UI.WindowsForms.Styles\TM.UI.WindowsForms.Styles.csproj">
+      <Project>{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}</Project>
+      <Name>TM.UI.WindowsForms.Styles</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BaseForm.resx">
