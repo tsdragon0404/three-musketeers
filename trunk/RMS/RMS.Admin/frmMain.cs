@@ -13,7 +13,7 @@ namespace RMS.Admin
 
         public frmUser UserForm { get; set; }
         public frmLoginAdmin LoginAdminForm { get; set; }
-        //public frmBranch BranchForm { get; set; }
+        public frmBranch BranchForm { get; set; }
 
         private void ShowForm(Form childForm, bool isDialog = false)
         {
@@ -42,14 +42,13 @@ namespace RMS.Admin
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //LoginAdminForm.InitializeData();
-            //ShowForm(LoginAdminForm);
+            
         }
 
         private void mItemBranch_Click(object sender, EventArgs e)
         {
-            //BranchForm.InitializeData();
-            //ShowForm(BranchForm);
+            BranchForm.InitializeData();
+            ShowForm(BranchForm);
         }
     }
 }

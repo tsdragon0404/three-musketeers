@@ -63,6 +63,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(143, 20);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.Text = "system";
             // 
             // txtPassword
             // 

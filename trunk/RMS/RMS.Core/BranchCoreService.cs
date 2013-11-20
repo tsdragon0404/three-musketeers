@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using RMS.Data.Interfaces;
@@ -13,6 +14,16 @@ namespace RMS.Core
         public ServiceResult<IList<Branch>> GetAllBranch()
         {
             return BranchDataService.GetAllBranch();
+        }
+
+        public ServiceResult<Guid> UpdateBranch(Branch branch)
+        {
+            return BranchDataService.UpdateBranch(branch);
+        }
+
+        public ServiceResult DeleteBranch(Guid branchID)
+        {
+            return BranchDataService.DeleteBranch(branchID);
         }
     }
 }
