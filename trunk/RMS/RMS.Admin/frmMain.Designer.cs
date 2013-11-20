@@ -36,6 +36,8 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -44,6 +46,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mItemUsers,
+            this.systemToolStripMenuItem,
             this.mItemLogout,
             this.mItemExit});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
@@ -92,6 +95,21 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
+            // systemToolStripMenuItem
+            // 
+            this.systemToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemBranch});
+            this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
+            this.systemToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.systemToolStripMenuItem.Text = "System";
+            // 
+            // mItemBranch
+            // 
+            this.mItemBranch.Name = "mItemBranch";
+            this.mItemBranch.Size = new System.Drawing.Size(152, 22);
+            this.mItemBranch.Text = "Branch";
+            this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +140,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem mItemLogout;
         private System.Windows.Forms.ToolStripMenuItem mItemExit;
+        private System.Windows.Forms.ToolStripMenuItem systemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mItemBranch;
     }
 }
 
