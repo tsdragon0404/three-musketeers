@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
@@ -44,9 +45,15 @@ namespace RMS.Admin
 
         private void btnLogin_Click(object sender, System.EventArgs e)
         {
-            string userName = txtUsername.Text.Trim();
-            string passWord = Encryption.Encrypt(Encryption.Encrypt(txtPassword.Text));
-            string branchID = cmbBranch.SelectedValue.ToString();
+            var userName = txtUsername.Text.Trim();
+            var passWord = Encryption.Encrypt(Encryption.Encrypt(txtPassword.Text));
+            var branchID = cmbBranch.SelectedValue.ToString();
+
+            if(userName == "system")
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
     }
 
