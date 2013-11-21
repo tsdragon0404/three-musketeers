@@ -7,6 +7,7 @@ using TM.Utilities;
 
 namespace RMS.Admin
 {
+    [FunctionId(GlobalConstants.FunctionIds.FormLoginAdmin)]
     public partial class frmLoginAdmin
 
 #if DEBUG
@@ -16,9 +17,17 @@ namespace RMS.Admin
 #endif
 
     {
-        #region Public properties
+        #region IOC properties
 
         public IBranchCoreService BranchCoreService { get; set; }
+
+        public IUserCoreService UserCoreService { get; set; }
+
+        public UserContext UserContext { get; set; }
+
+        #endregion
+        
+        #region Public properties
 
         public IList<Branch> ListBranch { get; set; } 
 
@@ -40,13 +49,9 @@ namespace RMS.Admin
         {
             base.OnFormClosing(e);
             e.Cancel = false;
-        } 
+        }
 
-        #endregion
-
-        #region Private methods
-
-        private IList<Branch> GetAllBranch()
+        protected override IList<Branch> GetItemList()
         {
             var result = BranchCoreService.GetAllBranch();
             if (result.Error != null && result.Error.Number != 0)
@@ -55,7 +60,12 @@ namespace RMS.Admin
             }
 
             return result.Data;
-        } 
+        }
+
+        #endregion
+
+        #region Private methods
+
 
         #endregion
 
@@ -63,8 +73,7 @@ namespace RMS.Admin
 
         private void frmLoginAdmin_Load(object sender, System.EventArgs e)
         {
-            ListBranch = GetAllBranch();
-            cmbBranch.DataSource = ListBranch;
+            cmbBranch.DataSource = Items;
             cmbBranch.DisplayMember = "BranchName";
             cmbBranch.ValueMember = "BranchID";
         }
@@ -72,14 +81,29 @@ namespace RMS.Admin
         private void btnLogin_Click(object sender, System.EventArgs e)
         {
             var userName = txtUsername.Text.Trim();
-            var passWord = Encryption.Encrypt(Encryption.Encrypt(txtPassword.Text));
-            var branchID = cmbBranch.SelectedValue.ToString();
+            var password = Encryption.Encrypt(txtPassword.Text);
+            var branchID = cmbBranch.SelectedValue.ToString().ToGuid();
 
-            if (userName == "system")
+            UserContext.BranchID = branchID;
+
+            if(userName == "system")
             {
                 DialogResult = DialogResult.OK;
                 Close();
             }
+
+            //after have login sp, use below line of code
+            //var result = UserCoreService.Login(userName, password, branchID);
+            //if(result.Error == null || result.Error.Number != 0)
+            //{
+            //    // login fail
+            //    MessageBox.Show("Login fail, please check your input data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //else
+            //{
+            //    DialogResult = DialogResult.OK;
+            //    Close();
+            //}
         } 
 
         #endregion

@@ -76,7 +76,7 @@ namespace TM.Data.DataAccess
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.CurrentUserID, userContext.CurUserID, SqlDbType.UniqueIdentifier));
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.BranchID, userContext.BranchID, SqlDbType.UniqueIdentifier));
             AddParam(new SprocParameter(GlobalConstants.SystemParameters.LanguageCode, userContext.LanguageCode, SqlDbType.NVarChar));
-            AddParam(new SprocParameter(GlobalConstants.SystemParameters.FunctionID, userContext.FunctionID, SqlDbType.BigInt));
+            AddParam(new SprocParameter(GlobalConstants.SystemParameters.FunctionID, ActivatedForm.FunctionID, SqlDbType.BigInt));
         }
 
         /// <summary>

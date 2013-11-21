@@ -42,7 +42,7 @@ namespace RMS.Autofac
         /// <returns></returns>
         public static ContainerBuilder InstallWindowsForms(this ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.Load("RMS.Admin")).Where(t => t.Name.StartsWith("frm"))
+            builder.RegisterAssemblyTypes(Assembly.Load("RMS.Admin")).Where(t => t.Name.StartsWith("frm") && !t.Name.EndsWith("_Design"))
                 .AsSelf().PropertiesAutowired().InstancePerDependency();
 
             return builder;

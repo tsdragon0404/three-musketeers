@@ -42,6 +42,7 @@
     <Compile Include="Controls\TMMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionIdAttribute.cs" />
     <Compile Include="ListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +56,10 @@
     <ProjectReference Include="..\TM.UI.WindowsForms.Styles\TM.UI.WindowsForms.Styles.csproj">
       <Project>{9BD8C16D-9904-4680-99B8-2FB5C89AD00B}</Project>
       <Name>TM.UI.WindowsForms.Styles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Utilities\TM.Utilities.csproj">
+      <Project>{2F15CF04-80F1-4BDB-B8FC-88AB248BFDC6}</Project>
+      <Name>TM.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

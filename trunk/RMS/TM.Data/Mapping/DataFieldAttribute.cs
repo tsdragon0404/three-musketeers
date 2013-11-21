@@ -2,6 +2,7 @@
 
 namespace TM.Data.Mapping
 {
+    [AttributeUsage(AttributeTargets.Property)]
     public class DataFieldAttribute : Attribute
     {
         public string Name { get; set; }

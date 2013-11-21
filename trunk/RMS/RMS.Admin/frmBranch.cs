@@ -5,9 +5,11 @@ using System.Windows.Forms;
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
+using TM.Utilities;
 
 namespace RMS.Admin
 {
+    [FunctionId(GlobalConstants.FunctionIds.FormBranch)]
     public partial class frmBranch
 
 #if DEBUG
