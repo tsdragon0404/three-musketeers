@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Reflection;
+using System.Windows.Forms;
+using TM.Utilities;
 
 namespace TM.UI.WindowsForms
 {
@@ -7,6 +9,8 @@ namespace TM.UI.WindowsForms
     /// </summary>
     public class BaseForm : Form
     {
+        #region UI part
+
         #region Constants variables
 
         private const bool IsMinimizeButtonEnable = false;
@@ -17,23 +21,7 @@ namespace TM.UI.WindowsForms
 
         #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseForm"/> class.
-        /// </summary>
-        public BaseForm()
-        {
-            MinimizeBox = IsMinimizeButtonEnable;
-            MaximizeBox = IsMaximizeButtonEnable;
-            StartPosition = DefaultStartPos;
-        }
-
-        /// <summary>
-        /// Initializes the data.
-        /// </summary>
-        public virtual void InitializeData()
-        {
-            
-        }
+        #region Override methods
 
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Form.Load" /> event.
@@ -42,7 +30,8 @@ namespace TM.UI.WindowsForms
         protected override void OnLoad(System.EventArgs e)
         {
             base.OnLoad(e);
-            WindowState = DefaultWindowState;
+            if(FunctionID != GlobalConstants.FunctionIds.FormLoginAdmin)
+                WindowState = DefaultWindowState;
         }
 
         /// <summary>
@@ -54,6 +43,45 @@ namespace TM.UI.WindowsForms
             base.OnFormClosing(e);
             Hide();
             e.Cancel = true;
+        }
+
+        protected override void OnActivated(System.EventArgs e)
+        {
+            base.OnActivated(e);
+            ActivatedForm.FunctionID = FunctionID;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Constructor(s)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseForm"/> class.
+        /// </summary>
+        public BaseForm()
+        {
+            MinimizeBox = IsMinimizeButtonEnable;
+            MaximizeBox = IsMaximizeButtonEnable;
+            StartPosition = DefaultStartPos;
+
+            // Get FunctionID
+            var att = GetType().GetCustomAttribute<FunctionIdAttribute>();
+            if(att != null)
+                FunctionID = att.FunctionID;
+        } 
+
+        #endregion
+
+        protected int FunctionID { get; set; }
+
+        /// <summary>
+        /// Initializes the data.
+        /// </summary>
+        public virtual void InitializeData()
+        {
+
         }
     }
 }

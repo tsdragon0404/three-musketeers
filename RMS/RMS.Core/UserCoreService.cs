@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using RMS.Data.Interfaces;
@@ -17,6 +18,18 @@ namespace RMS.Core
         public ServiceResult<IList<User>> GetAllUser()
         {
             return UserDataService.GetAllUser();
+        }
+
+        /// <summary>
+        /// Logins.
+        /// </summary>
+        /// <param name="userName">The UserName.</param>
+        /// <param name="password">The Password.</param>
+        /// <param name="branchID">The branch identifier.</param>
+        /// <returns></returns>
+        public ServiceResult Login(string userName, string password, Guid branchID)
+        {
+            return UserDataService.Login(userName, password, branchID);
         }
     }
 }

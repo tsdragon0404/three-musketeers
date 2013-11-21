@@ -9,6 +9,7 @@ using TM.Utilities;
 
 namespace RMS.Admin
 {
+    [FunctionId(GlobalConstants.FunctionIds.FormProductCategory)]
     public partial class frmProductCategory
 
 #if DEBUG

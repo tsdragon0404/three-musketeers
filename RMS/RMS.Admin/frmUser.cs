@@ -2,9 +2,11 @@
 using RMS.Core.Entities;
 using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
+using TM.Utilities;
 
 namespace RMS.Admin
 {
+    [FunctionId(GlobalConstants.FunctionIds.FormUser)]
     public partial class frmUser
 
 #if DEBUG

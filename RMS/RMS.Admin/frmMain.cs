@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using TM.UI.WindowsForms;
+using TM.Utilities;
 
 namespace RMS.Admin
 {
+    [FunctionId(GlobalConstants.FunctionIds.FormMain)]
     public partial class frmMain : Form
     {
         #region Public properties
