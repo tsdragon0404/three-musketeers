@@ -9,7 +9,9 @@ namespace RMS.Admin
 
         public frmUser UserForm { get; set; }
 
-        public frmBranch BranchForm { get; set; } 
+        public frmBranch BranchForm { get; set; }
+
+        public frmProductCategory ProductCategoryForm { get; set; } 
 
         #endregion
 
@@ -84,6 +86,12 @@ namespace RMS.Admin
         {
             UserForm.InitializeData();
             ShowForm(UserForm);
+        }
+
+        private void mItemProductCategory_Click(object sender, EventArgs e)
+        {
+            ProductCategoryForm.InitializeData();
+            ShowForm(ProductCategoryForm);
         }
     }
 }

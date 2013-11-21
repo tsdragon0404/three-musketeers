@@ -53,8 +53,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="frmBranch.cs">
@@ -75,6 +77,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProductCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductCategory.Designer.cs">
+      <DependentUpon>frmProductCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +100,9 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProductCategory.resx">
+      <DependentUpon>frmProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +118,7 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\RMS.Core.Entities.Branch.datasource" />
+    <None Include="Properties\DataSources\RMS.Core.Entities.ProductCategory.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
