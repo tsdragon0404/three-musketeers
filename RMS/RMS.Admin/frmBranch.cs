@@ -99,18 +99,18 @@ namespace RMS.Admin
             userBindingSource.SuspendBinding();
             lsbBranch.Enabled = false;
             txtBranchID.Clear();
-            txtBranchID.Enabled = false;
             txtVNName.Clear();
             txtENName.Clear();
             txtSEQ.Clear();
             ckbEnable.Checked = true;
             btnCreateNew.Enabled = false;
             btnDelete.Enabled = false;
+            txtVNName.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure?", "Notice", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Do you really want to delete?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 int idx = SelectedIndex;
                 var result = BranchCoreService.DeleteBranch(Guid.Parse(txtBranchID.Text));

@@ -79,5 +79,11 @@ namespace RMS.Admin
         }
 
         #endregion
+
+        private void mItemUser_Click(object sender, EventArgs e)
+        {
+            UserForm.InitializeData();
+            ShowForm(UserForm);
+        }
     }
 }
