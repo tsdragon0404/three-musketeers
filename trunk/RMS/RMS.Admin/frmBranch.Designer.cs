@@ -49,24 +49,26 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lsbBranch
             // 
             this.lsbBranch.FormattingEnabled = true;
-            this.lsbBranch.Location = new System.Drawing.Point(12, 12);
+            this.lsbBranch.Location = new System.Drawing.Point(6, 77);
             this.lsbBranch.Name = "lsbBranch";
-            this.lsbBranch.Size = new System.Drawing.Size(209, 212);
+            this.lsbBranch.Size = new System.Drawing.Size(216, 186);
             this.lsbBranch.TabIndex = 0;
             this.lsbBranch.SelectedIndexChanged += new System.EventHandler(this.lsbBranch_SelectedIndexChanged);
             // 
             // txtVNName
             // 
             this.txtVNName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "VNName", true));
-            this.txtVNName.Location = new System.Drawing.Point(83, 50);
+            this.txtVNName.Location = new System.Drawing.Point(83, 57);
             this.txtVNName.Name = "txtVNName";
             this.txtVNName.Size = new System.Drawing.Size(229, 20);
             this.txtVNName.TabIndex = 1;
@@ -78,7 +80,7 @@
             // txtENName
             // 
             this.txtENName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "ENName", true));
-            this.txtENName.Location = new System.Drawing.Point(83, 76);
+            this.txtENName.Location = new System.Drawing.Point(83, 83);
             this.txtENName.Name = "txtENName";
             this.txtENName.Size = new System.Drawing.Size(229, 20);
             this.txtENName.TabIndex = 2;
@@ -86,7 +88,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 53);
+            this.label1.Location = new System.Drawing.Point(6, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 6;
@@ -95,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 79);
+            this.label2.Location = new System.Drawing.Point(6, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 7;
@@ -104,7 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 130);
+            this.label3.Location = new System.Drawing.Point(6, 137);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 8;
@@ -114,7 +116,7 @@
             // 
             this.ckbEnable.AutoSize = true;
             this.ckbEnable.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.userBindingSource, "Enable", true));
-            this.ckbEnable.Location = new System.Drawing.Point(83, 130);
+            this.ckbEnable.Location = new System.Drawing.Point(83, 137);
             this.ckbEnable.Name = "ckbEnable";
             this.ckbEnable.Size = new System.Drawing.Size(15, 14);
             this.ckbEnable.TabIndex = 9;
@@ -123,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 105);
+            this.label4.Location = new System.Drawing.Point(6, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 11;
@@ -132,7 +134,7 @@
             // txtSEQ
             // 
             this.txtSEQ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "SEQ", true));
-            this.txtSEQ.Location = new System.Drawing.Point(83, 102);
+            this.txtSEQ.Location = new System.Drawing.Point(83, 109);
             this.txtSEQ.Name = "txtSEQ";
             this.txtSEQ.Size = new System.Drawing.Size(53, 20);
             this.txtSEQ.TabIndex = 10;
@@ -149,24 +151,25 @@
             this.groupBox1.Controls.Add(this.ckbEnable);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(227, 70);
+            this.groupBox1.Location = new System.Drawing.Point(228, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(318, 154);
+            this.groupBox1.Size = new System.Drawing.Size(322, 193);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
             // txtBranchID
             // 
             this.txtBranchID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "BranchID", true));
-            this.txtBranchID.Location = new System.Drawing.Point(83, 24);
+            this.txtBranchID.Location = new System.Drawing.Point(83, 31);
             this.txtBranchID.Name = "txtBranchID";
+            this.txtBranchID.ReadOnly = true;
             this.txtBranchID.Size = new System.Drawing.Size(229, 20);
             this.txtBranchID.TabIndex = 12;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 27);
+            this.label5.Location = new System.Drawing.Point(6, 34);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 13;
@@ -176,7 +179,7 @@
             // 
             this.btnCancel.Image = global::RMS.Admin.Properties.Resources.Cancel_icon;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCancel.Location = new System.Drawing.Point(391, 12);
+            this.btnCancel.Location = new System.Drawing.Point(168, 12);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 52);
             this.btnCancel.TabIndex = 13;
@@ -189,7 +192,7 @@
             // 
             this.btnDelete.Image = global::RMS.Admin.Properties.Resources.delete_file_icon;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDelete.Location = new System.Drawing.Point(472, 12);
+            this.btnDelete.Location = new System.Drawing.Point(249, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 52);
             this.btnDelete.TabIndex = 5;
@@ -203,7 +206,7 @@
             this.btnCreateNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnCreateNew.Image = global::RMS.Admin.Properties.Resources.create_icon;
             this.btnCreateNew.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCreateNew.Location = new System.Drawing.Point(229, 12);
+            this.btnCreateNew.Location = new System.Drawing.Point(6, 12);
             this.btnCreateNew.Name = "btnCreateNew";
             this.btnCreateNew.Size = new System.Drawing.Size(75, 52);
             this.btnCreateNew.TabIndex = 4;
@@ -216,7 +219,7 @@
             // 
             this.btnSave.Image = global::RMS.Admin.Properties.Resources.Save_icon;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSave.Location = new System.Drawing.Point(310, 12);
+            this.btnSave.Location = new System.Drawing.Point(87, 12);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 52);
             this.btnSave.TabIndex = 3;
@@ -230,7 +233,7 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 232);
+            this.statusStrip.Location = new System.Drawing.Point(0, 273);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(558, 22);
             this.statusStrip.TabIndex = 14;
@@ -247,17 +250,27 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnCreateNew);
+            this.groupBox2.Controls.Add(this.btnSave);
+            this.groupBox2.Controls.Add(this.btnCancel);
+            this.groupBox2.Controls.Add(this.btnDelete);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(558, 70);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            // 
             // frmBranch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 254);
+            this.ClientSize = new System.Drawing.Size(558, 295);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnCreateNew);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lsbBranch);
             this.Name = "frmBranch";
             this.Text = "frmBranch";
@@ -267,6 +280,7 @@
             this.groupBox1.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,5 +308,6 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
