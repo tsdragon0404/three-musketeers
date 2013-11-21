@@ -33,17 +33,18 @@ namespace RMS.Admin
             this.components = new System.ComponentModel.Container();
             this.menuStrip = new TM.UI.WindowsForms.Controls.TMMenuStrip();
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemProduct = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItemProduct = new System.Windows.Forms.ToolStripMenuItem();
-            this.systemToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItemUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItemBranch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemProductCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -72,11 +73,48 @@ namespace RMS.Admin
             this.systemToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.systemToolStripMenuItem.Text = "Setup";
             // 
+            // mItemProduct
+            // 
+            this.mItemProduct.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemProductCategory});
+            this.mItemProduct.Name = "mItemProduct";
+            this.mItemProduct.Size = new System.Drawing.Size(152, 22);
+            this.mItemProduct.Text = "Product";
+            // 
             // mItemTable
             // 
             this.mItemTable.Name = "mItemTable";
             this.mItemTable.Size = new System.Drawing.Size(152, 22);
             this.mItemTable.Text = "Table";
+            // 
+            // systemToolStripMenuItem1
+            // 
+            this.systemToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemUser,
+            this.mItemBranch});
+            this.systemToolStripMenuItem1.Name = "systemToolStripMenuItem1";
+            this.systemToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.systemToolStripMenuItem1.Text = "System";
+            // 
+            // mItemUser
+            // 
+            this.mItemUser.Name = "mItemUser";
+            this.mItemUser.Size = new System.Drawing.Size(111, 22);
+            this.mItemUser.Text = "User";
+            this.mItemUser.Click += new System.EventHandler(this.mItemUsers_Click);
+            // 
+            // mItemBranch
+            // 
+            this.mItemBranch.Name = "mItemBranch";
+            this.mItemBranch.Size = new System.Drawing.Size(111, 22);
+            this.mItemBranch.Text = "Branch";
+            this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
+            // 
+            // configurationToolStripMenuItem
+            // 
+            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.configurationToolStripMenuItem.Text = "Configuration";
             // 
             // mItemLogout
             // 
@@ -110,40 +148,12 @@ namespace RMS.Admin
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // configurationToolStripMenuItem
+            // mItemProductCategory
             // 
-            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-            this.configurationToolStripMenuItem.Text = "Configuration";
-            // 
-            // mItemProduct
-            // 
-            this.mItemProduct.Name = "mItemProduct";
-            this.mItemProduct.Size = new System.Drawing.Size(152, 22);
-            this.mItemProduct.Text = "Product";
-            // 
-            // systemToolStripMenuItem1
-            // 
-            this.systemToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mItemUser,
-            this.mItemBranch});
-            this.systemToolStripMenuItem1.Name = "systemToolStripMenuItem1";
-            this.systemToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.systemToolStripMenuItem1.Text = "System";
-            // 
-            // mItemUser
-            // 
-            this.mItemUser.Name = "mItemUser";
-            this.mItemUser.Size = new System.Drawing.Size(152, 22);
-            this.mItemUser.Text = "User";
-            this.mItemUser.Click += new System.EventHandler(this.mItemUsers_Click);
-            // 
-            // mItemBranch
-            // 
-            this.mItemBranch.Name = "mItemBranch";
-            this.mItemBranch.Size = new System.Drawing.Size(152, 22);
-            this.mItemBranch.Text = "Branch";
-            this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
+            this.mItemProductCategory.Name = "mItemProductCategory";
+            this.mItemProductCategory.Size = new System.Drawing.Size(165, 22);
+            this.mItemProductCategory.Text = "Product category";
+            this.mItemProductCategory.Click += new System.EventHandler(this.mItemProductCategory_Click);
             // 
             // frmMain
             // 
@@ -181,6 +191,7 @@ namespace RMS.Admin
         private System.Windows.Forms.ToolStripMenuItem systemToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mItemUser;
         private System.Windows.Forms.ToolStripMenuItem mItemBranch;
+        private System.Windows.Forms.ToolStripMenuItem mItemProductCategory;
     }
 }
 
