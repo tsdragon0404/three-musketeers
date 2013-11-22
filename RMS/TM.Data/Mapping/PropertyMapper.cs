@@ -70,11 +70,15 @@ namespace TM.Data.Mapping
 
                 if (propertyInfo.PropertyType == typeof(bool))
                     value = reader.GetBoolean(index);
-                else if (propertyInfo.PropertyType == typeof (int))
+                else if (propertyInfo.PropertyType == typeof(int) || (propertyInfo.PropertyType == typeof(Int32)))
                     value = reader.GetInt32(index);
-                else if (propertyInfo.PropertyType == typeof (string))
+                else if (propertyInfo.PropertyType == typeof(Int16))
+                    value = reader.GetInt16(index);
+                else if (propertyInfo.PropertyType == typeof(Int64))
+                    value = reader.GetInt64(index);
+                else if (propertyInfo.PropertyType == typeof(string))
                     value = reader.GetString(index);
-                else if (propertyInfo.PropertyType == typeof (decimal))
+                else if (propertyInfo.PropertyType == typeof(decimal))
                     value = reader.GetDecimal(index);
                 else if (propertyInfo.PropertyType == typeof(DateTime))
                     value = reader.GetDateTime(index);
