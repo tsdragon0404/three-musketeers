@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using TM.UI.WindowsForms;
 using TM.UI.WindowsForms.Utilities;
 using TM.Utilities;
+using TM.Utilities.Messages;
 
 namespace RMS.Admin
 {
     [FunctionId(GlobalConstants.FunctionIds.FormMain)]
     public partial class frmMain : Form
     {
-        #region Public properties
+        public IMessageManager MessageManager { get; set; }
+
+        #region Forms
 
         public frmUser UserForm { get; set; }
 
@@ -74,7 +76,8 @@ namespace RMS.Admin
         {
             if (m.Msg == 0x10) // WM_CLOSE
             {
-                var ret = MessageBox.Show("Do you really want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var ret = MessageManager.ShowQuestion(Resources.Resource.Common_Exit_Caption,
+                                                      Resources.Resource.Common_Exit_Message);
                 if (ret == DialogResult.No)
                     return;
 
@@ -86,18 +89,12 @@ namespace RMS.Admin
             base.WndProc(ref m);
         }
 
-        #endregion
-
-        private void mItemUser_Click(object sender, EventArgs e)
-        {
-            UserForm.InitializeData();
-            ShowForm(UserForm);
-        }
-
         private void mItemProductCategory_Click(object sender, EventArgs e)
         {
             ProductCategoryForm.InitializeData();
             ShowForm(ProductCategoryForm);
         }
+
+        #endregion
     }
 }

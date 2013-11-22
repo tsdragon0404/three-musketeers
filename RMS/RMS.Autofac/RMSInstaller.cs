@@ -4,6 +4,7 @@ using System.Reflection;
 using Autofac;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using TM.Utilities;
+using TM.Utilities.Messages;
 
 namespace RMS.Autofac
 {
@@ -20,6 +21,8 @@ namespace RMS.Autofac
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.Load("RMS.Data")).Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
+
+            builder.RegisterType<MessageManager>().As<IMessageManager>().SingleInstance();
 
             var _sqlDatabase = BuildSqlDatabase();
             builder.RegisterInstance(_sqlDatabase).As<SqlDatabase>().SingleInstance();
