@@ -10,11 +10,17 @@ namespace RMS.Core.Entities
         [DataField("ProductCategoryID")]
         public virtual int ProductCategoryID { get; set; }
 
+        [DataField("Name")]
+        public virtual string Name { get; set; }
+
         [DataField("VNName")]
         public virtual string VNName { get; set; }
 
         [DataField("ENName")]
         public virtual string ENName { get; set; }
+
+        [DataField("Description")]
+        public virtual string Description { get; set; }
 
         [DataField("VNDescription")]
         public virtual string VNDescription { get; set; }

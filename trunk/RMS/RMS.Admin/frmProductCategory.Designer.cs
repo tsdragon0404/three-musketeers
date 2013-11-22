@@ -266,7 +266,6 @@
             this.txtProductCategoryID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productCategoryBindingSource, "ProductCategoryID", true));
             this.txtProductCategoryID.Location = new System.Drawing.Point(106, 24);
             this.txtProductCategoryID.Name = "txtProductCategoryID";
-            this.txtProductCategoryID.ReadOnly = true;
             this.txtProductCategoryID.Size = new System.Drawing.Size(59, 20);
             this.txtProductCategoryID.TabIndex = 1;
             // 
