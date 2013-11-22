@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TM.UI.WindowsForms
+namespace TM.UI.WindowsForms.Utilities
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class FunctionIdAttribute : Attribute

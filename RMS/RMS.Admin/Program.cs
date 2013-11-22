@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using RMS.Autofac;
 using Autofac;
-using TM.UI.WindowsForms;
+using TM.UI.WindowsForms.Utilities;
 
 namespace RMS.Admin
 {
