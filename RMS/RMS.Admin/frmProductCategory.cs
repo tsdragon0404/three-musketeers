@@ -53,8 +53,7 @@ namespace RMS.Admin
         {
             lsbProductCategory.DataSource = Items;
             lsbProductCategory.DisplayMember = "Name";
-            lsbProductCategory.ValueMember = "ProductCategoryID";
-            //lsbProductCategory.SelectedIndex = SelectedIndex;
+            lsbProductCategory.SelectedIndex = SelectedIndex;
         }
 
         private void lsbProductCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,6 +70,7 @@ namespace RMS.Admin
             lsbProductCategory.Enabled = false;
             btnCreateNew.Enabled = false;
             btnDelete.Enabled = false;
+            txtProductCategoryID.Clear();
             txtVNName.Clear();
             txtENName.Clear();
             txtVNDescription.Clear();
@@ -88,7 +88,7 @@ namespace RMS.Admin
                 ENName = txtENName.Text.Trim(),
                 VNDescription = txtVNDescription.Text.Trim(),
                 ENDescription = txtENDescription.Text.Trim(),
-                SEQ = int.Parse(txtSEQ.Text.Trim()),
+                SEQ = txtSEQ.Text.Trim() == "" ? 0 : int.Parse(txtSEQ.Text.Trim()),
                 Enable = ckbEnable.Checked
             };
             var result = ProductCategoryCoreService.SaveProductCategory(productCategory);
@@ -112,11 +112,14 @@ namespace RMS.Admin
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            lsbProductCategory.Enabled = true;
-            productCategoryBindingSource.ResumeBinding();
-            lsbProductCategory.SelectedIndex = SelectedIndex;
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            if (Items.Count != 0)
+            {
+                lsbProductCategory.Enabled = true;
+                productCategoryBindingSource.ResumeBinding();
+                lsbProductCategory.SelectedIndex = SelectedIndex;
+                btnCreateNew.Enabled = true;
+                btnDelete.Enabled = true;
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
