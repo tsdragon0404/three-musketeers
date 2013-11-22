@@ -33,5 +33,6 @@ namespace RMS.Core.Entities
 
         [DataField("SEQ")]
         public virtual int SEQ { get; set; }
+
     }
 }

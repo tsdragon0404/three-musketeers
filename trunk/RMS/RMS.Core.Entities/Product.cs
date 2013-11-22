@@ -5,10 +5,10 @@ using TM.Data.Mapping;
 
 namespace RMS.Core.Entities
 {
-    public class ProductCategory : Entity
+    public class Product : Entity
     {
-        [DataField("ProductCategoryID")]
-        public virtual Int32 ProductCategoryID { get; set; }
+        [DataField("ProductID")]
+        public virtual Int32 ProductID { get; set; }
 
         [DataField("Name")]
         public virtual string Name { get; set; }
@@ -28,13 +28,20 @@ namespace RMS.Core.Entities
         [DataField("ENDescription")]
         public virtual string ENDescription { get; set; }
 
-        [DataField("BranchID")]
-        public virtual Guid BranchID { get; set; }
+        [DataField("Unit")]
+        public virtual Int16 Unit { get; set; }
+
+        [DataField("ProductCategoryID")]
+        public virtual Int32 ProductCategoryID { get; set; }
+
+        [DataField("Price")]
+        public virtual decimal Price { get; set; }
 
         [DataField("Enable")]
         public virtual bool Enable { get; set; }
 
         [DataField("SEQ")]
         public virtual Int32 SEQ { get; set; }
+
     }
 }
