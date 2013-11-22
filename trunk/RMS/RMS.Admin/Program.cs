@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using RMS.Autofac;
 using Autofac;
@@ -17,6 +18,7 @@ namespace RMS.Admin
             Application.ThreadException += new ThreadExceptionHandler().ApplicationThreadException; 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.CurrentCulture = new CultureInfo("vi-VN");
 
             var builder = new ContainerBuilder();
             var container = builder.Install().InstallWindowsForms().Build();
@@ -24,7 +26,6 @@ namespace RMS.Admin
             var frm = container.Resolve<frmMain>();
             //var frmLogin = container.Resolve<frmLoginAdmin>();
             //frmLogin.InitializeData();
-
             //if(frmLogin.ShowDialog() == DialogResult.OK)
                 Application.Run(frm);
         }

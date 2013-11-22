@@ -31,9 +31,11 @@ namespace RMS.Admin
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.menuStrip = new TM.UI.WindowsForms.Controls.TMMenuStrip();
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemProduct = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemProductCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemTable = new System.Windows.Forms.ToolStripMenuItem();
             this.systemToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemUser = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +46,6 @@ namespace RMS.Admin
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.mItemProductCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -57,11 +58,8 @@ namespace RMS.Admin
             this.configurationToolStripMenuItem,
             this.mItemLogout,
             this.mItemExit});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(632, 24);
-            this.menuStrip.TabIndex = 0;
-            this.menuStrip.Text = "MenuStrip";
             // 
             // systemToolStripMenuItem
             // 
@@ -70,22 +68,25 @@ namespace RMS.Admin
             this.mItemTable,
             this.systemToolStripMenuItem1});
             this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
-            this.systemToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.systemToolStripMenuItem.Text = "Setup";
+            resources.ApplyResources(this.systemToolStripMenuItem, "systemToolStripMenuItem");
             // 
             // mItemProduct
             // 
             this.mItemProduct.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mItemProductCategory});
             this.mItemProduct.Name = "mItemProduct";
-            this.mItemProduct.Size = new System.Drawing.Size(152, 22);
-            this.mItemProduct.Text = "Product";
+            resources.ApplyResources(this.mItemProduct, "mItemProduct");
+            // 
+            // mItemProductCategory
+            // 
+            this.mItemProductCategory.Name = "mItemProductCategory";
+            resources.ApplyResources(this.mItemProductCategory, "mItemProductCategory");
+            this.mItemProductCategory.Click += new System.EventHandler(this.mItemProductCategory_Click);
             // 
             // mItemTable
             // 
             this.mItemTable.Name = "mItemTable";
-            this.mItemTable.Size = new System.Drawing.Size(152, 22);
-            this.mItemTable.Text = "Table";
+            resources.ApplyResources(this.mItemTable, "mItemTable");
             // 
             // systemToolStripMenuItem1
             // 
@@ -93,79 +94,58 @@ namespace RMS.Admin
             this.mItemUser,
             this.mItemBranch});
             this.systemToolStripMenuItem1.Name = "systemToolStripMenuItem1";
-            this.systemToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.systemToolStripMenuItem1.Text = "System";
+            resources.ApplyResources(this.systemToolStripMenuItem1, "systemToolStripMenuItem1");
             // 
             // mItemUser
             // 
             this.mItemUser.Name = "mItemUser";
-            this.mItemUser.Size = new System.Drawing.Size(111, 22);
-            this.mItemUser.Text = "User";
+            resources.ApplyResources(this.mItemUser, "mItemUser");
             this.mItemUser.Click += new System.EventHandler(this.mItemUsers_Click);
             // 
             // mItemBranch
             // 
             this.mItemBranch.Name = "mItemBranch";
-            this.mItemBranch.Size = new System.Drawing.Size(111, 22);
-            this.mItemBranch.Text = "Branch";
+            resources.ApplyResources(this.mItemBranch, "mItemBranch");
             this.mItemBranch.Click += new System.EventHandler(this.mItemBranch_Click);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-            this.configurationToolStripMenuItem.Text = "Configuration";
+            resources.ApplyResources(this.configurationToolStripMenuItem, "configurationToolStripMenuItem");
             // 
             // mItemLogout
             // 
             this.mItemLogout.Name = "mItemLogout";
-            this.mItemLogout.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.L)));
-            this.mItemLogout.Size = new System.Drawing.Size(57, 20);
-            this.mItemLogout.Text = "&Logout";
+            resources.ApplyResources(this.mItemLogout, "mItemLogout");
             this.mItemLogout.Click += new System.EventHandler(this.mItemLogout_Click);
             // 
             // mItemExit
             // 
             this.mItemExit.Name = "mItemExit";
-            this.mItemExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
-            this.mItemExit.Size = new System.Drawing.Size(37, 20);
-            this.mItemExit.Text = "E&xit";
+            resources.ApplyResources(this.mItemExit, "mItemExit");
             this.mItemExit.Click += new System.EventHandler(this.mItemExit_Click);
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 431);
+            resources.ApplyResources(this.statusStrip, "statusStrip");
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(632, 22);
-            this.statusStrip.TabIndex = 2;
-            this.statusStrip.Text = "StatusStrip";
             // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel.Text = "Status";
-            // 
-            // mItemProductCategory
-            // 
-            this.mItemProductCategory.Name = "mItemProductCategory";
-            this.mItemProductCategory.Size = new System.Drawing.Size(165, 22);
-            this.mItemProductCategory.Text = "Product category";
-            this.mItemProductCategory.Click += new System.EventHandler(this.mItemProductCategory_Click);
+            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 453);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "frmMain";
-            this.Text = "frmMain";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
