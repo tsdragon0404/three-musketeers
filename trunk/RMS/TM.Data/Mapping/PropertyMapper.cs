@@ -24,16 +24,11 @@ namespace TM.Data.Mapping
                     var result = new TEntity();
                     foreach (var propertyInfo in result.GetType().GetProperties())
                     {
-                        var dataFieldAtt = propertyInfo.GetAttributes<DataFieldAttribute>(true).ToList();
-                        var ordinal = propertyInfo.Name;
+                        var dataFieldAtt = propertyInfo.GetCustomAttribute<DataFieldAttribute>();
 
-                        if (dataFieldAtt.Any())
-                        {
-                            var attribute = dataFieldAtt[0];
-                            if (attribute != null)
-                                ordinal = attribute.Name;
-                        }
+                        if (dataFieldAtt == null) continue;
 
+                        var ordinal = dataFieldAtt.Name;
                         SetPropertyValue(propertyInfo, result, reader, ordinal);
                     }
 

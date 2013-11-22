@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
 
-namespace TM.UI.WindowsForms
+namespace TM.UI.WindowsForms.Utilities
 {
     public class ThreadExceptionHandler
     {
