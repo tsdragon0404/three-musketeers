@@ -55,8 +55,10 @@ namespace RMS.Admin
         {
             lsbBranch.DataSource = Items;
             lsbBranch.DisplayMember = "BranchName";
-            lsbBranch.ValueMember = "BranchID";
-            lsbBranch.SelectedIndex = SelectedIndex;
+            if (Items.Count != 0)
+            {
+                lsbBranch.SelectedIndex = SelectedIndex;
+            }
         }
 
         private void lsbBranch_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,25 +114,38 @@ namespace RMS.Admin
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to delete?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (txtBranchID.Text.Trim() != "")
             {
-                int idx = SelectedIndex;
-                var result = BranchCoreService.DeleteBranch(Guid.Parse(txtBranchID.Text));
-                if (result.Error != null && result.Error.Number != 0)
+                if (
+                    MessageBox.Show("Do you really want to delete?", "Notice", MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    MessageBox.Show(result.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    int idx = SelectedIndex;
+                    var result = BranchCoreService.DeleteBranch(Guid.Parse(txtBranchID.Text));
+                    if (result.Error != null && result.Error.Number != 0)
+                    {
+                        MessageBox.Show(result.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
-                Items = GetItemList();
-                lsbBranch.DataSource = Items;
-                try
-                {
-                    lsbBranch.SelectedIndex = idx;
-                }
-                catch
-                {
-                    lsbBranch.SelectedIndex = idx - 1;
+                    Items = GetItemList();
+                    lsbBranch.DataSource = Items;
+                    try
+                    {
+                        lsbBranch.SelectedIndex = idx;
+                    }
+                    catch
+                    {
+                        lsbBranch.SelectedIndex = idx - 1;
+                    }
+                    if(Items.Count == 0)
+                    {
+                        txtBranchID.Clear();
+                        txtVNName.Clear();
+                        txtENName.Clear();
+                        txtSEQ.Clear();
+                        ckbEnable.Checked = true;
+                    }
                 }
             }
         }
@@ -139,9 +154,10 @@ namespace RMS.Admin
         {
             lsbBranch.Enabled = true;
             userBindingSource.ResumeBinding();
-            lsbBranch.SelectedIndex = SelectedIndex;
             btnCreateNew.Enabled = true;
             btnDelete.Enabled = true;
+            if(Items.Count != 0)
+                lsbBranch.SelectedIndex = SelectedIndex;
         } 
 
         #endregion
