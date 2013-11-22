@@ -149,6 +149,10 @@
       <Project>{85d28972-76ba-453c-ba69-5bb68568a4e6}</Project>
       <Name>RMS.Core.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RMS.Resources\RMS.Resources.csproj">
+      <Project>{1da25b87-7149-469a-b226-92c16c83f600}</Project>
+      <Name>RMS.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TM.Data\TM.Data.csproj">
       <Project>{17AA5837-C1EA-40AD-BBAA-492220403DC4}</Project>
       <Name>TM.Data</Name>

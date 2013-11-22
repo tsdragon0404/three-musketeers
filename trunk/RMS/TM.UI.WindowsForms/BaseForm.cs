@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using TM.Data.DataAccess;
 using TM.UI.WindowsForms.Utilities;
 using TM.Utilities;
+using TM.Utilities.Messages;
 
 namespace TM.UI.WindowsForms
 {
@@ -11,6 +13,10 @@ namespace TM.UI.WindowsForms
     /// </summary>
     public class BaseForm : Form
     {
+        public IMessageManager MessageManager { get; set; }
+
+        protected int FunctionID { get; set; }
+
         #region UI part
 
         #region Constants variables
@@ -77,7 +83,6 @@ namespace TM.UI.WindowsForms
 
         #endregion
 
-        protected int FunctionID { get; set; }
 
         /// <summary>
         /// Initializes the data.
@@ -85,6 +90,17 @@ namespace TM.UI.WindowsForms
         public virtual void InitializeData()
         {
 
+        }
+
+        protected virtual bool HasError(ServiceError error, bool showMessage = true)
+        {
+            if (error == null || error.Number == 0)
+                return false;
+
+            if (showMessage)
+                MessageManager.ShowError(RMS.Resources.Resource.Common_Exit_Caption, error.Message);
+
+            return true;
         }
     }
 }
