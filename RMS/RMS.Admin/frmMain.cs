@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using TM.UI.WindowsForms;
 using TM.Utilities;
@@ -22,6 +23,7 @@ namespace RMS.Admin
 
         public frmMain()
         {
+            Thread.CurrentThread.CurrentUICulture = Application.CurrentCulture;
             InitializeComponent();
         } 
 

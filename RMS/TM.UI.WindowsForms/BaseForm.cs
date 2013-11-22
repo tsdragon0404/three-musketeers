@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using TM.Utilities;
 
@@ -62,6 +63,7 @@ namespace TM.UI.WindowsForms
         /// </summary>
         public BaseForm()
         {
+            Thread.CurrentThread.CurrentUICulture = Application.CurrentCulture;
             MinimizeBox = IsMinimizeButtonEnable;
             MaximizeBox = IsMaximizeButtonEnable;
             StartPosition = DefaultStartPos;
