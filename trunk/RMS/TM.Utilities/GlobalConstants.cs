@@ -8,17 +8,28 @@
         /// <summary>
         /// Contains parameters need for calling stored procedure
         /// </summary>
-         public static class SystemParameters
-         {
-             public static readonly string ReturnParameter = "RETURN_VALUE";
-             public static readonly string CurrentUserID = "I_vUserID";
-             public static readonly string BranchID = "I_vBranchID";
-             public static readonly string LanguageCode = "I_vLanguageID";
-             public static readonly string FunctionID = "I_vFunctionID"; 
+        public static class SystemParameters
+        {
+            public static readonly string ReturnParameter = "RETURN_VALUE";
+            public static readonly string CurrentUserID = "I_vUserID";
+            public static readonly string BranchID = "I_vBranchID";
+            public static readonly string LanguageCode = "I_vLanguageID";
+            public static readonly string FunctionID = "I_vFunctionID";
 
-             public static readonly string ErrorNumber = "I_vErrNumber";
-         }
+            public static readonly string ErrorNumber = "I_vErrNumber";
+        }
 
+        public static class SystemMenuButtonName
+        {
+            public static readonly string MenuIcon = "SystemMenuItem";
+            public static readonly string MenuMinimize = "Mi&nimize";
+            public static readonly string MenuRestore = "&Restore";
+            public static readonly string MenuClose = "&Close";
+        }
+
+        /// <summary>
+        /// Contains Function Ids
+        /// </summary>
         public static class FunctionIds
         {
             public const int FormMain = 1000;

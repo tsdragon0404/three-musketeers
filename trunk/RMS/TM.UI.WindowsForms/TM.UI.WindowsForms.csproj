@@ -39,9 +39,11 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\TMMenuColorTable.cs" />
     <Compile Include="Controls\TMMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TMMenuStripRenderer.cs" />
     <Compile Include="Utilities\FunctionIdAttribute.cs" />
     <Compile Include="ListForm.cs">
       <SubType>Form</SubType>

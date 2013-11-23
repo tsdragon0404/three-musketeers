@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using TM.Data.DataAccess;
@@ -21,9 +22,6 @@ namespace TM.UI.WindowsForms
 
         #region Constants variables
 
-        private const bool IsMinimizeButtonEnable = false;
-        private const bool IsMaximizeButtonEnable = true;
-
         private const FormWindowState DefaultWindowState = FormWindowState.Maximized;
         private const FormStartPosition DefaultStartPos = FormStartPosition.CenterParent;
 
@@ -35,7 +33,7 @@ namespace TM.UI.WindowsForms
         /// Raises the <see cref="E:System.Windows.Forms.Form.Load" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-        protected override void OnLoad(System.EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if(FunctionID != GlobalConstants.FunctionIds.FormLoginAdmin)
@@ -53,13 +51,16 @@ namespace TM.UI.WindowsForms
             e.Cancel = true;
         }
 
-        protected override void OnActivated(System.EventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
             ActivatedForm.FunctionID = FunctionID;
+            WindowState = DefaultWindowState;
         }
 
         #endregion
+
+
 
         #endregion
 
@@ -71,8 +72,6 @@ namespace TM.UI.WindowsForms
         public BaseForm()
         {
             Thread.CurrentThread.CurrentUICulture = Application.CurrentCulture;
-            MinimizeBox = IsMinimizeButtonEnable;
-            MaximizeBox = IsMaximizeButtonEnable;
             StartPosition = DefaultStartPos;
 
             // Get FunctionID
