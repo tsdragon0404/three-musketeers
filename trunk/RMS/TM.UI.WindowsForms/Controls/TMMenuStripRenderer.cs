@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using TM.UI.WindowsForms.Styles;
 using TM.Utilities;
@@ -12,6 +11,10 @@ namespace TM.UI.WindowsForms.Controls
             : base(colorTable)
         { }
 
+        /// <summary>
+        /// When overridden in a derived class, provides for custom initialization of the given <see cref="T:System.Windows.Forms.ToolStripItem" />.
+        /// </summary>
+        /// <param name="item">The <see cref="T:System.Windows.Forms.ToolStripItem" /> to be initialized.</param>
         protected override void InitializeItem(ToolStripItem item)
         {
             base.InitializeItem(item);
@@ -19,6 +22,10 @@ namespace TM.UI.WindowsForms.Controls
             item.Font = new Font("Segoe UI", 9.5F);
         }
 
+        /// <summary>
+        /// When overridden in a derived class, provides for custom initialization of the given <see cref="T:System.Windows.Forms.ToolStrip" />.
+        /// </summary>
+        /// <param name="toolStrip">The <see cref="T:System.Windows.Forms.ToolStrip" /> to be initialized.</param>
         protected override void Initialize(ToolStrip toolStrip)
         {
             base.Initialize(toolStrip);
@@ -27,6 +34,10 @@ namespace TM.UI.WindowsForms.Controls
             
         }
 
+        /// <summary>
+        /// Raise the RenderImageMargin event
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.ToolStripRenderEventArgs" /> that contains the event data.</param>
         protected override void OnRenderImageMargin(ToolStripRenderEventArgs e)
         {
             base.OnRenderImageMargin(e);
@@ -35,56 +46,10 @@ namespace TM.UI.WindowsForms.Controls
                 e.Graphics.FillRectangle(brush, e.AffectedBounds);
         }
 
-        //// Render checkmark
-        //protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
-        //{
-        //    base.OnRenderItemCheck(e);
-
-        //    if (e.Item.Selected)
-        //    {
-        //        var rect = new Rectangle(3, 1, 20, 20);
-        //        var rect2 = new Rectangle(4, 2, 18, 18);
-        //        SolidBrush b = new SolidBrush(clsColor.clrToolstripBtn_Border);
-        //        SolidBrush b2 = new SolidBrush(clsColor.clrCheckBG);
-
-        //        e.Graphics.FillRectangle(b, rect);
-        //        e.Graphics.FillRectangle(b2, rect2);
-        //        e.Graphics.DrawImage(e.Image, new Point(5, 3));
-        //    }
-        //    else
-        //    {
-        //        var rect = new Rectangle(3, 1, 20, 20);
-        //        var rect2 = new Rectangle(4, 2, 18, 18);
-        //        SolidBrush b = new SolidBrush(clsColor.clrSelectedBG_Drop_Border);
-        //        SolidBrush b2 = new SolidBrush(clsColor.clrCheckBG);
-
-        //        e.Graphics.FillRectangle(b, rect);
-        //        e.Graphics.FillRectangle(b2, rect2);
-        //        e.Graphics.DrawImage(e.Image, new Point(5, 3));
-        //    }
-        //}
-
-        //// Render separator
-        //protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
-        //{
-        //    base.OnRenderSeparator(e);
-
-        //    var DarkLine = new SolidBrush(clsColor.clrImageMarginLine);
-        //    var WhiteLine = new SolidBrush(Color.White);
-        //    var rect = new Rectangle(32, 3, e.Item.Width - 32, 1);
-        //    e.Graphics.FillRectangle(DarkLine, rect);
-        //    e.Graphics.FillRectangle(WhiteLine, rect);
-        //}
-
-        //// Render arrow
-        //protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
-        //{
-        //    e.ArrowColor = Color.Black;
-        //    base.OnRenderArrow(e);
-        //}
-
-        // Render  MenuItem background: lightblue if selected, darkblue if dropped down
-
+        /// <summary>
+        /// Raise the RenderMenuItemBackground event
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.ToolStripItemRenderEventArgs" /> that contains the event data.</param>
         protected override void OnRenderMenuItemBackground
                 (ToolStripItemRenderEventArgs e)
         {

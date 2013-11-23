@@ -19,6 +19,9 @@
             public static readonly string ErrorNumber = "I_vErrNumber";
         }
 
+        /// <summary>
+        /// Contains name of some system menu
+        /// </summary>
         public static class SystemMenuButtonName
         {
             public static readonly string MenuIcon = "SystemMenuItem";

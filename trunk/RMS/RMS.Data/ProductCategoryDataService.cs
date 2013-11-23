@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using RMS.Core.Entities;
 using RMS.Data.Interfaces;
 using TM.Data.BaseClasses;
 using TM.Data.DataAccess;
-using TM.Utilities;
 
 namespace RMS.Data
 {
