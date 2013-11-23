@@ -1,5 +1,4 @@
 ﻿using System;
-using TM.Data;
 using TM.Data.BaseClasses;
 using TM.Data.Mapping;
 
@@ -24,6 +23,5 @@ namespace RMS.Core.Entities
 
         [DataField("SEQ")]
         public virtual int SEQ { get; set; }
-
     }
 }

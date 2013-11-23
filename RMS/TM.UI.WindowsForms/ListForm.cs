@@ -22,6 +22,9 @@ namespace TM.UI.WindowsForms
 
         #endregion
 
+        /// <summary>
+        /// Initializes the data.
+        /// </summary>
         public override void InitializeData()
         {
             base.InitializeData();
@@ -29,6 +32,10 @@ namespace TM.UI.WindowsForms
             SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Gets the item list.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IList<TEntity> GetItemList()
         {
             return new List<TEntity>();

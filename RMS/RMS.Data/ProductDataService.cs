@@ -6,7 +6,6 @@ using RMS.Core.Entities;
 using RMS.Data.Interfaces;
 using TM.Data.BaseClasses;
 using TM.Data.DataAccess;
-using TM.Utilities;
 
 namespace RMS.Data
 {

@@ -51,6 +51,10 @@ namespace TM.UI.WindowsForms
             e.Cancel = true;
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.Form.Activated" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
@@ -59,8 +63,6 @@ namespace TM.UI.WindowsForms
         }
 
         #endregion
-
-
 
         #endregion
 
@@ -82,7 +84,6 @@ namespace TM.UI.WindowsForms
 
         #endregion
 
-
         /// <summary>
         /// Initializes the data.
         /// </summary>
@@ -91,6 +92,12 @@ namespace TM.UI.WindowsForms
 
         }
 
+        /// <summary>
+        /// Determines whether the ServiceError has error and show message if needed.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        /// <param name="showMessage">if set to <c>true</c> [show message].</param>
+        /// <returns></returns>
         protected virtual bool HasError(ServiceError error, bool showMessage = true)
         {
             if (error == null || error.Number == 0)
