@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using TM.UI.WindowsForms;
+using TM.UI.WindowsForms.Controls;
 using TM.UI.WindowsForms.Utilities;
 using TM.Utilities;
 using TM.Utilities.Messages;
@@ -18,7 +23,9 @@ namespace RMS.Admin
 
         public frmBranch BranchForm { get; set; }
 
-        public frmProductCategory ProductCategoryForm { get; set; } 
+        public frmProductCategory ProductCategoryForm { get; set; }
+
+        private readonly IDictionary<int, BaseForm> FormDict = new Dictionary<int, BaseForm>();
 
         #endregion
 
@@ -36,10 +43,36 @@ namespace RMS.Admin
 
         private void ShowForm(Form childForm)
         {
-            childForm.MdiParent = this;
-            childForm.Show();
-            childForm.Activate();
+            if(!IsAvailable(childForm))
+                childForm.Show();
+            else
+                childForm.BringToFront();
         } 
+
+        private bool IsAvailable(Form form)
+        {
+            return Application.OpenForms.Cast<object>().Any(openForm => openForm == form);
+        }
+
+        private void AssignParent()
+        {
+            foreach (var baseForm in FormDict)
+                baseForm.Value.MdiParent = this;
+        }
+
+        private void BuildFormList()
+        {
+            FormDict.Add(BuildListItem(UserForm));
+            FormDict.Add(BuildListItem(BranchForm));
+            FormDict.Add(BuildListItem(ProductCategoryForm));
+        }
+
+        private KeyValuePair<int, BaseForm> BuildListItem(BaseForm form)
+        {
+            var att = form.GetType().GetCustomAttribute<FunctionIdAttribute>();
+            var funcID = att == null ? 0 : att.FunctionID;
+            return new KeyValuePair<int, BaseForm>(funcID, form);
+        }
 
         #endregion
 
@@ -55,21 +88,20 @@ namespace RMS.Admin
             //TODO: logout code here
         }
 
-        private void mItemUsers_Click(object sender, EventArgs e)
+        private void mItemForm_Click(object sender, EventArgs e)
         {
-            UserForm.InitializeData();
-            ShowForm(UserForm);
+            var menuItem = sender as TMToolStripMenuItem;
+            if (menuItem == null || FormDict[menuItem.FunctionID] == null)
+                return;
+
+            FormDict[menuItem.FunctionID].InitializeData();
+            ShowForm(FormDict[menuItem.FunctionID]);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void mItemBranch_Click(object sender, EventArgs e)
-        {
-            BranchForm.InitializeData();
-            ShowForm(BranchForm);
+            BuildFormList();
+            AssignParent();
         }
 
         protected override void WndProc(ref Message m)
@@ -87,12 +119,6 @@ namespace RMS.Admin
                 Application.Exit();
             }
             base.WndProc(ref m);
-        }
-
-        private void mItemProductCategory_Click(object sender, EventArgs e)
-        {
-            ProductCategoryForm.InitializeData();
-            ShowForm(ProductCategoryForm);
         }
 
         #endregion
