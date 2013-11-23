@@ -62,6 +62,16 @@ namespace TM.UI.WindowsForms
             WindowState = DefaultWindowState;
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            var point = Location;
+            var size = Size;
+            FormBorderStyle = FormBorderStyle.None;
+            Location = point;
+            Size = size;
+        }
+
         #endregion
 
         #endregion

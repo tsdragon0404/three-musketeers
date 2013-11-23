@@ -44,6 +44,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TMMenuStripRenderer.cs" />
+    <Compile Include="Controls\TMToolStripMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utilities\FunctionIdAttribute.cs" />
     <Compile Include="ListForm.cs">
       <SubType>Form</SubType>
