@@ -88,11 +88,29 @@ namespace RMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot find your requested form.
+        /// </summary>
+        public static string Common_FormNotFound {
+            get {
+                return ResourceManager.GetString("Common_FormNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Common_Question_Caption {
             get {
                 return ResourceManager.GetString("Common_Question_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error has occur. Please contact administrators..
+        /// </summary>
+        public static string Common_Unexpected_Error {
+            get {
+                return ResourceManager.GetString("Common_Unexpected_Error", resourceCulture);
             }
         }
     }

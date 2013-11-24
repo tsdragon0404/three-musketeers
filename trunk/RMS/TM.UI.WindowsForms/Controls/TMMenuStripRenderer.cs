@@ -58,17 +58,6 @@ namespace TM.UI.WindowsForms.Controls
             if (!e.Item.Enabled)
                 return;
 
-            if ((e.Item.GetType().Name == GlobalConstants.SystemMenuButtonName.MenuIcon
-                || e.Item.Text == GlobalConstants.SystemMenuButtonName.MenuMinimize
-                || e.Item.Text == GlobalConstants.SystemMenuButtonName.MenuRestore) && e.Item.Visible)
-            {
-                e.Item.Visible = false;
-                return;
-            }
-
-            if (e.Item.Text == GlobalConstants.SystemMenuButtonName.MenuClose && e.Item.Margin.Right != 5)
-                e.Item.Margin = new Padding(0, 0, 5, 0);
-
             var rect = new Rectangle(0, 0, e.Item.Width, e.Item.Height);
 
             // If item is MenuHeader and menu is dropped down; 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using TM.UI.WindowsForms;
@@ -41,15 +42,57 @@ namespace RMS.Admin
 
         #region Private methods
 
+        #region Flicker free Form activation
+
+        const int WM_MDINEXT = 0x224;
+
+        public new void ActivateMdiChild(Form childToActivate)
+        {
+            if (ActiveMdiChild == childToActivate) return;
+
+            var mdiClient = GetMDIClient();
+
+            var pos = mdiClient.Controls.IndexOf(childToActivate);
+            if (pos < 0)
+                throw new InvalidOperationException(Resources.Resource.Common_FormNotFound);
+
+            var form = pos == 0 ? mdiClient.Controls[1] : mdiClient.Controls[pos - 1];
+
+            var direction = new IntPtr(pos == 0 ? 1 : 0);
+
+            SendMessage(mdiClient.Handle, WM_MDINEXT, form.Handle, direction);
+        }
+
+        public MdiClient GetMDIClient()
+        {
+            foreach (var c in Controls.OfType<MdiClient>())
+                return c;
+
+            throw new InvalidOperationException(Resources.Resource.Common_Unexpected_Error);
+        }
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam); 
+
+        #endregion
+
         private void ShowForm(Form childForm)
         {
             if(!IsAvailable(childForm))
                 childForm.Show();
             else
-                childForm.BringToFront();
+                ActivateMdiChild(childForm);
+
+            #region Workaround to fix maximize proplem
+
+            childForm.WindowState = FormWindowState.Normal;
+            childForm.WindowState = FormWindowState.Maximized; 
+
+            #endregion
         } 
 
-        private bool IsAvailable(Form form)
+        private static bool IsAvailable(Form form)
         {
             return Application.OpenForms.Cast<object>().Any(openForm => openForm == form);
         }

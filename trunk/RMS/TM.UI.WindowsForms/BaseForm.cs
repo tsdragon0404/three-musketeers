@@ -22,7 +22,6 @@ namespace TM.UI.WindowsForms
 
         #region Constants variables
 
-        private const FormWindowState DefaultWindowState = FormWindowState.Maximized;
         private const FormStartPosition DefaultStartPos = FormStartPosition.CenterParent;
 
         #endregion
@@ -30,23 +29,11 @@ namespace TM.UI.WindowsForms
         #region Override methods
 
         /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Form.Load" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if(FunctionID != GlobalConstants.FunctionIds.FormLoginAdmin)
-                WindowState = DefaultWindowState;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Form.FormClosing" /> event.
         /// </summary>
         /// <param name="e">A <see cref="T:System.Windows.Forms.FormClosingEventArgs" /> that contains the event data.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            base.OnFormClosing(e);
             Hide();
             e.Cancel = true;
         }
@@ -57,19 +44,22 @@ namespace TM.UI.WindowsForms
         /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnActivated(EventArgs e)
         {
-            base.OnActivated(e);
             ActivatedForm.FunctionID = FunctionID;
-            WindowState = DefaultWindowState;
+            base.OnActivated(e);
         }
 
-        protected override void OnResize(EventArgs e)
+        /// <summary>
+        /// CreateParams
+        /// </summary>
+        /// <returns>A <see cref="T:System.Windows.Forms.CreateParams" /> that contains the required creation parameters when the handle to the control is created.</returns>
+        protected override CreateParams CreateParams
         {
-            base.OnResize(e);
-            var point = Location;
-            var size = Size;
-            FormBorderStyle = FormBorderStyle.None;
-            Location = point;
-            Size = size;
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
         }
 
         #endregion
@@ -85,7 +75,7 @@ namespace TM.UI.WindowsForms
         {
             Thread.CurrentThread.CurrentUICulture = Application.CurrentCulture;
             StartPosition = DefaultStartPos;
-
+            
             // Get FunctionID
             var att = GetType().GetCustomAttribute<FunctionIdAttribute>();
             if(att != null)
