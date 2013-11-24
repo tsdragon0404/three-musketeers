@@ -71,7 +71,7 @@ namespace RMS.Admin
             this.mItemTable,
             this.mItemSystem});
             this.mItemSetup.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.mItemSetup.ForeColor = System.Drawing.Color.Black;
+            this.mItemSetup.ForeColor = System.Drawing.Color.White;
             this.mItemSetup.FunctionID = 0;
             this.mItemSetup.Name = "mItemSetup";
             this.mItemSetup.Size = new System.Drawing.Size(53, 21);
@@ -120,7 +120,7 @@ namespace RMS.Admin
             this.mItemUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.mItemUser.FunctionID = 1001;
             this.mItemUser.Name = "mItemUser";
-            this.mItemUser.Size = new System.Drawing.Size(152, 22);
+            this.mItemUser.Size = new System.Drawing.Size(115, 22);
             this.mItemUser.Text = "User";
             this.mItemUser.Click += new System.EventHandler(this.mItemForm_Click);
             // 
@@ -129,7 +129,7 @@ namespace RMS.Admin
             this.mItemBranch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.mItemBranch.FunctionID = 1002;
             this.mItemBranch.Name = "mItemBranch";
-            this.mItemBranch.Size = new System.Drawing.Size(152, 22);
+            this.mItemBranch.Size = new System.Drawing.Size(115, 22);
             this.mItemBranch.Text = "Branch";
             this.mItemBranch.Click += new System.EventHandler(this.mItemForm_Click);
             // 

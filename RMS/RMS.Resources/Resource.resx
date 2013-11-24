@@ -126,7 +126,13 @@
   <data name="Common_Exit_Message" xml:space="preserve">
     <value>Do you really want to exit?</value>
   </data>
+  <data name="Common_FormNotFound" xml:space="preserve">
+    <value>Cannot find your requested form</value>
+  </data>
   <data name="Common_Question_Caption" xml:space="preserve">
     <value>Confirm</value>
+  </data>
+  <data name="Common_Unexpected_Error" xml:space="preserve">
+    <value>An unexpected error has occur. Please contact administrators.</value>
   </data>
 </root>
