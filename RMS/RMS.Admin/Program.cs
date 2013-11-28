@@ -18,7 +18,7 @@ namespace RMS.Admin
             Application.ThreadException += new ThreadExceptionHandler().ApplicationThreadException; 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.CurrentCulture = new CultureInfo("vi-VN");
+            Application.CurrentCulture = new CultureInfo("vi-VN"); // tam thoi dang test de la vn, sau nay gia tri nay se lay o config
 
             var builder = new ContainerBuilder();
             var container = builder.Install().InstallWindowsForms().Build();

@@ -40,6 +40,7 @@
             public const int FormBranch = 1002;
             public const int FormLoginAdmin = 1003;
             public const int FormProductCategory = 1004;
+            public const int FormProduct = 1005;
         }
     }
 
