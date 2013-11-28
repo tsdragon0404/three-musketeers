@@ -77,6 +77,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProduct.Designer.cs">
+      <DependentUpon>frmProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProductCategory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,7 +97,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBranch.en.resx">
+      <DependentUpon>frmBranch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBranch.resx">
+      <DependentUpon>frmBranch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBranch.vi.resx">
       <DependentUpon>frmBranch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoginAdmin.resx">
@@ -102,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.vi.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProduct.resx">
+      <DependentUpon>frmProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductCategory.resx">
       <DependentUpon>frmProductCategory.cs</DependentUpon>

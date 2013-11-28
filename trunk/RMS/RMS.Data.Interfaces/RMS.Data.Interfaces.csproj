@@ -40,6 +40,7 @@
     <Compile Include="IBranchDataService.cs" />
     <Compile Include="IProductCategoryDataService.cs" />
     <Compile Include="IProductDataService.cs" />
+    <Compile Include="IUnitDataService.cs" />
     <Compile Include="IUserDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

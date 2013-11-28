@@ -41,6 +41,7 @@
     <Compile Include="ProductCategoryCoreService.cs" />
     <Compile Include="ProductCoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitCoreService.cs" />
     <Compile Include="UserCoreService.cs" />
   </ItemGroup>
   <ItemGroup>
