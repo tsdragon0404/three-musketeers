@@ -52,6 +52,7 @@ namespace TM.UI.WindowsForms
         /// CreateParams
         /// </summary>
         /// <returns>A <see cref="T:System.Windows.Forms.CreateParams" /> that contains the required creation parameters when the handle to the control is created.</returns>
+#if !DEBUG
         protected override CreateParams CreateParams
         {
             get
@@ -61,7 +62,7 @@ namespace TM.UI.WindowsForms
                 return cp;
             }
         }
-
+#endif
         #endregion
 
         #endregion
