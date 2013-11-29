@@ -6,5 +6,6 @@ namespace TM.Utilities.Messages
     {
         DialogResult ShowError(string caption, string errorMessage, params object[] param);
         DialogResult ShowQuestion(string caption, string errorMessage, params object[] param);
+        DialogResult ShowWarning(string caption, string errorMessage, params object[] param);
     }
 }

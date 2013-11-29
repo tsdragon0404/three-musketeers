@@ -29,5 +29,18 @@ namespace TM.Utilities.Messages
             var message = string.Format(errorMessage, param);
             return MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
+
+        /// <summary>
+        /// Show the warning
+        /// </summary>
+        /// <param name="caption"></param>
+        /// <param name="errorMessage"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DialogResult ShowWarning(string caption, string errorMessage, params object[] param)
+        {
+            var message = string.Format(errorMessage, param);
+            return MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
     }
 }
