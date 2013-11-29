@@ -115,11 +115,29 @@ namespace RMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please input data to this text box..
+        /// </summary>
+        public static string Common_TextBoxEmpty_Message {
+            get {
+                return ResourceManager.GetString("Common_TextBoxEmpty_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unexpected error has occur. Please contact administrators..
         /// </summary>
         public static string Common_Unexpected_Error {
             get {
                 return ResourceManager.GetString("Common_Unexpected_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Common_Warning_Caption {
+            get {
+                return ResourceManager.GetString("Common_Warning_Caption", resourceCulture);
             }
         }
     }

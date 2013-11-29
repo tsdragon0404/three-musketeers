@@ -135,7 +135,13 @@
   <data name="Common_Question_Caption" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="Common_TextBoxEmpty_Message" xml:space="preserve">
+    <value>Please input data to this text box.</value>
+  </data>
   <data name="Common_Unexpected_Error" xml:space="preserve">
     <value>An unexpected error has occur. Please contact administrators.</value>
+  </data>
+  <data name="Common_Warning_Caption" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>
