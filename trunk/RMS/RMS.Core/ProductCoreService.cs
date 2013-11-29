@@ -15,9 +15,9 @@ namespace RMS.Core
         /// <returns>ServiceResult object contains list of Products</returns>
         public IProductDataService ProductDataService { get; set; }
 
-        public ServiceResult<IList<Product>> GetAllProduct(Int32 productCategoryID)
+        public ServiceResult<IList<Product>> GetAllProduct()
         {
-            return ProductDataService.GetAllProduct(productCategoryID);
+            return ProductDataService.GetAllProduct();
         }
 
         /// <summary>

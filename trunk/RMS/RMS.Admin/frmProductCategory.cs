@@ -40,12 +40,7 @@ namespace RMS.Admin
         protected override IList<ProductCategory> GetItemList()
         {
             var result = ProductCategoryCoreService.GetAllProductCategory();
-            if (result.Error != null && result.Error.Number != 0)
-            {
-                return base.GetItemList();
-            }
-
-            return result.Data;
+            return HasError(result.Error) ? base.GetItemList() : result.Data;
         }
 
         #endregion
@@ -109,7 +104,16 @@ namespace RMS.Admin
             SelectedItem = Items.FirstOrDefault(b => b.ProductCategoryID == productCategoryID);
 
             lsbProductCategory.Enabled = true;
-            lsbProductCategory.SelectedIndex = SelectedIndex;
+            try
+            {
+                lsbProductCategory.SelectedIndex = SelectedIndex;
+            }
+            catch
+            {
+
+                lsbProductCategory.SelectedIndex = SelectedIndex - 1;
+            }
+            
             btnCreateNew.Enabled = true;
             btnDelete.Enabled = true;
         }
@@ -167,8 +171,6 @@ namespace RMS.Admin
                 }
             }
         }
-
-        
     }
 
 #if DEBUG

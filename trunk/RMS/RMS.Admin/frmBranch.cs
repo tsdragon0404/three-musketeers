@@ -40,12 +40,7 @@ namespace RMS.Admin
         protected override IList<Branch> GetItemList()
         {
             var result = BranchCoreService.GetAllBranch();
-            if (result.Error != null && result.Error.Number != 0)
-            {
-                return base.GetItemList();
-            }
-
-            return result.Data;
+            return HasError(result.Error) ? base.GetItemList() : result.Data;
         } 
 
         #endregion

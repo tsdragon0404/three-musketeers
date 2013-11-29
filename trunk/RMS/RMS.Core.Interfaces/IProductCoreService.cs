@@ -7,7 +7,7 @@ namespace RMS.Core.Interfaces
 {
     public interface IProductCoreService
     {
-        ServiceResult<IList<Product>> GetAllProduct(Int32 productCategoryID);
+        ServiceResult<IList<Product>> GetAllProduct();
 
         ServiceResult<int> SaveProduct(Product product);
 

@@ -33,8 +33,9 @@ namespace RMS.Admin
             this.components = new System.ComponentModel.Container();
             this.menuStrip = new TM.UI.WindowsForms.Controls.TMMenuStrip();
             this.mItemSetup = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
-            this.mItemProduct = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
+            this.mListItemProduct = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemProductCategory = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
+            this.mItemProduct = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemTable = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemSystem = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemUser = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
@@ -67,25 +68,26 @@ namespace RMS.Admin
             // mItemSetup
             // 
             this.mItemSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mItemProduct,
+            this.mListItemProduct,
             this.mItemTable,
             this.mItemSystem});
             this.mItemSetup.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.mItemSetup.ForeColor = System.Drawing.Color.White;
+            this.mItemSetup.ForeColor = System.Drawing.Color.Black;
             this.mItemSetup.FunctionID = 0;
             this.mItemSetup.Name = "mItemSetup";
             this.mItemSetup.Size = new System.Drawing.Size(53, 21);
             this.mItemSetup.Text = "Setup";
             // 
-            // mItemProduct
+            // mListItemProduct
             // 
-            this.mItemProduct.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mItemProductCategory});
-            this.mItemProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.mItemProduct.FunctionID = 0;
-            this.mItemProduct.Name = "mItemProduct";
-            this.mItemProduct.Size = new System.Drawing.Size(152, 22);
-            this.mItemProduct.Text = "Product";
+            this.mListItemProduct.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemProductCategory,
+            this.mItemProduct});
+            this.mListItemProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.mListItemProduct.FunctionID = 0;
+            this.mListItemProduct.Name = "mListItemProduct";
+            this.mListItemProduct.Size = new System.Drawing.Size(152, 22);
+            this.mListItemProduct.Text = "Product";
             // 
             // mItemProductCategory
             // 
@@ -95,6 +97,16 @@ namespace RMS.Admin
             this.mItemProductCategory.Size = new System.Drawing.Size(176, 22);
             this.mItemProductCategory.Text = "Product category";
             this.mItemProductCategory.Click += new System.EventHandler(this.mItemForm_Click);
+            // 
+            // mItemProduct
+            // 
+            this.mItemProduct.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.mItemProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.mItemProduct.FunctionID = 1005;
+            this.mItemProduct.Name = "mItemProduct";
+            this.mItemProduct.Size = new System.Drawing.Size(176, 22);
+            this.mItemProduct.Text = "Product";
+            this.mItemProduct.Click += new System.EventHandler(this.mItemForm_Click);
             // 
             // mItemTable
             // 
@@ -213,12 +225,13 @@ namespace RMS.Admin
         private TMToolStripMenuItem mItemExit;
         private TMToolStripMenuItem mItemSetup;
         private TMToolStripMenuItem mItemTable;
-        private TMToolStripMenuItem mItemProduct;
+        private TMToolStripMenuItem mListItemProduct;
         private TMToolStripMenuItem mItemConfiguration;
         private TMToolStripMenuItem mItemSystem;
         private TMToolStripMenuItem mItemUser;
         private TMToolStripMenuItem mItemBranch;
         private TMToolStripMenuItem mItemProductCategory;
+        private TMToolStripMenuItem mItemProduct;
     }
 }
 
