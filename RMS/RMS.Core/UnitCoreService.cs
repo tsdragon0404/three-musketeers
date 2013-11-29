@@ -19,5 +19,34 @@ namespace RMS.Core
         {
             return UnitDataService.GetAllUnit();
         }
+
+        /// <summary>
+        /// Gets all Unit for Setup.
+        /// </summary>
+        /// <returns>ServiceResult object contains list of Units</returns>
+        public ServiceResult<IList<Unit>> GetAllUnitForSetup()
+        {
+            return UnitDataService.GetAllUnitForSetup();
+        }
+
+        /// <summary>
+        /// Delete Unit
+        /// </summary>
+        /// <param name="unitID"></param>
+        /// <returns></returns>
+        public ServiceResult DeleteUnit(Byte unitID)
+        {
+            return UnitDataService.DeleteUnit(unitID);
+        }
+    
+        /// <summary>
+        /// Save Unit
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        public ServiceResult<Byte> SaveUnit(Unit unit)
+        {
+            return UnitDataService.SaveUnit(unit);
+        }
     }
 }

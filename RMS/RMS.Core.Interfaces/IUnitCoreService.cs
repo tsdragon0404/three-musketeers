@@ -8,5 +8,8 @@ namespace RMS.Core.Interfaces
     public interface IUnitCoreService
     {
         ServiceResult<IList<Unit>> GetAllUnit();
+        ServiceResult<IList<Unit>> GetAllUnitForSetup();
+        ServiceResult DeleteUnit(Byte unitID);
+        ServiceResult<Byte> SaveUnit(Unit unit);
     }
 }

@@ -74,6 +74,24 @@ namespace RMS.Admin
             return HasError(result.Error) ? ListProductCategory : result.Data;
         }
 
+        private bool ValidationForm()
+        {
+            if (!CommonValidation.ValidateEmptyTextBox(txtVNName))
+            {
+                MessageManager.ShowWarning(Resource.Common_Warning_Caption, Resource.Common_TextBoxEmpty_Message);
+                txtVNName.Focus();
+                return false;
+            }
+            if (!CommonValidation.ValidateEmptyTextBox(txtENName))
+            {
+                MessageManager.ShowWarning(Resource.Common_Warning_Caption, Resource.Common_TextBoxEmpty_Message);
+                txtENName.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         private void frmProduct_Load(object sender, System.EventArgs e)
@@ -117,6 +135,9 @@ namespace RMS.Admin
 
         private void btnSave_Click(object sender, System.EventArgs e)
         {
+            if (!ValidationForm())
+                return; ;
+
             var product = new Product()
                               {
                                   ProductID = txtProductID.Text.Trim() == "" ? 0 : int.Parse(txtProductID.Text.Trim()),
@@ -179,6 +200,7 @@ namespace RMS.Admin
                     if (result.Error != null && result.Error.Number != 0)
                     {
                         MessageManager.ShowError(Resource.Common_Error_Caption, result.Error.Message);
+                        return;
                     }
 
                     Items = GetItemList();

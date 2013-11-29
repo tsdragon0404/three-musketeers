@@ -7,6 +7,7 @@ using RMS.Core.Interfaces;
 using TM.UI.WindowsForms;
 using TM.UI.WindowsForms.Utilities;
 using TM.Utilities;
+using RMS.Resources;
 
 namespace RMS.Admin
 {
@@ -78,7 +79,7 @@ namespace RMS.Admin
             var result = BranchCoreService.SaveBranch(branch);
             if (result.Error != null && result.Error.Number != 0)
             {
-                MessageBox.Show(result.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageManager.ShowError(Resource.Common_Error_Caption, result.Error.Message);
                 return;
             }
             var branchID = result.Data;
@@ -112,9 +113,7 @@ namespace RMS.Admin
         {
             if (txtBranchID.Text.Trim() != "")
             {
-                if (
-                    MessageBox.Show("Do you really want to delete?", "Notice", MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageManager.ShowQuestion(Resource.Common_Question_Caption, Resource.Common_Delete_Message) == DialogResult.Yes)
                 {
                     int idx = SelectedIndex;
                     var result = BranchCoreService.DeleteBranch(Guid.Parse(txtBranchID.Text));
