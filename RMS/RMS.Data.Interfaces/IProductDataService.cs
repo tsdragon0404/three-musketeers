@@ -7,7 +7,7 @@ namespace RMS.Data.Interfaces
 {
     public interface IProductDataService
     {
-        ServiceResult<IList<Product>> GetAllProduct(Int32 productCategoryID);
+        ServiceResult<IList<Product>> GetAllProduct();
 
         ServiceResult<int> SaveProduct(Product product);
 

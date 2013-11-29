@@ -26,6 +26,8 @@ namespace RMS.Admin
 
         public frmProductCategory ProductCategoryForm { get; set; }
 
+        public frmProduct ProductForm { get; set; }
+
         private readonly IDictionary<int, BaseForm> FormDict = new Dictionary<int, BaseForm>();
 
         #endregion
@@ -108,6 +110,7 @@ namespace RMS.Admin
             FormDict.Add(BuildListItem(UserForm));
             FormDict.Add(BuildListItem(BranchForm));
             FormDict.Add(BuildListItem(ProductCategoryForm));
+            FormDict.Add(BuildListItem(ProductForm));
         }
 
         private KeyValuePair<int, BaseForm> BuildListItem(BaseForm form)

@@ -27,8 +27,8 @@ namespace RMS.Core.Entities
         [DataField("ENDescription")]
         public virtual string ENDescription { get; set; }
 
-        [DataField("Unit")]
-        public virtual Int16 Unit { get; set; }
+        [DataField("UnitID")]
+        public virtual Byte UnitID { get; set; }
 
         [DataField("ProductCategoryID")]
         public virtual Int32 ProductCategoryID { get; set; }

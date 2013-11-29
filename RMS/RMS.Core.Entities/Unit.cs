@@ -8,7 +8,7 @@ namespace RMS.Core.Entities
     public class Unit : Entity
     {
         [DataField("UnitID")]
-        public virtual Int16 UnitID { get; set; }
+        public virtual Byte UnitID { get; set; }
 
         [DataField("UnitName")]
         public virtual string UnitName { get; set; }

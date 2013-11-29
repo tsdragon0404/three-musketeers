@@ -69,6 +69,8 @@ namespace TM.Data.Mapping
                     value = reader.GetInt32(index);
                 else if (propertyInfo.PropertyType == typeof(Int16))
                     value = reader.GetInt16(index);
+                else if (propertyInfo.PropertyType == typeof(Byte))
+                    value = reader.GetByte(index);
                 else if (propertyInfo.PropertyType == typeof(Int64))
                     value = reader.GetInt64(index);
                 else if (propertyInfo.PropertyType == typeof(string))

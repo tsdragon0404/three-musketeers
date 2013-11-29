@@ -30,7 +30,8 @@ namespace RMS.Autofac
             var _context = new UserContext
                                {
                                    CurUserID = Guid.NewGuid(),
-                                   BranchID = Guid.NewGuid(),
+                                   //BranchID = Guid.NewGuid(),
+                                   BranchID = "1BD88D87-0DCA-4A22-A089-9C64E9598274".ToGuid(),
                                    LanguageCode = "EN"
                                };
             builder.RegisterInstance(_context).As<UserContext>().SingleInstance();

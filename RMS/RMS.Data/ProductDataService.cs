@@ -17,10 +17,10 @@ namespace RMS.Data
         /// Gets all Product.
         /// </summary>
         /// <returns>ServiceResult object contains list of Products</returns>
-        public ServiceResult<IList<Product>> GetAllProduct(Int32 productCategoryID)
+        public ServiceResult<IList<Product>> GetAllProduct()
         {
             var parameters = new SprocParameters();
-            parameters.AddParam("I_vProductCategoryID", productCategoryID, SqlDbType.Int);
+            parameters.AddParam("I_vAction", 0, SqlDbType.Int);
             var result = ExecuteGetEntity<Product>(StoreProcedure.GetAllProduct, parameters).ToList();
 
             return new ServiceResult<IList<Product>>
@@ -43,11 +43,11 @@ namespace RMS.Data
             parameters.AddParam("I_vENName", product.ENName, SqlDbType.NVarChar);
             parameters.AddParam("I_vVNDescription", product.VNDescription, SqlDbType.NVarChar);
             parameters.AddParam("I_vENDescription", product.ENDescription, SqlDbType.NVarChar);
-            parameters.AddParam("I_vUnit", product.ENDescription, SqlDbType.TinyInt);
-            parameters.AddParam("I_vProductCategoryID", product.ENDescription, SqlDbType.Int);
+            parameters.AddParam("I_vUnitID", product.UnitID, SqlDbType.TinyInt);
+            parameters.AddParam("I_vProductCategoryID", product.ProductCategoryID, SqlDbType.Int);
             parameters.AddParam("I_vSEQ", product.SEQ, SqlDbType.Int);
             parameters.AddParam("I_vEnable", product.Enable, SqlDbType.Bit);
-            parameters.AddParam("O_vProductID", "", SqlDbType.Int, ParameterDirection.Output);
+            parameters.AddParam("O_vProductID", product.ProductID, SqlDbType.Int, ParameterDirection.Output);
 
             Execute(StoreProcedure.SaveProduct, parameters);
             var productID = int.Parse(parameters.GetParam("O_vProductID").Value.ToString());
