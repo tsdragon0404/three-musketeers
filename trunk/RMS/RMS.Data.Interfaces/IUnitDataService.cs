@@ -8,5 +8,8 @@ namespace RMS.Data.Interfaces
     public interface IUnitDataService
     {
         ServiceResult<IList<Unit>> GetAllUnit();
+        ServiceResult<IList<Unit>> GetAllUnitForSetup();
+        ServiceResult DeleteUnit(Byte unitID);
+        ServiceResult<Byte> SaveUnit(Unit unit);
     }
 }

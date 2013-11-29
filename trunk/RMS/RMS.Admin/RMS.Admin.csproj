@@ -89,6 +89,12 @@
     <Compile Include="frmProductCategory.Designer.cs">
       <DependentUpon>frmProductCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUnit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUnit.Designer.cs">
+      <DependentUpon>frmUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     <EmbeddedResource Include="frmProductCategory.resx">
       <DependentUpon>frmProductCategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUnit.resx">
+      <DependentUpon>frmUnit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -138,6 +147,7 @@
     <None Include="Properties\DataSources\RMS.Core.Entities.Branch.datasource" />
     <None Include="Properties\DataSources\RMS.Core.Entities.Product.datasource" />
     <None Include="Properties\DataSources\RMS.Core.Entities.ProductCategory.datasource" />
+    <None Include="Properties\DataSources\RMS.Core.Entities.Unit.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

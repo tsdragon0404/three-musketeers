@@ -40,6 +40,7 @@ namespace RMS.Admin
             this.mItemSystem = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemUser = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemBranch = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
+            this.mItemUnit = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemConfiguration = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemLogout = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
             this.mItemExit = new TM.UI.WindowsForms.Controls.TMToolStripMenuItem();
@@ -72,7 +73,7 @@ namespace RMS.Admin
             this.mItemTable,
             this.mItemSystem});
             this.mItemSetup.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.mItemSetup.ForeColor = System.Drawing.Color.Black;
+            this.mItemSetup.ForeColor = System.Drawing.Color.White;
             this.mItemSetup.FunctionID = 0;
             this.mItemSetup.Name = "mItemSetup";
             this.mItemSetup.Size = new System.Drawing.Size(53, 21);
@@ -120,7 +121,8 @@ namespace RMS.Admin
             // 
             this.mItemSystem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mItemUser,
-            this.mItemBranch});
+            this.mItemBranch,
+            this.mItemUnit});
             this.mItemSystem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.mItemSystem.FunctionID = 0;
             this.mItemSystem.Name = "mItemSystem";
@@ -129,21 +131,33 @@ namespace RMS.Admin
             // 
             // mItemUser
             // 
+            this.mItemUser.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.mItemUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.mItemUser.FunctionID = 1001;
             this.mItemUser.Name = "mItemUser";
-            this.mItemUser.Size = new System.Drawing.Size(115, 22);
+            this.mItemUser.Size = new System.Drawing.Size(152, 22);
             this.mItemUser.Text = "User";
             this.mItemUser.Click += new System.EventHandler(this.mItemForm_Click);
             // 
             // mItemBranch
             // 
+            this.mItemBranch.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.mItemBranch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.mItemBranch.FunctionID = 1002;
             this.mItemBranch.Name = "mItemBranch";
-            this.mItemBranch.Size = new System.Drawing.Size(115, 22);
+            this.mItemBranch.Size = new System.Drawing.Size(152, 22);
             this.mItemBranch.Text = "Branch";
             this.mItemBranch.Click += new System.EventHandler(this.mItemForm_Click);
+            // 
+            // mItemUnit
+            // 
+            this.mItemUnit.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.mItemUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.mItemUnit.FunctionID = 1006;
+            this.mItemUnit.Name = "mItemUnit";
+            this.mItemUnit.Size = new System.Drawing.Size(152, 22);
+            this.mItemUnit.Text = "Unit";
+            this.mItemUnit.Click += new System.EventHandler(this.mItemForm_Click);
             // 
             // mItemConfiguration
             // 
@@ -232,6 +246,7 @@ namespace RMS.Admin
         private TMToolStripMenuItem mItemBranch;
         private TMToolStripMenuItem mItemProductCategory;
         private TMToolStripMenuItem mItemProduct;
+        private TMToolStripMenuItem mItemUnit;
     }
 }
 

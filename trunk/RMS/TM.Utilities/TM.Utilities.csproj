@@ -40,6 +40,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonValidation.cs" />
     <Compile Include="Messages\IMessageManager.cs" />
     <Compile Include="Messages\MessageManager.cs" />
     <Compile Include="UserContext.cs" />
@@ -49,6 +50,12 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Resources\RMS.Resources.csproj">
+      <Project>{1da25b87-7149-469a-b226-92c16c83f600}</Project>
+      <Name>RMS.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
