@@ -53,9 +53,7 @@ namespace RMS.Admin
             lsbBranch.DataSource = Items;
             lsbBranch.DisplayMember = "BranchName";
             if (Items.Count != 0)
-            {
                 lsbBranch.SelectedIndex = SelectedIndex;
-            }
         }
 
         private void lsbBranch_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,8 +89,7 @@ namespace RMS.Admin
 
             lsbBranch.Enabled = true;
             lsbBranch.SelectedIndex = SelectedIndex;
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
         }
 
         private void btnCreateNew_Click(object sender, EventArgs e)
@@ -104,8 +101,7 @@ namespace RMS.Admin
             txtENName.Clear();
             txtSEQ.Clear();
             ckbEnable.Checked = true;
-            btnCreateNew.Enabled = false;
-            btnDelete.Enabled = false;
+            //tmCRUD.IsAdding = true;
             txtVNName.Focus();
         }
 
@@ -149,8 +145,7 @@ namespace RMS.Admin
         {
             lsbBranch.Enabled = true;
             userBindingSource.ResumeBinding();
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
             if(Items.Count != 0)
                 lsbBranch.SelectedIndex = SelectedIndex;
         } 

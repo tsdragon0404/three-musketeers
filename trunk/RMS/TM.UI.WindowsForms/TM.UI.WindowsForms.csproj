@@ -32,12 +32,20 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TMCRUD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TMCRUD.Designer.cs">
+      <DependentUpon>TMCRUD.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TMMenuColorTable.cs" />
     <Compile Include="Controls\TMMenuStrip.cs">
@@ -78,6 +86,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TMCRUD.resx">
+      <DependentUpon>TMCRUD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListForm.resx">
       <DependentUpon>ListForm.cs</DependentUpon>
