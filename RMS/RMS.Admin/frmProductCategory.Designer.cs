@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnCreateNew = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.lsbProductCategory = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ckbEnable = new System.Windows.Forms.CheckBox();
@@ -51,81 +46,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtProductCategoryID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2.SuspendLayout();
+            this.tmCRUD = new TM.UI.WindowsForms.Controls.TMCRUD();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productCategoryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnCreateNew);
-            this.groupBox2.Controls.Add(this.btnSave);
-            this.groupBox2.Controls.Add(this.btnCancel);
-            this.groupBox2.Controls.Add(this.btnDelete);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(643, 70);
-            this.groupBox2.TabIndex = 16;
-            this.groupBox2.TabStop = false;
-            // 
-            // btnCreateNew
-            // 
-            this.btnCreateNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnCreateNew.Image = global::RMS.Admin.Properties.Resources.create_icon;
-            this.btnCreateNew.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCreateNew.Location = new System.Drawing.Point(6, 12);
-            this.btnCreateNew.Name = "btnCreateNew";
-            this.btnCreateNew.Size = new System.Drawing.Size(75, 52);
-            this.btnCreateNew.TabIndex = 4;
-            this.btnCreateNew.Text = "Create new";
-            this.btnCreateNew.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnCreateNew.UseVisualStyleBackColor = true;
-            this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Image = global::RMS.Admin.Properties.Resources.Save_icon;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSave.Location = new System.Drawing.Point(87, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 52);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Save";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Image = global::RMS.Admin.Properties.Resources.Cancel_icon;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCancel.Location = new System.Drawing.Point(168, 12);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 52);
-            this.btnCancel.TabIndex = 13;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = global::RMS.Admin.Properties.Resources.delete_file_icon;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDelete.Location = new System.Drawing.Point(249, 12);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 52);
-            this.btnDelete.TabIndex = 5;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // lsbProductCategory
             // 
             this.lsbProductCategory.FormattingEnabled = true;
-            this.lsbProductCategory.Location = new System.Drawing.Point(6, 76);
+            this.lsbProductCategory.Location = new System.Drawing.Point(6, 77);
             this.lsbProductCategory.Name = "lsbProductCategory";
             this.lsbProductCategory.Size = new System.Drawing.Size(237, 225);
             this.lsbProductCategory.TabIndex = 17;
@@ -147,7 +76,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtProductCategoryID);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(249, 70);
+            this.groupBox1.Location = new System.Drawing.Point(249, 71);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(386, 231);
             this.groupBox1.TabIndex = 18;
@@ -279,18 +208,35 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "ID";
             // 
+            // tmCRUD
+            // 
+            this.tmCRUD.BackColor = System.Drawing.Color.Transparent;
+            this.tmCRUD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tmCRUD.Icon_Cancel = global::RMS.Admin.Properties.Resources.Cancel_icon;
+            this.tmCRUD.Icon_Create = global::RMS.Admin.Properties.Resources.create_icon;
+            this.tmCRUD.Icon_Delete = global::RMS.Admin.Properties.Resources.delete_file_icon;
+            this.tmCRUD.Icon_Save = global::RMS.Admin.Properties.Resources.Save_icon;
+            this.tmCRUD.IsAdding = false;
+            this.tmCRUD.Location = new System.Drawing.Point(0, 0);
+            this.tmCRUD.Name = "tmCRUD";
+            this.tmCRUD.Size = new System.Drawing.Size(643, 77);
+            this.tmCRUD.TabIndex = 19;
+            this.tmCRUD.ButtonCreateClick += new System.EventHandler(this.btnCreateNew_Click);
+            this.tmCRUD.ButtonSaveClick += new System.EventHandler(this.btnSave_Click);
+            this.tmCRUD.ButtonDeleteClick += new System.EventHandler(this.btnDelete_Click);
+            this.tmCRUD.ButtonCancelClick += new System.EventHandler(this.btnCancel_Click);
+            // 
             // frmProductCategory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 316);
+            this.ClientSize = new System.Drawing.Size(643, 342);
+            this.Controls.Add(this.tmCRUD);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lsbProductCategory);
-            this.Controls.Add(this.groupBox2);
             this.Name = "frmProductCategory";
             this.Text = "frmProductCategory";
             this.Load += new System.EventHandler(this.frmProductCategory_Load);
-            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productCategoryBindingSource)).EndInit();
@@ -300,11 +246,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnCreateNew;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ListBox lsbProductCategory;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox ckbEnable;
@@ -322,5 +263,6 @@
         private System.Windows.Forms.TextBox txtProductCategoryID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource productCategoryBindingSource;
+        private TM.UI.WindowsForms.Controls.TMCRUD tmCRUD;
     }
 }

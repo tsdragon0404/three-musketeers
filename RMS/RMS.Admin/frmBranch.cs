@@ -101,7 +101,7 @@ namespace RMS.Admin
             txtENName.Clear();
             txtSEQ.Clear();
             ckbEnable.Checked = true;
-            //tmCRUD.IsAdding = true;
+            tmCRUD.IsAdding = true;
             txtVNName.Focus();
         }
 

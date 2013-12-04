@@ -73,8 +73,7 @@ namespace RMS.Admin
             txtENName.Clear();
             txtSEQ.Clear();
             ckbEnable.Checked = true;
-            btnCreateNew.Enabled = false;
-            btnDelete.Enabled = false;
+            tmCRUD.IsAdding = true;
             txtVNName.Focus();
         }
 
@@ -103,16 +102,14 @@ namespace RMS.Admin
 
             lsbUnit.Enabled = true;
             lsbUnit.SelectedIndex = SelectedIndex;
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             lsbUnit.Enabled = true;
             unitBindingSource.ResumeBinding();
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
             if (Items.Count != 0)
                 lsbUnit.SelectedIndex = SelectedIndex;
         }
