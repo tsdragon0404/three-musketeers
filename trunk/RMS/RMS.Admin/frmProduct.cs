@@ -122,8 +122,7 @@ namespace RMS.Admin
         {
             productBindingSource.SuspendBinding();
             lsbProduct.Enabled = false;
-            btnCreateNew.Enabled = false;
-            btnDelete.Enabled = false;
+            tmCRUD.IsAdding = true;
             txtProductID.Clear();
             txtVNName.Clear();
             txtENName.Clear();
@@ -172,16 +171,14 @@ namespace RMS.Admin
             {
                 lsbProduct.SelectedIndex = SelectedIndex - 1;
             }
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e)
         {
             lsbProduct.Enabled = true;
             productBindingSource.ResumeBinding();
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
 
             if (Items.Count != 0)
             {

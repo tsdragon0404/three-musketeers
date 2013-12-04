@@ -67,8 +67,7 @@ namespace RMS.Admin
         {
             productCategoryBindingSource.SuspendBinding();
             lsbProductCategory.Enabled = false;
-            btnCreateNew.Enabled = false;
-            btnDelete.Enabled = false;
+            tmCRUD.IsAdding = true;
             txtProductCategoryID.Clear();
             txtVNName.Clear();
             txtENName.Clear();
@@ -113,17 +112,15 @@ namespace RMS.Admin
 
                 lsbProductCategory.SelectedIndex = SelectedIndex - 1;
             }
-            
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+
+            tmCRUD.IsAdding = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             lsbProductCategory.Enabled = true;
             productCategoryBindingSource.ResumeBinding();
-            btnCreateNew.Enabled = true;
-            btnDelete.Enabled = true;
+            tmCRUD.IsAdding = false;
             
             if (Items.Count != 0)
             {
