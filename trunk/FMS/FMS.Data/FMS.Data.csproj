@@ -34,7 +34,22 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISectionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
+      <Project>{fdb3333f-a3b9-4282-bcb7-fef21466ecf0}</Project>
+      <Name>Core.Data.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data\Core.Data.csproj">
+      <Project>{22507957-E645-4D4E-BB33-6AA375B21E14}</Project>
+      <Name>Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.Entities\FMS.Entities.csproj">
+      <Project>{464964f9-d1be-4ff8-9117-124d023a2ad4}</Project>
+      <Name>FMS.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
