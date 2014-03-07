@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
+using RMS.Autofac;
 
 namespace FMS
 {
@@ -13,5 +15,12 @@ namespace FMS
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var builder = new ContainerBuilder();
+            var containter = builder.Install().Build();
+        }
     }
 }
