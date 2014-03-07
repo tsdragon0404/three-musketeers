@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1F8600
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMS.Autofac", "FMS.Autofac\FMS.Autofac.csproj", "{5497C342-FDAB-45FA-AA77-91F24034AD0F}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -102,6 +104,10 @@ Global
 		{3A894A2A-734E-4DD4-8100-1A7857F2A219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A894A2A-734E-4DD4-8100-1A7857F2A219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A894A2A-734E-4DD4-8100-1A7857F2A219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5497C342-FDAB-45FA-AA77-91F24034AD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5497C342-FDAB-45FA-AA77-91F24034AD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5497C342-FDAB-45FA-AA77-91F24034AD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5497C342-FDAB-45FA-AA77-91F24034AD0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +125,6 @@ Global
 		{5F16C77F-3573-4352-AF61-D2A7BC3F0CEA} = {D452C7FF-8979-45F9-B148-6D75A7ABEFC2}
 		{22507957-E645-4D4E-BB33-6AA375B21E14} = {791E9A80-85BC-4B1E-B840-86BFE4E04CD6}
 		{FDB3333F-A3B9-4282-BCB7-FEF21466ECF0} = {791E9A80-85BC-4B1E-B840-86BFE4E04CD6}
+		{5497C342-FDAB-45FA-AA77-91F24034AD0F} = {791E9A80-85BC-4B1E-B840-86BFE4E04CD6}
 	EndGlobalSection
 EndGlobal
