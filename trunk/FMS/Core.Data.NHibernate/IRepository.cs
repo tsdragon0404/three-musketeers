@@ -26,12 +26,6 @@ namespace Core.Data.NHibernate
         IQueryable<TEntity> ListAll();
 
         /// <summary>
-        /// Used to get a IQueryable that is used to retrive entities from entire table.
-        /// </summary>
-        /// <returns>IQueryable to be used to select entities from database</returns>
-        //IQueryable<TEntity> List(Func<>);
-
-        /// <summary>
         /// Gets an entity.
         /// </summary>
         /// <param name="key">Primary key of the entity to get</param>
