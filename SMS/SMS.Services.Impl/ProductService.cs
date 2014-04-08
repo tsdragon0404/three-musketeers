@@ -6,16 +6,15 @@ namespace SMS.Services.Impl
 {
     public class ProductService : IProductService
     {
-        private IProductManagement productManagement;
+        #region Fields
 
-        public ProductService(IProductManagement productManagement)
-        {
-            this.productManagement = productManagement;
-        }
+        public virtual IProductManagement ProductManagement { get; set; }
+
+        #endregion
 
         public IList<ProductDto> GetAllProducts()
         {
-            return productManagement.GetAllProducts();
+            return ProductManagement.GetAllProducts();
         }
     }
 }
