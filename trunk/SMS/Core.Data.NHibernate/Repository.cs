@@ -18,6 +18,8 @@ namespace Core.Data.NHibernate
 
         #endregion Constructors and Destructors
 
+        #region Methods
+
         public string GetDatabaseSchemaTableName(Type type)
         {
             var hibernateMetadata = Session.SessionFactory.GetClassMetadata(type);
@@ -40,7 +42,9 @@ namespace Core.Data.NHibernate
             }
             var persister = hibernateMetadata as AbstractEntityPersister;
             return persister != null ? persister.IdentifierColumnNames.Join(", ") : string.Empty;
-        }
+        } 
+
+        #endregion
     }
 
 

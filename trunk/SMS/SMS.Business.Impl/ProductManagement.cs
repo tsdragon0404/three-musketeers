@@ -8,20 +8,15 @@ namespace SMS.Business.Impl
 {
     public class ProductManagement : IProductManagement
     {
-        #region Properties
-        
-        private IProductRepository productRepository; 
+        #region Fields
+
+        public virtual IProductRepository ProductRepository { get; set; }
 
         #endregion
 
-        public ProductManagement(IProductRepository productRepository)
-        {
-            this.productRepository = productRepository;
-        }
-
         public IList<ProductDto> GetAllProducts()
         {
-            return Mapper.Map<IList<ProductDto>>(productRepository.GetAll().ToList());
+            return Mapper.Map<IList<ProductDto>>(ProductRepository.GetAll().ToList());
         }
     }
 }

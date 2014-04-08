@@ -12,10 +12,8 @@ namespace Core.Data.NHibernate
     /// </summary>
     /// <typeparam name="TEntity">Type of entity</typeparam>
     /// <typeparam name="TIdentity">The type of the identity.</typeparam>
-    public abstract class RepositoryWithTypedId<TEntity, TIdentity> :
-        BaseRepository<TEntity>,
-        IRepositoryWithTypedId
-            <TEntity, TIdentity> where TEntity : class
+    public abstract class RepositoryWithTypedId<TEntity, TIdentity>
+        : BaseRepository<TEntity>, IRepositoryWithTypedId<TEntity, TIdentity> where TEntity : class
     {
         #region Constructors and Destructors
 
