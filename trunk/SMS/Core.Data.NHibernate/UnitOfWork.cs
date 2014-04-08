@@ -27,17 +27,7 @@ namespace Core.Data.NHibernate
         /// <summary>
         /// Gets Nhibernate session object to perform queries.
         /// </summary>
-        public ISession Session
-        {
-            get
-            {
-                if (CurrentSessionContext.HasBind(_sessionFactory))
-                    return _sessionFactory.GetCurrentSession();
-                var session = _sessionFactory.OpenSession();
-                CurrentSessionContext.Bind(session);
-                return session;
-            }
-        }
+        public ISession Session { get; private set; }
 
         /// <summary>
         /// Reference to the session factory.
@@ -71,6 +61,7 @@ namespace Core.Data.NHibernate
         /// </summary>
         public void BeginTransaction()
         {
+            Session = _sessionFactory.OpenSession();
             _transaction = Session.BeginTransaction();
         }
 
