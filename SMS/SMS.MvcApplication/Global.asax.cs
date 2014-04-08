@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -11,8 +7,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Core.Data;
-using Core.Data.NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -27,7 +21,7 @@ namespace SMS.MvcApplication
     {
         #region Fields
 
-        private IContainer container; 
+        private IContainer container;
 
         #endregion
 
@@ -56,12 +50,11 @@ namespace SMS.MvcApplication
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            var a = 0;
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            
+
         }
 
         #endregion
@@ -107,7 +100,7 @@ namespace SMS.MvcApplication
         private void MappingRegister()
         {
             DomainMappingRegister.Register();
-        } 
+        }
 
         #endregion
     }

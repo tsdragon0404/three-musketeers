@@ -26,7 +26,7 @@ namespace Core.Data.NHibernate
         /// Gets the current session.
         /// </summary>
         /// <value>The session.</value>
-        protected ISession Session { get { return UnitOfWork.Current.Session; } }
+        public virtual ISession Session { get; set; }
 
         #endregion Properties
     }
@@ -51,7 +51,7 @@ namespace Core.Data.NHibernate
         /// Gets the current session.
         /// </summary>
         /// <value>The session.</value>
-        protected ISession Session { get { return UnitOfWork.Current.Session; } }
+        public virtual ISession Session { get; set; }
 
         #endregion Properties
 
