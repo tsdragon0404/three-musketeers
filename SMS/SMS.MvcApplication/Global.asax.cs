@@ -56,6 +56,7 @@ namespace SMS.MvcApplication
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            var a = 0;
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
@@ -73,7 +74,11 @@ namespace SMS.MvcApplication
 
             containerBuilder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
-            BuildNHibernateUnitOfWork();
+            // Register ISessionFactory as Singleton 
+            containerBuilder.Register(x => BuildSessionFactory()).SingleInstance();
+
+            // Register ISession as instance per web request
+            containerBuilder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerHttpRequest();
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Services.Impl")).Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
@@ -89,16 +94,14 @@ namespace SMS.MvcApplication
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
-        private void BuildNHibernateUnitOfWork()
+        private ISessionFactory BuildSessionFactory()
         {
-            var sessionFactory = Fluently.Configure()
-                                         .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
-                                                 c => c.FromConnectionStringWithKey("DefaultConnection")))
-                                         .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
+            return Fluently.Configure()
+                           .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
+                               c => c.FromConnectionStringWithKey("DefaultConnection")))
+                           .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
                 //.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
-                                         .BuildSessionFactory();
-
-            UnitOfWork.Current = new UnitOfWork(sessionFactory);
+                           .BuildSessionFactory();
         }
 
         private void MappingRegister()
