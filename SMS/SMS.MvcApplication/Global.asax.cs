@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -12,6 +13,9 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Core.Data;
 using Core.Data.NHibernate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
 using SMS.Common.AutoMapper;
 
 namespace SMS.MvcApplication
@@ -21,7 +25,13 @@ namespace SMS.MvcApplication
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        private IContainer container;
+        #region Fields
+
+        private IContainer container; 
+
+        #endregion
+
+        #region Events
 
         protected void Application_Start()
         {
@@ -39,11 +49,31 @@ namespace SMS.MvcApplication
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            AutofacRegister();
+
+            MappingRegister();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void AutofacRegister()
+        {
             var containerBuilder = new ContainerBuilder();
 
             containerBuilder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
-            //containerBuilder.Register(x => new UnitOfWork()).As<IUnitOfWork>().SingleInstance();
+            BuildNHibernateUnitOfWork();
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Services.Impl")).Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
@@ -57,8 +87,25 @@ namespace SMS.MvcApplication
             container = containerBuilder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
-            DomainMappingRegister.Register();
         }
+
+        private void BuildNHibernateUnitOfWork()
+        {
+            var sessionFactory = Fluently.Configure()
+                                         .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
+                                                 c => c.FromConnectionStringWithKey("DefaultConnection")))
+                                         .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
+                //.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
+                                         .BuildSessionFactory();
+
+            UnitOfWork.Current = new UnitOfWork(sessionFactory);
+        }
+
+        private void MappingRegister()
+        {
+            DomainMappingRegister.Register();
+        } 
+
+        #endregion
     }
 }
