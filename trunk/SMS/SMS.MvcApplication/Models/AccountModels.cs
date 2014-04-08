@@ -8,14 +8,8 @@ using System.Web.Security;
 
 namespace SMS.MvcApplication.Models
 {
-    public class UsersContext : DbContext
+    public class UsersContext
     {
-        public UsersContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
     [Table("UserProfile")]
