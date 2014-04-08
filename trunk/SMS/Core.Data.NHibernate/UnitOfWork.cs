@@ -8,6 +8,8 @@ namespace Core.Data.NHibernate
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
+        #region Fields
+
         /// <summary>
         /// Gets current instance of the NHibernateUnitOfWork.
         /// It gets the right instance that is related to current thread.
@@ -34,7 +36,11 @@ namespace Core.Data.NHibernate
         /// <summary>
         /// Reference to the currently running transcation.
         /// </summary>
-        private ITransaction _transaction;
+        private ITransaction _transaction; 
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Creates a new instance of UnitOfWork.
@@ -43,7 +49,11 @@ namespace Core.Data.NHibernate
         public UnitOfWork(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
-        }
+        } 
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Opens database connection and begins transaction.
@@ -82,6 +92,8 @@ namespace Core.Data.NHibernate
             {
                 Session.Close();
             }
-        }
+        } 
+
+        #endregion
     }
 }
