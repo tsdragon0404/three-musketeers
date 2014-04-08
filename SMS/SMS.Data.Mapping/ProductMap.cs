@@ -9,7 +9,7 @@ namespace SMS.Data.Mapping
          {
              Table("Products");
              Id(x => x.Id).GeneratedBy.Identity();
-             
+             Map(x => x.Name);
          }
     }
 }
