@@ -4,21 +4,22 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h3>Table list</h3>
-@for (var i = 0; i < Model.ListTable.Count; i++)
-{
-    if (i % ConstStyle.GridNumber == 0)
+<div id="cashier">
+    <h3>Table list</h3>
+    @for (var i = 0; i < Model.ListTable.Count; i++)
     {
+        if (i % ConstStyle.GridNumber == 0)
+        {
         @Html.Raw("<div class='row'>")
-    }
+        }
     
-    <div class="one column">
-        <input type="button" value="@Model.ListTable[i].Name" />
-    </div>
+        <div class="one column">
+            <input type="button" value="@Model.ListTable[i].Name" />
+        </div>
     
-    if (i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
-    {
+        if (i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
+        {
         @Html.Raw("</div>")
+        }
     }
-}
+</div>

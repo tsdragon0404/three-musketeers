@@ -14,6 +14,17 @@ header #login {
 #leftmenu {
     width: 14%;
     float: left;
+    position: relative;
+}
+
+#leftmenu nav {
+    padding-left: 15px;
+    
+}
+#expander {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 #body {
