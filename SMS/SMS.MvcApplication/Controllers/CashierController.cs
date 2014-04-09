@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
@@ -14,8 +15,12 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult Index()
         {
-            var allTable = TableService.GetAllTables();
-            return View();
+            var cashierModel = new CashierModel
+                                   {
+                                       ListTable = TableService.GetAllTables()
+                                   };
+
+            return View(cashierModel);
         }
     }
 }
