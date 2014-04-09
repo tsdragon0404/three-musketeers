@@ -68,10 +68,10 @@ namespace SMS.MvcApplication
             containerBuilder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
             // Register ISessionFactory as Singleton 
-            containerBuilder.Register(x => BuildSessionFactory()).SingleInstance();
+            containerBuilder.Register(x => BuildSessionFactory()).As<ISessionFactory>().SingleInstance();
 
             // Register ISession as instance per web request
-            containerBuilder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerHttpRequest();
+            containerBuilder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Services.Impl")).Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
@@ -84,14 +84,14 @@ namespace SMS.MvcApplication
 
             container = containerBuilder.Build();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container, new RequestLifetimeScopeProvider(container)));
         }
 
         private ISessionFactory BuildSessionFactory()
         {
             return Fluently.Configure()
                            .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
-                               c => c.FromConnectionStringWithKey("DefaultConnection")))
+                               c => c.FromConnectionStringWithKey("SmsDb")))
                            .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
                 //.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
                            .BuildSessionFactory();

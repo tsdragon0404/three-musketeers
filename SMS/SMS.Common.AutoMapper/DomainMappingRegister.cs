@@ -15,6 +15,7 @@ namespace SMS.Common.AutoMapper
         public static void Register()
         {
             Map<Product, ProductDto>();
+            Map<Table, TableDto>();
         }
     }
 }
