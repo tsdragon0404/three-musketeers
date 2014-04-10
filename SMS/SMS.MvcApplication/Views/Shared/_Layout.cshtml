@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/themes/start/css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <header class="ui-helper-clearfix">
@@ -37,14 +38,9 @@
     </div>
 
     <footer>
-        <div>
-            <div>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-            </div>
-        </div>
+        &copy; @DateTime.Now.Year - My ASP.NET MVC Application
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

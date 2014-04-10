@@ -4,22 +4,39 @@
 @{
     ViewBag.Title = "Index";
 }
-<div id="cashier">
-    <h3>Table list</h3>
-    @for (var i = 0; i < Model.ListTable.Count; i++)
-    {
-        if (i % ConstStyle.GridNumber == 0)
+<link rel="stylesheet" type="text/css" href="~/Content/split-pane.css" />
+<script type="text/javascript" src="~/Scripts/split-pane.js"></script>
+
+<script>
+    $(function () {
+        $('div.split-pane').splitPane();
+    });
+</script>
+
+<div id="cashier" class="split-pane horizontal-percent">
+    <div id="tablelist" class="split-pane-component">
+        <h4>Table list</h4>
+        @for (var i = 0; i < Model.ListTable.Count; i++)
         {
-        @Html.Raw("<div class='row'>")
-        }
+            if (i % ConstStyle.GridNumber == 0)
+            {
+                @Html.Raw("<div class='row'>")
+            }
     
-        <div class="one column">
-            <input type="button" value="@Model.ListTable[i].Name" />
-        </div>
+            <div class="one column">
+                <input type="button" value="@Model.ListTable[i].Name" />
+            </div>
     
-        if (i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
-        {
-        @Html.Raw("</div>")
+            if (i == Model.ListTable.Count - 1 || i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
+            {
+                @Html.Raw("</div>")
+            }
         }
-    }
+    </div>
+    
+    <div class="split-pane-divider"></div>
+
+    <div id="tableorder" class="split-pane-component">
+        asd asd ad
+    </div>
 </div>
