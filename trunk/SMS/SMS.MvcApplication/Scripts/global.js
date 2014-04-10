@@ -21,23 +21,31 @@ function BuildLeftMenuExpander() {
 
 function ExpandColapseMenu() {
     var link = $('#expander');
-    if(link.hasClass('expanded')) {
+    if (link.hasClass('expanded')) {
         $('#leftmenu').animate({
             width: "1%"
-        }, 500);
-        $('#body').animate({
-            width: "98%"
-        }, 500);
+        }, 500, function() {
+            $('#body').animate({
+                width: "97%"
+            }, 500);
+        });
+        
+        
+        
         link.removeClass('expanded');
         link.addClass('colapsed');
     }
     else {
-        $('#leftmenu').animate({
-            width: "14%"
-        }, 500);
         $('#body').animate({
             width: "85%"
-        }, 500);
+        }, 500, function() {
+            $('#leftmenu').animate({
+                width: "14%"
+            }, 500);
+        });
+        
+       
+        
         link.removeClass('colapsed');
         link.addClass('expanded');
     }
