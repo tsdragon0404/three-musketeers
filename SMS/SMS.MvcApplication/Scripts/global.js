@@ -24,13 +24,11 @@ function ExpandColapseMenu() {
     if (link.hasClass('expanded')) {
         $('#leftmenu').animate({
             width: "1%"
-        }, 500, function() {
-            $('#body').animate({
-                width: "97%"
-            }, 500);
-        });
+        }, 500);
         
-        
+        $('#body').animate({
+            width: "97%"
+        }, 500);
         
         link.removeClass('expanded');
         link.addClass('colapsed');
@@ -38,13 +36,11 @@ function ExpandColapseMenu() {
     else {
         $('#body').animate({
             width: "85%"
-        }, 500, function() {
-            $('#leftmenu').animate({
-                width: "14%"
-            }, 500);
-        });
+        }, 500);
         
-       
+        $('#leftmenu').animate({
+            width: "13%"
+        }, 500);
         
         link.removeClass('colapsed');
         link.addClass('expanded');
