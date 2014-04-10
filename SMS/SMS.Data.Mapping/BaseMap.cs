@@ -11,8 +11,13 @@ namespace SMS.Data.Mapping
 
              if (type.IsSubclassOf(typeof(Entity)))
              {
-                 Id(x => (x as Entity).Id).GeneratedBy.Identity();
+                 Id(x => (x as Entity).Id).Column(string.Format("{0}ID", GetName())).GeneratedBy.Identity();
              }
          }
+
+        protected string GetName()
+        {
+            return typeof (T).Name;
+        }
     }
 }
