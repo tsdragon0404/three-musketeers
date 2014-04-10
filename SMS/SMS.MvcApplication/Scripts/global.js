@@ -1,5 +1,8 @@
 ﻿$(document).ready(function(){
-    BuildLeftMenuExpander();
+    var leftmenu = $('#leftmenu');
+    if (leftmenu.length != 0) {
+        $('#expander').click(ExpandColapseMenu);
+    }
     
     var cashier = $('#cashier');
     if (cashier.length != 0) {
@@ -7,17 +10,6 @@
         $(window).resize(SetHeightCashierSection);
     }
 });
-
-function BuildLeftMenuExpander() {
-    var leftmenu = $('#leftmenu');
-    if (leftmenu.length == 0)
-        return;
-
-    var linkHtml = '<a href="#" id="expander" class="expanded">&lt;</a>';
-    leftmenu.append(linkHtml);
-
-    $('#expander').click(ExpandColapseMenu);
-}
 
 function ExpandColapseMenu() {
     var link = $('#expander');
@@ -45,6 +37,7 @@ function ExpandColapseMenu() {
         link.removeClass('colapsed');
         link.addClass('expanded');
     }
+    return false;
 }
 
 function SetHeightCashierSection() {

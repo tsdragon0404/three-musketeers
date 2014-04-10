@@ -16,9 +16,8 @@
 
 #leftmenu
 {
-    width: 14%;
+    width: 13%;
     float: left;
-    position: relative;
     overflow: hidden;
 }
 
@@ -27,11 +26,9 @@
         padding-left: 15px;
     }
 
-#expander
-{
-    position: absolute;
-    right: 0;
-    top: 0;
+#leftmenuExpander {
+    width: 1%;
+    float: left;
 }
 
 #body
