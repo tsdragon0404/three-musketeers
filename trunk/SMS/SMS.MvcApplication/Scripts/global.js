@@ -1,5 +1,11 @@
 ﻿$(document).ready(function(){
     BuildLeftMenuExpander();
+    
+    var cashier = $('#cashier');
+    if (cashier.length != 0) {
+        SetHeightCashierSection();
+        $(window).resize(SetHeightCashierSection);
+    }
 });
 
 function BuildLeftMenuExpander() {
@@ -35,4 +41,12 @@ function ExpandColapseMenu() {
         link.removeClass('colapsed');
         link.addClass('expanded');
     }
+}
+
+function SetHeightCashierSection() {
+    var windowHeight = $(window).height();
+    var headerHeight = $('header').outerHeight();
+    var footerHeight = $('footer').outerHeight();
+
+    $('#body #cashier').height(windowHeight - headerHeight - footerHeight);
 }

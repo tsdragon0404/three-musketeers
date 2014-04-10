@@ -1,35 +1,67 @@
-﻿header {
+﻿header
+{
     border-bottom: 1px solid #ddd;
 }
 
-header #logo {
-    width: 200px;
-    float: left;
-}
+    header #logo
+    {
+        width: 200px;
+        float: left;
+    }
 
-header #login {
-    float: right;   
-}
+    header #login
+    {
+        float: right;
+    }
 
-#leftmenu {
+#leftmenu
+{
     width: 14%;
     float: left;
     position: relative;
+    overflow: hidden;
 }
 
-#leftmenu nav {
-    padding-left: 15px;
-    
-}
-#expander {
+    #leftmenu nav
+    {
+        padding-left: 15px;
+    }
+
+#expander
+{
     position: absolute;
     right: 0;
     top: 0;
 }
 
-#body {
+#body
+{
     width: 85%;
     float: right;
     border-left: 1px solid #ddd;
-    padding: 10px 0 10px 0;
+}
+
+#cashier
+{
+    min-height: 450px;
+}
+
+#tablelist
+{
+    bottom: 50%;
+    margin-bottom: 5px;
+    min-height: 135px;
+}
+
+.split-pane-divider
+{
+    bottom: 50%;
+    height: 5px;
+    background: #aaa;
+}
+
+#tableorder
+{
+    height: 50%;
+    min-height: 100px;
 }
