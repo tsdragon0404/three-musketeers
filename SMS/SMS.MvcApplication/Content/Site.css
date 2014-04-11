@@ -1,70 +1,106 @@
-﻿header
-{
+﻿header {
     border-bottom: 1px solid #ddd;
 }
 
-    header #logo
-    {
+    header #logo {
         width: 200px;
         float: left;
     }
 
-    header #login
-    {
+    header #login {
         float: right;
     }
 
-#leftmenu
-{
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+#leftmenu {
     width: 13%;
     float: left;
     overflow: hidden;
 }
 
-    #leftmenu nav
-    {
+    #leftmenu nav {
         padding-left: 15px;
     }
 
-#leftmenuExpander
-{
+#leftmenuExpander {
     width: 1%;
     float: left;
 }
 
-#body
-{
+#body {
     width: 85%;
     float: right;
     border-left: 1px solid #ddd;
 }
 
-#cashier
-{
+#cashier {
     min-height: 450px;
 }
 
-#tablelist
-{
+#tablelist {
     bottom: 60%;
     margin-bottom: 3px;
     min-height: 135px;
 }
 
-.split-pane-divider
-{
+.split-pane-divider {
     bottom: 60%;
     height: 3px;
     background: #77d5f7;
 }
 
-    .split-pane-divider:hover
-    {
+    .split-pane-divider:hover {
         background: #0078ae;
     }
 
-#tableorder
-{
+#tableorder {
     height: 60%;
     min-height: 100px;
+}
+
+#order .col1 {
+    width: 5%;
+}
+
+#order .col2 {
+    width: 15%;
+}
+
+#order .col3 {
+    width: 10%;
+}
+
+#order .col4 {
+    width: 10%;
+}
+
+#order .col5 {
+    width: 15%;
+}
+
+#order .col6 {
+    width: 15%;
+}
+
+#order .col7 {
+    width: 25%;
+}
+
+#order .col8 {
+    width: 5%;
+}
+
+#order .remarksInput {
+    width: 100%;
 }
