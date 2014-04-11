@@ -1,28 +1,22 @@
 ﻿using System;
-using Core.Data;
 
-namespace SMS.Data.Entities
+namespace SMS.Data.Dtos
 {
-    public class Product : Entity, IAuditableEntity
+    public class ProductCategoryDto
     {
-        public virtual string ProductCode { get; set; }
+        public virtual long Id { get; set; }
+        public virtual string ProductCategoryCode { get; set; }
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
-        public virtual long UnitID { get; set; }
-        public virtual long ProductCategoryID { get; set; }
-        public virtual long Price { get; set; }
+        public virtual long BranchID { get; set; }
         public virtual bool Enable { get; set; }
         public virtual int SEQ { get; set; }
 
-        #region Implementation of IAuditableEntity
-        
         public DateTime CreatedDate { get; set; }
         public string CreatedUser { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string ModifiedUser { get; set; }
-
-        #endregion
     }
 }

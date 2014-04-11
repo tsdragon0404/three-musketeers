@@ -34,6 +34,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InvoiceDetailRepository.cs" />
+    <Compile Include="InvoiceTableRepository.cs" />
+    <Compile Include="InvoiceRepository.cs" />
+    <Compile Include="UnitRepository.cs" />
+    <Compile Include="ProductCategoryRepository.cs" />
     <Compile Include="TableRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

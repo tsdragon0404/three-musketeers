@@ -1,21 +1,18 @@
-﻿using FluentNHibernate.Mapping;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
-    public class ProductMap : BaseMap<Product>
+    public class ProductCategoryMap : BaseMap<ProductCategory>
     {
-        public ProductMap()
+        public ProductCategoryMap()
         {
-            Table("Product");
-            Map(x => x.ProductCode);
+            Table("ProductCategory");
+            Map(x => x.ProductCategoryCode);
             Map(x => x.VNName);
             Map(x => x.ENName);
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
-            Map(x => x.UnitID);
-            Map(x => x.ProductCategoryID);
-            Map(x => x.Price);
+            Map(x => x.BranchID);
             Map(x => x.Enable);
             Map(x => x.SEQ);
             Map(x => x.CreatedDate);

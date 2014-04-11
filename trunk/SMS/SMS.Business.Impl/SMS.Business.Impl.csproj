@@ -44,6 +44,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InvoiceDetailManagement.cs" />
+    <Compile Include="InvoiceTableManagement.cs" />
+    <Compile Include="InvoiceManagement.cs" />
+    <Compile Include="UnitManagement.cs" />
+    <Compile Include="ProductCategoryManagement.cs" />
     <Compile Include="TableManagement.cs" />
     <Compile Include="ProductManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
