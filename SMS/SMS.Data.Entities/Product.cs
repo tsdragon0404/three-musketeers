@@ -18,10 +18,10 @@ namespace SMS.Data.Entities
 
         #region Implementation of IAuditableEntity
         
-        public DateTime CreatedDate { get; set; }
-        public string CreatedUser { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        public string ModifiedUser { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
+        public virtual string CreatedUser { get; set; }
+        public virtual DateTime ModifiedDate { get; set; }
+        public virtual string ModifiedUser { get; set; }
 
         #endregion
     }
