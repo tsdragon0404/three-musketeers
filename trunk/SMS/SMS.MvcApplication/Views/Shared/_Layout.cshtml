@@ -5,13 +5,16 @@
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/Content/themes/start/css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    
 </head>
 <body>
-    <header class="ui-helper-clearfix">
+    <header class="ui-helper-clearfix" id="header">
         <div id="logo">
             <p>@Html.ActionLink("your logo here", "Index", "Home")</p>
         </div>
@@ -40,7 +43,7 @@
         </div>
     </div>
 
-    <footer>
+    <footer id="footer">
         &copy; @DateTime.Now.Year - My ASP.NET MVC Application
     </footer>
 
