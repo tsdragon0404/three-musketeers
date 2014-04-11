@@ -10,33 +10,99 @@
 <script>
     $(function () {
         $('div.split-pane').splitPane();
+        $("#tablelist").tabs();
     });
 </script>
 
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="tablelist" class="split-pane-component">
-        <h4>Table list</h4>
-        @for (var i = 0; i < Model.ListTable.Count; i++)
-        {
-            if (i % ConstStyle.GridNumber == 0)
+        <ul>
+            <li><a href="#tabs-1">Area 1</a></li>
+            <li><a href="#tabs-2">Area 2</a></li>
+            <li><a href="#tabs-3">Area 3</a></li>
+        </ul>
+        <div id="tabs-1">
+            <h5>Area 1</h5>
+
+            @for (var i = 0; i < Model.ListTable.Count; i++)
             {
-                @Html.Raw("<div class='row'>")
-            }
+                if (i % ConstStyle.GridNumber == 0)
+                {
+                    @Html.Raw("<div class='row'>")
+                }
     
-            <div class="one column">
-                <input type="button" value="@Model.ListTable[i].VNName" />
-            </div>
+                <div class="one column">
+                    <input type="button" value="@Model.ListTable[i].VNName" />
+                </div>
     
-            if (i == Model.ListTable.Count - 1 || i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
-            {
-                @Html.Raw("</div>")
+                if (i == Model.ListTable.Count - 1 || i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
+                {
+                    @Html.Raw("</div>")
+                }
             }
-        }
+        </div>
+        <div id="tabs-2">
+            <h5>Area 2</h5>
+            
+        </div>
+        <div id="tabs-3">
+            <h5>Area 3</h5>
+            
+        </div>
     </div>
-    
+
     <div class="split-pane-divider"></div>
 
     <div id="tableorder" class="split-pane-component">
-        asd asd ad
+        <div class="row">
+            <div class="one column">Table name</div>
+            <div class="four columns">
+                User: Son Nguyen. Date: 11/04/2014 18:00
+            </div>
+        </div>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Cơm gà</td>
+                    <td>1</td>
+                    <td>Đĩa</td>
+                    <td>20.000</td>
+                    <td>20.000</td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Lẩu bò</td>
+                    <td>1</td>
+                    <td>Cái</td>
+                    <td>120.000</td>
+                    <td>120.000</td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Đũa</td>
+                    <td>3</td>
+                    <td>Đôi</td>
+                    <td>5.000</td>
+                    <td>15.000</td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

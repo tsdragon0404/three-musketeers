@@ -42,8 +42,8 @@ function ExpandColapseMenu() {
 
 function SetHeightCashierSection() {
     var windowHeight = $(window).height();
-    var headerHeight = $('header').outerHeight();
-    var footerHeight = $('footer').outerHeight();
+    var headerHeight = $('#header').outerHeight();
+    var footerHeight = $('#footer').outerHeight();
 
     $('#body #cashier').height(windowHeight - headerHeight - footerHeight);
 }

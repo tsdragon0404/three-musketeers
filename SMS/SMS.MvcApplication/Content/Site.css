@@ -26,7 +26,8 @@
         padding-left: 15px;
     }
 
-#leftmenuExpander {
+#leftmenuExpander
+{
     width: 1%;
     float: left;
 }
@@ -45,20 +46,25 @@
 
 #tablelist
 {
-    bottom: 50%;
-    margin-bottom: 5px;
+    bottom: 60%;
+    margin-bottom: 3px;
     min-height: 135px;
 }
 
 .split-pane-divider
 {
-    bottom: 50%;
-    height: 5px;
-    background: #aaa;
+    bottom: 60%;
+    height: 3px;
+    background: #77d5f7;
 }
+
+    .split-pane-divider:hover
+    {
+        background: #0078ae;
+    }
 
 #tableorder
 {
-    height: 50%;
+    height: 60%;
     min-height: 100px;
 }
