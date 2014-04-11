@@ -46,6 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMap.cs" />
+    <Compile Include="InvoiceDetailMap.cs" />
+    <Compile Include="InvoiceTableMap.cs" />
+    <Compile Include="InvoiceMap.cs" />
+    <Compile Include="UnitMap.cs" />
+    <Compile Include="ProductCategoryMap.cs" />
     <Compile Include="TableMap.cs" />
     <Compile Include="ProductMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +62,10 @@
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">
       <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
       <Name>Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMS.Common\SMS.Common.csproj">
+      <Project>{4AD90788-2D30-4E3F-9BFF-20F4568E082F}</Project>
+      <Name>SMS.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SMS.Data.Entities\SMS.Data.Entities.csproj">
       <Project>{4D5C44C9-7B29-47C5-940F-81063CB328E8}</Project>

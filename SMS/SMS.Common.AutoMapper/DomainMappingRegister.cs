@@ -15,7 +15,12 @@ namespace SMS.Common.AutoMapper
         public static void Register()
         {
             Map<Product, ProductDto>();
+            Map<ProductCategory, ProductCategoryDto>();
             Map<Table, TableDto>();
+            Map<Unit, UnitDto>();
+            Map<Invoice, InvoiceDto>();
+            Map<InvoiceTable, InvoiceTableDto>();
+            Map<InvoiceDetail, InvoiceDetailDto>();
         }
     }
 }

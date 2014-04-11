@@ -2,14 +2,14 @@
 
 namespace SMS.Data.Mapping
 {
-    public class TableMap : BaseMap<Table>
+    public class UnitMap : BaseMap<Unit>
     {
-        public TableMap()
+        public UnitMap()
         {
-            Table("[Table]");
+            Table("Unit");
             Map(x => x.VNName);
             Map(x => x.ENName);
-            Map(x => x.AreaID);
+            Map(x => x.BranchID);
             Map(x => x.Enable);
             Map(x => x.SEQ);
             Map(x => x.CreatedDate);
