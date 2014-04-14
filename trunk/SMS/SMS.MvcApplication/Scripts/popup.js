@@ -1,20 +1,9 @@
-﻿function Popup(id, url, resultDisplayControlId, resultHiddenControlId, resultValueControlId, numDisplayEntries, numEdgeEntries,
-    searchLabel, selectLabel, closeLabel, totalLabel, recordsLabel, recordLabel, type, pageSize, customCallback) {
+﻿function Popup(id, url, numDisplayEntries, numEdgeEntries, pageSize, customCallback) {
     var root = this;
     this.id = id;
     this.url = url;
-    this.totalLabel = totalLabel;
-    this.recordsLabel = recordsLabel;
-    this.recordLabel = recordLabel;
-    this.searchLabel = searchLabel;
-    this.selectLabel = selectLabel;
-    this.closeLabel = closeLabel;
-    this.resultDisplayControlId = resultDisplayControlId;
-    this.resultHiddenControlId = resultHiddenControlId;
-    this.resultValueControlId = resultValueControlId;
     this.numDisplayEntries = numDisplayEntries;
     this.numEdgeEntries = numEdgeEntries;
-    this.type = type;
     this.pageSize = pageSize;
     this.customCallback = customCallback;
     this.ajaxRequest = null;
@@ -31,15 +20,15 @@
     //unbind click event for buttons
     $('#' + id + ' .button').unbind('click');
 
-    $('#' + id + ' .popupLookupSearch').click(function () {
+    $('#' + id + ' .popupSearch').click(function () {
         root.search();
     });
 
-    $('#' + id + ' .popupLookupSelect').click(function () {
-        root.select(root.type);
+    $('#' + id + ' .popupSelect').click(function () {
+        root.select();
     });
 
-    $('#' + id + ' .popupLookupClose').click(function () {
+    $('#' + id + ' .popupClose').click(function () {
         $('#' + id).dialog('close');
     });
 
@@ -78,14 +67,14 @@
                 $('#' + id + ' .tableContent').css('display', 'none');
             }
 
-            $.each(data.ListLookup, function (index, obj) {
-                var arr = $.grep(root.checkeds, function (elem) {
-                    return (elem.id == obj.Value);
-                });
-                if (arr.length > 0) {
-                    data.ListLookup[index].Selected = "checked";
-                }
-            });
+            //$.each(data.ListLookup, function (index, obj) {
+            //    var arr = $.grep(root.checkeds, function (elem) {
+            //        return (elem.id == obj.Value);
+            //    });
+            //    if (arr.length > 0) {
+            //        data.ListLookup[index].Selected = "checked";
+            //    }
+            //});
 
             $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
             $('#' + id + ' .lastTextSearch').val(data.TextSearch);
@@ -93,7 +82,6 @@
             root.populatePagination(data.SortingPagingInfo);
             root.ajaxRequest = null;
         }).error(function (data) {
-            //messageManager.error(data.statusText);
             console.log(data);
             root.ajaxRequest = null;
         });
@@ -107,87 +95,17 @@
         root.callServer('POST', data);
     };
 
-    this.select = function (inputType) {
+    this.select = function () {
         var temp = "",
             ids = "",
             valueReturn;
-        if (inputType == null) {
-            valueReturn = $('input[type=radio]:checked', '#' + id);
-            $.each(valueReturn, function (index, value) {
-                temp += $(value).val() + ",";
-                ids += $(value).attr('id') + ",";
-            });
-        } else {
-            valueReturn = $('input[type=checkbox]:checked', '#' + id);
-            if (valueReturn.length == 0) {
-                valueReturn = $('input[type=checkbox]', '#' + id);
-                if (root.checkeds.length > 0) {
-                    $.each(valueReturn, function (index, obj) {
-                        root.checkeds = $.grep(root.checkeds, function (elem) {
-                            return elem.id != $(obj).attr("id");
-                        });
-                    });
-                }
-                $.each(root.checkeds, function (index, item) {
-                    temp += item.name + ",";
-                    ids += item.id + ",";
-                });
-            } else if (valueReturn == root.pageSize) {
-                if (root.checkeds.length > 0) {
-                    $.each(valueReturn, function (index, obj) {
-                        var arr = $.grep(root.checkeds, function (elem) {
-                            return (elem.id == $(obj).attr("id"));
-                        });
-                        if (arr.length == 0) {
-                            root.checkeds.push({ id: $(obj).attr("id"), name: $(obj).val() });
-                        }
-                    });
-                } else {
-                    $.each(valueReturn, function (index, obj) {
-                        if ($(obj).is(':checked')) {
-                            root.checkeds.push({ id: $(obj).attr("id"), name: $(obj).val() });
-                        }
-                    });
-                }
-                $.each(root.checkeds, function (index, item) {
-                    temp += item.name + ",";
-                    ids += item.id + ",";
-                });
-            } else {
-                valueReturn = $('input[type=checkbox]', '#' + id);
-                if (root.checkeds.length > 0) {
-                    $.each(valueReturn, function (index, obj) {
-                        if (!$(obj).is(':checked')) {
-                            root.checkeds = $.grep(root.checkeds, function (elem) {
-                                return elem.id != $(obj).attr("id");
-                            });
-                        } else {
-                            var arr = $.grep(root.checkeds, function (elem) {
-                                return (elem.id == $(obj).attr("id"));
-                            });
-                            if (arr.length == 0) {
-                                root.checkeds.push({ id: $(obj).attr("id"), name: $(obj).val() });
-                            }
-                        }
-                    });
-                } else {
-                    $.each(valueReturn, function (index, obj) {
-                        if ($(obj).is(':checked')) {
-                            var arr = $.grep(root.checkeds, function (elem) {
-                                return (elem.id == $(obj).attr("id"));
-                            });
-                            if (arr.length == 0) {
-                                root.checkeds.push({ id: $(obj).attr("id"), name: $(obj).val() });
-                            }
-                        }
-                    });
-                }
-                $.each(root.checkeds, function (index, item) {
-                    temp += item.name + ",";
-                    ids += item.id + ",";
-                });
-            }
-        }
+        
+        valueReturn = $('input[type=radio]:checked', '#' + id);
+        $.each(valueReturn, function (index, value) {
+            temp += $(value).val() + ",";
+            ids += $(value).attr('id') + ",";
+        });
+        
         if (temp != "") {
             temp = temp.slice(0, -1);
         }
@@ -195,16 +113,6 @@
             ids = ids.slice(0, -1);
         }
 
-        var attValidate = $('#' + resultDisplayControlId).attr("data-val");
-        if (attValidate != undefined) {
-            $('#' + resultDisplayControlId).val(temp).valid();
-        } else {
-            $('#' + resultDisplayControlId).val(temp);
-        }
-
-        // $('#' + resultDisplayControlId).val(temp).valid();
-        $('#' + resultHiddenControlId).val(temp);
-        $('#' + resultValueControlId).val(ids);
         $('#' + id).dialog('close');
 
         var returnId = valueReturn.attr('id');
@@ -229,17 +137,6 @@
 
     this.pageSelectedCallback = function (pageIndex) {
         $('#' + id + ' .currentPage').val(pageIndex + 1);
-        if (root.type) {
-            var inputs = $('#' + id + " input[type='checkbox']:checked");
-            $.each(inputs, function (idx, ele) {
-                var arr = $.grep(root.checkeds, function (elem) {
-                    return (elem.id == $(ele).val());
-                });
-                if (arr.length == 0) {
-                    root.checkeds.push({ id: $(ele).attr("id"), name: $(ele).val() });
-                }
-            });
-        }
         root.search();
         return false;
     };
