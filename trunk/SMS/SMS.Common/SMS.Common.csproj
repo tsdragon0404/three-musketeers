@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constant\ConstStyle.cs" />
+    <Compile Include="Constant\ConstConfig.cs" />
+    <Compile Include="Constant\SearchPopupUrl.cs" />
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

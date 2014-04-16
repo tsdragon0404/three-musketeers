@@ -18,5 +18,11 @@ namespace SMS.Business.Impl
         {
             return Mapper.Map<IList<ProductDto>>(ProductRepository.GetAll().ToList());
         }
+
+        public IList<SearchProductPopupDto> SearchProducts(string textSearch)
+        {
+            return Mapper.Map<IList<SearchProductPopupDto>>(
+                ProductRepository.Find(x => x.VNName.Contains(textSearch) || x.ENName.Contains(textSearch)).ToList());
+        }
     }
 }

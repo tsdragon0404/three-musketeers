@@ -6,5 +6,6 @@ namespace SMS.Business
     public interface IProductManagement
     {
         IList<ProductDto> GetAllProducts();
+        IList<SearchProductPopupDto> SearchProducts(string textSearch);
     }
 }
