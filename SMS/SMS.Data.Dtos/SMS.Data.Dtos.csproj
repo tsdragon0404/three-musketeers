@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchProductPopupDto.cs" />
     <Compile Include="InvoiceDetailDto.cs" />
     <Compile Include="InvoiceTableDto.cs" />
     <Compile Include="InvoiceDto.cs" />

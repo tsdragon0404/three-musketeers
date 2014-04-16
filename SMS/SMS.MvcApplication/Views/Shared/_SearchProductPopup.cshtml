@@ -1,13 +1,12 @@
 ﻿@model SMS.MvcApplication.Models.SearchPopupModel
 
-<div title="@Model.PopupTitle" id="@Model.PopupId" style="display: none;" class="panel">
+<div title="@Model.PopupTitle" id="@Model.PopupId" class="hide">
     <form onkeypress="return event.keyCode != 13;">
         <fieldset>
             <input type="text" name="textSearch" class="textSearch">
             <input type="hidden" class="lastTextSearch" name="lastTextSearch">
-            <input type="hidden" class="currentPage" name="currentPage">
             <div class="twelve searchDiv">
-                <input type="button" class="button popupLookupSearch"  value="Search">
+                <input type="button" class="button popupSearch"  value="Search">
             </div>
             <div id="scroll_box" class="twelve">
                 <table class="twelve tableContent">
@@ -30,28 +29,22 @@
             </div>
         </fieldset>
         <div class="twelve footerDiv">
-            <input type="button" class="button popupLookupSelect" value="Select">
-            <input type="button" class="button secondary popupLookupClose" value="Close">
+            <input type="button" class="button popupSelect" value="Select">
+            <input type="button" class="button secondary popupClose" value="Close">
         </div>
         <input type="hidden" id="checkedIds" value=""/>
     </form>
 </div>
 
-<script src="@Url.Content("~/javascripts/popup.js")"></script>
-<script src="@Url.Content("~/javascripts/jquery.tmpl.js")"></script>
-<script src="@Url.Content("~/javascripts/jquery.tmplPlus.js")"></script>
-<script id="popup-content-@Model.PopupId" type="text/x-jquery-tmpl">
-    @{
-        var inputType = "radio";//string.IsNullOrWhiteSpace(Model.Type) ? "radio" : "checkbox";
-        var inputName = "radioGroup";//string.IsNullOrWhiteSpace(Model.Type) ? "radioGroup" : "checkboxGroup";
-    }    
-    {{each ListLookup}}
+<script src="@Url.Content("~/Scripts/popup.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.tmplPlus.js")"></script>
+<script id="popup-content-@Model.PopupId" type="text/x-jquery-tmpl">  
+    {{each ListResult}}
     <tr>
-        <td style="width: 30px">
-            <input type="@inputType" name="@inputName" value="${Text}" id="${Value}" ${Selected}/>
-        </td>
-        <td style="width: 100%">{{html $value.Text}}
-        </td>
+        <td style="width: 70%">
+            {{html $value.VNName}}</td>
+        <td style="width: 30%">{{html $value.Price}}</td>
     </tr>
     {{/each}}
 </script>
@@ -60,16 +53,5 @@
         if (e.which == 13) {
             $('#@Model.PopupId .popupLookupSearch').trigger('click');
         }
-    });
-</script>
-
-
-<script type="text/javascript">
-    $( "#@Model.PopupId" ).dialog({
-        autoOpen: false,
-        height: 300,
-        width: 350,
-        modal: true,
-
     });
 </script>

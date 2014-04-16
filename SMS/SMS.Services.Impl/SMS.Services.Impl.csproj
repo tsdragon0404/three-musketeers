@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchPopupService.cs" />
     <Compile Include="InvoiceDetailService.cs" />
     <Compile Include="InvoiceTableService.cs" />
     <Compile Include="InvoiceService.cs" />

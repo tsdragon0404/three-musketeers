@@ -7,16 +7,6 @@
 <link rel="stylesheet" type="text/css" href="~/Content/split-pane.css" />
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
 
-<script>
-    $(function () {
-        $('div.split-pane').splitPane();
-        $('#tablelist').tabs();
-        $('#addProduct').click(function () {
-            $("#pdtPopup").dialog("open");
-        });
-    });
-</script>
-
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="tablelist" class="split-pane-component">
         <ul>
@@ -145,4 +135,20 @@
         </div>
     </div>
     @Html.Partial("_SearchProductPopup", new SearchPopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
+
+    <script>
+        $(document).ready(function() {
+            $('div.split-pane').splitPane();
+            $('#tablelist').tabs();
+            $("#addProduct").click(function () {
+                var product = new Popup("pdtPopup", "@SearchPopupUrl.ProductsForCashier", onSelectProduct);
+                product.OpenPopup();
+                return false;
+            });
+        });
+        
+        function onSelectProduct(product) {
+            alert(product);
+        }
+    </script>
 </div>
