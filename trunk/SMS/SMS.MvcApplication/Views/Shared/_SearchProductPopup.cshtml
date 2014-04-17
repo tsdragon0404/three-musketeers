@@ -20,10 +20,10 @@
                     </tr>
                 </table>
             </div>
-            <div class="eight columns">
+            @*<div class="eight columns">
                 <ul class="pagination">
                 </ul>
-            </div>
+            </div>*@
             <div class="four columns totalRecords">
                 <span></span>
             </div>
@@ -43,8 +43,8 @@
     {{each ListResult}}
     <tr>
         <td style="width: 70%">
-            {{html $value.VNName}}</td>
-        <td style="width: 30%">{{html $value.Price}}</td>
+            ${VNName}</td>
+        <td style="width: 30%">${Price}</td>
     </tr>
     {{/each}}
 </script>

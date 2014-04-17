@@ -47,26 +47,18 @@
         }).done(function (data) {
             $('#' + id + ' .tbContentLookup').html('');
             if (data.ListResult.length > 0) {
-                $('#' + id + ' .totalRecords').css('display', 'block');
-                //if (data.SortingPagingInfo.Tic == 1) {
-                //    $('#' + id + ' .totalRecords > span').html(totalLabel + ' ' + data.SortingPagingInfo.Tic + ' ' + recordLabel);
-                //}
-                //else {
-                //    $('#' + id + ' .totalRecords > span').html(totalLabel + ' ' + data.SortingPagingInfo.Tic + ' ' + recordsLabel);
-                //}
-                $('#' + id + ' .listLookupEmpty').css('display', 'none');
-                $('#' + id + ' .tableContent').css('display', 'block');
+                $('#' + id + ' .totalRecords').removeClass('hide');
+                $('#' + id + ' .listLookupEmpty').addClass('hide');
+                $('#' + id + ' .tableContent').removeClass('hide');
             } else {
-                $('#' + id + ' .totalRecords').css('display', 'none');
-                $('#' + id + ' .totalRecords > span').html(data.SortingPagingInfo.Tic);
-                $('#' + id + ' .listLookupEmpty').css('display', 'block');
-                $('#' + id + ' .tableContent').css('display', 'none');
+                $('#' + id + ' .totalRecords').addClass('hide');
+                $('#' + id + ' .listLookupEmpty').removeClass('hide');
+                $('#' + id + ' .tableContent').addClass('hide');
             }
 
             $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
             $('#' + id + ' .lastTextSearch').val(data.TextSearch);
             $('#' + id + ' .textSearch').val(data.TextSearch);
-            root.populatePagination(data.SortingPagingInfo);
             root.ajaxRequest = null;
         }).error(function (data) {
             console.log(data);
