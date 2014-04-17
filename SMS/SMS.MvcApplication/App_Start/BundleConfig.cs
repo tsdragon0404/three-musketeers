@@ -25,8 +25,8 @@ namespace SMS.MvcApplication
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/gumby.css",
-                        "~/Content/site.css"));
+                        "~/Content/css/gumby.css",
+                        "~/Content/css/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
