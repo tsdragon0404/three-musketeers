@@ -22,7 +22,11 @@ namespace SMS.Common.AutoMapper
             Map<InvoiceTable, InvoiceTableDto>();
             Map<InvoiceDetail, InvoiceDetailDto>();
 
-            Map<Product, SearchProductPopupDto>();
+            #region Map 1 way
+
+            Mapper.CreateMap<Product, SearchProductPopupDto>(); 
+
+            #endregion
         }
     }
 }
