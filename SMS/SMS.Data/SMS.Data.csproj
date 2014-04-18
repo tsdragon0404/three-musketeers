@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAreaRepository.cs" />
     <Compile Include="IInvoiceDetailRepository.cs" />
     <Compile Include="IInvoiceTableRepository.cs" />
     <Compile Include="IInvoiceRepository.cs" />

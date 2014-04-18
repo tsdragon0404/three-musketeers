@@ -3,7 +3,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
-    class TableRepository : Repository<Table>, ITableRepository
+    public class TableRepository : Repository<Table>, ITableRepository
     {
     }
 }
