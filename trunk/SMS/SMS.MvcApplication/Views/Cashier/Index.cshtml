@@ -10,14 +10,23 @@
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="tablelist" class="split-pane-component">
         <ul>
-            <li><a href="#tabs-1">Area 1</a></li>
-            <li><a href="#tabs-2">Area 2</a></li>
-            <li><a href="#tabs-3">Area 3</a></li>
+            @for (var i = 0; i < Model.ListArea.Count; i++)
+            {
+                <li><a href="#tabs-@i">@Model.ListArea[i].VNName</a></li>
+            }
+
         </ul>
-        <div id="tabs-1">
+        @for (var i = 0; i < Model.ListArea.Count; i++)
+        {
+            <div id="tabs-@i">
+                <h5>@Model.ListArea[i].VNName</h5>
+
+            </div>
+        }
+        @*<div id="tabs-1">
             <h5>Area 1</h5>
 
-            @for (var i = 0; i < Model.ListTable.Count; i++)
+             @for (var i = 0; i < Model.ListTable.Count; i++)
             {
                 if (i % ConstStyle.GridNumber == 0)
                 {
@@ -41,7 +50,7 @@
         <div id="tabs-3">
             <h5>Area 3</h5>
 
-        </div>
+        </div>*@
     </div>
 
     <div class="split-pane-divider"></div>
@@ -137,7 +146,7 @@
     @Html.Partial("_SearchProductPopup", new SearchPopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('div.split-pane').splitPane();
             $('#tablelist').tabs();
             $("#addProduct").click(function () {
@@ -146,7 +155,7 @@
                 return false;
             });
         });
-        
+
         function onSelectProduct(product) {
             alert(product);
         }

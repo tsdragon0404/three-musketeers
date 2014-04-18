@@ -8,7 +8,7 @@ namespace SMS.MvcApplication.Controllers
     {
         #region Fields
 
-        public virtual ITableService TableService { get; set; }
+        public virtual IAreaService AreaService { get; set; }
         public virtual IProductService ProductService { get; set; } 
 
         #endregion
@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListTable = TableService.GetAllTables()
+                                       ListArea = AreaService.GetAllAreas()
                                    };
 
             return View(cashierModel);
