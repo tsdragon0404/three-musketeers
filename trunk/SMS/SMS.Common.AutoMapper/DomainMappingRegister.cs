@@ -21,6 +21,7 @@ namespace SMS.Common.AutoMapper
             Map<Invoice, InvoiceDto>();
             Map<InvoiceTable, InvoiceTableDto>();
             Map<InvoiceDetail, InvoiceDetailDto>();
+            Map<Area, AreaDto>();
 
             #region Map 1 way
 
