@@ -20,10 +20,6 @@
         root.search();
     });
 
-    $('#' + id + ' .popupSelect').click(function (e) {
-        root.select(e);
-    });
-
     $('#' + id + ' .popupClose').click(function () {
         $('#' + id).dialog('close');
     });
@@ -46,6 +42,7 @@
             data: dataSubmitted
         }).done(function (data) {
             $('#' + id + ' .tbContentLookup').html('');
+            $('#total').html(data.ListResult.length);
             if (data.ListResult.length > 0) {
                 $('#' + id + ' .totalRecords').removeClass('hide');
                 $('#' + id + ' .listLookupEmpty').addClass('hide');
@@ -56,10 +53,36 @@
                 $('#' + id + ' .tableContent').addClass('hide');
             }
 
+            $.each(data.ListResult, function(idx) {
+                data.ListResult[idx].tabIdx = idx * 2 + 2;
+            });
+
             $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
             $('#' + id + ' .lastTextSearch').val(data.TextSearch);
             $('#' + id + ' .textSearch').val(data.TextSearch);
+
             root.ajaxRequest = null;
+            
+            $('#' + id + ' .popupSelect').click(function (e) {
+                var pdtid = e.target.id.split('-')[1];
+                if ($('#qty-' + pdtid).valid())
+                    root.select(e);
+            });
+            
+            $('#' + id + ' .popupSelect').keypress(function (e) {
+                if (e.which == 13) {
+                    $(e.target).trigger('click');
+                }
+            });
+            
+            $('#' + id + ' .inputQty').keypress(function (e) {
+                if (e.which == 13) {
+                    var pdtid = e.target.id.split('-')[1];
+                    $('#select-' + pdtid).focus();
+                    return;
+                }
+            });
+            
         }).error(function (data) {
             console.log(data);
             root.ajaxRequest = null;

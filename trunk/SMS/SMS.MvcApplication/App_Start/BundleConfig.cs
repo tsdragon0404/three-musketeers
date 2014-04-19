@@ -10,7 +10,9 @@ namespace SMS.MvcApplication
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/global.js"));
+                        "~/Scripts/global.js",
+                        "~/Scripts/jquery.tmpl.js",
+                        "~/Scripts/jquery.tmplPlus.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));

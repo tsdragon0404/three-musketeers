@@ -113,7 +113,8 @@ namespace Core.Data.NHibernate
         public IEnumerable<TEntity> Find(
             Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
-            return Fetches(GetQuery(predicate), fetchSelectors).ToList();
+            var entities = Fetches(GetQuery(predicate), fetchSelectors);
+            return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
         }
 
         /// <summary>
@@ -135,7 +136,9 @@ namespace Core.Data.NHibernate
         /// <returns></returns>
         public virtual IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
-            return Fetches(Session.Query<TEntity>(), fetchSelectors).ToList();
+            var entities = Fetches(Session.Query<TEntity>(), fetchSelectors);
+
+            return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
         }
 
         /// <summary>

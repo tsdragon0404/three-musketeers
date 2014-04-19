@@ -199,7 +199,7 @@ $.extend($.validator, {
 		messages: {},
 		groups: {},
 		rules: {},
-		errorClass: "error",
+		errorClass: "ui-state-error",
 		validClass: "valid",
 		errorElement: "label",
 		focusInvalid: true,

@@ -7,5 +7,6 @@ namespace SMS.Business
     {
         IList<ProductDto> GetAllProducts();
         IList<SearchProductPopupDto> SearchProducts(string textSearch);
+        ProductForCashierDto GetProductById(long id);
     }
 }

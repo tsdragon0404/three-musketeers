@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaDto.cs" />
+    <Compile Include="ProductForCashierDto.cs" />
     <Compile Include="SearchProductPopupDto.cs" />
     <Compile Include="InvoiceDetailDto.cs" />
     <Compile Include="InvoiceTableDto.cs" />

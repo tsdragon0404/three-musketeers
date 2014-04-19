@@ -37,6 +37,7 @@
     <Compile Include="IAuditableEntity.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="ISortableEntity.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -22,5 +22,19 @@ namespace SMS.MvcApplication.Controllers
 
             return View(cashierModel);
         }
+
+        [HttpPost]
+        public JsonResult SelectProduct(string tagId, int quantity)
+        {
+            long id;
+            long.TryParse(tagId.Split('-')[1], out id);
+            if (id == 0) return null;
+
+            // Add selected product to table order
+            var product = ProductService.GetProductById(id);
+            product.Quantity = quantity;
+
+            return Json(product);
+        }
     }
 }

@@ -16,5 +16,10 @@ namespace SMS.Services.Impl
         {
             return ProductManagement.GetAllProducts();
         }
+
+        public ProductForCashierDto GetProductById(long id)
+        {
+            return ProductManagement.GetProductById(id);
+        }
     }
 }

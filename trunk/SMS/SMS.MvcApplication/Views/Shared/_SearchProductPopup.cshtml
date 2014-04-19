@@ -2,56 +2,66 @@
 
 <div title="@Model.PopupTitle" id="@Model.PopupId" class="hide">
     <form onkeypress="return event.keyCode != 13;">
-        <fieldset>
-            <input type="text" name="textSearch" class="textSearch">
-            <input type="hidden" class="lastTextSearch" name="lastTextSearch">
-            <div class="twelve searchDiv">
-                <input type="button" class="button popupSearch"  value="Search">
-            </div>
-            <div id="scroll_box" class="twelve">
-                <table class="twelve tableContent">
-                    <tbody class="tbContentLookup">
-                    </tbody>
-                </table>
-                <table class="twelve listLookupEmpty">
-                    <tr>
-                        <td style="width: auto; background-color: #ffffff;">No product available
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            @*<div class="eight columns">
-                <ul class="pagination">
-                </ul>
-            </div>*@
-            <div class="four columns totalRecords">
-                <span></span>
-            </div>
-        </fieldset>
-        <div class="twelve footerDiv">
-            <input type="button" class="button popupSelect" value="Select">
-            <input type="button" class="button secondary popupClose" value="Close">
+        <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
+        <div class="searchDiv">
+            <input type="text" name="textSearch" class="textSearch" tabindex="1" />
+            <input type="button" class="button popupSearch"  value="Search" />
         </div>
-        <input type="hidden" id="checkedIds" value=""/>
+        <div id="scroll_box">
+            <table class="tableContent" id="searchProduct">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbContentLookup">
+                </tbody>
+            </table>
+            <table class="listLookupEmpty">
+                <tr>
+                    <td style="width: auto; background-color: #ffffff;">No product available
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="right totalRecords">
+            Total: <span id="total"></span> record(s).
+        </div>
+
+        <div class="right">
+            @*<input type="button" class="button popupSelect" value="Select" />*@
+            <input type="button" class="button popupClose" value="Close" />
+        </div>
     </form>
 </div>
 
 <script src="@Url.Content("~/Scripts/popup.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.tmplPlus.js")"></script>
 <script id="popup-content-@Model.PopupId" type="text/x-jquery-tmpl">  
     {{each ListResult}}
     <tr>
-        <td style="width: 70%">
-            ${VNName}</td>
-        <td style="width: 30%">${Price}</td>
+        <td>${ProductCode}</td>
+        <td>${VNName}</td>
+        <td class="right">${Price} VNĐ</td>
+        <td class="right"><input type="text" value="1" name="qty-${Id}" id="qty-${Id}" class="inputQty digits" tabindex="${tabIdx}" /></td>
+        <td class="center"><input type="button" class="button popupSelect" id="select-${Id}" value="Select" tabindex="${tabIdx + 1}" /></td>
     </tr>
     {{/each}}
 </script>
 <script>
-    $('#@Model.PopupId').keypress(function (e) {
+    $('#@Model.PopupId .textSearch, #@Model.PopupId .popupSearch').keypress(function (e) {
         if (e.which == 13) {
-            $('#@Model.PopupId .popupLookupSearch').trigger('click');
+            $('#@Model.PopupId .popupSearch').trigger('click');
         }
     });
 </script>
