@@ -6,7 +6,19 @@
 }
 <link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
-
+<script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script id="pdt-tmpl" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${idx}</td>
+        <td>${VNName}</td>
+        <td class="right">${Quantity}</td>
+        <td>${UnitID}</td>
+        <td class="right">${Price}</td>
+        <td class="right">${Price * Quantity}</td>
+        <td><input type="text" name="remarks${No}" class="remarksInput" /></td>
+        <td class="center">X</td>
+    </tr>
+</script>
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="tablelist" class="split-pane-component">
         <ul>
@@ -84,7 +96,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="tbContent">
                     <tr>
                         <td>1</td>
                         <td>Cơm gà</td>
@@ -156,8 +168,19 @@
             });
         });
 
-        function onSelectProduct(product) {
-            alert(product);
+        function onSelectProduct(e) {
+            var id = e.target.id;
+            var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
+            $.ajax({
+                type: 'POST',
+                url: "/Cashier/SelectProduct",
+                data: { tagId: id, quantity: qty }
+            }).done(function (data) {
+                var count = $('#order .tbContent tr').length;
+                data.idx = count + 1;
+                
+                $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
+            });
         }
     </script>
 </div>

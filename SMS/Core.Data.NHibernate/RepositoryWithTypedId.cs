@@ -65,6 +65,11 @@ namespace Core.Data.NHibernate
                 .List<TEntity>();
             entities.Apply(x => FetchProperties(x, fetchSelectors));
 
+            if (typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                return entities.OrderBy(e => ((ISortableEntity) e).SEQ);
+            }
+
             return entities;
         }
 

@@ -22,7 +22,12 @@ namespace SMS.Business.Impl
         public IList<SearchProductPopupDto> SearchProducts(string textSearch)
         {
             return Mapper.Map<IList<SearchProductPopupDto>>(
-                ProductRepository.Find(x => x.VNName.Contains(textSearch) || x.ENName.Contains(textSearch)).ToList());
+                ProductRepository.Find(x => x.VNName.Contains(textSearch) || x.ENName.Contains(textSearch) || x.ProductCode.Contains(textSearch)).ToList());
+        }
+
+        public ProductForCashierDto GetProductById(long id)
+        {
+            return Mapper.Map<ProductForCashierDto>(ProductRepository.Get(id));
         }
     }
 }

@@ -6,5 +6,6 @@ namespace SMS.Services
     public interface IProductService
     {
         IList<ProductDto> GetAllProducts();
+        ProductForCashierDto GetProductById(long id);
     }
 }

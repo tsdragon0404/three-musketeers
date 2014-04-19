@@ -19,6 +19,10 @@
     text-align: center;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -108,4 +112,39 @@
 .popup {
     width: 500px;
     height: 500px;
+}
+
+#scroll_box {
+	height: 180px;
+	margin: 10px 0;
+	overflow:auto
+}
+
+#searchProduct .col1 {
+    width: 10%;
+}
+
+#searchProduct .col2 {
+    width: 50%;
+}
+
+#searchProduct .col3 {
+    width: 20%;
+}
+
+#searchProduct .col4 {
+    width: 10%;
+}
+
+#searchProduct .col5 {
+    width: 10%;
+}
+
+.inputQty {
+    width: 100%;
+    text-align: right;
+}
+
+label.ui-state-error {
+    display: none !important;
 }

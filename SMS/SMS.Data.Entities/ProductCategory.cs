@@ -3,7 +3,7 @@ using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class ProductCategory : Entity, IAuditableEntity
+    public class ProductCategory : Entity, IAuditableEntity, ISortableEntity
     {
         public virtual string ProductCategoryCode { get; set; }
         public virtual string VNName { get; set; }
@@ -12,7 +12,12 @@ namespace SMS.Data.Entities
         public virtual string ENDescription { get; set; }
         public virtual long BranchID { get; set; }
         public virtual bool Enable { get; set; }
+
+        #region Implementation of ISortableEntity
+
         public virtual int SEQ { get; set; }
+
+        #endregion
 
         #region Implementation of IAuditableEntity
         
