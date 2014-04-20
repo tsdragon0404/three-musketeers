@@ -13,6 +13,17 @@ namespace SMS.Data.Mapping
              {
                  Id(x => (x as Entity).Id).Column(string.Format("{0}ID", GetName())).GeneratedBy.Identity();
              }
+             if (typeof(IAuditableEntity).IsAssignableFrom(type))
+             {
+                 Map(x => (x as IAuditableEntity).CreatedUser).Not.Nullable().Not.Update();
+                 Map(x => (x as IAuditableEntity).CreatedDate).Not.Nullable();
+                 Map(x => (x as IAuditableEntity).ModifiedUser);
+                 Map(x => (x as IAuditableEntity).ModifiedDate);
+             }
+             if (typeof(ISortableEntity).IsAssignableFrom(type))
+             {
+                 Map(x => (x as ISortableEntity).SEQ);
+             }
          }
 
         protected string GetName()

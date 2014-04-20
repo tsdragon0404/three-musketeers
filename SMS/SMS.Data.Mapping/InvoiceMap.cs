@@ -19,10 +19,6 @@ namespace SMS.Data.Mapping
             Map(x => x.OtherFeeDescription);
             Map(x => x.InvoiceAmount);
             Map(x => x.Currency);
-            Map(x => x.CreatedDate);
-            Map(x => x.CreatedUser);
-            Map(x => x.ModifiedDate);
-            Map(x => x.ModifiedUser);
         }
     }
 }

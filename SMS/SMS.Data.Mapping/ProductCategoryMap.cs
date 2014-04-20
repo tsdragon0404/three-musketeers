@@ -13,12 +13,10 @@ namespace SMS.Data.Mapping
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
             Map(x => x.BranchID);
+            HasMany(x => x.Products)
+                .KeyColumn("ProductID")
+                .Inverse();
             Map(x => x.Enable);
-            Map(x => x.SEQ);
-            Map(x => x.CreatedDate);
-            Map(x => x.CreatedUser);
-            Map(x => x.ModifiedDate);
-            Map(x => x.ModifiedUser);
         }
     }
 }

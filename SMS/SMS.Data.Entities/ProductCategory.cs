@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Data;
 
 namespace SMS.Data.Entities
@@ -11,6 +12,7 @@ namespace SMS.Data.Entities
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
         public virtual long BranchID { get; set; }
+        public virtual IList<Product> Products { get; set; }
         public virtual bool Enable { get; set; }
 
         #region Implementation of ISortableEntity
