@@ -705,6 +705,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Common.AutoMapper\SMS.Common.AutoMapper.csproj">
       <Project>{3b197297-e5e8-4ee5-af48-a70eef1b473d}</Project>
       <Name>SMS.Common.AutoMapper</Name>

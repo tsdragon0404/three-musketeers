@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Core.Common.Session;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -46,6 +47,10 @@ namespace SMS.MvcApplication
             AutofacRegister();
 
             MappingRegister();
+
+            // initialize user context - will move to login function
+            UserContext.UserID = 1;
+            UserContext.UserName = "Lam Vu";
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
