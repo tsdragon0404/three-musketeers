@@ -8,6 +8,7 @@ namespace SMS.Data.Entities
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
         public virtual long AreaID { get; set; }
+        public virtual Area Area { get; set; }
         public virtual bool Enable { get; set; }
 
         #region Implementation of ISortableEntity

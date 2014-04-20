@@ -10,12 +10,8 @@ namespace SMS.Data.Mapping
             Map(x => x.VNName);
             Map(x => x.ENName);
             Map(x => x.AreaID);
+            References(x => x.Area).Column("AreaID");
             Map(x => x.Enable);
-            Map(x => x.SEQ);
-            Map(x => x.CreatedDate);
-            Map(x => x.CreatedUser);
-            Map(x => x.ModifiedDate);
-            Map(x => x.ModifiedUser);
         }
     }
 }
