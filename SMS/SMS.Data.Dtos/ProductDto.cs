@@ -12,7 +12,7 @@ namespace SMS.Data.Dtos
         public virtual string ENDescription { get; set; }
         public virtual long UnitID { get; set; }
         public virtual long ProductCategoryID { get; set; }
-        public virtual long Price { get; set; }
+        public virtual decimal Price { get; set; }
         public virtual bool Enable { get; set; }
         public virtual int SEQ { get; set; }
 

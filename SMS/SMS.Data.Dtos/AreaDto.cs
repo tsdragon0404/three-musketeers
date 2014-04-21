@@ -4,7 +4,7 @@ namespace SMS.Data.Dtos
 {
     public class AreaDto
     {
-        public virtual long Id { get; set; }
+        public virtual long ID { get; set; }
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
         public virtual long BranchID { get; set; }

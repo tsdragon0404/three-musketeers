@@ -2,12 +2,15 @@
 
 namespace SMS.Data.Dtos
 {
-    public class UnitDto
+    public class UserDto
     {
         public virtual long ID { get; set; }
-        public virtual string VNName { get; set; }
-        public virtual string ENName { get; set; }
-        public virtual long BranchID { get; set; }
+        public virtual string UserCode { get; set; }
+        public virtual string UserLogin { get; set; }
+        public virtual string UserPassword { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string CellPhone { get; set; }
         public virtual bool Enable { get; set; }
         public virtual int SEQ { get; set; }
 

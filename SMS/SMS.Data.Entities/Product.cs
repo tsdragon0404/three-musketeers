@@ -14,7 +14,7 @@ namespace SMS.Data.Entities
         public virtual Unit Unit { get; set; }
         public virtual long ProductCategoryID { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
-        public virtual long Price { get; set; }
+        public virtual decimal Price { get; set; }
         public virtual bool Enable { get; set; }
 
         #region Implementation of ISortableEntity

@@ -2,7 +2,7 @@
 {
     public class ProductForCashierDto
     {
-        public virtual long Id { get; set; }
+        public virtual long IS { get; set; }
         public virtual string ProductCode { get; set; }
         public virtual string VNName { get; set; }
         public virtual int Quantity { get; set; }
