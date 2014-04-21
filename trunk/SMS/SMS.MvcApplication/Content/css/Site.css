@@ -117,7 +117,7 @@
 #scroll_box {
 	height: 180px;
 	margin: 10px 0;
-	overflow:auto
+    overflow: auto;
 }
 
 #searchProduct .col1 {

@@ -27,6 +27,7 @@ namespace SMS.Common.AutoMapper
 
             Mapper.CreateMap<Product, SearchProductPopupDto>();
             Mapper.CreateMap<Product, ProductForCashierDto>();
+            Mapper.CreateMap<Product, ProductBasicDto>();
 
             #endregion
         }
