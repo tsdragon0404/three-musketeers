@@ -12,9 +12,9 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public IList<ProductDto> GetAllProducts()
+        public IList<T> GetAllProducts<T>()
         {
-            return ProductManagement.GetAllProducts();
+            return ProductManagement.GetAllProducts<T>();
         }
 
         public ProductForCashierDto GetProductById(long id)

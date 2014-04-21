@@ -5,7 +5,7 @@ namespace SMS.Business
 {
     public interface IProductManagement
     {
-        IList<ProductDto> GetAllProducts();
+        IList<T> GetAllProducts<T>();
         IList<SearchProductPopupDto> SearchProducts(string textSearch);
         ProductForCashierDto GetProductById(long id);
     }

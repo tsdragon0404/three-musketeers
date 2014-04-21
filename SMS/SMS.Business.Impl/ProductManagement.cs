@@ -14,9 +14,9 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<ProductDto> GetAllProducts()
+        public IList<T> GetAllProducts<T>()
         {
-            return Mapper.Map<IList<ProductDto>>(ProductRepository.GetAll().ToList());
+            return Mapper.Map<IList<T>>(ProductRepository.GetAll().ToList());
         }
 
         public IList<SearchProductPopupDto> SearchProducts(string textSearch)

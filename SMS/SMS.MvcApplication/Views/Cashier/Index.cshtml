@@ -8,6 +8,9 @@
 <link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript">
+    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
+</script>
 <script id="pdt-tmpl" type="text/x-jquery-tmpl">
     <tr>
         <td>${idx}</td>
@@ -36,47 +39,21 @@
     {{/each}}
 </script>
 <div id="cashier" class="split-pane horizontal-percent">
-    <div id="tablelist" class="split-pane-component">
-        <ul>
+    <div id="area-table" class="split-pane-component">
+        <ul id="areas">
             @foreach (var areaDto in Model.ListArea)
             {
                 <li><a href="#area-@areaDto.ID">@areaDto.VNName</a></li>
             }
 
         </ul>
-        @foreach (var areaDto in Model.ListArea)
-        {
-            <div id="area-@areaDto.ID">
-            </div>
-        }
-        @*<div id="tabs-1">
-            <h5>Area 1</h5>
-
-             @for (var i = 0; i < Model.ListTable.Count; i++)
+        <div id="tables">
+            @foreach (var areaDto in Model.ListArea)
             {
-                if (i % ConstStyle.GridNumber == 0)
-                {
-                @Html.Raw("<div class='row'>")
-                }
-    
-                <div class="one column">
-                    <input type="button" value="@Model.ListTable[i].VNName" />
+                <div id="area-@areaDto.ID">
                 </div>
-    
-                if (i == Model.ListTable.Count - 1 || i % ConstStyle.GridNumber == ConstStyle.GridNumber - 1)
-                {
-                @Html.Raw("</div>")
-                }
             }
         </div>
-        <div id="tabs-2">
-            <h5>Area 2</h5>
-
-        </div>
-        <div id="tabs-3">
-            <h5>Area 3</h5>
-
-        </div>*@
     </div>
 
     <div class="split-pane-divider"></div>
@@ -169,19 +146,22 @@
             <div class="two columns right border-top">170.500 VNĐ</div>
         </div>
     </div>
+
     @Html.Partial("_SearchProductPopup", new SearchPopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
 
     <script>
         $(document).ready(function () {
             $('div.split-pane').splitPane();
-            $('#tablelist').tabs();
+            $('#area-table').tabs();
             $("#addProduct").click(function () {
                 var product = new Popup("pdtPopup", "@SearchPopupUrl.ProductsForCashier", onSelectProduct);
                 product.OpenPopup();
                 return false;
             });
 
-            GetTablesByAreaID(1);
+            var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+            var id = area.split('-')[1];
+            GetTablesByAreaID(id);
         });
 
         function onSelectProduct(e) {
@@ -189,7 +169,7 @@
             var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
             $.ajax({
                 type: 'POST',
-                url: "/Cashier/SelectProduct",
+                url: '/Cashier/SelectProduct',
                 data: { tagId: id, quantity: qty }
             }).done(function (data) {
                 var count = $('#order .tbContent tr').length;
@@ -202,7 +182,7 @@
         function GetTablesByAreaID(areaID) {
             $.ajax({
                 type: 'POST',
-                url: "/Cashier/GetTablesByAreaID",
+                url: '/Cashier/GetTablesByAreaID',
                 dataType: 'json',
                 data: { areaID: areaID }
             }).done(function (data) {

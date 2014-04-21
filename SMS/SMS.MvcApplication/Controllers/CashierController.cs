@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -18,7 +19,8 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAllAreas()
+                                       ListArea = AreaService.GetAllAreas(),
+                                       ListProduct = ProductService.GetAllProducts<ProductBasicDto>(),
                                    };
 
             return View(cashierModel);
