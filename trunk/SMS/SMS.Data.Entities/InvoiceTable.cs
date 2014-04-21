@@ -5,8 +5,10 @@ namespace SMS.Data.Entities
 {
     public class InvoiceTable : Entity
     {
-        public virtual long InvoiceID { get; set; }
+        public virtual long? InvoiceID { get; set; }
+        public virtual Invoice Invoice { get; set; }
         public virtual long TableID { get; set; }
+        public virtual Table Table { get; set; }
         public virtual long Discount { get; set; }
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }

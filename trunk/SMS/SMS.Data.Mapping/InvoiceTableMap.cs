@@ -8,7 +8,9 @@ namespace SMS.Data.Mapping
         {
             Table("Invoice");
             Map(x => x.InvoiceID);
+            References(x => x.Invoice).Column("InvoiceID");
             Map(x => x.TableID);
+            References(x => x.Table).Column("TableID");
             Map(x => x.Discount);
             Map(x => x.DiscountType);
             Map(x => x.DiscountCode);
