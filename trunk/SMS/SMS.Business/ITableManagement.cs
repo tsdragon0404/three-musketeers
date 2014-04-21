@@ -6,5 +6,6 @@ namespace SMS.Business
     public interface ITableManagement
     {
         IList<TableDto> GetAllTables();
+        IList<TableDto> GetTablesByAreaID(long areaID);
     }
 }

@@ -9,6 +9,7 @@ namespace SMS.MvcApplication.Controllers
         #region Fields
 
         public virtual IAreaService AreaService { get; set; }
+        public virtual ITableService TableService { get; set; }
         public virtual IProductService ProductService { get; set; } 
 
         #endregion
@@ -35,6 +36,15 @@ namespace SMS.MvcApplication.Controllers
             product.Quantity = quantity;
 
             return Json(product);
+        }
+
+        [HttpPost]
+        public JsonResult GetTablesByAreaID(long areaID)
+        {
+            return Json(new
+                            {
+                                ListTable = TableService.GetTablesByAreaID(areaID)
+                            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
