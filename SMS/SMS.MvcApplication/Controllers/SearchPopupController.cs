@@ -41,7 +41,7 @@ namespace SMS.MvcApplication.Controllers
                 ListResult = result,
                 TextSearch = textSearch
             };
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
+            return Json(jsonData);
         }
     }
 }

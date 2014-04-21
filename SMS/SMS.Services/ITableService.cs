@@ -6,5 +6,6 @@ namespace SMS.Services
     public interface ITableService
     {
         IList<TableDto> GetAllTables();
+        IList<TableDto> GetTablesByAreaID(long areaID);
     }
 }

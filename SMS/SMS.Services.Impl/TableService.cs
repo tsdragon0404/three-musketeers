@@ -16,5 +16,10 @@ namespace SMS.Services.Impl
         {
             return TableManagement.GetAllTables();
         }
+
+        public IList<TableDto> GetTablesByAreaID(long areaID)
+        {
+            return TableManagement.GetTablesByAreaID(areaID);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using SMS.MvcApplication.Models
+﻿@using SMS.Data.Dtos
+@using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
 @{
@@ -15,24 +16,37 @@
         <td>${UnitID}</td>
         <td class="right">${Price}</td>
         <td class="right">${Price * Quantity}</td>
-        <td><input type="text" name="remarks${No}" class="remarksInput" /></td>
+        <td>
+            <input type="text" name="remarks${No}" class="remarksInput" /></td>
         <td class="center">X</td>
     </tr>
+</script>
+<script id="table-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) ListTable}}
+        {{if idx % @ConstStyle.GridNumber == 0}}
+        <div class='row'>
+        {{/if}}
+        <div class="one column">
+            <input type="button" value="${VNName}" />
+        </div>
+            
+        {{if idx == $data.ListTable.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
+        </div>
+        {{/if}}
+    {{/each}}
 </script>
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="tablelist" class="split-pane-component">
         <ul>
-            @for (var i = 0; i < Model.ListArea.Count; i++)
+            @foreach (var areaDto in Model.ListArea)
             {
-                <li><a href="#tabs-@i">@Model.ListArea[i].VNName</a></li>
+                <li><a href="#area-@areaDto.Id">@areaDto.VNName</a></li>
             }
 
         </ul>
-        @for (var i = 0; i < Model.ListArea.Count; i++)
+        @foreach (var areaDto in Model.ListArea)
         {
-            <div id="tabs-@i">
-                <h5>@Model.ListArea[i].VNName</h5>
-
+            <div id="area-@areaDto.Id">
             </div>
         }
         @*<div id="tabs-1">
@@ -166,6 +180,8 @@
                 product.OpenPopup();
                 return false;
             });
+
+            GetTablesByAreaID(1);
         });
 
         function onSelectProduct(e) {
@@ -178,8 +194,19 @@
             }).done(function (data) {
                 var count = $('#order .tbContent tr').length;
                 data.idx = count + 1;
-                
+
                 $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
+            });
+        }
+
+        function GetTablesByAreaID(areaID) {
+            $.ajax({
+                type: 'POST',
+                url: "/Cashier/GetTablesByAreaID",
+                dataType: 'json',
+                data: { areaID: areaID }
+            }).done(function (data) {
+                $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
         }
     </script>
