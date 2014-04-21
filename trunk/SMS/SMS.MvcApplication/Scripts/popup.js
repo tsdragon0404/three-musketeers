@@ -75,6 +75,10 @@
                 }
             });
             
+            $('#' + id + ' .tbContentLookup tr').dblclick(function (e) {
+                $(e.currentTarget).find('input.popupSelect').trigger('click');
+            });
+
             $('#' + id + ' .inputQty').keypress(function (e) {
                 if (e.which == 13) {
                     var pdtid = e.target.id.split('-')[1];
