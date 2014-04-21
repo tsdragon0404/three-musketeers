@@ -40,13 +40,13 @@
         <ul>
             @foreach (var areaDto in Model.ListArea)
             {
-                <li><a href="#area-@areaDto.Id">@areaDto.VNName</a></li>
+                <li><a href="#area-@areaDto.ID">@areaDto.VNName</a></li>
             }
 
         </ul>
         @foreach (var areaDto in Model.ListArea)
         {
-            <div id="area-@areaDto.Id">
+            <div id="area-@areaDto.ID">
             </div>
         }
         @*<div id="tabs-1">
