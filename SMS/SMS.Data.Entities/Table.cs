@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Data;
 
 namespace SMS.Data.Entities
@@ -10,6 +11,7 @@ namespace SMS.Data.Entities
         public virtual long AreaID { get; set; }
         public virtual Area Area { get; set; }
         public virtual bool Enable { get; set; }
+        public virtual IList<InvoiceTable> InvoiceTables { get; set; }
 
         #region Implementation of ISortableEntity
 
