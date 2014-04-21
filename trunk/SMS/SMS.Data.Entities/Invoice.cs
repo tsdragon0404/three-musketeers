@@ -11,11 +11,11 @@ namespace SMS.Data.Entities
         public virtual string Comment { get; set; }
         public virtual long CustomerID { get; set; }
         public virtual long UserID { get; set; }
-        public virtual long Tax { get; set; }
-        public virtual long ServiceFee { get; set; }
-        public virtual long OtherFee { get; set; }
+        public virtual decimal Tax { get; set; }
+        public virtual decimal ServiceFee { get; set; }
+        public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
-        public virtual long InvoiceAmount { get; set; }
+        public virtual decimal InvoiceAmount { get; set; }
         public virtual string Currency { get; set; }
 
         #region Implementation of IAuditableEntity

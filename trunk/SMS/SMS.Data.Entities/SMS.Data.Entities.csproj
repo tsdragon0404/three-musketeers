@@ -35,14 +35,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
+    <Compile Include="Branch.cs" />
+    <Compile Include="BranchTax.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="InvoiceDetail.cs" />
     <Compile Include="InvoiceTable.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="ProductPriceHistory.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="ProductCategory.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserBranch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">

@@ -10,8 +10,11 @@ namespace SMS.Data.Mapping
             Map(x => x.InvoiceTableID);
             References(x => x.InvoiceTable).Column("InvoiceTableID");
             Map(x => x.ProductCode);
-            Map(x => x.ProductName);
+            Map(x => x.ProductVNName);
+            Map(x => x.ProductENName);
             Map(x => x.Quantity);
+            Map(x => x.UnitVNName);
+            Map(x => x.UnitENName);
             Map(x => x.Price);
             Map(x => x.Discount);
             Map(x => x.DiscountType);
