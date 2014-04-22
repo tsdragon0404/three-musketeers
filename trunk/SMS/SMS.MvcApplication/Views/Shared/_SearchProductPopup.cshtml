@@ -48,7 +48,6 @@
 
 <script src="@Url.Content("~/Scripts/popup.js")"></script>
 <script id="popup-content-@Model.PopupId" type="text/x-jquery-tmpl">  
-    {{each ListResult}}
     <tr>
         <td>${ProductCode}</td>
         <td>${VNName}</td>
@@ -56,7 +55,6 @@
         <td class="right"><input type="text" value="1" name="qty-${ID}" id="qty-${ID}" class="inputQty digits" tabindex="${tabIdx}" /></td>
         <td class="center"><input type="button" class="button popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
     </tr>
-    {{/each}}
 </script>
 <script>
     $('#@Model.PopupId .textSearch, #@Model.PopupId .popupSearch').keypress(function (e) {

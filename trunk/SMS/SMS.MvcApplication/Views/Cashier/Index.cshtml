@@ -154,7 +154,7 @@
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
             $("#addProduct").click(function () {
-                var product = new Popup("pdtPopup", "@SearchPopupUrl.ProductsForCashier", onSelectProduct);
+                var product = new SearchProductPopup("pdtPopup", listProduct, onSelectProduct);
                 product.OpenPopup();
                 return false;
             });
