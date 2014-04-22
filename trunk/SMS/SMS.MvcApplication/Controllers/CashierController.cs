@@ -27,17 +27,21 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult SelectProduct(string tagId, int quantity)
+        public JsonResult SelectProduct(long productId, int quantity)
         {
-            long id;
-            long.TryParse(tagId.Split('-')[1], out id);
-            if (id == 0) return null;
+            if (productId == 0) return null;
 
             // Add selected product to table order
-            var product = ProductService.GetProductById(id);
+            var product = ProductService.GetProductById<ProductBasicDto>(productId);
             product.Quantity = quantity;
 
             return Json(product);
+        }
+
+        [HttpPost]
+        public JsonResult GetAllProductsForSearch()
+        {
+            return Json(ProductService.GetAllProducts<ProductBasicDto>());
         }
 
         [HttpPost]

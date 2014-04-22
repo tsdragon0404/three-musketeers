@@ -24,6 +24,10 @@ namespace SMS.Data.Mapping
              {
                  Map(x => (x as ISortableEntity).SEQ);
              }
+             if (typeof(IEnableEntity).IsAssignableFrom(type))
+             {
+                 Map(x => (x as IEnableEntity).Enable);
+             }
          }
 
         protected string GetName()

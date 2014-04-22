@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SMS.Data;
-using SMS.Data.Dtos;
 using AutoMapper;
 
 namespace SMS.Business.Impl
@@ -19,15 +18,9 @@ namespace SMS.Business.Impl
             return Mapper.Map<IList<T>>(ProductRepository.GetAll().ToList());
         }
 
-        public IList<SearchProductPopupDto> SearchProducts(string textSearch)
+        public T GetProductById<T>(long id)
         {
-            return Mapper.Map<IList<SearchProductPopupDto>>(
-                ProductRepository.Find(x => x.VNName.Contains(textSearch) || x.ENName.Contains(textSearch) || x.ProductCode.Contains(textSearch)).ToList());
-        }
-
-        public ProductForCashierDto GetProductById(long id)
-        {
-            return Mapper.Map<ProductForCashierDto>(ProductRepository.Get(id));
+            return Mapper.Map<T>(ProductRepository.Get(id));
         }
     }
 }

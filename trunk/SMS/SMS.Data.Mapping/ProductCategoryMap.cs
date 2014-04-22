@@ -16,7 +16,6 @@ namespace SMS.Data.Mapping
             HasMany(x => x.Products)
                 .KeyColumn("ProductID")
                 .Inverse();
-            Map(x => x.Enable);
         }
     }
 }

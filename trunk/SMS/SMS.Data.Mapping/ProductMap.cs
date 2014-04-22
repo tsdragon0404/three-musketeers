@@ -18,7 +18,6 @@ namespace SMS.Data.Mapping
             Map(x => x.ProductCategoryID);
             References(x => x.ProductCategory).Column("ProductCategoryID");
             Map(x => x.Price);
-            Map(x => x.Enable);
         }
     }
 }
