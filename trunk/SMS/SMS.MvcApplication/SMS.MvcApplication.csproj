@@ -44,8 +44,14 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Extras.DynamicProxy2">
+      <HintPath>..\packages\Autofac.Extras.DynamicProxy2.3.0.4\lib\net40\Autofac.Extras.DynamicProxy2.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.2\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
@@ -708,6 +714,10 @@
     <ProjectReference Include="..\Core.Common\Core.Common.csproj">
       <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
       <Name>Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
+      <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
+      <Name>Core.Data.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\SMS.Common.AutoMapper\SMS.Common.AutoMapper.csproj">
       <Project>{3b197297-e5e8-4ee5-af48-a70eef1b473d}</Project>

@@ -4,14 +4,19 @@ using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class Table : Entity, IAuditableEntity, ISortableEntity
+    public class Table : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
         public virtual long AreaID { get; set; }
         public virtual Area Area { get; set; }
-        public virtual bool Enable { get; set; }
         public virtual IList<InvoiceTable> InvoiceTables { get; set; }
+
+        #region Implementation of IEnableEntity
+
+        public virtual bool Enable { get; set; }
+
+        #endregion
 
         #region Implementation of ISortableEntity
 

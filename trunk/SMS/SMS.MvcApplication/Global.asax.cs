@@ -6,8 +6,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Core.Common.Session;
+using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -76,13 +78,14 @@ namespace SMS.MvcApplication
             containerBuilder.Register(x => BuildSessionFactory()).As<ISessionFactory>().SingleInstance();
 
             // Register ISession as instance per web request
-            containerBuilder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
+            containerBuilder.RegisterType<BusinessInterceptor>().AsSelf().SingleInstance();
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Services.Impl")).Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Business.Impl")).Where(t => t.Name.EndsWith("Management"))
-                .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
+                .AsImplementedInterfaces().PropertiesAutowired().SingleInstance()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(BusinessInterceptor));
 
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Data.Impl")).Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();

@@ -27,7 +27,7 @@ namespace Core.Data.NHibernate
         /// Gets the current session.
         /// </summary>
         /// <value>The session.</value>
-        public virtual ISession Session { get; set; }
+        protected ISession Session { get { return UnitOfWork.Current.Session; } }
 
         #endregion Properties
     }
@@ -52,7 +52,7 @@ namespace Core.Data.NHibernate
         /// Gets the current session.
         /// </summary>
         /// <value>The session.</value>
-        public virtual ISession Session { get; set; }
+        protected ISession Session { get { return UnitOfWork.Current.Session; } }
 
         #endregion Properties
 
@@ -68,6 +68,10 @@ namespace Core.Data.NHibernate
             {
                 ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
                 ((IAuditableEntity)entity).CreatedUser = UserContext.UserName;
+            }
+            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                ((IEnableEntity)entity).Enable = true;
             }
 
             Session.Save(entity);
