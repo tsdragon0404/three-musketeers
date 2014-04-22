@@ -28,19 +28,19 @@
     });
 
     this.OpenPopup = function () {
-        root.loadProduct(null);
+        root.renderProducts(root.productData);
         $('#' + id).dialog("open");
     };
 
     function reloadProduct(newProductData) {
         root.productData = newProductData;
-        root.loadProduct(null);
+        root.renderProducts(newProductData);
     }
 
-    this.loadProduct = function (criteria) {
+    this.renderProducts = function (data) {
         $('#' + id + ' .tbContentLookup').html('');
-        $('#total').html(root.productData.length);
-        if (root.productData.length > 0) {
+        $('#total').html(data.length);
+        if (data.length > 0) {
             $('#' + id + ' .totalRecords').removeClass('hide');
             $('#' + id + ' .listLookupEmpty').addClass('hide');
             $('#' + id + ' .tableContent').removeClass('hide');
@@ -50,11 +50,11 @@
             $('#' + id + ' .tableContent').addClass('hide');
         }
 
-        $.each(root.productData, function (idx) {
-            root.productData[idx].tabIdx = idx * 2 + 2;
+        $.each(data, function (idx) {
+            data[idx].tabIdx = idx * 2 + 2;
         });
 
-        $('#popup-content-' + id).tmpl(root.productData).appendTo('#' + id + ' .tbContentLookup');
+        $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
 
         $('#' + id + ' .popupSelect').click(function (e) {
             var pdtid = e.target.id.split('-')[1];
@@ -82,8 +82,18 @@
     };
 
     this.search = function () {
-        var data = { TextSearch: $('#' + id + ' .textSearch').val() };
-        root.loadProduct(data);
+        var text = $('#' + id + ' .textSearch').val().toLowerCase();
+        var tempData = new Array();
+        
+        for (var i = 0; i < root.productData.length; i++) {
+            if (root.productData[i].ProductCode.toLowerCase().indexOf(text) != -1
+             || root.productData[i].VNName.toLowerCase().indexOf(text) != -1
+             || root.productData[i].ENName.toLowerCase().indexOf(text) != -1) {
+                tempData.push(root.productData[i]);
+            }
+        }
+        
+        root.renderProducts(tempData);
     };
 
     this.select = function (e) {
