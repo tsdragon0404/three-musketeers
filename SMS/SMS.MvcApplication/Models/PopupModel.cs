@@ -1,6 +1,6 @@
 ﻿namespace SMS.MvcApplication.Models
 {
-    public class SearchPopupModel
+    public class PopupModel
     {
         public string PopupTitle { get; set; }
         public string PopupId { get; set; }

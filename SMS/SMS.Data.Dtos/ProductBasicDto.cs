@@ -1,12 +1,13 @@
 ﻿namespace SMS.Data.Dtos
 {
-    public class ProductForCashierDto
+    public class ProductBasicDto
     {
         public virtual long ID { get; set; }
         public virtual string ProductCode { get; set; }
         public virtual string VNName { get; set; }
-        public virtual int Quantity { get; set; }
+        public virtual string ENName { get; set; }
         public virtual long UnitID { get; set; }
-        public virtual long Price { get; set; }
+        public virtual decimal Price { get; set; }
+        public virtual long Quantity { get; set; }
     }
 }

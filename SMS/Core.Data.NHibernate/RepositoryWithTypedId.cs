@@ -94,7 +94,7 @@ namespace Core.Data.NHibernate
         /// <returns></returns>
         public virtual TEntity Merge(TEntity entity)
         {
-            return this.Session.Merge(entity) as TEntity;
+            return Session.Merge(entity);
         }
 
         #endregion IRepositoryWithTypedId<TEntity,TIdentity>

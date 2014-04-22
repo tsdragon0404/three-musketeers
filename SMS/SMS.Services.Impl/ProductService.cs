@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SMS.Business;
-using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
@@ -17,9 +16,9 @@ namespace SMS.Services.Impl
             return ProductManagement.GetAllProducts<T>();
         }
 
-        public ProductForCashierDto GetProductById(long id)
+        public T GetProductById<T>(long id)
         {
-            return ProductManagement.GetProductById(id);
+            return ProductManagement.GetProductById<T>(id);
         }
     }
 }

@@ -35,7 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAreaService.cs" />
-    <Compile Include="ISearchPopupService.cs" />
     <Compile Include="IInvoiceDetailService.cs" />
     <Compile Include="IInvoiceTableService.cs" />
     <Compile Include="IInvoiceService.cs" />

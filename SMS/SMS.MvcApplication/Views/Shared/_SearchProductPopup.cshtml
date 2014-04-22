@@ -1,4 +1,4 @@
-﻿@model SMS.MvcApplication.Models.SearchPopupModel
+﻿@model SMS.MvcApplication.Models.PopupModel
 
 <div title="@Model.PopupTitle" id="@Model.PopupId" class="hide">
     <form onkeypress="return event.keyCode != 13;">
@@ -41,6 +41,7 @@
 
         <div class="right">
             @*<input type="button" class="button popupSelect" value="Select" />*@
+            <input type="button" class="button popupRefresh" value="Refresh" />
             <input type="button" class="button popupClose" value="Close" />
         </div>
     </form>

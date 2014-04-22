@@ -147,14 +147,14 @@
         </div>
     </div>
 
-    @Html.Partial("_SearchProductPopup", new SearchPopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("_SearchProductPopup", new PopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
 
     <script>
         $(document).ready(function () {
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
             $("#addProduct").click(function () {
-                var product = new SearchProductPopup("pdtPopup", listProduct, onSelectProduct);
+                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct);
                 product.OpenPopup();
                 return false;
             });
@@ -164,19 +164,17 @@
             GetTablesByAreaID(id);
         });
 
-        function onSelectProduct(e) {
-            var id = e.target.id;
-            var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
+        function onRefreshProduct(reloadCallback) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectProduct',
-                data: { tagId: id, quantity: qty }
+                url: '/Cashier/GetAllProductsForSearch',
+                dataType: 'json',
             }).done(function (data) {
-                var count = $('#order .tbContent tr').length;
-                data.idx = count + 1;
-
-                $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
+                listProduct = data;
             });
+            
+            if(reloadCallback)
+                reloadCallback(listProduct);
         }
 
         function GetTablesByAreaID(areaID) {
