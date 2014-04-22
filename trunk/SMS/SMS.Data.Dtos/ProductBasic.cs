@@ -4,7 +4,7 @@ namespace SMS.Data.Dtos
 {
     public class ProductBasicDto
     {
-        public virtual long Id { get; set; }
+        public virtual long ID { get; set; }
         public virtual string ProductCode { get; set; }
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
