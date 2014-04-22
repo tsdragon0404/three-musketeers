@@ -1,5 +1,4 @@
-﻿@using SMS.Data.Dtos
-@using SMS.MvcApplication.Models
+﻿@using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
 @{
@@ -18,7 +17,7 @@
         <td class="right">${Quantity}</td>
         <td>${Unit.VNName}</td>
         <td class="right">${Price}</td>
-        <td class="right">${Price * Quantity}</td>
+        <td class="right item_subtotal">${Price * Quantity}</td>
         <td>
             <input type="text" name="remarks${No}" class="remarksInput" /></td>
         <td class="center">X</td>
@@ -88,7 +87,7 @@
                     </tr>
                 </thead>
                 <tbody class="tbContent">
-                    <tr>
+                    @*<tr>
                         <td>1</td>
                         <td>Cơm gà</td>
                         <td class="right">1</td>
@@ -120,7 +119,7 @@
                         <td>
                             <input type="text" name="remarks3" class="remarksInput" /></td>
                         <td class="center">X</td>
-                    </tr>
+                    </tr>*@
                 </tbody>
                 <tfoot>
                     <tr>
@@ -129,21 +128,23 @@
                 </tfoot>
             </table>
         </div>
-        <div class="row">
-            <div class="two columns push_eight right">Total:</div>
-            <div class="two columns right">155.000 VNĐ</div>
-        </div>
-        <div class="row">
-            <div class="two columns push_eight right">Service Fee:</div>
-            <div class="two columns right">0 VNĐ</div>
-        </div>
-        <div class="row">
-            <div class="two columns push_eight right">Tax (10%):</div>
-            <div class="two columns right">15.500 VNĐ</div>
-        </div>
-        <div class="row">
-            <div class="two columns push_eight right">Total Amount:</div>
-            <div class="two columns right border-top">170.500 VNĐ</div>
+        <div id="totalSection">
+            <div class="row">
+                <div class="two columns push_eight right">Total:</div>
+                <div class="two columns right"><span class="total_amount">155.000</span> VNĐ</div>
+            </div>
+            <div class="row">
+                <div class="two columns push_eight right">Service Fee:</div>
+                <div class="two columns right">0 VNĐ</div>
+            </div>
+            <div class="row">
+                <div class="two columns push_eight right">Tax (10%):</div>
+                <div class="two columns right"><span class="tax">15.500</span> VNĐ</div>
+            </div>
+            <div class="row">
+                <div class="two columns push_eight right">Total Amount:</div>
+                <div class="two columns right border-top"><span class="total_money">170.500</span> VNĐ</div>
+            </div>
         </div>
     </div>
 
@@ -154,7 +155,7 @@
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
             $("#addProduct").click(function () {
-                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct);
+                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
                 product.OpenPopup();
                 return false;
             });
@@ -162,6 +163,8 @@
             var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
+            
+            CalculateTotal();
         });
 
         function onRefreshProduct(reloadCallback) {
@@ -177,6 +180,23 @@
                 reloadCallback(listProduct);
         }
 
+        function onSelectProduct(target) {
+            var targetId = target.id;
+            var pdtId = targetId.split('-')[1];
+            var qty = $(target).parent().prev().find('input[id^="qty"]').val();
+            $.ajax({
+                type: 'POST',
+                url: '/Cashier/SelectProduct',
+                data: { productId: pdtId, quantity: qty }
+            }).done(function (data) {
+                var count = $('#order .tbContent tr').length;
+                data.idx = count + 1;
+
+                $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
+                CalculateTotal();
+            });
+        }
+
         function GetTablesByAreaID(areaID) {
             $.ajax({
                 type: 'POST',
@@ -186,6 +206,19 @@
             }).done(function (data) {
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
+        }
+        
+        function CalculateTotal() {
+            var totalAmount = 0;
+            $('#order .tbContent tr').each(function (idx, element) {
+                totalAmount += parseInt($(element).find('td.item_subtotal').text());
+            });
+            $('#totalSection .total_amount').text(totalAmount);
+            
+            var tax = totalAmount / 10;
+            $('#totalSection .tax').text(tax);
+            
+            $('#totalSection .total_money').text(totalAmount + tax);
         }
     </script>
 </div>

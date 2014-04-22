@@ -1,8 +1,9 @@
-﻿function SearchProductPopup(id, productData, refreshCallback) {
+﻿function SearchProductPopup(id, productData, refreshCallback, selectCallback) {
     var root = this;
     this.id = id;
     this.productData = productData;
     this.refreshCallback = refreshCallback;
+    this.selectCallback = selectCallback;
 
     $('#' + id).dialog({
         autoOpen: false,
@@ -85,32 +86,21 @@
         var text = $('#' + id + ' .textSearch').val().toLowerCase();
         var tempData = new Array();
         
-        for (var i = 0; i < root.productData.length; i++) {
-            if (root.productData[i].ProductCode.toLowerCase().indexOf(text) != -1
-             || root.productData[i].VNName.toLowerCase().indexOf(text) != -1
-             || root.productData[i].ENName.toLowerCase().indexOf(text) != -1) {
-                tempData.push(root.productData[i]);
+        $(root.productData).each(function(idx, element) {
+            if (element.ProductCode.toLowerCase().indexOf(text) != -1
+                || element.VNName.toLowerCase().indexOf(text) != -1
+                || element.ENName.toLowerCase().indexOf(text) != -1) {
+                tempData.push(element);
             }
-        }
-        
+        });
+
         root.renderProducts(tempData);
     };
 
     this.select = function (e) {
         $('#' + id).dialog('close');
-
-        var targetId = e.target.id;
-        var pdtId = targetId.split('-')[1];
-        var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
-        $.ajax({
-            type: 'POST',
-            url: '/Cashier/SelectProduct',
-            data: { productId: pdtId, quantity: qty }
-        }).done(function (data) {
-            var count = $('#order .tbContent tr').length;
-            data.idx = count + 1;
-
-            $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
-        });
+        
+        if (selectCallback)
+            selectCallback(e.target);
     };
 }
