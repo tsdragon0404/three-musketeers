@@ -3,12 +3,17 @@ using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class Customer : Entity, IAuditableEntity, ISortableEntity
+    public class Customer : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
         public virtual string CustomerCode { get; set; }
         public virtual string CustomerName { get; set; }
         public virtual long BranchID { get; set; }
+
+        #region Implementation of IEnableEntity
+
         public virtual bool Enable { get; set; }
+
+        #endregion
 
         #region Implementation of ISortableEntity
 
