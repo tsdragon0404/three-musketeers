@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    @Html.Partial("_SearchProductPopup", new PopupModel { PopupId = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("_SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -171,7 +171,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/SelectTable',
-                data: { invoiceTableId: invTblId }
+                data: { invoiceTableID: invTblId }
             }).done(function (data) {
                 $('#order .tbContent').html('');
                 $(data).each(function(idx) {
@@ -199,7 +199,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/SelectProduct',
-                data: { productId: pdtId, quantity: qty }
+                data: { productID: pdtId, quantity: qty }
             }).done(function (data) {
                 var count = $('#order .tbContent tr').length;
                 data.idx = count + 1;

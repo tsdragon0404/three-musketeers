@@ -121,7 +121,7 @@ namespace Core.Data
         /// <param name="ids">The ids.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
-        IEnumerable<TEntity> GetByIds(IEnumerable<TIdentity> ids, params Expression<Func<TEntity, object>>[] fetchSelectors);
+        IEnumerable<TEntity> GetByIDs(IEnumerable<TIdentity> ids, params Expression<Func<TEntity, object>>[] fetchSelectors);
 
         /// <summary>
         /// Deletes the specified id.

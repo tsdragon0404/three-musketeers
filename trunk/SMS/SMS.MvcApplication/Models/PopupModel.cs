@@ -3,6 +3,6 @@
     public class PopupModel
     {
         public string PopupTitle { get; set; }
-        public string PopupId { get; set; }
+        public string PopupID { get; set; }
     }
 }

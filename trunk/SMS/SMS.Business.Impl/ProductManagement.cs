@@ -20,7 +20,7 @@ namespace SMS.Business.Impl
             return Mapper.Map<IList<TProductDto>>(ProductRepository.GetAll().ToList());
         }
 
-        public TProductDto GetProductById<TProductDto>(long id)
+        public TProductDto GetProductByID<TProductDto>(long id)
         {
             return Mapper.Map<TProductDto>(ProductRepository.Get(id));
         }

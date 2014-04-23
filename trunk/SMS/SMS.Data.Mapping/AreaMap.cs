@@ -11,7 +11,7 @@ namespace SMS.Data.Mapping
             Map(x => x.ENName);
             Map(x => x.BranchID);
             HasMany(x => x.Tables)
-                .KeyColumn("AreaId")
+                .KeyColumn("AreaID")
                 .Inverse();
         }
     }

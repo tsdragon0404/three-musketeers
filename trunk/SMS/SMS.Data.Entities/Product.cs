@@ -10,9 +10,7 @@ namespace SMS.Data.Entities
         public virtual string ENName { get; set; }
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
-        public virtual long UnitID { get; set; }
         public virtual Unit Unit { get; set; }
-        public virtual long ProductCategoryID { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
         public virtual decimal Price { get; set; }
 

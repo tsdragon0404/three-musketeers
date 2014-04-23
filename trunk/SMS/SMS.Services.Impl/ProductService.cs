@@ -16,9 +16,9 @@ namespace SMS.Services.Impl
             return ProductManagement.GetAllProducts<TProductDto>();
         }
 
-        public TProductDto GetProductById<TProductDto>(long id)
+        public TProductDto GetProductByID<TProductDto>(long id)
         {
-            return ProductManagement.GetProductById<TProductDto>(id);
+            return ProductManagement.GetProductByID<TProductDto>(id);
         }
 
         public IList<TProductDto> GetProductsOrderingByInvoiceTableID<TProductDto>(long invoiceTableID)

@@ -29,12 +29,12 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult SelectProduct(long productId, int quantity)
+        public JsonResult SelectProduct(long productID, int quantity)
         {
-            if (productId == 0) return null;
+            if (productID == 0) return null;
 
             // Add selected product to table order
-            var product = ProductService.GetProductById<ProductBasicDto>(productId);
+            var product = ProductService.GetProductByID<ProductBasicDto>(productID);
             product.Quantity = quantity;
 
             return Json(product);
