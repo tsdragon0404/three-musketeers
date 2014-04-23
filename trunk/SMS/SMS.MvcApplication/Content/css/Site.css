@@ -46,6 +46,7 @@
     width: 85%;
     float: right;
     border-left: 1px solid #ddd;
+    overflow: auto;
 }
 
 #cashier {
