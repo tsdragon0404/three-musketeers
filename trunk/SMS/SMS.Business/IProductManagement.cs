@@ -4,7 +4,8 @@ namespace SMS.Business
 {
     public interface IProductManagement
     {
-        IList<T> GetAllProducts<T>();
-        T GetProductById<T>(long id);
+        IList<TProductDto> GetAllProducts<TProductDto>();
+        TProductDto GetProductById<TProductDto>(long id);
+        IList<TProductDto> GetProductsOrderingByInvoiceTableID<TProductDto>(long invoiceTableID);
     }
 }

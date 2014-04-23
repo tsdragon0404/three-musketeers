@@ -1,4 +1,5 @@
-﻿using SMS.Data.Entities;
+﻿using SMS.Common.Constant;
+using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
@@ -8,7 +9,7 @@ namespace SMS.Data.Mapping
         {
             Table("InvoiceDetail");
             Map(x => x.InvoiceTableID);
-            References(x => x.InvoiceTable).Column("InvoiceTableID");
+            //References(x => x.InvoiceTable).Column("InvoiceTableID");
             Map(x => x.ProductCode);
             Map(x => x.ProductVNName);
             Map(x => x.ProductENName);
@@ -17,7 +18,7 @@ namespace SMS.Data.Mapping
             Map(x => x.UnitENName);
             Map(x => x.Price);
             Map(x => x.Discount);
-            Map(x => x.DiscountType);
+            Map(x => x.DiscountType).CustomType<DiscountType>();
             Map(x => x.DiscountCode);
             Map(x => x.Comment);
         }

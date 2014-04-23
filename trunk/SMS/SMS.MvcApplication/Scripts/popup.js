@@ -99,8 +99,11 @@
 
     this.select = function (e) {
         $('#' + id).dialog('close');
-        
+        var targetId = e.target.id;
+        var pdtId = targetId.split('-')[1];
+        var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
+
         if (selectCallback)
-            selectCallback(e.target);
+            selectCallback(pdtId, qty);
     };
 }

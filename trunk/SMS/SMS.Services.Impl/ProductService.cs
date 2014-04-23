@@ -11,14 +11,19 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public IList<T> GetAllProducts<T>()
+        public IList<TProductDto> GetAllProducts<TProductDto>()
         {
-            return ProductManagement.GetAllProducts<T>();
+            return ProductManagement.GetAllProducts<TProductDto>();
         }
 
-        public T GetProductById<T>(long id)
+        public TProductDto GetProductById<TProductDto>(long id)
         {
-            return ProductManagement.GetProductById<T>(id);
+            return ProductManagement.GetProductById<TProductDto>(id);
+        }
+
+        public IList<TProductDto> GetProductsOrderingByInvoiceTableID<TProductDto>(long invoiceTableID)
+        {
+            return ProductManagement.GetProductsOrderingByInvoiceTableID<TProductDto>(invoiceTableID);
         }
     }
 }
