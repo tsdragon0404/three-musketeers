@@ -4,11 +4,11 @@ namespace Core.Data
 {
     public interface IAuditableEntity
     {
-        DateTime CreatedDate { get; set; }
+        DateTime? CreatedDate { get; set; }
 
         string CreatedUser { get; set; }
 
-        DateTime ModifiedDate { get; set; }
+        DateTime? ModifiedDate { get; set; }
 
         string ModifiedUser { get; set; }
     }

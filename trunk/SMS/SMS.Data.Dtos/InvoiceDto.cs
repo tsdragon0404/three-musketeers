@@ -18,9 +18,9 @@ namespace SMS.Data.Dtos
         public virtual decimal InvoiceAmount { get; set; }
         public virtual string Currency { get; set; }
 
-        public virtual DateTime CreatedDate { get; set; }
+        public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }
-        public virtual DateTime ModifiedDate { get; set; }
+        public virtual DateTime? ModifiedDate { get; set; }
         public virtual string ModifiedUser { get; set; }
     }
 }
