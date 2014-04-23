@@ -1,9 +1,10 @@
-﻿function SearchProductPopup(id, productData, refreshCallback, selectCallback) {
+﻿function SearchProductPopup(id, productData, refreshCallback, selectCallback, deleteCallback) {
     var root = this;
     this.id = id;
     this.productData = productData;
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
+    this.deleteCallback = deleteCallback;
 
     $('#' + id).dialog({
         autoOpen: false,
@@ -80,6 +81,14 @@
                 return;
             }
         });
+
+        $('#' + id + ' a[id^="del-"]').click(function(e) {
+            var pdtId = e.target.id.split('-')[1];
+
+            if (deleteCallback)
+                deleteCallback(pdtId);
+            return false;
+        });
     };
 
     this.search = function () {
@@ -99,8 +108,7 @@
 
     this.select = function (e) {
         $('#' + id).dialog('close');
-        var targetId = e.target.id;
-        var pdtId = targetId.split('-')[1];
+        var pdtId = e.target.id.split('-')[1];
         var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
 
         if (selectCallback)

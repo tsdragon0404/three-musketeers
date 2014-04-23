@@ -20,7 +20,7 @@
         <td class="right item_subtotal">${Price * Quantity}</td>
         <td>
             <input type="text" name="remarks${No}" class="remarksInput" /></td>
-        <td class="center">X</td>
+        <td class="center"><a href="#" id="del-${ID}">X</a></td>
     </tr>
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
@@ -155,7 +155,7 @@
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
             $("#addProduct").click(function () {
-                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct, onDeleteProduct);
                 product.OpenPopup();
                 return false;
             });
@@ -207,6 +207,10 @@
                 $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
                 CalculateTotal();
             });
+        }
+
+        function onDeleteProduct(pdtId) {
+            
         }
 
         function GetTablesByAreaID(areaID) {
