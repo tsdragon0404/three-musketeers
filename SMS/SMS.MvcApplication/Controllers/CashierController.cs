@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using NHibernate.Mapping;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -11,7 +13,7 @@ namespace SMS.MvcApplication.Controllers
 
         public virtual IAreaService AreaService { get; set; }
         public virtual ITableService TableService { get; set; }
-        public virtual IProductService ProductService { get; set; } 
+        public virtual IProductService ProductService { get; set; }
 
         #endregion
 
@@ -39,6 +41,17 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
+        public JsonResult SelectTable(long invoiceTableID)
+        {
+            if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
+
+            // Get items from table order
+            var product = ProductService.GetProductsOrderingByInvoiceTableID<ProductBasicDto>(invoiceTableID);
+
+            return Json(product);
+        }
+
+        [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
             return Json(ProductService.GetAllProducts<ProductBasicDto>());
@@ -50,7 +63,7 @@ namespace SMS.MvcApplication.Controllers
             return Json(new
                             {
                                 ListTable = TableService.GetTablesByAreaID(areaID)
-                            }, JsonRequestBehavior.AllowGet);
+                            });
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Core.Data;
 using SMS.Common.Constant;
 
@@ -7,9 +9,9 @@ namespace SMS.Data.Entities
     public class InvoiceTable : Entity, IAuditableEntity
     {
         public virtual long? InvoiceID { get; set; }
-        public virtual Invoice Invoice { get; set; }
+        //public virtual Invoice Invoice { get; set; }
         public virtual long TableID { get; set; }
-        public virtual Table Table { get; set; }
+        //public virtual Table Table { get; set; }
         public virtual decimal Discount { get; set; }
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }
@@ -19,6 +21,7 @@ namespace SMS.Data.Entities
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
         public virtual decimal TableAmount { get; set; }
+        public virtual IList<InvoiceDetail> InvoiceDetails { get; set; }
 
         #region Implementation of IAuditableEntity
 

@@ -6,7 +6,7 @@ namespace SMS.Data.Entities
     public class InvoiceDetail : Entity
     {
         public virtual long InvoiceTableID { get; set; }
-        public virtual InvoiceTable InvoiceTable { get; set; }
+        //public virtual InvoiceTable InvoiceTable { get; set; }
         public virtual string ProductCode { get; set; }
         public virtual string ProductVNName { get; set; }
         public virtual string ProductENName { get; set; }
