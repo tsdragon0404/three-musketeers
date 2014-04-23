@@ -58,10 +58,10 @@ namespace Core.Data.NHibernate
         /// <param name="ids">The ids.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
-        public IEnumerable<TEntity> GetByIds(IEnumerable<TIdentity> ids, params Expression<Func<TEntity, object>>[] fetchSelectors)
+        public IEnumerable<TEntity> GetByIDs(IEnumerable<TIdentity> ids, params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
             var entities = Session.CreateCriteria<TEntity>()
-                .Add(new InExpression("Id", ids.OfType<object>().ToArray()))
+                .Add(new InExpression("ID", ids.OfType<object>().ToArray()))
                 .List<TEntity>();
             entities.Apply(x => FetchProperties(x, fetchSelectors));
 

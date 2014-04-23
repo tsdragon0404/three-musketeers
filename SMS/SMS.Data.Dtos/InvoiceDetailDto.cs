@@ -5,7 +5,7 @@ namespace SMS.Data.Dtos
     public class InvoiceDetailDto
     {
         public virtual long ID { get; set; }
-        public virtual long InvoiceTableID { get; set; }
+        public virtual InvoiceTableDto InvoiceTable { get; set; }
         public virtual string ProductCode { get; set; }
         public virtual string ProductVNName { get; set; }
         public virtual string ProductENName { get; set; }

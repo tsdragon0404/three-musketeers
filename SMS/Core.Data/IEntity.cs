@@ -2,12 +2,12 @@
 {
     public interface IEntity<TPrimaryKey>
     {
-        TPrimaryKey Id { get; set; }
+        TPrimaryKey ID { get; set; }
     }
 
     public abstract class EntityWithTypedId<TPrimaryKey> : IEntity<TPrimaryKey>
     {
-        public virtual TPrimaryKey Id { get; set; }
+        public virtual TPrimaryKey ID { get; set; }
     }
 
     public abstract class Entity : EntityWithTypedId<long>

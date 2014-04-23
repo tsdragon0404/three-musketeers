@@ -11,7 +11,7 @@ namespace SMS.Data.Mapping
 
              if (type.IsSubclassOf(typeof(Entity)))
              {
-                 Id(x => (x as Entity).Id).Column(string.Format("{0}ID", GetName())).GeneratedBy.Identity();
+                 Id(x => (x as Entity).ID).Column(string.Format("{0}ID", GetName())).GeneratedBy.Identity();
              }
              if (typeof(IAuditableEntity).IsAssignableFrom(type))
              {

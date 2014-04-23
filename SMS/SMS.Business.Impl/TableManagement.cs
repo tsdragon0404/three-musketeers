@@ -21,7 +21,7 @@ namespace SMS.Business.Impl
 
         public IList<TableDto> GetTablesByAreaID(long areaID)
         {
-            return Mapper.Map<IList<TableDto>>(TableRepository.Find(x=>x.AreaID == areaID).ToList());
+            return Mapper.Map<IList<TableDto>>(TableRepository.Find(x=>x.Area.ID == areaID).ToList());
         }
     }
 }
