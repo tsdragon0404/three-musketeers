@@ -28,8 +28,9 @@
         <div id="leftmenu">
             <nav>
                 <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Cashier", "Index", "Cashier")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Administrator", "Index", "Area", new { area = "Administrator" }, null)</li>
+                    <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
                 </ul>
             </nav>
         </div>

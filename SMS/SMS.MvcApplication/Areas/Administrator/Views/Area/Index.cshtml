@@ -1,0 +1,49 @@
+﻿@model SMS.MvcApplication.Areas.Administrator.Models.AreaModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="admin-body">
+    <h4 class="admin-page-title">Index</h4>
+    <div class="row">
+        <table class="admin-list-item">
+            <colgroup>
+                <col style="width: 50px;" />
+                <col style="width: 60px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col style="width: 75px;" />
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>Area name</th>
+                    <th>Branch</th>
+                    <th>SEQ</th>
+                    <th>Enabled</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var areaDto in Model.ListArea)
+                {
+                    <tr>
+                        <td>X ></td>
+                        <td>@Html.Raw(Model.ListArea.IndexOf(areaDto) + 1)</td>
+                        <td>@areaDto.VNName</td>
+                        <td>@areaDto.BranchID</td>
+                        <td>@areaDto.SEQ</td>
+                        <td>@areaDto.Enable</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">+</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

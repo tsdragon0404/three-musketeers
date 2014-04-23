@@ -4,10 +4,10 @@
         $('#expander').click(ExpandColapseMenu);
     }
     
-    var cashier = $('#cashier');
-    if (cashier.length != 0) {
-        SetHeightCashierSection();
-        $(window).resize(SetHeightCashierSection);
+    var body = $('#body');
+    if (body.length != 0) {
+        SetHeightBodySection();
+        $(window).resize(SetHeightBodySection);
     }
 });
 
@@ -40,10 +40,10 @@ function ExpandColapseMenu() {
     return false;
 }
 
-function SetHeightCashierSection() {
+function SetHeightBodySection() {
     var windowHeight = $(window).height();
     var headerHeight = $('#header').outerHeight();
     var footerHeight = $('#footer').outerHeight();
 
-    $('#body #cashier').height(windowHeight - headerHeight - footerHeight);
+    $('#body').height(windowHeight - headerHeight - footerHeight);
 }
