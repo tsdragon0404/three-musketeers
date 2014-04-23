@@ -14,9 +14,9 @@ namespace SMS.Data.Dtos
         public virtual bool Enable { get; set; }
         public virtual int SEQ { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public string ModifiedUser { get; set; }
     }
 }

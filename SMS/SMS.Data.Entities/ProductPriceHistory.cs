@@ -9,7 +9,7 @@ namespace SMS.Data.Entities
         public virtual decimal OldPrice { get; set; }
         public virtual decimal NewPrice { get; set; }
 
-        public virtual DateTime CreatedDate { get; set; }
+        public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }
     }
 }
