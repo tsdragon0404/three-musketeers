@@ -15,8 +15,8 @@ namespace SMS.Data.Mapping
              }
              if (typeof(IAuditableEntity).IsAssignableFrom(type))
              {
-                 Map(x => (x as IAuditableEntity).CreatedUser).Not.Nullable().Not.Update();
-                 Map(x => (x as IAuditableEntity).CreatedDate).Not.Nullable();
+                 Map(x => (x as IAuditableEntity).CreatedUser).Not.Update();
+                 Map(x => (x as IAuditableEntity).CreatedDate).Not.Update();
                  Map(x => (x as IAuditableEntity).ModifiedUser);
                  Map(x => (x as IAuditableEntity).ModifiedDate);
              }
