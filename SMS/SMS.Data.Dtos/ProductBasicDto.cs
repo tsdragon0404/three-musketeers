@@ -9,6 +9,6 @@
         public virtual long UnitID { get; set; }
         public virtual UnitDto Unit { get; set; }
         public virtual decimal Price { get; set; }
-        public virtual long Quantity { get; set; }
+        public virtual decimal Quantity { get; set; }
     }
 }

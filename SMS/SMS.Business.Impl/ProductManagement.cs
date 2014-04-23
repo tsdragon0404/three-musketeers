@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Core.Common;
 using SMS.Data;
 using AutoMapper;
+using SMS.Data.Dtos;
 
 namespace SMS.Business.Impl
 {
@@ -25,13 +28,20 @@ namespace SMS.Business.Impl
             return Mapper.Map<TProductDto>(ProductRepository.Get(id));
         }
 
-        public IList<TProductDto> GetProductsOrderingByInvoiceTableID<TProductDto>(long invoiceTableID)
+        public IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
         {
             var invoiceTable = InvoiceTableRepository.Get(invoiceTableID);
             var productCodes = invoiceTable.InvoiceDetails.Select(x => x.ProductCode).ToList();
-
+            
             var products = ProductRepository.Find(x => productCodes.Contains(x.ProductCode));
-            return Mapper.Map<IList<TProductDto>>(products.ToList());
+            var returnValue = Mapper.Map<IList<ProductBasicDto>>(products.ToList());
+
+            returnValue.Apply(x => x.Quantity =
+                invoiceTable.InvoiceDetails.FirstOrDefault(y => y.ProductCode == x.ProductCode) == null
+                    ? 0
+                    : invoiceTable.InvoiceDetails.First(y => y.ProductCode == x.ProductCode).Quantity);
+
+            return returnValue;
         }
     }
 }

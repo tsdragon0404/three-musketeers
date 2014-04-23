@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SMS.Business;
+using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
@@ -21,9 +22,9 @@ namespace SMS.Services.Impl
             return ProductManagement.GetProductByID<TProductDto>(id);
         }
 
-        public IList<TProductDto> GetProductsOrderingByInvoiceTableID<TProductDto>(long invoiceTableID)
+        public IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
         {
-            return ProductManagement.GetProductsOrderingByInvoiceTableID<TProductDto>(invoiceTableID);
+            return ProductManagement.GetProductsOrderingByInvoiceTableID(invoiceTableID);
         }
     }
 }
