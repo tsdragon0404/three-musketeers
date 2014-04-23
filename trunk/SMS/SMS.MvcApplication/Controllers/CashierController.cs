@@ -46,7 +46,7 @@ namespace SMS.MvcApplication.Controllers
             if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
 
             // Get items from table order
-            var product = ProductService.GetProductsOrderingByInvoiceTableID<ProductBasicDto>(invoiceTableID);
+            var product = ProductService.GetProductsOrderingByInvoiceTableID(invoiceTableID);
 
             return Json(product);
         }
