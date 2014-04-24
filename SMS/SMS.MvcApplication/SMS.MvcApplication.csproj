@@ -675,6 +675,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\IconControls\table-avai.png" />
     <Content Include="Images\IconControls\table-empty.png" />
+    <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\global.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
