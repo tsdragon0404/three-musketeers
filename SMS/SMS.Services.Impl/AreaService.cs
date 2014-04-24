@@ -16,5 +16,10 @@ namespace SMS.Services.Impl
         {
             return AreaManagement.GetAllAreas();
         }
+
+        public AreaDto GetAreaByID(long areaID)
+        {
+            return AreaManagement.GetAreaByID(areaID);
+        }
     }
 }

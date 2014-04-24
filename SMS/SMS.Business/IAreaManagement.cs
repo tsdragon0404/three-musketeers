@@ -6,5 +6,6 @@ namespace SMS.Business
     public interface IAreaManagement
     {
         IList<AreaDto> GetAllAreas();
+        AreaDto GetAreaByID(long areaID);
     }
 }

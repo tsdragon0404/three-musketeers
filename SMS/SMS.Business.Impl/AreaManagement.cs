@@ -18,5 +18,10 @@ namespace SMS.Business.Impl
         {
             return Mapper.Map<IList<AreaDto>>(AreaRepository.GetAll().ToList());
         }
+
+        public AreaDto GetAreaByID(long areaID)
+        {
+            return Mapper.Map<AreaDto>(AreaRepository.Get(areaID));
+        }
     }
 }
