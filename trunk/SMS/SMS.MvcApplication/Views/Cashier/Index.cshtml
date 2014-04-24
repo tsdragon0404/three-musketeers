@@ -25,11 +25,18 @@
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
-        {{if idx % @ConstStyle.GridNumber == 0}}
-        <div class='row'>
+    {{if idx % @ConstStyle.GridNumber == 0}}
+    <div class='row'>
         {{/if}}
         <div class="one column">
-            <input type="button" value="${VNName}" />
+            <table>
+                <tr>
+                    <td><img id="${ID}" alt="${VNName}" src="Images\IconControls\table-avai.png" class="tbls" /><br /></td>
+                </tr>
+                <tr>
+                    <td>${VNName}</td>
+                </tr>
+            </table>
         </div>
             
         {{if idx == $data.ListTable.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
@@ -37,6 +44,23 @@
         {{/if}}
     {{/each}}
 </script>
+
+<style>
+#Rmenu {
+    position: fixed;
+    display: none;
+    z-index: 100;
+}
+</style>
+<ul id="Rmenu">
+    <li><a href="#">Chi tiết</a></li>
+    <li><a href="#">In hóa đơn</a></li>
+    <li><a href="#">Nhập bàn</a></li>
+    <li><a href="#">Tách bàn</a></li>
+    <li><a href="#">Chuyển bàn</a></li>
+    <li><a href="#">Xóa thông tin</a></li>
+</ul>
+
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
@@ -151,6 +175,13 @@
     @Html.Partial("_SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 
     <script type="text/javascript">
+        var $menu=$('#Rmenu');
+        var $wMenu=$menu.outerWidth();
+        var $hMenu=$menu.outerHeight();
+        var $menuSub=$('#Rmenu ul');
+        var $leftSub=parseFloat($menuSub.css('left'), 10);
+        var $wSub=$menuSub.outerWidth();
+        
         $(document).ready(function () {
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
@@ -165,6 +196,27 @@
             GetTablesByAreaID(id);
             
             onSelectTable(1);
+        });
+        
+        //$(document).bind("contextmenu", function(e) {
+        //    return false;
+        //});
+        
+        $(document).on("contextmenu", ".tbls", function(e){
+            var $leftM=e.clientX, $topM=e.clientY;
+            var $rightM=$(window).width()-$leftM;
+      
+            var $bottomM=$(window).height()-$topM;
+            if($rightM < $wMenu){
+                $leftM-=$wMenu;
+            }
+            if($bottomM < $hMenu){
+                $topM-=$hMenu;
+            }
+            $menu.css({left: $leftM, top: $topM, display:'block'});
+            e.preventDefault();
+        }).click(function(){
+            $menu.hide();
         });
 
         function onSelectTable(invTblId) {

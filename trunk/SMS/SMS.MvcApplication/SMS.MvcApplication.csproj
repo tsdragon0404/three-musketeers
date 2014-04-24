@@ -671,6 +671,8 @@
     <Content Include="Areas\Administrator\Views\Table\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\AdminHome\Index.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\IconControls\table-avai.png" />
+    <Content Include="Images\IconControls\table-empty.png" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\global.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -714,7 +716,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Views\Shared\" />
     <Folder Include="Filters\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
