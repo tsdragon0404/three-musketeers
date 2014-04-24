@@ -152,3 +152,7 @@ label.ui-state-error {
 #admin-body {
     overflow: auto;
 }
+
+.admin-record-detail td {
+    padding: 0px;
+}

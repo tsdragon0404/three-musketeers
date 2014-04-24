@@ -1,25 +1,37 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using SMS.Data.Dtos;
 using SMS.MvcApplication.Areas.Administrator.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
 {
-    public class AreaController : Controller
+    public class AreaController : AdminBaseController<AreaDto, long>
     {
         #region Fields
 
-        public virtual IAreaService AreaService { get; set; } 
+        public virtual IAreaService AreaService { get; set; }
+
+        protected override Func<IList<AreaDto>> GetAllFunction { get { return AreaService.GetAllAreas; } }
+
+        protected override Func<long, AreaDto> GetDataFunction { get { return AreaService.GetAreaByID; } }
 
         #endregion
 
-        public ActionResult Index()
-        {
-            var model = new AreaModel
-                            {
-                                ListArea = AreaService.GetAllAreas()
-                            };
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    var model = new AreaModel
+        //                    {
+        //                        ListArea = AreaService.GetAllAreas()
+        //                    };
+        //    return View(model);
+        //}
+
+        //public JsonResult GetDataForEdit(long recordID)
+        //{
+        //    return Json(AreaService.GetAreaByID(recordID));
+        //}
 
         //
         // GET: /Administrator/Area/Details/5

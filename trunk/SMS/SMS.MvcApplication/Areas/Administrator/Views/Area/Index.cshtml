@@ -1,13 +1,60 @@
-﻿@model SMS.MvcApplication.Areas.Administrator.Models.AreaModel
+﻿@model SMS.MvcApplication.Areas.Administrator.Models.AdminModel<SMS.Data.Dtos.AreaDto>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="6">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="three columns">
+                        Area name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="areaName" value="${VNName}"/>
+                    </div>
+                    <div class="three columns">
+                        Branch ID
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="branchID" value="${BranchID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns">
+                        SEQ
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="seq" value="${SEQ}"/>
+                    </div>
+                    <div class="three columns">
+                        Enable
+                    </div>
+                    <div class="three columns">
+                        {{if Enable == true}}
+                            <input type="checkbox" name="enable" checked />
+                        {{else}}
+                            <input type="checkbox" name="enable" />
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </td>
+        @*<td>${VNName}</td>
+        <td class="right">${Quantity}</td>
+        <td>${Unit.VNName}</td>
+        <td class="right">${Price}</td>
+        <td class="right item_subtotal">${Price * Quantity}</td>
+        <td>
+            <input type="text" name="remarks${No}" class="remarksInput" /></td>
+        <td class="center"><a href="#" id="del-${ID}">X</a></td>*@
+    </tr>
+</script>
 <div id="admin-body">
     <h4 class="admin-page-title">Index</h4>
     <div class="row">
-        <table class="admin-list-item">
+        <table class="admin-table-record">
             <colgroup>
                 <col style="width: 50px;" />
                 <col style="width: 60px;" />
@@ -26,12 +73,16 @@
                     <th>Enabled</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var areaDto in Model.ListArea)
+            <tbody class="admin-list-record">
+                @foreach (var areaDto in Model.ListRecord)
                 {
-                    <tr>
-                        <td>X ></td>
-                        <td>@Html.Raw(Model.ListArea.IndexOf(areaDto) + 1)</td>
+                    <tr class="admin-record">
+                        <td>
+                            <input type="hidden" name="id-@areaDto.ID" value="@areaDto.ID"/>
+                            <a href="#" id="del-@areaDto.ID">X</a>
+                            <a href="#" id="edit-@areaDto.ID">></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(areaDto) + 1)</td>
                         <td>@areaDto.VNName</td>
                         <td>@areaDto.BranchID</td>
                         <td>@areaDto.SEQ</td>
@@ -46,5 +97,46 @@
                 </tr>
             </tfoot>
         </table>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.admin-list-record a[id^="edit"]').click(function () {
+                    var record = $(this).parent().parent();
+                    if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
+                        record.next().find('div.detail').slideToggle(500, function () {
+                            record.next().remove();
+                        });
+                        return false;
+                    }
+
+                    $('.admin-record-detail .detail').slideToggle(500, function () {
+                        $(this).parent().parent().remove();
+                    });
+
+                    var id = $(this).siblings('input[name^="id"]').val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Administrator/Area/GetDataForEdit',
+                        data: { recordID: id }
+                    }).done(function (data) {
+                        var clientId = $('.admin-list-record input[name^="id-' + data.ID + '"]');
+                        if (clientId.length == 0 || clientId.val() != data.ID)
+                            return;
+
+                        var record = clientId.parent().parent();
+                        //record.after('<tr colsplan="6"></tr>');
+                        //$('#order .tbContent').html('');
+                        //$(data).each(function (idx) {
+                        //    data[idx].idx = idx + 1;
+                        //});
+
+                        $('#record-tmpl').tmpl(data).insertAfter(record);
+                        $('.admin-record-detail .detail').slideToggle(500);
+                    });
+
+                    return false;
+                });
+            });
+
+        </script>
     </div>
 </div>

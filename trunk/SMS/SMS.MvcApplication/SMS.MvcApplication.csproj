@@ -202,10 +202,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Administrator\Controllers\AreaController.cs" />
     <Compile Include="Areas\Administrator\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TableController.cs" />
     <Compile Include="Areas\Administrator\Models\AreaModel.cs" />
+    <Compile Include="Areas\Administrator\Models\AdminModel.cs" />
     <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
