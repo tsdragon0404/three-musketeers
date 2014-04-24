@@ -29,9 +29,9 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls">
+            <table class="tbls" id="${ID}-${Table.VNName}">
                 <tr>
-                    <td><img id="${ID}" alt="${Table.VNName}" src="${image}" /> <br /></td>
+                    <td><img alt="${Table.VNName}" src="${image}" /> <br /></td>
                 </tr>
                 <tr>
                     <td>${Table.VNName}</td>
@@ -64,7 +64,6 @@
 #Rmenu li a{
   color:green;
   text-decoration:none;
-  text-transform:uppercase;
   display:block;
   width:100%;height:100%;
   text-indent:20px;
@@ -210,9 +209,6 @@
         var $menu=$('#Rmenu');
         var $wMenu=$menu.outerWidth();
         var $hMenu=$menu.outerHeight();
-        var $menuSub=$('#Rmenu ul');
-        var $leftSub=parseFloat($menuSub.css('left'), 10);
-        var $wSub=$menuSub.outerWidth();
         
         $(document).ready(function () {
             $('div.split-pane').splitPane();
@@ -226,15 +222,20 @@
             var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
-            
-            onSelectTable(1);
         });
         
-        //$(document).bind("contextmenu", function(e) {
+        $(".tbls").click(function() {
+            alert('Item selected');
+        });
+        
+        //$(document).on("contextmenu", "#area-table", function(e) {
         //    return false;
         //});
         
         $(document).on("contextmenu", ".tbls", function(e){
+            var table = $(e.target);
+            alert(table.attr("id"));
+            
             var $leftM=e.clientX, $topM=e.clientY;
             var $rightM=$(window).width()-$leftM;
       
@@ -303,19 +304,8 @@
                 url: '/Cashier/GetTablesByAreaID',
                 data: { areaID: areaID }
             }).done(function (data) {
-                //$(data).each(function(idx) {
-                //    if (data[ID] == 0) data[idx].image = "Images\IconControls\table-empty.png";
-                //    else data[idx].image = "Images\IconControls\table-avai.png";
-                //});
-                
                 if (data == 0) data.image = "Images/table-empty.png";
                 else data.image = "Images/table-avai.png";  
-
-                //for (j = 0; j < data.length; j++)
-                //{
-                //    if (data[j].ID == 0) data[j].image = "Images\IconControls\table-empty.png";
-                //    else data[j].image = "Images\IconControls\table-avai.png";    
-                //}
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
         }
