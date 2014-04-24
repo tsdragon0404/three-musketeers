@@ -8,35 +8,41 @@
         <td colspan="6">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns">
+                    <div class="three columns right">
                         Area name
                     </div>
                     <div class="three columns">
-                        <input type="text" name="areaName" value="${VNName}"/>
+                        <input type="text" name="areaName" class="full-width" value="${VNName}"/>
                     </div>
-                    <div class="three columns">
+                    <div class="three columns right">
                         Branch ID
                     </div>
                     <div class="three columns">
-                        <input type="text" name="branchID" value="${BranchID}"/>
+                        <input type="text" name="branchID" class="full-width" value="${BranchID}"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns">
+                    <div class="three columns right">
                         SEQ
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="${SEQ}"/>
+                        <input type="text" name="seq" class="full-width" value="${SEQ}"/>
                     </div>
-                    <div class="three columns">
+                    <div class="three columns right">
                         Enable
                     </div>
                     <div class="three columns">
                         {{if Enable == true}}
-                            <input type="checkbox" name="enable" checked />
+                        <input type="checkbox" name="enable" checked />
                         {{else}}
-                            <input type="checkbox" name="enable" />
+                        <input type="checkbox" name="enable" />
                         {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="eleven columns right">
+                        <input type="button" class="button" id="save" value="Save" />
+                        <input type="button" class="button" id="cancel" value="Cancel" />
                     </div>
                 </div>
             </div>
@@ -90,64 +96,11 @@
             </tfoot>
         </table>
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('.admin-list-record a[id^="edit"]').click(function () {
-                    var record = $(this).parent().parent();
-                    if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
-                        record.next().find('div.detail').slideToggle(500, function () {
-                            record.next().remove();
-                        });
-                        return false;
-                    }
-
-                    var id = $(this).siblings('input[name^="id"]').val();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Administrator/Area/GetDataForEdit',
-                        data: { recordID: id }
-                    }).done(function (data) {
-                        $('.admin-record-detail .detail').slideToggle(500, function () {
-                            $(this).parent().parent().remove();
-                        });
-
-                        var clientId = $('.admin-list-record input[name^="id-' + data.ID + '"]');
-                        if (clientId.length == 0 || clientId.val() != data.ID)
-                            return;
-
-                        var record = clientId.parent().parent();
-
-                        $('#record-tmpl').tmpl(data).insertAfter(record);
-                        $('.admin-record-detail .detail').slideToggle(500);
-                    });
-
-                    return false;
-                });
-
-                $('.admin-table-record a#addRecord').click(function () {
-                    var record = $(this).parent().parent();
-                    if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
-                        record.next().find('div.detail').slideToggle(500, function() {
-                            record.next().remove();
-                        });
-                        return false;
-                    }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Administrator/Area/GetSchemaForAdd',
-                    }).done(function (data) {
-                        $('.admin-record-detail .detail').slideToggle(500, function () {
-                            $(this).parent().parent().remove();
-                        });
-
-                        var place = $('.admin-table-record a#addRecord').parent().parent();
-
-                        $('#record-tmpl').tmpl(data).insertAfter(place);
-                        $('.admin-record-detail .detail').slideToggle(500);
-                    });
-
-                    return false;
-                });
+            $(document).ready(function () {
+                var addUrl = '/Administrator/Area/GetSchemaForAdd';
+                var editUrl = '/Administrator/Area/GetDataForEdit';
+                var adminfunc = new AdminFunction(addUrl, editUrl);
+                adminfunc.bind();
             });
 
         </script>
