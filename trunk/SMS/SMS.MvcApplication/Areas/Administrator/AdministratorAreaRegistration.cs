@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.Administrator
             context.MapRoute(
                 "Administrator_default",
                 "Administrator/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "AdminHome", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

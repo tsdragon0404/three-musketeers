@@ -44,6 +44,7 @@ function SetHeightBodySection() {
     var windowHeight = $(window).height();
     var headerHeight = $('#header').outerHeight();
     var footerHeight = $('#footer').outerHeight();
+    var menuHeight = $('#admin-menu').outerHeight();
 
-    $('#body').height(windowHeight - headerHeight - footerHeight);
+    $('#body #admin-body, #body #cashier').height(windowHeight - headerHeight - footerHeight - menuHeight);
 }
