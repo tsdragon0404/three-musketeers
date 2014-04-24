@@ -31,7 +31,7 @@
         <div class="one column">
             <table class="tbls" id="${ID}-${Table.VNName}">
                 <tr>
-                    <td><img alt="${Table.VNName}" src="${image}" /> <br /></td>
+                    <td><img alt="${Table.VNName}" src="${image}" style="height: 45px" /> <br /></td>
                 </tr>
                 <tr>
                     <td>${Table.VNName}</td>
@@ -304,8 +304,8 @@
                 url: '/Cashier/GetTablesByAreaID',
                 data: { areaID: areaID }
             }).done(function (data) {
-                if (data == 0) data.image = "Images/table-empty.png";
-                else data.image = "Images/table-avai.png";  
+                if (data == 0) data.image = "Images/IconControls/table-empty.png";
+                else data.image = "Images/IconControls/table-avai.png";  
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
         }
