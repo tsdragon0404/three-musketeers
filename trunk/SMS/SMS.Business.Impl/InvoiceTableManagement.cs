@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -33,7 +34,18 @@ namespace SMS.Business.Impl
                 Table = table,
             }));
 
-            return Mapper.Map<IList<InvoiceTableDto>>(a.ToList());
+            return Mapper.Map<IList<InvoiceTableDto>>(a.ToList().OrderBy(x => x.Table.SEQ));
+        }
+
+        public long AddNewInvoiceTable(long tableID)
+        {
+            var table = TableRepository.Get(tableID);
+
+            var entity = new InvoiceTable();
+            entity.Table = table;
+            InvoiceTableRepository.Add(entity);
+
+            return entity.ID;
         }
     }
 

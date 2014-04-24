@@ -53,6 +53,15 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
+        public JsonResult SelectNewTable(long tableID)
+        {
+            // Get items from table order
+            var product = InvoiceTableService.AddNewInvoiceTable(tableID);
+
+            return Json(product);
+        }
+
+        [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
             return Json(ProductService.GetAllProducts<ProductBasicDto>());

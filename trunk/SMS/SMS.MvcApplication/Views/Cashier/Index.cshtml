@@ -8,7 +8,7 @@
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript">
-    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
+    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct))
 </script>
 <script id="pdt-tmpl" type="text/x-jquery-tmpl">
     <tr>
@@ -29,9 +29,15 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.VNName}">
+            <table class="tbls" id="${ID}-${Table.ID}-${Table.VNName}">
                 <tr>
-                    <td><img alt="${Table.VNName}" src="${image}" style="height: 45px" /> <br /></td>
+                    <td>
+                        {{if ID > 0}}
+                        <img alt="${Table.VNName}" src="Images/IconControls/table-avai.png" style="height: 45px" />
+                        {{else}}
+                        <img alt="${Table.VNName}" src="Images/IconControls/table-empty.png" style="height: 45px" />
+                        {{/if}}
+                    </td>
                 </tr>
                 <tr>
                     <td>${Table.VNName}</td>
@@ -46,51 +52,54 @@
 </script>
 
 <style>
-#Rmenu {
-    position: fixed;
-    display: none;
-    z-index: 100;
-}
-#Rmenu{
-   width:150px;
-  list-style:none;
-  background:gray;
-  border:1px solid #faf5f7;
-}
-#Rmenu li{
-  border-top:1px solid #faf5f7;
-  position:relative;
-}
-#Rmenu li a{
-  color:green;
-  text-decoration:none;
-  display:block;
-  width:100%;height:100%;
-  text-indent:20px;
-  font-size:10px;
-  font-weight:bold;
-}
-#Rmenu li a:hover{
-  background:yellow;
-}
-#Rmenu li ul{
-  position:absolute;
-  top:0;
-  left:150px;
-  display:none;
-}
-#Rmenu>li:hover ul{
-  display:block
-}
+    .Rmenu {
+        position: fixed;
+        display: none;
+        z-index: 100;
+    }
+    .Rmenu{
+        width:150px;
+        list-style:none;
+        background:gray;
+        border:1px solid #faf5f7;
+    }
+    .Rmenu li{
+        border-top:1px solid #faf5f7;
+        position:relative;
+    }
+    .Rmenu li a{
+        color:green;
+        text-decoration:none;
+        display:block;
+        width:100%;height:100%;
+        text-indent:20px;
+        font-size:10px;
+        font-weight:bold;
+    }
+    .Rmenu li a:hover{
+        background:yellow;
+    }
+    .Rmenu li ul{
+        position:absolute;
+        top:0;
+        left:150px;
+        display:none;
+    }
+    .Rmenu>li:hover ul{
+        display:block
+    }
 </style>
-<ul id="Rmenu">
-    <li><a href="#">Chi tiết</a></li>
-    <li><a href="#">In hóa đơn</a></li>
-    <li><a href="#">Nhập bàn</a></li>
-    <li><a href="#">Tách bàn</a></li>
-    <li><a href="#">Chuyển bàn</a></li>
-    <li><a href="#">Xóa thông tin</a></li>
-</ul>
+
+<script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
+    <ul id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
+        <li><a href="#">Chi tiết</a></li>
+        <li><a href="#">In hóa đơn</a></li>
+        <li><a href="#">Nhập bàn</a></li>
+        <li><a href="#">Tách bàn</a></li>
+        <li><a href="#">Chuyển bàn</a></li>
+        <li class="RmenuDelete"><a href="Delete-${ID}-${Table.ID}">Xóa thông tin</a></li>
+    </ul>
+</script>
 
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
@@ -206,10 +215,6 @@
     @Html.Partial("_SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 
     <script type="text/javascript">
-        var $menu=$('#Rmenu');
-        var $wMenu=$menu.outerWidth();
-        var $hMenu=$menu.outerHeight();
-        
         $(document).ready(function () {
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
@@ -223,34 +228,62 @@
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
         });
+
+        //$(document).on("click", ".tbls", (function() {
+        //    alert( "Handler for .click() called." );
+        //}));
         
-        $(".tbls").click(function() {
-            alert('Item selected');
-        });
+        $(document).on("dblclick", ".tbls", (function(e) {
+            var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
+            var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
+            if(invTblId == 0) {
+                var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
+                if (didConfirm == true) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Cashier/SelectNewTable',
+                        data: { tableID: tblId }
+                    }).done(function (data) {
+                        invTblId = data.ID;
+                    });
+                }
+                else {
+                    return false;
+                }
+            }
+            onSelectTable(invTblId);
+            var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+            var id = area.split('-')[1];
+            GetTablesByAreaID(id);
+        }));
         
         //$(document).on("contextmenu", "#area-table", function(e) {
         //    return false;
         //});
         
         $(document).on("contextmenu", ".tbls", function(e){
-            var table = $(e.target);
-            alert(table.attr("id"));
-            
-            var $leftM=e.clientX, $topM=e.clientY;
-            var $rightM=$(window).width()-$leftM;
+            var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
+            var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
+            var $menu = $('#Rmenu-' + invTblId + '-' + tblId);
+            var $wMenu = $menu.outerWidth();
+            var $hMenu = $menu.outerHeight();
+            var $leftM = e.clientX, $topM = e.clientY;
+            var $rightM = $(window).width() - $leftM;
       
-            var $bottomM=$(window).height()-$topM;
+            var $bottomM = $(window).height()-$topM;
             if($rightM < $wMenu){
-                $leftM-=$wMenu;
+                $leftM -= $wMenu;
             }
             if($bottomM < $hMenu){
-                $topM-=$hMenu;
+                $topM -= $hMenu;
             }
             $menu.css({left: $leftM, top: $topM, display:'block'});
             e.preventDefault();
-        }).click(function(){
-            $menu.hide();
         });
+        
+        //$(document).click(function() {
+        //    $menu.hide();
+        //});
 
         function onSelectTable(invTblId) {
             $.ajax({
@@ -304,9 +337,10 @@
                 url: '/Cashier/GetTablesByAreaID',
                 data: { areaID: areaID }
             }).done(function (data) {
-                if (data == 0) data.image = "Images/IconControls/table-empty.png";
-                else data.image = "Images/IconControls/table-avai.png";  
+                $('#area-' + areaID).html('');
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
+                
+                //$('#Rmenu-tmpl').tmpl(data).appendTo('#body');
             });
         }
         

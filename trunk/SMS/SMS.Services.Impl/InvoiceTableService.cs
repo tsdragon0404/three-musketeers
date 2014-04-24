@@ -21,5 +21,10 @@ namespace SMS.Services.Impl
         {
             return InvoiceTableManagement.GetTablesAreaID(areaID);
         }
+
+        public long AddNewInvoiceTable(long tableID)
+        {
+            return InvoiceTableManagement.AddNewInvoiceTable(tableID);
+        }
     }
 }
