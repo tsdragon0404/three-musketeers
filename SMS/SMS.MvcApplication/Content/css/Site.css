@@ -46,17 +46,16 @@
     width: 85%;
     float: right;
     border-left: 1px solid #ddd;
-    overflow: auto;
 }
 
 #cashier {
-    min-height: 450px;
+    overflow: auto;
 }
 
-#tablelist {
+#area-table {
     bottom: 60%;
     margin-bottom: 3px;
-    min-height: 135px;
+    min-height: 150px;
 }
 
 .split-pane-divider {
@@ -71,7 +70,7 @@
 
 #tableorder {
     height: 60%;
-    min-height: 100px;
+    min-height: 150px;
 }
 
 #order .col1 {
@@ -148,4 +147,8 @@
 
 label.ui-state-error {
     display: none !important;
+}
+
+#admin-body {
+    overflow: auto;
 }
