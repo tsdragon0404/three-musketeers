@@ -6,5 +6,6 @@ namespace SMS.Business
     public interface IInvoiceTableManagement
     {
         IList<InvoiceTableDto> GetAllInvoiceTables();
+        IList<InvoiceTableDto> GetTablesAreaID(long areaID);
     }
 }

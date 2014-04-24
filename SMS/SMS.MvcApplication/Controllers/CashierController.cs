@@ -14,6 +14,7 @@ namespace SMS.MvcApplication.Controllers
         public virtual IAreaService AreaService { get; set; }
         public virtual ITableService TableService { get; set; }
         public virtual IProductService ProductService { get; set; }
+        public virtual IInvoiceTableService InvoiceTableService { get; set; }
 
         #endregion
 
@@ -62,7 +63,7 @@ namespace SMS.MvcApplication.Controllers
         {
             return Json(new
                             {
-                                ListTable = TableService.GetTablesByAreaID(areaID)
+                                ListTable = InvoiceTableService.GetTablesAreaID(areaID)
                             });
         }
     }
