@@ -41,14 +41,6 @@
                 </div>
             </div>
         </td>
-        @*<td>${VNName}</td>
-        <td class="right">${Quantity}</td>
-        <td>${Unit.VNName}</td>
-        <td class="right">${Price}</td>
-        <td class="right item_subtotal">${Price * Quantity}</td>
-        <td>
-            <input type="text" name="remarks${No}" class="remarksInput" /></td>
-        <td class="center"><a href="#" id="del-${ID}">X</a></td>*@
     </tr>
 </script>
 <div id="admin-body">
@@ -93,7 +85,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6">+</td>
+                    <td colspan="6"><a href="#" id="addRecord">+</a></td>
                 </tr>
             </tfoot>
         </table>
@@ -108,28 +100,49 @@
                         return false;
                     }
 
-                    $('.admin-record-detail .detail').slideToggle(500, function () {
-                        $(this).parent().parent().remove();
-                    });
-
                     var id = $(this).siblings('input[name^="id"]').val();
                     $.ajax({
                         type: 'POST',
                         url: '/Administrator/Area/GetDataForEdit',
                         data: { recordID: id }
                     }).done(function (data) {
+                        $('.admin-record-detail .detail').slideToggle(500, function () {
+                            $(this).parent().parent().remove();
+                        });
+
                         var clientId = $('.admin-list-record input[name^="id-' + data.ID + '"]');
                         if (clientId.length == 0 || clientId.val() != data.ID)
                             return;
 
                         var record = clientId.parent().parent();
-                        //record.after('<tr colsplan="6"></tr>');
-                        //$('#order .tbContent').html('');
-                        //$(data).each(function (idx) {
-                        //    data[idx].idx = idx + 1;
-                        //});
 
                         $('#record-tmpl').tmpl(data).insertAfter(record);
+                        $('.admin-record-detail .detail').slideToggle(500);
+                    });
+
+                    return false;
+                });
+
+                $('.admin-table-record a#addRecord').click(function () {
+                    var record = $(this).parent().parent();
+                    if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
+                        record.next().find('div.detail').slideToggle(500, function() {
+                            record.next().remove();
+                        });
+                        return false;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Administrator/Area/GetSchemaForAdd',
+                    }).done(function (data) {
+                        $('.admin-record-detail .detail').slideToggle(500, function () {
+                            $(this).parent().parent().remove();
+                        });
+
+                        var place = $('.admin-table-record a#addRecord').parent().parent();
+
+                        $('#record-tmpl').tmpl(data).insertAfter(place);
                         $('.admin-record-detail .detail').slideToggle(500);
                     });
 
