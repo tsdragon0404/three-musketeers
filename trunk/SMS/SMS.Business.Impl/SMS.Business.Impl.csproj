@@ -75,6 +75,10 @@
       <Project>{4D5C44C9-7B29-47C5-940F-81063CB328E8}</Project>
       <Name>SMS.Data.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SMS.Data.Impl\SMS.Data.Impl.csproj">
+      <Project>{19ED682C-F7D9-4935-9FAE-3A761B97586C}</Project>
+      <Name>SMS.Data.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Data\SMS.Data.csproj">
       <Project>{FEEE297F-5CD9-4E98-A515-17B5FCF9BED9}</Project>
       <Name>SMS.Data</Name>

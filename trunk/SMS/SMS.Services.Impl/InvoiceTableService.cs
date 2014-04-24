@@ -16,5 +16,10 @@ namespace SMS.Services.Impl
         {
             return InvoiceTableManagement.GetAllInvoiceTables();
         }
+
+        public IList<InvoiceTableDto> GetTablesAreaID(long areaID)
+        {
+            return InvoiceTableManagement.GetTablesAreaID(areaID);
+        }
     }
 }

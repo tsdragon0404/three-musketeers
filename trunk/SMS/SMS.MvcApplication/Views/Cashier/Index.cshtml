@@ -29,12 +29,12 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table>
+            <table class="tbls">
                 <tr>
-                    <td><img id="${ID}" alt="${VNName}" src="Images\IconControls\table-avai.png" class="tbls" /><br /></td>
+                    <td><img id="${ID}" alt="${VNName}" src="${image}" /><br /></td>
                 </tr>
                 <tr>
-                    <td>${VNName}</td>
+                    <td>${Table.VNName}</td>
                 </tr>
             </table>
         </div>
@@ -271,6 +271,15 @@
                 url: '/Cashier/GetTablesByAreaID',
                 data: { areaID: areaID }
             }).done(function (data) {
+                //$(data).each(function(idx) {
+                //    if (data[ID] == 0) data[idx].image = "Images\IconControls\table-empty.png";
+                //    else data[idx].image = "Images\IconControls\table-avai.png";
+                //});
+                for (i = 0; i < data.length; i++)
+                {
+                    if (data[ID] == 0) data[i].image = "Images\IconControls\table-empty.png";
+                    else data[i].image = "Images\IconControls\table-avai.png";    
+                }
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
         }
