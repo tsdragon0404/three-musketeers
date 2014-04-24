@@ -31,7 +31,7 @@
         <div class="one column">
             <table class="tbls">
                 <tr>
-                    <td><img id="${ID}" alt="${VNName}" src="${image}" /><br /></td>
+                    <td><img id="${ID}" alt="${Table.VNName}" src="${image}" /> <br /></td>
                 </tr>
                 <tr>
                     <td>${Table.VNName}</td>
@@ -50,6 +50,38 @@
     position: fixed;
     display: none;
     z-index: 100;
+}
+#Rmenu{
+   width:150px;
+  list-style:none;
+  background:gray;
+  border:1px solid #faf5f7;
+}
+#Rmenu li{
+  border-top:1px solid #faf5f7;
+  position:relative;
+}
+#Rmenu li a{
+  color:green;
+  text-decoration:none;
+  text-transform:uppercase;
+  display:block;
+  width:100%;height:100%;
+  text-indent:20px;
+  font-size:10px;
+  font-weight:bold;
+}
+#Rmenu li a:hover{
+  background:yellow;
+}
+#Rmenu li ul{
+  position:absolute;
+  top:0;
+  left:150px;
+  display:none;
+}
+#Rmenu>li:hover ul{
+  display:block
 }
 </style>
 <ul id="Rmenu">
@@ -275,11 +307,15 @@
                 //    if (data[ID] == 0) data[idx].image = "Images\IconControls\table-empty.png";
                 //    else data[idx].image = "Images\IconControls\table-avai.png";
                 //});
-                for (i = 0; i < data.length; i++)
-                {
-                    if (data[ID] == 0) data[i].image = "Images\IconControls\table-empty.png";
-                    else data[i].image = "Images\IconControls\table-avai.png";    
-                }
+                
+                if (data == 0) data.image = "Images/table-empty.png";
+                else data.image = "Images/table-avai.png";  
+
+                //for (j = 0; j < data.length; j++)
+                //{
+                //    if (data[j].ID == 0) data[j].image = "Images\IconControls\table-empty.png";
+                //    else data[j].image = "Images\IconControls\table-avai.png";    
+                //}
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
             });
         }
