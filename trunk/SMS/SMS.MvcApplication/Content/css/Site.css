@@ -156,3 +156,71 @@ label.ui-state-error {
 .admin-record-detail td {
     padding: 0px;
 }
+
+.tbContentLookup tr:hover {
+    background-color: #F4CD9A;
+}
+
+.Rmenu {
+    position: fixed;
+    display: none;
+    z-index: 100;
+    width:150px;
+    list-style:none;
+    background:white;
+    border: 1px solid #7298D0;
+}
+.Rmenu tr td{
+    position:relative;
+}
+
+.Rmenu tr td:first-child {
+    padding: 2px;
+    background-color: #EBFEF4;
+}
+
+.Rmenu tr td:hover {
+    cursor: pointer;
+}
+
+.Rmenu tr td div {
+    height: 24px;
+    width: 24px;
+    background-repeat: no-repeat;
+}
+
+.RmenuItem {
+    width: 126px;
+    padding: 0px 0px 0px 5px;
+}
+
+.RmenuItem:hover {
+    background-color: #DCDCDC;
+}
+
+.tbls {
+    padding: 0px;
+}
+
+.tbls:hover {
+    background-color: #F5F5F5;
+}
+
+.tbls tr td {
+    padding: 0px
+}
+
+.tbls tr:first-child td:first-child {
+    height: 56px;
+    width: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tbls tr td:first-child {
+    text-align: center;
+}
+
+#addProduct:hover {
+    cursor: pointer
+}
