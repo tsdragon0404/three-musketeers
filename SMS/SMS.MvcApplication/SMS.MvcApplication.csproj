@@ -673,8 +673,15 @@
     <Content Include="Areas\Administrator\Views\Table\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\AdminHome\Index.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\IconControls\add-icon.png" />
+    <Content Include="Images\IconControls\delete-icon.png" />
+    <Content Include="Images\IconControls\details-icon.png" />
+    <Content Include="Images\IconControls\move-icon.png" />
+    <Content Include="Images\IconControls\new-icon.png" />
+    <Content Include="Images\IconControls\product-add-icon.png" />
     <Content Include="Images\IconControls\table-avai.png" />
     <Content Include="Images\IconControls\table-empty.png" />
+    <Content Include="Images\IconControls\table.png" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\global.js" />
