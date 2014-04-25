@@ -52,54 +52,73 @@
 </script>
 
 <style>
+    .tbls:hover {
+        background-color: #F5F5F5;
+    }
+
     .Rmenu {
         position: fixed;
         display: none;
         z-index: 100;
-    }
-    .Rmenu{
         width:150px;
         list-style:none;
-        background:gray;
-        border:1px solid #faf5f7;
+        background:white;
+        border: 1px solid #7298D0;
     }
-    .Rmenu li{
-        border-top:1px solid #faf5f7;
+    .Rmenu tr td{
         position:relative;
     }
-    .Rmenu li a{
-        color:green;
-        text-decoration:none;
-        display:block;
-        width:100%;height:100%;
-        text-indent:20px;
-        font-size:10px;
-        font-weight:bold;
+
+    .Rmenu tr td:first-child {
+        padding: 2px;
+        background-color: #EBFEF4;
     }
-    .Rmenu li a:hover{
-        background:yellow;
+
+    .Rmenu tr td:hover {
+        cursor: pointer;
     }
-    .Rmenu li ul{
-        position:absolute;
-        top:0;
-        left:150px;
-        display:none;
-    }
-    .Rmenu>li:hover ul{
-        display:block
-    }
+
+     .Rmenu tr td div {
+         height: 24px;
+         width: 24px;
+         background-repeat: no-repeat;
+     }
+
+     .RmenuItem {
+         width: 126px;
+         padding: 0px 0px 0px 5px;
+     }
+
+     .RmenuItem:hover {
+         background-color: #DCDCDC;
+     }
+    
 </style>
 
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
-    <ul id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
-        <li><a href="#" id="SelectNew-${ID}-${Table.ID}" onclick="onSelectNewTable(${Table.ID})">Sử dụng ngay</a></li>
-        <li><a href="#">In hóa đơn</a></li>
-        <li><a href="#">Nhập bàn</a></li>
-        <li><a href="#">Tách bàn</a></li>
-        <li><a href="#">Chuyển bàn</a></li>
-        <li class="RmenuDelete"><a href="#" id="Delete-${ID}-${Table.ID}" onclick="onClearInvoiceTable(${ID})">Xóa thông tin</a></li>
-    </ul>
+
+    <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
+        <tr onclick="onSelectNewTable(${Table.ID})">
+            <td>
+                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+            </td>
+            <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}">Sử dụng ngay</td>
+        </tr>
+        <tr onclick="onMoveInvoiceTable(${ID})">
+            <td>
+                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+            </td>
+            <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
+        </tr>
+        <tr onclick="onClearInvoiceTable(${ID})">
+            <td>
+                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+            </td>
+            <td class="RmenuItem" id="Delete-${ID}-${Table.ID}">Xóa thông tin</td>
+        </tr>
+    </table>
+
     {{/each}}
 </script>
 
@@ -233,21 +252,33 @@
         });
 
         function onClearInvoiceTable(invTblId) {
-            $.ajax({
-                type: 'POST',
-                url: '/Cashier/DeleteInvoiceTable',
-                data: { invoiceTableID: invTblId }
-            }).done(function (data) {
-                if (data == true)
-                    alert('Susscess');
-                else
-                    alert('Fail');
-                        
-                var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
-                var areaId = area.split('-')[1];
-                GetTablesByAreaID(areaId);
-                $("#addProduct").hide();
-            });
+            if (invTblId > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cashier/DeleteInvoiceTable',
+                    data: { invoiceTableID: invTblId }
+                }).done(function(data) {
+                    if (data == true)
+                        alert('Susscess');
+                    else
+                        alert('Fail');
+
+                    var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+                    var areaId = area.split('-')[1];
+                    GetTablesByAreaID(areaId);
+                    $("#addProduct").hide();
+                });
+            } else {
+                return false;
+            }
+        }
+
+        function onMoveInvoiceTable(invTblId) {
+            if (invTblId > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         //$(document).on("click", ".tbls", (function() {
@@ -274,6 +305,7 @@
         //});
         
         $(document).on("contextmenu", ".tbls", function(e){
+            $(e.target).parents('.tbls').css('background-color', 'gainsboro');
             var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
             var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
             var $menu = $('#Rmenu-' + invTblId + '-' + tblId);
@@ -294,7 +326,8 @@
         });
         
         $(document).click(function() {
-            $("ul[id*=Rmenu-]").hide();
+            $("table[id*=Rmenu-]").hide();
+            $(".tbls").css('background-color', '');
         });
 
         function onSelectTable(invTblId) {
