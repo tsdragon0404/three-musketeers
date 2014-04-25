@@ -91,14 +91,16 @@
 </style>
 
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) ListTable}}
     <ul id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
-        <li><a href="#">Chi tiết</a></li>
+        <li><a href="#" id="SelectNew-${ID}-${Table.ID}" onclick="onSelectNewTable(${Table.ID})">Sử dụng ngay</a></li>
         <li><a href="#">In hóa đơn</a></li>
         <li><a href="#">Nhập bàn</a></li>
         <li><a href="#">Tách bàn</a></li>
         <li><a href="#">Chuyển bàn</a></li>
-        <li class="RmenuDelete"><a href="Delete-${ID}-${Table.ID}">Xóa thông tin</a></li>
+        <li class="RmenuDelete"><a href="#" id="Delete-${ID}-${Table.ID}" onclick="onClearInvoiceTable(${ID})">Xóa thông tin</a></li>
     </ul>
+    {{/each}}
 </script>
 
 <div id="cashier" class="split-pane horizontal-percent">
@@ -106,7 +108,7 @@
         <ul id="areas">
             @foreach (var areaDto in Model.ListArea)
             {
-                <li><a href="#area-@areaDto.ID">@areaDto.VNName</a></li>
+                <li><a href="#area-@areaDto.ID" onclick="GetTablesByAreaID(@areaDto.ID)">@areaDto.VNName</a></li>
             }
 
         </ul>
@@ -218,6 +220,7 @@
         $(document).ready(function () {
             $('div.split-pane').splitPane();
             $('#area-table').tabs();
+            $("#addProduct").hide();
             $("#addProduct").click(function () {
                 var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct, onDeleteProduct);
                 product.OpenPopup();
@@ -229,6 +232,24 @@
             GetTablesByAreaID(id);
         });
 
+        function onClearInvoiceTable(invTblId) {
+            $.ajax({
+                type: 'POST',
+                url: '/Cashier/DeleteInvoiceTable',
+                data: { invoiceTableID: invTblId }
+            }).done(function (data) {
+                if (data == true)
+                    alert('Susscess');
+                else
+                    alert('Fail');
+                        
+                var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+                var areaId = area.split('-')[1];
+                GetTablesByAreaID(areaId);
+                $("#addProduct").hide();
+            });
+        }
+
         //$(document).on("click", ".tbls", (function() {
         //    alert( "Handler for .click() called." );
         //}));
@@ -239,22 +260,13 @@
             if(invTblId == 0) {
                 var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
                 if (didConfirm == true) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Cashier/SelectNewTable',
-                        data: { tableID: tblId }
-                    }).done(function (data) {
-                        invTblId = data.ID;
-                    });
+                    invTblId = onSelectNewTable(tblId);
                 }
                 else {
                     return false;
                 }
             }
             onSelectTable(invTblId);
-            var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
-            var id = area.split('-')[1];
-            GetTablesByAreaID(id);
         }));
         
         //$(document).on("contextmenu", "#area-table", function(e) {
@@ -281,9 +293,9 @@
             e.preventDefault();
         });
         
-        //$(document).click(function() {
-        //    $menu.hide();
-        //});
+        $(document).click(function() {
+            $("ul[id*=Rmenu-]").hide();
+        });
 
         function onSelectTable(invTblId) {
             $.ajax({
@@ -299,6 +311,24 @@
                 $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
                 CalculateTotal();
             });
+            $("#addProduct").show();
+        }
+        
+        function onSelectNewTable(tblId) {
+            var invTblId = 0;
+            $.ajax({
+                type: 'POST',
+                url: '/Cashier/SelectNewTable',
+                data: { tableID: tblId }
+            }).done(function (data) {
+                invTblId = data.ID;
+                        
+                var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+                var id = area.split('-')[1];
+                GetTablesByAreaID(id);
+            });
+            $("#addProduct").show();
+            return invTblId;
         }
 
         function onRefreshProduct(reloadCallback) {
@@ -328,7 +358,7 @@
         }
 
         function onDeleteProduct(pdtId) {
-            
+            return false;
         }
 
         function GetTablesByAreaID(areaID) {
@@ -339,8 +369,7 @@
             }).done(function (data) {
                 $('#area-' + areaID).html('');
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
-                
-                //$('#Rmenu-tmpl').tmpl(data).appendTo('#body');
+                $('#Rmenu-tmpl').tmpl(data).appendTo('#body');
             });
         }
         

@@ -14,6 +14,7 @@ namespace SMS.Business.Impl
 
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
         public virtual ITableRepository TableRepository { get; set; }
+        public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
 
         #endregion
 
@@ -41,11 +42,21 @@ namespace SMS.Business.Impl
         {
             var table = TableRepository.Get(tableID);
 
-            var entity = new InvoiceTable();
-            entity.Table = table;
-            InvoiceTableRepository.Add(entity);
+            var invoiceTable = new InvoiceTable { Table = table };
+            InvoiceTableRepository.Add(invoiceTable);
 
-            return entity.ID;
+            return invoiceTable.ID;
+        }
+
+        public bool DeleteInvoiceTable(long invoiceTableID)
+        {
+            var invoiceDetail = InvoiceDetailRepository.Find(x => x.InvoiceTable.ID == invoiceTableID).ToList();
+            foreach (InvoiceDetail t in invoiceDetail)
+            {
+                InvoiceDetailRepository.Delete(t);
+            }
+            
+            return InvoiceTableRepository.Delete(invoiceTableID);
         }
     }
 

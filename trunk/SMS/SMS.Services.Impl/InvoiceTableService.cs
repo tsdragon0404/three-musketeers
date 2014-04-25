@@ -26,5 +26,10 @@ namespace SMS.Services.Impl
         {
             return InvoiceTableManagement.AddNewInvoiceTable(tableID);
         }
+
+        public bool DeleteInvoiceTable(long invoiceTableID)
+        {
+            return InvoiceTableManagement.DeleteInvoiceTable(invoiceTableID);
+        }
     }
 }

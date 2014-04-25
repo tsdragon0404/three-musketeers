@@ -8,5 +8,6 @@ namespace SMS.Services
         IList<InvoiceTableDto> GetAllInvoiceTables();
         IList<InvoiceTableDto> GetTablesAreaID(long areaID);
         long AddNewInvoiceTable(long tableID);
+        bool DeleteInvoiceTable(long invoiceTableID);
     }
 }
