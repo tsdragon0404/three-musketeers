@@ -31,12 +31,11 @@
         <div class="one column">
             <table class="tbls" id="${ID}-${Table.ID}-${Table.VNName}">
                 <tr>
-                    <td>
-                        {{if ID > 0}}
-                        <img alt="${Table.VNName}" src="Images/IconControls/table-avai.png" style="height: 45px" />
-                        {{else}}
-                        <img alt="${Table.VNName}" src="Images/IconControls/table-empty.png" style="height: 45px" />
-                        {{/if}}
+                    {{if ID > 0}}
+                    <td style="background-image: url(../Images/IconControls/table-avai.png)">
+                    {{else}}
+                    <td style="background-image: url(../Images/IconControls/table-empty.png)">
+                    {{/if}}
                     </td>
                 </tr>
                 <tr>
@@ -51,74 +50,35 @@
     {{/each}}
 </script>
 
-<style>
-    .tbls:hover {
-        background-color: #F5F5F5;
-    }
-
-    .Rmenu {
-        position: fixed;
-        display: none;
-        z-index: 100;
-        width:150px;
-        list-style:none;
-        background:white;
-        border: 1px solid #7298D0;
-    }
-    .Rmenu tr td{
-        position:relative;
-    }
-
-    .Rmenu tr td:first-child {
-        padding: 2px;
-        background-color: #EBFEF4;
-    }
-
-    .Rmenu tr td:hover {
-        cursor: pointer;
-    }
-
-     .Rmenu tr td div {
-         height: 24px;
-         width: 24px;
-         background-repeat: no-repeat;
-     }
-
-     .RmenuItem {
-         width: 126px;
-         padding: 0px 0px 0px 5px;
-     }
-
-     .RmenuItem:hover {
-         background-color: #DCDCDC;
-     }
-    
-</style>
-
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
 
     <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
+        <tr onclick="onSelectTable(${ID})">
+            <td>
+                <div style="background-image: url(../Images/IconControls/details-icon.png)"></div>
+            </td>
+            <td class="RmenuItem" id="Select-${ID}-${Table.ID}">Chi tiết</td>
+        </tr>
         <tr onclick="onSelectNewTable(${Table.ID})">
             <td>
-                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+                <div style="background-image: url(../Images/IconControls/add-icon.png)"></div>
             </td>
             <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}">Sử dụng ngay</td>
         </tr>
         <tr onclick="onMoveInvoiceTable(${ID})">
             <td>
-                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+                <div style="background-image: url(../Images/IconControls/move-icon.png)"></div>
             </td>
             <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
         </tr>
         <tr onclick="onClearInvoiceTable(${ID})">
             <td>
-                <div style="background-image: url(../Images/IconControls/new-icon.png)"></div>
+                <div style="background-image: url(../Images/IconControls/delete-icon.png)"></div>
             </td>
             <td class="RmenuItem" id="Delete-${ID}-${Table.ID}">Xóa thông tin</td>
         </tr>
     </table>
-
     {{/each}}
 </script>
 
@@ -172,43 +132,11 @@
                     </tr>
                 </thead>
                 <tbody class="tbContent">
-                    @*<tr>
-                        <td>1</td>
-                        <td>Cơm gà</td>
-                        <td class="right">1</td>
-                        <td>Đĩa</td>
-                        <td class="right">20.000</td>
-                        <td class="right">20.000</td>
-                        <td>
-                            <input type="text" name="remarks1" class="remarksInput" /></td>
-                        <td class="center">X</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Lẩu bò</td>
-                        <td class="right">1</td>
-                        <td>Cái</td>
-                        <td class="right">120.000</td>
-                        <td class="right">120.000</td>
-                        <td>
-                            <input type="text" name="remarks2" class="remarksInput" /></td>
-                        <td class="center">X</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Đũa</td>
-                        <td class="right">3</td>
-                        <td>Đôi</td>
-                        <td class="right">5.000</td>
-                        <td class="right">15.000</td>
-                        <td>
-                            <input type="text" name="remarks3" class="remarksInput" /></td>
-                        <td class="center">X</td>
-                    </tr>*@
+                    
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8"><a href="#" id="addProduct">+</a></td>
+                        <td colspan="8"><img id="addProduct" alt="Thêm món" src="Images/IconControls/product-add-icon.png"/></td>
                     </tr>
                 </tfoot>
             </table>
@@ -218,11 +146,11 @@
                 <div class="two columns push_eight right">Total:</div>
                 <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
             </div>
-            <div class="row">
+            <div class="row" id="ServiceFree">
                 <div class="two columns push_eight right">Service Fee:</div>
                 <div class="two columns right"><span class="fee">0</span> VNĐ</div>
             </div>
-            <div class="row">
+            <div class="row" id="Tax-">
                 <div class="two columns push_eight right">Tax (10%):</div>
                 <div class="two columns right"><span class="tax">0</span> VNĐ</div>
             </div>
@@ -232,6 +160,8 @@
             </div>
         </div>
     </div>
+    
+    <div id="rightMenuArea"></div>
 
     @Html.Partial("_SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 
@@ -252,8 +182,10 @@
         });
 
         function onClearInvoiceTable(invTblId) {
-            if (invTblId > 0) {
-                $.ajax({
+            if (invTblId <= 0) {
+                return false;
+            }
+            $.ajax({
                     type: 'POST',
                     url: '/Cashier/DeleteInvoiceTable',
                     data: { invoiceTableID: invTblId }
@@ -266,24 +198,14 @@
                     var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
                     var areaId = area.split('-')[1];
                     GetTablesByAreaID(areaId);
-                    $("#addProduct").hide();
                 });
-            } else {
-                return false;
-            }
         }
 
         function onMoveInvoiceTable(invTblId) {
-            if (invTblId > 0) {
-                return true;
-            } else {
+            if (invTblId <= 0) {
                 return false;
             }
         }
-
-        //$(document).on("click", ".tbls", (function() {
-        //    alert( "Handler for .click() called." );
-        //}));
         
         $(document).on("dblclick", ".tbls", (function(e) {
             var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
@@ -291,20 +213,22 @@
             if(invTblId == 0) {
                 var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
                 if (didConfirm == true) {
-                    invTblId = onSelectNewTable(tblId);
+                    onSelectNewTable(tblId);
                 }
                 else {
                     return false;
                 }
+            } else {
+                onSelectTable(invTblId);
             }
-            onSelectTable(invTblId);
         }));
         
-        //$(document).on("contextmenu", "#area-table", function(e) {
-        //    return false;
-        //});
+        $(document).on("contextmenu", "#area-table", function(e) {
+            return false;
+        });
         
         $(document).on("contextmenu", ".tbls", function(e){
+            $("table[id*=Rmenu-]").hide();
             $(e.target).parents('.tbls').css('background-color', 'gainsboro');
             var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
             var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
@@ -331,6 +255,9 @@
         });
 
         function onSelectTable(invTblId) {
+            if (invTblId <= 0) {
+                return false;
+            }
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/SelectTable',
@@ -348,6 +275,9 @@
         }
         
         function onSelectNewTable(tblId) {
+            if (tblId <= 0) {
+                return false;
+            }
             var invTblId = 0;
             $.ajax({
                 type: 'POST',
@@ -355,13 +285,12 @@
                 data: { tableID: tblId }
             }).done(function (data) {
                 invTblId = data.ID;
-                        
+                onSelectTable(invTblId);
                 var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
                 var id = area.split('-')[1];
                 GetTablesByAreaID(id);
             });
             $("#addProduct").show();
-            return invTblId;
         }
 
         function onRefreshProduct(reloadCallback) {
@@ -395,14 +324,18 @@
         }
 
         function GetTablesByAreaID(areaID) {
+            if (areaID <= 0) {
+                return false;
+            }
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/GetTablesByAreaID',
                 data: { areaID: areaID }
             }).done(function (data) {
                 $('#area-' + areaID).html('');
+                $('#rightMenuArea').html('');
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
-                $('#Rmenu-tmpl').tmpl(data).appendTo('#body');
+                $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
             });
         }
         
