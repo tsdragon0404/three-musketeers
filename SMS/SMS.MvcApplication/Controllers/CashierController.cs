@@ -53,6 +53,14 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
+        public JsonResult DeleteInvoiceTable(long invoiceTableID)
+        {
+            bool flag = InvoiceTableService.DeleteInvoiceTable(invoiceTableID);
+
+            return Json(flag);
+        }
+
+        [HttpPost]
         public JsonResult SelectNewTable(long tableID)
         {
             // Get items from table order
