@@ -52,8 +52,12 @@
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
 
-    <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
-        <tr onclick="onSelectTable(${ID})">
+    <table id="Rmenu-${ID}-${Table.ID}-${Table.VNName}" class="Rmenu">
+        {{if ID > 0}}
+        <tr onclick="onSelectTable(${ID}, '${Table.VNName}')">
+        {{else}}
+        <tr class="RmenuDisable" >    
+            {{/if}}
             <td>
                 <div style="background-image: url(../Images/IconControls/details-icon.png)"></div>
             </td>
@@ -71,7 +75,11 @@
             </td>
             <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
         </tr>
+        {{if ID > 0}}
         <tr onclick="onClearInvoiceTable(${ID})">
+            {{else}}
+        <tr class="RmenuDisable">    
+            {{/if}}
             <td>
                 <div style="background-image: url(../Images/IconControls/delete-icon.png)"></div>
             </td>
@@ -103,7 +111,7 @@
 
     <div id="tableorder" class="split-pane-component">
         <div class="row">
-            <div class="two columns">Table name</div>
+            <div class="two columns" id="currentTblName">Table name</div>
             <div class="four columns">User: Son Nguyen. Date: 11/04/2014 18:00</div>
         </div>
         <div class="row">
@@ -135,7 +143,9 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8"><img id="addProduct" alt="Thêm món" src="Images/IconControls/product-add-icon.png"/></td>
+                        <td colspan="8">
+                            <a id="addProduct" href="#" class="myButton">Chọn món</a>
+                        </td>
                     </tr>
                 </tfoot>
             </table>
@@ -174,17 +184,19 @@
                 product.OpenPopup();
                 return false;
             });
+
+            onRefeshTable();
             
+            setInterval(function() {
+                onRefeshTable();
+            }, 60000);
+        });
+        
+        function onRefeshTable() {
             var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
-            
-            setInterval(function() {
-                area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
-                id = area.split('-')[1];
-                GetTablesByAreaID(id);
-            }, 60000);
-        });
+        }
 
         function onClearInvoiceTable(invTblId) {
             if (invTblId <= 0) {
@@ -200,9 +212,7 @@
                     else
                         alert('Fail');
 
-                    var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
-                    var areaId = area.split('-')[1];
-                    GetTablesByAreaID(areaId);
+                    onRefeshTable();
                 });
         }
 
@@ -213,8 +223,10 @@
         }
         
         $(document).on("dblclick", ".tbls", (function(e) {
-            var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
-            var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
+            var id = $(e.target).parents('.tbls').attr('id');
+            var invTblId = id.split('-')[0];
+            var tblId = id.split('-')[1];
+            var tblName = id.substr((invTblId + '-' + tblId + '-').length, id.length);
             if(invTblId == 0) {
                 var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
                 if (didConfirm == true) {
@@ -224,7 +236,7 @@
                     return false;
                 }
             } else {
-                onSelectTable(invTblId);
+                onSelectTable(invTblId, tblName);
             }
         }));
         
@@ -235,9 +247,7 @@
         $(document).on("contextmenu", ".tbls", function(e){
             $("table[id*=Rmenu-]").hide();
             $(e.target).parents('.tbls').css('background-color', 'gainsboro');
-            var invTblId = $(e.target).parents('.tbls').attr('id').split('-')[0];
-            var tblId = $(e.target).parents('.tbls').attr('id').split('-')[1];
-            var $menu = $('#Rmenu-' + invTblId + '-' + tblId);
+            var $menu = $('#Rmenu-' + $(e.target).parents('.tbls').attr('id'));
             var $wMenu = $menu.outerWidth();
             var $hMenu = $menu.outerHeight();
             var $leftM = e.clientX, $topM = e.clientY;
@@ -259,13 +269,14 @@
             $(".tbls").css('background-color', '');
         });
 
-        function onSelectTable(invTblId) {
+        function onSelectTable(invTblId, tblName) {
             if (invTblId <= 0) {
                 return false;
             }
+            $('#currentTblName').text('Table name: ' + tblName);
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectTable',
+                url: '/Cashier/SelectTableDetail',
                 data: { invoiceTableID: invTblId }
             }).done(function (data) {
                 $('#order .tbContent').html('');
@@ -291,9 +302,7 @@
             }).done(function (data) {
                 invTblId = data.ID;
                 onSelectTable(invTblId);
-                var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
-                var id = area.split('-')[1];
-                GetTablesByAreaID(id);
+                onRefeshTable();
             });
             $("#addProduct").show();
         }
@@ -349,12 +358,13 @@
             $('#order .tbContent tr').each(function (idx, element) {
                 totalAmount += parseInt($(element).find('td.item_subtotal').text());
             });
-            $('#totalSection .total_amount').text(totalAmount);
+
+            $('#totalSection .total_amount').text(Number(totalAmount).toLocaleString('en'));
             
             var tax = totalAmount / 10;
-            $('#totalSection .tax').text(tax);
+            $('#totalSection .tax').text(Number(tax).toLocaleString('en'));
             
-            $('#totalSection .total_money').text(totalAmount + tax);
+            $('#totalSection .total_money').text(Number(totalAmount + tax).toLocaleString('en'));
         }
     </script>
 </div>

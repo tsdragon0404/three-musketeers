@@ -42,7 +42,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult SelectTable(long invoiceTableID)
+        public JsonResult SelectTableDetail(long invoiceTableID)
         {
             if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
 
