@@ -4,27 +4,26 @@ using Core.Common;
 using SMS.Data;
 using AutoMapper;
 using SMS.Data.Dtos;
+using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class ProductManagement : IProductManagement
+    public class ProductManagement : BaseManagement<ProductDto, Product, long, IProductRepository>, IProductManagement
     {
         #region Fields
 
-        public virtual IProductRepository ProductRepository { get; set; }
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
-        public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
 
         #endregion
 
-        public IList<TProductDto> GetAllProducts<TProductDto>()
+        public IList<TProductDto> GetAll<TProductDto>()
         {
-            return Mapper.Map<IList<TProductDto>>(ProductRepository.GetAll().ToList());
+            return Mapper.Map<IList<TProductDto>>(Repository.GetAll().ToList());
         }
 
-        public TProductDto GetProductByID<TProductDto>(long id)
+        public TProductDto GetByID<TProductDto>(long id)
         {
-            return Mapper.Map<TProductDto>(ProductRepository.Get(id));
+            return Mapper.Map<TProductDto>(Repository.Get(id));
         }
 
         public IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
@@ -32,7 +31,7 @@ namespace SMS.Business.Impl
             var invoiceTable = InvoiceTableRepository.Get(invoiceTableID);
             var productCodes = invoiceTable.InvoiceDetails.Select(x => x.ProductCode).ToList();
             
-            var products = ProductRepository.Find(x => productCodes.Contains(x.ProductCode));
+            var products = Repository.Find(x => productCodes.Contains(x.ProductCode));
             var returnValue = Mapper.Map<IList<ProductBasicDto>>(products.ToList());
 
             returnValue.Apply(x => x.Quantity =

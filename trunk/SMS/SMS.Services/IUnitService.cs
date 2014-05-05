@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using SMS.Data.Dtos;
+﻿using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IUnitService
+    public interface IUnitService : IBaseService<UnitDto, long>
     {
-        IList<UnitDto> GetAllUnits();
     }
 }

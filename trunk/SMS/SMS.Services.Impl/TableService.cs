@@ -4,22 +4,15 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class TableService : ITableService
+    public class TableService : BaseService<TableDto, long, ITableManagement>, ITableService
     {
         #region Fields
 
-        public virtual ITableManagement TableManagement { get; set; }
-
         #endregion
-
-        public IList<TableDto> GetAllTables()
-        {
-            return TableManagement.GetAllTables();
-        }
 
         public IList<TableDto> GetTablesByAreaID(long areaID)
         {
-            return TableManagement.GetTablesByAreaID(areaID);
+            return Management.GetTablesByAreaID(areaID);
         }
     }
 }

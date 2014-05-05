@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaManagement.cs" />
+    <Compile Include="BaseManagement.cs" />
     <Compile Include="InvoiceDetailManagement.cs" />
     <Compile Include="InvoiceTableManagement.cs" />
     <Compile Include="InvoiceManagement.cs" />

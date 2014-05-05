@@ -1,22 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SMS.Data;
+﻿using SMS.Data;
 using SMS.Data.Dtos;
-using AutoMapper;
+using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class ProductCategoryManagement : IProductCategoryManagement
+    public class ProductCategoryManagement : BaseManagement<ProductCategoryDto, ProductCategory, long, IProductCategoryRepository>, IProductCategoryManagement
     {
         #region Fields
 
-        public virtual IProductCategoryRepository ProductCategoryRepository { get; set; }
-
         #endregion
-
-        public IList<ProductCategoryDto> GetAllProductCategories()
-        {
-            return Mapper.Map<IList<ProductCategoryDto>>(ProductCategoryRepository.GetAll().ToList());
-        }
     }
 }

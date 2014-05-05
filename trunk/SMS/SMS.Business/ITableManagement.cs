@@ -3,9 +3,8 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface ITableManagement
+    public interface ITableManagement : IBaseManagement<TableDto, long>
     {
-        IList<TableDto> GetAllTables();
         IList<TableDto> GetTablesByAreaID(long areaID);
     }
 }

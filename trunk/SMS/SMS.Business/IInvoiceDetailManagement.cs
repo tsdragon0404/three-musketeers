@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using SMS.Data.Dtos;
+﻿using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IInvoiceDetailManagement
+    public interface IInvoiceDetailManagement : IBaseManagement<InvoiceDetailDto, long>
     {
-        IList<InvoiceDetailDto> GetAllInvoiceDetails();
     }
 }

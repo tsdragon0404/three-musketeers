@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using SMS.Data.Dtos;
+﻿using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IAreaManagement
+    public interface IAreaManagement : IBaseManagement<AreaDto, long>
     {
-        IList<AreaDto> GetAllAreas();
-        AreaDto GetAreaByID(long areaID);
-        bool SaveArea(AreaDto areaDto);
-        bool DeleteArea(long areaID);
+        
     }
 }

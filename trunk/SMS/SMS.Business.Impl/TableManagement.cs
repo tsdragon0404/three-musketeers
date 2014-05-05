@@ -3,25 +3,19 @@ using System.Linq;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
+using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class TableManagement : ITableManagement
+    public class TableManagement : BaseManagement<TableDto, Table, long, ITableRepository>, ITableManagement
     {
         #region Fields
 
-        public virtual ITableRepository TableRepository { get; set; }
-
         #endregion
-
-        public IList<TableDto> GetAllTables()
-        {
-            return Mapper.Map<IList<TableDto>>(TableRepository.GetAll().ToList());
-        }
 
         public IList<TableDto> GetTablesByAreaID(long areaID)
         {
-            return Mapper.Map<IList<TableDto>>(TableRepository.Find(x=>x.Area.ID == areaID).ToList());
+            return Mapper.Map<IList<TableDto>>(Repository.Find(x => x.Area.ID == areaID).ToList());
         }
     }
 }
