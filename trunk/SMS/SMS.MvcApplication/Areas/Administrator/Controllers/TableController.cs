@@ -1,105 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using SMS.Data.Dtos;
+using SMS.MvcApplication.Areas.Administrator.Models;
+using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
 {
-    public class TableController : Controller
+    public class TableController : AdminBaseController<TableDto, long, ITableService>
     {
-        //
-        // GET: /Administrator/Table/
+        #region Fields
 
-        public ActionResult Index()
+        #endregion
+
+        public override System.Web.Mvc.ActionResult Index()
         {
-            return View();
-        }
-
-        //
-        // GET: /Administrator/Table/Details/5
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Administrator/Table/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Administrator/Table/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            var model = new AdminModel<TableDto>
             {
-                // TODO: Add insert logic here
+                ListRecord = Service.GetAllTables()
+            };
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Administrator/Table/Edit/5
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Administrator/Table/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Administrator/Table/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Administrator/Table/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
     }
 }

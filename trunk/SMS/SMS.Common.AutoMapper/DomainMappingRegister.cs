@@ -14,20 +14,16 @@ namespace SMS.Common.AutoMapper
 
         public static void Register()
         {
-            Map<Product, ProductDto>();
-            Map<ProductCategory, ProductCategoryDto>();
-            Map<Table, TableDto>();
-            Map<Unit, UnitDto>();
-            Map<Invoice, InvoiceDto>();
-            Map<InvoiceTable, InvoiceTableDto>();
-            Map<InvoiceDetail, InvoiceDetailDto>();
-            Map<Area, AreaDto>();
-
-            #region Map 1 way
+            Mapper.CreateMap<Product, ProductDto>();
+            Mapper.CreateMap<ProductCategory, ProductCategoryDto>();
+            Mapper.CreateMap<Table, TableDto>();
+            Mapper.CreateMap<Unit, UnitDto>();
+            Mapper.CreateMap<Invoice, InvoiceDto>();
+            Mapper.CreateMap<InvoiceTable, InvoiceTableDto>();
+            Mapper.CreateMap<InvoiceDetail, InvoiceDetailDto>();
+            Mapper.CreateMap<Area, AreaDto>();
 
             Mapper.CreateMap<Product, ProductBasicDto>();
-
-            #endregion
         }
     }
 }

@@ -72,19 +72,19 @@
                 </tr>
             </thead>
             <tbody class="admin-list-record">
-                @foreach (var areaDto in Model.ListRecord)
+                @foreach (var dto in Model.ListRecord)
                 {
-                    var altClass = Model.ListRecord.IndexOf(areaDto)%2 != 0 ? "alt" : "";
-                    <tr class="admin-record @altClass" data-id="@areaDto.ID">
+                    var altClass = Model.ListRecord.IndexOf(dto)%2 != 0 ? "alt" : "";
+                    <tr class="admin-record @altClass" data-id="@dto.ID">
                         <td>
-                            <a href="#" class="del-record" data-id="@areaDto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                            <a href="#" class="edit-record" data-id="@areaDto.ID">></a>
+                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID">></a>
                         </td>
-                        <td>@Html.Raw(Model.ListRecord.IndexOf(areaDto) + 1)</td>
-                        <td>@areaDto.VNName</td>
-                        <td>@areaDto.BranchID</td>
-                        <td>@areaDto.SEQ</td>
-                        <td>@areaDto.Enable</td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.VNName</td>
+                        <td>@dto.BranchID</td>
+                        <td>@dto.SEQ</td>
+                        <td>@dto.Enable</td>
                     </tr>
                 }
                 

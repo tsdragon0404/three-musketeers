@@ -17,5 +17,14 @@ namespace SMS.Business.Impl
         {
             return Mapper.Map<IList<TableDto>>(Repository.Find(x => x.Area.ID == areaID).ToList());
         }
+
+        public IList<TableDto> GetAllTables()
+        {
+            var a = Repository.GetAll().ToList();
+            foreach(var item in a)
+                Repository.FetchProperties(item, x => x.Area);
+            var b = Mapper.Map<IList<TableDto>>(a);
+            return b;
+        }
     }
 }
