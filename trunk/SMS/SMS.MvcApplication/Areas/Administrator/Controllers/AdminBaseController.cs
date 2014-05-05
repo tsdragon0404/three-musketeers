@@ -9,6 +9,8 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
     {
         protected abstract Func<IList<TDto>> GetAllFunction { get; }
         protected abstract Func<TPrimaryKey, TDto> GetDataFunction { get; }
+        protected abstract Func<TDto, bool> SaveDataFunction { get; }
+        protected abstract Func<TPrimaryKey, bool> DeleteDataFunction { get; }
 
         [HttpGet]
         public virtual ActionResult Index()
@@ -31,6 +33,18 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         public virtual JsonResult GetSchemaForAdd()
         {
             return Json(new TDto());
+        }
+
+        [HttpPost]
+        public virtual JsonResult SaveData(TDto data)
+        {
+            return Json(SaveDataFunction(data));
+        }
+
+        [HttpPost]
+        public virtual JsonResult DeleteData(TPrimaryKey recordID)
+        {
+            return Json(DeleteDataFunction(recordID));
         }
     }
 }
