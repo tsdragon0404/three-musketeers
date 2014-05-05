@@ -3,11 +3,9 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IInvoiceTableManagement
+    public interface IInvoiceTableManagement : IBaseManagement<InvoiceTableDto, long>
     {
-        IList<InvoiceTableDto> GetAllInvoiceTables();
         IList<InvoiceTableDto> GetTablesAreaID(long areaID);
-        long AddNewInvoiceTable(long tableID);
-        bool DeleteInvoiceTable(long invoiceTableID);
+        long CreateInvoiceTable(long tableID);
     }
 }

@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SMS.MvcApplication.Areas.Administrator.Models;
+using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
 {
-    public abstract class AdminBaseController<TDto, TPrimaryKey> : Controller where TDto : new()
+    public abstract class AdminBaseController<TDto, TPrimaryKey, TIService> : Controller 
+        where TIService : IBaseService<TDto, TPrimaryKey>
+        where TDto : new()
     {
-        protected abstract Func<IList<TDto>> GetAllFunction { get; }
-        protected abstract Func<TPrimaryKey, TDto> GetDataFunction { get; }
-        protected abstract Func<TDto, bool> SaveDataFunction { get; }
-        protected abstract Func<TPrimaryKey, bool> DeleteDataFunction { get; }
+        public virtual TIService Service { get; set; }
 
         [HttpGet]
         public virtual ActionResult Index()
         {
             var model = new AdminModel<TDto>
             {
-                ListRecord = GetAllFunction()
+                ListRecord = Service.GetAll()
             };
 
             return View(model);
@@ -26,7 +24,7 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult GetDataForEdit(TPrimaryKey recordID)
         {
-            return Json(GetDataFunction(recordID));
+            return Json(Service.GetByID(recordID));
         }
 
         [HttpPost]
@@ -38,13 +36,13 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult SaveData(TDto data)
         {
-            return Json(SaveDataFunction(data));
+            return Json(Service.Save(data));
         }
 
         [HttpPost]
         public virtual JsonResult DeleteData(TPrimaryKey recordID)
         {
-            return Json(DeleteDataFunction(recordID));
+            return Json(Service.Delete(recordID));
         }
     }
 }

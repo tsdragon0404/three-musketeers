@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using SMS.Data.Dtos;
+﻿using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IProductCategoryService
+    public interface IProductCategoryService : IBaseService<ProductCategoryDto, long>
     {
-        IList<ProductCategoryDto> GetAllProductCategories();
     }
 }

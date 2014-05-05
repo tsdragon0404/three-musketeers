@@ -4,32 +4,20 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class InvoiceTableService : IInvoiceTableService
+    public class InvoiceTableService : BaseService<InvoiceTableDto, long, IInvoiceTableManagement>, IInvoiceTableService
     {
         #region Fields
 
-        public virtual IInvoiceTableManagement InvoiceTableManagement { get; set; }
-
         #endregion
-
-        public IList<InvoiceTableDto> GetAllInvoiceTables()
-        {
-            return InvoiceTableManagement.GetAllInvoiceTables();
-        }
 
         public IList<InvoiceTableDto> GetTablesAreaID(long areaID)
         {
-            return InvoiceTableManagement.GetTablesAreaID(areaID);
+            return Management.GetTablesAreaID(areaID);
         }
 
-        public long AddNewInvoiceTable(long tableID)
+        public long CreateInvoiceTable(long tableID)
         {
-            return InvoiceTableManagement.AddNewInvoiceTable(tableID);
-        }
-
-        public bool DeleteInvoiceTable(long invoiceTableID)
-        {
-            return InvoiceTableManagement.DeleteInvoiceTable(invoiceTableID);
+            return Management.CreateInvoiceTable(tableID);
         }
     }
 }

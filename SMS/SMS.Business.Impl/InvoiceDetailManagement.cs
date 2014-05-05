@@ -1,22 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SMS.Data;
+﻿using SMS.Data;
 using SMS.Data.Dtos;
-using AutoMapper;
+using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class InvoiceDetailManagement : IInvoiceDetailManagement
+    public class InvoiceDetailManagement : BaseManagement<InvoiceDetailDto, InvoiceDetail, long, IInvoiceDetailRepository>, IInvoiceDetailManagement
     {
         #region Fields
 
-        public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
-
         #endregion
-
-        public IList<InvoiceDetailDto> GetAllInvoiceDetails()
-        {
-            return Mapper.Map<IList<InvoiceDetailDto>>(InvoiceDetailRepository.GetAll().ToList());
-        }
     }
 }

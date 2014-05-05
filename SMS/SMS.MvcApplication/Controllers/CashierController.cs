@@ -22,8 +22,8 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAllAreas(),
-                                       ListProduct = ProductService.GetAllProducts<ProductBasicDto>(),
+                                       ListArea = AreaService.GetAll(),
+                                       ListProduct = ProductService.GetAll<ProductBasicDto>(),
                                    };
 
             return View(cashierModel);
@@ -35,7 +35,7 @@ namespace SMS.MvcApplication.Controllers
             if (productID == 0) return null;
 
             // Add selected product to table order
-            var product = ProductService.GetProductByID<ProductBasicDto>(productID);
+            var product = ProductService.GetByID<ProductBasicDto>(productID);
             product.Quantity = quantity;
 
             return Json(product);
@@ -55,7 +55,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult DeleteInvoiceTable(long invoiceTableID)
         {
-            bool flag = InvoiceTableService.DeleteInvoiceTable(invoiceTableID);
+            bool flag = InvoiceTableService.Delete(invoiceTableID);
 
             return Json(flag);
         }
@@ -64,7 +64,7 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult SelectNewTable(long tableID)
         {
             // Get items from table order
-            var product = InvoiceTableService.AddNewInvoiceTable(tableID);
+            var product = InvoiceTableService.CreateInvoiceTable(tableID);
 
             return Json(product);
         }
@@ -72,7 +72,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(ProductService.GetAllProducts<ProductBasicDto>());
+            return Json(ProductService.GetAll<ProductBasicDto>());
         }
 
         [HttpPost]
