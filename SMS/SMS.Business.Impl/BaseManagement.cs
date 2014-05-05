@@ -15,7 +15,9 @@ namespace SMS.Business.Impl
 
         public IList<TDto> GetAll()
         {
-            return Mapper.Map<IList<TDto>>(Repository.GetAll().ToList());
+            var a = Repository.GetAll().ToList();
+            var b = Mapper.Map<IList<TDto>>(a);
+            return b;
         }
 
         public TDto GetByID(TPrimaryKey ID)
