@@ -1,41 +1,43 @@
-﻿function AdminFunction(getSchemaForAddUrl, getDataForEditUrl) {
+﻿function AdminFunction(getSchemaForAddUrl, getDataForEditUrl, saveDataUrl, getDataForSaveCallback, deleteDataUrl) {
     var root = this;
     
     this.getSchemaForAddUrl = getSchemaForAddUrl;
     this.getDataForEditUrl = getDataForEditUrl;
-
+    this.saveDataUrl = saveDataUrl;
+    this.getDataForSaveCallback = getDataForSaveCallback;
+    this.deleteDataUrl = deleteDataUrl;
+    
     this.bind = function() {
-        $('.admin-list-record a[id^="edit"]').click(function () {
+        $('.admin-list-record a.edit-record').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
+                record.removeClass('selected');
                 record.next().find('div.detail').slideToggle(500, function () {
                     record.next().remove();
                 });
                 return false;
             }
 
-            var id = $(this).siblings('input[name^="id"]').val();
+            var id = $(this).attr('data-id');
             $.ajax({
                 type: 'POST',
                 url: root.getDataForEditUrl,
                 data: { recordID: id }
             }).done(function (data) {
-                $('.admin-record-detail .detail').slideToggle(500, function () {
-                    $(this).parent().parent().remove();
-                });
+                cancelRecord();
 
-                var clientId = $('.admin-list-record input[name^="id-' + data.ID + '"]');
-                if (clientId.length == 0 || clientId.val() != data.ID)
+                var place = $('tr[data-id="' + data.ID + '"]');
+                if (place.length == 0)
                     return;
 
-                var record = clientId.parent().parent();
+                place.addClass('selected');
 
-                $('#record-tmpl').tmpl(data).insertAfter(record);
-                $("#save").click(function () {
-                    saveRecord();
+                $('#record-tmpl').tmpl(data).insertAfter(place);
+                $('#save-' + data.ID).click(function () {
+                    saveRecord(data.ID);
                     return false;
                 });
-                $('#cancel').click(function () {
+                $('#cancel-' + data.ID).click(function () {
                     cancelRecord();
                     return false;
                 });
@@ -48,6 +50,7 @@
         $('.admin-table-record a#addRecord').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
+                record.removeClass('selected');
                 record.next().find('div.detail').slideToggle(500, function () {
                     record.next().remove();
                 });
@@ -58,18 +61,17 @@
                 type: 'POST',
                 url: root.getSchemaForAddUrl,
             }).done(function (data) {
-                $('.admin-record-detail .detail').slideToggle(500, function () {
-                    $(this).parent().parent().remove();
-                });
+                cancelRecord();
 
                 var place = $('.admin-table-record a#addRecord').parent().parent();
+                place.addClass('selected');
 
                 $('#record-tmpl').tmpl(data).insertAfter(place);
-                $("#save").click(function () {
-                    saveRecord();
+                $("#save-0").click(function () {
+                    saveRecord(0);
                     return false;
                 });
-                $('#cancel').click(function () {
+                $('#cancel-0').click(function () {
                     cancelRecord();
                     return false;
                 });
@@ -78,13 +80,36 @@
 
             return false;
         });
+
+        $('.admin-list-record a.del-record').click(function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                type: 'POST',
+                url: root.deleteDataUrl,
+                data: { recordID: id }
+            }).done(function (data) {
+                if (data == true)
+                    location.reload();
+            });
+
+            return false;
+        });
     };
 
-    function saveRecord() {
-
+    function saveRecord(id) {
+        var dataToSave = root.getDataForSaveCallback(id);
+        $.ajax({
+            type: 'POST',
+            url: root.saveDataUrl,
+            data: dataToSave
+        }).done(function (data) {
+            if (data == true)
+                location.reload();
+        });
     }
 
     function cancelRecord() {
+        $('.admin-record-detail .detail').parent().parent().prev().removeClass('selected');
         $('.admin-record-detail .detail').slideToggle(500, function () {
             $(this).parent().parent().remove();
         });

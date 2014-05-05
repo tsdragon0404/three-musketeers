@@ -1,4 +1,8 @@
-﻿header {
+﻿input[type="text"], input[type="password"] {
+    width: 100%;
+}
+
+header {
     border-bottom: 1px solid #ddd;
 }
 
@@ -149,14 +153,6 @@ label.ui-state-error {
     display: none !important;
 }
 
-#admin-body {
-    overflow: auto;
-}
-
-.admin-record-detail td {
-    padding: 0px;
-}
-
 .tbContentLookup tr:hover {
     background-color: #F4CD9A;
 }
@@ -266,3 +262,14 @@ label.ui-state-error {
 	top:1px;
 }
 
+/* Stylesheet for Admin */
+#admin-body {
+    overflow: auto;
+}
+
+.admin-record-detail .detail {
+    padding: 10px;
+}
+.admin-record-detail td {
+    padding: 0px;
+}

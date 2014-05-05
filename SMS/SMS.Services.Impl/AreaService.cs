@@ -21,5 +21,15 @@ namespace SMS.Services.Impl
         {
             return AreaManagement.GetAreaByID(areaID);
         }
+
+        public bool SaveArea(AreaDto areaDto)
+        {
+            return AreaManagement.SaveArea(areaDto);
+        }
+
+        public bool DeleteArea(long areaID)
+        {
+            return AreaManagement.DeleteArea(areaID);
+        }
     }
 }

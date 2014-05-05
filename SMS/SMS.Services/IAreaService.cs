@@ -7,5 +7,7 @@ namespace SMS.Services
     {
         IList<AreaDto> GetAllAreas();
         AreaDto GetAreaByID(long areaID);
+        bool SaveArea(AreaDto areaDto);
+        bool DeleteArea(long areaID);
     }
 }
