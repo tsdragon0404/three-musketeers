@@ -101,7 +101,9 @@
         $.ajax({
             type: 'POST',
             url: root.saveDataUrl,
-            data: dataToSave
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(dataToSave),
         }).done(function (data) {
             if (data == true)
                 location.reload();

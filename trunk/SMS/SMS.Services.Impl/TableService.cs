@@ -14,10 +14,5 @@ namespace SMS.Services.Impl
         {
             return Management.GetTablesByAreaID(areaID);
         }
-
-        public IList<TableDto> GetAllTables()
-        {
-            return Management.GetAllTables();
-        }
     }
 }
