@@ -19,7 +19,7 @@ namespace SMS.Data.Mapping
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
             Map(x => x.TableAmount);
-            HasMany(x => x.InvoiceDetails).KeyColumn("InvoiceTableID").Inverse();
+            HasMany(x => x.InvoiceDetails).KeyColumn("InvoiceTableID").Inverse().Cascade.AllDeleteOrphan();
         }
     }
 }

@@ -49,11 +49,11 @@ namespace SMS.Business.Impl
 
         public bool DeleteInvoiceTable(long invoiceTableID)
         {
-            var invoiceDetail = InvoiceDetailRepository.Find(x => x.InvoiceTable.ID == invoiceTableID).ToList();
-            foreach (InvoiceDetail t in invoiceDetail)
-            {
-                InvoiceDetailRepository.Delete(t);
-            }
+            //var invoiceDetail = InvoiceDetailRepository.Find(x => x.InvoiceTable.ID == invoiceTableID).ToList();
+            //foreach (InvoiceDetail t in invoiceDetail)
+            //{
+            //    InvoiceDetailRepository.Delete(t);
+            //}
             
             return InvoiceTableRepository.Delete(invoiceTableID);
         }
