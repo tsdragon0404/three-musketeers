@@ -97,10 +97,10 @@
         </table>
         <script type="text/javascript">
             $(document).ready(function () {
-                var addUrl = '/Administrator/Table/GetSchemaForAdd';
-                var editUrl = '/Administrator/Table/GetDataForEdit';
-                var saveUrl = '/Administrator/Table/SaveData';
-                var deleteUrl = '/Administrator/Table/DeleteData';
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
                 
                 var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl);
                 adminfunc.bind();
@@ -110,7 +110,9 @@
                 var data = {
                     ID: recordID,
                     VNName: $('#areaName-' + recordID).val(),
-                    BranchID: $('#areaID-' + recordID).val(),
+                    Area: {
+                         ID: $('#areaID-' + recordID).val()
+                    },
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()
                 };
