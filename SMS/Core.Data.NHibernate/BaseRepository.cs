@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using Core.Common;
+using Core.Common.CustomAttributes;
 using Core.Common.Session;
 using NHibernate;
 using NHibernate.Linq;
@@ -109,7 +112,7 @@ namespace Core.Data.NHibernate
                 fetchSelector.ForEach(
                     selector =>
                     {
-                        object propertyProxy = selector.Compile().Invoke(entity);
+                        var propertyProxy = selector.Compile().Invoke(entity);
                         NHibernateUtil.Initialize(propertyProxy);
                     });
             }
@@ -126,6 +129,28 @@ namespace Core.Data.NHibernate
         {
             var entities = Fetches(GetQuery(predicate), fetchSelectors);
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
+        }
+
+        /// <summary>
+        /// Finds entities by text and AllowSearchAttribute.
+        /// </summary>
+        /// <param name="textSearch">The text to search.</param>
+        /// <param name="fetchSelectors">The fetch selectors.</param>
+        /// <returns></returns>
+        public IEnumerable<TEntity> FindByString(string textSearch, params Expression<Func<TEntity, object>>[] fetchSelectors)
+        {
+            var entities = Fetches(Session.Query<TEntity>(), fetchSelectors);
+
+            if(textSearch.IsNullOrEmpty())
+                return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
+                
+            var propertyInfos = typeof(TEntity).GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null);
+
+            var filteredEntities = entities.ToList().Where(x =>
+                propertyInfos.Where(propertyInfo => propertyInfo.PropertyType == typeof (string))
+                    .Any(propertyInfo => x.GetValueByPropertyCaseInsensitive<string>(propertyInfo.Name).ToLower().Contains(textSearch.ToLower()))).ToList();
+            
+            return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? filteredEntities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : filteredEntities.ToList();
         }
 
         /// <summary>

@@ -73,6 +73,15 @@ namespace Core.Data
                                   params Expression<Func<TEntity, object>>[] fetchSelectors);
 
         /// <summary>
+        /// Finds entities by text and AllowSearchAttribute.
+        /// </summary>
+        /// <param name="textSearch">The text to search.</param>
+        /// <param name="fetchSelectors">The fetch selectors.</param>
+        /// <returns></returns>
+        IEnumerable<TEntity> FindByString(string textSearch,
+                                          params Expression<Func<TEntity, object>>[] fetchSelectors);
+        
+        /// <summary>
         /// Fetches the properties.
         /// </summary>
         /// <param name="entity">The entity.</param>

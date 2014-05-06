@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using SMS.Common.Paging;
 
 namespace SMS.MvcApplication.Areas.Administrator.Models
 {
     public class AdminModel<TDto>
     {
-        public IList<TDto> ListRecord { get; set; }
+        public IPagedList<TDto> ListRecord { get; set; }
     }
 }
