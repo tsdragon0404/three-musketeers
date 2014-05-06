@@ -42,6 +42,13 @@
     <Compile Include="Constant\ConstStyle.cs" />
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\DiscountType.cs" />
+    <Compile Include="Paging\IPagedList.cs" />
+    <Compile Include="Paging\Page.cs" />
+    <Compile Include="Paging\PagedList.cs" />
+    <Compile Include="Paging\PagedListBase.cs" />
+    <Compile Include="Paging\PagedListMetaData.cs" />
+    <Compile Include="Paging\PageInfo.cs" />
+    <Compile Include="Paging\SortingPagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SMS.Common.Paging;
 using SMS.MvcApplication.Areas.Administrator.Models;
 using SMS.Services;
 
@@ -11,11 +12,11 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         public virtual TIService Service { get; set; }
 
         [HttpGet]
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(string textSearch, SortingPagingInfo pagingInfo)
         {
             var model = new AdminModel<TDto>
             {
-                ListRecord = Service.GetAll()
+                ListRecord = Service.FindByString(textSearch, pagingInfo)
             };
 
             return View(model);

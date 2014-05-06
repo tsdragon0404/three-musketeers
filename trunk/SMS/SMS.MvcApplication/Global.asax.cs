@@ -53,6 +53,7 @@ namespace SMS.MvcApplication
             // initialize user context - will move to login function
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
+            UserContext.PageSize = 3;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

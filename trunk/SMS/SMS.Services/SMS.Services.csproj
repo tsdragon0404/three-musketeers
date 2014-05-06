@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SMS.Common\SMS.Common.csproj">
+      <Project>{4AD90788-2D30-4E3F-9BFF-20F4568E082F}</Project>
+      <Name>SMS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Data.Dtos\SMS.Data.Dtos.csproj">
       <Project>{5CEB37D5-C07F-4D8C-AB5D-41830A54FFEF}</Project>
       <Name>SMS.Data.Dtos</Name>

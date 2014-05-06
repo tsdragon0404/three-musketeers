@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SMS.Business;
+using SMS.Common.Paging;
 
 namespace SMS.Services.Impl
 {
@@ -11,19 +12,24 @@ namespace SMS.Services.Impl
             return Management.GetAll();
         }
 
-        public TDto GetByID(TPrimaryKey ID)
+        public IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
-            return Management.GetByID(ID);
+            return Management.FindByString(textSearch, pagingInfo);
         }
 
-        public bool Save(TDto Dto)
+        public TDto GetByID(TPrimaryKey primaryKey)
         {
-            return Management.Save(Dto);
+            return Management.GetByID(primaryKey);
         }
 
-        public bool Delete(TPrimaryKey ID)
+        public bool Save(TDto dto)
         {
-            return Management.Delete(ID);
+            return Management.Save(dto);
+        }
+
+        public bool Delete(TPrimaryKey primaryKey)
+        {
+            return Management.Delete(primaryKey);
         }
     }
 }

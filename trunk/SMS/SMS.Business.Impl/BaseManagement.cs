@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using Core.Common;
+using Core.Common.Session;
 using Core.Data;
 using AutoMapper;
+using SMS.Common.Paging;
 
 namespace SMS.Business.Impl
 {
@@ -15,19 +19,27 @@ namespace SMS.Business.Impl
 
         public IList<TDto> GetAll()
         {
-            var a = Repository.GetAll().ToList();
-            var b = Mapper.Map<IList<TDto>>(a);
-            return b;
+            return Mapper.Map<IList<TDto>>(Repository.GetAll().ToList());
         }
 
-        public TDto GetByID(TPrimaryKey ID)
+        public IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
-            return Mapper.Map<TDto>(Repository.Get(ID));
+            var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
+
+            pagingInfo.TotalItemCount = filteredRecords.Count();
+            pagingInfo.PageSize = UserContext.PageSize;
+
+            return PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo);
         }
 
-        public bool Save(TDto Dto)
+        public TDto GetByID(TPrimaryKey primaryKey)
         {
-            var entity = Mapper.Map<TEntity>(Dto);
+            return Mapper.Map<TDto>(Repository.Get(primaryKey));
+        }
+
+        public bool Save(TDto dto)
+        {
+            var entity = Mapper.Map<TEntity>(dto);
             if (entity.ID is long && long.Parse(entity.ID.ToString()) == 0)
                 Repository.Add(entity);
             else
@@ -38,9 +50,9 @@ namespace SMS.Business.Impl
             return true;
         }
 
-        public bool Delete(TPrimaryKey ID)
+        public bool Delete(TPrimaryKey primaryKey)
         {
-            Repository.Delete(ID);
+            Repository.Delete(primaryKey);
             return true;
         }
 
