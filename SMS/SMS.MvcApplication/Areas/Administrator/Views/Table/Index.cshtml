@@ -18,7 +18,7 @@
                         Area ID
                     </div>
                     <div class="three columns">
-                        <input type="text" name="areaID" value="${Area.ID}" id="areaID-${ID}"/>
+                        <input type="text" name="areaID" value="{{if Area != null}} ${Area.ID} {{/if}} " id="areaID-${ID}"/>
                     </div>
                 </div>
                 <div class="row">
@@ -82,7 +82,7 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.VNName</td>
-                        <td>@dto.Area.ID</td>
+                        <td>@Html.Raw(dto.Area != null ? dto.Area.ID : 0)</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
                     </tr>
