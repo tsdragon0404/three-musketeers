@@ -2,7 +2,12 @@
 {
     public class SortingPagingInfo
     {
-        public int CurrentPage { get; set; }
+        private int _currentPage;
+        public int CurrentPage 
+        { 
+            get { return _currentPage; }
+            set { _currentPage = value <= 0 ? 1 : value; }
+        }
         //public int OldPage { get; set; }
         //public string SortColumnName { get; set; }
         //public string OldSortColumnName { get; set; }
@@ -10,10 +15,5 @@
         public int PageSize { get; set; }
         public int PageCount { get; set; }
         public int TotalItemCount { get; set; }
-
-        public SortingPagingInfo()
-        {
-            CurrentPage = 1;
-        }
     }
 }

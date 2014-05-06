@@ -23,6 +23,13 @@ namespace SMS.Common.Paging
             Subset.AddRange(list);
         }
 
+        private PagedList(IEnumerable<T> list, int pageNumber, int pageSize)
+            : base(pageNumber, pageSize, list == null ? 0 : list.Count())
+        {
+            Paging(list, pageNumber, pageSize);
+            //Subset.AddRange(list);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PagedList{T}"/> class that divides 
         /// the supplied superset into subsets the size of the supplied pageSize. The instance 
@@ -101,6 +108,21 @@ namespace SMS.Common.Paging
             }
         }
 
+        private void Paging(IEnumerable<T> list, int pageNumber, int pageSize)
+        {
+            if (pageNumber > PageCount)
+            {
+                pageNumber = PageCount;
+            }
+            if (list != null && TotalItemCount > 0)
+            {
+                Subset.AddRange(
+                    pageNumber == 1
+                        ? list.Skip(0).Take(pageSize).ToList()
+                        : list.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList());
+            }
+        }
+
         public override PagedList<TB> Transform<TB>(Func<IPagedList<T>, IList<TB>> transform)
         {
             var list = transform(this);
@@ -114,7 +136,7 @@ namespace SMS.Common.Paging
         public static PagedList<TB> CreatePageList<TB>(IList<TB> list, 
             int pageNumber, int pageSize, int totalItemCount)
         {
-            var pageList = new PagedList<TB>(list);
+            var pageList = new PagedList<TB>(list, pageNumber, pageSize);
             pageList.Initialize(pageNumber, pageSize, totalItemCount);
 
             return pageList;
@@ -122,7 +144,7 @@ namespace SMS.Common.Paging
 
         public static PagedList<TB> CreatePageList<TB>(IList<TB> list, SortingPagingInfo pagingInfo)
         {
-            var pageList = new PagedList<TB>(list);
+            var pageList = new PagedList<TB>(list, pagingInfo.CurrentPage, pagingInfo.PageSize);
             pageList.Initialize(pagingInfo.CurrentPage, pagingInfo.PageSize, pagingInfo.TotalItemCount);
 
             pagingInfo.PageCount = pageList.PageCount;
