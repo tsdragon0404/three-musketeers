@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using Core.Common;
 using Core.Common.Session;
 using Core.Data;
 using AutoMapper;

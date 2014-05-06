@@ -95,6 +95,9 @@
                 </tr>
             </tfoot>
         </table>
+        <div class="row">
+            @Html.Partial("~/Views/Shared/Paging", Model.PagingInfo)
+        </div>
         <script type="text/javascript">
             $(document).ready(function () {
                 var addUrl = '/Administrator/Area/GetSchemaForAdd';
