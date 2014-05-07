@@ -8,6 +8,8 @@
             get { return _currentPage; }
             set { _currentPage = value <= 0 ? 1 : value; }
         }
+        public string TextSearch { get; set; }
+        public string FormNameToSubmit { get; set; }
         //public int OldPage { get; set; }
         //public string SortColumnName { get; set; }
         //public string OldSortColumnName { get; set; }

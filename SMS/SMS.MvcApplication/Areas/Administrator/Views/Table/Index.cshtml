@@ -51,6 +51,9 @@
 </script>
 <div id="admin-body">
     <h4 class="admin-page-title">Maintain Table</h4>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
     <div class="row">
         <table class="admin-table-record">
             <colgroup>
@@ -95,6 +98,9 @@
                 </tr>
             </tfoot>
         </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
         <script type="text/javascript">
             $(document).ready(function () {
                 var addUrl = '@Url.Action("GetSchemaForAdd")';

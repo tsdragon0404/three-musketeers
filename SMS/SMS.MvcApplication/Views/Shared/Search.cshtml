@@ -1,0 +1,25 @@
+﻿@model SMS.Common.Paging.SortingPagingInfo
+
+<form action="@Model.FormNameToSubmit" id="searchForm" method="GET">
+    <div class="row">
+        <div class="six columns">
+            <table class="no-border searchTable">
+                <tr>
+                    <td class="right">Search:</td>
+                    <td><input type="text" name="textSearch" value="@Model.TextSearch" id="paging-TextSearch" /> </td>
+                    <td><input type="submit" class="myButton" value="Search" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function() {
+        $('#searchForm #paging-TextSearch').keypress(function(e) {
+            if (e.which == 13) {
+                $('#searchForm').submit();
+            }
+        });
+    });
+</script>
