@@ -12,9 +12,14 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         public virtual TIService Service { get; set; }
 
         [HttpGet]
-        public virtual ActionResult Index(string textSearch, int currentPage)
+        public virtual ActionResult Index(string textSearch, int page = 1)
         {
-            var pagingInfo = new SortingPagingInfo {CurrentPage = currentPage};
+            var pagingInfo = new SortingPagingInfo
+                             {
+                                 CurrentPage = page, 
+                                 TextSearch = textSearch,
+                                 FormNameToSubmit = Url.Action("Index")
+                             };
             var model = new AdminModel<TDto>
             {
                 ListRecord = Service.FindByString(textSearch, pagingInfo),

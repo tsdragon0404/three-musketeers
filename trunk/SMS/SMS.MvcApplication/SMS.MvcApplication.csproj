@@ -691,6 +691,7 @@
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.tmplPlus.js" />
+    <Content Include="Scripts\jquery.twbsPagination.min.js" />
     <Content Include="Scripts\popup.js" />
     <Content Include="Scripts\split-pane.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -721,6 +722,7 @@
     <Content Include="Views\Shared\_SearchProductPopup.cshtml" />
     <Content Include="Views\Shared\_AjaxLoader.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
+    <Content Include="Views\Shared\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
