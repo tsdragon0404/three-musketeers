@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using SMS.MvcApplication.Base;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
 {
-    public class AdminHomeController : Controller
+    public class AdminHomeController : BaseController
     {
         //
         // GET: /Administrator/Home/

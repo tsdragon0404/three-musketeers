@@ -208,12 +208,13 @@
     <Compile Include="Areas\Administrator\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TableController.cs" />
     <Compile Include="Areas\Administrator\Models\AdminModel.cs" />
+    <Compile Include="Base\BaseController.cs" />
+    <Compile Include="Base\JsonNetResult.cs" />
     <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="JsonNetFormatter.cs" />
     <Compile Include="Models\CashierModel.cs" />
     <Compile Include="Models\HyperlinkModel.cs" />
     <Compile Include="Models\PopupModel.cs" />

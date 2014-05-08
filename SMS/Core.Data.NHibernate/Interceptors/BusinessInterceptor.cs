@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 

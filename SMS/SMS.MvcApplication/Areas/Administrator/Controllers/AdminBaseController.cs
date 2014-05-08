@@ -1,11 +1,12 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Paging;
 using SMS.MvcApplication.Areas.Administrator.Models;
+using SMS.MvcApplication.Base;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
 {
-    public abstract class AdminBaseController<TDto, TPrimaryKey, TIService> : Controller 
+    public abstract class AdminBaseController<TDto, TPrimaryKey, TIService> : BaseController 
         where TIService : IBaseService<TDto, TPrimaryKey>
         where TDto : new()
     {
