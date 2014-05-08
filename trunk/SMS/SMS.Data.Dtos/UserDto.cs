@@ -2,7 +2,7 @@
 
 namespace SMS.Data.Dtos
 {
-    public class UserDto
+    public class UserDto : EnableSortableDto
     {
         public virtual long ID { get; set; }
         public virtual string UserCode { get; set; }
@@ -11,8 +11,6 @@ namespace SMS.Data.Dtos
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string CellPhone { get; set; }
-        public virtual bool Enable { get; set; }
-        public virtual int SEQ { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }
