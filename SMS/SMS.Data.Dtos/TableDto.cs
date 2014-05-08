@@ -2,14 +2,12 @@
 
 namespace SMS.Data.Dtos
 {
-    public class TableDto
+    public class TableDto : EnableSortableDto
     {
         public virtual long ID { get; set; }
         public virtual string VNName { get; set; }
         public virtual string ENName { get; set; }
         public virtual AreaDto Area { get; set; }
-        public virtual bool Enable { get; set; }
-        public virtual int SEQ { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

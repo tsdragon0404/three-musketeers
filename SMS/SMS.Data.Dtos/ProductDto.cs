@@ -2,7 +2,7 @@
 
 namespace SMS.Data.Dtos
 {
-    public class ProductDto
+    public class ProductDto : EnableSortableDto
     {
         public virtual long ID { get; set; }
         public virtual string ProductCode { get; set; }
@@ -13,8 +13,6 @@ namespace SMS.Data.Dtos
         public virtual UnitDto Unit { get; set; }
         public virtual long ProductCategoryID { get; set; }
         public virtual decimal Price { get; set; }
-        public virtual bool Enable { get; set; }
-        public virtual int SEQ { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }
