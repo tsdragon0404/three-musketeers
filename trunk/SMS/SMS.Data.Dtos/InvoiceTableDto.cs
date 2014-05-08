@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SMS.Common.Constant;
 
 namespace SMS.Data.Dtos
@@ -9,6 +10,7 @@ namespace SMS.Data.Dtos
         public virtual long InvoiceID { get; set; }
         public virtual InvoiceDto Invoice { get; set; }
         public virtual TableDto Table { get; set; }
+        public virtual IList<InvoiceDetailDto> InvoiceDetails { get; set; }
         public virtual decimal Discount { get; set; }
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }

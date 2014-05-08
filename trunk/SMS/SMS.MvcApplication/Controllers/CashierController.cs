@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NHibernate.Mapping;
+using Newtonsoft.Json;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -15,6 +16,7 @@ namespace SMS.MvcApplication.Controllers
         public virtual ITableService TableService { get; set; }
         public virtual IProductService ProductService { get; set; }
         public virtual IInvoiceTableService InvoiceTableService { get; set; }
+        public virtual IInvoiceDetailService InvoiceDetailService { get; set; }
 
         #endregion
 
@@ -50,6 +52,21 @@ namespace SMS.MvcApplication.Controllers
             var product = ProductService.GetProductsOrderingByInvoiceTableID(invoiceTableID);
 
             return Json(product);
+        }
+
+        //[HttpPost]
+        public JsonResult SelectInvoiceDetail(long invoiceTableID)
+        {
+            if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
+
+            // Get items from table order
+            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
+
+            return Json(JsonConvert.SerializeObject(invoiceDetail, Formatting.Indented,
+                              new JsonSerializerSettings
+                              {
+                                  ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                              }), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

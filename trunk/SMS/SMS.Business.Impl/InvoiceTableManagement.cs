@@ -35,10 +35,16 @@ namespace SMS.Business.Impl
         {
             var table = TableRepository.Get(tableID);
 
-            var invoiceTable = new InvoiceTable { Table = table };
+            var invoiceTable = new InvoiceTable { Table = table }; // chua sua cai nay a
             Repository.Add(invoiceTable);
 
             return invoiceTable.ID;
+        }
+
+        public InvoiceTableDto GetTableDetail(long invTblID)
+        {
+            var result = Repository.Get(invTblID);
+            return result == null ? null : Mapper.Map<InvoiceTableDto>(result);
         }
     }
 
