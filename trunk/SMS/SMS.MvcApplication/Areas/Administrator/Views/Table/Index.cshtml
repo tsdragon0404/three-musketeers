@@ -1,4 +1,5 @@
-﻿@model SMS.MvcApplication.Areas.Administrator.Models.AdminModel<SMS.Data.Dtos.TableDto>
+﻿@using SMS.Data.Dtos
+@model SMS.MvcApplication.Areas.Administrator.Models.AdminModel<TableDto>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +19,20 @@
                         Area ID
                     </div>
                     <div class="three columns">
-                        <input type="text" name="areaID" value="{{if Area != null}} ${Area.ID} {{/if}} " id="areaID-${ID}"/>
+                        <select name="areaID" id="areaID-${ID}">
+                            <option value="0">[Not selected]</option>
+                            @foreach (AreaDto area in ViewBag.ListArea)
+                            {
+                                <text>
+                                    {{if Area != null && Area.ID == @area.ID}}
+                                    <option value="@area.ID" selected>@area.VNName</option>
+                                    {{else}}
+                                    <option value="@area.ID">@area.VNName</option>
+                                    {{/if}}
+                                </text>
+                            }
+                        </select>
+                        @*<input type="text" name="areaID" value="{{if Area != null}} ${Area.ID} {{/if}}" id="areaID-${ID}"/>*@
                     </div>
                 </div>
                 <div class="row">
@@ -26,7 +40,7 @@
                         SEQ
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="{{if SEQ != 0}} ${SEQ} {{/if}}" id="seq-${ID}"/>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
                     </div>
                     <div class="three columns right">
                         Enable
@@ -85,7 +99,7 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.VNName</td>
-                        <td>@Html.Raw(dto.Area != null ? dto.Area.ID : 0)</td>
+                        <td>@Html.Raw(dto.Area != null ? dto.Area.VNName : "")</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
                     </tr>

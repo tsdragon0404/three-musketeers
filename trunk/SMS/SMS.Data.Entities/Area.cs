@@ -14,6 +14,7 @@ namespace SMS.Data.Entities
         public virtual string ENName { get; set; }
 
         public virtual long BranchID { get; set; }
+
         public virtual IList<Table> Tables { get; set; }
 
         #region Implementation of IEnableEntity
