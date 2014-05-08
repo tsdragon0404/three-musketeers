@@ -7,6 +7,15 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
     {
         #region Fields
 
+        public virtual IAreaService AreaService { get; set; }
+
         #endregion
+
+        public override System.Web.Mvc.ActionResult Index(string textSearch, int page = 1)
+        {
+            ViewBag.ListArea = AreaService.GetAll();
+            return base.Index(textSearch, page);
+        }
+        
     }
 }

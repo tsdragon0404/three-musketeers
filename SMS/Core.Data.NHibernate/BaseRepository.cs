@@ -149,9 +149,9 @@ namespace Core.Data.NHibernate
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? filteredEntities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : filteredEntities.ToList();
         }
 
-        private bool SearchByAttribute(TEntity entity, object searchCriteria)
+        private bool SearchByAttribute(object entity, object searchCriteria)
         {
-            var propertyInfos = typeof(TEntity).GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null).ToList();
+            var propertyInfos = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null).ToList();
 
             foreach (var propertyInfo in propertyInfos)
             {
@@ -164,6 +164,12 @@ namespace Core.Data.NHibernate
                 else if(propertyInfo.PropertyType == typeof(int))
                 {
                     
+                }
+                else if(propertyInfo.PropertyType.IsSubclassOf(typeof(Entity)))
+                {
+                    var result = SearchByAttribute(propertyInfo.GetValue(entity), searchCriteria);
+                    if (result)
+                        return true;
                 }
             }
             return false;
