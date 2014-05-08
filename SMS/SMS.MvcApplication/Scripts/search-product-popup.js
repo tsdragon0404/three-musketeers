@@ -9,7 +9,7 @@
     $('#' + id).dialog({
         autoOpen: false,
         closeOnEscape: true,
-        width: 700,
+        width: 800,
         modal: true
     });
 

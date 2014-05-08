@@ -83,18 +83,29 @@
 
         $('.admin-list-record a.del-record').click(function () {
             var id = $(this).attr('data-id');
-            $.ajax({
-                type: 'POST',
-                url: root.deleteDataUrl,
-                data: { recordID: id }
-            }).done(function (data) {
-                if (data == true)
-                    location.reload();
-            });
-
+            var popup = new MessagePopup('Warning',
+                'Delete this record?',
+                2,
+                function () {
+                    deleteRecord(id);
+                });
+            
+            popup.OpenPopup();
+            
             return false;
         });
     };
+
+    function deleteRecord(id) {
+        $.ajax({
+            type: 'POST',
+            url: root.deleteDataUrl,
+            data: { recordID: id }
+        }).done(function (data) {
+            if (data == true)
+                location.reload();
+        });
+    }
 
     function saveRecord(id) {
         var dataToSave = root.getDataForSaveCallback(id);
