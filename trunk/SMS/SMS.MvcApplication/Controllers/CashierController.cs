@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using NHibernate.Mapping;
-using Newtonsoft.Json;
 using SMS.Data.Dtos;
+using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
 {
-    public class CashierController : Controller
+    public class CashierController : BaseController
     {
         #region Fields
 
@@ -62,11 +61,11 @@ namespace SMS.MvcApplication.Controllers
             // Get items from table order
             var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
 
-            return Json(JsonConvert.SerializeObject(invoiceDetail, Formatting.Indented,
-                              new JsonSerializerSettings
-                              {
-                                  ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                              }), JsonRequestBehavior.AllowGet);
+            return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult test()
+        {
+            return Json(InvoiceDetailService.GetByID(2), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
