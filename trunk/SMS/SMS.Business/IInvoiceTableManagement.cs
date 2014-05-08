@@ -6,7 +6,7 @@ namespace SMS.Business
     public interface IInvoiceTableManagement : IBaseManagement<InvoiceTableDto, long>
     {
         IList<InvoiceTableDto> GetTablesAreaID(long areaID);
-        long CreateInvoiceTable(long tableID);
+        InvoiceTableDto CreateInvoiceTable(long tableID);
         InvoiceTableDto GetTableDetail(long invTblID);
     }
 }
