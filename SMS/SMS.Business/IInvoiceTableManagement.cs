@@ -7,5 +7,6 @@ namespace SMS.Business
     {
         IList<InvoiceTableDto> GetTablesAreaID(long areaID);
         long CreateInvoiceTable(long tableID);
+        InvoiceTableDto GetTableDetail(long invTblID);
     }
 }

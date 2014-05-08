@@ -29,7 +29,7 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.ID}-${Table.VNName}">
+            <table class="tbls" id="${ID}-${Table.ID}">
                 <tr>
                     {{if ID > 0}}
                     <td style="background-image: url(../Images/IconControls/table-avai.png)">
@@ -52,9 +52,9 @@
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
 
-    <table id="Rmenu-${ID}-${Table.ID}-${Table.VNName}" class="Rmenu">
+    <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
         {{if ID > 0}}
-        <tr onclick="onSelectTable(${ID}, '${Table.VNName}')">
+        <tr onclick="onSelectTable(${ID})">
         {{else}}
         <tr class="RmenuDisable" >    
             {{/if}}
@@ -226,7 +226,6 @@
             var id = $(e.target).parents('.tbls').attr('id');
             var invTblId = id.split('-')[0];
             var tblId = id.split('-')[1];
-            var tblName = id.substr((invTblId + '-' + tblId + '-').length, id.length);
             if(invTblId == 0) {
                 var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
                 if (didConfirm == true) {
@@ -236,7 +235,7 @@
                     return false;
                 }
             } else {
-                onSelectTable(invTblId, tblName);
+                onSelectTable(invTblId);
             }
         }));
         
@@ -269,11 +268,11 @@
             $(".tbls").css('background-color', '');
         });
 
-        function onSelectTable(invTblId, tblName) {
+        function onSelectTable(invTblId) {
             if (invTblId <= 0) {
                 return false;
             }
-            $('#currentTblName').text('Table name: ' + tblName);
+            //$('#currentTblName').text('Table name: ' + tblName);
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/SelectTableDetail',

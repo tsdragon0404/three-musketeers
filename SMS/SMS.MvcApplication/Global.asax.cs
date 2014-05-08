@@ -13,6 +13,7 @@ using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using Newtonsoft.Json;
 using SMS.Common.AutoMapper;
 
 namespace SMS.MvcApplication
@@ -54,6 +55,9 @@ namespace SMS.MvcApplication
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
+
+            GlobalConfiguration.Configuration.Formatters.Clear();
+            GlobalConfiguration.Configuration.Formatters.Add(new JsonNetFormatter());
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

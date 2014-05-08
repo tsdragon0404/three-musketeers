@@ -19,5 +19,10 @@ namespace SMS.Services.Impl
         {
             return Management.CreateInvoiceTable(tableID);
         }
+
+        public InvoiceTableDto GetTableDetail(long invTblID)
+        {
+            return Management.GetTableDetail(invTblID);
+        }
     }
 }
