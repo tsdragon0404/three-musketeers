@@ -13,9 +13,12 @@
 <script id="pdt-tmpl" type="text/x-jquery-tmpl">
     <tr>
         <td>${idx}</td>
-        <td>${VNName}</td>
-        <td class="right">${Quantity}</td>
-        <td>${Unit.VNName}</td>
+        <td>${ProductCode}</td>
+        <td>${ProductVNName}</td>
+        <td>
+            <input type="text" value="${Quantity}" name="remarks${No}" class="remarksInput center" />
+        </td>
+        <td>${UnitVNName}</td>
         <td class="right">${Price}</td>
         <td class="right item_subtotal">${Price * Quantity}</td>
         <td>
@@ -51,10 +54,9 @@
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
-
     <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
         {{if ID > 0}}
-        <tr onclick="onSelectTable(${ID})">
+        <tr id="${ID}" class="Detail">
         {{else}}
         <tr class="RmenuDisable" >    
             {{/if}}
@@ -63,7 +65,7 @@
             </td>
             <td class="RmenuItem" id="Select-${ID}-${Table.ID}">Chi tiết</td>
         </tr>
-        <tr onclick="onSelectNewTable(${Table.ID})">
+        <tr onclick="onCreateInvoiceTable(${Table.ID})">
             <td>
                 <div style="background-image: url(../Images/IconControls/add-icon.png)"></div>
             </td>
@@ -112,7 +114,7 @@
     <div id="tableorder" class="split-pane-component">
         <div class="row">
             <div class="two columns" id="currentTblName">Table name</div>
-            <div class="four columns">User: Son Nguyen. Date: 11/04/2014 18:00</div>
+            <div class="six columns" id="createTableInfo">User: admin. Date: 00/00/2014</div>
         </div>
         <div class="row">
             <table id="order">
@@ -125,10 +127,12 @@
                     <col class="col6" />
                     <col class="col7" />
                     <col class="col8" />
+                    <col class="col9" />
                 </colgroup>
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Product Code</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Unit</th>
@@ -143,7 +147,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8">
+                        <td colspan="9">
                             <a id="addProduct" href="#" class="myButton">Chọn món</a>
                         </td>
                     </tr>
@@ -185,14 +189,14 @@
                 return false;
             });
 
-            onRefeshTable();
+            onRefreshTable();
             
             setInterval(function() {
-                onRefeshTable();
+                onRefreshTable();
             }, 60000);
         });
         
-        function onRefeshTable() {
+        function onRefreshTable() {
             var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
@@ -208,11 +212,11 @@
                     data: { invoiceTableID: invTblId }
                 }).done(function(data) {
                     if (data == true)
-                        alert('Susscess');
+                        alert('Succcess');
                     else
                         alert('Fail');
 
-                    onRefeshTable();
+                    onRefreshTable();
                 });
         }
 
@@ -229,13 +233,13 @@
             if(invTblId == 0) {
                 var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
                 if (didConfirm == true) {
-                    onSelectNewTable(tblId);
+                    onCreateInvoiceTable(tblId);
                 }
                 else {
                     return false;
                 }
             } else {
-                onSelectTable(invTblId);
+                onSelectInvoiceTable(invTblId);
             }
         }));
         
@@ -267,41 +271,46 @@
             $("table[id*=Rmenu-]").hide();
             $(".tbls").css('background-color', '');
         });
+        
+        $(document).on("click", ".Detail", (function(e){
+            var invTblId = $(e.target).parents('.Detail').attr('id');
+            onSelectInvoiceTable(invTblId);
+        }));
 
-        function onSelectTable(invTblId) {
+        function onSelectInvoiceTable(invTblId) {
             if (invTblId <= 0) {
                 return false;
             }
-            //$('#currentTblName').text('Table name: ' + tblName);
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectTableDetail',
+                url: '/Cashier/SelectInvoiceDetail',
                 data: { invoiceTableID: invTblId }
             }).done(function (data) {
                 $('#order .tbContent').html('');
-                $(data).each(function(idx) {
-                    data[idx].idx = idx + 1;
+                $(data.InvoiceDetails).each(function(idx) {
+                    data.InvoiceDetails[idx].idx = idx + 1;
                 });
-                
-                $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
+                $('#currentTblName').text('Table name: ' + data.Table.VNName);
+                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + Date(data.CreatedDate).toString("M/d/yyyy h:mm tt"));
+                $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
                 CalculateTotal();
             });
             $("#addProduct").show();
         }
         
-        function onSelectNewTable(tblId) {
+        function onCreateInvoiceTable(tblId) {
             if (tblId <= 0) {
                 return false;
             }
             var invTblId = 0;
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectNewTable',
+                url: '/Cashier/CreateInvoiceTable',
                 data: { tableID: tblId }
             }).done(function (data) {
                 invTblId = data.ID;
-                onSelectTable(invTblId);
-                onRefeshTable();
+                onSelectInvoiceTable(invTblId);
+                onRefreshTable();
             });
             $("#addProduct").show();
         }

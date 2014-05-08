@@ -82,23 +82,23 @@ header {
 }
 
 #order .col1 {
-    width: 5%;
+    width: 3%;
 }
 
 #order .col2 {
-    width: 25%;
+    width: 13%;
 }
 
 #order .col3 {
-    width: 10%;
+    width: 25%;
 }
 
 #order .col4 {
-    width: 10%;
+    width: 4%;
 }
 
 #order .col5 {
-    width: 10%;
+    width: 6%;
 }
 
 #order .col6 {
@@ -106,10 +106,14 @@ header {
 }
 
 #order .col7 {
-    width: 25%;
+    width: 10%;
 }
 
 #order .col8 {
+    width: 25%;
+}
+
+#order .col9 {
     width: 5%;
 }
 

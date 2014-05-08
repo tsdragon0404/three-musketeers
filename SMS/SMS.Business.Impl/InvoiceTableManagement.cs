@@ -20,7 +20,7 @@ namespace SMS.Business.Impl
         {
             var a = Repository.Find(x => x.Invoice == null && x.Table.Area.ID == areaID && x.Table.Enable).ToList();
 
-            var b = TableRepository.Find(x => x.Area.ID == areaID && x.InvoiceTables.LongCount() == 0);
+            var b = TableRepository.Find(x => x.Area.ID == areaID && !x.InvoiceTables.Any());
 
             a.AddRange(b.Select(table => new InvoiceTable
             {
@@ -28,17 +28,15 @@ namespace SMS.Business.Impl
                 Table = table,
             }));
 
-            return Mapper.Map<IList<InvoiceTableDto>>(a.ToList().OrderBy(x => x.Table.SEQ));
+            return Mapper.Map<IList<InvoiceTableDto>>(a.OrderBy(x => x.Table.SEQ).ToList());
         }
 
-        public long CreateInvoiceTable(long tableID)
+        public InvoiceTableDto CreateInvoiceTable(long tableID)
         {
-            var table = TableRepository.Get(tableID);
-
-            var invoiceTable = new InvoiceTable { Table = table }; // chua sua cai nay a
+            var invoiceTable = new InvoiceTable { Table = new Table { ID = tableID } };
             Repository.Add(invoiceTable);
 
-            return invoiceTable.ID;
+            return Mapper.Map<InvoiceTableDto>(invoiceTable);
         }
 
         public InvoiceTableDto GetTableDetail(long invTblID)

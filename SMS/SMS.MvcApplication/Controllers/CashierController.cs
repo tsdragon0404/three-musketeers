@@ -63,26 +63,26 @@ namespace SMS.MvcApplication.Controllers
 
             return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult test()
         {
-            return Json(InvoiceDetailService.GetByID(2), JsonRequestBehavior.AllowGet);
+            return Json(InvoiceDetailService.GetByID(10058), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult DeleteInvoiceTable(long invoiceTableID)
         {
-            bool flag = InvoiceTableService.Delete(invoiceTableID);
+            var flag = InvoiceTableService.Delete(invoiceTableID);
 
             return Json(flag);
         }
 
         [HttpPost]
-        public JsonResult SelectNewTable(long tableID)
+        public JsonResult CreateInvoiceTable(long tableID)
         {
-            // Get items from table order
-            var product = InvoiceTableService.CreateInvoiceTable(tableID);
+            var invoiceTable = InvoiceTableService.CreateInvoiceTable(tableID);
 
-            return Json(product);
+            return Json(invoiceTable);
         }
 
         [HttpPost]
