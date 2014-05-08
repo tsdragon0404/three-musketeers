@@ -143,14 +143,30 @@ namespace Core.Data.NHibernate
 
             if(textSearch.IsNullOrEmpty())
                 return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
-                
-            var propertyInfos = typeof(TEntity).GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null);
 
-            var filteredEntities = entities.ToList().Where(x =>
-                propertyInfos.Where(propertyInfo => propertyInfo.PropertyType == typeof (string))
-                    .Any(propertyInfo => x.GetValueByPropertyCaseInsensitive<string>(propertyInfo.Name).ToLower().Contains(textSearch.ToLower()))).ToList();
+            var filteredEntities = entities.ToList().Where(x => SearchByAttribute(x, textSearch)).ToList();
             
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? filteredEntities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : filteredEntities.ToList();
+        }
+
+        private bool SearchByAttribute(TEntity entity, object searchCriteria)
+        {
+            var propertyInfos = typeof(TEntity).GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null).ToList();
+
+            foreach (var propertyInfo in propertyInfos)
+            {
+                if(propertyInfo.PropertyType == typeof(string))
+                {
+                    var value = (string)propertyInfo.GetValue(entity);
+                    if(value != null && value.ToLower().Contains(searchCriteria.ToString().ToLower()))
+                        return true;
+                }
+                else if(propertyInfo.PropertyType == typeof(int))
+                {
+                    
+                }
+            }
+            return false;
         }
 
         /// <summary>
