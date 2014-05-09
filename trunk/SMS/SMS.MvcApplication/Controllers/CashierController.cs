@@ -30,16 +30,15 @@ namespace SMS.MvcApplication.Controllers
             return View(cashierModel);
         }
 
-        [HttpPost]
-        public JsonResult SelectProduct(long productID, int quantity)
+        //[HttpPost]
+        public JsonResult AddProductToInvoiceTable(long invoiceTableID, long productID, int quantity)
         {
-            if (productID == 0) return null;
+            if (productID == 0 || quantity < 1 ) return null;
 
-            // Add selected product to table order
-            var product = ProductService.GetByID<ProductBasicDto>(productID);
-            product.Quantity = quantity;
+            // Add selected product to an invoice table
+            var invoiceDetail = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
 
-            return Json(product);
+            return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -64,11 +63,6 @@ namespace SMS.MvcApplication.Controllers
             return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult test()
-        {
-            return Json(InvoiceDetailService.GetByID(10058), JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult DeleteInvoiceTable(long invoiceTableID)
         {
@@ -77,12 +71,28 @@ namespace SMS.MvcApplication.Controllers
             return Json(flag);
         }
 
+        //[HttpPost]
+        //public JsonResult UpdateProductToInvoiceTable(string columnName, long invoiceDetailID)
+        //{
+        //    var flag = InvoiceTableService.Delete(invoiceTableID);
+
+        //    return Json(flag);
+        //}
+
         [HttpPost]
+        public JsonResult DeleteProductFromInvoiceDetail(long invoiceDetailID)
+        {
+            var flag = InvoiceDetailService.Delete(invoiceDetailID);
+
+            return Json(flag);
+        }
+
+        //[HttpPost]
         public JsonResult CreateInvoiceTable(long tableID)
         {
             var invoiceTable = InvoiceTableService.CreateInvoiceTable(tableID);
 
-            return Json(invoiceTable);
+            return Json(invoiceTable, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

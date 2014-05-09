@@ -16,14 +16,14 @@
         <td>${ProductCode}</td>
         <td>${ProductVNName}</td>
         <td>
-            <input type="text" value="${Quantity}" name="remarks${No}" class="remarksInput center" />
+            <input type="text" id="quantity-{ID}" value="${Quantity}" name="remarks${No}" class="remarksInput center" />
         </td>
         <td>${UnitVNName}</td>
         <td class="right">${Price}</td>
         <td class="right item_subtotal">${Price * Quantity}</td>
         <td>
-            <input type="text" name="remarks${No}" class="remarksInput" /></td>
-        <td class="center"><a href="#" id="del-${ID}">X</a></td>
+            <input type="text" name="remarks${No}" id="comment-${ID}" class="remarksInput" /></td>
+        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
     </tr>
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
@@ -113,8 +113,9 @@
 
     <div id="tableorder" class="split-pane-component">
         <div class="row">
+            <a id="currentInvoiceTableID" style="display: none"></a>
             <div class="two columns" id="currentTblName">Table name</div>
-            <div class="six columns" id="createTableInfo">User: admin. Date: 00/00/2014</div>
+            <div class="six columns" id="createTableInfo">Order by:      - Order date: --/--/---- --:--:--</div>
         </div>
         <div class="row">
             <table id="order">
@@ -211,9 +212,14 @@
                     url: '/Cashier/DeleteInvoiceTable',
                     data: { invoiceTableID: invTblId }
                 }).done(function(data) {
-                    if (data == true)
-                        alert('Succcess');
-                    else
+                    if (data == true) {
+                        $('#currentInvoiceTableID').text(-1);
+                        $('#currentTblName').text('Table name: ');
+                        $('#createTableInfo').text('Order by:      - Order date: --/--/---- --:--:--');
+                        $('#order .tbContent').html('');
+                        $("#addProduct").hide();
+                        CalculateTotal();
+                    } else
                         alert('Fail');
 
                     onRefreshTable();
@@ -277,6 +283,26 @@
             onSelectInvoiceTable(invTblId);
         }));
 
+        $(document).on("click", ".delProduct", (function(e){
+            var invDetailId = $(this).attr('id').split('-')[1];
+            onDeleteProductFromInvoiceDetail(invDetailId);
+        }));
+        
+
+
+        $(document).on("change", ".remarksInput", (function(e){
+            var colName = $(this).attr('id').split('-')[0]; 
+            var invDetailId = $(this).attr('id').split('-')[1];
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/Cashier/UpdateProductToInvoiceTable',
+            //    data: { columnName: colName, invoiceDetailID: invDetailId }
+            //}).done(function (data) {
+            //    if(!data)
+            //        alert('fail')
+            //});
+        }));
+
         function onSelectInvoiceTable(invTblId) {
             if (invTblId <= 0) {
                 return false;
@@ -290,6 +316,7 @@
                 $(data.InvoiceDetails).each(function(idx) {
                     data.InvoiceDetails[idx].idx = idx + 1;
                 });
+                $('#currentInvoiceTableID').text(data.ID);
                 $('#currentTblName').text('Table name: ' + data.Table.VNName);
                 $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + Date(data.CreatedDate).toString("M/d/yyyy h:mm tt"));
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
@@ -312,7 +339,6 @@
                 onSelectInvoiceTable(invTblId);
                 onRefreshTable();
             });
-            $("#addProduct").show();
         }
 
         function onRefreshProduct(reloadCallback) {
@@ -328,21 +354,37 @@
         }
 
         function onSelectProduct(pdtId, qty) {
-            $.ajax({
-                type: 'POST',
-                url: '/Cashier/SelectProduct',
-                data: { productID: pdtId, quantity: qty }
-            }).done(function (data) {
-                var count = $('#order .tbContent tr').length;
-                data.idx = count + 1;
+            var invTblId = $('#currentInvoiceTableID').text();
+            if(invTblId != '' && invTblId > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cashier/AddProductToInvoiceTable',
+                    data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
+                }).done(function(data) {
+                    if (data != null)
+                        onSelectInvoiceTable(invTblId);
+                });
+            }
+        }
 
-                $('#pdt-tmpl').tmpl(data).appendTo('#order .tbContent');
-                CalculateTotal();
-            });
+        function onDeleteProductFromInvoiceDetail(invDetailId) {
+            if (invDetailId != '' && invDetailId > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cashier/DeleteProductFromInvoiceDetail',
+                    data: { invoiceDetailID: invDetailId }
+                }).done(function(data) {
+                    if (data == true) {
+                        var invTblId = $('#currentInvoiceTableID').text();
+                        if (invTblId != '' && invTblId > 0)
+                            onSelectInvoiceTable(invTblId);
+                    }
+                });
+            }
         }
 
         function onDeleteProduct(pdtId) {
-            return false;
+            alert('a');
         }
 
         function GetTablesByAreaID(areaID) {
