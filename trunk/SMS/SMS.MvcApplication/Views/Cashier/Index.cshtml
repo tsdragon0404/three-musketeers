@@ -34,12 +34,7 @@
         <div class="one column">
             <table class="tbls" id="${ID}-${Table.ID}">
                 <tr>
-                    {{if ID > 0}}
-                    <td style="background-image: url(../Images/IconControls/table-avai.png)">
-                    {{else}}
-                    <td style="background-image: url(../Images/IconControls/table-empty.png)">
-                    {{/if}}
-                    </td>
+                    <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
                 </tr>
                 <tr>
                     <td>${Table.VNName}</td>
@@ -48,42 +43,34 @@
         </div>
             
         {{if idx == $data.ListTable.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
-        </div>
-        {{/if}}
+    </div>
+    {{/if}}
     {{/each}}
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
     <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
-        {{if ID > 0}}
-        <tr id="${ID}" class="Detail">
-        {{else}}
-        <tr class="RmenuDisable" >    
-            {{/if}}
+        <tr id="${ID}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
             <td>
-                <div style="background-image: url(../Images/IconControls/details-icon.png)"></div>
+                <div class="rmenu-detail"></div>
             </td>
             <td class="RmenuItem" id="Select-${ID}-${Table.ID}">Chi tiết</td>
         </tr>
-        <tr onclick="onCreateInvoiceTable(${Table.ID})">
+        <tr id="rmenu-useTable-${ID}" data-tableid="${Table.ID}">
             <td>
-                <div style="background-image: url(../Images/IconControls/add-icon.png)"></div>
+                <div class="rmenu-add"></div>
             </td>
             <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}">Sử dụng ngay</td>
         </tr>
-        <tr onclick="onMoveInvoiceTable(${ID})">
+        <tr id="rmenu-move-${ID}" data-id="${ID}">
             <td>
-                <div style="background-image: url(../Images/IconControls/move-icon.png)"></div>
+                <div class="rmenu-move"></div>
             </td>
             <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
         </tr>
-        {{if ID > 0}}
-        <tr onclick="onClearInvoiceTable(${ID})">
-            {{else}}
-        <tr class="RmenuDisable">    
-            {{/if}}
+        <tr id="rmenu-del-${ID}" data-id="${ID}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
             <td>
-                <div style="background-image: url(../Images/IconControls/delete-icon.png)"></div>
+                <div class="rmenu-delete"></div>
             </td>
             <td class="RmenuItem" id="Delete-${ID}-${Table.ID}">Xóa thông tin</td>
         </tr>
@@ -190,14 +177,14 @@
                 return false;
             });
 
-            onRefreshTable();
+            refreshTable();
             
             setInterval(function() {
-                onRefreshTable();
+                refreshTable();
             }, 60000);
         });
         
-        function onRefreshTable() {
+        function refreshTable() {
             var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
@@ -205,7 +192,7 @@
 
         function onClearInvoiceTable(invTblId) {
             if (invTblId <= 0) {
-                return false;
+                return;
             }
             $.ajax({
                     type: 'POST',
@@ -222,13 +209,13 @@
                     } else
                         alert('Fail');
 
-                    onRefreshTable();
+                    refreshTable();
                 });
         }
 
         function onMoveInvoiceTable(invTblId) {
             if (invTblId <= 0) {
-                return false;
+                return;
             }
         }
         
@@ -242,14 +229,14 @@
                     onCreateInvoiceTable(tblId);
                 }
                 else {
-                    return false;
+                    return;
                 }
             } else {
                 onSelectInvoiceTable(invTblId);
             }
         }));
         
-        $(document).on("contextmenu", "#area-table", function(e) {
+        $(document).on("contextmenu", "#area-table", function() {
             return false;
         });
         
@@ -289,8 +276,6 @@
             onDeleteProductFromInvoiceDetail(invDetailId);
         }));
         
-
-
         $(document).on("change", ".remarksInput", (function(e){
             var colName = $(this).attr('id').split('-')[0]; 
             var invDetailId = $(this).attr('id').split('-')[1];
@@ -311,7 +296,7 @@
 
         function onSelectInvoiceTable(invTblId) {
             if (invTblId <= 0) {
-                return false;
+                return;
             }
             $.ajax({
                 type: 'POST',
@@ -329,11 +314,12 @@
                 CalculateTotal();
             });
             $("#addProduct").show();
+            return;
         }
         
         function onCreateInvoiceTable(tblId) {
             if (tblId <= 0) {
-                return false;
+                return;
             }
             var invTblId = 0;
             $.ajax({
@@ -343,8 +329,9 @@
             }).done(function (data) {
                 invTblId = data.ID;
                 onSelectInvoiceTable(invTblId);
-                onRefreshTable();
+                refreshTable();
             });
+            return;
         }
 
         function onRefreshProduct(reloadCallback) {
@@ -395,7 +382,7 @@
 
         function GetTablesByAreaID(areaID) {
             if (areaID <= 0) {
-                return false;
+                return;
             }
             $.ajax({
                 type: 'POST',
@@ -406,7 +393,24 @@
                 $('#rightMenuArea').html('');
                 $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
                 $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
+
+                $('tr[id^="rmenu-useTable-"]').click(function () {
+                    var id = $(this).attr('data-tableid');
+                    onCreateInvoiceTable(id);
+                    return false;
+                });
+                $('tr[id^="rmenu-move-"]').click(function () {
+                    var id = $(this).attr('data-id');
+                    onMoveInvoiceTable(id);
+                    return false;
+                });
+                $('tr[id^="rmenu-del-"]').click(function () {
+                    var id = $(this).attr('data-id');
+                    onClearInvoiceTable(id);
+                    return false;
+                });
             });
+            return;
         }
         
         function CalculateTotal() {
