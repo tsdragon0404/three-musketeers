@@ -71,13 +71,13 @@ namespace SMS.MvcApplication.Controllers
             return Json(flag);
         }
 
-        //[HttpPost]
-        //public JsonResult UpdateProductToInvoiceTable(string columnName, long invoiceDetailID)
-        //{
-        //    var flag = InvoiceTableService.Delete(invoiceTableID);
+        [HttpPost]
+        public JsonResult UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string columnValue)
+        {
+            var flag = InvoiceDetailService.UpdateProductToInvoiceTable(invoiceDetailID, columnName, columnValue);
 
-        //    return Json(flag);
-        //}
+            return Json(flag);
+        }
 
         [HttpPost]
         public JsonResult DeleteProductFromInvoiceDetail(long invoiceDetailID)
@@ -87,12 +87,12 @@ namespace SMS.MvcApplication.Controllers
             return Json(flag);
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult CreateInvoiceTable(long tableID)
         {
             var invoiceTable = InvoiceTableService.CreateInvoiceTable(tableID);
 
-            return Json(invoiceTable, JsonRequestBehavior.AllowGet);
+            return Json(invoiceTable);
         }
 
         [HttpPost]

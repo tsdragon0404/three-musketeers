@@ -14,5 +14,10 @@ namespace SMS.Services.Impl
         {
             return Management.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
         }
+
+        public InvoiceDetailDto UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
+        {
+            return Management.UpdateProductToInvoiceTable(invoiceDetailID, columnName, value);
+        }
     }
 }

@@ -34,5 +34,21 @@ namespace SMS.Business.Impl
             Repository.Add(invoiceDetail);
             return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
         }
+
+        public InvoiceDetailDto UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
+        {
+            var invoiceDetail = Repository.Get(invoiceDetailID);
+            switch (columnName)
+            {
+                case "qty":
+                    invoiceDetail.Quantity = decimal.Parse(value);
+                    break;
+                case "cmt":
+                    invoiceDetail.Comment = value;
+                    break;
+            };
+            Repository.Update(invoiceDetail);
+            return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
+        }
     }
 }
