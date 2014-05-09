@@ -48,3 +48,10 @@ function SetHeightBodySection() {
 
     $('#body #admin-body, #body #cashier').height(windowHeight - headerHeight - footerHeight - menuHeight);
 }
+
+function pad(s) { return (s < 10) ? '0' + s : s; }
+
+Date.prototype.transform = function (inputDate) {
+    var d = new Date(inputDate);
+    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+}
