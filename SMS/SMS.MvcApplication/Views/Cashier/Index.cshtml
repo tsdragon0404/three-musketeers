@@ -309,7 +309,7 @@
                 });
                 $('#currentInvoiceTableID').text(data.ID);
                 $('#currentTblName').text('Table name: ' + data.Table.VNName);
-                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + Date(data.CreatedDate));
+                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transform());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
                 CalculateTotal();
             });
