@@ -51,7 +51,9 @@ function SetHeightBodySection() {
 
 function pad(s) { return (s < 10) ? '0' + s : s; }
 
-String.prototype.transformAsDateTime = function() {
+String.prototype.transformAsDateTime = function () {
+    if (this == '')
+        return '--/--/-- --:--';
     var d = new Date(this);
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1)].join(':');
 };
