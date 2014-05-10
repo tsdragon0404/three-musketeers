@@ -30,41 +30,28 @@ namespace SMS.MvcApplication.Controllers
             return View(cashierModel);
         }
 
-        //[HttpPost]
-        public JsonResult AddProductToInvoiceTable(long invoiceTableID, long productID, int quantity)
+        [HttpPost]
+        public JsonResult OrderProduct(long invoiceTableID, long productID, int quantity)
         {
             if (productID == 0 || quantity < 1 ) return null;
 
-            // Add selected product to an invoice table
             var invoiceDetail = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
 
-            return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
+            return Json(invoiceDetail);
         }
 
         [HttpPost]
-        public JsonResult SelectTableDetail(long invoiceTableID)
+        public JsonResult SelectTable(long invoiceTableID)
         {
             if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
 
-            // Get items from table order
-            var product = ProductService.GetProductsOrderingByInvoiceTableID(invoiceTableID);
-
-            return Json(product);
-        }
-
-        //[HttpPost]
-        public JsonResult SelectInvoiceDetail(long invoiceTableID)
-        {
-            if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
-
-            // Get items from table order
             var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
 
-            return Json(invoiceDetail, JsonRequestBehavior.AllowGet);
+            return Json(invoiceDetail);
         }
 
         [HttpPost]
-        public JsonResult DeleteInvoiceTable(long invoiceTableID)
+        public JsonResult CancelTable(long invoiceTableID)
         {
             var flag = InvoiceTableService.Delete(invoiceTableID);
 
@@ -72,7 +59,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string columnValue)
+        public JsonResult UpdateOrderProduct(long invoiceDetailID, string columnName, string columnValue)
         {
             var flag = InvoiceDetailService.UpdateProductToInvoiceTable(invoiceDetailID, columnName, columnValue);
 
@@ -80,7 +67,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteProductFromInvoiceDetail(long invoiceDetailID)
+        public JsonResult RemoveOrderProduct(long invoiceDetailID)
         {
             var flag = InvoiceDetailService.Delete(invoiceDetailID);
 

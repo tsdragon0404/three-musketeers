@@ -196,7 +196,7 @@
             }
             $.ajax({
                     type: 'POST',
-                    url: '/Cashier/DeleteInvoiceTable',
+                    url: '/Cashier/CancelTable',
                     data: { invoiceTableID: invTblId }
                 }).done(function(data) {
                     if (data == true) {
@@ -282,7 +282,7 @@
             var value = $(this).val();
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/UpdateProductToInvoiceTable',
+                url: '/Cashier/UpdateOrderProduct',
                 data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
             }).done(function (data) {
                 if(!data) {
@@ -300,7 +300,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectInvoiceDetail',
+                url: '/Cashier/SelectTable',
                 data: { invoiceTableID: invTblId }
             }).done(function (data) {
                 $('#order .tbContent').html('');
@@ -351,7 +351,7 @@
             if(invTblId != '' && invTblId > 0) {
                 $.ajax({
                     type: 'POST',
-                    url: '/Cashier/AddProductToInvoiceTable',
+                    url: '/Cashier/OrderProduct',
                     data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
                 }).done(function(data) {
                     if (data != null)
@@ -364,7 +364,7 @@
             if (invDetailId != '' && invDetailId > 0) {
                 $.ajax({
                     type: 'POST',
-                    url: '/Cashier/DeleteProductFromInvoiceDetail',
+                    url: '/Cashier/RemoveOrderProduct',
                     data: { invoiceDetailID: invDetailId }
                 }).done(function(data) {
                     if (data == true) {
