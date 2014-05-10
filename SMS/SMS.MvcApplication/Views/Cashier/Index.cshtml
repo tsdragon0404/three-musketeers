@@ -172,7 +172,7 @@
             $('#area-table').tabs();
             $("#addProduct").hide();
             $("#addProduct").click(function () {
-                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct, onDeleteProduct);
+                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
                 product.OpenPopup();
                 return false;
             });
@@ -276,7 +276,7 @@
             onDeleteProductFromInvoiceDetail(invDetailId);
         }));
         
-        $(document).on("change", ".remarksInput", (function(e){
+        $(document).on("change", ".remarksInput", (function(){
             var colName = $(this).attr('id').split('-')[0]; 
             var invDetailId = $(this).attr('id').split('-')[1];
             var value = $(this).val();
@@ -309,7 +309,7 @@
                 });
                 $('#currentInvoiceTableID').text(data.ID);
                 $('#currentTblName').text('Table name: ' + data.Table.VNName);
-                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transform());
+                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transformAsDateTime());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
                 CalculateTotal();
             });
@@ -376,10 +376,6 @@
             }
         }
 
-        function onDeleteProduct(pdtId) {
-            alert('a');
-        }
-
         function GetTablesByAreaID(areaID) {
             if (areaID <= 0) {
                 return;
@@ -419,12 +415,12 @@
                 totalAmount += parseInt($(element).find('td.item_subtotal').text());
             });
 
-            $('#totalSection .total_amount').text(Number(totalAmount).toLocaleString('en'));
+            $('#totalSection .total_amount').text(totalAmount.transformAsMoney());
             
             var tax = totalAmount / 10;
-            $('#totalSection .tax').text(Number(tax).toLocaleString('en'));
+            $('#totalSection .tax').text(tax.transformAsMoney());
             
-            $('#totalSection .total_money').text(Number(totalAmount + tax).toLocaleString('en'));
+            $('#totalSection .total_money').text((totalAmount + tax).transformAsMoney());
         }
     </script>
 </div>
