@@ -64,7 +64,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[Currency](
 		[CurrencyID] [int] IDENTITY(1,1) NOT NULL,
-		[Currency] [varchar](10) NOT NULL,
+		[Name] [varchar](10) NOT NULL,
 		[Exchange] [numeric](12, 2) NULL,
 		[Enable] [bit] NULL,
 		[SEQ] [int] NULL,
@@ -317,7 +317,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[Tax](
 		[TaxID] [int] IDENTITY(1,1) NOT NULL,
-		[Tax] [varchar](10) NOT NULL,
+		[Name] [varchar](10) NOT NULL,
 		[Description] [nvarchar](255) NULL,
 		[Value] [numeric](5, 2) NULL,
 		[Enable] [bit] NULL,
@@ -368,7 +368,7 @@ BEGIN
 		[Enable] [bit] NULL,
 		[SEQ] [int] NULL,
 		[CreatedDate] [datetime] NULL,
-		[CreateUser] [varchar](50) NULL,
+		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
 		[ModifiedUser] [varchar](50) NULL,
 	 CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
