@@ -11,7 +11,8 @@ namespace SMS.MvcApplication.Base
         {
             Settings = new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                DateTimeZoneHandling = DateTimeZoneHandling.Local
             };
         }
 
