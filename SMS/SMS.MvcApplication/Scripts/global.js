@@ -59,5 +59,5 @@ String.prototype.transformAsDateTime = function () {
 };
 
 Number.prototype.transformAsMoney = function() {
-    this.toLocaleString('en');
+    return this.toLocaleString('en');
 };
