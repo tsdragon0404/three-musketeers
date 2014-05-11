@@ -733,6 +733,7 @@
     <Content Include="Images\IconControls\table.png" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
+    <Content Include="Scripts\custom-validate.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\message-popup.js" />
