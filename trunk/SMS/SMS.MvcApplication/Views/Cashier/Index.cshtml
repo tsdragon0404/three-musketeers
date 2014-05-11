@@ -227,13 +227,14 @@
             var invTblId = id.split('-')[0];
             var tblId = id.split('-')[1];
             if(invTblId == 0) {
-                var didConfirm = confirm("Bàn này hiện đang trống. \nSử dụng ngay?");
-                if (didConfirm == true) {
+                var popup = new MessagePopup('Thông báo',
+                'Bàn này hiện đang trống.<br />Sử dụng ngay?',
+                3,
+                function () {
                     onCreateInvoiceTable(tblId);
-                }
-                else {
-                    return;
-                }
+                });
+            
+                popup.OpenPopup();
             } else {
                 onSelectInvoiceTable(invTblId);
             }

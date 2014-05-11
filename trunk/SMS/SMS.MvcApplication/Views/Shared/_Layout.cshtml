@@ -82,6 +82,7 @@
     <footer id="footer">
         &copy; @DateTime.Now.Year - My ASP.NET MVC Application
     </footer>
+    @Html.Partial("MessagePopup")
     @Html.Partial("AjaxLoader")
     @RenderSection("scripts", required: false)
 </body>
