@@ -59,7 +59,8 @@
 
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
-            numberFormat: "n"
+            numberFormat: "n",
+            min: 0.5
         });
 
         $('#' + id + ' .popupSelect').click(function (e) {

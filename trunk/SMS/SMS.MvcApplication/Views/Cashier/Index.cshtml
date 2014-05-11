@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
     var listProduct = @Html.Raw(Json.Encode(Model.ListProduct))
 </script>
@@ -16,7 +17,7 @@
         <td>${ProductCode}</td>
         <td>${ProductVNName}</td>
         <td>
-            <input type="text" id="qty-${ID}" value="${Quantity}" class="number required center" />
+            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
         </td>
         <td>${UnitVNName}</td>
         <td class="right">${Price}</td>
@@ -105,7 +106,7 @@
             <div class="six columns" id="createTableInfo">Order by:      - Order date: --/--/---- --:--:--</div>
         </div>
         <div class="row">
-            <form>
+            <form id="form-table-order">
                 <table id="order">
                     <colgroup>
                         <col class="col1" />
@@ -285,7 +286,7 @@
         function updateOrderProduct(e) {
             var colName = $(e).attr('id').split('-')[0]; 
             if(colName == 'qty') {
-                if(!$(e).valid)
+                if(!$(e).valid())
                     return;
             }
 
@@ -326,8 +327,16 @@
                 $('input[id^="qty"').spinner({
                     step: 0.5,
                     numberFormat: "n",
+                    min: 0.5,                    
                     change: function () {
                         updateOrderProduct(this);
+                    }
+                });
+                $('#form-table-order').validate({
+                    rules: {
+                        qty: {
+                            greaterThanZero : true
+                        }
                     }
                 });
 
