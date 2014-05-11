@@ -16,7 +16,7 @@
         <td>${ProductCode}</td>
         <td>${ProductVNName}</td>
         <td>
-            <input type="text" id="qty-${ID}" value="${Quantity}" class="remarksInput center" />
+            <input type="text" id="qty-${ID}" value="${Quantity}" class="number required center" />
         </td>
         <td>${UnitVNName}</td>
         <td class="right">${Price}</td>
@@ -187,7 +187,7 @@
         });
         
         function refreshTable() {
-            var area = $('#areas li.ui-tabs-selected a[href*="area-"]').attr('href');
+            var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
         }
@@ -279,9 +279,18 @@
         }));
         
         $(document).on("change", ".remarksInput", (function(){
-            var colName = $(this).attr('id').split('-')[0]; 
-            var invDetailId = $(this).attr('id').split('-')[1];
-            var value = $(this).val();
+            updateOrderProduct(this);
+        }));
+
+        function updateOrderProduct(e) {
+            var colName = $(e).attr('id').split('-')[0]; 
+            if(colName == 'qty') {
+                if(!$(e).valid)
+                    return;
+            }
+
+            var invDetailId = $(e).attr('id').split('-')[1];
+            var value = $(e).val();
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/UpdateOrderProduct',
@@ -294,7 +303,7 @@
                 if (invTblId != '' && invTblId > 0)
                     onSelectInvoiceTable(invTblId);
             });
-        }));
+        }
 
         function onSelectInvoiceTable(invTblId) {
             if (invTblId <= 0) {
@@ -313,6 +322,15 @@
                 $('#currentTblName').text('Table name: ' + data.Table.VNName);
                 $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transformAsDateTime());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
+
+                $('input[id^="qty"').spinner({
+                    step: 0.5,
+                    numberFormat: "n",
+                    change: function () {
+                        updateOrderProduct(this);
+                    }
+                });
+
                 CalculateTotal();
             });
             $("#addProduct").show();

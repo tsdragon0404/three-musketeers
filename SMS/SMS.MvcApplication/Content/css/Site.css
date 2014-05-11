@@ -60,6 +60,10 @@ header {
     overflow: auto;
 }
 
+    #cashier .ui-spinner-input, #searchProduct .ui-spinner-input {
+        width: 50px;
+    }
+
 #area-table {
     bottom: 60%;
     margin-bottom: 3px;
