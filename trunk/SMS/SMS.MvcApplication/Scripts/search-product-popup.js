@@ -57,9 +57,14 @@
 
         $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
 
+        $('input[id^="popup-qty"]').spinner({
+            step: 0.5,
+            numberFormat: "n"
+        });
+
         $('#' + id + ' .popupSelect').click(function (e) {
             var pdtid = e.target.id.split('-')[1];
-            if ($('#qty-' + pdtid).valid())
+            if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);
         });
             
@@ -100,7 +105,7 @@
     this.select = function (e) {
         $('#' + id).dialog('close');
         var pdtId = e.target.id.split('-')[1];
-        var qty = $(e.target).parent().prev().find('input[id^="qty"]').val();
+        var qty = $(e.target).parent().prev().find('input[id^="popup-qty"]').val();
 
         if (selectCallback)
             selectCallback(pdtId, qty);
