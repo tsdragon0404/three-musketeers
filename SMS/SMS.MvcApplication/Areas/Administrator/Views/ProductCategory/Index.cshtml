@@ -6,29 +6,37 @@
 }
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="6">
+        <td colspan="7">
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right">
-                        Area name
+                        Category Code
                     </div>
                     <div class="three columns">
-                        <input type="text" name="areaName" value="${VNName}" id="areaName-${ID}" />
+                        <input type="text" name="areaName" value="${ProductCategoryCode}" id="catCode-${ID}" />
                     </div>
+                    <div class="three columns right">
+                        Category Name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="branchID" value="${VNName}" id="catName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         Branch ID
                     </div>
                     <div class="three columns">
-                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
+                        <input type="text" name="seq" value="${BranchID}" id="branchID-${ID}"/>
                     </div>
-                </div>
-                <div class="row">
                     <div class="three columns right">
                         SEQ
                     </div>
                     <div class="three columns">
                         <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
                     </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         Enable
                     </div>
@@ -62,7 +70,6 @@
                 <col style="width: 70px;" />
                 <col style="width: 60px;" />
                 <col style="width: 100px;" />
-                <col style="width: 150px;" />
                 <col />
                 <col style="width: 100px;" />
                 <col style="width: 75px;" />
@@ -74,7 +81,6 @@
                     <th>No</th>
                     <th>Code</th>
                     <th>Category name</th>
-                    <th>Description</th>
                     <th>Branch</th>
                     <th>SEQ</th>
                     <th>Enabled</th>
@@ -92,7 +98,6 @@
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.ProductCategoryCode</td>
                         <td>@dto.VNName</td>
-                        <td>@dto.VNDescription</td>
                         <td>@dto.BranchID</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
@@ -102,7 +107,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="7"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
                 </tr>
             </tfoot>
         </table>
@@ -123,7 +128,8 @@
             function getAreaForSave(recordID) {
                 var data = {
                     ID: recordID,
-                    VNName: $('#areaName-' + recordID).val(),
+                    ProductCategoryCode: $('#catCode-' + recordID).val(),
+                    VNName: $('#catName-' + recordID).val(),
                     BranchID: $('#branchID-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()
