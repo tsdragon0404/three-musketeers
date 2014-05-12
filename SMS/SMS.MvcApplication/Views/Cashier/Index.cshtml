@@ -325,7 +325,7 @@
                 $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transformAsDateTime());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
 
-                $('input[id^="qty"').spinner({
+                $('input[id^="qty"]').spinner({
                     step: 0.5,
                     numberFormat: "n",
                     min: 0.5,                    
