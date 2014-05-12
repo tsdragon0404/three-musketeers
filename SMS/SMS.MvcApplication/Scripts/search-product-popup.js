@@ -78,7 +78,12 @@
         $('#' + id + ' .tbContentLookup tr').dblclick(function (e) {
             $(e.currentTarget).find('input.popupSelect').trigger('click');
         });
-
+        
+        // stop Propagation on spinner element (double click on spinner will not trigger row double click)
+        $('.tbContentLookup .ui-spinner').dblclick(function (e) {
+            e.stopPropagation();
+        });
+        
         $('#' + id + ' .inputQty').keypress(function (e) {
             if (e.which == 13) {
                 var pdtid = e.target.id.split('-')[1];
