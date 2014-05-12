@@ -379,3 +379,7 @@ label.ui-state-error {
     background-color: #fff;
     border-color: #ddd;
 }
+
+.ui-dialog .ui-dialog-titlebar-close span {
+    margin: 0;
+}

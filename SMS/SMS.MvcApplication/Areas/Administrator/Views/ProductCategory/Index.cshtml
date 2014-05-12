@@ -1,0 +1,135 @@
+﻿@using SMS.Data.Dtos
+@model SMS.MvcApplication.Areas.Administrator.Models.AdminModel<ProductCategoryDto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="6">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="three columns right">
+                        Area name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="areaName" value="${VNName}" id="areaName-${ID}" />
+                    </div>
+                    <div class="three columns right">
+                        Branch ID
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        SEQ
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
+                    </div>
+                    <div class="three columns right">
+                        Enable
+                    </div>
+                    <div class="three columns">
+                        {{if Enable == true}}
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="eleven columns right">
+                        <input type="button" class="myButton" id="save-${ID}" value="Save" />
+                        <input type="button" class="myButton" id="cancel-${ID}" value="Cancel" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<div id="admin-body">
+    <h4 class="admin-page-title">Maintain Area</h4>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
+    <div class="row">
+        <table class="admin-table-record">
+            <colgroup>
+                <col style="width: 70px;" />
+                <col style="width: 60px;" />
+                <col style="width: 100px;" />
+                <col style="width: 150px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col style="width: 75px;" />
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>Code</th>
+                    <th>Category name</th>
+                    <th>Description</th>
+                    <th>Branch</th>
+                    <th>SEQ</th>
+                    <th>Enabled</th>
+                </tr>
+            </thead>
+            <tbody class="admin-list-record">
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="admin-record @altClass" data-id="@dto.ID">
+                        <td>
+                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID">></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.ProductCategoryCode</td>
+                        <td>@dto.VNName</td>
+                        <td>@dto.VNDescription</td>
+                        <td>@dto.BranchID</td>
+                        <td>@dto.SEQ</td>
+                        <td>@dto.Enable</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
+                
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl);
+                adminfunc.bind();
+            });
+
+            function getAreaForSave(recordID) {
+                var data = {
+                    ID: recordID,
+                    VNName: $('#areaName-' + recordID).val(),
+                    BranchID: $('#branchID-' + recordID).val(),
+                    Enable: $('#enable-' + recordID).prop('checked'),
+                    SEQ: $('#seq-' + recordID).val()
+                };
+                return data;
+            }
+        </script>
+    </div>
+</div>
