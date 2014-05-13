@@ -16,16 +16,6 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<TProductDto> GetAll<TProductDto>()
-        {
-            return Mapper.Map<IList<TProductDto>>(Repository.GetAll().ToList());
-        }
-
-        public TProductDto GetByID<TProductDto>(long id)
-        {
-            return Mapper.Map<TProductDto>(Repository.Get(id));
-        }
-
         public IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
         {
             var invoiceTable = InvoiceTableRepository.Get(invoiceTableID);

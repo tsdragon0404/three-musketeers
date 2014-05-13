@@ -59,7 +59,7 @@
                                     : "";
                                 
                                 <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                    @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, null)
+                                    @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
                                 </li>
                             }
                         </ul>   

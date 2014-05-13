@@ -13,7 +13,6 @@ using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using Newtonsoft.Json;
 using SMS.Common.AutoMapper;
 
 namespace SMS.MvcApplication
@@ -110,6 +109,7 @@ namespace SMS.MvcApplication
         private void MappingRegister()
         {
             DomainMappingRegister.Register();
+            ModelMappingRegister.Register();
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using SMS.Data.Dtos;
+using SMS.Data.Dtos.Models;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -12,7 +13,6 @@ namespace SMS.MvcApplication.Controllers
         #region Fields
 
         public virtual IAreaService AreaService { get; set; }
-        public virtual ITableService TableService { get; set; }
         public virtual IProductService ProductService { get; set; }
         public virtual IInvoiceTableService InvoiceTableService { get; set; }
         public virtual IInvoiceDetailService InvoiceDetailService { get; set; }
@@ -23,7 +23,7 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAll(),
+                                       ListArea = AreaService.GetAll<CashierAreaModel>(),
                                        ListProduct = ProductService.GetAll<ProductBasicDto>(),
                                    };
 
