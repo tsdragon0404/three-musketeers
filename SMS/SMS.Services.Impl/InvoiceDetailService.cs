@@ -10,7 +10,7 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, int quantity)
+        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
         {
             return Management.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
         }

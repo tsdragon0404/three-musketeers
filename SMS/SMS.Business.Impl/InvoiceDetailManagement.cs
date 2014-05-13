@@ -15,7 +15,7 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, int quantity)
+        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
         {
             var product = ProductRepository.Get(productID);
             if(product == null)

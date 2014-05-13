@@ -100,10 +100,16 @@
     <div class="split-pane-divider"></div>
 
     <div id="tableorder" class="split-pane-component">
+        <a id="currentInvoiceTableID" style="display: none"></a>
         <div class="row">
-            <a id="currentInvoiceTableID" style="display: none"></a>
-            <div class="two columns" id="currentTblName">Table name</div>
-            <div class="six columns" id="createTableInfo">Order by:      - Order date: --/--/---- --:--:--</div>
+            <div class="four columns"><label id="lblTableName">Table name: </label><label id="curTableName"></label></div>
+            <div class="three columns"><label id="lblOrderBy">Order by: </label><label id="curOrderBy"></label></div>
+            <div class="four columns"><label id="lblOrderDate">Order date: </label><label id="curOrderDate"></label></div>
+        </div>
+        <div class="row">
+            <div class="four columns"><label id="lblCustomerName">Customer name: </label><label id="curCustomerName"></label></div>
+            <div class="three columns"><label id="lblLastAccessBy">Last access by: </label><label id="curLastAccessBy"></label></div>
+            <div class="four columns"><label id="lblLastAccessDate">Last access date: </label><label id="curLastAccessDate"></label></div>
         </div>
         <div class="row">
             <form id="form-table-order">
@@ -204,8 +210,9 @@
                 }).done(function(data) {
                     if (data == true) {
                         $('#currentInvoiceTableID').text(-1);
-                        $('#currentTblName').text('Table name: ');
-                        $('#createTableInfo').text('Order by: - Order date: --/--/---- --:--:--');
+                        $('#curTableName').text('');
+                        $('#curOrderBy').text('');
+                        $('#curOrderDate').text('');
                         $('#order .tbContent').html('');
                         $("#addProduct").hide();
                         CalculateTotal();
@@ -321,8 +328,9 @@
                     data.InvoiceDetails[idx].idx = idx + 1;
                 });
                 $('#currentInvoiceTableID').text(data.ID);
-                $('#currentTblName').text('Table name: ' + data.Table.VNName);
-                $('#createTableInfo').text('Order by: ' + data.CreatedUser + ' - Order date: ' + data.CreatedDate.transformAsDateTime());
+                $('#curTableName').text(data.Table.VNName);
+                $('#curOrderBy').text(data.CreatedUser);
+                $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
 
                 $('input[id^="qty"]').spinner({
