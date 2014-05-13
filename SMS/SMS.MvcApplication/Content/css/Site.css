@@ -379,3 +379,13 @@ label.ui-state-error {
     background-color: #fff;
     border-color: #ddd;
 }
+
+.searchCustomer {
+    cursor: pointer;
+    color: #76BBD8;
+    text-decoration: underline;
+}
+
+.searchCustomer:hover {
+    color: #0078C9;
+}
