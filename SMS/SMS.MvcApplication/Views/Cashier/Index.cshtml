@@ -82,9 +82,9 @@
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
-            @foreach (var areaDto in Model.ListArea)
+            @foreach (var area in Model.ListArea)
             {
-                <li><a href="#area-@areaDto.ID" onclick="GetTablesByAreaID(@areaDto.ID)">@areaDto.VNName</a></li>
+                <li><a href="#area-@area.ID" onclick="GetTablesByAreaID(@area.ID)">@area.Name</a></li>
             }
 
         </ul>

@@ -30,7 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +37,7 @@
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
     <Compile Include="EnableSortableDto.cs" />
+    <Compile Include="Models\CashierAreaModel.cs" />
     <Compile Include="ProductBasicDto.cs" />
     <Compile Include="CustomerDto.cs" />
     <Compile Include="ProductPriceHistoryDto.cs" />

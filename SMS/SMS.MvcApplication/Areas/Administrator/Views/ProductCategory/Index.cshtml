@@ -13,30 +13,36 @@
                         Category Code
                     </div>
                     <div class="three columns">
-                        <input type="text" name="areaName" value="${ProductCategoryCode}" id="catCode-${ID}" />
+                        <input type="text" name="catCode" value="${ProductCategoryCode}" id="catCode-${ID}" />
                     </div>
                     <div class="three columns right">
                         Category Name
                     </div>
                     <div class="three columns">
-                        <input type="text" name="branchID" value="${VNName}" id="catName-${ID}"/>
+                        <input type="text" name="catName" value="${VNName}" id="catName-${ID}"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="three columns right">
+                        Description
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="description" value="${VNDescription}" id="desc-${ID}"/>
+                    </div>
+                    <div class="three columns right">
                         Branch ID
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="${BranchID}" id="branchID-${ID}"/>
+                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
                     </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         SEQ
                     </div>
                     <div class="three columns">
                         <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
                     </div>
-                </div>
-                <div class="row">
                     <div class="three columns right">
                         Enable
                     </div>
@@ -130,6 +136,7 @@
                     ID: recordID,
                     ProductCategoryCode: $('#catCode-' + recordID).val(),
                     VNName: $('#catName-' + recordID).val(),
+                    VNDescription: $('#desc-' + recordID).val(),
                     BranchID: $('#branchID-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()

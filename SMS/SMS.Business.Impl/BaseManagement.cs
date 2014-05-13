@@ -20,6 +20,11 @@ namespace SMS.Business.Impl
             return Mapper.Map<IList<TDto>>(Repository.GetAll().ToList());
         }
 
+        public IList<TModel> GetAll<TModel>()
+        {
+            return Mapper.Map<IList<TModel>>(Repository.GetAll().ToList());
+        }
+
         public IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
             var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
@@ -30,9 +35,24 @@ namespace SMS.Business.Impl
             return PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo);
         }
 
+        public IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        {
+            var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch));
+
+            pagingInfo.TotalItemCount = filteredRecords.Count();
+            pagingInfo.PageSize = UserContext.PageSize;
+
+            return PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo);
+        }
+
         public TDto GetByID(TPrimaryKey primaryKey)
         {
             return Mapper.Map<TDto>(Repository.Get(primaryKey));
+        }
+
+        public TModel GetByID<TModel>(TPrimaryKey primaryKey)
+        {
+            return Mapper.Map<TModel>(Repository.Get(primaryKey));
         }
 
         public bool Save(TDto dto)
