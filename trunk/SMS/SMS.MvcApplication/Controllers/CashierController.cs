@@ -31,7 +31,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult OrderProduct(long invoiceTableID, long productID, int quantity)
+        public JsonResult OrderProduct(long invoiceTableID, long productID, decimal quantity)
         {
             if (productID == 0 || quantity < 1 ) return null;
 
