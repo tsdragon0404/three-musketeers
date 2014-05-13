@@ -732,6 +732,7 @@
     <Content Include="Areas\Administrator\Views\Table\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\AdminHome\Index.cshtml" />
     <Content Include="Images\IconControls\add-icon.png" />
+    <Content Include="Images\IconControls\delete-icon.png" />
     <Content Include="Images\IconControls\details-icon.png" />
     <Content Include="Images\IconControls\move-icon.png" />
     <Content Include="Images\IconControls\new-icon.png" />
