@@ -107,7 +107,10 @@
             <div class="four columns"><label id="lblOrderDate">Order date: </label><label id="curOrderDate"></label></div>
         </div>
         <div class="row">
-            <div class="four columns"><label id="lblCustomerName">Customer name: </label><label id="curCustomerName"></label></div>
+            <div class="four columns">
+                <label id="lblCustomerName" class="searchCustomer">Customer name: </label>
+                <label id="curCustomerName"></label>
+            </div>
             <div class="three columns"><label id="lblLastAccessBy">Last access by: </label><label id="curLastAccessBy"></label></div>
             <div class="four columns"><label id="lblLastAccessDate">Last access date: </label><label id="curLastAccessDate"></label></div>
         </div>
@@ -285,6 +288,13 @@
         $(document).on("click", ".delProduct", (function(){
             var invDetailId = $(this).attr('id').split('-')[1];
             onDeleteProductFromInvoiceDetail(invDetailId);
+        }));
+        
+        
+        $(document).on("click", ".searchCustomer", (function(){
+            var invTblId = $('#currentInvoiceTableID').text();
+            if (invTblId != '' && invTblId > 0)
+                alert('Show popup Customer search');
         }));
         
         $(document).on("change", ".remarksInput", (function(){
