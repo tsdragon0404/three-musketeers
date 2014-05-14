@@ -216,6 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BranchConfigModel.cs" />
     <Compile Include="Models\CashierModel.cs" />
     <Compile Include="Models\HyperlinkModel.cs" />
     <Compile Include="Models\PopupModel.cs" />

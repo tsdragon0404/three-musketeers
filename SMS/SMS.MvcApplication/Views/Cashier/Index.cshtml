@@ -20,8 +20,8 @@
             <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
         </td>
         <td>${UnitVNName}</td>
-        <td class="right">${Price}</td>
-        <td class="right item_subtotal">${Price * Quantity}</td>
+        <td class="right">${Price.transformAsMoney()}</td>
+        <td class="right item_subtotal">${(Price * Quantity).transformAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
         <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
@@ -102,17 +102,17 @@
     <div id="tableorder" class="split-pane-component">
         <a id="currentInvoiceTableID" style="display: none"></a>
         <div class="row">
-            <div class="four columns"><label id="lblTableName">Table name: </label><label id="curTableName"></label></div>
-            <div class="three columns"><label id="lblOrderBy">Order by: </label><label id="curOrderBy"></label></div>
-            <div class="four columns"><label id="lblLastAccessBy">Last access by: </label><label id="curLastAccessBy"></label></div>
+            <div class="four columns"><span id="lblTableName">Table name: </span><span id="curTableName"></span></div>
+            <div class="three columns"><span id="lblOrderBy">Order by: </span><span id="curOrderBy"></span></div>
+            <div class="four columns"><span id="lblLastAccessBy">Last access by: </span><span id="curLastAccessBy"></span></div>
         </div>
         <div class="row">
             <div class="four columns">
-                <label id="lblCustomerName" class="searchCustomer">Customer name: </label>
-                <label id="curCustomerName"></label>
+                <span id="lblCustomerName" class="searchCustomer">Customer name: </span>
+                <span id="curCustomerName"></span>
             </div>
-            <div class="three columns"><label id="lblOrderDate">Order date: </label><label id="curOrderDate"></label></div>
-            <div class="four columns"><label id="lblLastAccessDate">Last access date: </label><label id="curLastAccessDate"></label></div>
+            <div class="three columns"><span id="lblOrderDate">Order date: </span><span id="curOrderDate"></span></div>
+            <div class="four columns"><span id="lblLastAccessDate">Last access date: </span><span id="curLastAccessDate"></span></div>
         </div>
         <div class="row">
             <form id="form-table-order">

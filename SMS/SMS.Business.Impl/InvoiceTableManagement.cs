@@ -44,6 +44,16 @@ namespace SMS.Business.Impl
             var result = Repository.Get(invTblID);
             return result == null ? null : Mapper.Map<InvoiceTableDto>(result);
         }
+
+        public void UpdateTableDetail(long invTblID)
+        {
+            var total = InvoiceDetailRepository.Find(x => x.InvoiceTable.ID == invTblID).Sum(x => x.Price*x.Quantity);
+            var invoiceTable = Repository.Get(invTblID);
+
+            invoiceTable.TableAmount = total;
+            
+            Repository.Update(invoiceTable);
+        }
     }
 
 

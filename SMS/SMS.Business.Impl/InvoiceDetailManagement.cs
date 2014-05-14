@@ -13,6 +13,7 @@ namespace SMS.Business.Impl
 
         public virtual IProductRepository ProductRepository { get; set; }
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
+        public virtual IInvoiceTableManagement InvoiceTableManagement { get; set; }
 
         #endregion
 
@@ -28,12 +29,12 @@ namespace SMS.Business.Impl
                                         ProductCode = product.ProductCode,
                                         ProductVNName = product.VNName,
                                         ProductENName = product.ENName,
-                                        Price = product.Price*quantity,
+                                        Price = product.Price,
                                         UnitVNName = product.Unit.VNName,
                                         UnitENName = product.Unit.ENName
                                     };
             Repository.Add(invoiceDetail);
-            InvoiceTableRepository.Update(InvoiceTableRepository.Get(invoiceTableID));
+            InvoiceTableManagement.UpdateTableDetail(invoiceDetail.InvoiceTable.ID);
             return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
         }
 
@@ -50,7 +51,8 @@ namespace SMS.Business.Impl
                     break;
             };
             Repository.Update(invoiceDetail);
-            InvoiceTableRepository.Update(invoiceDetail.InvoiceTable);
+            InvoiceTableManagement.UpdateTableDetail(invoiceDetail.InvoiceTable.ID);
+
             return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
         }
     }
