@@ -6,16 +6,16 @@
         public static string UserName { get; set; } 
         public static int PageSize { get; set; }
 
-        private static string language;
+        private static string _language;
         public static string Language
         {
             get
             {
-                if (language.IsNullOrEmpty() || (language != "en" && language != "vn"))
-                    language = "vn";
-                return language;
+                if (_language.IsNullOrEmpty() || (_language != "en" && _language != "vn"))
+                    _language = "vn";
+                return _language;
             } 
-            set { language = value.ToLower(); }
+            set { _language = value.ToLower(); }
         }
     }
 }
