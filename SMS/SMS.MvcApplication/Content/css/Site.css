@@ -312,6 +312,7 @@ label.ui-state-error {
 .searchTable {
     margin-bottom: 0;
 }
+/* End stylesheet for Admin */
 
 /* Stylesheet for pagination */
 .pagination {
@@ -379,6 +380,8 @@ label.ui-state-error {
     background-color: #fff;
     border-color: #ddd;
 }
+/* End stylesheet for pagination */
+
 
 .searchCustomer {
     cursor: pointer;
@@ -388,4 +391,16 @@ label.ui-state-error {
 
 .searchCustomer:hover {
     color: #0078C9;
+}
+
+#popup table, #popup table td {
+    background: transparent;
+    border: none;
+    margin: 0;
+}
+#popup table td {
+    padding: 0 10px 0 0;
+}
+#popup-icon {
+    width: 60px;
 }

@@ -10,6 +10,9 @@
     this.cancelButton = '<input type="button" class="button myButton cancelButton" value="Cancel" />';
     this.yesButton = '<input type="button" class="button myButton yesButton" value="Yes" />';
     this.noButton = '<input type="button" class="button myButton noButton" value="No" />';
+    this.questionIcon = '<img src="../Images/IconControls/confirm-icon.png" alt="icon"/>';
+    this.warningIcon = '<img src="../Images/IconControls/warning-icon.png" alt="icon"/>';
+    this.errorIcon = '<img src="../Images/IconControls/error-icon.png" alt="icon"/>';
 
     $('#popup').dialog({
         autoOpen: false,
@@ -34,6 +37,7 @@
         });
     }
     else if (popupType == 2) {
+        $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.okButton + root.cancelButton);
         $('#popup-button .okButton').click(function () {
             $('#popup').dialog('close');
@@ -47,6 +51,7 @@
         });
     }
     else if (popupType == 3) {
+        $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.yesButton + root.noButton);
         $('#popup-button .yesButton').click(function () {
             $('#popup').dialog('close');
