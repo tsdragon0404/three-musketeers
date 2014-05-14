@@ -6,34 +6,48 @@
 }
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="7">
+        <td colspan="8">
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right">
-                        Category Code
+                        Code
                     </div>
                     <div class="three columns">
                         <input type="text" name="catCode" value="${ProductCategoryCode}" id="catCode-${ID}" />
-                    </div>
-                    <div class="three columns right">
-                        Category Name
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="catName" value="${VNName}" id="catName-${ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right">
-                        Description
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="description" value="${VNDescription}" id="desc-${ID}"/>
                     </div>
                     <div class="three columns right">
                         Branch ID
                     </div>
                     <div class="three columns">
                         <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        VN Name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}"/>
+                    </div>
+                    <div class="three columns right">
+                        EN Name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="ENName" value="${ENName}" id="enName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        VN Description
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="VNDescription" value="${VNDescription}" id="vnDesc-${ID}"/>
+                    </div>
+                    <div class="three columns right">
+                        EN Description
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="ENDescription" value="${ENDescription}" id="enDesc-${ID}"/>
                     </div>
                 </div>
                 <div class="row">
@@ -66,19 +80,22 @@
 </script>
 
 <div id="admin-body">
-    <h4 class="admin-page-title">Maintain Area</h4>
+    <div class="row">
+        <h4 class="admin-page-title">Maintain Area</h4>
+    </div>
 
     @Html.Partial("Search", Model.PagingInfo)
 
     <div class="row">
         <table class="admin-table-record">
             <colgroup>
-                <col style="width: 70px;" />
+                <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col style="width: 100px;" />
                 <col />
+                <col />
                 <col style="width: 100px;" />
-                <col style="width: 75px;" />
+                <col style="width: 60px;" />
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
@@ -86,7 +103,8 @@
                     <th></th>
                     <th>No</th>
                     <th>Code</th>
-                    <th>Category name</th>
+                    <th>VN name</th>
+                    <th>EN name</th>
                     <th>Branch</th>
                     <th>SEQ</th>
                     <th>Enabled</th>
@@ -99,11 +117,12 @@
                     <tr class="admin-record @altClass" data-id="@dto.ID">
                         <td>
                             <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                            <a href="#" class="edit-record" data-id="@dto.ID">></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.ProductCategoryCode</td>
                         <td>@dto.VNName</td>
+                        <td>@dto.ENName</td>
                         <td>@dto.BranchID</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
@@ -113,7 +132,8 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="7"></td>
                 </tr>
             </tfoot>
         </table>
@@ -135,8 +155,10 @@
                 var data = {
                     ID: recordID,
                     ProductCategoryCode: $('#catCode-' + recordID).val(),
-                    VNName: $('#catName-' + recordID).val(),
-                    VNDescription: $('#desc-' + recordID).val(),
+                    VNName: $('#vnName-' + recordID).val(),
+                    ENName: $('#enName-' + recordID).val(),
+                    VNDescription: $('#vnDesc-' + recordID).val(),
+                    ENDescription: $('#enDesc-' + recordID).val(),
                     BranchID: $('#branchID-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()

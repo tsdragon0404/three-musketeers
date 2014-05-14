@@ -734,6 +734,7 @@
     <Content Include="Images\IconControls\add-icon.png" />
     <Content Include="Images\IconControls\delete-icon.png" />
     <Content Include="Images\IconControls\details-icon.png" />
+    <Content Include="Images\IconControls\edit-icon.png" />
     <Content Include="Images\IconControls\move-icon.png" />
     <Content Include="Images\IconControls\new-icon.png" />
     <Content Include="Images\IconControls\product-add-icon.png" />
