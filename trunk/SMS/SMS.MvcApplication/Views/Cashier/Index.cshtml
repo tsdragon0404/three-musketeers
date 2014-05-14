@@ -104,14 +104,14 @@
         <div class="row">
             <div class="four columns"><label id="lblTableName">Table name: </label><label id="curTableName"></label></div>
             <div class="three columns"><label id="lblOrderBy">Order by: </label><label id="curOrderBy"></label></div>
-            <div class="four columns"><label id="lblOrderDate">Order date: </label><label id="curOrderDate"></label></div>
+            <div class="four columns"><label id="lblLastAccessBy">Last access by: </label><label id="curLastAccessBy"></label></div>
         </div>
         <div class="row">
             <div class="four columns">
                 <label id="lblCustomerName" class="searchCustomer">Customer name: </label>
                 <label id="curCustomerName"></label>
             </div>
-            <div class="three columns"><label id="lblLastAccessBy">Last access by: </label><label id="curLastAccessBy"></label></div>
+            <div class="three columns"><label id="lblOrderDate">Order date: </label><label id="curOrderDate"></label></div>
             <div class="four columns"><label id="lblLastAccessDate">Last access date: </label><label id="curLastAccessDate"></label></div>
         </div>
         <div class="row">
@@ -216,6 +216,8 @@
                         $('#curTableName').text('');
                         $('#curOrderBy').text('');
                         $('#curOrderDate').text('');
+                        $('#curLastAccessBy').text('');
+                        $('#curLastAccessDate').text('');
                         $('#order .tbContent').html('');
                         $("#addProduct").hide();
                         CalculateTotal();
@@ -341,6 +343,8 @@
                 $('#curTableName').text(data.Table.VNName);
                 $('#curOrderBy').text(data.CreatedUser);
                 $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
+                $('#curLastAccessBy').text(data.ModifiedUser);
+                $('#curLastAccessDate').text(data.ModifiedDate == null ? '' : data.ModifiedDate.transformAsDateTime());
                 $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
 
                 $('input[id^="qty"]').spinner({
