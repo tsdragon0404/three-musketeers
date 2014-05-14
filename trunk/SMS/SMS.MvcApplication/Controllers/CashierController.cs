@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Core.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Data.Dtos.Models;
 using SMS.MvcApplication.Base;
@@ -25,6 +26,12 @@ namespace SMS.MvcApplication.Controllers
                                    {
                                        ListArea = AreaService.GetAll<CashierAreaModel>(),
                                        ListProduct = ProductService.GetAll<ProductBasicDto>(),
+                                       BranchConfig =
+                                           new BranchConfigModel
+                                               {
+                                                   UseServiceFee = UserContext.UseServiceFee,
+                                                   ServiceFee = UserContext.ServiceFee
+                                               },
                                    };
 
             return View(cashierModel);

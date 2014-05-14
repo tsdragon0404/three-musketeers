@@ -54,6 +54,8 @@ namespace SMS.MvcApplication
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
+            UserContext.UseServiceFee = true;
+            UserContext.ServiceFee = 20000;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

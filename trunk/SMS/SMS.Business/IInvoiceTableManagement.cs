@@ -8,5 +8,6 @@ namespace SMS.Business
         IList<InvoiceTableDto> GetTablesAreaID(long areaID);
         InvoiceTableDto CreateInvoiceTable(long tableID);
         InvoiceTableDto GetTableDetail(long invTblID);
+        void UpdateTableDetail(long invTblID);
     }
 }
