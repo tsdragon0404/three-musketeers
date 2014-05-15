@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Core.Common.Session;
 using SMS.Common;
 using SMS.Data.Dtos;
 using SMS.Data.Dtos.Models;
@@ -41,7 +40,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult OrderProduct(long invoiceTableID, long productID, decimal quantity)
         {
-            if (productID == 0 || quantity < 1 ) return null;
+            if (productID <= 0 || quantity <= 0 ) return null;
 
             var invoiceDetail = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
 
@@ -51,7 +50,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult SelectTable(long invoiceTableID)
         {
-            if (invoiceTableID == 0) return Json(new List<ProductOrderDto>());
+            if (invoiceTableID <= 0) return Json(new List<ProductOrderDto>());
 
             var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
 
@@ -103,6 +102,19 @@ namespace SMS.MvcApplication.Controllers
                             {
                                 ListTable = InvoiceTableService.GetTablesAreaID(areaID)
                             });
+        }
+
+        [HttpPost]
+        public JsonResult PrintInvoiceReview(long invoiceTableID)
+        {
+            if (invoiceTableID <= 0) return Json(new PrintReviewModel());
+
+            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
+
+            return Json(new PrintReviewModel
+                        {
+                            ListInvoiceDetail = invoiceDetail.InvoiceDetails
+                        });
         }
     }
 }
