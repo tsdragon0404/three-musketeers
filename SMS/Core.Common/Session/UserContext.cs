@@ -6,9 +6,6 @@
         public static string UserName { get; set; } 
         public static int PageSize { get; set; }
 
-        public static bool UseServiceFee { get; set; }
-        public static decimal ServiceFee { get; set; }
-
         private static string _language;
         public static string Language
         {

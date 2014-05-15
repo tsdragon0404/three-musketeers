@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Common.Session;
+using SMS.Common;
 using SMS.Data.Dtos;
 using SMS.Data.Dtos.Models;
 using SMS.MvcApplication.Base;
@@ -24,13 +25,13 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAll<CashierAreaModel>(),
-                                       ListProduct = ProductService.GetAll<ProductBasicDto>(),
+                                       ListArea = AreaService.GetAll<AreaBasicDto>(),
+                                       ListProduct = ProductService.GetAll<ProductOrderDto>(),
                                        BranchConfig =
-                                           new BranchConfigModel
+                                           new BranchConfigInfo
                                                {
-                                                   UseServiceFee = UserContext.UseServiceFee,
-                                                   ServiceFee = UserContext.ServiceFee
+                                                   UseServiceFee = BranchConfig.UseServiceFee,
+                                                   ServiceFee = BranchConfig.ServiceFee
                                                },
                                    };
 
@@ -50,7 +51,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult SelectTable(long invoiceTableID)
         {
-            if (invoiceTableID == 0) return Json(new List<ProductBasicDto>());
+            if (invoiceTableID == 0) return Json(new List<ProductOrderDto>());
 
             var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
 
@@ -92,7 +93,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(ProductService.GetAll<ProductBasicDto>());
+            return Json(ProductService.GetAll<ProductOrderDto>());
         }
 
         [HttpPost]

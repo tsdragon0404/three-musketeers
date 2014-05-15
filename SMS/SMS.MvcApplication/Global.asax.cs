@@ -13,6 +13,7 @@ using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using SMS.Common;
 using SMS.Common.AutoMapper;
 
 namespace SMS.MvcApplication
@@ -54,8 +55,9 @@ namespace SMS.MvcApplication
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
-            UserContext.UseServiceFee = true;
-            UserContext.ServiceFee = 20000;
+
+            BranchConfig.UseServiceFee = true;
+            BranchConfig.ServiceFee = 20000;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

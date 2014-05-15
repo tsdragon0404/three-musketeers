@@ -5,6 +5,6 @@ namespace SMS.Business
 {
     public interface IProductManagement : IBaseManagement<ProductDto, long>
     {
-        IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID);
+        IList<ProductOrderDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID);
     }
 }

@@ -7,10 +7,10 @@ namespace SMS.MvcApplication.Models
 {
     public class CashierModel
     {
-        public IList<CashierAreaModel> ListArea { get; set; }
+        public IList<AreaBasicDto> ListArea { get; set; }
 
-        public IList<ProductBasicDto> ListProduct { get; set; }
+        public IList<ProductOrderDto> ListProduct { get; set; }
 
-        public BranchConfigModel BranchConfig { get; set; }
+        public BranchConfigInfo BranchConfig { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SMS.MvcApplication.Models
 {
-    public class BranchConfigModel
+    public class BranchConfigInfo
     {
         public virtual long BranchID { get; set; }
         public virtual bool UseServiceFee { get; set; }
