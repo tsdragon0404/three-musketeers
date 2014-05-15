@@ -10,8 +10,8 @@ namespace SMS.Common.AutoMapper
     {
         public static void Register()
         {
-            Mapper.CreateMap<Product, ProductBasicDto>();
-            Mapper.CreateMap<Area, CashierAreaModel>()
+            Mapper.CreateMap<Product, ProductOrderDto>();
+            Mapper.CreateMap<Area, AreaBasicDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     UserContext.Language == "vn" ? z.VNName : z.ENName)); ;
         }

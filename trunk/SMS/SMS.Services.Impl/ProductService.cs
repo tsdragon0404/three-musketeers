@@ -10,7 +10,7 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public IList<ProductBasicDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
+        public IList<ProductOrderDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
         {
             return Management.GetProductsOrderingByInvoiceTableID(invoiceTableID);
         }
