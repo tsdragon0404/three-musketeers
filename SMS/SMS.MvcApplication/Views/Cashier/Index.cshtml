@@ -183,7 +183,7 @@
     </div>
     
     <div id="rightMenuArea"></div>
-    <table class="Rmenu" id="changeCustomer"><tr><td style="width: 150px; text-align: center">Change Customer</td></tr></table></div>
+    <table class="Rmenu" id="changeCustomer"><tr><td style="width: 150px; text-align: center">Change Customer</td></tr></table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 
@@ -302,7 +302,7 @@
             var invTblId = $('#currentInvoiceTableID').text();
             if(invTblId > 0) {
                 var popup = new MessagePopup('Thông báo',
-                'Bàn này đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
+                'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
                 3,
                 function () {
                     alert('abe');
