@@ -220,12 +220,13 @@
     <Compile Include="Models\CashierModel.cs" />
     <Compile Include="Models\HyperlinkModel.cs" />
     <Compile Include="Models\PopupModel.cs" />
-    <Compile Include="Models\PrintReviewModel.cs" />
+    <Compile Include="Models\PrintPreviewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\ajax-loader.css" />
     <Content Include="Content\css\gumby.css" />
+    <Content Include="Content\css\print.css" />
     <Content Include="Content\css\split-pane.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -767,6 +768,7 @@
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.tmplPlus.js" />
     <Content Include="Scripts\jquery.twbsPagination.min.js" />
+    <Content Include="Scripts\print-preview-popup.js" />
     <Content Include="Scripts\search-product-popup.js" />
     <Content Include="Scripts\split-pane.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
@@ -793,6 +795,7 @@
     <Content Include="Views\Shared\Paging.cshtml" />
     <Content Include="Views\Shared\Search.cshtml" />
     <Content Include="Views\Shared\MessagePopup.cshtml" />
+    <Content Include="Views\Shared\PrintInvoicePreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

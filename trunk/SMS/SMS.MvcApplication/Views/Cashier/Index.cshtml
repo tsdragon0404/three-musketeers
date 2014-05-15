@@ -5,6 +5,7 @@
     ViewBag.Title = "Index";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
+<link rel="stylesheet" type="text/css" media="print" href="~/Content/css/print.css" />
 <script type="text/javascript" src="~/Scripts/split-pane.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
@@ -190,6 +191,7 @@
     <table class="Rmenu" id="changeCustomer"><tr><td style="width: 150px; text-align: center">Change Customer</td></tr></table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("PrintInvoicePreview", new PrintPreviewModel())
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -201,6 +203,11 @@
             $("#addProduct").click(function () {
                 var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
                 product.OpenPopup();
+                return false;
+            });
+            $('#printInvoice').click(function () {
+                var invoice = new PrintPreviewPopup();
+                invoice.OpenPopup();
                 return false;
             });
 
