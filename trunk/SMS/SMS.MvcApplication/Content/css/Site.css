@@ -409,3 +409,7 @@ label.ui-state-error {
     float: right;
     padding-top: 10px;
 }
+
+#changeCustomer:hover {
+    color: #76BBD8;
+}

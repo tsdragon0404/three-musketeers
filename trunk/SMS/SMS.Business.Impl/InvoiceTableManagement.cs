@@ -54,6 +54,12 @@ namespace SMS.Business.Impl
             
             Repository.Update(invoiceTable);
         }
+
+        public bool CheckTableStatus(long tableID)
+        {
+            var result = Repository.Find(x => x.Table.ID == tableID && x.Invoice == null);
+            return result.Any();
+        }
     }
 
 

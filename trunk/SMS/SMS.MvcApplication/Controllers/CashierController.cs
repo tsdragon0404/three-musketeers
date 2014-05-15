@@ -54,13 +54,21 @@ namespace SMS.MvcApplication.Controllers
 
             var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
 
-            return Json(invoiceDetail);
+            return Json(invoiceDetail ?? (object) false);
         }
 
         [HttpPost]
         public JsonResult CancelTable(long invoiceTableID)
         {
             var flag = InvoiceTableService.Delete(invoiceTableID);
+
+            return Json(flag);
+        }
+
+        [HttpPost]
+        public JsonResult CheckTableStatus(long tableID)
+        {
+            var flag = InvoiceTableService.CheckTableStatus(tableID);
 
             return Json(flag);
         }

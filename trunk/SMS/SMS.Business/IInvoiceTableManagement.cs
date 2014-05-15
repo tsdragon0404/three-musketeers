@@ -9,5 +9,6 @@ namespace SMS.Business
         InvoiceTableDto CreateInvoiceTable(long tableID);
         InvoiceTableDto GetTableDetail(long invTblID);
         void UpdateTableDetail(long invTblID);
+        bool CheckTableStatus(long tableID);
     }
 }

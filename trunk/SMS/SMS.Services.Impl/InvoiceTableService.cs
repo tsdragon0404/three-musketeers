@@ -24,5 +24,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetTableDetail(invTblID);
         }
+
+        public bool CheckTableStatus(long tableID)
+        {
+            return Management.CheckTableStatus(tableID);
+        }
     }
 }
