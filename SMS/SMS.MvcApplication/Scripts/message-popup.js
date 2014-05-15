@@ -66,6 +66,15 @@
                 root.secondButtonCallback();
         });
     }
+    else if (popupType == 4) {
+        $('#popup-icon').html(root.errorIcon);
+        $('#popup-button').html(root.okButton);
+        $('#popup-button .okButton').click(function () {
+            $('#popup').dialog('close');
+            if (root.firstButtonCallback)
+                firstButtonCallback();
+        });
+    }
 
     this.OpenPopup = function () {
         $('#popup').dialog("open");

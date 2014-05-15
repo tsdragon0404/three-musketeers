@@ -9,7 +9,8 @@
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
-    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct))
+    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
+    var serviceFee = @Model.BranchConfig.ServiceFee;
 </script>
 <script id="pdt-tmpl" type="text/x-jquery-tmpl">
     <tr>
@@ -33,7 +34,7 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.ID}">
+            <table class="tbls" id="${ID}-${Table.ID}" title="${Table.VNName}">
                 <tr>
                     <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
                 </tr>
@@ -159,10 +160,13 @@
                 <div class="two columns push_eight right">Total:</div>
                 <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
             </div>
-            <div class="row" id="ServiceFree">
-                <div class="two columns push_eight right">Service Fee:</div>
-                <div class="two columns right"><span class="fee">0</span> VNĐ</div>
-            </div>
+             @if(Model.BranchConfig.UseServiceFee)
+             {
+                 <div class="row" id="ServiceFree">
+                     <div class="two columns push_eight right">Service Fee:</div>
+                     <div class="two columns right"><span class="fee">0</span> VNĐ</div>
+                 </div>
+             }
             <div class="row" id="Tax-">
                 <div class="two columns push_eight right">Tax (10%):</div>
                 <div class="two columns right"><span class="tax">0</span> VNĐ</div>
@@ -212,8 +216,24 @@
             var id = area.split('-')[1];
             GetTablesByAreaID(id);
         }
+        
+        function clearDisplayTableDetail(invTblId) {
+            if ($('#currentInvoiceTableID').text() == invTblId) {
+                $('#currentInvoiceTableID').text(-1);
+                $('#curTableName').text('');
+                $('#curOrderBy').text('');
+                $('#curOrderDate').text('');
+                $('#curLastAccessBy').text('');
+                $('#curLastAccessDate').text('');
+                $('#order .tbContent').html('');
+                $("#addProduct").hide();
+                $("#payment").hide();
+                $("#printInvoice").hide();
+                CalculateTotal();
+            }
+        }
 
-        function onClearInvoiceTable(invTblId) {
+        function onRemoveInvoiceTable(invTblId) {
             if (invTblId <= 0) {
                 return;
             }
@@ -223,17 +243,7 @@
                     data: { invoiceTableID: invTblId }
                 }).done(function(data) {
                     if (data == true) {
-                        $('#currentInvoiceTableID').text(-1);
-                        $('#curTableName').text('');
-                        $('#curOrderBy').text('');
-                        $('#curOrderDate').text('');
-                        $('#curLastAccessBy').text('');
-                        $('#curLastAccessDate').text('');
-                        $('#order .tbContent').html('');
-                        $("#addProduct").hide();
-                        $("#payment").hide();
-                        $("#printInvoice").hide();
-                        CalculateTotal();
+                        clearDisplayTableDetail(invTblId);
                     } else
                         alert('Fail');
 
@@ -256,7 +266,7 @@
                 'Bàn này hiện đang trống.<br />Sử dụng ngay?',
                 3,
                 function () {
-                    onCreateInvoiceTable(tblId);
+                    onCheckTableStatus(invTblId, tblId);
                 });
             
                 popup.OpenPopup();
@@ -273,21 +283,7 @@
             $("table[id*=Rmenu-]").hide();
             $(".tbls").css('background-color', '');
             $(e.target).parents('.tbls').css('background-color', 'gainsboro');
-            var $menu = $('#Rmenu-' + $(e.target).parents('.tbls').attr('id'));
-            var $wMenu = $menu.outerWidth();
-            var $hMenu = $menu.outerHeight();
-            var $leftM = e.clientX, $topM = e.clientY;
-            var $rightM = $(window).width() - $leftM;
-      
-            var $bottomM = $(window).height()-$topM;
-            if($rightM < $wMenu){
-                $leftM -= $wMenu;
-            }
-            if($bottomM < $hMenu){
-                $topM -= $hMenu;
-            }
-            $menu.css({left: $leftM, top: $topM, display:'block'});
-            e.preventDefault();
+            displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
         });
         
         $(document).click(function(e) {
@@ -321,24 +317,9 @@
             var invDetailId = $(this).attr('id').split('-')[1];
             onDeleteProductFromInvoiceDetail(invDetailId);
         }));
-        
-        
+
         $(document).on("click", ".searchCustomer", (function(e){
-            var $menu = $('#changeCustomer');
-            var $wMenu = $menu.outerWidth();
-            var $hMenu = $menu.outerHeight();
-            var $leftM = e.clientX, $topM = e.clientY;
-            var $rightM = $(window).width() - $leftM;
-      
-            var $bottomM = $(window).height()-$topM;
-            if($rightM < $wMenu){
-                $leftM -= $wMenu;
-            }
-            if($bottomM < $hMenu){
-                $topM -= $hMenu;
-            }
-            $menu.css({left: $leftM, top: $topM, display:'block'});
-            e.preventDefault();
+            displayCustomMenu('#changeCustomer', e);
         }));
         
         $(document).on("change", ".remarksInput", (function(){
@@ -360,12 +341,43 @@
                 data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
             }).done(function (data) {
                 if(!data) {
-                    alert('fail');
+                    var popup = new MessagePopup('Thông báo',
+                        'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                        4,
+                        function() {
+                        });
+
+                    popup.OpenPopup();
                 }
                 var invTblId = $('#currentInvoiceTableID').text();
                 if (invTblId != '' && invTblId > 0)
                     onSelectInvoiceTable(invTblId);
             });
+        }
+
+        function onCheckTableStatus(invTblId, tableId) {
+            if (invTblId == 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cashier/CheckTableStatus',
+                    data: { tableID: tableId }
+                }).done(function(data) {
+                    if (data) {
+                        var popup = new MessagePopup('Thông báo',
+                            'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
+                            1,
+                            function() {
+                                refreshTable();
+                            });
+
+                        popup.OpenPopup();
+                    } else {
+                        onCreateInvoiceTable(tableId);
+                    }
+                });
+            }else {
+                onCreateInvoiceTable(tableId);
+            }
         }
 
         function onSelectInvoiceTable(invTblId) {
@@ -377,39 +389,53 @@
                 url: '/Cashier/SelectTable',
                 data: { invoiceTableID: invTblId }
             }).done(function (data) {
-                $('#order .tbContent').html('');
-                $(data.InvoiceDetails).each(function(idx) {
-                    data.InvoiceDetails[idx].idx = idx + 1;
-                });
-                $('#currentInvoiceTableID').text(data.ID);
-                $('#curTableName').text(data.Table.VNName);
-                $('#curOrderBy').text(data.CreatedUser);
-                $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
-                $('#curLastAccessBy').text(data.ModifiedUser);
-                $('#curLastAccessDate').text(data.ModifiedDate == null ? '' : data.ModifiedDate.transformAsDateTime());
-                $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
+                if (data == false) {
+                    var popup = new MessagePopup('Thông báo',
+                            'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
+                            1,
+                            function() {
+                                refreshTable();
+                                clearDisplayTableDetail(invTblId);
+                            });
 
-                $('input[id^="qty"]').spinner({
-                    step: 0.5,
-                    numberFormat: "n",
-                    min: 0.5,                    
-                    change: function () {
-                        updateOrderProduct(this);
-                    }
-                });
-                $('#form-table-order').validate({
-                    rules: {
-                        qty: {
-                            greaterThanZero : true
+                    popup.OpenPopup();
+                }
+                else {
+                    $('#order .tbContent').html('');
+                    $(data.InvoiceDetails).each(function(idx) {
+                        data.InvoiceDetails[idx].idx = idx + 1;
+                    });
+                    $('#currentInvoiceTableID').text(data.ID);
+                    $('#curTableName').text(data.Table.VNName);
+                    $('#curOrderBy').text(data.CreatedUser);
+                    $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
+                    $('#curLastAccessBy').text(data.ModifiedUser);
+                    $('#curLastAccessDate').text(data.ModifiedDate == null ? '' : data.ModifiedDate.transformAsDateTime());
+                    $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
+
+                    $('input[id^="qty"]').spinner({
+                        step: 0.5,
+                        numberFormat: "n",
+                        min: 0.5,
+                        change: function() {
+                            updateOrderProduct(this);
                         }
-                    }
-                });
+                    });
+                    $('#form-table-order').validate({
+                        rules: {
+                            qty: {
+                                greaterThanZero: true
+                            }
+                        }
+                    });
 
-                CalculateTotal();
+                    CalculateTotal();
+                    
+                    $("#addProduct").show();
+                    $("#payment").show();
+                    $("#printInvoice").show();
+                }
             });
-            $("#addProduct").show();
-            $("#payment").show();
-            $("#printInvoice").show();
             return;
         }
         
@@ -472,23 +498,24 @@
             }
         }
 
-        function GetTablesByAreaID(areaID) {
-            if (areaID <= 0) {
+        function GetTablesByAreaID(areaId) {
+            if (areaId <= 0) {
                 return;
             }
             $.ajax({
                 type: 'POST',
                 url: '/Cashier/GetTablesByAreaID',
-                data: { areaID: areaID }
+                data: { areaID: areaId }
             }).done(function (data) {
-                $('#area-' + areaID).html('');
+                $('#area-' + areaId).html('');
                 $('#rightMenuArea').html('');
-                $('#table-tmpl').tmpl(data).appendTo('#area-' + areaID);
+                $('#table-tmpl').tmpl(data).appendTo('#area-' + areaId);
                 $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
 
                 $('tr[id^="rmenu-useTable-"]').click(function () {
-                    var id = $(this).attr('data-tableid');
-                    onCreateInvoiceTable(id);
+                    var tableId = $(this).attr('data-tableid');
+                    var invTblId = $(this).attr('id').replace('rmenu-useTable-', '');
+                    onCheckTableStatus(invTblId, tableId);
                     return false;
                 });
                 $('tr[id^="rmenu-move-"]').click(function () {
@@ -498,11 +525,29 @@
                 });
                 $('tr[id^="rmenu-del-"]').click(function () {
                     var id = $(this).attr('data-id');
-                    onClearInvoiceTable(id);
+                    onRemoveInvoiceTable(id);
                     return false;
                 });
             });
             return;
+        }
+        
+        function displayCustomMenu(menuName, event) {
+            var $menu = $(menuName);
+            var $wMenu = $menu.outerWidth();
+            var $hMenu = $menu.outerHeight();
+            var $leftM = event.clientX, $topM = event.clientY;
+            var $rightM = $(window).width() - $leftM;
+
+            var $bottomM = $(window).height() - $topM;
+            if ($rightM < $wMenu) {
+                $leftM -= $wMenu;
+            }
+            if ($bottomM < $hMenu) {
+                $topM -= $hMenu;
+            }
+            $menu.css({ left: $leftM, top: $topM, display: 'block' });
+            event.preventDefault();
         }
         
         function CalculateTotal() {
@@ -512,6 +557,8 @@
             });
 
             $('#totalSection .total_amount').text(totalAmount.transformAsMoney());
+            
+            $('#totalSection .fee').text(serviceFee.transformAsMoney());
             
             var tax = totalAmount / 10;
             $('#totalSection .tax').text(tax.transformAsMoney());
