@@ -3,7 +3,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.MvcApplication.Models
 {
-    public class PrintReviewModel
+    public class PrintPreviewModel
     {
         public IList<InvoiceDetailDto> ListInvoiceDetail { get; set; } 
     }
