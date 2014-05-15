@@ -404,3 +404,8 @@ label.ui-state-error {
 #popup-icon {
     width: 60px;
 }
+
+.payment {
+    float: right;
+    padding-top: 10px;
+}
