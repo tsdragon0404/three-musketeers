@@ -1,4 +1,5 @@
-﻿@using SMS.MvcApplication.Models
+﻿@using SMS.Common
+@using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
 @{
@@ -11,7 +12,7 @@
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
     var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
-    var serviceFee = @Model.BranchConfig.ServiceFee;
+    var serviceFee = @BranchConfig.ServiceFee;
 </script>
 <script id="pdt-tmpl" type="text/x-jquery-tmpl">
     <tr>
@@ -161,7 +162,7 @@
                 <div class="two columns push_eight right">Total:</div>
                 <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
             </div>
-             @if(Model.BranchConfig.UseServiceFee)
+             @if(BranchConfig.UseServiceFee)
              {
                  <div class="row" id="ServiceFree">
                      <div class="two columns push_eight right">Service Fee:</div>
