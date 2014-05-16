@@ -10,7 +10,5 @@ namespace SMS.MvcApplication.Models
         public IList<AreaBasicDto> ListArea { get; set; }
 
         public IList<ProductOrderDto> ListProduct { get; set; }
-
-        public BranchConfigInfo BranchConfig { get; set; }
     }
 }
