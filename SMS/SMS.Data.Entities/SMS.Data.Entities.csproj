@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +42,7 @@
     <Compile Include="InvoiceTable.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="ProductPriceHistory.cs" />
+    <Compile Include="Tax.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="ProductCategory.cs" />
     <Compile Include="Table.cs" />
