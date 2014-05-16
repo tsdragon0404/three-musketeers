@@ -192,386 +192,385 @@
     <table class="Rmenu" id="changeCustomer"><tr><td style="width: 150px; text-align: center">Change Customer</td></tr></table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
-    @Html.Partial("PrintInvoicePreview", new PrintPreviewModel())
+</div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('div.split-pane').splitPane();
-            $('#area-table').tabs();
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('div.split-pane').splitPane();
+        $('#area-table').tabs();
+        $("#addProduct").hide();
+        $("#payment").hide();
+        $("#printInvoice").hide();
+        $("#addProduct").click(function () {
+            var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+            product.OpenPopup();
+            return false;
+        });
+        $('#printInvoice').click(function () {
+            var invoice = new PrintPreviewPopup(400);
+            invoice.OpenPopup();
+            return false;
+        });
+
+        refreshTable();
+            
+        setInterval(function() {
+            refreshTable();
+        }, 60000);
+    });
+        
+    function refreshTable() {
+        var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
+        var id = area.split('-')[1];
+        GetTablesByAreaID(id);
+    }
+        
+    function clearDisplayTableDetail(invTblId) {
+        if ($('#currentInvoiceTableID').text() == invTblId) {
+            $('#currentInvoiceTableID').text(-1);
+            $('#curTableName').text('');
+            $('#curOrderBy').text('');
+            $('#curOrderDate').text('');
+            $('#curLastAccessBy').text('');
+            $('#curLastAccessDate').text('');
+            $('#order .tbContent').html('');
             $("#addProduct").hide();
             $("#payment").hide();
             $("#printInvoice").hide();
-            $("#addProduct").click(function () {
-                var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
-                product.OpenPopup();
-                return false;
-            });
-            $('#printInvoice').click(function () {
-                var invoice = new PrintPreviewPopup();
-                invoice.OpenPopup();
-                return false;
-            });
+            CalculateTotal();
+        }
+    }
+
+    function onRemoveInvoiceTable(invTblId) {
+        if (invTblId <= 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/CancelTable',
+            data: { invoiceTableID: invTblId }
+        }).done(function(data) {
+            if (data == true) {
+                clearDisplayTableDetail(invTblId);
+            } else
+                alert('Fail');
 
             refreshTable();
-            
-            setInterval(function() {
-                refreshTable();
-            }, 60000);
         });
-        
-        function refreshTable() {
-            var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
-            var id = area.split('-')[1];
-            GetTablesByAreaID(id);
-        }
-        
-        function clearDisplayTableDetail(invTblId) {
-            if ($('#currentInvoiceTableID').text() == invTblId) {
-                $('#currentInvoiceTableID').text(-1);
-                $('#curTableName').text('');
-                $('#curOrderBy').text('');
-                $('#curOrderDate').text('');
-                $('#curLastAccessBy').text('');
-                $('#curLastAccessDate').text('');
-                $('#order .tbContent').html('');
-                $("#addProduct").hide();
-                $("#payment").hide();
-                $("#printInvoice").hide();
-                CalculateTotal();
-            }
-        }
+    }
 
-        function onRemoveInvoiceTable(invTblId) {
-            if (invTblId <= 0) {
-                return;
-            }
-            $.ajax({
-                    type: 'POST',
-                    url: '/Cashier/CancelTable',
-                    data: { invoiceTableID: invTblId }
-                }).done(function(data) {
-                    if (data == true) {
-                        clearDisplayTableDetail(invTblId);
-                    } else
-                        alert('Fail');
-
-                    refreshTable();
-                });
+    function onMoveInvoiceTable(invTblId) {
+        if (invTblId <= 0) {
+            return;
         }
-
-        function onMoveInvoiceTable(invTblId) {
-            if (invTblId <= 0) {
-                return;
-            }
-        }
+    }
         
-        $(document).on("dblclick", ".tbls", (function(e) {
-            var id = $(e.target).parents('.tbls').attr('id');
-            var invTblId = id.split('-')[0];
-            var tblId = id.split('-')[1];
-            if(invTblId == 0) {
-                var popup = new MessagePopup('Thông báo',
+    $(document).on("dblclick", ".tbls", (function(e) {
+        var id = $(e.target).parents('.tbls').attr('id');
+        var invTblId = id.split('-')[0];
+        var tblId = id.split('-')[1];
+        if(invTblId == 0) {
+            var popup = new MessagePopup('Thông báo',
                 'Bàn này hiện đang trống.<br />Sử dụng ngay?',
                 3,
                 function () {
                     onCheckTableStatus(invTblId, tblId);
                 });
             
-                popup.OpenPopup();
-            } else {
-                onSelectInvoiceTable(invTblId);
-            }
-        }));
+            popup.OpenPopup();
+        } else {
+            onSelectInvoiceTable(invTblId);
+        }
+    }));
         
-        $(document).on("contextmenu", "#area-table", function() {
-            return false;
-        });
+    $(document).on("contextmenu", "#area-table", function() {
+        return false;
+    });
         
-        $(document).on("contextmenu", ".tbls", function(e){
-            $("table[id*=Rmenu-]").hide();
-            $(".tbls").css('background-color', '');
-            $(e.target).parents('.tbls').css('background-color', 'gainsboro');
-            displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
-        });
+    $(document).on("contextmenu", ".tbls", function(e){
+        $("table[id*=Rmenu-]").hide();
+        $(".tbls").css('background-color', '');
+        $(e.target).parents('.tbls').css('background-color', 'gainsboro');
+        displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
+    });
         
-        $(document).click(function(e) {
-            $("table[id*=Rmenu-]").hide();
-            $(".tbls").css('background-color', '');
-            if($(e.target).attr('id') != 'lblCustomerName' || $(e.target).attr('id') == null)
-                $("#changeCustomer").hide();
+    $(document).click(function(e) {
+        $("table[id*=Rmenu-]").hide();
+        $(".tbls").css('background-color', '');
+        if($(e.target).attr('id') != 'lblCustomerName' || $(e.target).attr('id') == null)
+            $("#changeCustomer").hide();
                 
-        });
+    });
         
-        $(document).on("click", "#payment", (function(){
-            var invTblId = $('#currentInvoiceTableID').text();
-            if(invTblId > 0) {
-                var popup = new MessagePopup('Thông báo',
+    $(document).on("click", "#payment", (function(){
+        var invTblId = $('#currentInvoiceTableID').text();
+        if(invTblId > 0) {
+            var popup = new MessagePopup('Thông báo',
                 'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
                 3,
                 function () {
                     alert('abe');
                 });
             
+            popup.OpenPopup();
+        }
+    }));
+        
+    $(document).on("click", ".Detail", (function(e){
+        var invTblId = $(e.target).parents('.Detail').attr('id');
+        onSelectInvoiceTable(invTblId);
+    }));
+
+    $(document).on("click", ".delProduct", (function(){
+        var invDetailId = $(this).attr('id').split('-')[1];
+        onDeleteProductFromInvoiceDetail(invDetailId);
+    }));
+
+    $(document).on("click", ".searchCustomer", (function(e){
+        displayCustomMenu('#changeCustomer', e);
+    }));
+        
+    $(document).on("change", ".remarksInput", (function(){
+        updateOrderProduct(this);
+    }));
+
+    function updateOrderProduct(e) {
+        var colName = $(e).attr('id').split('-')[0]; 
+        if(colName == 'qty') {
+            if(!$(e).valid())
+                return;
+        }
+
+        var invDetailId = $(e).attr('id').split('-')[1];
+        var value = $(e).val();
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/UpdateOrderProduct',
+            data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
+        }).done(function (data) {
+            if(!data) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
                 popup.OpenPopup();
             }
-        }));
-        
-        $(document).on("click", ".Detail", (function(e){
-            var invTblId = $(e.target).parents('.Detail').attr('id');
-            onSelectInvoiceTable(invTblId);
-        }));
+            var invTblId = $('#currentInvoiceTableID').text();
+            if (invTblId != '' && invTblId > 0)
+                onSelectInvoiceTable(invTblId);
+        });
+    }
 
-        $(document).on("click", ".delProduct", (function(){
-            var invDetailId = $(this).attr('id').split('-')[1];
-            onDeleteProductFromInvoiceDetail(invDetailId);
-        }));
-
-        $(document).on("click", ".searchCustomer", (function(e){
-            displayCustomMenu('#changeCustomer', e);
-        }));
-        
-        $(document).on("change", ".remarksInput", (function(){
-            updateOrderProduct(this);
-        }));
-
-        function updateOrderProduct(e) {
-            var colName = $(e).attr('id').split('-')[0]; 
-            if(colName == 'qty') {
-                if(!$(e).valid())
-                    return;
-            }
-
-            var invDetailId = $(e).attr('id').split('-')[1];
-            var value = $(e).val();
+    function onCheckTableStatus(invTblId, tableId) {
+        if (invTblId == 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/UpdateOrderProduct',
-                data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
-            }).done(function (data) {
-                if(!data) {
+                url: '/Cashier/CheckTableStatus',
+                data: { tableID: tableId }
+            }).done(function(data) {
+                if (data) {
                     var popup = new MessagePopup('Thông báo',
-                        'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
-                        4,
+                        'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
+                        1,
                         function() {
+                            refreshTable();
                         });
 
                     popup.OpenPopup();
+                } else {
+                    onCreateInvoiceTable(tableId);
                 }
-                var invTblId = $('#currentInvoiceTableID').text();
-                if (invTblId != '' && invTblId > 0)
+            });
+        }else {
+            onCreateInvoiceTable(tableId);
+        }
+    }
+
+    function onSelectInvoiceTable(invTblId) {
+        if (invTblId <= 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/SelectTable',
+            data: { invoiceTableID: invTblId }
+        }).done(function (data) {
+            if (data == false) {
+                var popup = new MessagePopup('Thông báo',
+                    'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
+                    1,
+                    function() {
+                        refreshTable();
+                        clearDisplayTableDetail(invTblId);
+                    });
+
+                popup.OpenPopup();
+            }
+            else {
+                $('#order .tbContent').html('');
+                $(data.InvoiceDetails).each(function(idx) {
+                    data.InvoiceDetails[idx].idx = idx + 1;
+                });
+                $('#currentInvoiceTableID').text(data.ID);
+                $('#curTableName').text(data.Table.VNName);
+                $('#curOrderBy').text(data.CreatedUser);
+                $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
+                $('#curLastAccessBy').text(data.ModifiedUser);
+                $('#curLastAccessDate').text(data.ModifiedDate == null ? '' : data.ModifiedDate.transformAsDateTime());
+                $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
+
+                $('input[id^="qty"]').spinner({
+                    step: 0.5,
+                    numberFormat: "n",
+                    min: 0.5,
+                    change: function() {
+                        updateOrderProduct(this);
+                    }
+                });
+                $('#form-table-order').validate({
+                    rules: {
+                        qty: {
+                            greaterThanZero: true
+                        }
+                    }
+                });
+
+                CalculateTotal();
+                    
+                $("#addProduct").show();
+                $("#payment").show();
+                $("#printInvoice").show();
+            }
+        });
+        return;
+    }
+        
+    function onCreateInvoiceTable(tblId) {
+        if (tblId <= 0) {
+            return;
+        }
+        var invTblId = 0;
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/CreateInvoiceTable',
+            data: { tableID: tblId }
+        }).done(function (data) {
+            invTblId = data.ID;
+            onSelectInvoiceTable(invTblId);
+            refreshTable();
+        });
+        return;
+    }
+
+    function onRefreshProduct(reloadCallback) {
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/GetAllProductsForSearch',
+        }).done(function (data) {
+            listProduct = data;
+        });
+            
+        if(reloadCallback)
+            reloadCallback(listProduct);
+    }
+
+    function onSelectProduct(pdtId, qty) {
+        var invTblId = $('#currentInvoiceTableID').text();
+        if(invTblId != '' && invTblId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/Cashier/OrderProduct',
+                data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
+            }).done(function(data) {
+                if (data != null)
                     onSelectInvoiceTable(invTblId);
             });
         }
+    }
 
-        function onCheckTableStatus(invTblId, tableId) {
-            if (invTblId == 0) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Cashier/CheckTableStatus',
-                    data: { tableID: tableId }
-                }).done(function(data) {
-                    if (data) {
-                        var popup = new MessagePopup('Thông báo',
-                            'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
-                            1,
-                            function() {
-                                refreshTable();
-                            });
-
-                        popup.OpenPopup();
-                    } else {
-                        onCreateInvoiceTable(tableId);
-                    }
-                });
-            }else {
-                onCreateInvoiceTable(tableId);
-            }
-        }
-
-        function onSelectInvoiceTable(invTblId) {
-            if (invTblId <= 0) {
-                return;
-            }
+    function onDeleteProductFromInvoiceDetail(invDetailId) {
+        if (invDetailId != '' && invDetailId > 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/SelectTable',
-                data: { invoiceTableID: invTblId }
-            }).done(function (data) {
-                if (data == false) {
-                    var popup = new MessagePopup('Thông báo',
-                            'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
-                            1,
-                            function() {
-                                refreshTable();
-                                clearDisplayTableDetail(invTblId);
-                            });
-
-                    popup.OpenPopup();
-                }
-                else {
-                    $('#order .tbContent').html('');
-                    $(data.InvoiceDetails).each(function(idx) {
-                        data.InvoiceDetails[idx].idx = idx + 1;
-                    });
-                    $('#currentInvoiceTableID').text(data.ID);
-                    $('#curTableName').text(data.Table.VNName);
-                    $('#curOrderBy').text(data.CreatedUser);
-                    $('#curOrderDate').text(data.CreatedDate.transformAsDateTime());
-                    $('#curLastAccessBy').text(data.ModifiedUser);
-                    $('#curLastAccessDate').text(data.ModifiedDate == null ? '' : data.ModifiedDate.transformAsDateTime());
-                    $('#pdt-tmpl').tmpl(data.InvoiceDetails).appendTo('#order .tbContent');
-
-                    $('input[id^="qty"]').spinner({
-                        step: 0.5,
-                        numberFormat: "n",
-                        min: 0.5,
-                        change: function() {
-                            updateOrderProduct(this);
-                        }
-                    });
-                    $('#form-table-order').validate({
-                        rules: {
-                            qty: {
-                                greaterThanZero: true
-                            }
-                        }
-                    });
-
-                    CalculateTotal();
-                    
-                    $("#addProduct").show();
-                    $("#payment").show();
-                    $("#printInvoice").show();
-                }
-            });
-            return;
-        }
-        
-        function onCreateInvoiceTable(tblId) {
-            if (tblId <= 0) {
-                return;
-            }
-            var invTblId = 0;
-            $.ajax({
-                type: 'POST',
-                url: '/Cashier/CreateInvoiceTable',
-                data: { tableID: tblId }
-            }).done(function (data) {
-                invTblId = data.ID;
-                onSelectInvoiceTable(invTblId);
-                refreshTable();
-            });
-            return;
-        }
-
-        function onRefreshProduct(reloadCallback) {
-            $.ajax({
-                type: 'POST',
-                url: '/Cashier/GetAllProductsForSearch',
-            }).done(function (data) {
-                listProduct = data;
-            });
-            
-            if(reloadCallback)
-                reloadCallback(listProduct);
-        }
-
-        function onSelectProduct(pdtId, qty) {
-            var invTblId = $('#currentInvoiceTableID').text();
-            if(invTblId != '' && invTblId > 0) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Cashier/OrderProduct',
-                    data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
-                }).done(function(data) {
-                    if (data != null)
+                url: '/Cashier/RemoveOrderProduct',
+                data: { invoiceDetailID: invDetailId }
+            }).done(function(data) {
+                if (data == true) {
+                    var invTblId = $('#currentInvoiceTableID').text();
+                    if (invTblId != '' && invTblId > 0)
                         onSelectInvoiceTable(invTblId);
-                });
-            }
-        }
-
-        function onDeleteProductFromInvoiceDetail(invDetailId) {
-            if (invDetailId != '' && invDetailId > 0) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Cashier/RemoveOrderProduct',
-                    data: { invoiceDetailID: invDetailId }
-                }).done(function(data) {
-                    if (data == true) {
-                        var invTblId = $('#currentInvoiceTableID').text();
-                        if (invTblId != '' && invTblId > 0)
-                            onSelectInvoiceTable(invTblId);
-                    }
-                });
-            }
-        }
-
-        function GetTablesByAreaID(areaId) {
-            if (areaId <= 0) {
-                return;
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/Cashier/GetTablesByAreaID',
-                data: { areaID: areaId }
-            }).done(function (data) {
-                $('#area-' + areaId).html('');
-                $('#rightMenuArea').html('');
-                $('#table-tmpl').tmpl(data).appendTo('#area-' + areaId);
-                $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
-
-                $('tr[id^="rmenu-useTable-"]').click(function () {
-                    var tableId = $(this).attr('data-tableid');
-                    var invTblId = $(this).attr('id').replace('rmenu-useTable-', '');
-                    onCheckTableStatus(invTblId, tableId);
-                    return false;
-                });
-                $('tr[id^="rmenu-move-"]').click(function () {
-                    var id = $(this).attr('data-id');
-                    onMoveInvoiceTable(id);
-                    return false;
-                });
-                $('tr[id^="rmenu-del-"]').click(function () {
-                    var id = $(this).attr('data-id');
-                    onRemoveInvoiceTable(id);
-                    return false;
-                });
+                }
             });
+        }
+    }
+
+    function GetTablesByAreaID(areaId) {
+        if (areaId <= 0) {
             return;
         }
-        
-        function displayCustomMenu(menuName, event) {
-            var $menu = $(menuName);
-            var $wMenu = $menu.outerWidth();
-            var $hMenu = $menu.outerHeight();
-            var $leftM = event.clientX, $topM = event.clientY;
-            var $rightM = $(window).width() - $leftM;
+        $.ajax({
+            type: 'POST',
+            url: '/Cashier/GetTablesByAreaID',
+            data: { areaID: areaId }
+        }).done(function (data) {
+            $('#area-' + areaId).html('');
+            $('#rightMenuArea').html('');
+            $('#table-tmpl').tmpl(data).appendTo('#area-' + areaId);
+            $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
 
-            var $bottomM = $(window).height() - $topM;
-            if ($rightM < $wMenu) {
-                $leftM -= $wMenu;
-            }
-            if ($bottomM < $hMenu) {
-                $topM -= $hMenu;
-            }
-            $menu.css({ left: $leftM, top: $topM, display: 'block' });
-            event.preventDefault();
-        }
-        
-        function CalculateTotal() {
-            var totalAmount = 0;
-            $('#order .tbContent tr').each(function (idx, element) {
-                totalAmount += parseInt($(element).find('td.item_subtotal').text());
+            $('tr[id^="rmenu-useTable-"]').click(function () {
+                var tableId = $(this).attr('data-tableid');
+                var invTblId = $(this).attr('id').replace('rmenu-useTable-', '');
+                onCheckTableStatus(invTblId, tableId);
+                return false;
             });
+            $('tr[id^="rmenu-move-"]').click(function () {
+                var id = $(this).attr('data-id');
+                onMoveInvoiceTable(id);
+                return false;
+            });
+            $('tr[id^="rmenu-del-"]').click(function () {
+                var id = $(this).attr('data-id');
+                onRemoveInvoiceTable(id);
+                return false;
+            });
+        });
+        return;
+    }
+        
+    function displayCustomMenu(menuName, event) {
+        var $menu = $(menuName);
+        var $wMenu = $menu.outerWidth();
+        var $hMenu = $menu.outerHeight();
+        var $leftM = event.clientX, $topM = event.clientY;
+        var $rightM = $(window).width() - $leftM;
 
-            $('#totalSection .total_amount').text(totalAmount.transformAsMoney());
-            
-            $('#totalSection .fee').text(serviceFee.transformAsMoney());
-            
-            var tax = totalAmount / 10;
-            $('#totalSection .tax').text(tax.transformAsMoney());
-            
-            $('#totalSection .total_money').text((totalAmount + tax).transformAsMoney());
+        var $bottomM = $(window).height() - $topM;
+        if ($rightM < $wMenu) {
+            $leftM -= $wMenu;
         }
-    </script>
-</div>
+        if ($bottomM < $hMenu) {
+            $topM -= $hMenu;
+        }
+        $menu.css({ left: $leftM, top: $topM, display: 'block' });
+        event.preventDefault();
+    }
+        
+    function CalculateTotal() {
+        var totalAmount = 0;
+        $('#order .tbContent tr').each(function (idx, element) {
+            totalAmount += parseInt($(element).find('td.item_subtotal').text());
+        });
+
+        $('#totalSection .total_amount').text(totalAmount.transformAsMoney());
+            
+        $('#totalSection .fee').text(serviceFee.transformAsMoney());
+            
+        var tax = totalAmount / 10;
+        $('#totalSection .tax').text(tax.transformAsMoney());
+            
+        $('#totalSection .total_money').text((totalAmount + tax).transformAsMoney());
+    }
+</script>

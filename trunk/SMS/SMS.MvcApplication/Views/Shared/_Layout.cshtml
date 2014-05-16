@@ -15,6 +15,7 @@
     
 </head>
 <body>
+    @Html.Partial("PrintInvoicePreview", new PopupModel { PopupID = "printPreviewPopup", PopupTitle = "Print Preview" })
     <header class="ui-helper-clearfix" id="header">
         <div id="logo">
             <p>@Html.ActionLink("your logo here", "Index", "Home")</p>

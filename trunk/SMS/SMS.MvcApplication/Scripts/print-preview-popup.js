@@ -1,15 +1,16 @@
-﻿function PrintPreviewPopup() {
+﻿function PrintPreviewPopup(width) {
     var root = this;
+    this.width = width;
 
-    $('#invoicePreview').dialog({
+    $('#printPreviewPopup').dialog({
         autoOpen: false,
         closeOnEscape: true,
         resizable: false,
-        width: 500,
+        width: root.width,
         modal: true
     });
 
     this.OpenPopup = function () {
-        $('#invoicePreview').dialog("open");
+        $('#printPreviewPopup').dialog("open");
     };
 }

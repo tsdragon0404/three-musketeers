@@ -1,1 +1,31 @@
-﻿
+﻿@media only print
+{
+    /*Reset Style*/
+    body {
+        margin:0; 
+        padding:0; 
+        line-height: 1.4em; 
+        word-spacing:1px; 
+        letter-spacing:0.2px; 
+        font: 13px Arial, Helvetica,"Lucida Grande", serif; 
+        color: #000;
+    }
+	
+	body > * { display: none; }
+
+    div[aria-describedby="printPreviewPopup"] {
+        display: block !important;
+        top: 0 !important;
+        left: 0 !important;
+        border: none;
+    }
+
+	div[aria-describedby="printPreviewPopup"] .ui-dialog-titlebar {
+	    display: none;
+	}
+
+    #printPreviewPopup, #printPreviewPopup table {
+        padding: 0;
+        margin: 0;
+    }
+}

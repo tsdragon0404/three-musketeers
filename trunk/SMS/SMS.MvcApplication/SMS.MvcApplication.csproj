@@ -219,7 +219,6 @@
     <Compile Include="Models\CashierModel.cs" />
     <Compile Include="Models\HyperlinkModel.cs" />
     <Compile Include="Models\PopupModel.cs" />
-    <Compile Include="Models\PrintPreviewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
