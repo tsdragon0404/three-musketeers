@@ -1,12 +1,10 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
-    <table>
-        <tr>
-            <td>
-                alksd kasjdl
-                <a href="javascript:window.print()">print</a>
-            </td>
-        </tr>
-    </table>
+    <div class="buttons">
+        <input type="button" class="myButton" value="Print" id="print-button" />
+    </div>
+    <div class="print-content">
+        
+    </div>
 </div>
 <script src="@Url.Content("~/Scripts/print-preview-popup.js")"></script>

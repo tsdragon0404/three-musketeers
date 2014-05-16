@@ -81,7 +81,38 @@
     </table>
     {{/each}}
 </script>
+<script type="text/x-jquery-tmpl" id="invoice-preview-tmpl">
+    <table id="inv-table">
+        <colgroup>
+            <col class="col1" />
+            <col class="col2" />
+            <col class="col3" />
+            <col class="col4" />
+            <col class="col5" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{each(index) InvoiceDetails}}
+            <tr>
+                <td>${index}</td>
+                <td>${ProductCode}</td>
+                <td>${ProductVNName}</td>
+                <td class="right">${Quantity}</td>
+                <td class="right">${(Price * Quantity).transformAsMoney()}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 
+</script>
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
@@ -207,7 +238,7 @@
             return false;
         });
         $('#printInvoice').click(function () {
-            var invoice = new PrintPreviewPopup(400);
+            var invoice = new PrintPreviewPopup(400, "/Cashier/GetDataForPreviewInvoice", getDataForPostCallback, formatDataForPrintInvoicePreview, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });
@@ -218,7 +249,17 @@
             refreshTable();
         }, 60000);
     });
-        
+
+    function getDataForPostCallback() {
+        return { invoiceTableID: $('#currentInvoiceTableID').text() };
+    }
+
+    function formatDataForPrintInvoicePreview(data) {
+        $(data.InvoiceDetails).each(function(idx) {
+            data.InvoiceDetails[idx].idx = idx + 1;
+        });
+    }
+
     function refreshTable() {
         var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
         var id = area.split('-')[1];
