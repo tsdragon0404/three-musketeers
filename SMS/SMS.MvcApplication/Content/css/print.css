@@ -20,7 +20,7 @@
         border: none;
     }
 
-	div[aria-describedby="printPreviewPopup"] .ui-dialog-titlebar {
+	div[aria-describedby="printPreviewPopup"] .ui-dialog-titlebar, #printPreviewPopup .buttons {
 	    display: none;
 	}
 
