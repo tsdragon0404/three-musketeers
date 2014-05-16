@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Http;
@@ -58,6 +59,10 @@ namespace SMS.MvcApplication
 
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;
+            BranchConfig.Taxs = new Dictionary<string, decimal>
+                                {
+                                    {"VAT", 10}
+                                };
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

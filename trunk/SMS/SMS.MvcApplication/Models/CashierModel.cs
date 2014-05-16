@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Data.Dtos.Models;
 
