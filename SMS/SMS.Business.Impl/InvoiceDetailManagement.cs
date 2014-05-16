@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using SMS.Data;
+﻿using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 
@@ -17,11 +14,11 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
+        public bool AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
         {
             var product = ProductRepository.Get(productID);
             if(product == null)
-                return null;
+                return false;
             var invoiceDetail = new InvoiceDetail
                                     {
                                         InvoiceTable = new InvoiceTable {ID = invoiceTableID},
@@ -35,12 +32,14 @@ namespace SMS.Business.Impl
                                     };
             Repository.Add(invoiceDetail);
             InvoiceTableManagement.UpdateTableDetail(invoiceDetail.InvoiceTable.ID);
-            return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
+            return true;
         }
 
-        public InvoiceDetailDto UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
+        public bool UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
         {
             var invoiceDetail = Repository.Get(invoiceDetailID);
+            if (invoiceDetail == null)
+                return false;
             switch (columnName)
             {
                 case "qty":
@@ -49,11 +48,11 @@ namespace SMS.Business.Impl
                 case "cmt":
                     invoiceDetail.Comment = value;
                     break;
-            };
+            }
             Repository.Update(invoiceDetail);
             InvoiceTableManagement.UpdateTableDetail(invoiceDetail.InvoiceTable.ID);
 
-            return Mapper.Map<InvoiceDetailDto>(invoiceDetail);
+            return true;
         }
     }
 }

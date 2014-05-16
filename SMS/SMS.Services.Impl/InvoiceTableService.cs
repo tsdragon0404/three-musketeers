@@ -10,19 +10,19 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public IList<InvoiceTableDto> GetTablesAreaID(long areaID)
+        public IList<TDto> GetTablesByAreaID<TDto>(long areaID)
         {
-            return Management.GetTablesAreaID(areaID);
+            return Management.GetTablesByAreaID<TDto>(areaID);
         }
 
-        public InvoiceTableDto CreateInvoiceTable(long tableID)
+        public long CreateInvoiceTable(long tableID)
         {
             return Management.CreateInvoiceTable(tableID);
         }
 
-        public InvoiceTableDto GetTableDetail(long invTblID)
+        public TDto GetTableDetail<TDto>(long invTblID)
         {
-            return Management.GetTableDetail(invTblID);
+            return Management.GetTableDetail<TDto>(invTblID);
         }
 
         public bool CheckTableStatus(long tableID)

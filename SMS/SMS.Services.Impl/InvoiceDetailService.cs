@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SMS.Business;
+﻿using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -10,12 +9,12 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
+        public bool AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity)
         {
             return Management.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
         }
 
-        public InvoiceDetailDto UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
+        public bool UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value)
         {
             return Management.UpdateProductToInvoiceTable(invoiceDetailID, columnName, value);
         }

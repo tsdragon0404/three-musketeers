@@ -16,33 +16,33 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<InvoiceTableDto> GetTablesAreaID(long areaID)
+        public IList<TDto> GetTablesByAreaID<TDto>(long areaID)
         {
-            var a = Repository.Find(x => x.Invoice == null && x.Table.Area.ID == areaID && x.Table.Enable).ToList();
+            var usedTables = Repository.Find(x => x.Invoice == null && x.Table.Area.ID == areaID && x.Table.Enable).ToList();
 
-            var b = TableRepository.Find(x => x.Area.ID == areaID && !x.InvoiceTables.Any());
+            var availableTables = TableRepository.Find(x => x.Area.ID == areaID && !x.InvoiceTables.Any());
 
-            a.AddRange(b.Select(table => new InvoiceTable
-            {
-                ID = 0,
-                Table = table,
-            }));
+            usedTables.AddRange(availableTables.Select(table => new InvoiceTable
+                                                                    {
+                                                                        ID = 0,
+                                                                        Table = table,
+                                                                    }));
 
-            return Mapper.Map<IList<InvoiceTableDto>>(a.OrderBy(x => x.Table.SEQ).ToList());
+            return Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.SEQ).ToList());
         }
 
-        public InvoiceTableDto CreateInvoiceTable(long tableID)
+        public long CreateInvoiceTable(long tableID)
         {
             var invoiceTable = new InvoiceTable { Table = new Table { ID = tableID } };
             Repository.Add(invoiceTable);
 
-            return Mapper.Map<InvoiceTableDto>(invoiceTable);
+            return invoiceTable.ID;
         }
 
-        public InvoiceTableDto GetTableDetail(long invTblID)
+        public TDto GetTableDetail<TDto>(long invTblID)
         {
             var result = Repository.Get(invTblID);
-            return result == null ? null : Mapper.Map<InvoiceTableDto>(result);
+            return result == null ? Mapper.Map<TDto>(new InvoiceTableDto()) : Mapper.Map<TDto>(result);
         }
 
         public void UpdateTableDetail(long invTblID)

@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainMappingRegister.cs" />
-    <Compile Include="ModelMappingRegister.cs" />
+    <Compile Include="CashierMappingRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

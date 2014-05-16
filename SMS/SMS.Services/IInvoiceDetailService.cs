@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using SMS.Data.Dtos;
+﻿using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
     public interface IInvoiceDetailService : IBaseService<InvoiceDetailDto, long>
     {
-        InvoiceDetailDto AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity);
-        InvoiceDetailDto UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value);
+        bool AddProductToInvoiceTable(long invoiceTableID, long productID, decimal quantity);
+        bool UpdateProductToInvoiceTable(long invoiceDetailID, string columnName, string value);
     }
 }
