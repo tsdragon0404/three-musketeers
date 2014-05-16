@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BaseMap.cs" />
     <Compile Include="AreaMap.cs" />
+    <Compile Include="BranchTaxMap.cs" />
     <Compile Include="InvoiceDetailMap.cs" />
     <Compile Include="InvoiceTableMap.cs" />
     <Compile Include="InvoiceMap.cs" />

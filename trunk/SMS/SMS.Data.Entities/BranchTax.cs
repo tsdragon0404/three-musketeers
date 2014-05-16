@@ -5,9 +5,9 @@ namespace SMS.Data.Entities
 {
     public class BranchTax : Entity, IAuditableEntity
     {
-        public virtual long BranchID { get; set; }
+        public virtual Branch Branch { get; set; }
 
-        public virtual long TaxID { get; set; }
+        public virtual Tax Tax { get; set; }
 
         #region Implementation of IAuditableEntity
 
