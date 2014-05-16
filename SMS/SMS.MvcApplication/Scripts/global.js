@@ -51,13 +51,22 @@ function SetHeightBodySection() {
 
 function pad(s) { return (s < 10) ? '0' + s : s; }
 
-String.prototype.transformAsDateTime = function () {
+String.prototype.formatAsDateTime = function () {
     if (this == '')
         return '--/--/-- --:--';
     var d = new Date(this);
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1)].join(':');
 };
 
-Number.prototype.transformAsMoney = function() {
+Number.prototype.formatAsMoney = function () {
     return this.toLocaleString('en');
 };
+
+String.prototype.readMoneyAsNumber = function () {
+    var str = this;
+    if (this.indexOf(',') >= 0) {
+        str = str.replace(/,/g, '');
+    }
+    
+    return parseInt(str);
+}

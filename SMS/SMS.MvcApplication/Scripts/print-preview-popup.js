@@ -25,7 +25,8 @@
             url: root.getDataForPreviewUrl,
             data: postData
         }).done(function (data) {
-            root.formatDataForPrintInvoicePreview(data);
+            if(root.formatDataForPrintInvoicePreview)
+                root.formatDataForPrintInvoicePreview(data);
             
             $('#printPreviewPopup .print-content').html(root.template.tmpl(data));
             $('#printPreviewPopup').dialog("open");
