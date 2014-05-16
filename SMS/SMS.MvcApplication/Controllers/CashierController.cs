@@ -108,14 +108,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult PrintInvoiceReview(long invoiceTableID)
         {
-            if (invoiceTableID <= 0) return Json(new PrintPreviewModel());
-
-            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
-
-            return Json(new PrintPreviewModel
-                        {
-                            ListInvoiceDetail = invoiceDetail.InvoiceDetails
-                        });
+            return null;
         }
     }
 }
