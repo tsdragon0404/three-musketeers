@@ -106,9 +106,13 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult PrintInvoiceReview(long invoiceTableID)
+        public JsonResult GetDataForPreviewInvoice(long invoiceTableID)
         {
-            return null;
+            if (invoiceTableID <= 0) return Json(null);
+
+            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
+
+            return Json(invoiceDetail);
         }
     }
 }
