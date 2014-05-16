@@ -118,7 +118,7 @@ namespace SMS.MvcApplication
         private void MappingRegister()
         {
             DomainMappingRegister.Register();
-            ModelMappingRegister.Register();
+            CashierMappingRegister.Register();
         }
 
         #endregion

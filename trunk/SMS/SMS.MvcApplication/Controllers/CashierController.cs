@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SMS.Data.Dtos;
-using SMS.Data.Dtos.Models;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -23,8 +21,8 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAll<AreaBasicDto>(),
-                                       ListProduct = ProductService.GetAll<ProductOrderDto>(),
+                                       ListArea = AreaService.GetAll<CashierAreaDto>(),
+                                       ListProduct = ProductService.GetAll<CashierProductDto>(),
                                    };
 
             return View(cashierModel);
@@ -33,75 +31,87 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult OrderProduct(long invoiceTableID, long productID, decimal quantity)
         {
-            if (productID <= 0 || quantity <= 0 ) return null;
+            if (productID <= 0 || quantity <= 0 || invoiceTableID <= 0) return Json(null);
 
-            var invoiceDetail = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
+            var result = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
 
-            return Json(invoiceDetail);
+            return Json(new { Success = result });
         }
 
         [HttpPost]
         public JsonResult SelectTable(long invoiceTableID)
         {
-            if (invoiceTableID <= 0) return Json(new List<ProductOrderDto>());
+            if (invoiceTableID <= 0) return Json(null);
 
-            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
+            var invoiceTable = InvoiceTableService.GetTableDetail<CashierInvoiceTableDto>(invoiceTableID);
 
-            return Json(invoiceDetail ?? (object) false);
+            return Json(new {InvoiceTable = invoiceTable});
         }
 
         [HttpPost]
         public JsonResult CancelTable(long invoiceTableID)
         {
+            if (invoiceTableID <= 0) return Json(null);
+
             var flag = InvoiceTableService.Delete(invoiceTableID);
 
-            return Json(flag);
+            return Json(new {Success = flag});
         }
 
         [HttpPost]
         public JsonResult CheckTableStatus(long tableID)
         {
+            if (tableID <= 0) return Json(null);
+
             var flag = InvoiceTableService.CheckTableStatus(tableID);
 
-            return Json(flag);
+            return Json(new { Success = flag });
         }
 
         [HttpPost]
-        public JsonResult UpdateOrderProduct(long invoiceDetailID, string columnName, string columnValue)
+        public JsonResult UpdateOrderedProduct(long invoiceDetailID, string columnName, string columnValue)
         {
+            if (invoiceDetailID <= 0) return Json(null);
+
             var flag = InvoiceDetailService.UpdateProductToInvoiceTable(invoiceDetailID, columnName, columnValue);
 
-            return Json(flag);
+            return Json(new { Success = flag });
         }
 
         [HttpPost]
-        public JsonResult RemoveOrderProduct(long invoiceDetailID)
+        public JsonResult RemoveOrderedProduct(long invoiceDetailID)
         {
+            if (invoiceDetailID <= 0) return Json(null);
+
             var flag = InvoiceDetailService.Delete(invoiceDetailID);
 
-            return Json(flag);
+            return Json(new { Success = flag });
         }
 
         [HttpPost]
         public JsonResult CreateInvoiceTable(long tableID)
         {
-            var invoiceTable = InvoiceTableService.CreateInvoiceTable(tableID);
+            if (tableID <= 0) return Json(null);
 
-            return Json(invoiceTable);
+            var invoiceTableID = InvoiceTableService.CreateInvoiceTable(tableID);
+
+            return Json(new {InvoiceTableID = invoiceTableID});
         }
 
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(ProductService.GetAll<ProductOrderDto>());
+            return Json(new {ListProduct = ProductService.GetAll<CashierProductDto>()});
         }
 
         [HttpPost]
         public JsonResult GetTablesByAreaID(long areaID)
         {
+            if (areaID <= 0) return Json(null);
+
             return Json(new
                             {
-                                ListTable = InvoiceTableService.GetTablesAreaID(areaID)
+                                ListTable = InvoiceTableService.GetTablesByAreaID<CashierInvoiceTableDto>(areaID)
                             });
         }
 
@@ -110,9 +120,9 @@ namespace SMS.MvcApplication.Controllers
         {
             if (invoiceTableID <= 0) return Json(null);
 
-            var invoiceDetail = InvoiceTableService.GetTableDetail(invoiceTableID);
+            var invoiceTable = InvoiceTableService.GetTableDetail<CashierInvoiceTableDto>(invoiceTableID);
 
-            return Json(invoiceDetail);
+            return Json(new { InvoiceTable = invoiceTable });
         }
     }
 }

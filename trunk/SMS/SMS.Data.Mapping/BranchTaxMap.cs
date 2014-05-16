@@ -1,5 +1,4 @@
-﻿using SMS.Common.Constant;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
@@ -7,7 +6,7 @@ namespace SMS.Data.Mapping
     {
         public BranchTaxMap()
         {
-            Table("[BranchTax]");
+            Table("BranchTax");
             References(x => x.Branch).Column("BranchID");
             References(x => x.Tax).Column("TaxID");
         }

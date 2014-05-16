@@ -5,9 +5,9 @@ namespace SMS.Business
 {
     public interface IInvoiceTableManagement : IBaseManagement<InvoiceTableDto, long>
     {
-        IList<InvoiceTableDto> GetTablesAreaID(long areaID);
-        InvoiceTableDto CreateInvoiceTable(long tableID);
-        InvoiceTableDto GetTableDetail(long invTblID);
+        IList<TDto> GetTablesByAreaID<TDto>(long areaID);
+        long CreateInvoiceTable(long tableID);
+        TDto GetTableDetail<TDto>(long invTblID);
         void UpdateTableDetail(long invTblID);
         bool CheckTableStatus(long tableID);
     }

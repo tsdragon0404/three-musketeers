@@ -1,6 +1,6 @@
-﻿namespace SMS.Data.Dtos.Models
+﻿namespace SMS.Data.Dtos
 {
-    public class AreaBasicDto
+    public class CashierTableDto
     {
         public virtual long ID { get; set; }
         public virtual string Name { get; set; }
