@@ -2,14 +2,11 @@
 
 namespace SMS.Data.Dtos
 {
-    public class BranchDto : EnableSortableDto
+    public class CurrencyDto : EnableSortableDto
     {
         public virtual long ID { get; set; }
-        public virtual string VNName { get; set; }
-        public virtual string ENName { get; set; }
-        public virtual CurrencyDto Currency { get; set; }
-        public virtual bool UseServiceFee { get; set; }
-        public virtual decimal ServiceFee { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal Exchange { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

@@ -37,6 +37,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Branch.cs" />
     <Compile Include="BranchTax.cs" />
+    <Compile Include="Currency.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="InvoiceDetail.cs" />
     <Compile Include="InvoiceTable.cs" />

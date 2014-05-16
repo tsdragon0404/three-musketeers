@@ -3,17 +3,10 @@ using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class Branch : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    public class Currency : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
-        public virtual string VNName { get; set; }
-
-        public virtual string ENName { get; set; }
-
-        public virtual Currency Currency { get; set; }
-
-        public virtual bool UseServiceFee { get; set; }
-
-        public virtual decimal ServiceFee { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal Exchange { get; set; }
 
         #region Implementation of IEnableEntity
 
