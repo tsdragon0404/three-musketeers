@@ -49,9 +49,11 @@
     <Compile Include="AreaMap.cs" />
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchTaxMap.cs" />
+    <Compile Include="CurrencyMap.cs" />
     <Compile Include="InvoiceDetailMap.cs" />
     <Compile Include="InvoiceTableMap.cs" />
     <Compile Include="InvoiceMap.cs" />
+    <Compile Include="TaxMap.cs" />
     <Compile Include="UnitMap.cs" />
     <Compile Include="ProductCategoryMap.cs" />
     <Compile Include="TableMap.cs" />

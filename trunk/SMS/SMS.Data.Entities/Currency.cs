@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Data;
 
 namespace SMS.Data.Entities
@@ -7,6 +8,8 @@ namespace SMS.Data.Entities
     {
         public virtual string Name { get; set; }
         public virtual decimal Exchange { get; set; }
+
+        public virtual IList<Branch> Branches { get; set; }
 
         #region Implementation of IEnableEntity
 
