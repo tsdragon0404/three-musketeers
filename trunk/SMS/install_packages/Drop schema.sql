@@ -10,6 +10,10 @@ IF EXISTS ( SELECT TOP 1 1 FROM sys.objects WHERE name = 'FK_Unit_Branch' )
 	ALTER TABLE [dbo].[Unit] DROP CONSTRAINT [FK_Unit_Branch]
 GO
 
+IF EXISTS ( SELECT TOP 1 1 FROM sys.objects WHERE name = 'FK_PageLabel_Page' )
+	ALTER TABLE [dbo].[PageLabel] DROP CONSTRAINT [FK_PageLabel_Page]
+GO
+
 IF EXISTS ( SELECT TOP 1 1 FROM sys.objects WHERE name = 'FK_Table_Area' )
 	ALTER TABLE [dbo].[Table] DROP CONSTRAINT [FK_Table_Area]
 GO
@@ -152,4 +156,12 @@ GO
 
 IF EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Area]') AND type in (N'U'))
 	DROP TABLE [dbo].[Area]
+GO
+
+IF EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageLabel]') AND type in (N'U'))
+	DROP TABLE [dbo].[PageLabel]
+GO
+
+IF EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Page]') AND type in (N'U'))
+	DROP TABLE [dbo].[Page]
 GO
