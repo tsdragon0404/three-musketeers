@@ -400,6 +400,48 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Page]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Page](
+		[PageID] [int] NOT NULL,
+		[VNTitle] [nvarchar](255) NULL,
+		[ENTitle] [nvarchar](255) NULL,
+		[VNDescription] [nvarchar](500) NULL,
+		[ENDescription] [nvarchar](500) NULL,
+		[Path] [varchar](500) NULL,
+	 CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
+	(
+		[PageID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageLabel]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[PageLabel](
+		[PageLabelID] [bigint] IDENTITY(1,1) NOT NULL,
+		[LabelID] [varchar](50) NULL,
+		[PageID] [int] NULL,
+		[VNText] [nvarchar](500) NULL,
+		[ENText] [nvarchar](500) NULL,
+	 CONSTRAINT [PK_PageLabel] PRIMARY KEY CLUSTERED 
+	(
+		[PageLabelID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageLabel_Page]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[PageLabel]  WITH CHECK ADD  CONSTRAINT [FK_PageLabel_Page] FOREIGN KEY([PageID])
+	REFERENCES [dbo].[Page] ([PageID])
+
+	ALTER TABLE [dbo].[PageLabel] CHECK CONSTRAINT [FK_PageLabel_Page]
+END
+GO
+
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Area_Branch]') AND type in (N'F'))
 BEGIN
 	ALTER TABLE [dbo].[Area] WITH CHECK ADD CONSTRAINT [FK_Area_Branch] FOREIGN KEY([BranchID])
