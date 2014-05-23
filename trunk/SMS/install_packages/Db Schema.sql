@@ -621,3 +621,16 @@ BEGIN
 	ALTER TABLE [dbo].[UserBranch] CHECK CONSTRAINT [FK_UserBranch_User]
 END
 GO
+
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+
+DELETE FROM dbo.Page
+GO
+INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Path )
+VALUES 
+( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', N'' ),
+( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' )
+GO
