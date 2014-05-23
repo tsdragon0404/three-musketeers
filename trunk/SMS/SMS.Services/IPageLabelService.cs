@@ -6,5 +6,6 @@ namespace SMS.Services
     public interface IPageLabelService : IBaseService<PageLabelDto, long>
     {
         IList<TDto> GetByPageID<TDto>(int pageID);
+        bool Save(int pageID, string labelID, string text);
     }
 }

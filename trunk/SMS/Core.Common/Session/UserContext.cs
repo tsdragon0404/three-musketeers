@@ -7,16 +7,6 @@
         public static int PageSize { get; set; }
         public static bool IsSuperAdmin { get; set; }
 
-        private static string _language;
-        public static string Language
-        {
-            get
-            {
-                if (_language.IsNullOrEmpty() || (_language != "en" && _language != "vn"))
-                    _language = "vn";
-                return _language;
-            } 
-            set { _language = value.ToLower(); }
-        }
+        public static Language Language { get; set; }
     }
 }

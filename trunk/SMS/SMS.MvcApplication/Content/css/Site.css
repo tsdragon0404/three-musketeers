@@ -413,3 +413,8 @@ label.ui-state-error {
 #changeCustomer:hover {
     color: #76BBD8;
 }
+
+.editlabel {
+    margin: 0;
+    font-size: 11px;
+}
