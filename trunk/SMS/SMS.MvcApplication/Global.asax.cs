@@ -56,6 +56,7 @@ namespace SMS.MvcApplication
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
+            UserContext.IsSuperAdmin = true;
 
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;
@@ -118,7 +119,7 @@ namespace SMS.MvcApplication
         private void MappingRegister()
         {
             DomainMappingRegister.Register();
-            CashierMappingRegister.Register();
+            LanguageDtoMappingRegister.Register();
         }
 
         #endregion

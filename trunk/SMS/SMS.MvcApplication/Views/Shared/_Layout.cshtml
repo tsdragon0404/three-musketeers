@@ -12,7 +12,14 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
-    
+    <script type="text/javascript" src="~/Scripts/labelController.js"></script>
+    <script>
+        var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
+        $(document).ready(function(){
+            var labelController = new LabelController(labelDictionary);
+            labelController.Run();
+        });
+    </script>
 </head>
 <body>
     @Html.Partial("PrintInvoicePreview", new PopupModel { PopupID = "printPreviewPopup", PopupTitle = "Print Preview" })

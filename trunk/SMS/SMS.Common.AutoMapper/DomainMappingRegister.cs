@@ -22,6 +22,8 @@ namespace SMS.Common.AutoMapper
             Map<InvoiceTable, InvoiceTableDto>();
             Map<InvoiceDetail, InvoiceDetailDto>();
             Map<Area, AreaDto>();
+            Map<Page, PageDto>();
+            Map<PageLabel, PageLabelDto>();
         }
     }
 }
