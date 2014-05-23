@@ -11,6 +11,5 @@ namespace SMS.Data.Entities
         public virtual string VNText { get; set; }
 
         public virtual string ENText { get; set; }
-
     }
 }

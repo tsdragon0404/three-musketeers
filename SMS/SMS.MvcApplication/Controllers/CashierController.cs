@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Filters;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -17,12 +18,13 @@ namespace SMS.MvcApplication.Controllers
 
         #endregion
 
+        [GetLabel(Common.Constant.ConstPage.Cashier)]
         public ActionResult Index()
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAll<CashierAreaDto>(),
-                                       ListProduct = ProductService.GetAll<CashierProductDto>(),
+                                       ListArea = AreaService.GetAll<LanguageAreaDto>(),
+                                       ListProduct = ProductService.GetAll<LanguageProductDto>(),
                                    };
 
             return View(cashierModel);
@@ -43,7 +45,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (invoiceTableID <= 0) return Json(null);
 
-            var invoiceTable = InvoiceTableService.GetTableDetail<CashierInvoiceTableDto>(invoiceTableID);
+            var invoiceTable = InvoiceTableService.GetTableDetail<LanguageInvoiceTableDto>(invoiceTableID);
 
             return Json(new {InvoiceTable = invoiceTable});
         }
@@ -101,7 +103,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(new {ListProduct = ProductService.GetAll<CashierProductDto>()});
+            return Json(new {ListProduct = ProductService.GetAll<LanguageProductDto>()});
         }
 
         [HttpPost]
@@ -111,7 +113,7 @@ namespace SMS.MvcApplication.Controllers
 
             return Json(new
                             {
-                                ListTable = InvoiceTableService.GetTablesByAreaID<CashierInvoiceTableDto>(areaID)
+                                ListTable = InvoiceTableService.GetTablesByAreaID<LanguageInvoiceTableDto>(areaID)
                             });
         }
 
@@ -120,7 +122,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (invoiceTableID <= 0) return Json(null);
 
-            var invoiceTable = InvoiceTableService.GetTableDetail<CashierInvoiceTableDto>(invoiceTableID);
+            var invoiceTable = InvoiceTableService.GetTableDetail<LanguageInvoiceTableDto>(invoiceTableID);
 
             return Json(new { InvoiceTable = invoiceTable });
         }

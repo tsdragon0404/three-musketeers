@@ -6,11 +6,11 @@ namespace SMS.Data.Mapping
     {
         public PageLabelMap()
         {
-            Table("Page");
+            Table("PageLabel");
             Map(x => x.VNText);
             Map(x => x.ENText);
             Map(x => x.LabelID);
-            References(x => x.Page).Column("PageID");
+            References(x => x.Page).Column("PageID").Not.LazyLoad();
         }
     }
 }

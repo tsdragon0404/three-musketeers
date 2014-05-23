@@ -1559,7 +1559,7 @@ label + .xnarrow:last-child, label + .narrow:last-child, label + .normal:last-ch
 .picker select::-ms-expand { display: none; }
 
 /* Labels */
-.badge, .label { height: 20px; display: inline-block; font-family: Helvetica, arial, verdana, sans-serif; font-weight: bold; line-height: 20px; text-align: center; color: #fff; }
+.badge, .label { text-align: center; }
 .badge a, .label a { color: #fff; }
 .badge.primary, .label.primary { background: #3085d6; border: 1px solid #3085d6; }
 .badge.secondary, .label.secondary { background: #42a35a; border: 1px solid #42a35a; }
@@ -1577,7 +1577,7 @@ label + .xnarrow:last-child, label + .narrow:last-child, label + .normal:last-ch
 
 .badge { padding: 0 10px; font-size: 14px; font-size: 0.875rem; -webkit-border-radius: 10px; -moz-border-radius: 10px; -ms-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px; }
 
-.label { padding: 0 10px; font-size: 12px; font-size: 0.75rem; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; }
+.label {  }
 
 .alert { padding: 0 10px; font-family: Arial, Helvetica, sans-serif; font-weight: 600; list-style-type: none; word-wrap: break-word; margin-bottom: 8px; font-size: 14px; font-size: 0.875rem; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
 .alert.primary { background: #85b7e7; border: 1px solid #3085d6; color: #1a5186; }

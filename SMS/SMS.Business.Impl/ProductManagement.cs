@@ -16,13 +16,13 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<CashierProductDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
+        public IList<LanguageProductDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
         {
             var invoiceTable = InvoiceTableRepository.Get(invoiceTableID);
             var productCodes = invoiceTable.InvoiceDetails.Select(x => x.ProductCode).ToList();
             
             var products = Repository.Find(x => productCodes.Contains(x.ProductCode));
-            var returnValue = Mapper.Map<IList<CashierProductDto>>(products.ToList());
+            var returnValue = Mapper.Map<IList<LanguageProductDto>>(products.ToList());
 
             returnValue.Apply(x => x.Quantity =
                 invoiceTable.InvoiceDetails.FirstOrDefault(y => y.ProductCode == x.ProductCode) == null

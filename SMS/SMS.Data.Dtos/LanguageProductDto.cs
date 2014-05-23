@@ -1,6 +1,6 @@
 ﻿namespace SMS.Data.Dtos
 {
-    public class CashierProductDto
+    public class LanguageProductDto
     {
         public virtual long ID { get; set; }
         public virtual string ProductCode { get; set; }

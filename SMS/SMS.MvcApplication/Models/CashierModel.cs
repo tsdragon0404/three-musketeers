@@ -5,8 +5,8 @@ namespace SMS.MvcApplication.Models
 {
     public class CashierModel
     {
-        public IList<CashierAreaDto> ListArea { get; set; }
+        public IList<LanguageAreaDto> ListArea { get; set; }
 
-        public IList<CashierProductDto> ListProduct { get; set; }
+        public IList<LanguageProductDto> ListProduct { get; set; }
     }
 }

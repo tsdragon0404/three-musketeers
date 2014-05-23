@@ -214,6 +214,7 @@
     <Compile Include="Base\JsonNetResult.cs" />
     <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\GetLabelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -761,6 +762,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\labelController.js" />
     <Content Include="Scripts\message-popup.js" />
     <Content Include="Scripts\global.js" />
     <Content Include="Areas\Administrator\Views\ProductCategory\Index.cshtml" />
@@ -799,7 +801,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Views\Shared\" />
-    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

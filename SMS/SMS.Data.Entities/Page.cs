@@ -15,6 +15,6 @@ namespace SMS.Data.Entities
 
         public virtual string Path { get; set; }
 
-        public IList<PageLabel> PageLabels { get; set; }
+        public virtual IList<PageLabel> PageLabels { get; set; }
     }
 }
