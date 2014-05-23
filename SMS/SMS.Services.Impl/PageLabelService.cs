@@ -14,5 +14,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetByPageID<TDto>(pageID);
         }
+
+        public bool Save(int pageID, string labelID, string text)
+        {
+            return Management.Save(pageID, labelID, text);
+        }
     }
 }

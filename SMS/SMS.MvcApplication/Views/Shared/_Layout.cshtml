@@ -1,4 +1,5 @@
-﻿@using SMS.MvcApplication.Models
+﻿@using Core.Common.Session
+@using SMS.MvcApplication.Models
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +16,15 @@
     <script type="text/javascript" src="~/Scripts/labelController.js"></script>
     <script>
         var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
-        $(document).ready(function(){
+        $(document).ready(function() {
             var labelController = new LabelController(labelDictionary);
-            labelController.Run();
+            labelController.ScanElements();
+            @if(UserContext.IsSuperAdmin)
+            {
+                <text>
+            labelController.BuildEditControl(@ViewData[SMS.Common.Constant.ConstConfig.PageIDKey]);
+                </text>
+            }
         });
     </script>
 </head>

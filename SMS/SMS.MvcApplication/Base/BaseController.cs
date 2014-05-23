@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Core.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Filters;
 using SMS.Services;
@@ -34,10 +35,20 @@ namespace SMS.MvcApplication.Base
                 {
                     var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID).ToDictionary(x => x.LabelID, x => x.Text);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
+                    viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
                 }
             }
 
             base.OnActionExecuted(filterContext);
+        }
+
+        [HttpPost]
+        public JsonResult EditPageLabel(int pageID, string labelID, string text)
+        {
+            if (!UserContext.IsSuperAdmin)
+                return Json(false);
+
+            return Json(PageLabelService.Save(pageID, labelID, text));
         }
     }
 }
