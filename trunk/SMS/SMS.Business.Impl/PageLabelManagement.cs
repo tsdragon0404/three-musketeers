@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class AreaManagement : BaseManagement<AreaDto, Area, long, IAreaRepository>, IAreaManagement
+    public class PageLabelManagement : BaseManagement<PageLabelDto, PageLabel, long, IPageLabelRepository>, IPageLabelManagement
     {
         #region Fields
 

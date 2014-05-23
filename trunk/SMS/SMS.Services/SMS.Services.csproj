@@ -34,6 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPageLabelService.cs" />
+    <Compile Include="IPageService.cs" />
     <Compile Include="IAreaService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IInvoiceDetailService.cs" />

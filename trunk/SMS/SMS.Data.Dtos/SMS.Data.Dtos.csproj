@@ -40,11 +40,13 @@
     <Compile Include="CashierInvoiceTableDto.cs" />
     <Compile Include="CashierTableDto.cs" />
     <Compile Include="CashierInvoiceDetailDto.cs" />
+    <Compile Include="PageLabelDto.cs" />
     <Compile Include="CurrencyDto.cs" />
     <Compile Include="EnableSortableDto.cs" />
     <Compile Include="CashierAreaDto.cs" />
     <Compile Include="CashierProductDto.cs" />
     <Compile Include="CustomerDto.cs" />
+    <Compile Include="PageDto.cs" />
     <Compile Include="ProductPriceHistoryDto.cs" />
     <Compile Include="InvoiceDetailDto.cs" />
     <Compile Include="InvoiceTableDto.cs" />
