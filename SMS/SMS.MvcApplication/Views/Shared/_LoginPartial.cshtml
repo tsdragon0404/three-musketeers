@@ -1,4 +1,5 @@
-﻿@*@if (Request.IsAuthenticated) {
+﻿@using Core.Common.Session
+@*@if (Request.IsAuthenticated) {
     <text>
         Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
@@ -14,11 +15,14 @@
 <ul id="user">
     <li><a href="#" id="change-language-vn">Vietnamese</a></li>
     <li><a href="#" id="change-language-en">English</a></li>
-    <li>
-        <a href="#" id="page-label-multi-edit">Edit Label</a>
-        <a href="#" id="page-label-multi-edit-save" class="hide">Save</a>
-        <a href="#" id="page-label-multi-edit-cancel" class="hide">Cancel</a>
-    </li>
+    @if(UserContext.IsSuperAdmin)
+    {
+        <li>
+            <a href="#" id="page-label-multi-edit">Edit Label</a>
+            <a href="#" id="page-label-multi-edit-save" class="hide">Save</a>
+            <a href="#" id="page-label-multi-edit-cancel" class="hide">Cancel</a>
+        </li>
+    }
 </ul>
 <script>
     $('#change-language-vn').click(function () {
