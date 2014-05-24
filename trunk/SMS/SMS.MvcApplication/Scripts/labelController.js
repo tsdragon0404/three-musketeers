@@ -1,6 +1,7 @@
-﻿function LabelController(labelDictionary) {
+﻿function LabelController(labelDictionary, multiEditId) {
     var root = this;
     this.labelDictionary = labelDictionary;
+    this.multiEditId = multiEditId;
     this.inputTemplate = '<input type="text" id="edit-{0}" class="editlabel hide" value="{1}" />';
 
     this.ScanElements = function () {
@@ -35,23 +36,58 @@
                     $(element).addClass('hide');
                     $(insertedElement).removeClass('hide');
                     $(insertedElement).focus();
-                });
-
-                $(insertedElement).blur(function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: location.pathname + '/EditPageLabel',
-                        data: { text: $(insertedElement).val(), pageID: pageID, labelID: id }
-                    }).done(function () {
-                        location.reload();
+                    
+                    $(insertedElement).blur(function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: location.pathname + '/EditPageLabel',
+                            data: { text: $(insertedElement).val(), pageID: pageID, labelID: id }
+                        }).done(function () {
+                            location.reload();
+                        });
+                    });
+                    $(insertedElement).keypress(function (e) {
+                        if (e.which == 13) {
+                            $(e.target).trigger('blur');
+                        }
                     });
                 });
-                $(insertedElement).keypress(function (e) {
-                    if (e.which == 13) {
-                        $(e.target).trigger('blur');
+            });
+            
+            $(root.multiEditId).click(function () {
+                elements.each(function(idx, element) {
+                    var inputElement = $(element).next();
+                    if($(inputElement).length != 0) {
+                        $(element).addClass('hide');
+                        $(inputElement).removeClass('hide');
                     }
                 });
+                $(this).addClass('hide');
+                $(root.multiEditId + '-save').removeClass('hide');
+                $(root.multiEditId + '-cancel').removeClass('hide');
             });
+
+            $(root.multiEditId + '-save').click(function () {
+                var data = new Object();
+                elements.each(function (idx, element) {
+                    var inputElement = $(element).next();
+                    if ($(inputElement).length != 0) {
+                        data[element.id] = $(inputElement).val();
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: location.pathname + '/MultiEditPageLabel',
+                    data: { pageID: pageID, labelDictionary: data }
+                }).done(function () {
+                    location.reload();
+                });
+            });
+            
+            $(root.multiEditId + '-cancel').click(function () {
+                location.reload();
+            });
+            
         } catch (exception) {
         } finally {
             $(".ajax-loader-mask").hide();

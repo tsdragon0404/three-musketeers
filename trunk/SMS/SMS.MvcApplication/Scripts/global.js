@@ -62,11 +62,11 @@ Number.prototype.formatAsMoney = function () {
     return this.toLocaleString('en');
 };
 
-String.prototype.readMoneyAsNumber = function () {
+String.prototype.readMoneyAsNumber = function() {
     var str = this;
     if (this.indexOf(',') >= 0) {
         str = str.replace(/,/g, '');
     }
-    
+
     return parseInt(str);
-}
+};
