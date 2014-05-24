@@ -19,5 +19,10 @@ namespace SMS.Services.Impl
         {
             return Management.Save(pageID, labelID, text);
         }
+
+        public bool Save(int pageID, Dictionary<string, string> labelDictionary)
+        {
+            return Management.Save(pageID, labelDictionary);
+        }
     }
 }

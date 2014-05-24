@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Core.Common.Session;
@@ -46,9 +47,25 @@ namespace SMS.MvcApplication.Base
         public JsonResult EditPageLabel(int pageID, string labelID, string text)
         {
             if (!UserContext.IsSuperAdmin)
-                return Json(false);
+                return Json(new { Success = false });
 
-            return Json(PageLabelService.Save(pageID, labelID, text));
+            return Json(new {Success = PageLabelService.Save(pageID, labelID, text)});
+        }
+
+        [HttpPost]
+        public JsonResult ChangeLanguage(Language language)
+        {
+            UserContext.Language = language;
+            return Json(new {Success = true});
+        }
+
+        [HttpPost]
+        public JsonResult MultiEditPageLabel(int pageID, Dictionary<string, string> labelDictionary)
+        {
+            if (!UserContext.IsSuperAdmin)
+                return Json(new { Success = false });
+
+            return Json(new { Success = PageLabelService.Save(pageID, labelDictionary) });
         }
     }
 }

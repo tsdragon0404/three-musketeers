@@ -1,4 +1,4 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@*@if (Request.IsAuthenticated) {
     <text>
         Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
@@ -7,8 +7,39 @@
         }
     </text>
 } else {
-    <ul>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+
+}*@
+<ul id="user">
+    <li><a href="#" id="change-language-vn">Vietnamese</a></li>
+    <li><a href="#" id="change-language-en">English</a></li>
+    <li>
+        <a href="#" id="page-label-multi-edit">Edit Label</a>
+        <a href="#" id="page-label-multi-edit-save" class="hide">Save</a>
+        <a href="#" id="page-label-multi-edit-cancel" class="hide">Cancel</a>
+    </li>
+</ul>
+<script>
+    $('#change-language-vn').click(function () {
+        changeLanguage(0);
+    });
+    
+    $('#change-language-en').click(function () {
+        changeLanguage(1);
+    });
+    
+    function changeLanguage(id) {
+        $.ajax({
+            type: 'POST',
+            url: location.pathname + '/ChangeLanguage',
+            data: { language: id }
+        }).done(function (data) {
+            if(data.Success)
+                location.reload();
+            else {
+                alert('error');
+            }
+        });
+    }
+</script>

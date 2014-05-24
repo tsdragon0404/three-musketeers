@@ -17,7 +17,7 @@
     <script>
         var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
         $(document).ready(function() {
-            var labelController = new LabelController(labelDictionary);
+            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit');
             labelController.ScanElements();
             @if(UserContext.IsSuperAdmin)
             {
