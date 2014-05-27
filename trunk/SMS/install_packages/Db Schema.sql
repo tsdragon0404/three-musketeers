@@ -441,6 +441,10 @@ BEGIN
 		[OrderNumber] [varchar](50) NULL,
 		[Comment] [nvarchar](255) NULL,
 		[CustomerID] [int] NULL,
+		[Tax] [varchar](50) NULL,
+		[UseServiceFee] [bit] NULL,
+		[OtherFee] [numeric](12, 2) NULL,
+		[OtherFeeDescription] [nvarchar](255) NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
@@ -464,7 +468,8 @@ BEGIN
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[StatusID] [tinyint] NULL,
+		[DiscountComment] [nvarchar](255) NULL,
+		[OrderStatusID] [tinyint] NULL,
 	 CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
 	(
 		[OrderDetailID] ASC
@@ -481,7 +486,7 @@ BEGIN
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[Comment] [nvarchar](255) NULL,
+		[DiscountComment] [nvarchar](255) NULL,
 	 CONSTRAINT [PK_OrderDiscount] PRIMARY KEY CLUSTERED 
 	(
 		[OrderDiscountID] ASC
@@ -513,8 +518,8 @@ BEGIN
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[Comment] [nvarchar](255) NULL,
-		[ServiceFee] [numeric](12, 2) NULL,
+		[DiscountComment] [nvarchar](255) NULL,
+		[UseServiceFee] [bit] NULL,
 		[OtherFee] [numeric](12, 2) NULL,
 		[OtherFeeDescription] [nvarchar](255) NULL,
 		[CreatedDate] [datetime] NULL,
