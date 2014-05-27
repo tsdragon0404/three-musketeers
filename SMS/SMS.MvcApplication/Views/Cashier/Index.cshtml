@@ -304,6 +304,8 @@
     }
         
     $(document).on("dblclick", ".tbls", (function(e) {
+        $(".tbls").css('background-color', '');
+        $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
         var id = $(e.target).parents('.tbls').attr('id');
         var invTblId = id.split('-')[0];
         var tblId = id.split('-')[1];
@@ -327,18 +329,34 @@
         
     $(document).on("contextmenu", ".tbls", function(e){
         $("table[id*=Rmenu-]").hide();
-        $(".tbls").css('background-color', '');
-        $(e.target).parents('.tbls').css('background-color', 'gainsboro');
+        if($(".tbls").css('background-color') != 'rgb(255, 242, 204)') {
+            $(e.target).parents('.tbls').css('background-color', '');
+        }
+        $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
         displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
     });
         
     $(document).click(function(e) {
         $("table[id*=Rmenu-]").hide();
-        $(".tbls").css('background-color', '');
+
+        if(!$(e.target).parents('table').hasClass('tbls')) {
+            if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
+                $(".tbls").css('background-color', '');
+        }
+
         if($(e.target).attr('id') != 'lblCustomerName' || $(e.target).attr('id') == null)
             $("#changeCustomer").hide();
                 
     });
+    
+    $(document).on("click", ".tbls", (function(e){
+        if($(e.target).parents('.tbls').css('background-color') == 'rgb(255, 242, 204)') {
+            $(e.target).parents('.tbls').css('background-color', '');
+        }
+        else {
+            $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
+        }
+    }));
         
     $(document).on("click", "#payment", (function(){
         var invTblId = $('#currentInvoiceTableID').val();

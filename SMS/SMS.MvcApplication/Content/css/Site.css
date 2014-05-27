@@ -234,10 +234,6 @@ label.ui-state-error {
     padding: 0px;
 }
 
-.tbls:hover {
-    background-color: #F5F5F5;
-}
-
 .tbls tr td {
     padding: 0px
 }
