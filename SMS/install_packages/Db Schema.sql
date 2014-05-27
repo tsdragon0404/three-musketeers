@@ -433,6 +433,101 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Order](
+		[OrderID] [bigint] IDENTITY(1,1) NOT NULL,
+		[OrderNumber] [varchar](50) NULL,
+		[Comment] [nvarchar](255) NULL,
+		[CustomerID] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+	(
+		[OrderID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDetail]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[OrderDetail](
+		[OrderDetailID] [bigint] IDENTITY(1,1) NOT NULL,
+		[OrderTableID] [bigint] NULL,
+		[ProductID] [int] NULL,
+		[Quantity] [numeric](10, 2) NULL,
+		[Comment] [nvarchar](255) NULL,
+		[Discount] [numeric](12, 2) NULL,
+		[DiscountType] [tinyint] NULL,
+		[DiscountCode] [nvarchar](50) NULL,
+		[StatusID] [tinyint] NULL,
+	 CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
+	(
+		[OrderDetailID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDiscount]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[OrderDiscount](
+		[OrderDiscountID] [bigint] IDENTITY(1,1) NOT NULL,
+		[OrderID] [bigint] NULL,
+		[Discount] [numeric](12, 2) NULL,
+		[DiscountType] [tinyint] NULL,
+		[DiscountCode] [nvarchar](50) NULL,
+		[Comment] [nvarchar](255) NULL,
+	 CONSTRAINT [PK_OrderDiscount] PRIMARY KEY CLUSTERED 
+	(
+		[OrderDiscountID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderStatus]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[OrderStatus](
+		[OrderStatusID] [tinyint] NOT NULL,
+		[VNName] [nvarchar](255) NULL,
+		[ENName] [nvarchar](255) NULL,
+	 CONSTRAINT [PK_OrderStatus] PRIMARY KEY CLUSTERED 
+	(
+		[OrderStatusID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderTable]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[OrderTable](
+		[OrderTableID] [bigint] IDENTITY(1,1) NOT NULL,
+		[OrderID] [bigint] NULL,
+		[TableID] [int] NULL,
+		[Discount] [numeric](12, 2) NULL,
+		[DiscountType] [tinyint] NULL,
+		[DiscountCode] [nvarchar](50) NULL,
+		[Comment] [nvarchar](255) NULL,
+		[ServiceFee] [numeric](12, 2) NULL,
+		[OtherFee] [numeric](12, 2) NULL,
+		[OtherFeeDescription] [nvarchar](255) NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
+	(
+		[OrderTableID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageLabel_Page]') AND type in (N'F'))
 BEGIN
 	ALTER TABLE [dbo].[PageLabel]  WITH CHECK ADD  CONSTRAINT [FK_PageLabel_Page] FOREIGN KEY([PageID])
@@ -622,6 +717,60 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Order_Customer]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Customer] FOREIGN KEY([CustomerID])
+	REFERENCES [dbo].[Customer] ([CustomerID])
+
+	ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Customer]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDetail_OrderTable]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_OrderTable] FOREIGN KEY([OrderTableID])
+	REFERENCES [dbo].[OrderTable] ([OrderTableID])
+
+	ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_OrderTable]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDetail_Product]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Product] FOREIGN KEY([ProductID])
+	REFERENCES [dbo].[Product] ([ProductID])
+
+	ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_Product]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDiscount_Order]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[OrderDiscount]  WITH CHECK ADD  CONSTRAINT [FK_OrderDiscount_Order] FOREIGN KEY([OrderID])
+	REFERENCES [dbo].[Order] ([OrderID])
+
+	ALTER TABLE [dbo].[OrderDiscount] CHECK CONSTRAINT [FK_OrderDiscount_Order]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderTable_Order]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[OrderTable]  WITH CHECK ADD  CONSTRAINT [FK_OrderTable_Order] FOREIGN KEY([OrderID])
+	REFERENCES [dbo].[Order] ([OrderID])
+
+	ALTER TABLE [dbo].[OrderTable] CHECK CONSTRAINT [FK_OrderTable_Order]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderTable_Table]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[OrderTable]  WITH CHECK ADD  CONSTRAINT [FK_OrderTable_Table] FOREIGN KEY([TableID])
+	REFERENCES [dbo].[Table] ([TableID])
+
+	ALTER TABLE [dbo].[OrderTable] CHECK CONSTRAINT [FK_OrderTable_Table]
+END
+GO
+
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
@@ -633,4 +782,15 @@ INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, P
 VALUES 
 ( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', N'' ),
 ( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' )
+GO
+
+DELETE FROM dbo.OrderStatus
+GO
+INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
+VALUES 
+(1, N'Chưa chuyển bếp', N'Chưa chuyển bếp'),
+(2, N'Đã chuyển bếp', N'Đã chuyển bếp'),
+(3, N'Bếp nhận', N'Bếp nhận'),
+(4, N'Bếp trả lại', N'Bếp trả lại'),
+(5, N'Giao khách', N'Giao khách')
 GO
