@@ -437,6 +437,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[Order](
 		[OrderID] [bigint] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
 		[OrderNumber] [varchar](50) NULL,
 		[Comment] [nvarchar](255) NULL,
 		[CustomerID] [int] NULL,
@@ -768,6 +769,15 @@ BEGIN
 	REFERENCES [dbo].[Table] ([TableID])
 
 	ALTER TABLE [dbo].[OrderTable] CHECK CONSTRAINT [FK_OrderTable_Table]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Order_Branch]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[Order] WITH CHECK ADD CONSTRAINT [FK_Order_Branch] FOREIGN KEY([BranchID])
+	REFERENCES [dbo].[Branch] ([BranchID])
+
+	ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Branch]
 END
 GO
 
