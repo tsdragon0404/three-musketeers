@@ -7,6 +7,7 @@
     <title>@ViewBag.Title - Shop management system</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
     @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/Content/themes/start/css")
     @Styles.Render("~/Content/css")
@@ -14,10 +15,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript" src="~/Scripts/labelController.js"></script>
-    <script>
+    <script type="text/javascript">
         var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
         $(document).ready(function() {
-            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit');
+            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
             labelController.ScanElements();
             @if(UserContext.IsSuperAdmin)
             {
@@ -29,6 +30,7 @@
     </script>
 </head>
 <body>
+    @Html.Partial("EditLabelPopup", new PopupModel { PopupID = "editLabelPopup", PopupTitle = "Edit Labels" })
     @Html.Partial("PrintInvoicePreview", new PopupModel { PopupID = "printPreviewPopup", PopupTitle = "Print Preview" })
     <header class="ui-helper-clearfix" id="header">
         <div id="logo">
