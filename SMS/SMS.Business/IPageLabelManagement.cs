@@ -9,6 +9,6 @@ namespace SMS.Business
 
         bool Save(int pageID, string labelID, string text);
 
-        bool Save(int pageID, Dictionary<string, string> labelDictionary);
+        bool Save(int pageID, List<PageLabelDto> listLabels);
     }
 }

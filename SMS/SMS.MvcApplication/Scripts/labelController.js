@@ -56,28 +56,63 @@
             });
             
             $(root.multiEditId).click(function () {
-                root.OpenPopup();
+                $.ajax({
+                    type: 'POST',
+                    url: location.pathname + '/GetAllPageLabel',
+                    data: { pageID: pageID }
+                }).done(function (data) {
+                    if (!data.Success)
+                        return;
+
+                    elements.each(function(i, element) {
+                        var id = element.id;
+                        var exists = false;
+                        $(data.ListLabels).each(function(j, label) {
+                            if(label.LabelID == id) {
+                                exists = true;
+                                return;
+                            }
+                        });
+                        if (!exists)
+                            data.ListLabels[data.ListLabels.length] = { LabelID: id, VNText: '', ENText: '' };
+                    });
+                    $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(data));
+
+                    root.OpenPopup();
+                });
                 return false;
             });
 
-            $(root.multiEditId + '-save').click(function () {
-                var data = new Object();
-                elements.each(function (idx, element) {
-                    var inputElement = $(element).next();
-                    if ($(inputElement).length != 0) {
-                        data[element.id] = $(inputElement).val();
-                    }
+            $('#multi-edit-label-save').click(function () {
+                var data = [];
+                $('#label-dictionary tr').each(function () {
+                    var lblId = $(this).find('.page-label-id').text();
+                    var vnText = $(this).find('.page-label-vn').val();
+                    var enText = $(this).find('.page-label-en').val();
+
+                    data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText };
                 });
+                
+                //var data = new Object();
+                //elements.each(function (idx, element) {
+                //    var inputElement = $(element).next();
+                //    if ($(inputElement).length != 0) {
+                //        data[element.id] = $(inputElement).val();
+                //    }
+                //});
                 $.ajax({
                     type: 'POST',
                     url: location.pathname + '/MultiEditPageLabel',
-                    data: { pageID: pageID, labelDictionary: data }
+
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ pageID: pageID, listLabels: data })
                 }).done(function () {
                     location.reload();
                 });
             });
 
-            $(root.multiEditId + '-cancel').click(function() {
+            $('#multi-edit-label-cancel').click(function () {
                 $(root.popupId).dialog('close');
             });
             

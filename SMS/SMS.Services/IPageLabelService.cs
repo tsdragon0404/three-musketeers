@@ -7,6 +7,6 @@ namespace SMS.Services
     {
         IList<TDto> GetByPageID<TDto>(int pageID);
         bool Save(int pageID, string labelID, string text);
-        bool Save(int pageID, Dictionary<string, string> labelDictionary);
+        bool Save(int pageID, List<PageLabelDto> listLabels);
     }
 }
