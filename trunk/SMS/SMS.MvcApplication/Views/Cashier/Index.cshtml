@@ -241,7 +241,7 @@
             return false;
         });
         $('#printInvoice').click(function () {
-            var invoice = new PrintPreviewPopup(400, "/Cashier/GetDataForPreviewInvoice", getDataForPostCallback, null, $('#invoice-preview-tmpl'));
+            var invoice = new PrintPreviewPopup(400, @Url.Action("GetDataForPreviewInvoice"), getDataForPostCallback, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });
@@ -285,7 +285,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/Cashier/CancelTable',
+            url: '@Url.Action("CancelTable")',
             data: { invoiceTableID: invTblId }
         }).done(function(data) {
             if (data.Success) {
@@ -401,7 +401,7 @@
         var value = $(e).val();
         $.ajax({
             type: 'POST',
-            url: '/Cashier/UpdateOrderedProduct',
+            url: '@Url.Action("UpdateOrderedProduct")',
             data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
         }).done(function (data) {
             if(!data.Success) {
@@ -423,7 +423,7 @@
         if (invTblId == 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/CheckTableStatus',
+                url: '@Url.Action("CheckTableStatus")',
                 data: { tableID: tableId }
             }).done(function(data) {
                 if (data.Success) {
@@ -450,7 +450,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/Cashier/SelectTable',
+            url: '@Url.Action("SelectTable")',
             data: { invoiceTableID: invTblId }
         }).done(function (data) {
             if (data.InvoiceTable.ID == 0) {
@@ -507,7 +507,7 @@
         var invTblId = 0;
         $.ajax({
             type: 'POST',
-            url: '/Cashier/CreateInvoiceTable',
+            url: '@Url.Action("CreateInvoiceTable")',
             data: { tableID: tblId }
         }).done(function (data) {
             invTblId = data.InvoiceTableID;
@@ -520,7 +520,7 @@
     function onRefreshProduct(reloadCallback) {
         $.ajax({
             type: 'POST',
-            url: '/Cashier/GetAllProductsForSearch',
+            url: '@Url.Action("GetAllProductsForSearch")',
         }).done(function (data) {
             listProduct = data.ListProduct;
         });
@@ -534,7 +534,7 @@
         if(invTblId != '' && invTblId > 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/OrderProduct',
+                url: '@Url.Action("Index")' + '/OrderProduct',
                 data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
             }).done(function(data) {
                 if (data != null)
@@ -547,7 +547,7 @@
         if (invDetailId != '' && invDetailId > 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Cashier/RemoveOrderedProduct',
+                url: '@Url.Action("RemoveOrderedProduct")',
                 data: { invoiceDetailID: invDetailId }
             }).done(function(data) {
                 if (data.Success) {
@@ -565,7 +565,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/Cashier/GetTablesByAreaID',
+            url: '@Url.Action("GetTablesByAreaID")',
             data: { areaID: areaId }
         }).done(function (data) {
             $('#area-' + areaId).html('');
