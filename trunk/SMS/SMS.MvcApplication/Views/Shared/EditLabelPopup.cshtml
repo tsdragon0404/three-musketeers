@@ -1,8 +1,8 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
     <div class="buttons">
-        <input type="button" class="myButton" value="Save" id="edit-label-save" />
-        <input type="button" class="myButton" value="Cancel" id="edit-label-cancel" />
+        <input type="button" class="myButton" value="Save" id="multi-edit-label-save" />
+        <input type="button" class="myButton" value="Cancel" id="multi-edit-label-cancel" />
     </div>
     <table>
         <thead>
@@ -19,10 +19,12 @@
     </table>
 </div>
 <script id="multi-edit-label-item-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) ListLabels}}
     <tr>
-        <td></td>
-        <td>{{labelID}}</td>
-        <td>{{VNText}}</td>
-        <td>{{ENText}}</td>
+        <td>${idx + 1}</td>
+        <td class="page-label-id">${LabelID}</td>
+        <td><input class="page-label-vn" type="text" value="${VNText}"/></td>
+        <td><input class="page-label-en" type="text" value="${ENText}"/></td>
     </tr>
+    {{/each}}
 </script>

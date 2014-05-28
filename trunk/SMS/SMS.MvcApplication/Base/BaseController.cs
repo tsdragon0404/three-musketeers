@@ -60,12 +60,22 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public JsonResult MultiEditPageLabel(int pageID, Dictionary<string, string> labelDictionary)
+        public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
         {
             if (!UserContext.IsSuperAdmin)
                 return Json(new { Success = false });
 
-            return Json(new { Success = PageLabelService.Save(pageID, labelDictionary) });
+            var teemp = listLabels.ToList();
+            return Json(new { Success = PageLabelService.Save(pageID, teemp) });
+        }
+
+        [HttpPost]
+        public JsonResult GetAllPageLabel(int pageID)
+        {
+            if (!UserContext.IsSuperAdmin)
+                return Json(new { Success = false });
+
+            return Json(new { Success = true, ListLabels = PageLabelService.GetByPageID<PageLabelDto>(pageID) });
         }
     }
 }

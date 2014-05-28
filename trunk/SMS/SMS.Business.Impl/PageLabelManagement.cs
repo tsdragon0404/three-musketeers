@@ -41,21 +41,22 @@ namespace SMS.Business.Impl
             return true;
         }
 
-        public bool Save(int pageID, Dictionary<string, string> labelDictionary)
+        public bool Save(int pageID, List<PageLabelDto> listLabels)
         {
-            var pageLabels = Repository.Find(x => x.Page.ID == pageID && labelDictionary.Keys.Contains(x.LabelID)).ToList();
+            var labelIds = listLabels.ConvertAll(x => x.LabelID);
+            var pageLabels = Repository.Find(x => x.Page.ID == pageID && labelIds.Contains(x.LabelID)).ToList();
             if (pageLabels.Any())
             {
                 foreach (var pageLabel in pageLabels)
                 {
-                    pageLabel.VNText = UserContext.Language == Language.Vietnamese ? labelDictionary[pageLabel.LabelID] : pageLabel.VNText;
-                    pageLabel.ENText = UserContext.Language == Language.English ? labelDictionary[pageLabel.LabelID] : pageLabel.ENText;
+                    pageLabel.VNText = UserContext.Language == Language.Vietnamese ? listLabels.First(x => x.LabelID == pageLabel.LabelID).VNText : pageLabel.VNText;
+                    pageLabel.ENText = UserContext.Language == Language.English ? listLabels.First(x => x.LabelID == pageLabel.LabelID).ENText : pageLabel.ENText;
 
                     Repository.Update(pageLabel);
                 }
             }
 
-            var insertItems = labelDictionary.Keys.Except(pageLabels.Select(x => x.LabelID)).ToList();
+            var insertItems = labelIds.Except(pageLabels.Select(x => x.LabelID)).ToList();
             if (insertItems.Any())
             {
                 foreach (var labelID in insertItems)
@@ -64,8 +65,8 @@ namespace SMS.Business.Impl
                                        {
                                            LabelID = labelID,
                                            Page = new Page {ID = pageID},
-                                           VNText = UserContext.Language == Language.Vietnamese ? labelDictionary[labelID] : "",
-                                           ENText = UserContext.Language == Language.English ? labelDictionary[labelID] : ""
+                                           VNText = UserContext.Language == Language.Vietnamese ? listLabels.First(x => x.LabelID == labelID).VNText : "",
+                                           ENText = UserContext.Language == Language.English ? listLabels.First(x => x.LabelID == labelID).ENText : ""
                                        });
                 }
             }
