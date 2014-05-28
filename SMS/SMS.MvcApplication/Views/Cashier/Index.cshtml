@@ -241,7 +241,7 @@
             return false;
         });
         $('#printInvoice').click(function () {
-            var invoice = new PrintPreviewPopup(400, @Url.Action("GetDataForPreviewInvoice"), getDataForPostCallback, null, $('#invoice-preview-tmpl'));
+            var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getDataForPostCallback, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });

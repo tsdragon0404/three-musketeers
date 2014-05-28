@@ -125,48 +125,8 @@ header {
     width: 100%;
 }
 
-.popup {
-    width: 500px;
-    height: 500px;
-}
-
-#scroll_box {
-	height: 180px;
-	margin: 10px 0;
-    overflow: auto;
-}
-
-#searchProduct .col1 {
-    width: 10%;
-}
-
-#searchProduct .col2 {
-    width: 50%;
-}
-
-#searchProduct .col3 {
-    width: 20%;
-}
-
-#searchProduct .col4 {
-    width: 10%;
-}
-
-#searchProduct .col5 {
-    width: 10%;
-}
-
-.inputQty {
-    width: 100%;
-    text-align: right;
-}
-
 label.ui-state-error {
     display: none !important;
-}
-
-.tbContentLookup tr:hover {
-    background-color: #F4CD9A;
 }
 
 .table.available {
@@ -389,18 +349,6 @@ label.ui-state-error {
     color: #0078C9;
 }
 
-#popup table, #popup table td {
-    background: transparent;
-    border: none;
-    margin: 0;
-}
-#popup table td {
-    padding: 0 10px 0 0;
-}
-#popup-icon {
-    width: 60px;
-}
-
 .payment {
     float: right;
     padding-top: 10px;
@@ -414,3 +362,69 @@ label.ui-state-error {
     margin: 0;
     font-size: 11px;
 }
+
+/* Style for all popups */
+.print-content {
+    height: 250px;
+    overflow-y: auto;
+}
+
+#popup table, #popup table td {
+    background: transparent;
+    border: none;
+    margin: 0;
+}
+
+#popup table td {
+    padding: 0 10px 0 0;
+}
+
+#popup-icon {
+    width: 60px;
+}
+
+.tbContentLookup tr:hover {
+    background-color: #F4CD9A;
+}
+
+.popup {
+    width: 500px;
+    height: 500px;
+}
+
+#scroll_box {
+	height: 180px;
+	margin: 10px 0;
+    overflow: auto;
+}
+
+#searchProduct .col1 {
+    width: 10%;
+}
+
+#searchProduct .col2 {
+    width: 50%;
+}
+
+#searchProduct .col3 {
+    width: 20%;
+}
+
+#searchProduct .col4 {
+    width: 10%;
+}
+
+#searchProduct .col5 {
+    width: 10%;
+}
+
+.inputQty {
+    width: 100%;
+    text-align: right;
+}
+#inv-table {
+    height: 400px;
+    width: 464px;
+    overflow-y: auto;
+}
+/* end style for all popups */

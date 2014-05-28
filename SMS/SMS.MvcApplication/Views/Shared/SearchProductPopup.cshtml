@@ -57,7 +57,7 @@
         <td class="center"><input type="button" class="button popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
     </tr>
 </script>
-<script>
+<script type="text/javascript">
     $('#@Model.PopupID .textSearch, #@Model.PopupID .popupSearch').keypress(function (e) {
         if (e.which == 13) {
             $('#@Model.PopupID .popupSearch').trigger('click');

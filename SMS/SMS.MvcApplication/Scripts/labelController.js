@@ -1,7 +1,8 @@
-﻿function LabelController(labelDictionary, multiEditId) {
+﻿function LabelController(labelDictionary, multiEditId, popupId) {
     var root = this;
     this.labelDictionary = labelDictionary;
     this.multiEditId = multiEditId;
+    this.popupId = popupId;
     this.inputTemplate = '<input type="text" id="edit-{0}" class="editlabel hide" value="{1}" />';
 
     this.ScanElements = function () {
@@ -55,16 +56,8 @@
             });
             
             $(root.multiEditId).click(function () {
-                elements.each(function(idx, element) {
-                    var inputElement = $(element).next();
-                    if($(inputElement).length != 0) {
-                        $(element).addClass('hide');
-                        $(inputElement).removeClass('hide');
-                    }
-                });
-                $(this).addClass('hide');
-                $(root.multiEditId + '-save').removeClass('hide');
-                $(root.multiEditId + '-cancel').removeClass('hide');
+                root.OpenPopup();
+                return false;
             });
 
             $(root.multiEditId + '-save').click(function () {
@@ -83,14 +76,30 @@
                     location.reload();
                 });
             });
-            
-            $(root.multiEditId + '-cancel').click(function () {
-                location.reload();
+
+            $(root.multiEditId + '-cancel').click(function() {
+                $(root.popupId).dialog('close');
             });
             
         } catch (exception) {
         } finally {
             $(".ajax-loader-mask").hide();
         }
+    };
+    
+    $(root.popupId).dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        resizable: false,
+        width: 500,
+        height: 500,
+        modal: true
+    });
+
+    //unbind click event for buttons
+    $(root.popupId + ' .button').unbind('click');
+
+    this.OpenPopup = function () {
+        $(root.popupId).dialog("open");
     };
 }

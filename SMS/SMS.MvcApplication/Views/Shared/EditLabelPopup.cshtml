@@ -1,0 +1,28 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
+    <div class="buttons">
+        <input type="button" class="myButton" value="Save" id="edit-label-save" />
+        <input type="button" class="myButton" value="Cancel" id="edit-label-cancel" />
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <td>No</td>
+                <td>Label ID</td>
+                <td>VNText</td>
+                <td>EnText</td>
+            </tr>
+        </thead>
+        <tbody id="label-dictionary">
+            
+        </tbody>
+    </table>
+</div>
+<script id="multi-edit-label-item-tmpl" type="text/x-jquery-tmpl">
+    <tr>
+        <td></td>
+        <td>{{labelID}}</td>
+        <td>{{VNText}}</td>
+        <td>{{ENText}}</td>
+    </tr>
+</script>
