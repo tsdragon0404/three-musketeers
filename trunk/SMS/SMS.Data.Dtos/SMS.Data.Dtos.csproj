@@ -37,6 +37,8 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="LanguageErrorMessageDto.cs" />
+    <Compile Include="ErrorMessageDto.cs" />
     <Compile Include="LanguageInvoiceTableDto.cs" />
     <Compile Include="LanguageTableDto.cs" />
     <Compile Include="LanguageInvoiceDetailDto.cs" />

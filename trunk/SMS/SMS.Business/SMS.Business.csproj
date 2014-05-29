@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IErrorMessageManagement.cs" />
     <Compile Include="IPageLabelManagement.cs" />
     <Compile Include="IPageManagement.cs" />
     <Compile Include="IAreaManagement.cs" />
