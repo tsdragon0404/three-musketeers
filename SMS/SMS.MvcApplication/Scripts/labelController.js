@@ -10,11 +10,16 @@
             return;
         try {
             $(".ajax-loader-mask").show();
-            var elements = $('span.label, label.label');
-            elements.each(function (idx, element) {
+            $('span.label, label.label, a.label').each(function (idx, element) {
                 var id = element.id;
                 if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
                     $(element).text(root.labelDictionary[id]);
+                }
+            });
+            $('input.label').each(function (idx, element) {
+                var id = element.id;
+                if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
+                    $(element).val(root.labelDictionary[id]);
                 }
             });
         } catch (exception) {
@@ -64,7 +69,7 @@
                     if (!data.Success)
                         return;
 
-                    elements.each(function(i, element) {
+                    $('span.label, label.label, input.label, a.label').each(function (i, element) {
                         var id = element.id;
                         var exists = false;
                         $(data.ListLabels).each(function(j, label) {
@@ -93,13 +98,6 @@
                     data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText };
                 });
                 
-                //var data = new Object();
-                //elements.each(function (idx, element) {
-                //    var inputElement = $(element).next();
-                //    if ($(inputElement).length != 0) {
-                //        data[element.id] = $(inputElement).val();
-                //    }
-                //});
                 $.ajax({
                     type: 'POST',
                     url: location.pathname + '/MultiEditPageLabel',
