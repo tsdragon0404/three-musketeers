@@ -32,6 +32,11 @@ namespace SMS.Common.AutoMapper
             Mapper.CreateMap<PageLabel, LanguagePageLabelDto>()
                 .ForMember(x => x.Text, y => y.ResolveUsing(z =>
                     UserContext.Language == Language.Vietnamese ? z.VNText : z.ENText));
+
+            Mapper.CreateMap<ErrorMessage, LanguageErrorMessageDto>()
+                .ForMember(x => x.Message, y => y.ResolveUsing(z =>
+                    UserContext.Language == Language.Vietnamese ? z.VNMessage : z.ENMessage));
+
         }
     }
 }

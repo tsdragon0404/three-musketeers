@@ -35,10 +35,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BranchConfig.cs" />
+    <Compile Include="Constant\ConstMessageIds.cs" />
     <Compile Include="Constant\ConstPage.cs" />
     <Compile Include="Constant\ConstStyle.cs" />
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\DiscountType.cs" />
+    <Compile Include="Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
     <Compile Include="Paging\PagedList.cs" />

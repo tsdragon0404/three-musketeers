@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Http;
@@ -16,6 +17,9 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
+using SMS.Common.Message;
+using SMS.Data.Dtos;
+using SMS.Services;
 
 namespace SMS.MvcApplication
 {
@@ -64,6 +68,11 @@ namespace SMS.MvcApplication
                                 {
                                     {"VAT", 10}
                                 };
+
+            var errorMessageService = container.Resolve<IErrorMessageService>();
+
+            SystemMessages.Initialize(errorMessageService.GetAll<LanguageErrorMessageDto>()
+                .ToDictionary(x => x.ID, x => x.Message));
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

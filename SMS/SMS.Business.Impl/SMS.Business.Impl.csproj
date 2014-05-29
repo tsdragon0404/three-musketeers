@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AreaManagement.cs" />
     <Compile Include="BaseManagement.cs" />
+    <Compile Include="ErrorMessageManagement.cs" />
     <Compile Include="PageLabelManagement.cs" />
     <Compile Include="PageManagement.cs" />
     <Compile Include="InvoiceDetailManagement.cs" />

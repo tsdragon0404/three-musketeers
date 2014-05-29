@@ -24,6 +24,7 @@ namespace SMS.Common.AutoMapper
             Map<Area, AreaDto>();
             Map<Page, PageDto>();
             Map<PageLabel, PageLabelDto>();
+            Map<ErrorMessage, ErrorMessageDto>();
         }
     }
 }
