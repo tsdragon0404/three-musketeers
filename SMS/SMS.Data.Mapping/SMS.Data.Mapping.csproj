@@ -49,6 +49,12 @@
     <Compile Include="AreaMap.cs" />
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchTaxMap.cs" />
+    <Compile Include="CustomerMap.cs" />
+    <Compile Include="OrderDetailMap.cs" />
+    <Compile Include="OrderDiscountMap.cs" />
+    <Compile Include="OrderMap.cs" />
+    <Compile Include="OrderStatusMap.cs" />
+    <Compile Include="OrderTableMap.cs" />
     <Compile Include="ErrorMessageMap.cs" />
     <Compile Include="PageLabelMap.cs" />
     <Compile Include="PageMap.cs" />

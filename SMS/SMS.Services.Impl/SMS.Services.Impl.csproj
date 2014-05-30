@@ -36,6 +36,9 @@
   <ItemGroup>
     <Compile Include="AreaService.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="OrderDetailService.cs" />
+    <Compile Include="OrderTableService.cs" />
+    <Compile Include="OrderService.cs" />
     <Compile Include="ErrorMessageService.cs" />
     <Compile Include="PageService.cs" />
     <Compile Include="PageLabelService.cs" />

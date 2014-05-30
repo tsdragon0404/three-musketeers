@@ -16,6 +16,10 @@ namespace SMS.MvcApplication.Controllers
         public virtual IInvoiceTableService InvoiceTableService { get; set; }
         public virtual IInvoiceDetailService InvoiceDetailService { get; set; }
 
+        public virtual IOrderTableService OrderTableService { get; set; }
+        public virtual IOrderDetailService OrderDetailService { get; set; }
+        public virtual IOrderService OrderService { get; set; }
+
         #endregion
 
         [GetLabel(Common.Constant.ConstPage.Cashier)]
@@ -31,33 +35,53 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult OrderProduct(long invoiceTableID, long productID, decimal quantity)
+        public JsonResult OrderProduct(long orderTableID, long productID, decimal quantity)
         {
-            if (productID <= 0 || quantity <= 0 || invoiceTableID <= 0) return Json(null);
+            if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(null);
 
-            var result = InvoiceDetailService.AddProductToInvoiceTable(invoiceTableID, productID, quantity);
+            var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
-            return Json(new { Success = result });
+            return Json(new { OrderTable = result });
         }
 
         [HttpPost]
-        public JsonResult SelectTable(long invoiceTableID)
+        public JsonResult SelectTable(long orderTableID)
         {
-            if (invoiceTableID <= 0) return Json(null);
+            if (orderTableID <= 0) return Json(null);
 
-            var invoiceTable = InvoiceTableService.GetTableDetail<LanguageInvoiceTableDto>(invoiceTableID);
+            var order = OrderService.GetOrderDetail<OrderDto>(orderTableID);
 
-            return Json(new {InvoiceTable = invoiceTable});
+            return Json(new {Order = order});
         }
 
         [HttpPost]
-        public JsonResult CancelTable(long invoiceTableID)
+        public JsonResult GetOrder(long orderID)
         {
-            if (invoiceTableID <= 0) return Json(null);
+            if (orderID <= 0) return Json(null);
 
-            var flag = InvoiceTableService.Delete(invoiceTableID);
+            var order = OrderService.GetByID(orderID);
+
+            return Json(new { Order = order });
+        }
+
+        [HttpPost]
+        public JsonResult CancelTable(long orderTableID)
+        {
+            if (orderTableID <= 0) return Json(null);
+
+            var flag = OrderTableService.Delete(orderTableID);
 
             return Json(new {Success = flag});
+        }
+
+        [HttpPost]
+        public JsonResult CancelOrder(long orderTableID)
+        {
+            if (orderTableID <= 0) return Json(null);
+
+            var flag = OrderService.DeleteByOrderTableID(orderTableID);
+
+            return Json(new { Success = flag });
         }
 
         [HttpPost]
@@ -65,39 +89,39 @@ namespace SMS.MvcApplication.Controllers
         {
             if (tableID <= 0) return Json(null);
 
-            var flag = InvoiceTableService.CheckTableStatus(tableID);
+            var flag = OrderTableService.CheckTableStatus(tableID);
 
             return Json(new { Success = flag });
         }
 
         [HttpPost]
-        public JsonResult UpdateOrderedProduct(long invoiceDetailID, string columnName, string columnValue)
+        public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
         {
-            if (invoiceDetailID <= 0) return Json(null);
+            if (orderDetailID <= 0) return Json(null);
 
-            var flag = InvoiceDetailService.UpdateProductToInvoiceTable(invoiceDetailID, columnName, columnValue);
+            var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
-            return Json(new { Success = flag });
+            return Json(new { Success = result });
         }
 
         [HttpPost]
-        public JsonResult RemoveOrderedProduct(long invoiceDetailID)
+        public JsonResult RemoveOrderedProduct(long orderDetailID)
         {
-            if (invoiceDetailID <= 0) return Json(null);
+            if (orderDetailID <= 0) return Json(null);
 
-            var flag = InvoiceDetailService.Delete(invoiceDetailID);
+            var result = OrderDetailService.Delete(orderDetailID);
 
-            return Json(new { Success = flag });
+            return Json(new { Success = result });
         }
 
         [HttpPost]
-        public JsonResult CreateInvoiceTable(long tableID)
+        public JsonResult CreateOrderTable(long tableID)
         {
             if (tableID <= 0) return Json(null);
 
-            var invoiceTableID = InvoiceTableService.CreateInvoiceTable(tableID);
+            var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
-            return Json(new {InvoiceTableID = invoiceTableID});
+            return Json(new {OrderTableID = orderTableID});
         }
 
         [HttpPost]
@@ -113,18 +137,18 @@ namespace SMS.MvcApplication.Controllers
 
             return Json(new
                             {
-                                ListTable = InvoiceTableService.GetTablesByAreaID<LanguageInvoiceTableDto>(areaID)
+                                ListTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID)
                             });
         }
 
         [HttpPost]
-        public JsonResult GetDataForPreviewInvoice(long invoiceTableID)
+        public JsonResult GetDataForPreviewInvoice(long orderTableID)
         {
-            if (invoiceTableID <= 0) return Json(null);
+            if (orderTableID <= 0) return Json(null);
 
-            var invoiceTable = InvoiceTableService.GetTableDetail<LanguageInvoiceTableDto>(invoiceTableID);
+            var orderTable = OrderTableService.GetTableDetail<LanguageOrderTableDto>(orderTableID);
 
-            return Json(new { InvoiceTable = invoiceTable });
+            return Json(new { InvoiceTable = orderTable });
         }
     }
 }

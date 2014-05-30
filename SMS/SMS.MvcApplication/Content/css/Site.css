@@ -35,6 +35,14 @@ header {
     border-top: 1px solid #e5e5e5;
 }
 
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.vertical-top {
+    vertical-align: top;
+}
+
 #leftmenu {
     width: 13%;
     float: left;
@@ -153,6 +161,10 @@ label.ui-state-error {
     background-image: url(../../Images/IconControls/delete-icon.png);
 }
 
+.menu-customer {
+    background-image: url(../../Images/IconControls/users-icon.png);
+}
+
 .Rmenu {
     position: fixed;
     display: none;
@@ -160,10 +172,11 @@ label.ui-state-error {
     width:150px;
     list-style:none;
     background:white;
-    border: 1px solid #7298D0;
+    border: 1px solid #7298D0 !important;
 }
-.Rmenu tr td{
-    position:relative;
+
+.Rmenu tr td {
+    border: none;
 }
 
 .Rmenu tr td:first-child {
@@ -187,11 +200,15 @@ label.ui-state-error {
 }
 
 .RmenuItem:hover {
-    background-color: #DCDCDC;
+    background-color: cornsilk;
 }
 
 .tbls {
     padding: 0px;
+}
+
+.tbls:hover {
+    cursor: default;
 }
 
 .tbls tr td {
@@ -354,13 +371,13 @@ label.ui-state-error {
     padding-top: 10px;
 }
 
-#changeCustomer:hover {
-    color: #76BBD8;
-}
-
 .editlabel {
     margin: 0;
     font-size: 11px;
+}
+
+.selected {
+    background-color: #FFF2CC;
 }
 
 /* Style for all popups */

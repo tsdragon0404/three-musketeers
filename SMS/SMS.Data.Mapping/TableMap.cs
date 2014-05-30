@@ -11,6 +11,7 @@ namespace SMS.Data.Mapping
             Map(x => x.ENName);
             References(x => x.Area).Column("AreaID");
             HasMany(x => x.InvoiceTables).KeyColumn("TableID");
+            HasMany(x => x.OrderTables).KeyColumn("TableID");
         }
     }
 }

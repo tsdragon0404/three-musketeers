@@ -34,6 +34,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOrderDetailService.cs" />
+    <Compile Include="IOrderTableService.cs" />
+    <Compile Include="IOrderService.cs" />
     <Compile Include="IErrorMessageService.cs" />
     <Compile Include="IPageLabelService.cs" />
     <Compile Include="IPageService.cs" />

@@ -61,6 +61,7 @@ namespace SMS.MvcApplication
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
             UserContext.IsSuperAdmin = true;
+            UserContext.BranchID = 1;
 
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;

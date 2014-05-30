@@ -18,6 +18,8 @@ namespace SMS.Data.Entities
 
         public virtual IList<InvoiceTable> InvoiceTables { get; set; }
 
+        public virtual IList<OrderTable> OrderTables { get; set; }
+
         #region Implementation of IEnableEntity
 
         public virtual bool Enable { get; set; }

@@ -747,6 +747,7 @@
     <Content Include="Images\IconControls\table-avai.png" />
     <Content Include="Images\IconControls\table-empty.png" />
     <Content Include="Images\IconControls\table.png" />
+    <Content Include="Images\IconControls\users-icon.png" />
     <Content Include="Images\IconControls\warning-icon.png" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
@@ -775,7 +776,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
