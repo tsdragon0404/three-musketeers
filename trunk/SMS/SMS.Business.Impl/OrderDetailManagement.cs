@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SMS.Common.Constant;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -44,6 +45,14 @@ namespace SMS.Business.Impl
                 case "cmt":
                     orderDetail.Comment = value;
                     break;
+                case "discount":
+                    {
+                        orderDetail.Discount = decimal.Parse(value);
+                        orderDetail.DiscountCode = "";
+                        orderDetail.DiscountType = DiscountType.Number;
+                        orderDetail.DiscountComment = "";
+                        break;
+                    }
             }
             Repository.Update(orderDetail);
 

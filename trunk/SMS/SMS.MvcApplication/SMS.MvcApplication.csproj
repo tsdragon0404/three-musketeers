@@ -744,6 +744,7 @@
     <Content Include="Images\IconControls\move-icon.png" />
     <Content Include="Images\IconControls\new-icon.png" />
     <Content Include="Images\IconControls\product-add-icon.png" />
+    <Content Include="Images\IconControls\reload-icon.png" />
     <Content Include="Images\IconControls\table-avai.png" />
     <Content Include="Images\IconControls\table-empty.png" />
     <Content Include="Images\IconControls\table.png" />

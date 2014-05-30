@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <form id="form-table-order-${ID}">
-            <table id="order-${ID}">
+            <table id="order">
                 <colgroup>
                     <col class="col1" />
                     <col class="col2" />
@@ -44,11 +44,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Product Code</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Price</th>
+                        <th>Discount</th>
                         <th>Amount</th>
                         <th>Remarks</th>
                         <th></th>
@@ -58,14 +58,16 @@
                     {{each(idx) OrderDetails}}
                     <tr id="${ID}">
                         <td class="sequence">${idx + 1}</td>
-                        <td>${Product.ProductCode}</td>
-                        <td>${Product.Name}</td>
+                        <td>${Product.Name} - ${Product.ProductCode}</td>
                         <td>
                             <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
                         </td>
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-                        <td class="right item_subtotal">${(Product.Price * Quantity).formatAsMoney()}</td>
+                        <td>
+                            <input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" />
+                        </td>
+                        <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
                         <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
@@ -91,22 +93,24 @@
     {{/each}}
 </script>
 <script id="ordertable-tmpl" type="text/x-jquery-tmpl">
-{{each(idx) OrderDetails}}
-<tr id="${ID}">
-    <td class="sequence">${idx + 1}</td>
-    <td>${Product.ProductCode}</td>
-    <td>${Product.Name}</td>
-    <td>
-        <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
-    </td>
-    <td>${Product.Unit.Name}</td>
-    <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-    <td class="right item_subtotal">${(Product.Price * Quantity).formatAsMoney()}</td>
-    <td>
-        <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-    <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
-</tr>
-{{/each}}    
+    {{each(idx) OrderDetails}}
+    <tr id="${ID}">
+        <td class="sequence">${idx + 1}</td>
+        <td>${Product.Name} - ${Product.ProductCode}</td>
+        <td>
+            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
+        </td>
+        <td>${Product.Unit.Name}</td>
+        <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+        <td>
+            <input type="text" id="discount-${ID}" class="number required right" value="${Discount.formatAsMoney()}" />
+        </td>
+        <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
+        <td>
+            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
+    </tr>
+    {{/each}}    
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
@@ -264,6 +268,15 @@
                 <div class="menu-customer"></div>
             </td>
             <td class="RmenuItem">Change Customer</td>
+        </tr>
+    </table>
+    
+    <table class="Rmenu" id="mainRightMenu">
+        <tr>
+            <td>
+                <div class="menu-reload"></div>
+            </td>
+            <td class="RmenuItem">Refresh</td>
         </tr>
     </table>
 
@@ -432,23 +445,26 @@
         }
     }));
         
-    $(document).on("contextmenu", "#area-table", function() {
-        return false;
-    });
-        
-    $(document).on("contextmenu", ".tbls", function(e){
-        $("table[id*=Rmenu-]").hide();
-        if(!$(e.target).parents('.tbls').hasClass('selected')) {
-            $(".tbls").removeClass('selected');
-            $(e.target).parents('.tbls').addClass('selected');
-        }
+    $(document).on("contextmenu", "#cashier", function(e) {
+        if($(e.target).parents('.tbls').length <= 0) {
+            $("table[id*=Rmenu-]").hide();
+            displayCustomMenu('#mainRightMenu', e);
+        } else {
+            $("table[id*=Rmenu-]").hide();
+            $('#mainRightMenu').hide();
+            if (!$(e.target).parents('.tbls').hasClass('selected')) {
+                $(".tbls").removeClass('selected');
+                $(e.target).parents('.tbls').addClass('selected');
+            }
 
-        displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
+            displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
+        }
     });
         
     $(document).click(function(e) {
         $("table[id*=Rmenu-]").hide();
-
+        $('#mainRightMenu').hide();
+        
         if(!$(e.target).parents('table').hasClass('tbls')) {
             if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
                 $(".tbls").removeClass('selected');
@@ -488,6 +504,11 @@
 
     $(document).on("click", ".searchCustomer", (function(e){
         displayCustomMenu('#changeCustomer', e);
+    }));
+    
+    $(document).on("click", "#mainRightMenu", (function(e){
+        refreshTableArea();
+        refreshOrderArea();
     }));
 
     function updateOrderedProduct(e) {
@@ -583,6 +604,10 @@
                 $('input[id^="cmt"]').change(function() {
                     updateOrderedProduct(this);
                 });
+                
+                $('input[id^="discount"]').change(function() {
+                    updateOrderedProduct(this);
+                });
 
                 $('a[id^="del"]').click(function() {
                     var orderDetailId = $(this).attr('id').split('-')[1];
@@ -641,7 +666,7 @@
                 url: '@Url.Action("Index")' + '/OrderProduct',
                 data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
             }).done(function(data) {
-                if (data != null) {
+                if (data.OrderTable.ID > 0) {
                     onLoadOrderTable(data);
                 }
             });
@@ -662,6 +687,10 @@
         });
         
         $('input[id^="cmt"]').change(function() {
+            updateOrderedProduct(this);
+        });
+        
+        $('input[id^="discount"]').change(function() {
             updateOrderedProduct(this);
         });
 
@@ -761,9 +790,10 @@
     function CalculateTable() {
         $('tbody[id^="table-detail-"]').each(function(idx, e) {
             $(e).find('tr').each(function(index, element) {
-                var qty = $(element).find('td input').val();
+                var qty = $(element).find('td input[id^="qty"]').val();
                 var price = $(element).find('td.product-price').text().readMoneyAsNumber();
-                var total = qty*price ;
+                var discount = $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
+                var total = qty*price - discount ;
                 $(element).find('td.sequence').text(index + 1);
                 $(element).find('td.item_subtotal').text(total.formatAsMoney());
             });
