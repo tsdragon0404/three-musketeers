@@ -10,16 +10,13 @@
             return;
         try {
             $(".ajax-loader-mask").show();
-            $('span.label, label.label, a.label').each(function (idx, element) {
-                var id = element.id;
+            $('[data-labelID]').each(function (idx, element) {
+                var id = $(element).attr('data-labelID');
                 if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
-                    $(element).text(root.labelDictionary[id]);
-                }
-            });
-            $('input.label').each(function (idx, element) {
-                var id = element.id;
-                if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
-                    $(element).val(root.labelDictionary[id]);
+                    if (element.nodeName == 'INPUT')
+                        $(element).val(root.labelDictionary[id]);
+                    else
+                        $(element).text(root.labelDictionary[id]);
                 }
             });
         } catch (exception) {
@@ -31,9 +28,9 @@
     this.BuildEditControl = function (pageID) {
         try {
             $(".ajax-loader-mask").show();
-            var elements = $('span.label, label.label');
+            var elements = $('span[data-labelID], label[data-labelID]');
             elements.each(function (idx, element) {
-                var id = element.id;
+                var id = $(element).attr('data-labelID');
                 $(element).after(root.inputTemplate.replace('{0}', id).replace('{1}', $(element).text()));
                 var insertedElement = $(element).next();
                 $(insertedElement).attr('style', 'height: ' + element.offsetHeight + 'px; width: ' + element.offsetWidth + 'px;');
@@ -48,8 +45,14 @@
                             type: 'POST',
                             url: location.pathname + '/EditPageLabel',
                             data: { text: $(insertedElement).val(), pageID: pageID, labelID: id }
-                        }).done(function () {
-                            location.reload();
+                        }).done(function (data) {
+                            if (data.Success)
+                                $(element).text($(insertedElement).val());
+                            else
+                                $(insertedElement).val($(element).text());
+
+                            $(element).removeClass('hide');
+                            $(insertedElement).addClass('hide');
                         });
                     });
                     $(insertedElement).keypress(function (e) {
@@ -69,8 +72,8 @@
                     if (!data.Success)
                         return;
 
-                    $('span.label, label.label, input.label, a.label').each(function (i, element) {
-                        var id = element.id;
+                    $('[data-labelID]').each(function (i, element) {
+                        var id = $(element).attr('data-labelID');
                         var exists = false;
                         $(data.ListLabels).each(function(j, label) {
                             if(label.LabelID == id) {
