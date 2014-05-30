@@ -13,9 +13,6 @@ namespace SMS.MvcApplication.Controllers
 
         public virtual IAreaService AreaService { get; set; }
         public virtual IProductService ProductService { get; set; }
-        public virtual IInvoiceTableService InvoiceTableService { get; set; }
-        public virtual IInvoiceDetailService InvoiceDetailService { get; set; }
-
         public virtual IOrderTableService OrderTableService { get; set; }
         public virtual IOrderDetailService OrderDetailService { get; set; }
         public virtual IOrderService OrderService { get; set; }

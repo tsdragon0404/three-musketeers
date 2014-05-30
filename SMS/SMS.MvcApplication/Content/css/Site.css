@@ -68,9 +68,9 @@ header {
     overflow: auto;
 }
 
-    #cashier .ui-spinner-input, #searchProduct .ui-spinner-input {
-        width: 50px;
-    }
+#cashier .ui-spinner-input, #searchProduct .ui-spinner-input {
+    width: 40px;
+}
 
 #area-table {
     bottom: 60%;
@@ -84,9 +84,9 @@ header {
     background: #77d5f7;
 }
 
-    .split-pane-divider:hover {
-        background: #0078ae;
-    }
+.split-pane-divider:hover {
+    background: #0078ae;
+}
 
 #tableorder {
     height: 60%;
@@ -94,23 +94,23 @@ header {
 }
 
 #order .col1 {
-    width: 3%;
+    width: 2%;
 }
 
 #order .col2 {
-    width: 13%;
-}
-
-#order .col3 {
     width: 25%;
 }
 
-#order .col4 {
+#order .col3 {
     width: 4%;
 }
 
-#order .col5 {
+#order .col4 {
     width: 6%;
+}
+
+#order .col5 {
+    width: 10%;
 }
 
 #order .col6 {
@@ -122,11 +122,11 @@ header {
 }
 
 #order .col8 {
-    width: 25%;
+    width: 26%;
 }
 
 #order .col9 {
-    width: 5%;
+    width: 1%;
 }
 
 #order .remarksInput {
@@ -163,6 +163,10 @@ label.ui-state-error {
 
 .menu-customer {
     background-image: url(../../Images/IconControls/users-icon.png);
+}
+
+.menu-reload {
+    background-image: url(../../Images/IconControls/reload-icon.png);
 }
 
 .Rmenu {

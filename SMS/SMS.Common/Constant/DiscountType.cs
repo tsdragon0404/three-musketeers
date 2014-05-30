@@ -2,9 +2,7 @@
 {
     public enum DiscountType
     {
-        NoDiscount = 0,
-        ProductDiscount = 1,
-        TableDiscount = 2,
-        InvoiceDiscount = 3,
+        Number = 0,
+        Percent = 1,
     }
 }
