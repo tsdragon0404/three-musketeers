@@ -48,8 +48,6 @@ BEGIN
 		[BranchTaxID] [int] IDENTITY(1,1) NOT NULL,
 		[BranchID] [int] NULL,
 		[TaxID] [int] NULL,
-		[Enable] [bit] NULL,
-		[SEQ] [int] NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
