@@ -35,6 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaRepository.cs" />
+    <Compile Include="OrderDetailRepository.cs" />
+    <Compile Include="OrderTableRepository.cs" />
+    <Compile Include="OrderRepository.cs" />
     <Compile Include="ErrorMessageRepository.cs" />
     <Compile Include="PageLabelRepository.cs" />
     <Compile Include="PageRepository.cs" />

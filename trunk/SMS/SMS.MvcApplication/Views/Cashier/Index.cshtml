@@ -15,23 +15,98 @@
     var serviceFee = @BranchConfig.ServiceFee;
     var useServiceFee = "@BranchConfig.UseServiceFee";
 </script>
-<script id="pdt-tmpl" type="text/x-jquery-tmpl">
-    {{each(idx) InvoiceDetails}}
-    <tr>
-        <td>${idx + 1}</td>
-        <td>${ProductCode}</td>
-        <td>${ProductName}</td>
-        <td>
-            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
-        </td>
-        <td>${UnitName}</td>
-        <td class="right">${Price.formatAsMoney()}</td>
-        <td class="right item_subtotal">${(Price * Quantity).formatAsMoney()}</td>
-        <td>
-            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
-    </tr>
+<script id="order-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) OrderTables}}
+    <div class="row">
+        <div class="three columns"><span id="lblTableName" class="label">Table name</span>: ${Table.Name}</div>
+        <span id="lblOrderBy" class="label">Order by: </span>${CreatedUser}
+        &nbsp;&nbsp;
+        <span id="lblOrderDate" class="label">Order date: </span>${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}
+        &nbsp;&nbsp;
+        <span id="lblLastAccessBy" class="label">Last access by</span>: ${ModifiedUser}
+        &nbsp;&nbsp;
+        <span id="lblLastAccessDate" class="label">Last access date: </span>${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}
+    </div>
+    <div class="row">
+        <form id="form-table-order-${ID}">
+            <table id="order-${ID}">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                    <col class="col6" />
+                    <col class="col7" />
+                    <col class="col8" />
+                    <col class="col9" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Product Code</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Price</th>
+                        <th>Amount</th>
+                        <th>Remarks</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="table-detail-${ID}">
+                    {{each(idx) OrderDetails}}
+                    <tr id="${ID}">
+                        <td class="sequence">${idx + 1}</td>
+                        <td>${Product.ProductCode}</td>
+                        <td>${Product.Name}</td>
+                        <td>
+                            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
+                        </td>
+                        <td>${Product.Unit.Name}</td>
+                        <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+                        <td class="right item_subtotal">${(Product.Price * Quantity).formatAsMoney()}</td>
+                        <td>
+                            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+                        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="vertical-top">
+                            <a id="addProduct-${ID}" href="#" class="myButton">Chọn món</a>
+                        </td>
+                        <td colspan="7">
+                            <div class="row">
+                                <div class="two columns push_eight right">Subtotal:</div>
+                                <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
     {{/each}}
+</script>
+<script id="ordertable-tmpl" type="text/x-jquery-tmpl">
+{{each(idx) OrderDetails}}
+<tr id="${ID}">
+    <td class="sequence">${idx + 1}</td>
+    <td>${Product.ProductCode}</td>
+    <td>${Product.Name}</td>
+    <td>
+        <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
+    </td>
+    <td>${Product.Unit.Name}</td>
+    <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+    <td class="right item_subtotal">${(Product.Price * Quantity).formatAsMoney()}</td>
+    <td>
+        <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+    <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
+</tr>
+{{/each}}    
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
@@ -39,7 +114,7 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.ID}" title="${Table.Name}">
+            <table class="tbls" id="${ID}-${Table.ID}-${OrderID}" title="${Table.Name}">
                 <tr>
                     <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
                 </tr>
@@ -53,11 +128,12 @@
     </div>
     {{/if}}
     {{/each}}
+
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) ListTable}}
-    <table id="Rmenu-${ID}-${Table.ID}" class="Rmenu">
-        <tr id="${ID}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
+    <table id="Rmenu-${ID}-${Table.ID}-${OrderID}" class="Rmenu">
+        <tr id="rmenu-detail-${ID}" data-id="${ID}-${OrderID}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
             <td>
                 <div class="rmenu-detail"></div>
             </td>
@@ -75,7 +151,7 @@
             </td>
             <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
         </tr>
-        <tr id="rmenu-del-${ID}" data-id="${ID}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
+        <tr id="rmenu-del-${ID}" data-id="${ID}-${OrderID}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
             <td>
                 <div class="rmenu-delete"></div>
             </td>
@@ -85,7 +161,7 @@
     {{/each}}
 </script>
 <script type="text/x-jquery-tmpl" id="invoice-preview-tmpl">
-    <table id="inv-table">
+    <table id="ord-table">
         <colgroup>
             <col class="col1" />
             <col class="col2" />
@@ -103,7 +179,7 @@
             </tr>
         </thead>
         <tbody>
-            {{each(idx) InvoiceTable.InvoiceDetails}}
+            {{each(idx) OrderTable.InvoiceDetails}}
             <tr>
                 <td>${idx + 1}</td>
                 <td>${ProductCode}</td>
@@ -116,12 +192,13 @@
     </table>
 
 </script>
+
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
             @foreach (var area in Model.ListArea)
             {
-                <li><a href="#area-@area.ID" onclick="GetTablesByAreaID(@area.ID)">@area.Name</a></li>
+                <li><a href="#area-@area.ID">@area.Name</a></li>
             }
 
         </ul>
@@ -137,65 +214,23 @@
     <div class="split-pane-divider"></div>
 
     <div id="tableorder" class="split-pane-component">
-        <input type="hidden" id="currentInvoiceTableID" value="-1" />
-        <div class="row">
-            <div class="four columns"><span id="lblTableName" class="label">Table name</span>: <span id="curTableName"></span></div>
-            <div class="three columns"><span id="lblOrderBy" class="label">Order by</span>: <span id="curOrderBy"></span></div>
-            <div class="four columns"><span id="lblLastAccessBy" class="label">Last access by</span>: <span id="curLastAccessBy"></span></div>
-        </div>
-        <div class="row">
+        <input type="hidden" id="curOrderID" value="-1" />
+        <input type="hidden" id="curOrderTableID" value="-1" />
+        <div class="row border-bottom">
             <div class="four columns">
-                <span id="lblCustomerName" class="searchCustomer">Customer name: </span>
+                <span id="lblOrderNumber" class="label">Order Number</span>: <span id="curOrderNumber"></span>
+            </div>
+            <div class="four columns">
+                <span id="lblCustomerName" class="searchCustomer">Customer name:</span>&nbsp;
                 <span id="curCustomerName"></span>
             </div>
-            <div class="three columns">Order date: <span id="curOrderDate"></span></div>
-            <div class="four columns">Last access date: <span id="curLastAccessDate"></span></div>
         </div>
-        <div class="row">
-            <form id="form-table-order">
-                <table id="order">
-                    <colgroup>
-                        <col class="col1" />
-                        <col class="col2" />
-                        <col class="col3" />
-                        <col class="col4" />
-                        <col class="col5" />
-                        <col class="col6" />
-                        <col class="col7" />
-                        <col class="col8" />
-                        <col class="col9" />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Product Code</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Unit</th>
-                            <th>Price</th>
-                            <th>Amount</th>
-                            <th>Remarks</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbContent">
-                    
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="9">
-                                <a id="addProduct" href="#" class="myButton">Chọn món</a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </form>
+        
+        <div class="row" id="tblContent">
+            
         </div>
+        
         <div id="totalSection">
-            <div class="row">
-                <div class="two columns push_eight right">Total:</div>
-                <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
-            </div>
             @if(BranchConfig.UseServiceFee)
             {
                 <div class="row" id="ServiceFree">
@@ -223,7 +258,14 @@
     </div>
     
     <div id="rightMenuArea"></div>
-    <table class="Rmenu" id="changeCustomer"><tr><td style="width: 150px; text-align: center">Change Customer</td></tr></table>
+    <table class="Rmenu" id="changeCustomer">
+        <tr>
+            <td>
+                <div class="menu-customer"></div>
+            </td>
+            <td class="RmenuItem">Change Customer</td>
+        </tr>
+    </table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
 </div>
@@ -232,73 +274,139 @@
     $(document).ready(function () {
         $('div.split-pane').splitPane();
         $('#area-table').tabs();
-        $("#addProduct").hide();
         $("#payment").hide();
         $("#printInvoice").hide();
-        $("#addProduct").click(function () {
-            var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
-            product.OpenPopup();
-            return false;
-        });
+        
         $('#printInvoice').click(function () {
             var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getDataForPostCallback, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });
 
-        refreshTable();
+        refreshTableArea();
             
         setInterval(function() {
-            refreshTable();
+            refreshTableArea();
         }, 60000);
+        
+        setInterval(function() {
+            refreshOrderArea();
+        }, 120000);
     });
+    
+    function refreshOrderArea() {
+        var orderId = $('#curOrderID').val();
+        if(orderId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetOrder")',
+                data: { orderID: orderId }
+            }).done(function (data) {
+                if (data.Order.ID == 0) {
+                    var popup = new MessagePopup('Thông báo',
+                        'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
+                        1,
+                        function() {
+                            refreshTableArea();
+                            clearDisplayTableDetail(orderId);
+                        });
 
-    function getDataForPostCallback() {
-        return { invoiceTableID: $('#currentInvoiceTableID').val() };
+                    popup.OpenPopup();
+                }
+                else {
+                    $('#tblContent').html('');
+                    $('#curOrderID').val(data.Order.ID);
+                    $('#curOrderNumber').text(data.Order.OrderNumber);
+                    $('#curCustomerName').text(data.Order.Customer.CustomerName);
+                    $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
+
+                    $('input[id^="qty"]').spinner({
+                        step: 0.5,
+                        numberFormat: "n",
+                        min: 0.5,
+                        change: function() {
+                            updateOrderedProduct(this);
+                        }
+                    });
+
+                    $('input[id^="cmt"]').change(function() {
+                        updateOrderedProduct(this);
+                    });
+
+                    $('a[id^="del"]').click(function() {
+                        var orderDetailId = $(this).attr('id').split('-')[1];
+                        onDeleteProductFromOrderDetail(orderDetailId);
+                    });
+
+                    $('form[id^="form-table-order-"]').validate({
+                        rules: {
+                            qty: {
+                                greaterThanZero: true
+                            }
+                        }
+                    });
+
+                    $("#payment").show();
+                    $("#printInvoice").show();
+                }
+            });
+        }
     }
 
-    function refreshTable() {
+    function getDataForPostCallback() {
+        return { orderTableID: $('#curOrderTableID').val() };
+    }
+    
+    $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
+        GetTablesByAreaID($(e.target).attr('href').split('-')[1]);
+    }));
+
+    function refreshTableArea() {
         var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
         var id = area.split('-')[1];
         GetTablesByAreaID(id);
     }
         
-    function clearDisplayTableDetail(invTblId) {
-        if ($('#currentInvoiceTableID').val() == invTblId) {
-            $('#currentInvoiceTableID').val(-1);
-            $('#curTableName').text('');
-            $('#curOrderBy').text('');
-            $('#curOrderDate').text('');
-            $('#curLastAccessBy').text('');
-            $('#curLastAccessDate').text('');
-            $('#order .tbContent').html('');
+    function clearDisplayTableDetail(orderId) {
+        if ($('#curOrderID').val() == orderId) {
+            $('#tblContent').html('');
+            $('#curOrderID').val(-1);
+            $('#curOrderNumber').text('');
+            $('#curCustomerName').text('');
             $("#addProduct").hide();
             $("#payment").hide();
             $("#printInvoice").hide();
             CalculateTotal();
         }
     }
+    
+    $(document).on("click", 'a[id^="addProduct-"]', (function(e){
+        var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+        product.OpenPopup();
+        $('#curOrderTableID').val($(e.target).attr('id').split('-')[1]);
+        return false;
+    }));
 
-    function onRemoveInvoiceTable(invTblId) {
-        if (invTblId <= 0) {
+    function onRemoveOrderTable(orderTableId, orderId) {
+        if (orderTableId <= 0) {
             return;
         }
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("CancelTable")',
-            data: { invoiceTableID: invTblId }
+            url: '@Url.Action("CancelOrder")',
+            data: { orderTableID: orderTableId }
         }).done(function(data) {
             if (data.Success) {
-                clearDisplayTableDetail(invTblId);
+                clearDisplayTableDetail(orderId);
             } else
                 alert('Fail');
 
-            refreshTable();
+            refreshTableArea();
         });
     }
 
-    function onMoveInvoiceTable(invTblId) {
-        if (invTblId <= 0) {
+    function onMoveOrderTable(orderTableId) {
+        if (orderTableId <= 0) {
             return;
         }
     }
@@ -307,19 +415,20 @@
         $(".tbls").css('background-color', '');
         $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
         var id = $(e.target).parents('.tbls').attr('id');
-        var invTblId = id.split('-')[0];
+        var orderTableId = id.split('-')[0];
         var tblId = id.split('-')[1];
-        if(invTblId == 0) {
+        var orderId = id.split('-')[2];
+        if(orderTableId == 0) {
             var popup = new MessagePopup('Thông báo',
                 'Bàn này hiện đang trống.<br />Sử dụng ngay?',
                 3,
                 function () {
-                    onCheckTableStatus(invTblId, tblId);
+                    onCheckTableStatus(orderTableId, tblId);
                 });
             
             popup.OpenPopup();
         } else {
-            onSelectInvoiceTable(invTblId);
+            onSelectOrderTable(orderTableId, orderId);
         }
     }));
         
@@ -329,10 +438,11 @@
         
     $(document).on("contextmenu", ".tbls", function(e){
         $("table[id*=Rmenu-]").hide();
-        if($(".tbls").css('background-color') != 'rgb(255, 242, 204)') {
-            $(e.target).parents('.tbls').css('background-color', '');
+        if(!$(e.target).parents('.tbls').hasClass('selected')) {
+            $(".tbls").removeClass('selected');
+            $(e.target).parents('.tbls').addClass('selected');
         }
-        $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
+
         displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
     });
         
@@ -341,7 +451,7 @@
 
         if(!$(e.target).parents('table').hasClass('tbls')) {
             if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
-                $(".tbls").css('background-color', '');
+                $(".tbls").removeClass('selected');
         }
 
         if($(e.target).attr('id') != 'lblCustomerName' || $(e.target).attr('id') == null)
@@ -350,17 +460,21 @@
     });
     
     $(document).on("click", ".tbls", (function(e){
-        if($(e.target).parents('.tbls').css('background-color') == 'rgb(255, 242, 204)') {
-            $(e.target).parents('.tbls').css('background-color', '');
-        }
-        else {
-            $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
+        if(e.ctrlKey) {
+            if ($(e.target).parents('.tbls').hasClass('selected')) {
+                $(e.target).parents('.tbls').removeClass('selected');
+            } else {
+                $(e.target).parents('.tbls').addClass('selected');
+            }
+        } else {
+            $(".tbls").removeClass('selected');
+            $(e.target).parents('.tbls').addClass('selected');
         }
     }));
         
     $(document).on("click", "#payment", (function(){
-        var invTblId = $('#currentInvoiceTableID').val();
-        if(invTblId > 0) {
+        var orderTableId = $('#curOrderTableID').val();
+        if(orderTableId > 0) {
             var popup = new MessagePopup('Thông báo',
                 'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
                 3,
@@ -371,23 +485,9 @@
             popup.OpenPopup();
         }
     }));
-        
-    $(document).on("click", ".Detail", (function(e){
-        var invTblId = $(e.target).parents('.Detail').attr('id');
-        onSelectInvoiceTable(invTblId);
-    }));
-
-    $(document).on("click", ".delProduct", (function(){
-        var invDetailId = $(this).attr('id').split('-')[1];
-        onDeleteProductFromInvoiceDetail(invDetailId);
-    }));
 
     $(document).on("click", ".searchCustomer", (function(e){
         displayCustomMenu('#changeCustomer', e);
-    }));
-        
-    $(document).on("change", ".remarksInput", (function(){
-        updateOrderedProduct(this);
     }));
 
     function updateOrderedProduct(e) {
@@ -397,14 +497,14 @@
                 return;
         }
 
-        var invDetailId = $(e).attr('id').split('-')[1];
+        var orderDetailId = $(e).attr('id').split('-')[1];
         var value = $(e).val();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("UpdateOrderedProduct")',
-            data: { invoiceDetailID: invDetailId, columnName: colName, columnValue: value }
+            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
         }).done(function (data) {
-            if(!data.Success) {
+            if(!data) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -412,15 +512,14 @@
                     });
 
                 popup.OpenPopup();
+            } else {
+                CalculateTable();
             }
-            var invTblId = $('#currentInvoiceTableID').val();
-            if (invTblId != '' && invTblId > 0)
-                onSelectInvoiceTable(invTblId);
         });
     }
 
-    function onCheckTableStatus(invTblId, tableId) {
-        if (invTblId == 0) {
+    function onCheckTableStatus(orderTableId, tableId) {
+        if (orderTableId == 0) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("CheckTableStatus")',
@@ -431,48 +530,46 @@
                         'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
                         1,
                         function() {
-                            refreshTable();
+                            refreshTableArea();
                         });
 
                     popup.OpenPopup();
                 } else {
-                    onCreateInvoiceTable(tableId);
+                    onCreateOrderTable(tableId);
                 }
             });
         }else {
-            onCreateInvoiceTable(tableId);
+            onCreateOrderTable(tableId);
         }
     }
 
-    function onSelectInvoiceTable(invTblId) {
-        if (invTblId <= 0) {
+    function onSelectOrderTable(orderTableId, orderId) {
+        $("table[id*=Rmenu-]").hide();
+        if (orderTableId <= 0) {
             return;
         }
         $.ajax({
             type: 'POST',
             url: '@Url.Action("SelectTable")',
-            data: { invoiceTableID: invTblId }
+            data: { orderTableID: orderTableId }
         }).done(function (data) {
-            if (data.InvoiceTable.ID == 0) {
+            if (data.Order.ID == 0) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
                     1,
                     function() {
-                        refreshTable();
-                        clearDisplayTableDetail(invTblId);
+                        refreshTableArea();
+                        clearDisplayTableDetail(orderId);
                     });
 
                 popup.OpenPopup();
             }
             else {
-                $('#order .tbContent').html('');
-                $('#currentInvoiceTableID').val(data.InvoiceTable.ID);
-                $('#curTableName').text(data.InvoiceTable.Table.Name);
-                $('#curOrderBy').text(data.InvoiceTable.CreatedUser);
-                $('#curOrderDate').text(data.InvoiceTable.CreatedDate.formatAsDateTime());
-                $('#curLastAccessBy').text(data.InvoiceTable.ModifiedUser);
-                $('#curLastAccessDate').text(data.InvoiceTable.ModifiedDate == null ? '' : data.InvoiceTable.ModifiedDate.formatAsDateTime());
-                $('#pdt-tmpl').tmpl(data.InvoiceTable).appendTo('#order .tbContent');
+                $('#tblContent').html('');
+                $('#curOrderID').val(data.Order.ID);
+                $('#curOrderNumber').text(data.Order.OrderNumber);
+                $('#curCustomerName').text(data.Order.Customer.CustomerName);
+                $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
 
                 $('input[id^="qty"]').spinner({
                     step: 0.5,
@@ -482,7 +579,17 @@
                         updateOrderedProduct(this);
                     }
                 });
-                $('#form-table-order').validate({
+
+                $('input[id^="cmt"]').change(function() {
+                    updateOrderedProduct(this);
+                });
+
+                $('a[id^="del"]').click(function() {
+                    var orderDetailId = $(this).attr('id').split('-')[1];
+                    onDeleteProductFromOrderDetail(orderDetailId);
+                });
+
+                $('form[id^="form-table-order-"]').validate({
                     rules: {
                         qty: {
                             greaterThanZero: true
@@ -490,29 +597,26 @@
                     }
                 });
 
-                CalculateTotal();
-                    
-                $("#addProduct").show();
                 $("#payment").show();
                 $("#printInvoice").show();
+                refreshTableArea();
             }
         });
-        return;
     }
         
-    function onCreateInvoiceTable(tblId) {
+    function onCreateOrderTable(tblId) {
         if (tblId <= 0) {
             return;
         }
-        var invTblId = 0;
+        var orderTableId = 0;
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("CreateInvoiceTable")',
+            url: '@Url.Action("CreateOrderTable")',
             data: { tableID: tblId }
         }).done(function (data) {
-            invTblId = data.InvoiceTableID;
-            onSelectInvoiceTable(invTblId);
-            refreshTable();
+            orderTableId = data.OrderTableID;
+            onSelectOrderTable(orderTableId, 0);
+            refreshTableArea();
         });
         return;
     }
@@ -530,30 +634,61 @@
     }
 
     function onSelectProduct(pdtId, qty) {
-        var invTblId = $('#currentInvoiceTableID').val();
-        if(invTblId != '' && invTblId > 0) {
+        var orderTableId = $('#curOrderTableID').val();
+        if(orderTableId != '' && orderTableId > 0) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("Index")' + '/OrderProduct',
-                data: { invoiceTableID: invTblId, productID: pdtId, quantity: qty }
+                data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
             }).done(function(data) {
-                if (data != null)
-                    onSelectInvoiceTable(invTblId);
+                if (data != null) {
+                    onLoadOrderTable(data);
+                }
             });
         }
     }
+    
+    function onLoadOrderTable(data) {
+        $('#table-detail-' + data.OrderTable.ID).html('');
+        $('#ordertable-tmpl').tmpl(data.OrderTable).appendTo('#table-detail-' + data.OrderTable.ID);
 
-    function onDeleteProductFromInvoiceDetail(invDetailId) {
-        if (invDetailId != '' && invDetailId > 0) {
+        $('input[id^="qty"]').spinner({
+            step: 0.5,
+            numberFormat: "n",
+            min: 0.5,
+            change: function() {
+                updateOrderedProduct(this);
+            }
+        });
+        
+        $('input[id^="cmt"]').change(function() {
+            updateOrderedProduct(this);
+        });
+
+        $('a[id^="del"]').click(function() {
+            var orderDetailId = $(this).attr('id').split('-')[1];
+            onDeleteProductFromOrderDetail(orderDetailId);
+        });
+        
+        $('form[id^="form-table-order-"]').validate({
+            rules: {
+                qty: {
+                    greaterThanZero: true
+                }
+            }
+        });
+    }
+
+    function onDeleteProductFromOrderDetail(orderDetailId) {
+        if (orderDetailId != '' && orderDetailId > 0) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("RemoveOrderedProduct")',
-                data: { invoiceDetailID: invDetailId }
+                data: { orderDetailID: orderDetailId }
             }).done(function(data) {
                 if (data.Success) {
-                    var invTblId = $('#currentInvoiceTableID').val();
-                    if (invTblId != '' && invTblId > 0)
-                        onSelectInvoiceTable(invTblId);
+                    $('tr[id="' + orderDetailId + '"').remove();
+                    CalculateTable();
                 }
             });
         }
@@ -573,21 +708,33 @@
             $('#table-tmpl').tmpl(data).appendTo('#area-' + areaId);
             $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
 
+            $('tr[id^="rmenu-detail-"]').click(function () {
+                var id = $(this).attr('data-id').split('-')[0];
+                var orderId = $(this).attr('data-id').split('-')[1];
+                onSelectOrderTable(id, orderId);
+                return false;
+            });
             $('tr[id^="rmenu-useTable-"]').click(function () {
                 var tableId = $(this).attr('data-tableid');
-                var invTblId = $(this).attr('id').replace('rmenu-useTable-', '');
-                onCheckTableStatus(invTblId, tableId);
+                var orderTableId = $(this).attr('id').replace('rmenu-useTable-', '');
+                onCheckTableStatus(orderTableId, tableId);
                 return false;
             });
             $('tr[id^="rmenu-move-"]').click(function () {
                 var id = $(this).attr('data-id');
-                onMoveInvoiceTable(id);
+                onMoveOrderTable(id);
                 return false;
             });
             $('tr[id^="rmenu-del-"]').click(function () {
-                var id = $(this).attr('data-id');
-                onRemoveInvoiceTable(id);
+                var id = $(this).attr('data-id').split('-')[0];
+                var orderId = $(this).attr('data-id').split('-')[1];
+                onRemoveOrderTable(id, orderId);
                 return false;
+            });
+            $('.tbls').each(function (idx, element) {
+                var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
+                if($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
+                    $(element).addClass('selected');
             });
         });
         return;
@@ -609,6 +756,18 @@
         }
         $menu.css({ left: $leftM, top: $topM, display: 'block' });
         event.preventDefault();
+    }
+    
+    function CalculateTable() {
+        $('tbody[id^="table-detail-"]').each(function(idx, e) {
+            $(e).find('tr').each(function(index, element) {
+                var qty = $(element).find('td input').val();
+                var price = $(element).find('td.product-price').text().readMoneyAsNumber();
+                var total = qty*price ;
+                $(element).find('td.sequence').text(index + 1);
+                $(element).find('td.item_subtotal').text(total.formatAsMoney());
+            });
+        });
     }
         
     function CalculateTotal() {

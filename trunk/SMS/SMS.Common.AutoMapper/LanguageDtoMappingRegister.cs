@@ -13,6 +13,14 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
+            Mapper.CreateMap<Unit, LanguageUnitDto>()
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
+
+            Mapper.CreateMap<OrderStatus, LanguageOrderStatusDto>()
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
+
             Mapper.CreateMap<Table, LanguageTableDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
@@ -22,6 +30,11 @@ namespace SMS.Common.AutoMapper
                     UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
             Mapper.CreateMap<InvoiceTable, LanguageInvoiceTableDto>();
+
+            Mapper.CreateMap<OrderTable, LanguageOrderTableDto>();
+            Mapper.CreateMap<OrderTable, OrderTableBasicDto>();
+
+            Mapper.CreateMap<OrderDetail, LanguageOrderDetailDto>();
 
             Mapper.CreateMap<InvoiceDetail, LanguageInvoiceDetailDto>()
                 .ForMember(x => x.ProductName, y => y.ResolveUsing(z =>
