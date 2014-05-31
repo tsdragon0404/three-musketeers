@@ -23,6 +23,10 @@ header {
     text-align: center;
 }
 
+.left {
+    text-align: left;
+}
+
 .full-width {
     width: 100%;
 }
@@ -166,11 +170,15 @@ header {
 }
 
 #order .col8 {
-    width: 26%;
+    width: 23%;
 }
 
 #order .col9 {
-    width: 1%;
+    width: 2%;
+}
+
+#order .col10 {
+    width: 2%;
 }
 
 #order .remarksInput {
@@ -211,6 +219,26 @@ label.ui-state-error {
 
 .menu-reload {
     background-image: url(../../Images/IconControls/reload-icon.png);
+}
+
+.icon-transfer {
+    background-image: url(../../Images/IconControls/transfer-icon.png);
+}
+
+.icon-reject {
+    background-image: url(../../Images/IconControls/reject-icon.png);
+}
+
+.icon-pending {
+    background-image: url(../../Images/IconControls/pending-icon.png);
+}
+
+.icon-done {
+    background-image: url(../../Images/IconControls/done-icon.png);
+}
+
+.icon-accept {
+    background-image: url(../../Images/IconControls/accept-icon.png);
 }
 
 .Rmenu {
@@ -281,6 +309,22 @@ label.ui-state-error {
 .RmenuDisable {
     opacity: 0.3;
 }
+
+.icon {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.icon div {
+    height: 24px;
+    width: 24px;
+    background-repeat: no-repeat;
+}
+
+.icon div:hover {
+    cursor: pointer;
+}
+
 
 .myButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;

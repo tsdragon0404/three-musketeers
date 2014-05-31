@@ -40,6 +40,7 @@
                     <col class="col7" />
                     <col class="col8" />
                     <col class="col9" />
+                    <col class="col10" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -51,6 +52,7 @@
                         <th>Discount</th>
                         <th>Amount</th>
                         <th>Remarks</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -70,7 +72,12 @@
                         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-                        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
+                        <td class="center icon">
+                            <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
+                        </td>
+                        <td class="center icon">
+                            <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -79,7 +86,7 @@
                         <td colspan="2" class="vertical-top">
                             <a id="addProduct-${ID}" href="#" class="myButton">Chọn món</a>
                         </td>
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="row">
                                 <div class="two columns push_eight right">Subtotal:</div>
                                 <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
@@ -108,7 +115,12 @@
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        <td class="center"><a href="#" id="del-${ID}" class="delProduct">X</a></td>
+        <td class="center icon">
+            <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
+        </td>
+        <td class="center icon">
+            <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
+        </td>
     </tr>
     {{/each}}    
 </script>
@@ -333,31 +345,7 @@
                     $('#curCustomerName').text(data.Order.Customer.CustomerName);
                     $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
 
-                    $('input[id^="qty"]').spinner({
-                        step: 0.5,
-                        numberFormat: "n",
-                        min: 0.5,
-                        change: function() {
-                            updateOrderedProduct(this);
-                        }
-                    });
-
-                    $('input[id^="cmt"]').change(function() {
-                        updateOrderedProduct(this);
-                    });
-
-                    $('a[id^="del"]').click(function() {
-                        var orderDetailId = $(this).attr('id').split('-')[1];
-                        onDeleteProductFromOrderDetail(orderDetailId);
-                    });
-
-                    $('form[id^="form-table-order-"]').validate({
-                        rules: {
-                            qty: {
-                                greaterThanZero: true
-                            }
-                        }
-                    });
+                    bindEventForControl();
 
                     $("#payment").show();
                     $("#printInvoice").show();
@@ -411,8 +399,15 @@
         }).done(function(data) {
             if (data.Success) {
                 clearDisplayTableDetail(orderId);
-            } else
-                alert('Fail');
+            } else {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            }
 
             refreshTableArea();
         });
@@ -425,8 +420,8 @@
     }
         
     $(document).on("dblclick", ".tbls", (function(e) {
-        $(".tbls").css('background-color', '');
-        $(e.target).parents('.tbls').css('background-color', '#FFF2CC');
+        $(".tbls").removeClass('selected');
+        $(e.target).parents('.tbls').addClass('selected');
         var id = $(e.target).parents('.tbls').attr('id');
         var orderTableId = id.split('-')[0];
         var tblId = id.split('-')[1];
@@ -519,7 +514,29 @@
         }
 
         var orderDetailId = $(e).attr('id').split('-')[1];
-        var value = $(e).val();
+        var value;
+        if(colName == 'status') {
+            value = parseInt($(e).attr('id').split('-')[2]);
+            switch (value) {
+                case 1:
+                    value = 2;
+                    break;
+                case 2:
+                    value = 3;
+                    break;
+                case 3:
+                    value = 5;
+                    break;
+                case 4:
+                    value = 5;
+                    break;
+                case 5:
+                    return;
+            }
+        } else {
+            value = $(e).val();
+        }
+        
         $.ajax({
             type: 'POST',
             url: '@Url.Action("UpdateOrderedProduct")',
@@ -592,35 +609,7 @@
                 $('#curCustomerName').text(data.Order.Customer.CustomerName);
                 $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
 
-                $('input[id^="qty"]').spinner({
-                    step: 0.5,
-                    numberFormat: "n",
-                    min: 0.5,
-                    change: function() {
-                        updateOrderedProduct(this);
-                    }
-                });
-
-                $('input[id^="cmt"]').change(function() {
-                    updateOrderedProduct(this);
-                });
-                
-                $('input[id^="discount"]').change(function() {
-                    updateOrderedProduct(this);
-                });
-
-                $('a[id^="del"]').click(function() {
-                    var orderDetailId = $(this).attr('id').split('-')[1];
-                    onDeleteProductFromOrderDetail(orderDetailId);
-                });
-
-                $('form[id^="form-table-order-"]').validate({
-                    rules: {
-                        qty: {
-                            greaterThanZero: true
-                        }
-                    }
-                });
+                bindEventForControl();
 
                 $("#payment").show();
                 $("#printInvoice").show();
@@ -663,7 +652,7 @@
         if(orderTableId != '' && orderTableId > 0) {
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Index")' + '/OrderProduct',
+                url: '@Url.Action("OrderProduct")',
                 data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
             }).done(function(data) {
                 if (data.OrderTable.ID > 0) {
@@ -677,6 +666,10 @@
         $('#table-detail-' + data.OrderTable.ID).html('');
         $('#ordertable-tmpl').tmpl(data.OrderTable).appendTo('#table-detail-' + data.OrderTable.ID);
 
+        bindEventForControl();
+    }
+
+    function bindEventForControl() {
         $('input[id^="qty"]').spinner({
             step: 0.5,
             numberFormat: "n",
@@ -694,9 +687,13 @@
             updateOrderedProduct(this);
         });
 
-        $('a[id^="del"]').click(function() {
+        $('div[id^="del"]').click(function() {
             var orderDetailId = $(this).attr('id').split('-')[1];
             onDeleteProductFromOrderDetail(orderDetailId);
+        });
+        
+        $('div[id^="status"]').click(function() {
+            updateOrderedProduct(this);
         });
         
         $('form[id^="form-table-order-"]').validate({
