@@ -31,14 +31,14 @@ namespace SMS.MvcApplication.Controllers
             return View(cashierModel);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult OrderProduct(long orderTableID, long productID, decimal quantity)
         {
             if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(null);
 
             var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
-            return Json(new { OrderTable = result });
+            return Json(new { OrderTable = result }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

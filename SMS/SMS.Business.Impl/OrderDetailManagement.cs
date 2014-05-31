@@ -29,7 +29,7 @@ namespace SMS.Business.Impl
                                       OrderStatus = new OrderStatus {ID = 1}
                                   };
             Repository.Add(orderDetail);
-            return Mapper.Map<TDto>(Repository.Get(orderTableID));
+            return Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID));
         }
 
         public bool UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
@@ -51,6 +51,11 @@ namespace SMS.Business.Impl
                         orderDetail.DiscountCode = "";
                         orderDetail.DiscountType = DiscountType.Number;
                         orderDetail.DiscountComment = "";
+                        break;
+                    }
+                case "status":
+                    {
+                        orderDetail.OrderStatus = new OrderStatus{ ID = long.Parse(value)};
                         break;
                     }
             }
