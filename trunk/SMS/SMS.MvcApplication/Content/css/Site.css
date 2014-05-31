@@ -123,7 +123,13 @@ header {
 #area-table {
     bottom: 60%;
     margin-bottom: 3px;
-    min-height: 150px;
+    min-height: 155px;
+}
+#area-table table {
+    margin: 0;
+}
+#area-table .row {
+    padding: 0;
 }
 
 .split-pane-divider {
@@ -138,7 +144,7 @@ header {
 
 #tableorder {
     height: 60%;
-    min-height: 150px;
+    min-height: 310px;
 }
 
 #order .col1 {
