@@ -734,12 +734,16 @@
     <Content Include="Areas\Administrator\Views\Area\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Table\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\AdminHome\Index.cshtml" />
+    <Content Include="Images\flag-uk.png" />
+    <Content Include="Images\flag-vn.png" />
     <Content Include="Images\IconControls\add-icon.png" />
+    <Content Include="Images\IconControls\collapse-icon.png" />
     <Content Include="Images\IconControls\confirm-icon.png" />
     <Content Include="Images\IconControls\delete-icon.png" />
     <Content Include="Images\IconControls\details-icon.png" />
     <Content Include="Images\IconControls\edit-icon.png" />
     <Content Include="Images\IconControls\error-icon.png" />
+    <Content Include="Images\IconControls\expand-icon.png" />
     <Content Include="Images\IconControls\info-icon.png" />
     <Content Include="Images\IconControls\move-icon.png" />
     <Content Include="Images\IconControls\new-icon.png" />
@@ -750,6 +754,7 @@
     <Content Include="Images\IconControls\table.png" />
     <Content Include="Images\IconControls\users-icon.png" />
     <Content Include="Images\IconControls\warning-icon.png" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\custom-validate.js" />
@@ -802,6 +807,7 @@
     <Content Include="Views\Shared\MessagePopup.cshtml" />
     <Content Include="Views\Shared\PrintInvoicePreview.cshtml" />
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
+    <Content Include="Views\Shared\LabelController.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

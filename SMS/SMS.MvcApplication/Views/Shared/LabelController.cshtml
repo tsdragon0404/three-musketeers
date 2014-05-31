@@ -1,0 +1,35 @@
+﻿@using Core.Common.Session
+<div id="labelController">
+    <ul id="language">
+        <li><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> Vietnamese</a></li>
+        <li><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> English</a></li>
+    </ul> 
+    @if(UserContext.IsSuperAdmin)
+    {
+        <a href="#" id="page-label-multi-edit">Edit Label</a>
+    }
+</div>
+
+<script type="text/javascript">
+    $('#change-language-vn').click(function () {
+        changeLanguage(0);
+    });
+    
+    $('#change-language-en').click(function () {
+        changeLanguage(1);
+    });
+    
+    function changeLanguage(id) {
+        $.ajax({
+            type: 'POST',
+            url: location.pathname + '/ChangeLanguage',
+            data: { language: id }
+        }).done(function (data) {
+            if(data.Success)
+                location.reload();
+            else {
+                alert('error');
+            }
+        });
+    }
+</script>

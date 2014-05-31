@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
@@ -48,7 +46,7 @@ namespace SMS.Business.Impl
         public TDto GetTableDetail<TDto>(long orderTableID)
         {
             var result = Repository.Get(orderTableID);
-            return result == null ? Mapper.Map<TDto>(new OrderTableDto()) : Mapper.Map<TDto>(result);
+            return result == null ? Mapper.Map<TDto>(new OrderTable()) : Mapper.Map<TDto>(result);
         }
 
         public void UpdateTableDetail(long orderTableID)

@@ -1,6 +1,7 @@
 ﻿$(document).ready(function(){
     var leftmenu = $('#leftmenu');
     if (leftmenu.length != 0) {
+        $('#leftmenuExpander').css("left", leftmenu.outerWidth() + "px");
         $('#expander').click(ExpandColapseMenu);
     }
     
@@ -14,26 +15,19 @@
 function ExpandColapseMenu() {
     var link = $('#expander');
     if (link.hasClass('expanded')) {
-        $('#leftmenu').animate({
-            width: "1%"
-        }, 500);
-        
-        $('#body').animate({
-            width: "97%"
-        }, 500);
+        $('#leftmenu').css("width", "0");
+        $('#leftmenuExpander').css("left", "0");
+
+        $('#body').css("width", "99%");
         
         link.removeClass('expanded');
         link.addClass('colapsed');
     }
     else {
-        $('#body').animate({
-            width: "85%"
-        }, 500);
-        
-        $('#leftmenu').animate({
-            width: "13%"
-        }, 500);
-        
+        $('#leftmenu').css("width", "13%");
+        $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
+
+        $('#body').css("width", "86%");
         link.removeClass('colapsed');
         link.addClass('expanded');
     }
@@ -46,7 +40,7 @@ function SetHeightBodySection() {
     var footerHeight = $('#footer').outerHeight();
     var menuHeight = $('#admin-menu').outerHeight();
 
-    $('#body #admin-body, #body #cashier').height(windowHeight - headerHeight - footerHeight - menuHeight);
+    $('#body #admin-body, #body #cashier, #leftmenu').height(windowHeight - headerHeight - footerHeight - menuHeight);
 }
 
 function pad(s) { return (s < 10) ? '0' + s : s; }

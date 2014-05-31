@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using Core.Common.Session;
 using SMS.Data;
@@ -17,9 +18,8 @@ namespace SMS.Business.Impl
 
         public TDto GetOrderDetail<TDto>(long orderTableID)
         {
-            var orderTable = OrderTableRepository.Get(orderTableID);
-            var result = orderTable != null ? Repository.Get(orderTable.Order.ID) : null;
-            return result == null ? Mapper.Map<TDto>(new OrderDto()) : Mapper.Map<TDto>(result);
+            var result = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
+            return result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result);
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace SMS.Business.Impl
 
         public bool DeleteByOrderTableID(long orderTableID)
         {
-            var orderTable = OrderTableRepository.Get(orderTableID);
-            var orderID = orderTable == null ? 0 : orderTable.Order.ID;
+            var order = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
+            var orderID = order == null ? 0 : order.ID;
 
             Repository.Delete(orderID);
 
