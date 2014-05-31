@@ -32,25 +32,51 @@
 <body>
     @Html.Partial("EditLabelPopup", new PopupModel { PopupID = "editLabelPopup", PopupTitle = "Edit Labels" })
     @Html.Partial("PrintInvoicePreview", new PopupModel { PopupID = "printPreviewPopup", PopupTitle = "Print Preview" })
-    <header class="ui-helper-clearfix" id="header">
-        <div id="logo">
-            <p>@Html.ActionLink("your logo here", "Index", "Home")</p>
-        </div>
-        <div id="login">
-            <section>
-                @Html.Partial("_LoginPartial")
-            </section>
-        </div>
-    </header>
+
     <div class="ui-helper-clearfix">
         <div id="leftmenu">
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
-                    <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
+            <div>
+                <div id="logo">
+                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/logo.jpg" alt="logo"/></a>
+                </div>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
+                        <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
+                    </ul>
+                </nav>
+                <ul id="user">
+                    @if(UserContext.IsSuperAdmin)
+                    {
+                        <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
+                    }
                 </ul>
-            </nav>
+                <ul id="language">
+                    <li><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-labelID="lblLanguageVN">Vietnamese</span></a></li>
+                    <li><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-labelID="lblLanguageEN">English</span></a></li>
+                </ul> 
+                <script type="text/javascript">
+                    $('#change-language-vn').click(function () {
+                        changeLanguage(0);
+                    });
+    
+                    $('#change-language-en').click(function () {
+                        changeLanguage(1);
+                    });
+    
+                    function changeLanguage(id) {
+                        $.ajax({
+                            type: 'POST',
+                            url: location.pathname + '/ChangeLanguage',
+                            data: { language: id }
+                        }).done(function (data) {
+                            if(data.Success)
+                                location.reload();
+                        });
+                    }
+                </script>
+            </div>
         </div>
         <div id="leftmenuExpander">
             <a href="#" id="expander" class="expanded">&lt;</a>
@@ -96,9 +122,9 @@
         </div>
     </div>
 
-    <footer id="footer">
+    @*<footer id="footer">
         &copy; @DateTime.Now.Year - My ASP.NET MVC Application
-    </footer>
+    </footer>*@
     @Html.Partial("MessagePopup")
     @Html.Partial("AjaxLoader")
     @RenderSection("scripts", required: false)

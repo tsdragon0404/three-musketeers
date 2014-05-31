@@ -47,19 +47,63 @@ header {
     width: 13%;
     float: left;
     overflow: hidden;
+    position: relative;
 }
 
-    #leftmenu nav {
-        padding-left: 15px;
-    }
+#leftmenu > div {
+    padding-left: 15px;    
+}
+
+#leftmenu nav {
+    border-bottom: 1px solid #ddd;
+}
+
+#language {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#language li {
+    display: inline;
+    padding-right: 10px;
+}
+#language li a {
+    color: #555;
+}
+#language li a:hover {
+    color: #222;
+}
+
+#language li img {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
 
 #leftmenuExpander {
-    width: 1%;
+    width: 16px;
+    height: 16px;
     float: left;
+    position: absolute;
+}
+#expander {
+    background: url("../../Images/IconControls/expand-icon.png") no-repeat;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    text-indent: -999px;
 }
 
+#expander.expanded {
+    background: url("../../Images/IconControls/collapse-icon.png") no-repeat;
+    background-size: 16px 16px;
+}
 #body {
-    width: 85%;
+    width: 86%;
     float: right;
     border-left: 1px solid #ddd;
 }

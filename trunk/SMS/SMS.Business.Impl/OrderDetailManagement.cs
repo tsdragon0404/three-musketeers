@@ -20,7 +20,7 @@ namespace SMS.Business.Impl
         {
             var product = ProductRepository.Get(productID);
             if (product == null)
-                return Mapper.Map<TDto>(new OrderTableDto());
+                return Mapper.Map<TDto>(new OrderTable());
             var orderDetail = new OrderDetail
                                   {
                                       OrderTable = new OrderTable {ID = orderTableID},
@@ -29,7 +29,7 @@ namespace SMS.Business.Impl
                                       OrderStatus = new OrderStatus {ID = 1}
                                   };
             Repository.Add(orderDetail);
-            return Mapper.Map<TDto>(OrderTableManagement.GetTableDetail<OrderTableDto>(orderTableID));
+            return Mapper.Map<TDto>(Repository.Get(orderTableID));
         }
 
         public bool UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
