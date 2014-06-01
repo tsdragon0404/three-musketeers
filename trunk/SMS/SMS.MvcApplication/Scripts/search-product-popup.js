@@ -99,8 +99,7 @@
         
         $(root.productData).each(function(idx, element) {
             if (element.ProductCode.toLowerCase().indexOf(text) != -1
-                || element.VNName.toLowerCase().indexOf(text) != -1
-                || element.ENName.toLowerCase().indexOf(text) != -1) {
+                || element.Name.toLowerCase().indexOf(text) != -1) {
                 tempData.push(element);
             }
         });

@@ -145,7 +145,7 @@ namespace SMS.MvcApplication.Controllers
 
             var orderTable = OrderTableService.GetTableDetail<LanguageOrderTableDto>(orderTableID);
 
-            return Json(new { InvoiceTable = orderTable });
+            return Json(new { OrderTable = orderTable });
         }
     }
 }
