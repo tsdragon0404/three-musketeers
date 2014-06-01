@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Core.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Filters;
+using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Base
@@ -45,36 +46,32 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult EditPageLabel(int pageID, string labelID, string text)
         {
-            if (!UserContext.IsSuperAdmin)
-                return Json(new { Success = false });
-
-            return Json(new {Success = PageLabelService.Save(pageID, labelID, text)});
+            return Json(!UserContext.IsSuperAdmin 
+                ? new JsonModel { Success = false } 
+                : new JsonModel { Success = PageLabelService.Save(pageID, labelID, text) });
         }
 
         [HttpPost]
         public JsonResult ChangeLanguage(Language language)
         {
             UserContext.Language = language;
-            return Json(new {Success = true});
+            return Json(new JsonModel());
         }
 
         [HttpPost]
         public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
         {
-            if (!UserContext.IsSuperAdmin)
-                return Json(new { Success = false });
-
-            var teemp = listLabels.ToList();
-            return Json(new { Success = PageLabelService.Save(pageID, teemp) });
+            return Json(!UserContext.IsSuperAdmin 
+                ? new JsonModel { Success = false } 
+                : new JsonModel { Success = PageLabelService.Save(pageID, listLabels.ToList()) });
         }
 
         [HttpPost]
         public JsonResult GetAllPageLabel(int pageID)
         {
-            if (!UserContext.IsSuperAdmin)
-                return Json(new { Success = false });
-
-            return Json(new { Success = true, ListLabels = PageLabelService.GetByPageID<PageLabelDto>(pageID) });
+            return Json(!UserContext.IsSuperAdmin 
+                ? new JsonModel { Success = false } 
+                : new JsonModel { Data = PageLabelService.GetByPageID<PageLabelDto>(pageID) });
         }
     }
 }

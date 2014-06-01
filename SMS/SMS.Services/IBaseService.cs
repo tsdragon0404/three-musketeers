@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Common.Validation;
 using SMS.Common.Paging;
 
 namespace SMS.Services
@@ -11,7 +12,7 @@ namespace SMS.Services
         IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo);
         TDto GetByID(TPrimaryKey primaryKey);
         TModel GetByID<TModel>(TPrimaryKey primaryKey);
-        bool Save(TDto dto);
+        ServiceResult<TDto> Save(TDto dto);
         bool Delete(TPrimaryKey primaryKey);
     }
 }

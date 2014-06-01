@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Common.Validation;
 using SMS.Business;
 using SMS.Common.Paging;
 
@@ -38,7 +39,7 @@ namespace SMS.Services.Impl
             return Management.GetByID<TModel>(primaryKey);
         }
 
-        public bool Save(TDto dto)
+        public ServiceResult<TDto> Save(TDto dto)
         {
             return Management.Save(dto);
         }
