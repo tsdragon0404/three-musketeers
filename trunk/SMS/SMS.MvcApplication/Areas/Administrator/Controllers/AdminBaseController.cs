@@ -2,6 +2,7 @@
 using SMS.Common.Paging;
 using SMS.MvcApplication.Areas.Administrator.Models;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administrator.Controllers
@@ -33,25 +34,26 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult GetDataForEdit(TPrimaryKey recordID)
         {
-            return Json(Service.GetByID(recordID));
+            return Json(new JsonModel { Data = Service.GetByID(recordID) });
         }
 
         [HttpPost]
         public virtual JsonResult GetSchemaForAdd()
         {
-            return Json(new TDto());
+            return Json(new JsonModel { Data = new TDto() });
         }
 
         [HttpPost]
         public virtual JsonResult SaveData(TDto data)
         {
-            return Json(Service.Save(data));
+            var saveResult = Service.Save(data);
+            return Json(new JsonModel { Success = saveResult.Success });
         }
 
         [HttpPost]
         public virtual JsonResult DeleteData(TPrimaryKey recordID)
         {
-            return Json(Service.Delete(recordID));
+            return Json(new JsonModel { Success = Service.Delete(recordID) });
         }
     }
 }

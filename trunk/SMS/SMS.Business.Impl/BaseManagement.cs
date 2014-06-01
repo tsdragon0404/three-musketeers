@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Session;
+using Core.Common.Validation;
 using Core.Data;
 using AutoMapper;
 using SMS.Common.Paging;
@@ -55,8 +56,10 @@ namespace SMS.Business.Impl
             return Mapper.Map<TModel>(Repository.Get(primaryKey));
         }
 
-        public bool Save(TDto dto)
+        public ServiceResult<TDto> Save(TDto dto)
         {
+            var result = new ServiceResult<TDto>();
+
             var entity = Mapper.Map<TEntity>(dto);
             if (entity.ID is long && long.Parse(entity.ID.ToString()) == 0)
                 Repository.Add(entity);
@@ -65,13 +68,14 @@ namespace SMS.Business.Impl
                 var mergeEntity = Repository.Merge(entity);
                 Repository.Update(mergeEntity);
             }
-            return true;
+            result.Data = Mapper.Map<TDto>(entity);
+            result.Success = true;
+            return result;
         }
 
         public bool Delete(TPrimaryKey primaryKey)
         {
-            Repository.Delete(primaryKey);
-            return true;
+            return Repository.Delete(primaryKey);
         }
 
         #endregion

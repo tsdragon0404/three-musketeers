@@ -45,8 +45,8 @@
                             type: 'POST',
                             url: location.pathname + '/EditPageLabel',
                             data: { text: $(insertedElement).val(), pageID: pageID, labelID: id }
-                        }).done(function (data) {
-                            if (data.Success)
+                        }).done(function (result) {
+                            if (result.Success)
                                 $(element).text($(insertedElement).val());
                             else
                                 $(insertedElement).val($(element).text());
@@ -68,23 +68,23 @@
                     type: 'POST',
                     url: location.pathname + '/GetAllPageLabel',
                     data: { pageID: pageID }
-                }).done(function (data) {
-                    if (!data.Success)
+                }).done(function (result) {
+                    if (!result.Success)
                         return;
 
                     $('[data-labelID]').each(function (i, element) {
                         var id = $(element).attr('data-labelID');
                         var exists = false;
-                        $(data.ListLabels).each(function(j, label) {
+                        $(result.Data).each(function (j, label) {
                             if(label.LabelID == id) {
                                 exists = true;
                                 return;
                             }
                         });
                         if (!exists)
-                            data.ListLabels[data.ListLabels.length] = { LabelID: id, VNText: '', ENText: '' };
+                            result.Data[result.Data.length] = { LabelID: id, VNText: '', ENText: '' };
                     });
-                    $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(data));
+                    $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
 
                     root.OpenPopup();
                 });
@@ -104,12 +104,12 @@
                 $.ajax({
                     type: 'POST',
                     url: location.pathname + '/MultiEditPageLabel',
-
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ pageID: pageID, listLabels: data })
-                }).done(function () {
-                    location.reload();
+                }).done(function (result) {
+                    if(result.Success)
+                        location.reload();
                 });
             });
 

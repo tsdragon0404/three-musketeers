@@ -135,7 +135,7 @@
                 var saveUrl = '@Url.Action("SaveData")';
                 var deleteUrl = '@Url.Action("DeleteData")';
                 
-                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl);
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl, 'Warning', 'Delete this record?');
                 adminfunc.bind();
             });
 

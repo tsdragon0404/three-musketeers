@@ -209,6 +209,7 @@
     <Compile Include="Areas\Administrator\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TableController.cs" />
     <Compile Include="Areas\Administrator\Models\AdminModel.cs" />
+    <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\BaseView.cs" />
     <Compile Include="Base\JsonNetResult.cs" />

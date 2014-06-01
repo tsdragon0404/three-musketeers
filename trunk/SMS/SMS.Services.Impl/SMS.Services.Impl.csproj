@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{5fb61bb1-1fb0-44ba-bd89-c99c4b5a810f}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Business\SMS.Business.csproj">
       <Project>{18F49F86-DFC7-4DCF-93B9-F395FE4CB2C7}</Project>
       <Name>SMS.Business</Name>
