@@ -31,10 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BranchConfig.cs" />
+    <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
     <Compile Include="Constant\ConstPage.cs" />
     <Compile Include="Constant\ConstStyle.cs" />

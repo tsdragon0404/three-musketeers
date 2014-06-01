@@ -41,6 +41,9 @@ function SetHeightBodySection() {
     var menuHeight = $('#admin-menu').outerHeight();
 
     $('#body #admin-body, #body #cashier, #leftmenu').height(windowHeight - headerHeight - footerHeight - menuHeight);
+    
+    // set position for expander
+    $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
 }
 
 function pad(s) { return (s < 10) ? '0' + s : s; }

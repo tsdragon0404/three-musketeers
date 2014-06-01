@@ -44,9 +44,9 @@ namespace SMS.MvcApplication
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-            bundles.Add(new StyleBundle("~/Content/themes/start/css").Include(
-                        "~/Content/themes/start/jquery-ui.css",
-                        "~/Content/themes/start/jquery.ui.theme.css"));
+            //bundles.Add(new StyleBundle("~/Content/themes/start/css").Include(
+            //            "~/Content/themes/start/jquery-ui.css",
+            //            "~/Content/themes/start/jquery.ui.theme.css"));
         }
     }
 }
