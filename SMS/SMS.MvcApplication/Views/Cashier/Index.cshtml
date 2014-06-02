@@ -84,7 +84,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="2" class="vertical-top">
-                            <a id="addProduct-${ID}" href="#" class="button">Chọn món</a>
+                            <a href="#" id="addProduct-${ID}"><img src="Images/IconControls/add-icon.png" alt="add record" /></a>
                         </td>
                         <td colspan="8">
                             <div class="row">
@@ -266,8 +266,8 @@
         <div>
             <div class="row">
                 <div class="four columns right border-top payment">
-                    <a id="payment" href="#" class="button">Thanh toán</a>
-                    <a id="printInvoice" href="#" class="button">In trước hóa đơn</a>
+                    <input type="button" id="payment" value="Thanh toán"/>
+                    <input type="button" id="printInvoice" value="In trước hóa đơn"/>
                 </div>
             </div>
         </div>
@@ -303,8 +303,9 @@
         $("#payment").hide();
         $("#printInvoice").hide();
         
-        $('#printInvoice').click(function () {
-            var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getDataForPostCallback, null, $('#invoice-preview-tmpl'));
+        $("#payment").button();
+        $('#printInvoice').button().click(function () {
+            var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderTableId, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });
@@ -347,7 +348,7 @@
         }
     }
 
-    function getDataForPostCallback() {
+    function getCurrentOrderTableId() {
         return { orderTableID: $('#curOrderTableID').val() };
     }
     
@@ -377,7 +378,7 @@
     $(document).on("click", 'a[id^="addProduct-"]', (function(e){
         var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
         product.OpenPopup();
-        $('#curOrderTableID').val($(e.target).attr('id').split('-')[1]);
+        $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
         return false;
     }));
 
@@ -704,6 +705,8 @@
     }
 
     function bindEventForControl() {
+        $('#order').table();
+
         $('input[id^="qty"]').spinner({
             step: 0.5,
             numberFormat: "n",

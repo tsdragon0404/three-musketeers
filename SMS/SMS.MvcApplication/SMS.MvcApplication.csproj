@@ -739,14 +739,13 @@
     <Content Include="Images\flag-vn.png" />
     <Content Include="Images\IconControls\accept-icon.png" />
     <Content Include="Images\IconControls\add-icon.png" />
-    <Content Include="Images\IconControls\collapse-icon.png" />
     <Content Include="Images\IconControls\confirm-icon.png" />
     <Content Include="Images\IconControls\delete-icon.png" />
     <Content Include="Images\IconControls\details-icon.png" />
     <Content Include="Images\IconControls\done-icon.png" />
     <Content Include="Images\IconControls\edit-icon.png" />
     <Content Include="Images\IconControls\error-icon.png" />
-    <Content Include="Images\IconControls\expand-icon.png" />
+    <Content Include="Images\IconControls\expander-icon.png" />
     <Content Include="Images\IconControls\info-icon.png" />
     <Content Include="Images\IconControls\move-icon.png" />
     <Content Include="Images\IconControls\new-icon.png" />
