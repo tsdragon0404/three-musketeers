@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -69,6 +72,12 @@ namespace SMS.Business.Impl
             Repository.Update(orderDetail);
 
             return Mapper.Map<TDto>(orderDetail);
+        }
+
+        public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
+        {
+            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.Ordered).ToList();
+            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
         }
     }
 }

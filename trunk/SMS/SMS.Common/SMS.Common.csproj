@@ -42,6 +42,7 @@
     <Compile Include="Constant\ConstStyle.cs" />
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\DiscountType.cs" />
+    <Compile Include="Constant\OrderStatus.cs" />
     <Compile Include="Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />

@@ -147,10 +147,16 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
     display: inline;
     padding-right: 10px;
 }
+
+#language li.hide {
+    display: none;
+}
+
 #language li a {
     color: #555;
     white-space: nowrap;
 }
+
 #language li a:hover {
     color: #222;
 }

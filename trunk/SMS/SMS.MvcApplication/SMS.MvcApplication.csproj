@@ -209,6 +209,7 @@
     <Compile Include="Areas\Administrator\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TableController.cs" />
     <Compile Include="Areas\Administrator\Models\AdminModel.cs" />
+    <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\BaseView.cs" />
@@ -813,6 +814,7 @@
     <Content Include="Views\Shared\PrintInvoicePreview.cshtml" />
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
     <Content Include="Views\Shared\LabelController.cshtml" />
+    <Content Include="Views\Kitchen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

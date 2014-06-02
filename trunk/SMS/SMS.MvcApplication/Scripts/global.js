@@ -40,7 +40,8 @@ function SetHeightBodySection() {
     var footerHeight = $('#footer').outerHeight();
     var menuHeight = $('#admin-menu').outerHeight();
 
-    $('#body #admin-body, #body #cashier, #leftmenu').height(windowHeight - headerHeight - footerHeight - menuHeight);
+    $('#body #admin-body, #body #cashier, #body #kitchen').height(windowHeight - headerHeight - footerHeight - menuHeight);
+    $('#leftmenu').height(windowHeight - headerHeight - footerHeight);
     
     // set position for expander
     $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");

@@ -1,4 +1,6 @@
-﻿using SMS.Business;
+﻿using System.Collections.Generic;
+using Core.Common.Validation;
+using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -22,6 +24,11 @@ namespace SMS.Services.Impl
         public TDto UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
         {
             return Management.UpdateOrderedProductStatus<TDto>(orderDetailID, value);
+        }
+
+        public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
+        {
+            return Management.GetOrderedProductForKitchen<TDto>();
         }
     }
 }

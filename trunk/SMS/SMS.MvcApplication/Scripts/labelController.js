@@ -22,40 +22,6 @@
     this.BuildEditControl = function (pageID) {
         try {
             $(".ajax-loader-mask").show();
-            var elements = $('span[data-labelID], label[data-labelID]');
-            elements.each(function (idx, element) {
-                var id = $(element).attr('data-labelID');
-                $(element).after(root.inputTemplate.replace('{0}', id).replace('{1}', $(element).text()));
-                var insertedElement = $(element).next();
-                $(insertedElement).attr('style', 'height: ' + element.offsetHeight + 'px; width: ' + element.offsetWidth + 'px;');
-
-                $(element).dblclick(function() {
-                    $(element).addClass('hide');
-                    $(insertedElement).removeClass('hide');
-                    $(insertedElement).focus();
-                    
-                    $(insertedElement).blur(function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: location.pathname + '/EditPageLabel',
-                            data: { text: $(insertedElement).val(), pageID: pageID, labelID: id }
-                        }).done(function (result) {
-                            if (result.Success)
-                                $(element).text($(insertedElement).val());
-                            else
-                                $(insertedElement).val($(element).text());
-
-                            $(element).removeClass('hide');
-                            $(insertedElement).addClass('hide');
-                        });
-                    });
-                    $(insertedElement).keypress(function (e) {
-                        if (e.which == 13) {
-                            $(e.target).trigger('blur');
-                        }
-                    });
-                });
-            });
             
             $(root.multiEditId).click(function () {
                 $.ajax({

@@ -46,6 +46,7 @@
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
                         <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Kitchen", "Index", "Kitchen", new { area = "" }, null)</li>
                     </ul>
                 </nav>
                 <ul id="user">
@@ -55,16 +56,31 @@
                     }
                 </ul>
                 <ul id="language">
-                    <li><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-labelID="lblLanguageVN">Vietnamese</span></a></li>
-                    <li><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-labelID="lblLanguageEN">English</span></a></li>
+                    
+                    @{
+                        var classVN = "";
+                        var classEN = "";
+                        if (UserContext.Language == Language.English)
+                        {
+                            classEN = "class=\"hide\"";
+                        }
+                        if (UserContext.Language == Language.Vietnamese)
+                        {
+                            classVN = "class=\"hide\"";
+                        }
+                    }
+                    
+                    <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-labelID="lblLanguageVN">Vietnamese</span></a></li>
+                    <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-labelID="lblLanguageEN">English</span></a></li>
                 </ul> 
+
                 <script type="text/javascript">
                     $('#change-language-vn').click(function () {
-                        changeLanguage(0);
+                        changeLanguage(@Language.Vietnamese);
                     });
     
                     $('#change-language-en').click(function () {
-                        changeLanguage(1);
+                        changeLanguage(@Language.English);
                     });
     
                     function changeLanguage(id) {
