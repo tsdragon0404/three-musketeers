@@ -87,7 +87,7 @@
     @Html.Partial("Search", Model.PagingInfo)
 
     <div class="row">
-        <table class="admin-table-record">
+        <table id="record-table">
             <colgroup>
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
@@ -110,7 +110,7 @@
                     <th>Enabled</th>
                 </tr>
             </thead>
-            <tbody class="admin-list-record">
+            <tbody>
                 @foreach (var dto in Model.ListRecord)
                 {
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";

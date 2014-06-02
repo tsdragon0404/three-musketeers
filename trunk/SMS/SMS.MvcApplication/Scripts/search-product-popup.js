@@ -6,6 +6,7 @@
     this.selectCallback = selectCallback;
 
     $('#' + id).dialog({
+        dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
         width: 800,
@@ -13,17 +14,17 @@
     });
 
     //unbind click event for buttons
-    $('#' + id + ' .button').unbind('click');
+    $('button, input[type="button"').unbind('click');
 
-    $('#' + id + ' .popupSearch').click(function () {
+    $('#' + id + ' .popupSearch').button().click(function () {
         root.search();
     });
 
-    $('#' + id + ' .popupClose').click(function () {
+    $('#' + id + ' .popupClose').button().click(function () {
         $('#' + id).dialog('close');
     });
 
-    $('#' + id + ' .popupRefresh').click(function () {
+    $('#' + id + ' .popupRefresh').button().click(function () {
         if (refreshCallback)
             refreshCallback(reloadProduct);
     });
@@ -63,7 +64,7 @@
             min: 0.5
         });
 
-        $('#' + id + ' .popupSelect').click(function (e) {
+        $('#' + id + ' .popupSelect').button().click(function (e) {
             var pdtid = e.target.id.split('-')[1];
             if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);

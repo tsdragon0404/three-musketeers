@@ -8,15 +8,17 @@
     this.deleteDataUrl = deleteDataUrl;
     this.deleteWarningTitle = deleteWarningTitle;
     this.deleteWarningMessage = deleteWarningMessage;
-    
-    this.bind = function() {
-        $('.admin-list-record a.edit-record').click(function () {
+
+    this.activeRowCss = 'ui-state-active';
+    this.detailRowCss = 'ui-widget-content';
+
+    this.bind = function () {
+        $('#record-table').table();
+
+        $('#record-table a.edit-record').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
-                record.removeClass('selected');
-                record.next().find('div.detail').slideToggle(500, function () {
-                    record.next().remove();
-                });
+                cancelRecord();
                 return false;
             }
 
@@ -35,14 +37,16 @@
                 if (place.length == 0)
                     return;
 
-                place.addClass('selected');
+                place.addClass(root.activeRowCss);
 
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                $('#save-' + result.Data.ID).click(function () {
+                place.next().addClass(root.detailRowCss);
+
+                $('#save-' + result.Data.ID).button().click(function () {
                     saveRecord(result.Data.ID);
                     return false;
                 });
-                $('#cancel-' + result.Data.ID).click(function () {
+                $('#cancel-' + result.Data.ID).button().click(function () {
                     cancelRecord();
                     return false;
                 });
@@ -52,13 +56,10 @@
             return false;
         });
 
-        $('.admin-table-record a#addRecord').click(function () {
+        $('#record-table a#addRecord').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
-                record.removeClass('selected');
-                record.next().find('div.detail').slideToggle(500, function () {
-                    record.next().remove();
-                });
+                cancelRecord();
                 return false;
             }
 
@@ -71,15 +72,17 @@
                 }
                 cancelRecord();
 
-                var place = $('.admin-table-record a#addRecord').parent().parent();
-                place.addClass('selected');
+                var place = $('#record-table a#addRecord').parent().parent();
+                place.addClass(root.activeRowCss);
 
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                $("#save-0").click(function () {
+                place.next().addClass(root.detailRowCss);
+
+                $("#save-0").button().click(function () {
                     saveRecord(0);
                     return false;
                 });
-                $('#cancel-0').click(function () {
+                $('#cancel-0').button().click(function () {
                     cancelRecord();
                     return false;
                 });
@@ -89,7 +92,7 @@
             return false;
         });
 
-        $('.admin-list-record a.del-record').click(function () {
+        $('#record-table a.del-record').click(function () {
             var id = $(this).attr('data-id');
             var popup = new MessagePopup(root.deleteWarningTitle,
                 root.deleteWarningMessage,
@@ -130,8 +133,8 @@
     }
 
     function cancelRecord() {
-        $('.admin-record-detail .detail').parent().parent().prev().removeClass('selected');
         $('.admin-record-detail .detail').slideToggle(500, function () {
+            $(this).parent().parent().prev().removeClass(root.activeRowCss);
             $(this).parent().parent().remove();
         });
     }

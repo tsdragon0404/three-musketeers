@@ -5,7 +5,7 @@
         <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
         <div class="searchDiv">
             <input type="text" name="textSearch" class="textSearch" tabindex="1" />
-            <input type="button" class="button popupSearch"  value="Search" />
+            <input type="button" class="popupSearch" value="Search" />
         </div>
         <div class="popup-content">
             <table class="tableContent" id="searchProduct">
@@ -41,8 +41,8 @@
 
         <div class="right">
             @*<input type="button" class="button popupSelect" value="Select" />*@
-            <input type="button" class="button popupRefresh" value="Refresh" />
-            <input type="button" class="button popupClose" value="Close" />
+            <input type="button" class="popupRefresh" value="Refresh" />
+            <input type="button" class="popupClose" value="Close" />
         </div>
     </form>
 </div>
@@ -54,7 +54,7 @@
         <td>${Name}</td>
         <td class="right">${Price} VNĐ</td>
         <td class="right"><input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
-        <td class="center"><input type="button" class="small button popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
+        <td class="center"><input type="button" class="small popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
     </tr>
 </script>
 <script type="text/javascript">

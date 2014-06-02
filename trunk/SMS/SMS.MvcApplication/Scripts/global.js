@@ -67,3 +67,9 @@ String.prototype.readMoneyAsNumber = function() {
 
     return parseInt(str);
 };
+
+$.fn.table = function () {
+    this.addClass('no-border');
+    this.find('thead tr').addClass('ui-widget-header');
+    this.find('tbody tr, tfoot tr').addClass('ui-helper-reset ui-state-default');
+};

@@ -50,8 +50,8 @@
                 </div>
                 <div class="row">
                     <div class="eleven columns right">
-                        <input type="button" class="button" id="save-${ID}" value="Save" />
-                        <input type="button" class="button" id="cancel-${ID}" value="Cancel" />
+                        <input type="button" id="save-${ID}" value="Save" />
+                        <input type="button" id="cancel-${ID}" value="Cancel" />
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
     @Html.Partial("Search", Model.PagingInfo)
 
     <div class="row">
-        <table class="admin-table-record">
+        <table id="record-table" class="no-border">
             <colgroup>
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
@@ -88,11 +88,11 @@
                     <th>Enabled</th>
                 </tr>
             </thead>
-            <tbody class="admin-list-record">
+            <tbody>
                 @foreach (var dto in Model.ListRecord)
                 {
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
-                    <tr class="admin-record @altClass" data-id="@dto.ID">
+                    <tr class="@altClass" data-id="@dto.ID">
                         <td>
                             <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
