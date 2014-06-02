@@ -88,8 +88,8 @@
                         </td>
                         <td colspan="8">
                             <div class="row">
-                                <div class="two columns push_eight right">Subtotal:</div>
-                                <div class="two columns right"><span class="total_amount">0</span> VNĐ</div>
+                                <div class="two columns push_eight right">Sub total:</div>
+                                <div class="two columns right"><span class="sub-total">0</span> VNĐ</div>
                             </div>
                         </td>
                     </tr>
@@ -251,7 +251,7 @@
             {
                 <div class="row" id="ServiceFree">
                     <div class="two columns push_eight right">Service Fee:</div>
-                    <div class="two columns right"><span class="fee">0</span> VNĐ</div>
+                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> VNĐ</div>
                 </div>
             }
             <div class="row" id="Tax-">
@@ -260,7 +260,7 @@
             </div>
             <div class="row">
                 <div class="two columns push_eight right">Total Amount:</div>
-                <div class="two columns right border-top"><span class="total_money">0</span> VNĐ</div>
+                <div class="two columns right border-top"><span class="total_amount">0</span> VNĐ</div>
             </div>
         </div>
         <div>
@@ -271,6 +271,7 @@
                 </div>
             </div>
         </div>
+        <div class="row"><br/></div>
     </div>
     
     <div id="rightMenuArea"></div>
@@ -327,16 +328,8 @@
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
             }).done(function (data) {
-                if (data.Order.ID == 0) {
-                    var popup = new MessagePopup('Thông báo',
-                        'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
-                        1,
-                        function() {
-                            refreshTableArea();
-                            clearDisplayTableDetail(orderId);
-                        });
-
-                    popup.OpenPopup();
+                if (data.Order == null) {
+                    clearDisplayTableDetail(orderId);
                 }
                 else {
                     $('#tblContent').html('');
@@ -514,28 +507,7 @@
         }
 
         var orderDetailId = $(e).attr('id').split('-')[1];
-        var value;
-        if(colName == 'status') {
-            value = parseInt($(e).attr('id').split('-')[2]);
-            switch (value) {
-                case 1:
-                    value = 2;
-                    break;
-                case 2:
-                    value = 3;
-                    break;
-                case 3:
-                    value = 5;
-                    break;
-                case 4:
-                    value = 5;
-                    break;
-                case 5:
-                    return;
-            }
-        } else {
-            value = $(e).val();
-        }
+        var value = $(e).val();
         
         $.ajax({
             type: 'POST',
@@ -551,7 +523,69 @@
 
                 popup.OpenPopup();
             } else {
-                CalculateTable();
+                CalculateTotal();
+            }
+        });
+    }
+    
+    function UpdateOrderedProductStatus(e) {
+        var orderDetailId = $(e).attr('id').split('-')[1];
+        var value = parseInt($(e).attr('id').split('-')[2]);
+        
+        switch (value) {
+        case 1:
+            value = 2;
+            break;
+        case 2:
+            value = 3;
+            break;
+        case 3:
+            value = 5;
+            break;
+        case 4:
+            value = 5;
+            break;
+        case 5:
+            return;
+        }
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProductStatus")',
+            data: { orderDetailID: orderDetailId, value: value }
+        }).done(function (data) {
+            if(data.OrderDetail.ID == 0) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                $(e).attr('id', 'status-' + data.OrderDetail.ID + '-' + data.OrderDetail.OrderStatus.ID);
+                $(e).attr('title', data.OrderDetail.OrderStatus.Name);
+                var cssClass = '';
+
+                switch (data.OrderDetail.OrderStatus.ID) {
+                    case 1:
+                        cssClass = 'transfer';
+                        break;
+                    case 2:
+                        cssClass = 'pending';
+                        break;
+                    case 3:
+                        cssClass = 'accept';
+                        break;
+                    case 4:
+                        cssClass = 'reject';
+                        break;
+                    case 5:
+                        cssClass = 'done';
+                        break;
+                    default : cssClass = 'done';
+                }
+                $(e).attr('class', 'icon-' + cssClass);
             }
         });
     }
@@ -693,7 +727,7 @@
         });
         
         $('div[id^="status"]').click(function() {
-            updateOrderedProduct(this);
+            UpdateOrderedProductStatus(this);
         });
         
         $('form[id^="form-table-order-"]').validate({
@@ -703,6 +737,8 @@
                 }
             }
         });
+
+        CalculateTotal();
     }
 
     function onDeleteProductFromOrderDetail(orderDetailId) {
@@ -714,7 +750,7 @@
             }).done(function(data) {
                 if (data.Success) {
                     $('tr[id="' + orderDetailId + '"').remove();
-                    CalculateTable();
+                    CalculateTotal();
                 }
             });
         }
@@ -784,36 +820,26 @@
         event.preventDefault();
     }
     
-    function CalculateTable() {
-        $('tbody[id^="table-detail-"]').each(function(idx, e) {
-            $(e).find('tr').each(function(index, element) {
+    function CalculateTotal() {
+        var subTotal;
+        var totalAmount = 0;
+        
+        $('table[id="order"]').each(function(idx, e) {
+            subTotal = 0;
+            $(e).find('tbody[id^="table-detail-"] tr').each(function(index, element) {
                 var qty = $(element).find('td input[id^="qty"]').val();
                 var price = $(element).find('td.product-price').text().readMoneyAsNumber();
                 var discount = $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
                 var total = qty*price - discount ;
+                subTotal += total;
                 $(element).find('td.sequence').text(index + 1);
                 $(element).find('td.item_subtotal').text(total.formatAsMoney());
             });
-        });
-    }
-        
-    function CalculateTotal() {
-        var totalAmount = 0;
-        $('#order .tbContent tr').each(function (idx, element) {
-            totalAmount += $(element).find('td.item_subtotal').text().readMoneyAsNumber();
-        });
-
-        $('#totalSection .total_amount').text(totalAmount.formatAsMoney());
-        
-        var tax = totalAmount / 10;
-        
-        if(useServiceFee) {
-            $('#totalSection .fee').text(serviceFee.formatAsMoney());
-            totalAmount += serviceFee;
-        }
-
-        $('#totalSection .tax').text(tax.formatAsMoney());
             
-        $('#totalSection .total_money').text((totalAmount + tax).formatAsMoney());
+            totalAmount += subTotal;
+            $(e).find('.sub-total').text(subTotal.formatAsMoney());
+        });
+        
+        $('#totalSection .total_amount').text(totalAmount.formatAsMoney());
     }
 </script>

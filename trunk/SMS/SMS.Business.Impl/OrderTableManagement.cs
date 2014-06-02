@@ -43,22 +43,6 @@ namespace SMS.Business.Impl
             return orderTable.ID;
         }
 
-        public TDto GetTableDetail<TDto>(long orderTableID)
-        {
-            var result = Repository.Get(orderTableID);
-            return result == null ? Mapper.Map<TDto>(new OrderTable()) : Mapper.Map<TDto>(result);
-        }
-
-        public void UpdateTableDetail(long orderTableID)
-        {
-            //var total = OrderDetailRepository.Find(x => x.OrderTable.ID == orderTableID).Sum(x => x.Price * x.Quantity);
-            //var OrderTable = Repository.Get(orderTableID);
-
-            //OrderTable.TableAmount = total;
-
-            //Repository.Update(OrderTable);
-        }
-
         public bool CheckTableStatus(long tableID)
         {
             var result = Repository.Find(x => x.Table.ID == tableID);

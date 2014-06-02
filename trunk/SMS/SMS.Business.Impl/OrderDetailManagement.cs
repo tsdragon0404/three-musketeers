@@ -13,6 +13,7 @@ namespace SMS.Business.Impl
         public virtual IProductRepository ProductRepository { get; set; }
         public virtual IOrderTableRepository OrderTableRepository { get; set; }
         public virtual IOrderTableManagement OrderTableManagement { get; set; }
+        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
 
         #endregion
 
@@ -26,7 +27,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = new OrderStatus {ID = 1}
+                                      OrderStatus = OrderStatusRepository.Get(5) // default đã hoàn thành
                                   };
             Repository.Add(orderDetail);
             return Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID));
@@ -53,15 +54,21 @@ namespace SMS.Business.Impl
                         orderDetail.DiscountComment = "";
                         break;
                     }
-                case "status":
-                    {
-                        orderDetail.OrderStatus = new OrderStatus{ ID = long.Parse(value)};
-                        break;
-                    }
             }
             Repository.Update(orderDetail);
 
             return true;
+        }
+
+        public TDto UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
+        {
+            var orderDetail = Repository.Get(orderDetailID);
+            if (orderDetail == null)
+                return Mapper.Map<TDto>(new OrderDetail());
+            orderDetail.OrderStatus = OrderStatusRepository.Get(value);
+            Repository.Update(orderDetail);
+
+            return Mapper.Map<TDto>(orderDetail);
         }
     }
 }

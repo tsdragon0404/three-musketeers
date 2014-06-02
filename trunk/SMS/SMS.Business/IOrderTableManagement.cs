@@ -7,8 +7,6 @@ namespace SMS.Business
     {
         IList<TDto> GetTablesByAreaID<TDto>(long areaID);
         long CreateOrderTable(long tableID);
-        TDto GetTableDetail<TDto>(long invTblID);
-        void UpdateTableDetail(long invTblID);
         bool CheckTableStatus(long tableID);
     }
 }

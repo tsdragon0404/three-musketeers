@@ -31,14 +31,14 @@ namespace SMS.MvcApplication.Controllers
             return View(cashierModel);
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult OrderProduct(long orderTableID, long productID, decimal quantity)
         {
             if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(null);
 
             var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
-            return Json(new { OrderTable = result }, JsonRequestBehavior.AllowGet);
+            return Json(new { OrderTable = result });
         }
 
         [HttpPost]
@@ -101,6 +101,16 @@ namespace SMS.MvcApplication.Controllers
             return Json(new { Success = result });
         }
 
+        //[HttpPost]
+        public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
+        {
+            if (orderDetailID <= 0) return Json(null);
+
+            var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
+
+            return Json(new { OrderDetail = orderDetail }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult RemoveOrderedProduct(long orderDetailID)
         {
@@ -143,7 +153,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(null);
 
-            var orderTable = OrderTableService.GetTableDetail<LanguageOrderTableDto>(orderTableID);
+            var orderTable = OrderTableService.GetByID<LanguageOrderTableDto>(orderTableID);
 
             return Json(new { OrderTable = orderTable });
         }
