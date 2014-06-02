@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div id="kitchen">
+    <div class="row">
+        <table id="orderedProducts">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Remarks</th>
+                    <th></th>
+                    <th>Kitchen remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Com chien</td>
+                    <td>1</td>
+                    <td>khong lay com</td>
+                    <td>[status-icon]</td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Lau ca</td>
+                    <td>1</td>
+                    <td>khong lay ca</td>
+                    <td>[status-icon]</td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Suon xao chua ngot</td>
+                    <td>1</td>
+                    <td></td>
+                    <td>[status-icon]</td>
+                    <td><input type="text" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#orderedProducts').table();
+        });
+    </script>
+</div>

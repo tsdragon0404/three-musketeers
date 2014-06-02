@@ -69,7 +69,6 @@ namespace SMS.Business.Impl
                 Repository.Update(mergeEntity);
             }
             result.Data = Mapper.Map<TDto>(entity);
-            result.Success = true;
             return result;
         }
 

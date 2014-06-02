@@ -114,7 +114,7 @@
                 @foreach (var dto in Model.ListRecord)
                 {
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
-                    <tr class="admin-record @altClass" data-id="@dto.ID">
+                    <tr class="@altClass" data-id="@dto.ID">
                         <td>
                             <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
