@@ -14,7 +14,7 @@
     });
 
     //unbind click event for buttons
-    $('button, input[type="button"').unbind('click');
+    $('#' + id + ' input[type="button"').unbind('click');
 
     $('#' + id + ' .popupSearch').button().click(function () {
         root.search();
