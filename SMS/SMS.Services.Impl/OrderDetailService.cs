@@ -18,5 +18,10 @@ namespace SMS.Services.Impl
         {
             return Management.UpdateProductToOrderTable(orderDetailID, columnName, value);
         }
+
+        public TDto UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
+        {
+            return Management.UpdateOrderedProductStatus<TDto>(orderDetailID, value);
+        }
     }
 }

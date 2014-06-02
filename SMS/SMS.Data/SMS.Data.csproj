@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOrderStatusRepository.cs" />
     <Compile Include="IOrderDetailRepository.cs" />
     <Compile Include="IOrderTableRepository.cs" />
     <Compile Include="IOrderRepository.cs" />

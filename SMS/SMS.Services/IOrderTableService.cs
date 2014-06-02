@@ -7,8 +7,6 @@ namespace SMS.Services
     {
         IList<TDto> GetTablesByAreaID<TDto>(long areaID);
         long CreateOrderTable(long tableID);
-        TDto GetTableDetail<TDto>(long invTblID);
-
         bool CheckTableStatus(long tableID);
     }
 }

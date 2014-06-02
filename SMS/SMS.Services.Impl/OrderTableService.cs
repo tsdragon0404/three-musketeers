@@ -20,11 +20,6 @@ namespace SMS.Services.Impl
             return Management.CreateOrderTable(tableID);
         }
 
-        public TDto GetTableDetail<TDto>(long invTblID)
-        {
-            return Management.GetTableDetail<TDto>(invTblID);
-        }
-
         public bool CheckTableStatus(long tableID)
         {
             return Management.CheckTableStatus(tableID);
