@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <form id="form-table-order-${ID}">
-            <table id="order">
+            <table id="order-${ID}" class="table-order">
                 <colgroup>
                     <col class="col1" />
                     <col class="col2" />
@@ -705,7 +705,7 @@
     }
 
     function bindEventForControl() {
-        $('#order').table();
+        $('table[id^="order-"').table();
 
         $('input[id^="qty"]').spinner({
             step: 0.5,
@@ -827,7 +827,7 @@
         var subTotal;
         var totalAmount = 0;
         
-        $('table[id="order"]').each(function(idx, e) {
+        $('table[id^="order-"]').each(function(idx, e) {
             subTotal = 0;
             $(e).find('tbody[id^="table-detail-"] tr').each(function(index, element) {
                 var qty = $(element).find('td input[id^="qty"]').val();
