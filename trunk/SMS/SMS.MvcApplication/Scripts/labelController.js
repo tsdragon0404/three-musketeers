@@ -6,18 +6,12 @@
     this.inputTemplate = '<input type="text" id="edit-{0}" class="editlabel hide" value="{1}" />';
 
     this.ScanElements = function () {
-        if (labelDictionary == null)
+        if (root.labelDictionary == null)
             return;
         try {
             $(".ajax-loader-mask").show();
             $('[data-labelID]').each(function (idx, element) {
-                var id = $(element).attr('data-labelID');
-                if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
-                    if (element.nodeName == 'INPUT')
-                        $(element).val(root.labelDictionary[id]);
-                    else
-                        $(element).text(root.labelDictionary[id]);
-                }
+                scanElement(element);
             });
         } catch (exception) {
         } finally {
@@ -138,4 +132,28 @@
     this.OpenPopup = function () {
         $(root.popupId).dialog("open");
     };
+
+    $.fn.scanLabel = function () {
+        if (root.labelDictionary == null)
+            return;
+        try {
+            $(".ajax-loader-mask").show();
+            $(this).find('[data-labelID]').each(function (idx, element) {
+                scanElement(element);
+            });
+        } catch (exception) {
+        } finally {
+            $(".ajax-loader-mask").hide();
+        }
+    };
+
+    function scanElement(element) {
+        var id = $(element).attr('data-labelID');
+        if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
+            if (element.nodeName == 'INPUT')
+                $(element).val(root.labelDictionary[id]);
+            else
+                $(element).text(root.labelDictionary[id]);
+        }
+    }
 }
