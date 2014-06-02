@@ -41,7 +41,7 @@
                 <div id="logo">
                     <a href="@Url.Action("Index", "Home")"><img src="~/Images/logo.jpg" alt="logo"/></a>
                 </div>
-                <nav>
+                <nav class="border-bottom">
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
@@ -83,7 +83,7 @@
         <div id="leftmenuExpander">
             <a href="#" id="expander" class="expanded">&lt;</a>
         </div>
-        <div id="body">
+        <div id="body" class="border-left">
             <section>
                 @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administrator")
                 {
