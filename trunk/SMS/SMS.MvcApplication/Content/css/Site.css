@@ -225,47 +225,47 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
     min-height: 310px;
 }
 
-#order .col1 {
+.table-order .col1 {
     width: 2%;
 }
 
-#order .col2 {
+.table-order .col2 {
     width: 25%;
 }
 
-#order .col3 {
+.table-order .col3 {
     width: 4%;
 }
 
-#order .col4 {
+.table-order .col4 {
     width: 6%;
 }
 
-#order .col5 {
+.table-order .col5 {
     width: 10%;
 }
 
-#order .col6 {
+.table-order .col6 {
     width: 10%;
 }
 
-#order .col7 {
+.table-order .col7 {
     width: 10%;
 }
 
-#order .col8 {
+.table-order .col8 {
     width: 23%;
 }
 
-#order .col9 {
+.table-order .col9 {
     width: 2%;
 }
 
-#order .col10 {
+.table-order .col10 {
     width: 2%;
 }
 
-#order .remarksInput {
+.table-order .remarksInput {
     width: 100%;
 }
 
