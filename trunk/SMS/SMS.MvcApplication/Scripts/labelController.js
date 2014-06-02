@@ -134,17 +134,18 @@
     };
 
     $.fn.scanLabel = function () {
-        if (root.labelDictionary == null)
-            return;
-        try {
-            $(".ajax-loader-mask").show();
-            $(this).find('[data-labelID]').each(function (idx, element) {
-                scanElement(element);
-            });
-        } catch (exception) {
-        } finally {
-            $(".ajax-loader-mask").hide();
+        if (root.labelDictionary != null) {
+            try {
+                $(".ajax-loader-mask").show();
+                $(this).find('[data-labelID]').each(function(idx, element) {
+                    scanElement(element);
+                });
+            } catch(exception) {
+            } finally {
+                $(".ajax-loader-mask").hide();
+            }
         }
+        return this;
     };
 
     function scanElement(element) {
