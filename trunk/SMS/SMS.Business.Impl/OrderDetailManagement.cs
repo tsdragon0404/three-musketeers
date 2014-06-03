@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
+using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -30,7 +31,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = OrderStatusRepository.Get(5) // default đã hoàn thành
+                                      OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? 5 : 1)
                                   };
             Repository.Add(orderDetail);
             return new ServiceResult<TDto>() { Data = Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)) };
