@@ -16,7 +16,7 @@ function ExpandColapseMenu() {
     var link = $('#expander');
     if (link.hasClass('expanded')) {
         $('#leftmenu').css("width", "0");
-        $('#leftmenuExpander').css("left", "0");
+        $('#leftmenuExpander').css("left", "0%");
 
         $('#body').css("width", "99%");
         
@@ -25,7 +25,7 @@ function ExpandColapseMenu() {
     }
     else {
         $('#leftmenu').css("width", "13%");
-        $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
+        $('#leftmenuExpander').css("left", "13%");
 
         $('#body').css("width", "86%");
         link.removeClass('colapsed');
