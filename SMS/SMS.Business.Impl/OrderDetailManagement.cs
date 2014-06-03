@@ -20,11 +20,11 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public TDto AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
+        public ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
         {
             var product = ProductRepository.Get(productID);
             if (product == null)
-                return Mapper.Map<TDto>(new OrderTable());
+                return new ServiceResult<TDto> {Data = Mapper.Map<TDto>(new OrderTable())};
             var orderDetail = new OrderDetail
                                   {
                                       OrderTable = new OrderTable {ID = orderTableID},
@@ -33,7 +33,7 @@ namespace SMS.Business.Impl
                                       OrderStatus = OrderStatusRepository.Get(5) // default đã hoàn thành
                                   };
             Repository.Add(orderDetail);
-            return Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID));
+            return new ServiceResult<TDto>() { Data = Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)) };
         }
 
         public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)

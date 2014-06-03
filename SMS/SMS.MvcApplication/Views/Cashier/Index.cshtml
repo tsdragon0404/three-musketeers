@@ -625,8 +625,8 @@
             type: 'POST',
             url: '@Url.Action("SelectTable")',
             data: { orderTableID: orderTableId }
-        }).done(function (data) {
-            if (data.Order.ID == 0) {
+        }).done(function (object) {
+            if (object.Data.ID == 0) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
                     1,
@@ -639,10 +639,10 @@
             }
             else {
                 $('#tblContent').html('');
-                $('#curOrderID').val(data.Order.ID);
-                $('#curOrderNumber').text(data.Order.OrderNumber);
-                $('#curCustomerName').text(data.Order.Customer.CustomerName);
-                $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
+                $('#curOrderID').val(object.Data.ID);
+                $('#curOrderNumber').text(object.Data.OrderNumber);
+                $('#curCustomerName').text(object.Data.Customer.CustomerName);
+                $('#order-tmpl').tmpl(object.Data).appendTo('#tblContent');
 
                 bindEventForControl();
 
@@ -689,17 +689,17 @@
                 type: 'POST',
                 url: '@Url.Action("OrderProduct")',
                 data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
-            }).done(function(data) {
-                if (data.OrderTable.ID > 0) {
-                    onLoadOrderTable(data);
+            }).done(function(object) {
+                if (object.Data.ID > 0) {
+                    onLoadOrderTable(object);
                 }
             });
         }
     }
     
-    function onLoadOrderTable(data) {
-        $('#table-detail-' + data.OrderTable.ID).html('');
-        $('#ordertable-tmpl').tmpl(data.OrderTable).appendTo('#table-detail-' + data.OrderTable.ID);
+    function onLoadOrderTable(object) {
+        $('#table-detail-' + object.Data.ID).html('');
+        $('#ordertable-tmpl').tmpl(object.Data).appendTo('#table-detail-' + object.Data.ID);
 
         bindEventForControl();
     }
