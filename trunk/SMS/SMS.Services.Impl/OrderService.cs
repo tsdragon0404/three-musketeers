@@ -1,4 +1,5 @@
-﻿using SMS.Business;
+﻿using Core.Common.Validation;
+using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -9,7 +10,7 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public TDto GetOrderDetail<TDto>(long orderTableID)
+        public ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID)
         {
             return Management.GetOrderDetail<TDto>(orderTableID);
         }

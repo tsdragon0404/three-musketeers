@@ -11,7 +11,7 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public TDto AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
+        public ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
         {
             return Management.AddProductToOrderTable<TDto>(orderTableID, productID, quantity);
         }

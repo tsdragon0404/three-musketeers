@@ -38,7 +38,7 @@ namespace SMS.MvcApplication.Controllers
 
             var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
-            return Json(new { OrderTable = result });
+            return Json(JsonModel.Create(result));
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace SMS.MvcApplication.Controllers
 
             var order = OrderService.GetOrderDetail<OrderDto>(orderTableID);
 
-            return Json(new {Order = order});
+            return Json(JsonModel.Create(order));
         }
 
         [HttpPost]
@@ -91,24 +91,24 @@ namespace SMS.MvcApplication.Controllers
             return Json(new { Success = flag });
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
         {
             if (orderDetailID <= 0) return Json(null);
 
             var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
-            return Json(new JsonModel {Success = result.Success}, JsonRequestBehavior.AllowGet);
+            return Json(new JsonModel {Success = result.Success});
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
         {
             if (orderDetailID <= 0) return Json(null);
 
             var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
-            return Json(JsonModel.Create(orderDetail), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(orderDetail));
         }
 
         [HttpPost]

@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Core.Common.Session;
+using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -16,10 +17,10 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public TDto GetOrderDetail<TDto>(long orderTableID)
+        public ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID)
         {
             var result = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
-            return result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result);
+            return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) };
         }
 
         /// <summary>

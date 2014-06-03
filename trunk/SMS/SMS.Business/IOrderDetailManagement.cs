@@ -6,7 +6,7 @@ namespace SMS.Business
 {
     public interface IOrderDetailManagement : IBaseManagement<OrderDetailDto, long>
     {
-        TDto AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
+        ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
         ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);
         ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value);
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
