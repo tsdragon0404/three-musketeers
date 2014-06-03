@@ -794,7 +794,8 @@ GO
 INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Path )
 VALUES 
 ( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', N'' ),
-( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' )
+( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' ),
+( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', N'/Kitchen' )
 GO
 
 DELETE FROM dbo.OrderStatus
