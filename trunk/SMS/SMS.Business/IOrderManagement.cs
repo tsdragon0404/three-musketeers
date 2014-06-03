@@ -7,6 +7,6 @@ namespace SMS.Business
     {
         ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID);
         long CreateOrder();
-        bool DeleteByOrderTableID(long orderTableID);
+        ServiceResult DeleteByOrderTableID(long orderTableID);
     }
 }

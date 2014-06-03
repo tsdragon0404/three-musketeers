@@ -29,7 +29,7 @@ namespace SMS.Services.Impl
             return Management.FindByString<TModel>(textSearch, pagingInfo);
         }
 
-        public TDto GetByID(TPrimaryKey primaryKey)
+        public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
         {
             return Management.GetByID(primaryKey);
         }

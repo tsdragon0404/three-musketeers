@@ -10,7 +10,7 @@ namespace SMS.Services
         IList<TModel> GetAll<TModel>();
         IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo);
         IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo);
-        TDto GetByID(TPrimaryKey primaryKey);
+        ServiceResult<TDto> GetByID(TPrimaryKey primaryKey);
         TModel GetByID<TModel>(TPrimaryKey primaryKey);
         ServiceResult<TDto> Save(TDto dto);
         bool Delete(TPrimaryKey primaryKey);

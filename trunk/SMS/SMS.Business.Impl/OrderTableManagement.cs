@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
@@ -18,7 +19,7 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<TDto> GetTablesByAreaID<TDto>(long areaID)
+        public ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID)
         {
             var usedTables = Repository.Find(x => x.Table.Area.ID == areaID && x.Table.Enable).ToList();
 
@@ -30,23 +31,24 @@ namespace SMS.Business.Impl
                                                                         Table = table,
                                                                     }));
 
-            return Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.SEQ).ToList());
+            return new ServiceResult<IList<TDto>>
+                       {Data = Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.SEQ).ToList())};
         }
 
-        public long CreateOrderTable(long tableID)
+        public ServiceResult<long> CreateOrderTable(long tableID)
         {
             var orderId = OrderManagement.CreateOrder();
 
             var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tableID}};
             Repository.Add(orderTable);
 
-            return orderTable.ID;
+            return new ServiceResult<long> {Data = orderTable.ID};
         }
 
-        public bool CheckTableStatus(long tableID)
+        public ServiceResult CheckTableStatus(long tableID)
         {
             var result = Repository.Find(x => x.Table.ID == tableID);
-            return result.Any();
+            return new ServiceResult {Success = result.Any()};
         }
     }
 }

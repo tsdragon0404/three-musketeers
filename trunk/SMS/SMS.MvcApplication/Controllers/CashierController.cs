@@ -51,14 +51,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult GetOrder(long orderID)
         {
             if (orderID <= 0) return Json(null);
 
             var order = OrderService.GetByID(orderID);
 
-            return Json(new { Order = order });
+            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -76,9 +76,9 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(null);
 
-            var flag = OrderService.DeleteByOrderTableID(orderTableID);
+            var result = OrderService.DeleteByOrderTableID(orderTableID);
 
-            return Json(new { Success = flag });
+            return Json(new JsonModel { Success = result.Success });
         }
 
         [HttpPost]
@@ -86,9 +86,9 @@ namespace SMS.MvcApplication.Controllers
         {
             if (tableID <= 0) return Json(null);
 
-            var flag = OrderTableService.CheckTableStatus(tableID);
+            var result = OrderTableService.CheckTableStatus(tableID);
 
-            return Json(new { Success = flag });
+            return Json(new JsonModel { Success = result.Success });
         }
 
         [HttpPost]
@@ -121,14 +121,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(new { Success = result });
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult CreateOrderTable(long tableID)
         {
             if (tableID <= 0) return Json(null);
 
             var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
-            return Json(new {OrderTableID = orderTableID});
+            return Json(JsonModel.Create(orderTableID), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -141,11 +141,9 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult GetTablesByAreaID(long areaID)
         {
             if (areaID <= 0) return Json(null);
+            var listTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID);
 
-            return Json(new
-                            {
-                                ListTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID)
-                            });
+            return Json(JsonModel.Create(listTable));
         }
 
         [HttpPost]

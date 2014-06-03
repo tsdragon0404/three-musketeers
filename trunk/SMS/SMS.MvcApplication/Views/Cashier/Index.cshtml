@@ -14,6 +14,9 @@
     var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
     var serviceFee = @BranchConfig.ServiceFee;
     var useServiceFee = "@BranchConfig.UseServiceFee";
+    var useKitchenFunction = "@BranchConfig.UseKitchenFunction";
+    var useDiscountOnProduct = "@BranchConfig.UseDiscountOnProduct";
+    var currency = @BranchConfig.Currency;
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderTables}}
@@ -36,10 +39,10 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
-                    <col class="col6" />
+                    <col class="col6 {{if useDiscountOnProduct != 'True' }}display-none{{/if}}" />
                     <col class="col7" />
                     <col class="col8" />
-                    <col class="col9" />
+                    <col class="col9 {{if useKitchenFunction != 'True' }}display-none{{/if}}" />
                     <col class="col10" />
                 </colgroup>
                 <thead>
@@ -49,10 +52,10 @@
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Price</th>
-                        <th>Discount</th>
+                        <th class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">Discount</th>
                         <th>Amount</th>
                         <th>Remarks</th>
-                        <th></th>
+                        <th class="{{if useKitchenFunction != 'True' }}display-none{{/if}}"></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -66,13 +69,13 @@
                         </td>
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-                        <td>
+                        <td class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">
                             <input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" />
                         </td>
                         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-                        <td class="center icon">
+                        <td class="center icon {{if useKitchenFunction != 'True' }}display-none{{/if}}">
                             <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
                         </td>
                         <td class="center icon">
@@ -89,7 +92,7 @@
                         <td colspan="8">
                             <div class="row">
                                 <div class="two columns push_eight right">Sub total:</div>
-                                <div class="two columns right"><span class="sub-total">0</span> VNĐ</div>
+                                <div class="two columns right"><span class="sub-total">0</span> @BranchConfig.Currency</div>
                             </div>
                         </td>
                     </tr>
@@ -109,13 +112,13 @@
         </td>
         <td>${Product.Unit.Name}</td>
         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-        <td>
+        <td class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">
             <input type="text" id="discount-${ID}" class="number required right" value="${Discount.formatAsMoney()}" />
         </td>
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        <td class="center icon">
+        <td class="center icon {{if useKitchenFunction != 'True' }}display-none{{/if}}">
             <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
         </td>
         <td class="center icon">
@@ -125,7 +128,7 @@
     {{/each}}    
 </script>
 <script id="table-tmpl" type="text/x-jquery-tmpl">
-    {{each(idx) ListTable}}
+    {{each(idx) Data}}
     {{if idx % @ConstStyle.GridNumber == 0}}
     <div class='row'>
         {{/if}}
@@ -140,14 +143,14 @@
             </table>
         </div>
             
-        {{if idx == $data.ListTable.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
+        {{if idx == $data.Data.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
     </div>
     {{/if}}
     {{/each}}
 
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
-    {{each(idx) ListTable}}
+    {{each(idx) Data}}
     <table id="Rmenu-${ID}-${Table.ID}-${OrderID}" class="Rmenu">
         <tr id="rmenu-detail-${ID}" data-id="${ID}-${OrderID}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
             <td>
@@ -251,16 +254,16 @@
             {
                 <div class="row" id="ServiceFree">
                     <div class="two columns push_eight right">Service Fee:</div>
-                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> VNĐ</div>
+                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
                 </div>
             }
             <div class="row" id="Tax-">
                 <div class="two columns push_eight right">Tax (10%):</div>
-                <div class="two columns right"><span class="tax">0</span> VNĐ</div>
+                <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
             </div>
             <div class="row">
                 <div class="two columns push_eight right">Total Amount:</div>
-                <div class="two columns right border-top"><span class="total_amount">0</span> VNĐ</div>
+                <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
             </div>
         </div>
         <div>
@@ -328,16 +331,16 @@
                 type: 'POST',
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
-            }).done(function (data) {
-                if (data.Order == null) {
+            }).done(function (object) {
+                if (object.Data == null) {
                     clearDisplayTableDetail(orderId);
                 }
                 else {
                     $('#tblContent').html('');
-                    $('#curOrderID').val(data.Order.ID);
-                    $('#curOrderNumber').text(data.Order.OrderNumber);
-                    $('#curCustomerName').text(data.Order.Customer.CustomerName);
-                    $('#order-tmpl').tmpl(data.Order).appendTo('#tblContent');
+                    $('#curOrderID').val(object.Data.ID);
+                    $('#curOrderNumber').text(object.Data.OrderNumber);
+                    $('#curCustomerName').text(object.Data.Customer.CustomerName);
+                    $('#order-tmpl').tmpl(object.Data).appendTo('#tblContent');
 
                     bindEventForControl();
 
@@ -662,8 +665,8 @@
             type: 'POST',
             url: '@Url.Action("CreateOrderTable")',
             data: { tableID: tblId }
-        }).done(function (data) {
-            orderTableId = data.OrderTableID;
+        }).done(function (object) {
+            orderTableId = object.Data;
             onSelectOrderTable(orderTableId, 0);
             refreshTableArea();
         });
@@ -767,11 +770,11 @@
             type: 'POST',
             url: '@Url.Action("GetTablesByAreaID")',
             data: { areaID: areaId }
-        }).done(function (data) {
+        }).done(function (object) {
             $('#area-' + areaId).html('');
             $('#rightMenuArea').html('');
-            $('#table-tmpl').tmpl(data).appendTo('#area-' + areaId);
-            $('#Rmenu-tmpl').tmpl(data).appendTo('#rightMenuArea');
+            $('#table-tmpl').tmpl(object).appendTo('#area-' + areaId);
+            $('#Rmenu-tmpl').tmpl(object).appendTo('#rightMenuArea');
 
             $('tr[id^="rmenu-detail-"]').click(function () {
                 var id = $(this).attr('data-id').split('-')[0];

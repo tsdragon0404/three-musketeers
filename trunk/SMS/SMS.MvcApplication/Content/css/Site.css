@@ -528,6 +528,10 @@ label.ui-state-error {
     font-size: 11px;
 }
 
+.display-none {
+    display: none;
+}
+
 .selected {
     background-color: #FFF2CC;
 }
