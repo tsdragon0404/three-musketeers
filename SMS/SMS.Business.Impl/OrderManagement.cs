@@ -41,14 +41,12 @@ namespace SMS.Business.Impl
             return order.ID;
         }
 
-        public bool DeleteByOrderTableID(long orderTableID)
+        public ServiceResult DeleteByOrderTableID(long orderTableID)
         {
             var order = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
             var orderID = order == null ? 0 : order.ID;
 
-            Repository.Delete(orderID);
-
-            return true;
+            return new ServiceResult { Success = Repository.Delete(orderID) };
         }
     }
 }

@@ -46,9 +46,9 @@ namespace SMS.Business.Impl
             return PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo);
         }
 
-        public TDto GetByID(TPrimaryKey primaryKey)
+        public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
         {
-            return Mapper.Map<TDto>(Repository.Get(primaryKey));
+            return new ServiceResult<TDto> {Data = Mapper.Map<TDto>(Repository.Get(primaryKey))};
         }
 
         public TModel GetByID<TModel>(TPrimaryKey primaryKey)
