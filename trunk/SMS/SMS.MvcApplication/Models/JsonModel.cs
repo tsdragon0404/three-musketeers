@@ -1,4 +1,6 @@
-﻿namespace SMS.MvcApplication.Models
+﻿using Core.Common.Validation;
+
+namespace SMS.MvcApplication.Models
 {
     public class JsonModel
     {
@@ -10,5 +12,10 @@
         }
 
         public object Data { get; set; }
+
+        public static JsonModel Create<TDto>(ServiceResult<TDto> serviceResult)
+        {
+            return new JsonModel {Success = serviceResult.Success, Data = serviceResult.Data};
+        }
     }
 }
