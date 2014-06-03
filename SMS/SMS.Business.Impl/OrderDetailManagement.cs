@@ -36,11 +36,11 @@ namespace SMS.Business.Impl
             return Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID));
         }
 
-        public bool UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
+        public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
         {
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
-                return false;
+                return new ServiceResult {Success = false};
             switch (columnName)
             {
                 case "qty":
@@ -60,18 +60,18 @@ namespace SMS.Business.Impl
             }
             Repository.Update(orderDetail);
 
-            return true;
+            return new ServiceResult();
         }
 
-        public TDto UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
+        public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
         {
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
-                return Mapper.Map<TDto>(new OrderDetail());
+                return new ServiceResult<TDto>{ Data = Mapper.Map<TDto>(new OrderDetail())};
             orderDetail.OrderStatus = OrderStatusRepository.Get(value);
             Repository.Update(orderDetail);
 
-            return Mapper.Map<TDto>(orderDetail);
+            return new ServiceResult<TDto>{ Data = Mapper.Map<TDto>(orderDetail)};
         }
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()

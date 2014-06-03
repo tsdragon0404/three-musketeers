@@ -515,7 +515,7 @@
             url: '@Url.Action("UpdateOrderedProduct")',
             data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
         }).done(function (data) {
-            if(!data) {
+            if(!data.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -554,8 +554,8 @@
             type: 'POST',
             url: '@Url.Action("UpdateOrderedProductStatus")',
             data: { orderDetailID: orderDetailId, value: value }
-        }).done(function (data) {
-            if(data.OrderDetail.ID == 0) {
+        }).done(function (object) {
+            if(object.Data.ID == 0) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -564,11 +564,11 @@
 
                 popup.OpenPopup();
             } else {
-                $(e).attr('id', 'status-' + data.OrderDetail.ID + '-' + data.OrderDetail.OrderStatus.ID);
-                $(e).attr('title', data.OrderDetail.OrderStatus.Name);
+                $(e).attr('id', 'status-' + object.Data.ID + '-' + object.Data.OrderStatus.ID);
+                $(e).attr('title', object.Data.OrderStatus.Name);
                 var cssClass = '';
 
-                switch (data.OrderDetail.OrderStatus.ID) {
+                switch (object.Data.OrderStatus.ID) {
                     case 1:
                         cssClass = 'transfer';
                         break;

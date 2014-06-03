@@ -91,14 +91,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(new { Success = flag });
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
         {
             if (orderDetailID <= 0) return Json(null);
 
             var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
-            return Json(new { Success = result });
+            return Json(new JsonModel {Success = result.Success}, JsonRequestBehavior.AllowGet);
         }
 
         //[HttpPost]
@@ -108,7 +108,7 @@ namespace SMS.MvcApplication.Controllers
 
             var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
-            return Json(new { OrderDetail = orderDetail }, JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(orderDetail), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
