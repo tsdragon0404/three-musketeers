@@ -171,14 +171,13 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 #leftmenuExpander {
     width: 16px;
     height: 16px;
-    float: left;
+    top: 2px;
     position: absolute;
     z-index: 500;
 }
 #expander {
     background: url("../../Images/IconControls/expander-icon.png") -16px 0 no-repeat;
-    width: 16px;
-    height: 16px;
+    
     display: block;
     text-indent: -999px;
 }
