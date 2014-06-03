@@ -10,8 +10,8 @@ namespace SMS.Data.Mapping
             Map(x => x.VNName);
             Map(x => x.ENName);
             References(x => x.Area).Column("AreaID");
-            HasMany(x => x.InvoiceTables).KeyColumn("TableID");
-            HasMany(x => x.OrderTables).KeyColumn("TableID");
+            HasMany(x => x.InvoiceTables).KeyColumn("TableID").Inverse();
+            HasMany(x => x.OrderTables).KeyColumn("TableID").Inverse();
         }
     }
 }

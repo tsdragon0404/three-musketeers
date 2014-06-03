@@ -14,7 +14,7 @@ namespace SMS.Data.Mapping
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
             Map(x => x.Path);
-            HasMany(x => x.PageLabels).KeyColumn("PageLabelID");
+            HasMany(x => x.PageLabels).KeyColumn("PageLabelID").Inverse();
         }
     }
 }
