@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Filters;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -14,6 +15,7 @@ namespace SMS.MvcApplication.Controllers
 
         #endregion
 
+        [GetLabel(Common.Constant.ConstPage.Cashier)]
         public ActionResult Index()
         {
             return View();
