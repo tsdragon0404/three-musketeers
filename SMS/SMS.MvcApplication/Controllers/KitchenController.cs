@@ -24,7 +24,7 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult GetOrderedProducts()
         {
             var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
-            return Json(new JsonModel { Data = products.Data });
+            return Json(JsonModel.Create(products));
         }
     }
 }
