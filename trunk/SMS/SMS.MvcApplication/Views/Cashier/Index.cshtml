@@ -16,7 +16,7 @@
     var useServiceFee = "@BranchConfig.UseServiceFee";
     var useKitchenFunction = "@BranchConfig.UseKitchenFunction";
     var useDiscountOnProduct = "@BranchConfig.UseDiscountOnProduct";
-    var currency = @BranchConfig.Currency;
+    var currency = "@BranchConfig.Currency";
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderTables}}
@@ -133,7 +133,7 @@
     <div class='row'>
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.ID}-${OrderID}" title="${Table.Name}">
+            <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}-${Order.OrderNumber}{{/if}}">
                 <tr>
                     <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
                 </tr>
@@ -151,8 +151,8 @@
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <table id="Rmenu-${ID}-${Table.ID}-${OrderID}" class="Rmenu">
-        <tr id="rmenu-detail-${ID}" data-id="${ID}-${OrderID}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
+    <table id="Rmenu-${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="Rmenu">
+        <tr id="rmenu-detail-${ID}" data-id="${ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
             <td>
                 <div class="rmenu-detail"></div>
             </td>
@@ -170,7 +170,7 @@
             </td>
             <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
         </tr>
-        <tr id="rmenu-del-${ID}" data-id="${ID}-${OrderID}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
+        <tr id="rmenu-del-${ID}" data-id="${ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
             <td>
                 <div class="rmenu-delete"></div>
             </td>
@@ -215,6 +215,7 @@
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
+            <li><a href="#area-0">All</a></li>
             @foreach (var area in Model.ListArea)
             {
                 <li><a href="#area-@area.ID">@area.Name</a></li>
@@ -222,6 +223,8 @@
 
         </ul>
         <div id="tables">
+            <div id="area-0">
+                </div>
             @foreach (var areaDto in Model.ListArea)
             {
                 <div id="area-@areaDto.ID">
@@ -763,7 +766,7 @@
     }
 
     function GetTablesByAreaID(areaId) {
-        if (areaId <= 0) {
+        if (areaId < 0) {
             return;
         }
         $.ajax({
