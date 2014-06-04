@@ -7,5 +7,6 @@ namespace SMS.Services
     {
         ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID);
         ServiceResult DeleteByOrderTableID(long orderTableID);
+        ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID);
     }
 }

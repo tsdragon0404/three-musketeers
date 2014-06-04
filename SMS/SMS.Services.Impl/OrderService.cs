@@ -19,5 +19,10 @@ namespace SMS.Services.Impl
         {
             return Management.DeleteByOrderTableID(orderTableID);
         }
+
+        public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
+        {
+            return Management.GetOrderDetailByOrderID<TDto>(orderID);
+        }
     }
 }

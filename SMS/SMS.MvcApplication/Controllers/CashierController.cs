@@ -24,7 +24,7 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAll<LanguageAreaDto>(),
+                                       ListArea = AreaService.GetAllByBranch<LanguageAreaDto>().Data,
                                        ListProduct = ProductService.GetAll<LanguageProductDto>(),
                                    };
 
@@ -51,14 +51,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult GetOrder(long orderID)
         {
             if (orderID <= 0) return Json(null);
 
-            var order = OrderService.GetByID(orderID);
+            var order = OrderService.GetOrderDetailByOrderID<OrderDto>(orderID);
 
-            return Json(JsonModel.Create(order));
+            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -48,5 +48,16 @@ namespace SMS.Business.Impl
 
             return new ServiceResult { Success = Repository.Delete(orderID) };
         }
+
+        public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
+        {
+
+            var orderTable = OrderTableRepository.FindOne(x => x.Order.ID == orderID);
+            if (orderTable == null)
+                Repository.Delete(orderID);
+
+            var result = Repository.Get(orderID);
+            return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) };
+        }
     }
 }
