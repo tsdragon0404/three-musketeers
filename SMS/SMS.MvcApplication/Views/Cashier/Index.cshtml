@@ -20,15 +20,19 @@
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderTables}}
-    <div class="row">
-        <div class="three columns"><span id="lblTableName" class="label">Table name</span>: ${Table.Name}</div>
-        <span id="lblOrderBy" class="label">Order by: </span>${CreatedUser}
-        &nbsp;&nbsp;
-        <span id="lblOrderDate" class="label">Order date: </span>${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}
-        &nbsp;&nbsp;
-        <span id="lblLastAccessBy" class="label">Last access by</span>: ${ModifiedUser}
-        &nbsp;&nbsp;
-        <span id="lblLastAccessDate" class="label">Last access date: </span>${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}
+    <div class="row div-header">
+        <div class="eleven columns">
+            <span id="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+        </div>
+        <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
     </div>
     <div class="row">
         <form id="form-table-order-${ID}">
@@ -147,7 +151,6 @@
     </div>
     {{/if}}
     {{/each}}
-
 </script>
 <script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
@@ -238,13 +241,13 @@
     <div id="tableorder" class="split-pane-component">
         <input type="hidden" id="curOrderID" value="-1" />
         <input type="hidden" id="curOrderTableID" value="-1" />
-        <div class="row border-bottom">
+        <div class="row border-bottom div-header">
             <div class="four columns">
-                <span id="lblOrderNumber" class="label">Order Number</span>: <span id="curOrderNumber"></span>
+                <span id="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
             </div>
             <div class="four columns">
-                <span id="lblCustomerName" class="searchCustomer">Customer name:</span>&nbsp;
-                <span id="curCustomerName"></span>
+                <span id="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
+                <span id="curCustomerName" class="label-custom-data"></span>
             </div>
         </div>
         
@@ -416,6 +419,8 @@
     function onMoveOrderTable(orderTableId) {
         if (orderTableId <= 0) {
             return;
+        } else {
+            alert('a');
         }
     }
         

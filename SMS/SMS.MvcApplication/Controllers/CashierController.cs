@@ -51,14 +51,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult GetOrder(long orderID)
         {
             if (orderID <= 0) return Json(null);
 
             var order = OrderService.GetByID(orderID);
 
-            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(order));
         }
 
         [HttpPost]
@@ -121,14 +121,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(new { Success = result });
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult CreateOrderTable(long tableID)
         {
             if (tableID <= 0) return Json(null);
 
             var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
-            return Json(JsonModel.Create(orderTableID), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(orderTableID));
         }
 
         [HttpPost]
@@ -137,13 +137,13 @@ namespace SMS.MvcApplication.Controllers
             return Json(new {ListProduct = ProductService.GetAll<LanguageProductDto>()});
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult GetTablesByAreaID(long areaID)
         {
             if (areaID < 0) return Json(new JsonModel {Data = null});
             var listTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID);
 
-            return Json(JsonModel.Create(listTable), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(listTable));
         }
 
         [HttpPost]
