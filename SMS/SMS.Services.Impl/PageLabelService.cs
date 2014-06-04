@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Common.Validation;
 using SMS.Business;
 using SMS.Data.Dtos;
 
@@ -10,17 +11,12 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public IList<TDto> GetByPageID<TDto>(int pageID)
+        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID)
         {
             return Management.GetByPageID<TDto>(pageID);
         }
 
-        public bool Save(int pageID, string labelID, string text)
-        {
-            return Management.Save(pageID, labelID, text);
-        }
-
-        public bool Save(int pageID, List<PageLabelDto> listLabels)
+        public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
         {
             return Management.Save(pageID, listLabels);
         }

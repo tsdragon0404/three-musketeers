@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Session;
+using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -14,34 +15,12 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public IList<TDto> GetByPageID<TDto>(int pageID)
+        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID)
         {
-            return Mapper.Map<IList<PageLabel>, IList<TDto>>(Repository.Find(x => x.Page.ID == pageID).ToList());
+            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.Find(x => x.Page.ID == pageID).ToList()) };
         }
 
-        public bool Save(int pageID, string labelID, string text)
-        {
-            var pageLabel = Repository.FindOne(x => x.Page.ID == pageID && x.LabelID == labelID);
-            if(pageLabel == null)
-            {
-                Repository.Add(new PageLabel
-                                   {
-                                       LabelID = labelID,
-                                       Page = new Page { ID = pageID },
-                                       VNText = UserContext.Language == Language.Vietnamese ? text : "",
-                                       ENText = UserContext.Language == Language.English ? text : ""
-                                   });
-            }
-            else
-            {
-                pageLabel.VNText = UserContext.Language == Language.Vietnamese ? text : pageLabel.VNText;
-                pageLabel.ENText = UserContext.Language == Language.English ? text : pageLabel.ENText;
-                Repository.Update(pageLabel);
-            }
-            return true;
-        }
-
-        public bool Save(int pageID, List<PageLabelDto> listLabels)
+        public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
         {
             var labelIds = listLabels.ConvertAll(x => x.LabelID);
             var pageLabels = Repository.Find(x => x.Page.ID == pageID && labelIds.Contains(x.LabelID)).ToList();
@@ -49,8 +28,8 @@ namespace SMS.Business.Impl
             {
                 foreach (var pageLabel in pageLabels)
                 {
-                    pageLabel.VNText = UserContext.Language == Language.Vietnamese ? listLabels.First(x => x.LabelID == pageLabel.LabelID).VNText : pageLabel.VNText;
-                    pageLabel.ENText = UserContext.Language == Language.English ? listLabels.First(x => x.LabelID == pageLabel.LabelID).ENText : pageLabel.ENText;
+                    pageLabel.VNText = listLabels.First(x => x.LabelID == pageLabel.LabelID).VNText;
+                    pageLabel.ENText = listLabels.First(x => x.LabelID == pageLabel.LabelID).ENText;
 
                     Repository.Update(pageLabel);
                 }
@@ -65,13 +44,13 @@ namespace SMS.Business.Impl
                                        {
                                            LabelID = labelID,
                                            Page = new Page {ID = pageID},
-                                           VNText = UserContext.Language == Language.Vietnamese ? listLabels.First(x => x.LabelID == labelID).VNText : "",
-                                           ENText = UserContext.Language == Language.English ? listLabels.First(x => x.LabelID == labelID).ENText : ""
+                                           VNText = listLabels.First(x => x.LabelID == labelID).VNText,
+                                           ENText = listLabels.First(x => x.LabelID == labelID).ENText
                                        });
                 }
             }
 
-            return true;
+            return new ServiceResult();
         }
     }
 }

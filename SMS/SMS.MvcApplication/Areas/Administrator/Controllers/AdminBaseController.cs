@@ -40,7 +40,7 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult GetSchemaForAdd()
         {
-            return Json(new JsonModel { Data = new TDto() });
+            return Json(JsonModel.Create(new TDto()));
         }
 
         [HttpPost]
