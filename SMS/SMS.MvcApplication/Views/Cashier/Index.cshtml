@@ -23,15 +23,15 @@
     <div class="row" id="orderTable-${ID}">
         <div class="row div-header">
             <div class="eleven columns">
-                <span id="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
+                <span data-labelID="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
+                <span data-labelID="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+                <span data-labelID="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
+                <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+                <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
             </div>
             <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
         </div>
@@ -51,14 +51,14 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Unit</th>
-                        <th>Price</th>
-                        <th class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">Discount</th>
-                        <th>Amount</th>
-                        <th>Remarks</th>
+                        <th><span data-labelID="lblNo">No</span></th>
+                        <th><span data-labelID="lblProductName">Product Name</span></th>
+                        <th><span data-labelID="lblQuantity">Quantity</span></th>
+                        <th><span data-labelID="lblUnit">Unit</span></th>
+                        <th><span data-labelID="lblPrice">Price</span></th>
+                        <th class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}"><span data-labelID="lblDiscount">Discount</span></th>
+                        <th><span data-labelID="lblAmount">Amount</span></th>
+                        <th><span data-labelID="lblRemarks">Remarks</span></th>
                         <th class="{{if useKitchenFunction != 'True' }}display-none{{/if}}"></th>
                         <th></th>
                     </tr>
@@ -95,7 +95,7 @@
                         </td>
                         <td colspan="8">
                             <div class="row">
-                                <div class="two columns push_eight right">Sub total:</div>
+                                <div class="two columns push_eight right"><span data-labelID="lblSubtotal">Sub total:</span></div>
                                 <div class="two columns right"><span class="sub-total">0</span> @BranchConfig.Currency</div>
                             </div>
                         </td>
@@ -159,25 +159,25 @@
             <td>
                 <div class="rmenu-detail"></div>
             </td>
-            <td class="RmenuItem" id="Select-${ID}-${Table.ID}">Chi tiết</td>
+            <td class="RmenuItem" id="Select-${ID}-${Table.ID}"><span data-labelID="lblDetail">Chi tiết</span></td>
         </tr>
         <tr id="rmenu-useTable-${ID}" data-tableid="${Table.ID}">
             <td>
                 <div class="rmenu-add"></div>
             </td>
-            <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}">Sử dụng ngay</td>
+            <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}"><span data-labelID="lblUseNow">Sử dụng ngay</span></td>
         </tr>
         <tr id="rmenu-move-${ID}" data-id="${ID}">
             <td>
                 <div class="rmenu-move"></div>
             </td>
-            <td class="RmenuItem" id="Move-${ID}-${Table.ID}">Chuyển bàn</td>
+            <td class="RmenuItem" id="Move-${ID}-${Table.ID}"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
         </tr>
         <tr id="rmenu-del-${ID}" data-id="${ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
             <td>
                 <div class="rmenu-delete"></div>
             </td>
-            <td class="RmenuItem" id="Delete-${ID}-${Table.ID}">Xóa thông tin</td>
+            <td class="RmenuItem" id="Delete-${ID}-${Table.ID}"><span data-labelID="lblDelete">Xóa thông tin</span></td>
         </tr>
     </table>
     {{/each}}
@@ -218,7 +218,7 @@
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
-            <li><a href="#area-0">All</a></li>
+            <li><a href="#area-0"><span data-labelID="lblAllArea">All</span></a></li>
             @foreach (var area in Model.ListArea)
             {
                 <li><a href="#area-@area.ID">@area.Name</a></li>
@@ -241,36 +241,36 @@
         <input type="hidden" id="curOrderTableID" value="-1" />
         <div class="row border-bottom div-header" id="order-header">
             <div class="four columns">
-                <span id="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
+                <span data-labelID="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
             </div>
             <div class="four columns">
-                <span id="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
+                <span data-labelID="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
                 <span id="curCustomerName" class="label-custom-data"></span>
             </div>
         </div>
         
         <div id="order-detail">
-            <div class="row" id="tblContent">
+        <div class="row" id="tblContent">
             
-            </div>
+        </div>
         
             <div class="row" id="totalSection">
-                @if(BranchConfig.UseServiceFee)
-                {
-                    <div class="row" id="ServiceFree">
-                        <div class="two columns push_eight right">Service Fee:</div>
-                        <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
-                    </div>
-                }
-                <div class="row" id="Tax-">
-                    <div class="two columns push_eight right">Tax (10%):</div>
-                    <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
+            @if(BranchConfig.UseServiceFee)
+            {
+                <div class="row" id="ServiceFree">
+                    <div class="two columns push_eight right"><span data-labelID="lblServiceFee">Service Fee:</span></div>
+                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
                 </div>
-                <div class="row">
-                    <div class="two columns push_eight right">Total Amount:</div>
-                    <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
-                </div>
+            }
+            <div class="row" id="Tax-">
+                <div class="two columns push_eight right"><span data-labelID="lblTax">Tax (10%):</span></div>
+                <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
             </div>
+            <div class="row">
+                <div class="two columns push_eight right"><span data-labelID="lblTotalAmount">Total Amount:</span></div>
+                <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+            </div>
+        </div>
             <div class="row">
                 <div class="four columns right border-top payment">
                     <input type="button" id="payment" value="Thanh toán"/>
@@ -280,7 +280,32 @@
         </div>
     </div>
     
-    <div id="rightMenuArea"></div>
+    <table class="Rmenu" id="right-menu">
+        <tr id="rmenu-detail">
+            <td>
+                <div class="rmenu-detail"></div>
+            </td>
+            <td class="RmenuItem"><span data-labelID="lblDetail">Chi tiết</span></td>
+        </tr>
+        <tr id="rmenu-useTable">
+            <td>
+                <div class="rmenu-add"></div>
+            </td>
+            <td class="RmenuItem"><span data-labelID="lblUseNow">Sử dụng ngay</span></td>
+        </tr>
+        <tr id="rmenu-move">
+            <td>
+                <div class="rmenu-move"></div>
+            </td>
+            <td class="RmenuItem"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
+        </tr>
+        <tr id="rmenu-del">
+            <td>
+                <div class="rmenu-delete"></div>
+            </td>
+            <td class="RmenuItem"><span data-labelID="lblDelete">Xóa thông tin</span></td>
+        </tr>
+    </table>
     <table class="Rmenu" id="changeCustomer">
         <tr>
             <td>
@@ -335,7 +360,7 @@
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
             }).done(function (object) {
-                if (object.Data.ID == 0) {
+                if (object.Data.ID == 0 || !object.Success) {
                     clearDisplayTableDetail(orderId);
                 }
                 else {
@@ -343,7 +368,7 @@
                     $('#curOrderID').val(object.Data.ID);
                     $('#curOrderNumber').text(object.Data.OrderNumber);
                     $('#curCustomerName').text(object.Data.Customer.CustomerName);
-                    $('#order-tmpl').tmpl(object.Data).appendTo('#tblContent');
+                    $('#order-tmpl').tmpl(object.Data).scanLabel().appendTo('#tblContent');
 
                     bindEventForControl();
 
@@ -444,22 +469,21 @@
         
     $(document).on("contextmenu", "#cashier", function(e) {
         if($(e.target).parents('.tbls').length <= 0) {
-            $("table[id*=Rmenu-]").hide();
+            $("#right-menu").hide();
             displayCustomMenu('#mainRightMenu', e);
         } else {
-            $("table[id*=Rmenu-]").hide();
             $('#mainRightMenu').hide();
             if (!$(e.target).parents('.tbls').hasClass('selected')) {
                 $(".tbls").removeClass('selected');
                 $(e.target).parents('.tbls').addClass('selected');
             }
 
-            displayCustomMenu('#Rmenu-' + $(e.target).parents('.tbls').attr('id'), e);
+            displayCustomMenu('#right-menu', e);
         }
     });
         
     $(document).click(function(e) {
-        $("table[id*=Rmenu-]").hide();
+        $("#right-menu").hide();
         $('#mainRightMenu').hide();
         
         if(!$(e.target).parents('table').hasClass('tbls')) {
@@ -563,7 +587,7 @@
             url: '@Url.Action("UpdateOrderedProductStatus")',
             data: { orderDetailID: orderDetailId, value: value }
         }).done(function (object) {
-            if(object.Data.ID == 0) {
+            if(object.Data.ID == 0 || !object.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -628,6 +652,10 @@
         if(orderTableId <= 0)
             return;
         else {
+            var popup = new MessagePopup('Thông báo',
+                'Bạn đang thực hiện xóa thông tin 1 bàn.<br />Bạn muốn thực hiện?',
+                3,
+                function() {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("CancelTable")',
@@ -638,11 +666,14 @@
                     refreshOrderArea();
                 }
             });
+                });
+
+            popup.OpenPopup();
         }
     }
 
     function onSelectOrderTable(orderTableId, orderId) {
-        $("table[id*=Rmenu-]").hide();
+        $("#right-menu").hide();
         if (orderTableId <= 0) {
             return;
         }
@@ -688,9 +719,11 @@
             url: '@Url.Action("CreateOrderTable")',
             data: { tableID: tblId }
         }).done(function (object) {
-            orderTableId = object.Data;
-            onSelectOrderTable(orderTableId, 0);
-            refreshTableArea();
+            if(object.Success) {
+                orderTableId = object.Data;
+                onSelectOrderTable(orderTableId, 0);
+                refreshTableArea();
+            }
         });
         return;
     }
@@ -798,42 +831,126 @@
             url: '@Url.Action("GetTablesByAreaID")',
             data: { areaID: areaId }
         }).done(function (object) {
-            $('#area-' + areaId).html('');
-            $('#rightMenuArea').html('');
-            $('#table-tmpl').tmpl(object).appendTo('#area-' + areaId);
-            $('#Rmenu-tmpl').tmpl(object).appendTo('#rightMenuArea');
+            if(object.Success) {
+                $('#area-' + areaId).html('');
+                $('#rightMenuArea').html('');
+                $('#table-tmpl').tmpl(object).appendTo('#area-' + areaId);
 
-            $('tr[id^="rmenu-detail-"]').click(function () {
-                var id = $(this).attr('data-id').split('-')[0];
-                var orderId = $(this).attr('data-id').split('-')[1];
-                onSelectOrderTable(id, orderId);
-                return false;
-            });
-            $('tr[id^="rmenu-useTable-"]').click(function () {
-                var tableId = $(this).attr('data-tableid');
-                var orderTableId = $(this).attr('id').replace('rmenu-useTable-', '');
-                onCheckTableStatus(orderTableId, tableId);
-                return false;
-            });
-            $('tr[id^="rmenu-move-"]').click(function () {
-                var id = $(this).attr('data-id');
-                onMoveOrderTable(id);
-                return false;
-            });
-            $('tr[id^="rmenu-del-"]').click(function () {
-                var id = $(this).attr('data-id').split('-')[0];
-                var orderId = $(this).attr('data-id').split('-')[1];
-                onRemoveOrderTable(id, orderId);
-                return false;
-            });
-            $('.tbls').each(function (idx, element) {
-                var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
-                if($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
-                    $(element).addClass('selected');
-            });
-            
+                //$('tr[id="rmenu-detail"]').click(function() {
+                //    //var id = $(this).attr('data-id').split('-')[0];
+                //    //var orderId = $(this).attr('data-id').split('-')[1];
+                //    //onSelectOrderTable(id, orderId);
+                //    onSelectedItem(this);
+                //    return false;
+                //});
+                //$('tr[id="rmenu-useTable"]').click(function() {
+                //    //var tableId = $(this).attr('data-tableid');
+                //    //var orderTableId = $(this).attr('id').replace('rmenu-useTable-', '');
+                //    //onCheckTableStatus(orderTableId, tableId);
+                //    onSelectedItem(this);
+                //    return false;
+                //});
+                //$('tr[id="rmenu-move"]').click(function() {
+                //    //var id = $(this).attr('data-id');
+                //    //onMoveOrderTable(id);
+                //    onSelectedItem(this);
+                //    return false;
+                //});
+                //$('tr[id="rmenu-del"]').click(function() {
+                //    //var id = $(this).attr('data-id').split('-')[0];
+                //    //var orderId = $(this).attr('data-id').split('-')[1];
+                //    //onRemoveOrderTable(id, orderId);
+                //    onSelectedItem(this);
+                //    return false;
+                //});
+                $('.tbls').each(function(idx, element) {
+                    var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
+                    if ($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
+                        $(element).addClass('selected');
+                });
+            }
         });
         return;
+    }
+    
+    $(document).on("click", 'tr[id^="rmenu-"]', (function(){
+        onSelectedItem(this);
+    }));
+    
+    function onSelectedItem(e) {
+        var action = $(e).attr('id');
+        var data = [];
+        var popup, valid = true;
+        $('.tbls').each(function(idx, element) {
+            if($(element).hasClass('selected')) {
+                var orderTableId = $(element).attr('id').split('-')[0];
+                var tableId = $(element).attr('id').split('-')[1];
+                var orderId = $(element).attr('id').split('-')[2];
+                
+                data[data.length] = { OrderTableID: orderTableId, TableID: tableId, OrderID: orderId };
+            }
+        });
+        
+        if(action == 'rmenu-detail') {
+            if(data.length > 1) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác không chính xác.<br />Xin vui lòng chọn một bàn để xem chi tiết.',
+                    1,
+                    function() {
+                        refreshTableArea();
+                    });
+
+                popup.OpenPopup();
+            } else {
+                if(data[0].OrderTableID > 0)
+                    onSelectOrderTable(data[0].OrderTableID, data[0].OrderID);
+            }
+        }else if(action == 'rmenu-useTable') {
+            if(data.length > 1) 
+            {
+                var arrtableId = [];
+                for (var i = 0; i < data.length; i++)
+                {
+                    if(data[i].OrderTableID > 0) {
+                        valid = false;
+                        break;
+                    }
+                    arrtableId[arrtableId.length] = data[i].TableID;
+                }
+                if(!valid) {
+                    popup = new MessagePopup('Thông báo',
+                        'Thao tác không chính xác.<br />Xin vui lòng chọn một bàn để xem chi tiết.',
+                        1,
+                        function() {
+                            refreshTableArea();
+                        });
+                    popup.OpenPopup();
+                }else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CreateMultiOrderTable")',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ table: arrtableId })
+                    }).done(function(object) {
+                        if (object.Success && object.Data > 0) {
+                            $('#curOrderID').val(object.Data);
+                            refreshTableArea();
+                            refreshOrderArea();
+                        }
+                    });
+                    return false;
+                }
+            } else {
+                onCheckTableStatus(data[0].OrderTableID, data[0].TableID);
+                return false;
+            }
+        }else if(action == 'rmenu-move') {
+        
+        }else if(action == 'rmenu-del') {
+            //onRemoveOrderTable(id, orderId);
+        }
+        return false;
     }
         
     function displayCustomMenu(menuName, event) {

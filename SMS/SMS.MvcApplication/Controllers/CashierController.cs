@@ -53,11 +53,10 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult GetOrder(long orderID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderID <= 0) return Json(null);
+            if (orderID <= 0) return Json(JsonModel.Create(false));
 
             var order = OrderService.GetOrderDetailByOrderID<OrderDto>(orderID);
 
@@ -67,8 +66,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CancelTable(long orderTableID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderTableID <= 0) return Json(null);
+            if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
             var flag = OrderTableService.Delete(orderTableID);
 
@@ -78,8 +76,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CancelOrder(long orderTableID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderTableID <= 0) return Json(null);
+            if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
             var result = OrderService.DeleteByOrderTableID(orderTableID);
 
@@ -89,8 +86,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CheckTableStatus(long tableID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (tableID <= 0) return Json(null);
+            if (tableID <= 0) return Json(JsonModel.Create(false));
 
             var result = OrderTableService.CheckTableStatus(tableID);
 
@@ -100,8 +96,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderDetailID <= 0) return Json(null);
+            if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
             var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
@@ -111,8 +106,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderDetailID <= 0) return Json(null);
+            if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
             var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
@@ -122,8 +116,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult RemoveOrderedProduct(long orderDetailID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderDetailID <= 0) return Json(null);
+            if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
             var result = OrderDetailService.Delete(orderDetailID);
 
@@ -133,12 +126,19 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CreateOrderTable(long tableID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (tableID <= 0) return Json(null);
+            if (tableID <= 0) return Json(JsonModel.Create(false));
 
             var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
             return Json(JsonModel.Create(orderTableID));
+        }
+
+        [HttpPost]
+        public JsonResult CreateMultiOrderTable(long[] table)
+        {
+            var orderID = OrderTableService.CreateMultiOrderTable(table);
+
+            return Json(JsonModel.Create(orderID));
         }
 
         [HttpPost]
@@ -150,8 +150,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetTablesByAreaID(long areaID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (areaID < 0) return Json(new JsonModel { Data = null });
+            if (areaID < 0) return Json(JsonModel.Create(false));
             var listTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID);
 
             return Json(JsonModel.Create(listTable));

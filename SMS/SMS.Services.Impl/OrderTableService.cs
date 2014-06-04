@@ -25,5 +25,10 @@ namespace SMS.Services.Impl
         {
             return Management.CheckTableStatus(tableID);
         }
+
+        public ServiceResult<long> CreateMultiOrderTable(long[] table)
+        {
+            return Management.CreateMultiOrderTable(table);
+        }
     }
 }

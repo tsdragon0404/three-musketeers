@@ -594,7 +594,7 @@ label.ui-state-error {
 }
 
 .popup-content{
-    height: 180px;
+    height: 90%;
     margin: 10px 0;
     overflow: auto;
 }

@@ -33,7 +33,7 @@ namespace SMS.Business.Impl
                                                                     }));
 
             return new ServiceResult<IList<TDto>>
-                       {Data = Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.Area.SEQ).ToList())};
+                       {Data = Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.Area.SEQ).ThenBy(x => x.Table.ID).ToList())};
         }
 
         public ServiceResult<long> CreateOrderTable(long tableID)
@@ -50,6 +50,17 @@ namespace SMS.Business.Impl
         {
             var result = Repository.Find(x => x.Table.ID == tableID);
             return new ServiceResult {Success = result.Any()};
+        }
+
+        public ServiceResult<long> CreateMultiOrderTable(long[] tableID)
+        {
+            var orderId = OrderManagement.CreateOrder();
+            foreach (var tblID in tableID)
+            {
+                var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tblID}};
+                Repository.Add(orderTable);
+            }
+            return new ServiceResult<long> { Data = orderId };
         }
     }
 }

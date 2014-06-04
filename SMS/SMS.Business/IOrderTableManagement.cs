@@ -9,5 +9,6 @@ namespace SMS.Business
         ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID);
         ServiceResult<long> CreateOrderTable(long tableID);
         ServiceResult CheckTableStatus(long tableID);
+        ServiceResult<long> CreateMultiOrderTable(long[] table);
     }
 }
