@@ -20,21 +20,21 @@
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderTables}}
-    <div class="row div-header">
-        <div class="eleven columns">
-            <span id="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+    <div class="row" id="orderTable-${ID}">
+        <div class="row div-header">
+            <div class="eleven columns">
+                <span id="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+            </div>
+            <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
         </div>
-        <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
-    </div>
-    <div class="row">
         <form id="form-table-order-${ID}">
             <table id="order-${ID}" class="table-order">
                 <colgroup>
@@ -338,7 +338,7 @@
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
             }).done(function (object) {
-                if (object.Data == null) {
+                if (object.Data.ID == 0) {
                     clearDisplayTableDetail(orderId);
                 }
                 else {
@@ -627,6 +627,24 @@
         }
     }
 
+    function onDeleteOrderTable(e) {
+        var orderTableId = $(e).attr('id').split('-')[1];
+        if(orderTableId <= 0)
+            return;
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CancelTable")',
+                data: { orderTableID: orderTableId }
+            }).done(function(data) {
+                if (data.Success) {
+                    refreshTableArea();
+                    refreshOrderArea();
+                }
+            });
+        }
+    }
+
     function onSelectOrderTable(orderTableId, orderId) {
         $("table[id*=Rmenu-]").hide();
         if (orderTableId <= 0) {
@@ -727,6 +745,10 @@
             }
         });
         
+        $('a[id^="removeTable-"]').click(function () {
+            onDeleteOrderTable(this);
+        });
+        
         $('input[id^="cmt"]').change(function() {
             updateOrderedProduct(this);
         });
@@ -812,6 +834,7 @@
                 if($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
                     $(element).addClass('selected');
             });
+            
         });
         return;
     }
