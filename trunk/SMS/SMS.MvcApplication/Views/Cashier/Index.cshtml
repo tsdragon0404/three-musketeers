@@ -134,7 +134,7 @@
 <script id="table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
     {{if idx % @ConstStyle.GridNumber == 0}}
-    <div class='row'>
+    <div class='row' style="padding-top: 10px;">
         {{/if}}
         <div class="one column">
             <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}-${Order.OrderNumber}{{/if}}">
@@ -226,12 +226,10 @@
 
         </ul>
         <div id="tables">
-            <div id="area-0">
-                </div>
+            <div id="area-0"></div>
             @foreach (var areaDto in Model.ListArea)
             {
-                <div id="area-@areaDto.ID">
-                </div>
+                <div id="area-@areaDto.ID"></div>
             }
         </div>
     </div>
@@ -506,7 +504,7 @@
         displayCustomMenu('#changeCustomer', e);
     }));
     
-    $(document).on("click", "#mainRightMenu", (function(e){
+    $(document).on("click", "#mainRightMenu", (function(){
         refreshTableArea();
         refreshOrderArea();
     }));
@@ -577,8 +575,7 @@
             } else {
                 $(e).attr('id', 'status-' + object.Data.ID + '-' + object.Data.OrderStatus.ID);
                 $(e).attr('title', object.Data.OrderStatus.Name);
-                var cssClass = '';
-
+                var cssClass;
                 switch (object.Data.OrderStatus.ID) {
                     case 1:
                         cssClass = 'transfer';

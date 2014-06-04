@@ -78,7 +78,9 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
         var $splitPane = $(this),
 			$firstComponent = $splitPane.children('.split-pane-component:first'),
 			$divider = $splitPane.children('.split-pane-divider'),
-			$lastComponent = $splitPane.children('.split-pane-component:last');
+			$lastComponent = $splitPane.children('.split-pane-component:last'),
+            maxLastComponentWidth,
+            maxLastComponentHeight;
         if ($splitPane.is('.fixed-top')) {
             var maxfirstComponentHeight = $splitPane.height() - minHeight($lastComponent) - $divider.height();
             if ($firstComponent.height() > maxfirstComponentHeight) {
@@ -87,14 +89,14 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
                 $splitPane.resize();
             }
         } else if ($splitPane.is('.fixed-bottom')) {
-            var maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height();
+            maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height();
             if ($lastComponent.height() > maxLastComponentHeight) {
-                setBottom($splitPane, $firstComponent, $divider, $lastComponent, maxLastComponentHeight + 'px')
+                setBottom($splitPane, $firstComponent, $divider, $lastComponent, maxLastComponentHeight + 'px');
             } else {
                 $splitPane.resize();
             }
         } else if ($splitPane.is('.horizontal-percent')) {
-            var maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height();
+            maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height();
             if ($lastComponent.height() > maxLastComponentHeight) {
                 setBottom($splitPane, $firstComponent, $divider, $lastComponent, (maxLastComponentHeight / $splitPane.height() * 100) + '%');
             } else {
@@ -113,14 +115,14 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
                 $splitPane.resize();
             }
         } else if ($splitPane.is('.fixed-right')) {
-            var maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width();
+            maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width();
             if ($lastComponent.width() > maxLastComponentWidth) {
-                setRight($splitPane, $firstComponent, $divider, $lastComponent, maxLastComponentWidth + 'px')
+                setRight($splitPane, $firstComponent, $divider, $lastComponent, maxLastComponentWidth + 'px');
             } else {
                 $splitPane.resize();
             }
         } else if ($splitPane.is('.vertical-percent')) {
-            var maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width();
+            maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width();
             if ($lastComponent.width() > maxLastComponentWidth) {
                 setRight($splitPane, $firstComponent, $divider, $lastComponent, (maxLastComponentWidth / $splitPane.width() * 100) + '%');
             } else {
@@ -137,7 +139,13 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
     function createMousemove($splitPane, pageX, pageY) {
         var $firstComponent = $splitPane.children('.split-pane-component:first'),
 			$divider = $splitPane.children('.split-pane-divider'),
-			$lastComponent = $splitPane.children('.split-pane-component:last');
+			$lastComponent = $splitPane.children('.split-pane-component:last'),
+            lastComponentMinHeight,
+            maxLastComponentHeight,
+            bottomOffset,
+            lastComponentMinWidth,
+            maxLastComponentWidth,
+            rightOffset;
         if ($splitPane.is('.fixed-top')) {
             var firstComponentMinHeight = minHeight($firstComponent),
 				maxFirstComponentHeight = $splitPane.height() - minHeight($lastComponent) - $divider.height(),
@@ -145,22 +153,22 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
             return function (event) {
                 event.preventDefault();
                 var top = Math.min(Math.max(firstComponentMinHeight, topOffset + event.pageY), maxFirstComponentHeight);
-                setTop($splitPane, $firstComponent, $divider, $lastComponent, top + 'px')
+                setTop($splitPane, $firstComponent, $divider, $lastComponent, top + 'px');
             };
         } else if ($splitPane.is('.fixed-bottom')) {
-            var lastComponentMinHeight = minHeight($lastComponent),
-				maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height(),
-				bottomOffset = $lastComponent.height() + pageY;
+            lastComponentMinHeight = minHeight($lastComponent);
+            maxLastComponentHeight = $splitPane.height() - minHeight($firstComponent) - $divider.height();
+            bottomOffset = $lastComponent.height() + pageY;
             return function (event) {
                 event.preventDefault();
                 var bottom = Math.min(Math.max(lastComponentMinHeight, bottomOffset - event.pageY), maxLastComponentHeight);
                 setBottom($splitPane, $firstComponent, $divider, $lastComponent, bottom + 'px');
             };
         } else if ($splitPane.is('.horizontal-percent')) {
-            var splitPaneHeight = $splitPane.height(),
-				lastComponentMinHeight = minHeight($lastComponent),
-				maxLastComponentHeight = splitPaneHeight - minHeight($firstComponent) - $divider.height(),
-				bottomOffset = $lastComponent.height() + pageY;
+            var splitPaneHeight = $splitPane.height();
+            lastComponentMinHeight = minHeight($lastComponent);
+            maxLastComponentHeight = splitPaneHeight - minHeight($firstComponent) - $divider.height();
+            bottomOffset = $lastComponent.height() + pageY;
             return function (event) {
                 event.preventDefault();
                 var bottom = Math.min(Math.max(lastComponentMinHeight, bottomOffset - event.pageY), maxLastComponentHeight);
@@ -173,28 +181,29 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
             return function (event) {
                 event.preventDefault();
                 var left = Math.min(Math.max(firstComponentMinWidth, leftOffset + event.pageX), maxFirstComponentWidth);
-                setLeft($splitPane, $firstComponent, $divider, $lastComponent, left + 'px')
+                setLeft($splitPane, $firstComponent, $divider, $lastComponent, left + 'px');
             };
         } else if ($splitPane.is('.fixed-right')) {
-            var lastComponentMinWidth = minWidth($lastComponent),
-				maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width(),
-				rightOffset = $lastComponent.width() + pageX;
+            lastComponentMinWidth = minWidth($lastComponent);
+            maxLastComponentWidth = $splitPane.width() - minWidth($firstComponent) - $divider.width();
+            rightOffset = $lastComponent.width() + pageX;
             return function (event) {
                 event.preventDefault();
                 var right = Math.min(Math.max(lastComponentMinWidth, rightOffset - event.pageX), maxLastComponentWidth);
                 setRight($splitPane, $firstComponent, $divider, $lastComponent, right + 'px');
             };
         } else if ($splitPane.is('.vertical-percent')) {
-            var splitPaneWidth = $splitPane.width(),
-				lastComponentMinWidth = minWidth($lastComponent),
-				maxLastComponentWidth = splitPaneWidth - minWidth($firstComponent) - $divider.width(),
-				rightOffset = $lastComponent.width() + pageX;
+            rightOffset = $lastComponent.width() + pageX;
+            var splitPaneWidth = $splitPane.width();
+            lastComponentMinWidth = minWidth($lastComponent);
+            maxLastComponentWidth = splitPaneWidth - minWidth($firstComponent) - $divider.width();
             return function (event) {
                 event.preventDefault();
                 var right = Math.min(Math.max(lastComponentMinWidth, rightOffset - event.pageX), maxLastComponentWidth);
                 setRight($splitPane, $firstComponent, $divider, $lastComponent, (right / splitPaneWidth * 100) + '%');
             };
         }
+        return true;
     }
 
     function minHeight($element) {
