@@ -6,13 +6,13 @@ namespace SMS.Services
 {
     public interface IBaseService<TDto, in TPrimaryKey>
     {
-        IList<TDto> GetAll();
-        IList<TModel> GetAll<TModel>();
-        IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo);
-        IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo);
+        ServiceResult<IList<TDto>> GetAll();
+        ServiceResult<IList<TModel>> GetAll<TModel>();
+        ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo);
+        ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo);
         ServiceResult<TDto> GetByID(TPrimaryKey primaryKey);
-        TModel GetByID<TModel>(TPrimaryKey primaryKey);
+        ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey);
         ServiceResult<TDto> Save(TDto dto);
-        bool Delete(TPrimaryKey primaryKey);
+        ServiceResult Delete(TPrimaryKey primaryKey); 
     }
 }

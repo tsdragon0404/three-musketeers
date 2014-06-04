@@ -1,4 +1,5 @@
-﻿$(document).ready(function(){
+﻿var globalTimer;
+$(document).ready(function () {
     var leftmenu = $('#leftmenu');
     if (leftmenu.length != 0) {
         $('#leftmenuExpander').css("left", leftmenu.outerWidth() + "px");
@@ -9,6 +10,11 @@
     if (body.length != 0) {
         SetHeightBodySection();
         $(window).resize(SetHeightBodySection);
+
+        if ($('#area-table').length != 0) {
+            
+            globalTimer = setInterval(SetHeightCashierContent, 250);
+        }
     }
 });
 
@@ -45,6 +51,15 @@ function SetHeightBodySection() {
     
     // set position for expander
     $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
+}
+function SetHeightCashierContent() {
+    var outerDivHeight = $('#area-table').height();
+    var siblingsHeight = $('#areas').outerHeight();
+    $('#tables').height(outerDivHeight - siblingsHeight);
+    
+    outerDivHeight = $('#tableorder').height();
+    siblingsHeight = $('#order-header').outerHeight();
+    $('#order-detail').height(outerDivHeight - siblingsHeight);
 }
 
 function pad(s) { return (s < 10) ? '0' + s : s; }

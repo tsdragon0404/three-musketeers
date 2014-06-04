@@ -9,22 +9,22 @@ namespace SMS.Services.Impl
     {
         public virtual TIManagement Management { get; set; }
 
-        public IList<TDto> GetAll()
+        public ServiceResult<IList<TDto>> GetAll()
         {
             return Management.GetAll();
         }
 
-        public IList<TModel> GetAll<TModel>()
+        public ServiceResult<IList<TModel>> GetAll<TModel>()
         {
             return Management.GetAll<TModel>();
         }
 
-        public IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
             return Management.FindByString(textSearch, pagingInfo);
         }
 
-        public IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
         {
             return Management.FindByString<TModel>(textSearch, pagingInfo);
         }
@@ -34,7 +34,7 @@ namespace SMS.Services.Impl
             return Management.GetByID(primaryKey);
         }
 
-        public TModel GetByID<TModel>(TPrimaryKey primaryKey)
+        public ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
         {
             return Management.GetByID<TModel>(primaryKey);
         }
@@ -44,7 +44,7 @@ namespace SMS.Services.Impl
             return Management.Save(dto);
         }
 
-        public bool Delete(TPrimaryKey primaryKey)
+        public ServiceResult Delete(TPrimaryKey primaryKey)
         {
             return Management.Delete(primaryKey);
         }

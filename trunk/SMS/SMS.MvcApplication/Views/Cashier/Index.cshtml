@@ -239,7 +239,7 @@
     <div id="tableorder" class="split-pane-component">
         <input type="hidden" id="curOrderID" value="-1" />
         <input type="hidden" id="curOrderTableID" value="-1" />
-        <div class="row border-bottom div-header">
+        <div class="row border-bottom div-header" id="order-header">
             <div class="four columns">
                 <span id="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
             </div>
@@ -249,28 +249,28 @@
             </div>
         </div>
         
-        <div class="row" id="tblContent">
+        <div id="order-detail">
+            <div class="row" id="tblContent">
             
-        </div>
+            </div>
         
-        <div id="totalSection">
-            @if(BranchConfig.UseServiceFee)
-            {
-                <div class="row" id="ServiceFree">
-                    <div class="two columns push_eight right">Service Fee:</div>
-                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+            <div class="row" id="totalSection">
+                @if(BranchConfig.UseServiceFee)
+                {
+                    <div class="row" id="ServiceFree">
+                        <div class="two columns push_eight right">Service Fee:</div>
+                        <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                    </div>
+                }
+                <div class="row" id="Tax-">
+                    <div class="two columns push_eight right">Tax (10%):</div>
+                    <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
                 </div>
-            }
-            <div class="row" id="Tax-">
-                <div class="two columns push_eight right">Tax (10%):</div>
-                <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
+                <div class="row">
+                    <div class="two columns push_eight right">Total Amount:</div>
+                    <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="two columns push_eight right">Total Amount:</div>
-                <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
-            </div>
-        </div>
-        <div>
             <div class="row">
                 <div class="four columns right border-top payment">
                     <input type="button" id="payment" value="Thanh toán"/>
@@ -278,7 +278,6 @@
                 </div>
             </div>
         </div>
-        <div class="row"><br/></div>
     </div>
     
     <div id="rightMenuArea"></div>

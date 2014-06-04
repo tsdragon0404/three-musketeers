@@ -75,7 +75,7 @@ namespace SMS.MvcApplication
 
             var errorMessageService = container.Resolve<IErrorMessageService>();
 
-            SystemMessages.Initialize(errorMessageService.GetAll<LanguageErrorMessageDto>()
+            SystemMessages.Initialize(errorMessageService.GetAll<LanguageErrorMessageDto>().Data
                 .ToDictionary(x => x.ID, x => x.Message));
         }
 
