@@ -34,7 +34,7 @@ namespace SMS.Business.Impl
                                       OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? 5 : 1)
                                   };
             Repository.Add(orderDetail);
-            return new ServiceResult<TDto>() { Data = Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)) };
+            return new ServiceResult<TDto> { Data = Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)) };
         }
 
         public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)

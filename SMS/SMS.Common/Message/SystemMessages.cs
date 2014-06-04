@@ -13,7 +13,7 @@ namespace SMS.Common.Message
 
         public static string Get(long id)
         {
-            return messages[id];
+            return messages.ContainsKey(id) ? messages[id] : string.Empty;
         }
 
         public static void Update(long id, string message)

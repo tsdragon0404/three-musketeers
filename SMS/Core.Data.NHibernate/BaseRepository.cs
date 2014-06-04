@@ -141,11 +141,11 @@ namespace Core.Data.NHibernate
         {
             var entities = Fetches(Session.Query<TEntity>(), fetchSelectors);
 
-            if(textSearch.IsNullOrEmpty())
+            if (textSearch.IsNullOrEmpty())
                 return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
 
             var filteredEntities = entities.ToList().Where(x => SearchByAttribute(x, textSearch)).ToList();
-            
+
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? filteredEntities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : filteredEntities.ToList();
         }
 
@@ -155,17 +155,13 @@ namespace Core.Data.NHibernate
 
             foreach (var propertyInfo in propertyInfos)
             {
-                if(propertyInfo.PropertyType == typeof(string))
+                if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(long))
                 {
                     var value = (string)propertyInfo.GetValue(entity);
-                    if(value != null && value.ToLower().Contains(searchCriteria.ToString().ToLower()))
+                    if (value != null && value.ToLower().Contains(searchCriteria.ToString().ToLower()))
                         return true;
                 }
-                else if(propertyInfo.PropertyType == typeof(int))
-                {
-                    
-                }
-                else if(propertyInfo.PropertyType.IsSubclassOf(typeof(Entity)))
+                else if (typeof(IEntity<long>).IsAssignableFrom(propertyInfo.PropertyType))
                 {
                     var result = SearchByAttribute(propertyInfo.GetValue(entity), searchCriteria);
                     if (result)

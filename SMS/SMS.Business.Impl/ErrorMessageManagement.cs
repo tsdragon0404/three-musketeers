@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SMS.Data;
+﻿using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 

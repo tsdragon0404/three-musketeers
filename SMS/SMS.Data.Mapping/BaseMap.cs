@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using FluentNHibernate.Mapping;
+using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
