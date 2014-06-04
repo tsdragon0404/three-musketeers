@@ -24,7 +24,7 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
                              };
             var model = new AdminModel<TDto>
             {
-                ListRecord = Service.FindByString(textSearch, pagingInfo),
+                ListRecord = Service.FindByString(textSearch, pagingInfo).Data,
                 PagingInfo = pagingInfo
             };
 
@@ -34,7 +34,7 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult GetDataForEdit(TPrimaryKey recordID)
         {
-            return Json(new JsonModel { Data = Service.GetByID(recordID) });
+            return Json(JsonModel.Create(Service.GetByID(recordID)));
         }
 
         [HttpPost]
@@ -46,14 +46,13 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
         [HttpPost]
         public virtual JsonResult SaveData(TDto data)
         {
-            var saveResult = Service.Save(data);
-            return Json(new JsonModel { Success = saveResult.Success });
+            return Json(JsonModel.Create(Service.Save(data)));
         }
 
         [HttpPost]
         public virtual JsonResult DeleteData(TPrimaryKey recordID)
         {
-            return Json(new JsonModel { Success = Service.Delete(recordID) });
+            return Json(JsonModel.Create(Service.Delete(recordID)));
         }
     }
 }

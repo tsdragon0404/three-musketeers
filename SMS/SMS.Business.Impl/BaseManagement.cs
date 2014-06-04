@@ -16,44 +16,44 @@ namespace SMS.Business.Impl
 
         #region Implementation of IBaseManagement<TDto,in TPrimaryKey>
 
-        public IList<TDto> GetAll()
+        public ServiceResult<IList<TDto>> GetAll()
         {
-            return Mapper.Map<IList<TDto>>(Repository.GetAll().ToList());
+            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.GetAll().ToList()) };
         }
 
-        public IList<TModel> GetAll<TModel>()
+        public ServiceResult<IList<TModel>> GetAll<TModel>()
         {
-            return Mapper.Map<IList<TModel>>(Repository.GetAll().ToList());
+            return new ServiceResult<IList<TModel>> { Data = Mapper.Map<IList<TModel>>(Repository.GetAll().ToList()) };
         }
 
-        public IPagedList<TDto> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
             var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = UserContext.PageSize;
 
-            return PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo);
+            return new ServiceResult<IPagedList<TDto>> { Data = PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo) };
         }
 
-        public IPagedList<TModel> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
         {
             var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = UserContext.PageSize;
 
-            return PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo);
+            return new ServiceResult<IPagedList<TModel>> { Data = PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo) };
         }
 
         public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
         {
-            return new ServiceResult<TDto> {Data = Mapper.Map<TDto>(Repository.Get(primaryKey))};
+            return new ServiceResult<TDto> { Data = Mapper.Map<TDto>(Repository.Get(primaryKey)) };
         }
 
-        public TModel GetByID<TModel>(TPrimaryKey primaryKey)
+        public ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
         {
-            return Mapper.Map<TModel>(Repository.Get(primaryKey));
+            return new ServiceResult<TModel> { Data = Mapper.Map<TModel>(Repository.Get(primaryKey)) };
         }
 
         public ServiceResult<TDto> Save(TDto dto)
@@ -72,9 +72,9 @@ namespace SMS.Business.Impl
             return result;
         }
 
-        public bool Delete(TPrimaryKey primaryKey)
+        public ServiceResult Delete(TPrimaryKey primaryKey)
         {
-            return Repository.Delete(primaryKey);
+            return new ServiceResult { Success = Repository.Delete(primaryKey) };
         }
 
         #endregion

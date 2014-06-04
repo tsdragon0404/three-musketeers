@@ -13,7 +13,7 @@ namespace SMS.MvcApplication.Areas.Administrator.Controllers
 
         public override System.Web.Mvc.ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListArea = AreaService.GetAll();
+            ViewBag.ListArea = AreaService.GetAll().Data;
             return base.Index(textSearch, page);
         }
         

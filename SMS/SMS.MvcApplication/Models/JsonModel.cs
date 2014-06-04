@@ -17,5 +17,13 @@ namespace SMS.MvcApplication.Models
         {
             return new JsonModel {Success = serviceResult.Success, Data = serviceResult.Data};
         }
+        public static JsonModel Create(ServiceResult serviceResult)
+        {
+            return new JsonModel { Success = serviceResult.Success };
+        }
+        public static JsonModel Create(bool success)
+        {
+            return new JsonModel { Success = success };
+        }
     }
 }

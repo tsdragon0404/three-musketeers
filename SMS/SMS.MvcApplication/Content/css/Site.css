@@ -199,14 +199,19 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 }
 
 #area-table {
-    bottom: 60%;
+    bottom: 80%;
     margin-bottom: 3px;
     min-height: 155px;
     border: none;
+    overflow: hidden;
 }
 
 #area-table .row {
     padding: 0;
+}
+
+#tables {
+    overflow: auto;
 }
 
 .split-pane-divider {
@@ -222,6 +227,11 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 #tableorder {
     height: 80%;
     min-height: 310px;
+    overflow: hidden;
+}
+
+#order-detail {
+    overflow: auto;
 }
 
 .table-order .col1 {
@@ -539,7 +549,7 @@ label.ui-state-error {
 
 .payment {
     float: right;
-    padding-top: 10px;
+    padding: 10px 0;
 }
 
 .editlabel {
