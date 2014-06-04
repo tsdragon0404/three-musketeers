@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Data;
 
 namespace SMS.Data.Entities
 {

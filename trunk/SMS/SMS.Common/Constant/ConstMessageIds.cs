@@ -2,6 +2,6 @@
 {
     public class ConstMessageIds
     {
-        public static int M0001 = 1;
+        public const int NotValid = 1;
     }
 }

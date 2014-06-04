@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using SMS.Common.Constant;
+﻿using SMS.Common.Constant;
 
 namespace SMS.Data.Entities
 {

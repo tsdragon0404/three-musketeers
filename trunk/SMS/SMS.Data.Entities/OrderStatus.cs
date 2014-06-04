@@ -1,6 +1,4 @@
-﻿using Core.Data;
-
-namespace SMS.Data.Entities
+﻿namespace SMS.Data.Entities
 {
     public class OrderStatus : Entity
     {
