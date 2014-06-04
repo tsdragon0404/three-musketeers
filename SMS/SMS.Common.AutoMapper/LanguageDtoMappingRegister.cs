@@ -33,6 +33,7 @@ namespace SMS.Common.AutoMapper
 
             Mapper.CreateMap<OrderTable, LanguageOrderTableDto>();
             Mapper.CreateMap<OrderTable, OrderTableBasicDto>();
+            Mapper.CreateMap<Order, OrderBasicDto>();
 
             Mapper.CreateMap<OrderDetail, LanguageOrderDetailDto>();
 

@@ -137,13 +137,13 @@ namespace SMS.MvcApplication.Controllers
             return Json(new {ListProduct = ProductService.GetAll<LanguageProductDto>()});
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult GetTablesByAreaID(long areaID)
         {
-            if (areaID <= 0) return Json(null);
+            if (areaID < 0) return Json(new JsonModel {Data = null});
             var listTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID);
 
-            return Json(JsonModel.Create(listTable));
+            return Json(JsonModel.Create(listTable), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
