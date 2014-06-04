@@ -201,7 +201,7 @@
             </tr>
         </thead>
         <tbody>
-            {{each(idx) OrderTable.InvoiceDetails}}
+            {{each(idx) Data.InvoiceDetails}}
             <tr>
                 <td>${idx + 1}</td>
                 <td>${ProductCode}</td>
@@ -699,8 +699,9 @@
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetAllProductsForSearch")',
-        }).done(function (data) {
-            listProduct = data.ListProduct;
+        }).done(function (result) {
+            if(result.Success)
+                listProduct = result.Data;
         });
             
         if(reloadCallback)

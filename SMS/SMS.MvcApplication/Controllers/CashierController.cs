@@ -144,8 +144,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            //TODO-Lam: using JsonModel
-            return Json(new {ListProduct = ProductService.GetAll<LanguageProductDto>()});
+            return Json(JsonModel.Create(ProductService.GetAll<LanguageProductDto>()));
         }
 
         [HttpPost]
@@ -165,8 +164,7 @@ namespace SMS.MvcApplication.Controllers
 
             var orderTable = OrderTableService.GetByID<LanguageOrderTableDto>(orderTableID);
 
-            //TODO-Lam: using JsonModel
-            return Json(new { OrderTable = orderTable });
+            return Json(JsonModel.Create(orderTable));
         }
     }
 }
