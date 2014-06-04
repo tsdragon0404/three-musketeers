@@ -24,11 +24,13 @@
             type: 'POST',
             url: root.getDataForPreviewUrl,
             data: postData
-        }).done(function (data) {
+        }).done(function (result) {
+            if (!result.Success)
+                return;
             if(root.formatDataForPrintInvoicePreview)
-                root.formatDataForPrintInvoicePreview(data);
+                root.formatDataForPrintInvoicePreview(result.Data);
             
-            $('#printPreviewPopup .print-content').html(root.template.tmpl(data));
+            $('#printPreviewPopup .print-content').html(root.template.tmpl(result.Data));
             $('#printPreviewPopup').dialog("open");
         });
     };
