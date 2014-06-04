@@ -34,7 +34,7 @@ namespace SMS.MvcApplication.Base
                 var viewResult = filterContext.Result as ViewResult;
                 if (viewResult != null)
                 {
-                    var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID).ToDictionary(x => x.LabelID, x => x.Text);
+                    var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID).Data.ToDictionary(x => x.LabelID, x => x.Text);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
                 }
@@ -44,34 +44,26 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public JsonResult EditPageLabel(int pageID, string labelID, string text)
-        {
-            return Json(!UserContext.IsSuperAdmin 
-                ? new JsonModel { Success = false } 
-                : new JsonModel { Success = PageLabelService.Save(pageID, labelID, text) });
-        }
-
-        [HttpPost]
         public JsonResult ChangeLanguage(Language language)
         {
             UserContext.Language = language;
-            return Json(new JsonModel());
+            return Json(JsonModel.Create(true));
         }
 
         [HttpPost]
         public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
         {
-            return Json(!UserContext.IsSuperAdmin 
-                ? new JsonModel { Success = false } 
-                : new JsonModel { Success = PageLabelService.Save(pageID, listLabels.ToList()) });
+            return Json(!UserContext.IsSuperAdmin
+                            ? JsonModel.Create(false)
+                            : JsonModel.Create(PageLabelService.Save(pageID, listLabels.ToList())));
         }
 
         [HttpPost]
         public JsonResult GetAllPageLabel(int pageID)
         {
-            return Json(!UserContext.IsSuperAdmin 
-                ? new JsonModel { Success = false } 
-                : new JsonModel { Data = PageLabelService.GetByPageID<PageLabelDto>(pageID) });
+            return Json(!UserContext.IsSuperAdmin
+                            ? JsonModel.Create(false)
+                            : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }
     }
 }
