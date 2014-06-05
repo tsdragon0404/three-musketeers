@@ -740,6 +740,7 @@
     <Content Include="Images\flag-vn.png" />
     <Content Include="Images\IconControls\accept-icon.png" />
     <Content Include="Images\IconControls\add-icon.png" />
+    <Content Include="Images\IconControls\all-icon.png" />
     <Content Include="Images\IconControls\confirm-icon.png" />
     <Content Include="Images\IconControls\delete-icon.png" />
     <Content Include="Images\IconControls\details-icon.png" />

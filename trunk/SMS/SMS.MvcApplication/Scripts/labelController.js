@@ -52,7 +52,11 @@
                 return false;
             });
 
-            $('#multi-edit-label-save').button().click(function () {
+            $('#multi-edit-label-save').button({
+                icons: {
+                    primary: "ui-icon-circle-check"
+                }
+            }).click(function () {
                 var data = [];
                 $('#label-dictionary tr').each(function () {
                     var lblId = $(this).find('.page-label-id').text();
@@ -74,7 +78,11 @@
                 });
             });
 
-            $('#multi-edit-label-cancel').button().click(function () {
+            $('#multi-edit-label-cancel').button({
+                icons: {
+                    primary: "ui-icon-circle-close"
+                }
+            }).click(function () {
                 $(root.popupId).dialog('close');
             });
             
@@ -88,13 +96,13 @@
         autoOpen: false,
         closeOnEscape: true,
         resizable: false,
-        width: 500,
+        width: 800,
         height: 500,
         modal: true
     });
 
     //unbind click event for buttons
-    $(root.popupId + ' .popup-buttons input[type="button"]').unbind('click');
+    $(root.popupId + ' .popup-buttons button').unbind('click');
 
     this.OpenPopup = function () {
         $(root.popupId).dialog("open");
@@ -117,7 +125,7 @@
     };
 
     function scanElement(element) {
-        var id = $(element).attr('data-labelID');
+        var id = $(element).attr('data-labelid');
         if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
             if (element.nodeName == 'INPUT')
                 $(element).val(root.labelDictionary[id]);

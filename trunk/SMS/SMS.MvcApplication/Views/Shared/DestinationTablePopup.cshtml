@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th style="width: 50px">No</th>
-                <th style="width: 150px">Table name</th>
-                <th style="width: 150px">Area name</th>
+                <th style="width: 190px">Table name</th>
+                <th style="width: 190px">Area name</th>
                 <th></th>
             </tr>
         </thead>
@@ -17,8 +17,8 @@
         <table id="table-detail-@Model.PopupID">
             <colgroup>
                 <col style="width: 50px" />
-                <col style="width: 150px" />
-                <col style="width: 150px" />
+                <col style="width: 190px" />
+                <col style="width: 190px" />
                 <col />
             </colgroup>
             <tbody id="destination-table">
@@ -37,7 +37,9 @@
         <td>${idx + 1}</td>
         <td>${Table.Name}</td>
         <td>${Table.Area.Name}</td>
-        <td class="center"><input type="button" class="small popupSelect" id="select-${ID}" value="Select" /></td>
+        <td class="center">
+            <button id="select-${ID}">Select</button>
+        </td>
     </tr>
     {{/each}}
 </script>

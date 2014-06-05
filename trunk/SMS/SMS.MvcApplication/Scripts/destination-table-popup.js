@@ -10,7 +10,7 @@
         dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
-        width: 500,
+        width: 600,
         height: 400,
         modal: true
     });
@@ -27,9 +27,9 @@
             if (!result.Success)
                 return;
 
-            for (var i = result.Data.length; i < 0; i--) {
+            for (var i = result.Data.length - 1; i >= 0; i--) {
                 if (result.Data[i].ID > 0) {
-                    result.Data.slice(i, 1);
+                    result.Data.splice(i, 1);
                 }
             }
 
@@ -38,7 +38,11 @@
             $('#' + id).dialog("open");
             
             $('table[id^="table-header"').table();
-            $('input[id^="select-"').button();
+            $('button[id^="select-"]').button({
+                icons: {
+                    primary: "ui-icon-circle-check"
+                }
+            });
         });
     };
 }
