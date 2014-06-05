@@ -77,10 +77,12 @@
                 <script type="text/javascript">
                     $('#change-language-vn').click(function () {
                         changeLanguage(@((int)Language.Vietnamese));
+                        return false;
                     });
     
                     $('#change-language-en').click(function () {
                         changeLanguage(@((int)Language.English));
+                        return false;
                     });
     
                     function changeLanguage(id) {

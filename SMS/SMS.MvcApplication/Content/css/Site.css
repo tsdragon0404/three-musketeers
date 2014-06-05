@@ -571,10 +571,6 @@ label.ui-state-error {
 }
 
 /* Style for all popups */
-.print-content {
-    height: 250px;
-    overflow-y: auto;
-}
 
 #popup table, #popup table td {
     background: transparent;
@@ -599,9 +595,11 @@ label.ui-state-error {
 }
 
 .popup-content{
-    height: 90%;
-    margin: 10px 0;
     overflow: auto;
+}
+
+.popup-buttons {
+    margin-bottom: 10px;
 }
 
 #searchProduct .col1 {

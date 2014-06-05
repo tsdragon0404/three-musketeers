@@ -32,6 +32,7 @@
             
             $('#printPreviewPopup .print-content').html(root.template.tmpl(result.Data));
             $('#printPreviewPopup').dialog("open");
+            SetHeightPopupContent('#printPreviewPopup');
         });
     };
 }

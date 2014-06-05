@@ -20,5 +20,10 @@ namespace SMS.Services.Impl
         {
             return Management.Save(pageID, listLabels);
         }
+
+        public ServiceResult Copy(long fromBranchID, long toBranchID)
+        {
+            return Management.Copy(fromBranchID, toBranchID);
+        }
     }
 }

@@ -29,12 +29,12 @@
     $('#popup-message').html(root.message);
 
     //unbind click event for buttons
-    $('#popup .button').unbind('click');
+    $('#popup-button input[type="button"]').unbind('click');
     
     if (popupType == 1) {
         $('#popup-icon').html(root.infoIcon);
         $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').click(function() {
+        $('#popup-button .okButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 firstButtonCallback();
@@ -43,12 +43,12 @@
     else if (popupType == 2) {
         $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.okButton + root.cancelButton);
-        $('#popup-button .okButton').click(function () {
+        $('#popup-button .okButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 root.firstButtonCallback();
         });
-        $('#popup-button .cancelButton').click(function () {
+        $('#popup-button .cancelButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.secondButtonCallback)
                 root.secondButtonCallback();
@@ -57,12 +57,12 @@
     else if (popupType == 3) {
         $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.yesButton + root.noButton);
-        $('#popup-button .yesButton').click(function () {
+        $('#popup-button .yesButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 root.firstButtonCallback();
         });
-        $('#popup-button .noButton').click(function () {
+        $('#popup-button .noButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.secondButtonCallback)
                 root.secondButtonCallback();
@@ -71,7 +71,7 @@
     else if (popupType == 4) {
         $('#popup-icon').html(root.errorIcon);
         $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').click(function () {
+        $('#popup-button .okButton').button().click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 firstButtonCallback();

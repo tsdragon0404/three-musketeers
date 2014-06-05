@@ -45,13 +45,14 @@
                             result.Data[result.Data.length] = { LabelID: id, VNText: '', ENText: '' };
                     });
                     $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
+                    $('#label-dictionary').parent('table').table();
 
                     root.OpenPopup();
                 });
                 return false;
             });
 
-            $('#multi-edit-label-save').click(function () {
+            $('#multi-edit-label-save').button().click(function () {
                 var data = [];
                 $('#label-dictionary tr').each(function () {
                     var lblId = $(this).find('.page-label-id').text();
@@ -73,7 +74,7 @@
                 });
             });
 
-            $('#multi-edit-label-cancel').click(function () {
+            $('#multi-edit-label-cancel').button().click(function () {
                 $(root.popupId).dialog('close');
             });
             
@@ -93,10 +94,11 @@
     });
 
     //unbind click event for buttons
-    $(root.popupId + ' .button').unbind('click');
+    $(root.popupId + ' .popup-buttons input[type="button"]').unbind('click');
 
     this.OpenPopup = function () {
         $(root.popupId).dialog("open");
+        SetHeightPopupContent(root.popupId);
     };
 
     $.fn.scanLabel = function () {
