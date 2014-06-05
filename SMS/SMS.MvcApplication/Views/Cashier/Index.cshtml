@@ -12,6 +12,7 @@
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
     var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
+    var listArea = @Html.Raw(Json.Encode(Model.ListArea));
     var serviceFee = @BranchConfig.ServiceFee;
     var useServiceFee = "@BranchConfig.UseServiceFee";
     var useKitchenFunction = "@BranchConfig.UseKitchenFunction";
@@ -152,36 +153,6 @@
     {{/if}}
     {{/each}}
 </script>
-<script id="Rmenu-tmpl" type="text/x-jquery-tmpl">
-    {{each(idx) Data}}
-    <table id="Rmenu-${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="Rmenu">
-        <tr id="rmenu-detail-${ID}" data-id="${ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="{{if ID > 0}}Detail{{else}}RmenuDisable{{/if}}">
-            <td>
-                <div class="rmenu-detail"></div>
-            </td>
-            <td class="RmenuItem" id="Select-${ID}-${Table.ID}"><span data-labelID="lblDetail">Chi tiết</span></td>
-        </tr>
-        <tr id="rmenu-useTable-${ID}" data-tableid="${Table.ID}">
-            <td>
-                <div class="rmenu-add"></div>
-            </td>
-            <td class="RmenuItem" id="SelectNew-${ID}-${Table.ID}"><span data-labelID="lblUseNow">Sử dụng ngay</span></td>
-        </tr>
-        <tr id="rmenu-move-${ID}" data-id="${ID}">
-            <td>
-                <div class="rmenu-move"></div>
-            </td>
-            <td class="RmenuItem" id="Move-${ID}-${Table.ID}"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
-        </tr>
-        <tr id="rmenu-del-${ID}" data-id="${ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" class="{{if ID <= 0}}RmenuDisable{{/if}}">
-            <td>
-                <div class="rmenu-delete"></div>
-            </td>
-            <td class="RmenuItem" id="Delete-${ID}-${Table.ID}"><span data-labelID="lblDelete">Xóa thông tin</span></td>
-        </tr>
-    </table>
-    {{/each}}
-</script>
 <script type="text/x-jquery-tmpl" id="invoice-preview-tmpl">
     <table id="ord-table">
         <colgroup>
@@ -235,7 +206,7 @@
     </div>
 
     <div class="split-pane-divider"></div>
-
+    
     <div id="tableorder" class="split-pane-component">
         <input type="hidden" id="curOrderID" value="-1" />
         <input type="hidden" id="curOrderTableID" value="-1" />
@@ -244,7 +215,7 @@
                 <span data-labelID="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
             </div>
             <div class="four columns">
-                <span data-labelID="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
+                <span data-labelID="lblCustomerName" id="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
                 <span id="curCustomerName" class="label-custom-data"></span>
             </div>
         </div>
@@ -314,7 +285,6 @@
             <td class="RmenuItem">Change Customer</td>
         </tr>
     </table>
-    
     <table class="Rmenu" id="mainRightMenu">
         <tr>
             <td>
@@ -325,14 +295,15 @@
     </table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("DestinationTablePopup", new PopupModel { PopupID = "destinationTablePopup", PopupTitle = "Select destination table" })
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('div.split-pane').splitPane();
         $('#area-table').tabs();
-        $("#payment").hide();
-        $("#printInvoice").hide();
+        $('#payment').hide();
+        $('#printInvoice').hide();
         
         $("#payment").button();
         $('#printInvoice').button().click(function () {
@@ -439,11 +410,7 @@
     }
 
     function onMoveOrderTable(orderTableId) {
-        if (orderTableId <= 0) {
-            return;
-        } else {
-            alert('a');
-        }
+        
     }
         
     $(document).on("dblclick", ".tbls", (function(e) {
@@ -682,7 +649,7 @@
             url: '@Url.Action("SelectTable")',
             data: { orderTableID: orderTableId }
         }).done(function (object) {
-            if (object.Data.ID == 0) {
+            if (object.Data.ID == 0 || !object.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
                     1,
@@ -749,7 +716,7 @@
                 url: '@Url.Action("OrderProduct")',
                 data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
             }).done(function(object) {
-                if (object.Data.ID > 0) {
+                if (object.Data.ID > 0 && object.Success) {
                     onLoadOrderTable(object);
                 }
             });
@@ -836,33 +803,6 @@
                 $('#rightMenuArea').html('');
                 $('#table-tmpl').tmpl(object).appendTo('#area-' + areaId);
 
-                //$('tr[id="rmenu-detail"]').click(function() {
-                //    //var id = $(this).attr('data-id').split('-')[0];
-                //    //var orderId = $(this).attr('data-id').split('-')[1];
-                //    //onSelectOrderTable(id, orderId);
-                //    onSelectedItem(this);
-                //    return false;
-                //});
-                //$('tr[id="rmenu-useTable"]').click(function() {
-                //    //var tableId = $(this).attr('data-tableid');
-                //    //var orderTableId = $(this).attr('id').replace('rmenu-useTable-', '');
-                //    //onCheckTableStatus(orderTableId, tableId);
-                //    onSelectedItem(this);
-                //    return false;
-                //});
-                //$('tr[id="rmenu-move"]').click(function() {
-                //    //var id = $(this).attr('data-id');
-                //    //onMoveOrderTable(id);
-                //    onSelectedItem(this);
-                //    return false;
-                //});
-                //$('tr[id="rmenu-del"]').click(function() {
-                //    //var id = $(this).attr('data-id').split('-')[0];
-                //    //var orderId = $(this).attr('data-id').split('-')[1];
-                //    //onRemoveOrderTable(id, orderId);
-                //    onSelectedItem(this);
-                //    return false;
-                //});
                 $('.tbls').each(function(idx, element) {
                     var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
                     if ($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
@@ -879,8 +819,11 @@
     
     function onSelectedItem(e) {
         var action = $(e).attr('id');
-        var data = [];
-        var popup, valid = true;
+        var data = [],
+            arr = [],
+            popup,
+            valid = true,
+            i;
         $('.tbls').each(function(idx, element) {
             if($(element).hasClass('selected')) {
                 var orderTableId = $(element).attr('id').split('-')[0];
@@ -908,18 +851,17 @@
         }else if(action == 'rmenu-useTable') {
             if(data.length > 1) 
             {
-                var arrtableId = [];
-                for (var i = 0; i < data.length; i++)
+                for (i = 0; i < data.length; i++)
                 {
                     if(data[i].OrderTableID > 0) {
                         valid = false;
                         break;
                     }
-                    arrtableId[arrtableId.length] = data[i].TableID;
+                    arr[arr.length] = data[i].TableID;
                 }
                 if(!valid) {
                     popup = new MessagePopup('Thông báo',
-                        'Thao tác không chính xác.<br />Xin vui lòng chọn một bàn để xem chi tiết.',
+                        'Thao tác không chính xác.<br />Xin vui lòng thử lại.',
                         1,
                         function() {
                             refreshTableArea();
@@ -931,7 +873,7 @@
                         url: '@Url.Action("CreateMultiOrderTable")',
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify({ table: arrtableId })
+                        data: JSON.stringify({ table: arr })
                     }).done(function(object) {
                         if (object.Success && object.Data > 0) {
                             $('#curOrderID').val(object.Data);
@@ -946,9 +888,50 @@
                 return false;
             }
         }else if(action == 'rmenu-move') {
-        
+            if(data.length > 1) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác không chính xác. Chỉ có thể chuyển dữ liệu từng bàn<br />Xin vui lòng thử lại.',
+                    1,
+                    function() {
+                        refreshTableArea();
+                    });
+
+                popup.OpenPopup();
+            } else {
+                if(data[0].OrderTableID > 0) {
+                    popup = new DestinationTablePopup("destinationTablePopup", data[0].OrderTableID, listArea, '@Url.Action("GetTablesByAreaID")', onSelectProduct);
+                    popup.OpenPopup();
+                }
+                onMoveOrderTable(data[0].OrderTableID);
+            }
         }else if(action == 'rmenu-del') {
-            //onRemoveOrderTable(id, orderId);
+            for (i = 0; i < data.length; i++) {
+                if (data[i].OrderID > 0) {
+                    arr[arr.length] = data[i].OrderID;
+                }
+            }
+            if (arr.length > 0) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác xóa thông tin các bàn được chọn.<br />Bạn muốn thực hiện?',
+                    1,
+                    function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("RemoveMultiOrder")',
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ order: arr })
+                        }).done(function(object) {
+                            if (object.Success) {
+                                refreshTableArea();
+                                refreshOrderArea();
+                            }
+                        });
+                        return false;
+                    });
+
+                popup.OpenPopup();
+            }
         }
         return false;
     }

@@ -59,5 +59,14 @@ namespace SMS.Business.Impl
             var result = Repository.Get(orderID);
             return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) };
         }
+
+        public ServiceResult RemoveMultiOrder(long[] order)
+        {
+            foreach (var orderID in order)
+            {
+                Repository.Delete(orderID);
+            }
+            return new ServiceResult();
+        }
     }
 }

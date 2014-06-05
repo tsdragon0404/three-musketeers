@@ -24,5 +24,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetOrderDetailByOrderID<TDto>(orderID);
         }
+
+        public ServiceResult RemoveMultiOrder(long[] order)
+        {
+            return Management.RemoveMultiOrder(order);
+        }
     }
 }

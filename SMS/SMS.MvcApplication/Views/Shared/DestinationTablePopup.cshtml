@@ -1,0 +1,43 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
+    <select id="select-area-@Model.PopupID">
+            
+    </select>
+    <table id="table-header-@Model.PopupID">
+        <thead>
+            <tr>
+                <th style="width: 50px">No</th>
+                <th style="width: 150px">Table name</th>
+                <th style="width: 150px">Area name</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <div class="destination-table-content">
+        <table id="table-detail-@Model.PopupID">
+            <colgroup>
+                <col style="width: 50px" />
+                <col style="width: 150px" />
+                <col style="width: 150px" />
+                <col />
+            </colgroup>
+            <tbody id="destination-table">
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/destination-table-popup.js")"></script>
+<script id="lis-area-tmpl" type="text/x-jquery-tmpl">
+    <option value="${ID}">${Name}</option>
+</script>
+<script id="destination-table-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <tr id="table-${Table.ID}">
+        <td>${idx + 1}</td>
+        <td>${Table.Name}</td>
+        <td>${Table.Area.Name}</td>
+        <td class="center"><input type="button" class="small popupSelect" id="select-${ID}" value="Select" /></td>
+    </tr>
+    {{/each}}
+</script>
