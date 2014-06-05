@@ -7,7 +7,7 @@ namespace SMS.Business
     public interface IPageLabelManagement : IBaseManagement<PageLabelDto, long>
     {
         ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID);
-
         ServiceResult Save(int pageID, List<PageLabelDto> listLabels);
+        ServiceResult Copy(long fromBranchID, long toBranchID);
     }
 }

@@ -2,6 +2,8 @@
 {
     public class PageLabel : Entity
     {
+        public virtual long BranchID { get; set; }
+
         public virtual string LabelID { get; set; }
 
         public virtual Page Page { get; set; }

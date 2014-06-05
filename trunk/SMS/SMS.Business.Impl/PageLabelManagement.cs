@@ -17,13 +17,18 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID)
         {
-            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.Find(x => x.Page.ID == pageID).ToList()) };
+            return new ServiceResult<IList<TDto>>
+                   {
+                       Data = Mapper.Map<IList<TDto>>(Repository.Find(x => x.Page.ID == pageID && x.BranchID == UserContext.BranchID).ToList())
+                   };
         }
 
         public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
         {
             var labelIds = listLabels.ConvertAll(x => x.LabelID);
-            var pageLabels = Repository.Find(x => x.Page.ID == pageID && labelIds.Contains(x.LabelID)).ToList();
+            var pageLabels = Repository.Find(
+                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == UserContext.BranchID).ToList();
+
             if (pageLabels.Any())
             {
                 foreach (var pageLabel in pageLabels)
@@ -42,12 +47,32 @@ namespace SMS.Business.Impl
                 {
                     Repository.Add(new PageLabel
                                        {
+                                           BranchID = UserContext.BranchID,
                                            LabelID = labelID,
                                            Page = new Page {ID = pageID},
                                            VNText = listLabels.First(x => x.LabelID == labelID).VNText,
                                            ENText = listLabels.First(x => x.LabelID == labelID).ENText
                                        });
                 }
+            }
+
+            return new ServiceResult();
+        }
+
+        public ServiceResult Copy(long fromBranchID, long toBranchID)
+        {
+            var pageLabels = Repository.GetAll(x => x.BranchID == fromBranchID);
+
+            foreach (var pageLabel in pageLabels)
+            {
+                Repository.Add(new PageLabel
+                               {
+                                   BranchID = toBranchID,
+                                   LabelID = pageLabel.LabelID,
+                                   Page = pageLabel.Page,
+                                   VNText = pageLabel.VNText,
+                                   ENText = pageLabel.ENText
+                               });
             }
 
             return new ServiceResult();

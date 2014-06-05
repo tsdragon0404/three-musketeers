@@ -3,6 +3,7 @@
     public class PageLabelDto
     {
         public virtual long ID { get; set; }
+        public virtual long BranchID { get; set; }
         public virtual string LabelID { get; set; }
         public virtual PageDto Page { get; set; }
         public virtual string VNText { get; set; }

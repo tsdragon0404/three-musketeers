@@ -42,9 +42,9 @@ function ExpandColapseMenu() {
 
 function SetHeightBodySection() {
     var windowHeight = $(window).height();
-    var headerHeight = $('#header').outerHeight();
-    var footerHeight = $('#footer').outerHeight();
-    var menuHeight = $('#admin-menu').outerHeight();
+    var headerHeight = $('#header').outerHeight(true);
+    var footerHeight = $('#footer').outerHeight(true);
+    var menuHeight = $('#admin-menu').outerHeight(true);
 
     $('#body #admin-body, #body #cashier, #body #kitchen').height(windowHeight - headerHeight - footerHeight - menuHeight);
     $('#leftmenu').height(windowHeight - headerHeight - footerHeight);
@@ -52,14 +52,26 @@ function SetHeightBodySection() {
     // set position for expander
     $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
 }
+
 function SetHeightCashierContent() {
     var outerDivHeight = $('#area-table').height();
-    var siblingsHeight = $('#areas').outerHeight();
+    var siblingsHeight = $('#areas').outerHeight(true);
     $('#tables').height(outerDivHeight - siblingsHeight);
     
     outerDivHeight = $('#tableorder').height();
-    siblingsHeight = $('#order-header').outerHeight();
+    siblingsHeight = $('#order-header').outerHeight(true);
     $('#order-detail').height(outerDivHeight - siblingsHeight);
+}
+
+function SetHeightPopupContent(popupId) {
+    var parentHeight = $(popupId).height();
+    var siblings = $(popupId + ' > *:not(.popup-content)');
+    var siblingsHeight = 0;
+    siblings.each(function (idx, element) {
+        siblingsHeight += $(element).outerHeight(true);
+    });
+
+    $(popupId + ' > .popup-content').height(parentHeight - siblingsHeight);
 }
 
 function pad(s) { return (s < 10) ? '0' + s : s; }
