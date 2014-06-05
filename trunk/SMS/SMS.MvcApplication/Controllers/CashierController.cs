@@ -34,8 +34,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult OrderProduct(long orderTableID, long productID, decimal quantity)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(null);
+            if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(JsonModel.Create(false));
 
             var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
@@ -45,8 +44,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult SelectTable(long orderTableID)
         {
-            //TODO-Son: use Json(JsonModel.Create(false)) => in javascript result.Success will be false
-            if (orderTableID <= 0) return Json(null);
+            if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
             var order = OrderService.GetOrderDetail<OrderDto>(orderTableID);
 
@@ -139,6 +137,14 @@ namespace SMS.MvcApplication.Controllers
             var orderID = OrderTableService.CreateMultiOrderTable(table);
 
             return Json(JsonModel.Create(orderID));
+        }
+
+        [HttpPost]
+        public JsonResult RemoveMultiOrder(long[] order)
+        {
+            var result = OrderService.RemoveMultiOrder(order);
+
+            return Json(JsonModel.Create(result));
         }
 
         [HttpPost]

@@ -565,6 +565,11 @@ label.ui-state-error {
     background-color: #FFF2CC;
 }
 
+.destination-table-content {
+    height: 270px;
+    overflow: auto;
+}
+
 /* Style for all popups */
 .print-content {
     height: 250px;

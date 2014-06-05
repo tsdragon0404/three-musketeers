@@ -763,6 +763,7 @@
     <Content Include="Images\logo.jpg" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
+    <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
@@ -815,6 +816,7 @@
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
     <Content Include="Views\Shared\LabelController.cshtml" />
     <Content Include="Views\Kitchen\Index.cshtml" />
+    <Content Include="Views\Shared\DestinationTablePopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

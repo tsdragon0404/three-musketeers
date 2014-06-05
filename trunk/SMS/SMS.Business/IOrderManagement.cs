@@ -9,5 +9,6 @@ namespace SMS.Business
         long CreateOrder();
         ServiceResult DeleteByOrderTableID(long orderTableID);
         ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID);
+        ServiceResult RemoveMultiOrder(long[] order);
     }
 }
