@@ -32,7 +32,7 @@
     this.OpenPopup = function () {
         root.renderProducts(root.productData);
         $('#' + id).dialog("open");
-        SetHeightPopupContent(root.id);
+        SetHeightPopupContent('#' + root.id);
     };
 
     function reloadProduct(newProductData) {

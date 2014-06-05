@@ -6,10 +6,10 @@
     this.firstButtonCallback = firstButtonCallback;
     this.secondButtonCallback = secondButtonCallback;
 
-    this.okButton = '<input type="button" class="button okButton" value="Ok" />';
-    this.cancelButton = '<input type="button" class="button cancelButton" value="Cancel" />';
-    this.yesButton = '<input type="button" class="button yesButton" value="Yes" />';
-    this.noButton = '<input type="button" class="button noButton" value="No" />';
+    this.okButton = '<input type="button" class="okButton" value="Ok" />';
+    this.cancelButton = '<input type="button" class="cancelButton" value="Cancel" />';
+    this.yesButton = '<input type="button" class="yesButton" value="Yes" />';
+    this.noButton = '<input type="button" class="noButton" value="No" />';
 
     var imgTmpl = '<img src="' + location.pathname + '/../Images/IconControls/{0}" alt="icon"/>';
     this.infoIcon = imgTmpl.replace('{0}', 'info-icon.png');

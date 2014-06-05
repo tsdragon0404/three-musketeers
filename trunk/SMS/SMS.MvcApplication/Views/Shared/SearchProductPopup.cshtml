@@ -1,7 +1,7 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 
-<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
-    <form onkeypress="return event.keyCode != 13;">
+<form onkeypress="return event.keyCode != 13;">
+    <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
         <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
         <div class="popup-buttons">
             <input type="text" name="textSearch" class="textSearch" tabindex="1" />
@@ -36,24 +36,26 @@
             </table>
         </div>
         <div class="right totalRecords">
-            Total: <span id="total"></span> record(s).
+            Total: <span id="total"></span>record(s).
         </div>
 
         <div class="right">
             <input type="button" class="popupRefresh" value="Refresh" />
             <input type="button" class="popupClose" value="Close" />
         </div>
-    </form>
-</div>
+    </div>
+</form>
 
 <script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
-<script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">  
+<script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
     <tr>
         <td>${ProductCode}</td>
         <td>${Name}</td>
         <td class="right">${Price} VNĐ</td>
-        <td class="right"><input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
-        <td class="center"><input type="button" class="small popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
+        <td class="right">
+            <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
+        <td class="center">
+            <input type="button" class="small popupSelect" id="select-${ID}" value="Select" tabindex="${tabIdx + 1}" /></td>
     </tr>
 </script>
 <script type="text/javascript">
