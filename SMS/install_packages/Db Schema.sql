@@ -420,6 +420,7 @@ BEGIN
 	CREATE TABLE [dbo].[PageLabel](
 		[PageLabelID] [bigint] IDENTITY(1,1) NOT NULL,
 		[LabelID] [varchar](50) NULL,
+		[BranchID] [int] NULL,
 		[PageID] [int] NULL,
 		[VNText] [nvarchar](500) NULL,
 		[ENText] [nvarchar](500) NULL,
