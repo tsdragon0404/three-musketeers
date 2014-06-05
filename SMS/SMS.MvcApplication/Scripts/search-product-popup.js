@@ -16,17 +16,32 @@
     //unbind click event for buttons
     $('#' + id + ' input[type="button"').unbind('click');
 
-    $('#' + id + ' .popupSearch').button().click(function () {
+    $('#' + id + ' .popupSearch').button({
+        icons: {
+            primary: "ui-icon-search"
+        }
+    }).click(function() {
         root.search();
+        return false;
     });
 
-    $('#' + id + ' .popupClose').button().click(function () {
+    $('#' + id + ' .popupClose').button({
+        icons: {
+            primary: "ui-icon-close"
+        }
+    }).click(function() {
         $('#' + id).dialog('close');
+        return false;
     });
 
-    $('#' + id + ' .popupRefresh').button().click(function () {
+    $('#' + id + ' .popupRefresh').button({
+        icons: {
+            primary: "ui-icon-refresh"
+        }
+    }).click(function() {
         if (refreshCallback)
             refreshCallback(reloadProduct);
+        return false;
     });
 
     this.OpenPopup = function () {
@@ -65,10 +80,15 @@
             min: 0.5
         });
 
-        $('#' + id + ' .popupSelect').button().click(function (e) {
-            var pdtid = e.target.id.split('-')[1];
+        $('#' + id + ' .popupSelect').button({
+            icons: {
+                primary: "ui-icon-circle-check"
+            }
+        }).click(function(e) {
+            var pdtid = e.currentTarget.id.split('-')[1];
             if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);
+            return false;
         });
             
         $('#' + id + ' .popupSelect').keypress(function (e) {
@@ -111,8 +131,8 @@
 
     this.select = function (e) {
         $('#' + id).dialog('close');
-        var pdtId = e.target.id.split('-')[1];
-        var qty = $(e.target).parent().prev().find('input[id^="popup-qty"]').val();
+        var pdtId = e.currentTarget.id.split('-')[1];
+        var qty = $(e.currentTarget).parent().prev().find('input[id^="popup-qty"]').val();
 
         if (selectCallback)
             selectCallback(pdtId, qty);

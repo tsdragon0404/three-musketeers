@@ -6,10 +6,10 @@
     this.firstButtonCallback = firstButtonCallback;
     this.secondButtonCallback = secondButtonCallback;
 
-    this.okButton = '<input type="button" class="okButton" value="Ok" />';
-    this.cancelButton = '<input type="button" class="cancelButton" value="Cancel" />';
-    this.yesButton = '<input type="button" class="yesButton" value="Yes" />';
-    this.noButton = '<input type="button" class="noButton" value="No" />';
+    this.okButton = '<button class="okButton">Ok</button>';
+    this.cancelButton = '<button class="cancelButton">Cancel</button>';//'<input type="button" class="cancelButton" value="Cancel" />';
+    this.yesButton = '<button class="yesButton">Yes</button>';//'<input type="button" class="yesButton" value="Yes" />';
+    this.noButton = '<button class="noButton">No</button>';//'<input type="button" class="noButton" value="No" />';
 
     var imgTmpl = '<img src="' + location.pathname + '/../Images/IconControls/{0}" alt="icon"/>';
     this.infoIcon = imgTmpl.replace('{0}', 'info-icon.png');
@@ -34,47 +34,77 @@
     if (popupType == 1) {
         $('#popup-icon').html(root.infoIcon);
         $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').button().click(function () {
+        $('#popup-button .okButton').button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 firstButtonCallback();
+            return false;
         });
     }
     else if (popupType == 2) {
         $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.okButton + root.cancelButton);
-        $('#popup-button .okButton').button().click(function () {
+        $('#popup-button .okButton').button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 root.firstButtonCallback();
+            return false;
         });
-        $('#popup-button .cancelButton').button().click(function () {
+        $('#popup-button .cancelButton').button({
+            icons: {
+                primary: "ui-icon-close"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.secondButtonCallback)
                 root.secondButtonCallback();
+            return false;
         });
     }
     else if (popupType == 3) {
         $('#popup-icon').html(root.questionIcon);
         $('#popup-button').html(root.yesButton + root.noButton);
-        $('#popup-button .yesButton').button().click(function () {
+        $('#popup-button .yesButton').button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 root.firstButtonCallback();
+            return false;
         });
-        $('#popup-button .noButton').button().click(function () {
+        $('#popup-button .noButton').button({
+            icons: {
+                primary: "ui-icon-close"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.secondButtonCallback)
                 root.secondButtonCallback();
+            return false;
         });
     }
     else if (popupType == 4) {
         $('#popup-icon').html(root.errorIcon);
         $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').button().click(function () {
+        $('#popup-button .okButton').button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        }).click(function () {
             $('#popup').dialog('close');
             if (root.firstButtonCallback)
                 firstButtonCallback();
+            return false;
         });
     }
 

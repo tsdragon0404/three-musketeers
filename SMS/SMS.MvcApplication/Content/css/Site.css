@@ -652,10 +652,13 @@ label.ui-state-error {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
 }
-input.ui-button.small, button.ui-button.small span {
+input.ui-button.small {
     padding: 3px 10px;
 }
-
+button.ui-button.small span {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
 /* Corner radius */
 .ui-corner-all,
 .ui-corner-top,
