@@ -244,8 +244,8 @@
         </div>
             <div class="row">
                 <div class="four columns right border-top payment">
-                    <input type="button" id="payment" value="Thanh toán"/>
-                    <input type="button" id="printInvoice" value="In trước hóa đơn"/>
+                    <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
+                    <button id="printInvoice"><span data-labelID="lblPrintInvoice">Thanh toán</span></button>
                 </div>
             </div>
         </div>
@@ -304,9 +304,16 @@
         $('#area-table').tabs();
         $('#payment').hide();
         $('#printInvoice').hide();
-        
-        $("#payment").button();
-        $('#printInvoice').button().click(function () {
+        $("#payment").button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        });
+        $('#printInvoice').button({
+            icons: {
+                primary: "ui-icon-print"
+            }
+        }).click(function () {
             var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderTableId, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
@@ -477,8 +484,8 @@
     }));
         
     $(document).on("click", "#payment", (function(){
-        var orderTableId = $('#curOrderTableID').val();
-        if(orderTableId > 0) {
+        var orderId = $('#curOrderID').val();
+        if(orderId > 0) {
             var popup = new MessagePopup('Thông báo',
                 'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
                 3,
@@ -665,7 +672,7 @@
                 $('#curOrderID').val(object.Data.ID);
                 $('#curOrderNumber').text(object.Data.OrderNumber);
                 $('#curCustomerName').text(object.Data.Customer.CustomerName);
-                $('#order-tmpl').tmpl(object.Data).appendTo('#tblContent');
+                $('#order-tmpl').tmpl(object.Data).scanLabel().appendTo('#tblContent');
 
                 bindEventForControl();
 
@@ -913,7 +920,7 @@
             if (arr.length > 0) {
                 popup = new MessagePopup('Thông báo',
                     'Thao tác xóa thông tin các bàn được chọn.<br />Bạn muốn thực hiện?',
-                    1,
+                    3,
                     function() {
                         $.ajax({
                             type: 'POST',

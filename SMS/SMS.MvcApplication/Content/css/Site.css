@@ -176,14 +176,14 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
     z-index: 500;
 }
 #expander {
-    background: url("../../Images/IconControls/expander-icon.png") -16px 0 no-repeat;
+    background: url("../../Images/IconControls/all-icon.png") -128px -142px no-repeat;
     
     display: block;
     text-indent: -999px;
 }
 
 #expander.expanded {
-    background: url("../../Images/IconControls/expander-icon.png") 0 0 no-repeat;
+    background: url("../../Images/IconControls/all-icon.png") -144px -142px no-repeat;
 }
 #body {
     width: 86%;
