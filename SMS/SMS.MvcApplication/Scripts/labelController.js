@@ -76,6 +76,7 @@
                     if(result.Success)
                         location.reload();
                 });
+                return false;
             });
 
             $('#multi-edit-label-cancel').button({
@@ -84,6 +85,7 @@
                 }
             }).click(function () {
                 $(root.popupId).dialog('close');
+                return false;
             });
             
         } catch (exception) {
