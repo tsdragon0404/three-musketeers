@@ -1,13 +1,13 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 
-<form onkeypress="return event.keyCode != 13;">
-    <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
-        <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
-        <div class="popup-buttons">
-            <input type="text" name="textSearch" class="textSearch" tabindex="1" />
-            <button class="popupSearch">Search</button>
-        </div>
-        <div class="popup-content">
+<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
+    <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
+    <div class="popup-buttons">
+        <input type="text" name="textSearch" class="textSearch" tabindex="1" />
+        <button class="popupSearch">Search</button>
+    </div>
+    <div class="popup-content">
+        <form onkeypress="return event.keyCode != 13;">
             <table class="tableContent" id="searchProduct">
                 <colgroup>
                     <col class="col1" />
@@ -28,23 +28,23 @@
                 <tbody class="tbContentLookup">
                 </tbody>
             </table>
-            <table class="listLookupEmpty">
-                <tr>
-                    <td style="width: auto; background-color: #ffffff;">No product available
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="right totalRecords">
-            Total: <span id="total"></span>record(s).
-        </div>
-
-        <div class="right">
-            <button class="popupRefresh">Refresh</button>
-            <button class="popupClose">Close</button>
-        </div>
+        </form>
+        <table class="listLookupEmpty">
+            <tr>
+                <td style="width: auto; background-color: #ffffff;">No product available
+                </td>
+            </tr>
+        </table>
     </div>
-</form>
+    <div class="right totalRecords">
+        Total: <span id="total"></span>record(s).
+    </div>
+
+    <div class="right">
+        <button class="popupRefresh">Refresh</button>
+        <button class="popupClose">Close</button>
+    </div>
+</div>
 
 <script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
 <script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">

@@ -98,7 +98,7 @@
         });
             
         $('#' + id + ' .tbContentLookup tr').dblclick(function (e) {
-            $(e.currentTarget).find('input.popupSelect').trigger('click');
+            $(e.currentTarget).find('button.popupSelect').trigger('click');
         });
         
         // stop Propagation on spinner element (double click on spinner will not trigger row double click)
