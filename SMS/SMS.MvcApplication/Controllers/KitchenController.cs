@@ -15,7 +15,7 @@ namespace SMS.MvcApplication.Controllers
 
         #endregion
 
-        [GetLabel(Common.Constant.ConstPage.Cashier)]
+        [GetLabel(Common.Constant.ConstPage.Kitchen)]
         public ActionResult Index()
         {
             return View();
