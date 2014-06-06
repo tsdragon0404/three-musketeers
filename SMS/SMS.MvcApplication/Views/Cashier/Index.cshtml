@@ -245,7 +245,7 @@
             <div class="row">
                 <div class="four columns right border-top payment">
                     <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
-                    <button id="printInvoice"><span data-labelID="lblPrintInvoice">Thanh toán</span></button>
+                    <button id="printInvoice"><span data-labelID="lblPrintInvoice">In trước hóa đơn</span></button>
                 </div>
             </div>
         </div>
@@ -416,8 +416,24 @@
         });
     }
 
-    function onMoveOrderTable(orderTableId) {
-        
+    function onMoveOrderTable(orderTableId, tableId) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("MoveTable")',
+            data: { orderDetailID: orderTableId, tableID: tableId }
+        }).done(function (data) {
+            if(!data.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                CalculateTotal();
+            }
+        });
     }
         
     $(document).on("dblclick", ".tbls", (function(e) {
@@ -906,10 +922,9 @@
                 popup.OpenPopup();
             } else {
                 if(data[0].OrderTableID > 0) {
-                    popup = new DestinationTablePopup("destinationTablePopup", data[0].OrderTableID, listArea, '@Url.Action("GetTablesByAreaID")', onSelectProduct);
+                    popup = new DestinationTablePopup("destinationTablePopup", data[0].OrderTableID, listArea, '@Url.Action("GetTablesByAreaID")', onMoveOrderTable);
                     popup.OpenPopup();
                 }
-                onMoveOrderTable(data[0].OrderTableID);
             }
         }else if(action == 'rmenu-del') {
             for (i = 0; i < data.length; i++) {
