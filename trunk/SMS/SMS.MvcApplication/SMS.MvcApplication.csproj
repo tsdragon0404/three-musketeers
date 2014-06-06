@@ -815,7 +815,6 @@
     <Content Include="Views\Shared\MessagePopup.cshtml" />
     <Content Include="Views\Shared\PrintInvoicePreview.cshtml" />
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
-    <Content Include="Views\Shared\LabelController.cshtml" />
     <Content Include="Views\Kitchen\Index.cshtml" />
     <Content Include="Views\Shared\DestinationTablePopup.cshtml" />
   </ItemGroup>

@@ -12,36 +12,3 @@
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 
 }*@
-<ul id="user">
-    <li><a href="#" id="change-language-vn">Vietnamese</a></li>
-    <li><a href="#" id="change-language-en">English</a></li>
-    @if(UserContext.IsSuperAdmin)
-    {
-        <li>
-            <a href="#" id="page-label-multi-edit">Edit Label</a>
-        </li>
-    }
-</ul>
-<script type="text/javascript">
-    $('#change-language-vn').click(function () {
-        changeLanguage(0);
-    });
-    
-    $('#change-language-en').click(function () {
-        changeLanguage(1);
-    });
-    
-    function changeLanguage(id) {
-        $.ajax({
-            type: 'POST',
-            url: location.pathname + '/ChangeLanguage',
-            data: { language: id }
-        }).done(function (data) {
-            if(data.Success)
-                location.reload();
-            else {
-                alert('error');
-            }
-        });
-    }
-</script>

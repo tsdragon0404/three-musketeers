@@ -16,6 +16,7 @@
 
     $('#printPreviewPopup #print-button').click(function() {
         window.print();
+        return false;
     });
 
     this.OpenPopup = function () {
