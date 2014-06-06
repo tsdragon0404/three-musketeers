@@ -9,6 +9,7 @@ namespace SMS.Data.Mapping
         {
             Table("ErrorMessage");
             Id(x => x.ID).Column("ErrorMessageID");
+            Map(x => x.BranchID);
             Map(x => x.VNMessage);
             Map(x => x.ENMessage);
         }
