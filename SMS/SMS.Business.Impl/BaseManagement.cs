@@ -16,17 +16,17 @@ namespace SMS.Business.Impl
 
         #region Implementation of IBaseManagement<TDto,in TPrimaryKey>
 
-        public ServiceResult<IList<TDto>> GetAll()
+        public virtual ServiceResult<IList<TDto>> GetAll()
         {
             return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.GetAll().ToList()) };
         }
 
-        public ServiceResult<IList<TModel>> GetAll<TModel>()
+        public virtual ServiceResult<IList<TModel>> GetAll<TModel>()
         {
             return new ServiceResult<IList<TModel>> { Data = Mapper.Map<IList<TModel>>(Repository.GetAll().ToList()) };
         }
 
-        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public virtual ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
             var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
 
@@ -36,7 +36,7 @@ namespace SMS.Business.Impl
             return new ServiceResult<IPagedList<TDto>> { Data = PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo) };
         }
 
-        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        public virtual ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
         {
             var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch));
 
@@ -46,17 +46,17 @@ namespace SMS.Business.Impl
             return new ServiceResult<IPagedList<TModel>> { Data = PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo) };
         }
 
-        public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
+        public virtual ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
         {
             return new ServiceResult<TDto> { Data = Mapper.Map<TDto>(Repository.Get(primaryKey)) };
         }
 
-        public ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
+        public virtual ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
         {
             return new ServiceResult<TModel> { Data = Mapper.Map<TModel>(Repository.Get(primaryKey)) };
         }
 
-        public ServiceResult<TDto> Save(TDto dto)
+        public virtual ServiceResult<TDto> Save(TDto dto)
         {
             var result = new ServiceResult<TDto>();
 
@@ -72,7 +72,7 @@ namespace SMS.Business.Impl
             return result;
         }
 
-        public ServiceResult Delete(TPrimaryKey primaryKey)
+        public virtual ServiceResult Delete(TPrimaryKey primaryKey)
         {
             return new ServiceResult { Success = Repository.Delete(primaryKey) };
         }
