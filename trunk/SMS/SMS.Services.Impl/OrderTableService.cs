@@ -30,5 +30,10 @@ namespace SMS.Services.Impl
         {
             return Management.CreateMultiOrderTable(table);
         }
+
+        public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
+        {
+            return Management.MoveTable<TDto>(orderTableID, tableID);
+        }
     }
 }

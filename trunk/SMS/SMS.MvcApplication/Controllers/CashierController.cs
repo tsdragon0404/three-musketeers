@@ -51,6 +51,16 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
+        //[HttpPost]
+        public JsonResult MoveTable(long orderTableID, long tableID)
+        {
+            if (orderTableID <= 0 || tableID <= 0) return Json(JsonModel.Create(false));
+
+            var order = OrderTableService.MoveTable<OrderDto>(orderTableID, tableID);
+
+            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetOrder(long orderID)
         {

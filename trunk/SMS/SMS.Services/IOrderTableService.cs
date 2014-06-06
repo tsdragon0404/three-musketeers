@@ -10,5 +10,6 @@ namespace SMS.Services
         ServiceResult<long> CreateOrderTable(long tableID);
         ServiceResult CheckTableStatus(long tableID);
         ServiceResult<long> CreateMultiOrderTable(long[] table);
+        ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
     }
 }
