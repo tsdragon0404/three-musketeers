@@ -65,19 +65,11 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
         {
-            var newOrderId = OrderManagement.CreateOrder();
-            var orderTable = new OrderTable { Order = new Order { ID = newOrderId }, Table = new Table { ID = tableID } };
-            Repository.Add(orderTable);
+            var orderTable = Repository.Get(orderTableID);
+            orderTable.Table = new Table {ID = tableID};
+            Repository.Update(orderTable);
 
-            var oldOrderDetail = OrderDetailRepository.Find(x => x.OrderTable.ID == orderTableID).ToList();
-            foreach (var orderDetail in oldOrderDetail)
-            {
-                orderDetail.OrderTable = orderTable;
-                OrderDetailRepository.Update(orderDetail);
-            }
-            OrderManagement.DeleteByOrderTableID(orderTableID);
-
-            var result = OrderRepository.Get(newOrderId);
+            var result = OrderRepository.Get(orderTableID);
             return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) }; 
         }
     }
