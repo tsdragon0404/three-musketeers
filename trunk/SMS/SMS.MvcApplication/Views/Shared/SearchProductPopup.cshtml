@@ -1,12 +1,12 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
-    <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
-    <div class="popup-buttons">
-        <input type="text" name="textSearch" class="textSearch" tabindex="1" />
-        <button class="popupSearch">Search</button>
-    </div>
-    <div class="popup-content">
+        <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
+        <div class="popup-buttons">
+            <input type="text" name="textSearch" class="textSearch" tabindex="1" />
+            <button class="popupSearch">Search</button>
+        </div>
+        <div class="popup-content">
         <form onkeypress="return event.keyCode != 13;">
             <table class="tableContent" id="searchProduct">
                 <colgroup>
@@ -29,22 +29,22 @@
                 </tbody>
             </table>
         </form>
-        <table class="listLookupEmpty">
-            <tr>
-                <td style="width: auto; background-color: #ffffff;">No product available
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="right totalRecords">
-        Total: <span id="total"></span>record(s).
-    </div>
+            <table class="listLookupEmpty">
+                <tr>
+                    <td style="width: auto; background-color: #ffffff;">No product available
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="right totalRecords">
+            Total: <span id="total"></span>record(s).
+        </div>
 
-    <div class="right">
-        <button class="popupRefresh">Refresh</button>
-        <button class="popupClose">Close</button>
+        <div class="right">
+            <button class="popupRefresh">Refresh</button>
+            <button class="popupClose">Close</button>
+        </div>
     </div>
-</div>
 
 <script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
 <script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
