@@ -15,7 +15,7 @@
         modal: true
     });
     
-    $('#' + id + ' button[id^="select-"').unbind('click');
+    $('#' + id + ' button[id^="select-"]').unbind('click');
 
     this.OpenPopup = function () {
         $('#select-area-' + id).html('');
@@ -39,7 +39,7 @@
             $('#' + id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
             $('#' + id).dialog("open");
             
-            $('table[id^="table-header"').table();
+            $('table[id^="table-header"]').table();
             $('button[id^="select-"]').button({
                 icons: {
                     primary: "ui-icon-circle-check"
