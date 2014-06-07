@@ -14,7 +14,7 @@
     });
 
     //unbind click event for buttons
-    $('#' + id + ' button[id^="select-"').unbind('click');
+    $('#' + id + ' button[id^="select-"]').unbind('click');
 
     $('#' + id + ' .popupSearch').button({
         icons: {
