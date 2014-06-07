@@ -44,10 +44,16 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
-                    <col class="col6 {{if useDiscountOnProduct != 'True' }}display-none{{/if}}" />
+                    @if(BranchConfig.UseDiscountOnProduct)
+                    {
+                        <col class="col6" />
+                    }
                     <col class="col7" />
                     <col class="col8" />
-                    <col class="col9 {{if useKitchenFunction != 'True' }}display-none{{/if}}" />
+                    @if(BranchConfig.UseKitchenFunction)
+                    {
+                        <col class="col9" />
+                    }
                     <col class="col10" />
                 </colgroup>
                 <thead>
@@ -57,10 +63,16 @@
                         <th><span data-labelID="lblQuantity">Quantity</span></th>
                         <th><span data-labelID="lblUnit">Unit</span></th>
                         <th><span data-labelID="lblPrice">Price</span></th>
-                        <th class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}"><span data-labelID="lblDiscount">Discount</span></th>
+                        @if(BranchConfig.UseDiscountOnProduct)
+                        {
+                            <th><span data-labelID="lblDiscount">Discount</span></th>
+                        }
                         <th><span data-labelID="lblAmount">Amount</span></th>
                         <th><span data-labelID="lblRemarks">Remarks</span></th>
-                        <th class="{{if useKitchenFunction != 'True' }}display-none{{/if}}"></th>
+                        @if(BranchConfig.UseKitchenFunction)
+                        {
+                            <th></th>
+                        }
                         <th></th>
                     </tr>
                 </thead>
@@ -69,20 +81,26 @@
                     <tr id="${ID}">
                         <td class="sequence">${idx + 1}</td>
                         <td>${Product.Name} - ${Product.ProductCode}</td>
-                        <td>
-                            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
-                        </td>
+                        <td><input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" /></td>
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-                        <td class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">
-                            <input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" />
-                        </td>
+
+                        @if(BranchConfig.UseDiscountOnProduct)
+                        {
+                            <td><input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" /></td>
+                        }
+                        
                         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-                        <td class="center icon {{if useKitchenFunction != 'True' }}display-none{{/if}}">
-                            <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
-                        </td>
+                        
+                        @if(BranchConfig.UseKitchenFunction)
+                        {
+                            <td class="center icon">
+                                <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
+                            </td>
+                        }
+                        
                         <td class="center icon">
                             <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
                         </td>
@@ -94,7 +112,18 @@
                         <td colspan="2" class="vertical-top">
                             <a href="#" id="addProduct-${ID}"><img src="Images/IconControls/add-icon.png" alt="add record" /></a>
                         </td>
-                        <td colspan="8">
+                        @{
+                            var colspan = 8;
+                            if (!BranchConfig.UseDiscountOnProduct)
+                            {
+                                colspan -= 1;
+                            }
+                            if(!BranchConfig.UseKitchenFunction)
+                            {
+                                colspan -= 1;
+                            }
+                        }
+                        <td colspan="@colspan">
                             <div class="row">
                                 <div class="two columns push_eight right"><span data-labelID="lblSubtotal">Sub total:</span></div>
                                 <div class="two columns right"><span class="sub-total">0</span> @BranchConfig.Currency</div>
@@ -117,15 +146,19 @@
         </td>
         <td>${Product.Unit.Name}</td>
         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-        <td class="{{if useDiscountOnProduct != 'True' }}display-none{{/if}}">
-            <input type="text" id="discount-${ID}" class="number required right" value="${Discount.formatAsMoney()}" />
-        </td>
+        @if(BranchConfig.UseDiscountOnProduct)
+        {
+            <td><input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" /></td>
+        }
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        <td class="center icon {{if useKitchenFunction != 'True' }}display-none{{/if}}">
-            <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
-        </td>
+        @if(BranchConfig.UseKitchenFunction)
+        {
+            <td class="center icon">
+                <div class="{{if OrderStatus.ID == 1}}icon-transfer{{/if}}{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}{{if OrderStatus.ID == 4}}icon-reject{{/if}}{{if OrderStatus.ID == 5}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
+            </td>
+        }
         <td class="center icon">
             <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
         </td>
@@ -226,7 +259,7 @@
         </div>
         
             <div class="row" id="totalSection">
-            @if(BranchConfig.UseServiceFee)
+            @if (BranchConfig.UseServiceFee)
             {
                 <div class="row" id="ServiceFree">
                     <div class="two columns push_eight right"><span data-labelID="lblServiceFee">Service Fee:</span></div>
@@ -337,16 +370,15 @@
                 type: 'POST',
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
-            }).done(function (object) {
-                if (object.Data.ID == 0 || !object.Success) {
+            }).done(function (result) {
+                if (result.Data.ID == 0 || !result.Success) {
                     clearDisplayTableDetail(orderId);
                 }
                 else {
-                    $('#tblContent').html('');
-                    $('#curOrderID').val(object.Data.ID);
-                    $('#curOrderNumber').text(object.Data.OrderNumber);
-                    $('#curCustomerName').text(object.Data.Customer.CustomerName);
-                    $('#order-tmpl').tmpl(object.Data).scanLabel().appendTo('#tblContent');
+                    $('#curOrderID').val(result.Data.ID);
+                    $('#curOrderNumber').text(result.Data.OrderNumber);
+                    $('#curCustomerName').text(result.Data.Customer.CustomerName);
+                    $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
                     bindEventForControl();
 
@@ -399,8 +431,8 @@
             type: 'POST',
             url: '@Url.Action("CancelOrder")',
             data: { orderTableID: orderTableId }
-        }).done(function(data) {
-            if (data.Success) {
+        }).done(function(result) {
+            if (result.Success) {
                 clearDisplayTableDetail(orderId);
             } else {
                 var popup = new MessagePopup('Thông báo',
@@ -421,8 +453,8 @@
             type: 'POST',
             url: '@Url.Action("MoveTable")',
             data: { orderDetailID: orderTableId, tableID: tableId }
-        }).done(function (data) {
-            if(!data.Success) {
+        }).done(function (result) {
+            if(!result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -536,8 +568,8 @@
             type: 'POST',
             url: '@Url.Action("UpdateOrderedProduct")',
             data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
-        }).done(function (data) {
-            if(!data.Success) {
+        }).done(function (result) {
+            if(!result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -576,8 +608,8 @@
             type: 'POST',
             url: '@Url.Action("UpdateOrderedProductStatus")',
             data: { orderDetailID: orderDetailId, value: value }
-        }).done(function (object) {
-            if(object.Data.ID == 0 || !object.Success) {
+        }).done(function (result) {
+            if(result.Data.ID == 0 || !result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -586,10 +618,10 @@
 
                 popup.OpenPopup();
             } else {
-                $(e).attr('id', 'status-' + object.Data.ID + '-' + object.Data.OrderStatus.ID);
-                $(e).attr('title', object.Data.OrderStatus.Name);
+                $(e).attr('id', 'status-' + result.Data.ID + '-' + result.Data.OrderStatus.ID);
+                $(e).attr('title', result.Data.OrderStatus.Name);
                 var cssClass;
-                switch (object.Data.OrderStatus.ID) {
+                switch (result.Data.OrderStatus.ID) {
                     case 1:
                         cssClass = 'transfer';
                         break;
@@ -618,8 +650,8 @@
                 type: 'POST',
                 url: '@Url.Action("CheckTableStatus")',
                 data: { tableID: tableId }
-            }).done(function(data) {
-                if (data.Success) {
+            }).done(function(result) {
+                if (result.Success) {
                     var popup = new MessagePopup('Thông báo',
                         'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
                         1,
@@ -650,8 +682,8 @@
                 type: 'POST',
                 url: '@Url.Action("CancelTable")',
                 data: { orderTableID: orderTableId }
-            }).done(function(data) {
-                if (data.Success) {
+            }).done(function(result) {
+                if (result.Success) {
                     refreshTableArea();
                     refreshOrderArea();
                 }
@@ -671,8 +703,8 @@
             type: 'POST',
             url: '@Url.Action("SelectTable")',
             data: { orderTableID: orderTableId }
-        }).done(function (object) {
-            if (object.Data.ID == 0 || !object.Success) {
+        }).done(function (result) {
+            if (result.Data.ID == 0 || !result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
                     1,
@@ -684,11 +716,10 @@
                 popup.OpenPopup();
             }
             else {
-                $('#tblContent').html('');
-                $('#curOrderID').val(object.Data.ID);
-                $('#curOrderNumber').text(object.Data.OrderNumber);
-                $('#curCustomerName').text(object.Data.Customer.CustomerName);
-                $('#order-tmpl').tmpl(object.Data).scanLabel().appendTo('#tblContent');
+                $('#curOrderID').val(result.Data.ID);
+                $('#curOrderNumber').text(result.Data.OrderNumber);
+                $('#curCustomerName').text(result.Data.Customer.CustomerName);
+                $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
                 bindEventForControl();
 
@@ -708,9 +739,9 @@
             type: 'POST',
             url: '@Url.Action("CreateOrderTable")',
             data: { tableID: tblId }
-        }).done(function (object) {
-            if(object.Success) {
-                orderTableId = object.Data;
+        }).done(function (result) {
+            if(result.Success) {
+                orderTableId = result.Data;
                 onSelectOrderTable(orderTableId, 0);
                 refreshTableArea();
             }
@@ -738,17 +769,16 @@
                 type: 'POST',
                 url: '@Url.Action("OrderProduct")',
                 data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
-            }).done(function(object) {
-                if (object.Data.ID > 0 && object.Success) {
-                    onLoadOrderTable(object);
+            }).done(function(result) {
+                if (result.Data.ID > 0 && result.Success) {
+                    onLoadOrderTable(result);
                 }
             });
         }
     }
     
-    function onLoadOrderTable(object) {
-        $('#table-detail-' + object.Data.ID).html('');
-        $('#ordertable-tmpl').tmpl(object.Data).appendTo('#table-detail-' + object.Data.ID);
+    function onLoadOrderTable(result) {
+        $('#table-detail-' + result.Data.ID).html($('#ordertable-tmpl').tmpl(result.Data));
 
         bindEventForControl();
     }
@@ -804,9 +834,9 @@
                 type: 'POST',
                 url: '@Url.Action("RemoveOrderedProduct")',
                 data: { orderDetailID: orderDetailId }
-            }).done(function(data) {
-                if (data.Success) {
-                    $('tr[id="' + orderDetailId + '"').remove();
+            }).done(function(result) {
+                if (result.Success) {
+                    $('tr[id="' + orderDetailId + '"]').remove();
                     CalculateTotal();
                 }
             });
@@ -821,11 +851,10 @@
             type: 'POST',
             url: '@Url.Action("GetTablesByAreaID")',
             data: { areaID: areaId }
-        }).done(function (object) {
-            if(object.Success) {
-                $('#area-' + areaId).html('');
+        }).done(function (result) {
+            if(result.Success) {
+                $('#area-' + areaId).html($('#table-tmpl').tmpl(result));
                 $('#rightMenuArea').html('');
-                $('#table-tmpl').tmpl(object).appendTo('#area-' + areaId);
 
                 $('.tbls').each(function(idx, element) {
                     var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
@@ -898,9 +927,9 @@
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({ table: arr })
-                    }).done(function(object) {
-                        if (object.Success && object.Data > 0) {
-                            $('#curOrderID').val(object.Data);
+                    }).done(function(result) {
+                        if (result.Success && result.Data > 0) {
+                            $('#curOrderID').val(result.Data);
                             refreshTableArea();
                             refreshOrderArea();
                         }
@@ -944,8 +973,8 @@
                             dataType: "json",
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify({ order: arr })
-                        }).done(function(object) {
-                            if (object.Success) {
+                        }).done(function(result) {
+                            if (result.Success) {
                                 refreshTableArea();
                                 refreshOrderArea();
                             }

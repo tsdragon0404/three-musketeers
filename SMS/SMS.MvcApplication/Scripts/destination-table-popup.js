@@ -18,8 +18,7 @@
     $('#' + id + ' button[id^="select-"]').unbind('click');
 
     this.OpenPopup = function () {
-        $('#select-area-' + id).html('');
-        $('#lis-area-tmpl').tmpl(this.listArea).appendTo('#select-area-' + id);
+        $('#select-area-' + id).html($('#lis-area-tmpl').tmpl(this.listArea));
 
         $.ajax({
             type: 'POST',
@@ -35,7 +34,6 @@
                 }
             }
 
-            $('#' + id + ' #destination-table').html('');
             $('#' + id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
             $('#' + id).dialog("open");
             
