@@ -14,7 +14,7 @@
         </thead>
     </table>
     <div class="destination-table-content">
-        <table id="table-detail-@Model.PopupID">
+        <table id="table-detail-@Model.PopupID" class="tableContent">
             <colgroup>
                 <col style="width: 50px" />
                 <col style="width: 190px" />
@@ -33,12 +33,12 @@
 </script>
 <script id="destination-table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <tr id="table-${Table.ID}">
+    <tr class="{{if idx%2 }}has-color{{/if}}" >
         <td>${idx + 1}</td>
         <td>${Table.Name}</td>
         <td>${Table.Area.Name}</td>
         <td class="center">
-            <button id="select-${ID}">Select</button>
+            <button id="select-${Table.ID}">Select</button>
         </td>
     </tr>
     {{/each}}

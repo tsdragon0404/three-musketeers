@@ -72,5 +72,32 @@ namespace SMS.Business.Impl
             var result = OrderRepository.Get(orderTableID);
             return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) }; 
         }
+
+        public ServiceResult PoolingTable(long[] orderTable)
+        {
+            var orderTableFirst = new OrderTable {ID = 0};
+            
+            for (var i = 0; i < orderTable.Length; i++)
+            {
+                if (orderTableFirst.ID == 0)
+                    orderTableFirst = Repository.Get(orderTable[i]) ?? orderTableFirst;
+                else
+                {
+                    var orderTableID = orderTable[i];
+                    var orderDetailList = OrderDetailRepository.Find(x => x.OrderTable.ID == orderTableID).ToList();
+                    if (orderDetailList.Any())
+                    {
+                        foreach (var orderDetail in orderDetailList)
+                        {
+                            orderDetail.OrderTable = orderTableFirst;
+                            OrderDetailRepository.Update(orderDetail);
+                            OrderDetailRepository.SaveAllChanges();
+                        }
+                        OrderRepository.Delete(Repository.Get(orderTableID).Order.ID);
+                    }
+                }
+            }
+            return new ServiceResult();
+        }
     }
 }

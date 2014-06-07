@@ -35,5 +35,10 @@ namespace SMS.Services.Impl
         {
             return Management.MoveTable<TDto>(orderTableID, tableID);
         }
+
+        public ServiceResult PoolingTable(long[] orderTable)
+        {
+            return Management.PoolingTable(orderTable);
+        }
     }
 }
