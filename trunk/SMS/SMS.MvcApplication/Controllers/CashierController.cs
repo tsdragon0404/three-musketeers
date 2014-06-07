@@ -158,6 +158,14 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
+        public JsonResult PoolingTable(long[] orderTable)
+        {
+            var result = OrderTableService.PoolingTable(orderTable);
+
+            return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
             return Json(JsonModel.Create(ProductService.GetAll<LanguageProductDto>()));

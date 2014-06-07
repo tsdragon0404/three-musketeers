@@ -310,6 +310,10 @@ label.ui-state-error {
     background-image: url(../../Images/IconControls/users-icon.png);
 }
 
+.rmenu-pooling {
+    background-image: url(../../Images/IconControls/pooling-icon.png);
+}
+
 .menu-reload {
     background-image: url(../../Images/IconControls/reload-icon.png);
 }
@@ -369,7 +373,7 @@ label.ui-state-error {
 }
 
 .RmenuItem:hover {
-    background-color: cornsilk;
+    background-color: #F4CD9A;
 }
 
 .tbls {
@@ -584,10 +588,6 @@ label.ui-state-error {
     width: 60px;
 }
 
-.tbContentLookup tr:hover {
-    background: none;
-}
-
 .popup {
     width: 500px;
     height: 500px;
@@ -692,3 +692,11 @@ table thead{
     color: #0073ea;
 }
 /* end fix gumby */
+
+.tableContent tr.has-color {
+    background-color: #F3F3F3;
+}
+
+.tableContent tr:hover {
+    background-color: #F4CD9A;
+}

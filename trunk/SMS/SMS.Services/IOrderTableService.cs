@@ -11,5 +11,6 @@ namespace SMS.Services
         ServiceResult CheckTableStatus(long tableID);
         ServiceResult<long> CreateMultiOrderTable(long[] table);
         ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
+        ServiceResult PoolingTable(long[] orderTable);
     }
 }
