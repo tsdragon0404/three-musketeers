@@ -1015,7 +1015,7 @@
             $(e).find('tbody[id^="table-detail-"] tr').each(function(index, element) {
                 var qty = $(element).find('td input[id^="qty"]').val();
                 var price = $(element).find('td.product-price').text().readMoneyAsNumber();
-                var discount = $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
+                var discount = $(element).find('td input[id^="discount"]').length == 0 ? 0 : $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
                 var total = qty*price - discount ;
                 subTotal += total;
                 $(element).find('td.sequence').text(index + 1);
