@@ -585,7 +585,7 @@ label.ui-state-error {
 }
 
 .tbContentLookup tr:hover {
-    background-color: #F4CD9A;
+    background: none;
 }
 
 .popup {

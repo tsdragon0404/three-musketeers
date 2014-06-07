@@ -90,8 +90,8 @@
                             type: 'POST',
                             url: location.pathname + '/ChangeLanguage',
                             data: { language: id }
-                        }).done(function (data) {
-                            if(data.Success)
+                        }).done(function (result) {
+                            if(result.Success)
                                 location.reload();
                         });
                     }

@@ -56,7 +56,6 @@
     }
 
     this.renderProducts = function (data) {
-        $('#' + id + ' .tbContentLookup').html('');
         $('#total').html(data.length);
         if (data.length > 0) {
             $('#' + id + ' .totalRecords').removeClass('hide');
@@ -72,8 +71,9 @@
             data[idx].tabIdx = idx * 2 + 2;
         });
 
-        $('#popup-content-' + id).tmpl(data).appendTo('#' + id + ' .tbContentLookup');
-
+        $('#' + id + ' .tbContentLookup').html($('#popup-content-' + id).tmpl(data));
+        $('#' + id).table();
+        
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
             numberFormat: "n",
