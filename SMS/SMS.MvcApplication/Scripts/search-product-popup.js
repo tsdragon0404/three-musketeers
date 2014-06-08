@@ -5,7 +5,7 @@
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
 
-    $('#' + id).dialog({
+    $('#' + root.id).dialog({
         dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
@@ -14,9 +14,9 @@
     });
 
     //unbind click event for buttons
-    $('#' + id + ' button[id^="select-"]').unbind('click');
+    $('#' + root.id + ' button[id^="select-"]').unbind('click');
 
-    $('#' + id + ' .popupSearch').button({
+    $('#' + root.id + ' .popupSearch').button({
         icons: {
             primary: "ui-icon-search"
         }
@@ -25,28 +25,28 @@
         return false;
     });
 
-    $('#' + id + ' .popupClose').button({
+    $('#' + root.id + ' .popupClose').button({
         icons: {
             primary: "ui-icon-close"
         }
     }).click(function() {
-        $('#' + id).dialog('close');
+        $('#' + root.id).dialog('close');
         return false;
     });
 
-    $('#' + id + ' .popupRefresh').button({
+    $('#' + root.id + ' .popupRefresh').button({
         icons: {
             primary: "ui-icon-refresh"
         }
     }).click(function() {
-        if (refreshCallback)
-            refreshCallback(reloadProduct);
+        if (root.refreshCallback)
+            root.refreshCallback(reloadProduct);
         return false;
     });
 
     this.OpenPopup = function () {
         root.renderProducts(root.productData);
-        $('#' + id).dialog("open");
+        $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };
 
@@ -58,21 +58,21 @@
     this.renderProducts = function (data) {
         $('#total').html(data.length);
         if (data.length > 0) {
-            $('#' + id + ' .totalRecords').removeClass('hide');
-            $('#' + id + ' .listLookupEmpty').addClass('hide');
-            $('#' + id + ' .tableContent').removeClass('hide');
+            $('#' + root.id + ' .totalRecords').removeClass('hide');
+            $('#' + root.id + ' .listLookupEmpty').addClass('hide');
+            $('#' + root.id + ' #searchProduct').removeClass('hide');
         } else {
-            $('#' + id + ' .totalRecords').addClass('hide');
-            $('#' + id + ' .listLookupEmpty').removeClass('hide');
-            $('#' + id + ' .tableContent').addClass('hide');
+            $('#' + root.id + ' .totalRecords').addClass('hide');
+            $('#' + root.id + ' .listLookupEmpty').removeClass('hide');
+            $('#' + root.id + ' #searchProduct').addClass('hide');
         }
 
         $.each(data, function (idx) {
             data[idx].tabIdx = idx * 2 + 2;
         });
-
-        $('#' + id + ' .tbContentLookup').html($('#popup-content-' + id).tmpl(data));
-        $('#' + id).table();
+        
+        $('#' + root.id + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
+        $('#' + root.id + ' .popup-table-header').table();
         
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
@@ -80,7 +80,7 @@
             min: 0.5
         });
 
-        $('#' + id + ' .popupSelect').button({
+        $('#' + root.id + ' .popupSelect').button({
             icons: {
                 primary: "ui-icon-circle-check"
             }
@@ -91,13 +91,13 @@
             return false;
         });
             
-        $('#' + id + ' .popupSelect').keypress(function (e) {
+        $('#' + root.id + ' .popupSelect').keypress(function (e) {
             if (e.which == 13) {
                 $(e.target).trigger('click');
             }
         });
             
-        $('#' + id + ' .tbContentLookup tr').dblclick(function (e) {
+        $('#' + root.id + ' .tbContentLookup tr').dblclick(function (e) {
             $(e.currentTarget).find('button.popupSelect').trigger('click');
         });
         
@@ -106,7 +106,7 @@
             e.stopPropagation();
         });
         
-        $('#' + id + ' .inputQty').keypress(function (e) {
+        $('#' + root.id + ' .inputQty').keypress(function (e) {
             if (e.which == 13) {
                 var pdtid = e.target.id.split('-')[1];
                 $('#select-' + pdtid).focus();
@@ -116,7 +116,7 @@
     };
 
     this.search = function () {
-        var text = $('#' + id + ' .textSearch').val().toLowerCase();
+        var text = $('#' + root.id + ' .textSearch').val().toLowerCase();
         var tempData = new Array();
         
         $(root.productData).each(function(idx, element) {
@@ -130,11 +130,11 @@
     };
 
     this.select = function (e) {
-        $('#' + id).dialog('close');
+        $('#' + root.id).dialog('close');
         var pdtId = e.currentTarget.id.split('-')[1];
         var qty = $(e.currentTarget).parent().prev().find('input[id^="popup-qty"]').val();
 
-        if (selectCallback)
-            selectCallback(pdtId, qty);
+        if (root.selectCallback)
+            root.selectCallback(pdtId, qty);
     };
 }

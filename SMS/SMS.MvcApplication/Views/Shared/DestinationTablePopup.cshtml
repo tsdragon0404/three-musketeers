@@ -1,28 +1,32 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
-<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide move-table-popup">
     <select id="select-area-@Model.PopupID">
-            
     </select>
-    <table id="table-header-@Model.PopupID">
+    <table class="popup-table-header">
+        <colgroup>
+            <col class="col1" />
+            <col class="col2" />
+            <col class="col3" />
+            <col class="col4" />
+        </colgroup>
         <thead>
             <tr>
-                <th style="width: 50px">No</th>
-                <th style="width: 190px">Table name</th>
-                <th style="width: 190px">Area name</th>
+                <th>No</th>
+                <th>Table name</th>
+                <th>Area name</th>
                 <th></th>
             </tr>
         </thead>
     </table>
-    <div class="destination-table-content">
-        <table id="table-detail-@Model.PopupID" class="tableContent">
+    <div class="popup-content">
+        <table id="table-detail-@Model.PopupID">
             <colgroup>
-                <col style="width: 50px" />
-                <col style="width: 190px" />
-                <col style="width: 190px" />
-                <col />
+                <col class="col1" />
+                <col class="col2" />
+                <col class="col3" />
+                <col class="col4" />
             </colgroup>
             <tbody id="destination-table">
-                
             </tbody>
         </table>
     </div>
@@ -33,7 +37,7 @@
 </script>
 <script id="destination-table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <tr class="{{if idx%2 }}has-color{{/if}}" >
+    <tr class="{{if idx%2}}alt{{/if}}">
         <td>${idx + 1}</td>
         <td>${Table.Name}</td>
         <td>${Table.Area.Name}</td>

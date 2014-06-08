@@ -45,7 +45,7 @@
                             result.Data[result.Data.length] = { LabelID: id, VNText: '', ENText: '' };
                     });
                     $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
-                    $('#label-dictionary').parent('table').table();
+                    $(root.popupId + ' .popup-table-header').table();
 
                     root.OpenPopup();
                 });
