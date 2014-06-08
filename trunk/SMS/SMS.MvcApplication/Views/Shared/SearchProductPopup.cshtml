@@ -1,14 +1,32 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 
-<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide">
-        <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
-        <div class="popup-buttons">
-            <input type="text" name="textSearch" class="textSearch" tabindex="1" />
-            <button class="popupSearch">Search</button>
-        </div>
-        <div class="popup-content">
+<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide product-search-popup">
+    <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
+    <div class="popup-buttons">
+        <input type="text" name="textSearch" class="textSearch" tabindex="1" />
+        <button class="popupSearch">Search</button>
+    </div>
+    <table class="popup-table-header">
+        <colgroup>
+            <col class="col1" />
+            <col class="col2" />
+            <col class="col3" />
+            <col class="col4" />
+            <col class="col5" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>QTY</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <div class="popup-content">
         <form onkeypress="return event.keyCode != 13;">
-            <table class="tableContent" id="searchProduct">
+            <table id="searchProduct">
                 <colgroup>
                     <col class="col1" />
                     <col class="col2" />
@@ -16,39 +34,32 @@
                     <col class="col4" />
                     <col class="col5" />
                 </colgroup>
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>QTY</th>
-                        <th></th>
-                    </tr>
-                </thead>
+
                 <tbody class="tbContentLookup">
                 </tbody>
             </table>
         </form>
-            <table class="listLookupEmpty">
-                <tr>
-                    <td style="width: auto; background-color: #ffffff;">No product available
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="right totalRecords">
-            Total: <span id="total"></span>record(s).
-        </div>
-
-        <div class="right">
-            <button class="popupRefresh">Refresh</button>
-            <button class="popupClose">Close</button>
-        </div>
+        <table class="listLookupEmpty">
+            <tr>
+                <td style="width: auto; background-color: #ffffff;">No product available
+                </td>
+            </tr>
+        </table>
     </div>
+    <div class="right totalRecords">
+        Total: <span id="total"></span>record(s).
+    </div>
+
+    <div class="right">
+        <button class="popupRefresh">Refresh</button>
+        <button class="popupClose">Close</button>
+    </div>
+</div>
 
 <script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
 <script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
-    <tr>
+    {{each(idx) ListProduct}}
+    <tr class="{{if idx%2}}alt{{/if}}">
         <td>${ProductCode}</td>
         <td>${Name}</td>
         <td class="right">${Price} VNĐ</td>
@@ -57,6 +68,7 @@
         <td class="center">
             <button class="popupSelect" id="select-${ID}" tabindex="${tabIdx + 1}">Select</button></td>
     </tr>
+    {{/each}}
 </script>
 <script type="text/javascript">
     $('#@Model.PopupID .textSearch, #@Model.PopupID .popupSearch').keypress(function (e) {

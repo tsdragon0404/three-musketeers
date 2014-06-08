@@ -6,7 +6,7 @@
     this.getDataUrl = getDataUrl;
     this.selectCallback = selectCallback;
 
-    $('#' + id).dialog({
+    $('#' + root.id).dialog({
         dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
@@ -15,10 +15,10 @@
         modal: true
     });
     
-    $('#' + id + ' button[id^="select-"]').unbind('click');
+    $('#' + root.id + ' button[id^="select-"]').unbind('click');
 
     this.OpenPopup = function () {
-        $('#select-area-' + id).html($('#lis-area-tmpl').tmpl(this.listArea));
+        $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
 
         $.ajax({
             type: 'POST',
@@ -34,10 +34,9 @@
                 }
             }
 
-            $('#' + id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
-            $('#' + id).dialog("open");
+            $('#' + root.id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
             
-            $('table[id^="table-header"]').table();
+            $('#' + root.id + ' .popup-table-header').table();
             $('button[id^="select-"]').button({
                 icons: {
                     primary: "ui-icon-circle-check"
@@ -53,17 +52,20 @@
                 }
             });
 
-            $('#' + id + ' #destination-table tr').dblclick(function (e) {
+            $('#' + root.id + ' #destination-table tr').dblclick(function (e) {
                 $(e.currentTarget).find('button[id^="select-"]').trigger('click');
             });
+            
+            $('#' + root.id).dialog("open");
+            SetHeightPopupContent('#' + root.id);
         });
     };
     
     this.select = function (e) {
-        $('#' + id).dialog('close');
+        $('#' + root.id).dialog('close');
         var tableId = e.currentTarget.id.split('-')[1];
 
-        if (selectCallback)
-            selectCallback(orderTableId, tableId);
+        if (root.selectCallback)
+            root.selectCallback(root.orderTableId, tableId);
     };
 }
