@@ -86,6 +86,11 @@ String.prototype.formatAsDateTime = function () {
 Number.prototype.formatAsMoney = function () {
     return this.toLocaleString('en');
 };
+String.prototype.formatAsMoney = function () {
+    if (!isNaN(parseFloat(this)))
+        return parseFloat(this).toLocaleString('en');
+    return '';
+};
 
 String.prototype.readMoneyAsNumber = function() {
     var str = this;
@@ -93,7 +98,7 @@ String.prototype.readMoneyAsNumber = function() {
         str = str.replace(/,/g, '');
     }
 
-    return parseInt(str);
+    return parseFloat(str);
 };
 
 $.fn.table = function () {
