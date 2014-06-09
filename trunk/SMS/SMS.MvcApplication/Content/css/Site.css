@@ -568,14 +568,21 @@ label.ui-state-error {
 .textSearch {
     width: 200px !important;
 }
+
 .inputQty {
     width: 100%;
     text-align: right;
 }
+
 #inv-table {
     height: 400px;
     width: 464px;
     overflow-y: auto;
+}
+
+.popup-table-header, .popup-table-header thead{
+    background: transparent;
+    color: #fff;
 }
 /* end style for all popups */
 
