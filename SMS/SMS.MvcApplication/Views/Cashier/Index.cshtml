@@ -81,13 +81,13 @@
                     <tr id="${ID}">
                         <td class="sequence">${idx + 1}</td>
                         <td>${Product.Name} - ${Product.ProductCode}</td>
-                        <td><input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" /></td>
+                        <td><input type="text" id="qty-${ID}" value="${Quantity.formatAsMoney()}" name="qty" class="required center" /></td>
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
 
                         @if(BranchConfig.UseDiscountOnProduct)
                         {
-                            <td><input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" /></td>
+                            <td><input type="text" id="discount-${ID}" class="required right" name="discount" value="${Discount.formatAsMoney()}" /></td>
                         }
                         
                         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
@@ -142,13 +142,13 @@
         <td class="sequence">${idx + 1}</td>
         <td>${Product.Name} - ${Product.ProductCode}</td>
         <td>
-            <input type="text" id="qty-${ID}" value="${Quantity}" name="qty" class="number required center" />
+            <input type="text" id="qty-${ID}" value="${Quantity.formatAsMoney()}" name="qty" class="required center" />
         </td>
         <td>${Product.Unit.Name}</td>
         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
         @if(BranchConfig.UseDiscountOnProduct)
         {
-            <td><input type="text" id="discount-${ID}" class="number required right" name="qty" value="${Discount.formatAsMoney()}" /></td>
+            <td><input type="text" id="discount-${ID}" class="required right" name="discount" value="${Discount.formatAsMoney()}" /></td>
         }
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
@@ -563,7 +563,7 @@
 
     function updateOrderedProduct(e) {
         var colName = $(e).attr('id').split('-')[0]; 
-        if(colName == 'qty') {
+        if(colName == 'qty' || colName == 'discount') {
             if(!$(e).valid())
                 return;
         }
@@ -798,7 +798,9 @@
             numberFormat: "n",
             min: 0.5,
             change: function() {
+                $(this).val($(this).val().readMoneyAsNumber());
                 updateOrderedProduct(this);
+                $(this).val($(this).val().formatAsMoney());
             }
         });
         
@@ -812,7 +814,9 @@
         });
         
         $('input[id^="discount"]').change(function() {
+            $(this).val($(this).val().readMoneyAsNumber());
             updateOrderedProduct(this);
+            $(this).val($(this).val().formatAsMoney());
         });
 
         $('div[id^="del"]').click(function() {
@@ -828,6 +832,9 @@
             rules: {
                 qty: {
                     greaterThanZero: true
+                },
+                discount: {
+                    greaterOrEqualZero: true
                 }
             }
         });
@@ -1070,7 +1077,7 @@
         $('table[id^="order-"]').each(function(idx, e) {
             subTotal = 0;
             $(e).find('tbody[id^="table-detail-"] tr').each(function(index, element) {
-                var qty = $(element).find('td input[id^="qty"]').val();
+                var qty = $(element).find('td input[id^="qty"]').val().readMoneyAsNumber();
                 var price = $(element).find('td.product-price').text().readMoneyAsNumber();
                 var discount = $(element).find('td input[id^="discount"]').length == 0 ? 0 : $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
                 var total = qty*price - discount ;
