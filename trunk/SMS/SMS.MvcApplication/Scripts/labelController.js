@@ -41,8 +41,14 @@
                                 return;
                             }
                         });
-                        if (!exists)
-                            result.Data[result.Data.length] = { LabelID: id, VNText: '', ENText: '' };
+                        if (!exists){
+                            var value = '';
+                            if (element.nodeName == 'INPUT')
+                                value = $(element).val();
+                            else
+                                value = $(element).text();
+                            result.Data[result.Data.length] = { LabelID: id, VNText: value, ENText: value };
+                        }
                     });
                     $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
                     $(root.popupId + ' .popup-table-header').table();
