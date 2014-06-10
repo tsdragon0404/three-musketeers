@@ -8,6 +8,13 @@
         public static bool IsSuperAdmin { get; set; }
         public static int BranchID { get; set; }
 
+        public static long DefaultAreaID { get; set; }
+
+        /// <summary>
+        /// Contain height value for List table section in Cashier page (in percent)
+        /// </summary>
+        public static int ListTableHeight { get; set; }
+
         public static Language Language { get; set; }
     }
 }

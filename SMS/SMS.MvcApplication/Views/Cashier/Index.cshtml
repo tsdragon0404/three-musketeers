@@ -1,4 +1,5 @@
-﻿@using SMS.Common
+﻿@using Core.Common.Session
+@using SMS.Common
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
@@ -15,8 +16,6 @@
     var listArea = @Html.Raw(Json.Encode(Model.ListArea));
     var serviceFee = @BranchConfig.ServiceFee;
     var useServiceFee = "@BranchConfig.UseServiceFee";
-    var useKitchenFunction = "@BranchConfig.UseKitchenFunction";
-    var useDiscountOnProduct = "@BranchConfig.UseDiscountOnProduct";
     var currency = "@BranchConfig.Currency";
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
@@ -340,14 +339,21 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('div.split-pane').splitPane();
-        $('#area-table').tabs();
-        $('#payment').hide();
-        $('#printInvoice').hide();
+        var paneheight = @UserContext.ListTableHeight + '%';
+        $('#area-table, .split-pane-divider').css('bottom', paneheight);
+        $('#tableorder').css('height', paneheight);
+
+        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@UserContext.DefaultAreaID"]'));
+        if (tabindex < 0)
+            tabindex = 0;
+        $('#area-table').tabs({ active: tabindex });
+
         $("#payment").button({
             icons: {
                 primary: "ui-icon-check"
             }
-        });
+        }).hide();
+
         $('#printInvoice').button({
             icons: {
                 primary: "ui-icon-print"
@@ -356,7 +362,7 @@
             var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderTableId, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
-        });
+        }).hide();
 
         refreshTableArea();
             
