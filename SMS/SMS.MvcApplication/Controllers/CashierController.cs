@@ -25,7 +25,7 @@ namespace SMS.MvcApplication.Controllers
             var cashierModel = new CashierModel
                                    {
                                        ListArea = AreaService.GetAllByBranch<LanguageAreaDto>().Data,
-                                       ListProduct = ProductService.GetAll<LanguageProductDto>().Data,
+                                       ListProduct = ProductService.GetAllByBranch<LanguageProductDto>().Data,
                                    };
 
             return View(cashierModel);

@@ -29,6 +29,12 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
+            Mapper.CreateMap<ProductCategory, LanguageProductCategoryDto>()
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                    .ForMember(x => x.Description, y => y.ResolveUsing(z =>
+                    UserContext.Language == Language.Vietnamese ? z.VNDescription: z.ENDescription));
+
             Mapper.CreateMap<InvoiceTable, LanguageInvoiceTableDto>();
 
             Mapper.CreateMap<OrderTable, LanguageOrderTableDto>();

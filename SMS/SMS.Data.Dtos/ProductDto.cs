@@ -11,7 +11,7 @@ namespace SMS.Data.Dtos
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
         public virtual UnitDto Unit { get; set; }
-        public virtual long ProductCategoryID { get; set; }
+        public virtual ProductCategoryDto ProductCategory { get; set; }
         public virtual decimal Price { get; set; }
 
         public DateTime? CreatedDate { get; set; }

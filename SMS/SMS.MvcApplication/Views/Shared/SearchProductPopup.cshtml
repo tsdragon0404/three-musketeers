@@ -1,4 +1,5 @@
-﻿@model SMS.MvcApplication.Models.PopupModel
+﻿@using SMS.Common
+@model SMS.MvcApplication.Models.PopupModel
 
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide product-search-popup">
     <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
@@ -13,11 +14,13 @@
             <col class="col3" />
             <col class="col4" />
             <col class="col5" />
+            <col/>
         </colgroup>
         <thead>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>QTY</th>
                 <th></th>
@@ -25,7 +28,7 @@
         </thead>
     </table>
     <div class="popup-content">
-        <form onkeypress="return event.keyCode != 13;">
+        <form>
             <table id="searchProduct">
                 <colgroup>
                     <col class="col1" />
@@ -33,6 +36,7 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
+                    <col/>
                 </colgroup>
 
                 <tbody class="tbContentLookup">
@@ -47,7 +51,7 @@
         </table>
     </div>
     <div class="right totalRecords">
-        Total: <span id="total"></span>record(s).
+        Total: <span id="total"></span> record(s).
     </div>
 
     <div class="right">
@@ -62,7 +66,8 @@
     <tr class="{{if idx%2}}alt{{/if}}">
         <td>${ProductCode}</td>
         <td>${Name}</td>
-        <td class="right">${Price} VNĐ</td>
+        <td>${ProductCategory.Name}</td>
+        <td class="right">${Price.formatAsMoney()} @BranchConfig.Currency</td>
         <td class="right">
             <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
         <td class="center">
