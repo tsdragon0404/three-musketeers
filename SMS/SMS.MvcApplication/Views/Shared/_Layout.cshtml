@@ -21,7 +21,7 @@
         $(document).ready(function() {
             var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
             labelController.ScanElements();
-            @if(UserContext.IsSuperAdmin)
+            @if(UserContext.IsSystemAdmin)
             {
                 <text>
             labelController.BuildEditControl(@ViewData[SMS.Common.Constant.ConstConfig.PageIDKey]);
@@ -49,7 +49,7 @@
                     </ul>
                 </nav>
                 <ul id="user">
-                    @if(UserContext.IsSuperAdmin)
+                    @if(UserContext.IsSystemAdmin)
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
@@ -69,8 +69,8 @@
                         }
                     }
                     
-                    <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-labelID="lblLanguageVN">Vietnamese</span></a></li>
-                    <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-labelID="lblLanguageEN">English</span></a></li>
+                    <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguageVN">Vietnamese</span></a></li>
+                    <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguageEN">English</span></a></li>
                 </ul> 
 
                 <script type="text/javascript">
