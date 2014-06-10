@@ -3,7 +3,6 @@
     this.labelDictionary = labelDictionary;
     this.multiEditId = multiEditId;
     this.popupId = popupId;
-    this.inputTemplate = '<input type="text" id="edit-{0}" class="editlabel hide" value="{1}" />';
 
     this.ScanElements = function () {
         if (root.labelDictionary == null)
