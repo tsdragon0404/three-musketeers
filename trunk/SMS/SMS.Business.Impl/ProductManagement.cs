@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common;
+using Core.Common.Session;
+using Core.Common.Validation;
 using SMS.Data;
 using AutoMapper;
 using SMS.Data.Dtos;
@@ -30,6 +32,14 @@ namespace SMS.Business.Impl
                     : invoiceTable.InvoiceDetails.First(y => y.ProductCode == x.ProductCode).Quantity);
 
             return returnValue;
+        }
+
+        public ServiceResult<IList<TDto>> GetAllByBranch<TDto>()
+        {
+            var result =
+                Repository.Find(x => x.ProductCategory.BranchID == UserContext.BranchID && x.Enable).OrderBy(
+                    x => x.ProductCategory.SEQ).ThenBy(x => x.SEQ).ToList();
+            return new ServiceResult<IList<TDto>> { Data = !result.Any() ? null : Mapper.Map<IList<TDto>>(result) };
         }
     }
 }

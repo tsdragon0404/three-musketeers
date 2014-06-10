@@ -23,7 +23,7 @@
     <div class="row" id="orderTable-${ID}">
         <div class="row div-header">
             <div class="eleven columns">
-                <span data-labelID="lblTableName" class="label-custom-label">Table name: </span><span class="label-custom-data">${Table.Name}</span>
+                <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name: </span><span class="label-custom-data">&nbsp;${Table.Name}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span data-labelID="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -247,7 +247,7 @@
                 <span data-labelID="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
             </div>
             <div class="eight columns">
-                <span data-labelID="lblCustomerName" id="lblCustomerName" class="searchCustomer label-custom-label">Customer name:</span>&nbsp;
+                <span data-labelID="lblCustomerName" id="lblCustomerName" class="link-label label-custom-label">Customer name:</span>&nbsp;
                 <span id="curCustomerName" class="label-custom-data"></span>
             </div>
         </div>
@@ -320,7 +320,15 @@
             <td>
                 <div class="menu-customer"></div>
             </td>
-            <td class="RmenuItem">Change Customer</td>
+            <td class="RmenuItem"><span data-labelID="lblChangeCustomer">Change Customer</span></td>
+        </tr>
+    </table>
+    <table class="Rmenu" id="changeTable">
+        <tr>
+            <td>
+                <div class="rmenu-move"></div>
+            </td>
+            <td class="RmenuItem"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
         </tr>
     </table>
     <table class="Rmenu" id="mainRightMenu">
@@ -375,6 +383,123 @@
         }, 120000);
     });
     
+    $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
+        GetTablesByAreaID($(e.target).attr('href').split('-')[1]);
+    }));
+    
+    $(document).on("click", 'a[id^="addProduct-"]', (function(e){
+        var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+        product.OpenPopup();
+        $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
+        return false;
+    }));
+    
+    $(document).on("click", 'tr[id^="rmenu-"]', (function(){
+        onSelectedItem(this);
+    }));
+
+    $(document).on("dblclick", ".tbls", (function(e) {
+        $(".tbls").removeClass('selected');
+        $(e.target).parents('.tbls').addClass('selected');
+        var id = $(e.target).parents('.tbls').attr('id');
+        var orderTableId = id.split('-')[0];
+        var tblId = id.split('-')[1];
+        var orderId = id.split('-')[2];
+        if(orderTableId == 0) {
+            var popup = new MessagePopup('Thông báo',
+                'Bàn này hiện đang trống.<br />Sử dụng ngay?',
+                3,
+                function () {
+                    onCheckTableStatus(orderTableId, tblId);
+                });
+            
+            popup.OpenPopup();
+        } else {
+            onSelectOrderTable(orderTableId, orderId);
+        }
+    }));
+        
+    $(document).on("contextmenu", "#cashier", function(e) {
+        if($(e.target).parents('.tbls').length <= 0) {
+            $("#right-menu").hide();
+            //displayCustomMenu('#mainRightMenu', e);
+        } else {
+            $('#mainRightMenu').hide();
+            if (!$(e.target).parents('.tbls').hasClass('selected')) {
+                $(".tbls").removeClass('selected');
+                $(e.target).parents('.tbls').addClass('selected');
+            }
+
+            displayCustomMenu('#right-menu', e);
+        }
+    });
+        
+    $(document).click(function(e) {
+        $("#right-menu").hide();
+        $('#mainRightMenu').hide();
+        
+        if(!$(e.target).parents('table').hasClass('tbls')) {
+            if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
+                $(".tbls").removeClass('selected');
+        }
+
+        if(!$(e.target).hasClass('link-label') || $(e.target).attr('id') == null) {
+            $("#changeCustomer").hide();
+            $("#changeTable").hide();
+        }
+    });
+    
+    $(document).on("click", ".tbls", (function(e){
+        if(e.ctrlKey) {
+            if ($(e.target).parents('.tbls').hasClass('selected')) {
+                $(e.target).parents('.tbls').removeClass('selected');
+            } else {
+                $(e.target).parents('.tbls').addClass('selected');
+            }
+        } else {
+            $(".tbls").removeClass('selected');
+            $(e.target).parents('.tbls').addClass('selected');
+        }
+    }));
+        
+    $(document).on("click", "#payment", (function(){
+        var orderId = $('#curOrderID').val();
+        if(orderId > 0) {
+            var popup = new MessagePopup('Thông báo',
+                'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
+                3,
+                function () {
+                    alert('abe');
+                });
+            
+            popup.OpenPopup();
+        }
+    }));
+
+    $(document).on("click", ".link-label", (function(e){
+        $("#changeCustomer").hide();
+        $("#changeTable").hide();
+        if($(e.currentTarget).attr('id') == 'lblCustomerName')
+            displayCustomMenu('#changeCustomer', e);
+        else if ($(e.currentTarget).attr('id') == 'lblTableName') {
+            $('#changeTable').attr('data-id', $(e.currentTarget).attr('data-id'));
+            displayCustomMenu('#changeTable', e);
+        }
+    }));
+    
+    $(document).on("click", "#changeTable", (function(e){
+        var orderTableId = $(e.currentTarget).attr('data-id');
+        if (orderTableId > 0) {
+            var popup = new DestinationTablePopup("destinationTablePopup", orderTableId, listArea, '@Url.Action("GetTablesByAreaID")', onMoveOrderTable);
+            popup.OpenPopup();
+        }
+    }));
+    
+    $(document).on("click", "#mainRightMenu", (function(){
+        refreshTableArea();
+        refreshOrderArea();
+    }));
+    
     function refreshOrderArea() {
         var orderId = $('#curOrderID').val();
         if(orderId > 0) {
@@ -404,10 +529,6 @@
     function getCurrentOrderTableId() {
         return { orderTableID: $('#curOrderTableID').val() };
     }
-    
-    $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
-        GetTablesByAreaID($(e.target).attr('href').split('-')[1]);
-    }));
 
     function refreshTableArea() {
         var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
@@ -427,14 +548,36 @@
             CalculateTotal();
         }
     }
-    
-    $(document).on("click", 'a[id^="addProduct-"]', (function(e){
-        var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
-        product.OpenPopup();
-        $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
-        return false;
-    }));
 
+    function updateOrderedProduct(e) {
+        var colName = $(e).attr('id').split('-')[0]; 
+        if(colName == 'qty' || colName == 'discount') {
+            if(!$(e).valid())
+                return;
+        }
+
+        var orderDetailId = $(e).attr('id').split('-')[1];
+        var value = $(e).val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProduct")',
+            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
+        }).done(function (result) {
+            if(!result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                CalculateTotal();
+            }
+        });
+    }
+    
     function onRemoveOrderTable(orderTableId, orderId) {
         if (orderTableId <= 0) {
             return;
@@ -477,121 +620,6 @@
             } else {
                 refreshTableArea();
                 refreshOrderArea();
-            }
-        });
-    }
-        
-    $(document).on("dblclick", ".tbls", (function(e) {
-        $(".tbls").removeClass('selected');
-        $(e.target).parents('.tbls').addClass('selected');
-        var id = $(e.target).parents('.tbls').attr('id');
-        var orderTableId = id.split('-')[0];
-        var tblId = id.split('-')[1];
-        var orderId = id.split('-')[2];
-        if(orderTableId == 0) {
-            var popup = new MessagePopup('Thông báo',
-                'Bàn này hiện đang trống.<br />Sử dụng ngay?',
-                3,
-                function () {
-                    onCheckTableStatus(orderTableId, tblId);
-                });
-            
-            popup.OpenPopup();
-        } else {
-            onSelectOrderTable(orderTableId, orderId);
-        }
-    }));
-        
-    $(document).on("contextmenu", "#cashier", function(e) {
-        if($(e.target).parents('.tbls').length <= 0) {
-            $("#right-menu").hide();
-            displayCustomMenu('#mainRightMenu', e);
-        } else {
-            $('#mainRightMenu').hide();
-            if (!$(e.target).parents('.tbls').hasClass('selected')) {
-                $(".tbls").removeClass('selected');
-                $(e.target).parents('.tbls').addClass('selected');
-            }
-
-            displayCustomMenu('#right-menu', e);
-        }
-    });
-        
-    $(document).click(function(e) {
-        $("#right-menu").hide();
-        $('#mainRightMenu').hide();
-        
-        if(!$(e.target).parents('table').hasClass('tbls')) {
-            if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
-                $(".tbls").removeClass('selected');
-        }
-
-        if($(e.target).attr('id') != 'lblCustomerName' || $(e.target).attr('id') == null)
-            $("#changeCustomer").hide();
-                
-    });
-    
-    $(document).on("click", ".tbls", (function(e){
-        if(e.ctrlKey) {
-            if ($(e.target).parents('.tbls').hasClass('selected')) {
-                $(e.target).parents('.tbls').removeClass('selected');
-            } else {
-                $(e.target).parents('.tbls').addClass('selected');
-            }
-        } else {
-            $(".tbls").removeClass('selected');
-            $(e.target).parents('.tbls').addClass('selected');
-        }
-    }));
-        
-    $(document).on("click", "#payment", (function(){
-        var orderId = $('#curOrderID').val();
-        if(orderId > 0) {
-            var popup = new MessagePopup('Thông báo',
-                'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
-                3,
-                function () {
-                    alert('abe');
-                });
-            
-            popup.OpenPopup();
-        }
-    }));
-
-    $(document).on("click", ".searchCustomer", (function(e){
-        displayCustomMenu('#changeCustomer', e);
-    }));
-    
-    $(document).on("click", "#mainRightMenu", (function(){
-        refreshTableArea();
-        refreshOrderArea();
-    }));
-
-    function updateOrderedProduct(e) {
-        var colName = $(e).attr('id').split('-')[0]; 
-        if(colName == 'qty' || colName == 'discount') {
-            if(!$(e).valid())
-                return;
-        }
-
-        var orderDetailId = $(e).attr('id').split('-')[1];
-        var value = $(e).val();
-        
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("UpdateOrderedProduct")',
-            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
-        }).done(function (result) {
-            if(!result.Success) {
-                var popup = new MessagePopup('Thông báo',
-                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
-                    4,
-                    function() {
-                    });
-
-                popup.OpenPopup();
-            } else {
-                CalculateTotal();
             }
         });
     }
@@ -850,16 +878,22 @@
 
     function onDeleteProductFromOrderDetail(orderDetailId) {
         if (orderDetailId != '' && orderDetailId > 0) {
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("RemoveOrderedProduct")',
-                data: { orderDetailID: orderDetailId }
-            }).done(function(result) {
-                if (result.Success) {
-                    $('tr[id="' + orderDetailId + '"]').remove();
-                    CalculateTotal();
-                }
-            });
+            var popup = new MessagePopup('Thông báo',
+                'Xóa thông tin này khỏi hệ thống.<br />Bạn muốn thực hiện?',
+                3,
+                function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("RemoveOrderedProduct")',
+                        data: { orderDetailID: orderDetailId }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            $('tr[id="' + orderDetailId + '"]').remove();
+                            CalculateTotal();
+                        }
+                    });
+                });
+            popup.OpenPopup();
         }
     }
 
@@ -885,10 +919,6 @@
         });
         return;
     }
-    
-    $(document).on("click", 'tr[id^="rmenu-"]', (function(){
-        onSelectedItem(this);
-    }));
     
     function onSelectedItem(e) {
         var action = $(e).attr('id');

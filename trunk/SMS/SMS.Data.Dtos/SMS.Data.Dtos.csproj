@@ -37,6 +37,7 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="LanguageProductCategoryDto.cs" />
     <Compile Include="OrderBasicDto.cs" />
     <Compile Include="OrderTableBasicDto.cs" />
     <Compile Include="LanguageOrderStatusDto.cs" />
