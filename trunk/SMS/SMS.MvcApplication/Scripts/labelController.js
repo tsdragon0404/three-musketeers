@@ -10,7 +10,7 @@
             return;
         try {
             $(".ajax-loader-mask").show();
-            $('[data-labelID]').each(function (idx, element) {
+            $('[data-labelID], [data-globalLabelID]').each(function (idx, element) {
                 scanElement(element);
             });
         } catch (exception) {
@@ -121,7 +121,7 @@
         if (root.labelDictionary != null) {
             try {
                 $(".ajax-loader-mask").show();
-                $(this).find('[data-labelID]').each(function(idx, element) {
+                $(this).find('[data-labelID], [data-globalLabelID]').each(function (idx, element) {
                     scanElement(element);
                 });
             } catch(exception) {
@@ -133,7 +133,9 @@
     };
 
     function scanElement(element) {
-        var id = $(element).attr('data-labelid');
+        var id = $(element).attr('data-labelID');
+        if (id == undefined)
+            id = $(element).attr('data-globalLabelID');
         if (root.labelDictionary[id] != undefined && root.labelDictionary[id].trim() != '') {
             if (element.nodeName == 'INPUT')
                 $(element).val(root.labelDictionary[id]);

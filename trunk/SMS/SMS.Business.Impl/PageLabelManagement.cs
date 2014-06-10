@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Common.Session;
 using Core.Common.Validation;
+using SMS.Common.Constant;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -15,11 +16,14 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID)
+        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID, bool includeGlobalLabels = false)
         {
+            var ids = new List<long>{ pageID };
+            if (includeGlobalLabels)
+                ids.Add(ConstConfig.GlobalPageID);
             return new ServiceResult<IList<TDto>>
                    {
-                       Data = Mapper.Map<IList<TDto>>(Repository.Find(x => x.Page.ID == pageID && x.BranchID == UserContext.BranchID).ToList())
+                       Data = Mapper.Map<IList<TDto>>(Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == UserContext.BranchID).ToList())
                    };
         }
 

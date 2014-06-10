@@ -60,7 +60,7 @@ namespace SMS.MvcApplication
             UserContext.UserID = 1;
             UserContext.UserName = "Lam Vu";
             UserContext.PageSize = 3;
-            UserContext.IsSuperAdmin = true;
+            UserContext.IsSystemAdmin = true;
             UserContext.BranchID = 1;
             UserContext.DefaultAreaID = 2;
             UserContext.ListTableHeight = 65;

@@ -34,7 +34,7 @@ namespace SMS.MvcApplication.Base
                 var viewResult = filterContext.Result as ViewResult;
                 if (viewResult != null)
                 {
-                    var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID).Data.ToDictionary(x => x.LabelID, x => x.Text);
+                    var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID, true).Data.ToDictionary(x => x.LabelID, x => x.Text);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
                 }
@@ -53,7 +53,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
         {
-            return Json(!UserContext.IsSuperAdmin
+            return Json(!UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.Save(pageID, listLabels.ToList())));
         }
@@ -61,7 +61,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult GetAllPageLabel(int pageID)
         {
-            return Json(!UserContext.IsSuperAdmin
+            return Json(!UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }

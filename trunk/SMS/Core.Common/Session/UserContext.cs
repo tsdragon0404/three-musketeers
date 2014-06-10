@@ -5,7 +5,7 @@
         public static long UserID { get; set; }
         public static string UserName { get; set; } 
         public static int PageSize { get; set; }
-        public static bool IsSuperAdmin { get; set; }
+        public static bool IsSystemAdmin { get; set; }
         public static int BranchID { get; set; }
 
         public static long DefaultAreaID { get; set; }
