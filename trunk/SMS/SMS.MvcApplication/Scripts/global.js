@@ -102,12 +102,11 @@ String.prototype.readMoneyAsNumber = function() {
 };
 
 $.fn.table = function () {
-    if(this.hasClass('popup-table-header')){
-        this.addClass('no-border');
+    this.addClass('no-border');
+    if (this.hasClass('popup-table-header') && !this.parent().hasClass('ui-widget-header')) {
         this.wrap('<div class="ui-widget-header"></div>');
     }
     else{    
-        this.addClass('no-border');
         this.find('thead tr').addClass('ui-widget-header');
         this.find('tbody tr, tfoot tr').addClass('ui-helper-reset ui-state-default');
     }

@@ -46,6 +46,7 @@
 
     this.OpenPopup = function () {
         root.renderProducts(root.productData);
+        $('#' + root.id + ' .popup-table-header').table();
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };
@@ -72,7 +73,6 @@
         });
         
         $('#' + root.id + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
-        $('#' + root.id + ' .popup-table-header').table();
         
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
