@@ -13,6 +13,8 @@
         modal: true
     });
 
+    $('#' + root.id + ' .popup-table-header').table();
+    
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
 
@@ -46,7 +48,6 @@
 
     this.OpenPopup = function () {
         root.renderProducts(root.productData);
-        $('#' + root.id + ' .popup-table-header').table();
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };

@@ -22,6 +22,8 @@
         try {
             $(".ajax-loader-mask").show();
             
+            $(root.popupId + ' .popup-table-header').table();
+
             $(root.multiEditId).click(function () {
                 $.ajax({
                     type: 'POST',
@@ -50,7 +52,6 @@
                         }
                     });
                     $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
-                    $(root.popupId + ' .popup-table-header').table();
 
                     root.OpenPopup();
                 });
