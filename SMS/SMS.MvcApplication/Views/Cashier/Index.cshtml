@@ -221,7 +221,7 @@
 <div id="cashier" class="split-pane horizontal-percent">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
-            <li><a href="#area-0"><span data-labelID="lblAllArea">All</span></a></li>
+            <li><a href="#area-0" data-labelID="lblAllArea">All</a></li>
             @foreach (var area in Model.ListArea)
             {
                 <li><a href="#area-@area.ID">@area.Name</a></li>
@@ -258,22 +258,35 @@
         </div>
         
             <div class="row" id="totalSection">
-            @if (BranchConfig.UseServiceFee)
-            {
-                <div class="row" id="ServiceFree">
-                    <div class="two columns push_eight right"><span data-labelID="lblServiceFee">Service Fee:</span></div>
-                    <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                <div class="row">
+                    <div class="two columns push_eight left"><span data-labelID="lblSumAmount">Sum Amount:</span></div>
+                    <div class="two columns right border-top"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
                 </div>
-            }
-            <div class="row" id="Tax-">
-                <div class="two columns push_eight right"><span data-labelID="lblTax">Tax (10%):</span></div>
-                <div class="two columns right"><span class="tax">0</span> @BranchConfig.Currency</div>
+                @if (BranchConfig.UseServiceFee)
+                {
+                    <div class="row" id="ServiceFree">
+                        <div class="two columns push_eight left">
+                            <input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" />
+                            <span data-labelID="lblServiceFee">Service Fee:</span>
+                        </div>
+                        <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                    </div>
+                }
+                @foreach (var tax in BranchConfig.Taxs)
+                {
+                    <div class="row" id="tax-@tax.Key">
+                        <div class="two columns push_eight left">
+                            <input type="checkbox" id="chkUseTax-@tax.Key" checked="@BranchConfig.UseServiceFee" />
+                            @tax.Key <span data-labelID="lblTax" id="tax-value-@tax.Key">@tax.Value</span>%:
+                        </div>
+                        <div class="two columns right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="two columns push_eight left"><span data-labelID="lblTotalAmount">Total Amount:</span></div>
+                    <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="two columns push_eight right"><span data-labelID="lblTotalAmount">Total Amount:</span></div>
-                <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
-            </div>
-        </div>
             <div class="row">
                 <div class="four columns right border-top payment">
                     <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
@@ -381,6 +394,8 @@
         setInterval(function() {
             refreshOrderArea();
         }, 120000);
+
+        CalculateTotal();
     });
     
     $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
@@ -1108,7 +1123,10 @@
     
     function CalculateTotal() {
         var subTotal;
+        var sumAmount = 0;
         var totalAmount = 0;
+        var fee = 0;
+        var tax = 0;
         
         $('table[id^="order-"]').each(function(idx, e) {
             subTotal = 0;
@@ -1122,10 +1140,27 @@
                 $(element).find('td.item_subtotal').text(total.formatAsMoney());
             });
             
-            totalAmount += subTotal;
+            sumAmount += subTotal;
             $(e).find('.sub-total').text(subTotal.formatAsMoney());
         });
         
+        $('#totalSection .sum_amount').text(sumAmount.formatAsMoney());
+
+        if($('#totalSection .fee').length > 0) {
+            fee = $('#totalSection .fee').text().readMoneyAsNumber();
+            $('#totalSection .fee').text(fee.formatAsMoney());
+        }
+
+        sumAmount = sumAmount > 0 ? sumAmount + fee : 0;
+        
+        $('#totalSection div[id^="tax-"]').each(function(index, element) {
+            var value = $(element).find('span[id^="tax-value-"]').text();
+            tax += sumAmount > 0 ? sumAmount * value / 100 : 0;
+            $(element).find('span[id^="tax-amount-"]').text((sumAmount * value / 100).formatAsMoney());
+        });
+
+        totalAmount = sumAmount + tax;
+
         $('#totalSection .total_amount').text(totalAmount.formatAsMoney());
     }
 </script>

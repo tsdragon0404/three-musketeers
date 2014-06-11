@@ -62,7 +62,7 @@ namespace SMS.MvcApplication
             UserContext.PageSize = 3;
             UserContext.IsSystemAdmin = true;
             UserContext.BranchID = 1;
-            UserContext.DefaultAreaID = 2;
+            UserContext.DefaultAreaID = 0;
             UserContext.ListTableHeight = 65;
 
             BranchConfig.UseServiceFee = true;

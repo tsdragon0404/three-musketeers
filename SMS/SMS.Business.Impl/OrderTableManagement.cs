@@ -93,7 +93,11 @@ namespace SMS.Business.Impl
                             OrderDetailRepository.Update(orderDetail);
                             OrderDetailRepository.SaveAllChanges();
                         }
-                        OrderRepository.Delete(Repository.Get(orderTableID).Order.ID);
+                        var orderID = Repository.Get(orderTableID).Order.ID;
+                        Repository.Delete(orderTableID);
+                        Repository.SaveAllChanges();
+                        if (!Repository.Exists(x => x.Order.ID == orderID))
+                            OrderRepository.Delete(orderID);
                     }
                 }
             }
