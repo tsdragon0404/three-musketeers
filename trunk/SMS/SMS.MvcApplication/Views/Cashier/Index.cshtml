@@ -253,14 +253,12 @@
         </div>
         
         <div id="order-detail">
-        <div class="row" id="tblContent">
-            
-        </div>
+            <div class="row" id="tblContent"></div>
         
             <div class="row" id="totalSection">
                 <div class="row">
                     <div class="two columns push_eight left"><span data-labelID="lblSumAmount">Sum Amount:</span></div>
-                    <div class="two columns right border-top"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
+                    <div class="two columns right"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
                 </div>
                 @if (BranchConfig.UseServiceFee)
                 {
@@ -287,7 +285,7 @@
                     <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="button-payment">
                 <div class="four columns right border-top payment">
                     <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
                     <button id="printInvoice"><span data-labelID="lblPrintInvoice">In trước hóa đơn</span></button>
@@ -368,12 +366,12 @@
         if (tabindex < 0)
             tabindex = 0;
         $('#area-table').tabs({ active: tabindex });
-
+        
         $("#payment").button({
             icons: {
                 primary: "ui-icon-check"
             }
-        }).hide();
+        });
 
         $('#printInvoice').button({
             icons: {
@@ -383,7 +381,11 @@
             var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderTableId, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
-        }).hide();
+        });
+        
+        $('#button-payment').hide();
+        $('#totalSection').hide();
+        $('#order-header').hide();
 
         refreshTableArea();
             
@@ -515,6 +517,25 @@
         refreshOrderArea();
     }));
     
+    $("#chkUseServiceFee").click( function(){
+        if($(this).is(':checked')) {
+            $('#ServiceFree').removeClass('RmenuDisable');
+        } else {
+            $('#ServiceFree').addClass('RmenuDisable');
+        }
+        CalculateTotal();
+    });
+        
+    $('input[id^="chkUseTax-"]').click( function(){
+        var type = $(this).attr('id').split('-')[1];
+        if($(this).is(':checked')) {
+            $('#tax-' + type).removeClass('RmenuDisable');
+        } else {
+            $('#tax-' + type).addClass('RmenuDisable');
+        }
+        CalculateTotal();
+    });
+    
     function refreshOrderArea() {
         var orderId = $('#curOrderID').val();
         if(orderId > 0) {
@@ -534,8 +555,9 @@
 
                     bindEventForControl();
 
-                    $("#payment").show();
-                    $("#printInvoice").show();
+                    $('#button-payment').show();
+                    $('#totalSection').show();
+                    $('#order-header').show();
                 }
             });
         }
@@ -558,8 +580,9 @@
             $('#curOrderNumber').text('');
             $('#curCustomerName').text('');
             $("#addProduct").hide();
-            $("#payment").hide();
-            $("#printInvoice").hide();
+            $('#button-payment').hide();
+            $('#totalSection').hide();
+            $('#order-header').hide();
             CalculateTotal();
         }
     }
@@ -779,8 +802,9 @@
 
                 bindEventForControl();
 
-                $("#payment").show();
-                $("#printInvoice").show();
+                $('#button-payment').show();
+                $('#totalSection').show();
+                $('#order-header').show();
                 refreshTableArea();
             }
         });
@@ -1124,7 +1148,7 @@
     function CalculateTotal() {
         var subTotal;
         var sumAmount = 0;
-        var totalAmount = 0;
+        var totalAmount;
         var fee = 0;
         var tax = 0;
         
@@ -1151,12 +1175,20 @@
             $('#totalSection .fee').text(fee.formatAsMoney());
         }
 
+        if(!$('#chkUseServiceFee').is(':checked'))
+            fee = 0;
+
         sumAmount = sumAmount > 0 ? sumAmount + fee : 0;
         
         $('#totalSection div[id^="tax-"]').each(function(index, element) {
-            var value = $(element).find('span[id^="tax-value-"]').text();
-            tax += sumAmount > 0 ? sumAmount * value / 100 : 0;
-            $(element).find('span[id^="tax-amount-"]').text((sumAmount * value / 100).formatAsMoney());
+            if($(element).find('input[id^="chkUseTax-"]').is(':checked'))
+            {
+                var value = $(element).find('span[id^="tax-value-"]').text();
+                tax += sumAmount > 0 ? sumAmount * value / 100 : 0;
+                $(element).find('span[id^="tax-amount-"]').text((sumAmount * value / 100).formatAsMoney());
+            } else {
+                $(element).find('span[id^="tax-amount-"]').text('0');
+            }
         });
 
         totalAmount = sumAmount + tax;
