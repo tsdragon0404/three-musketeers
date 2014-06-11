@@ -16,6 +16,7 @@
     });
     
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
+    $('#' + root.id + ' .popup-table-header').table();
 
     this.OpenPopup = function () {
         $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
@@ -36,7 +37,6 @@
 
             $('#' + root.id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
             
-            $('#' + root.id + ' .popup-table-header').table();
             $('button[id^="select-"]').button({
                 icons: {
                     primary: "ui-icon-circle-check"
