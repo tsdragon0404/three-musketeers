@@ -166,15 +166,15 @@ function removeSortIcon(id) {
 Array.prototype.sortByProp = function(value, type) {
     if (type == 'desc') {
         return this.sort(function (a, b) {
-            if ($.isNumeric(a[value]) && $.isNumeric(b[value]))
-                return (parseFloat(a[value]) < parseFloat(b[value])) ? 1 : (parseFloat(a[value]) > parseFloat(b[value])) ? -1 : 0;
+            if ($.isNumeric(a[value].formatAsMoney()) && $.isNumeric(b[value].formatAsMoney()))
+                return (parseFloat(a[value].formatAsMoney()) < parseFloat(b[value].formatAsMoney())) ? 1 : (parseFloat(a[value].formatAsMoney()) > parseFloat(b[value].formatAsMoney())) ? -1 : 0;
             else
                 return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
         });
     } else {
         return this.sort(function(a, b) {
-            if ($.isNumeric(a[value]) && $.isNumeric(b[value]))
-                return (parseFloat(a[value]) > parseFloat(b[value])) ? 1 : (parseFloat(a[value]) < parseFloat(b[value])) ? -1 : 0;
+            if ($.isNumeric(a[value].formatAsMoney()) && $.isNumeric(b[value].formatAsMoney()))
+                return (parseFloat(a[value].formatAsMoney()) > parseFloat(b[value].formatAsMoney())) ? 1 : (parseFloat(a[value].formatAsMoney()) < parseFloat(b[value].formatAsMoney())) ? -1 : 0;
             else
                 return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
         });
