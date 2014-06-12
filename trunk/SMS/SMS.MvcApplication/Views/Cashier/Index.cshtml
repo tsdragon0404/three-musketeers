@@ -257,32 +257,34 @@
         
             <div class="row" id="totalSection">
                 <div class="row">
-                    <div class="two columns push_eight left"><span data-labelID="lblSumAmount">Sum Amount:</span></div>
-                    <div class="two columns right"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
+                    <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
+                    <div class="center col4">&nbsp;</div>
                 </div>
                 @if (BranchConfig.UseServiceFee)
                 {
                     <div class="row" id="ServiceFree">
-                        <div class="two columns push_eight left">
-                            <input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" />
-                            <span data-labelID="lblServiceFee">Service Fee:</span>
-                        </div>
-                        <div class="two columns right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                        <div class="center col1">&nbsp;</div>
+                        <div class="right col2"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                        <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
+                        <div class="center col4"><input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></div>
                     </div>
                 }
                 @foreach (var tax in BranchConfig.Taxs)
                 {
                     <div class="row" id="tax-@tax.Key">
-                        <div class="two columns push_eight left">
-                            <input type="checkbox" id="chkUseTax-@tax.Key" checked="@BranchConfig.UseServiceFee" />
-                            @tax.Key <span data-labelID="lblTax" id="tax-value-@tax.Key">@tax.Value</span>%:
-                        </div>
-                        <div class="two columns right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
+                        <div class="center col1">&nbsp;</div>
+                        <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
+                        <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
+                        <div class="center col4"><input type="checkbox" id="chkUseTax-@tax.Key" checked="@BranchConfig.UseServiceFee" /></div>
                     </div>
                 }
                 <div class="row">
-                    <div class="two columns push_eight left"><span data-labelID="lblTotalAmount">Total Amount:</span></div>
-                    <div class="two columns right border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                    <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
+                    <div class="center col4">&nbsp;</div>
                 </div>
             </div>
             <div class="row" id="button-payment">
