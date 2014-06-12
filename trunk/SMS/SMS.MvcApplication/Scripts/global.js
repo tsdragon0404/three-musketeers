@@ -21,7 +21,7 @@ $(document).ready(function () {
 function ExpandColapseMenu() {
     var link = $('#expander');
     if (link.hasClass('expanded')) {
-        $('#leftmenu').css("width", "0");
+        $('#leftmenu').css("width", "0").toggle(500);
         $('#leftmenuExpander').css("left", "0%");
 
         $('#body').css("width", "99%");
@@ -30,7 +30,7 @@ function ExpandColapseMenu() {
         link.addClass('colapsed');
     }
     else {
-        $('#leftmenu').css("width", "13%");
+        $('#leftmenu').css("width", "13%").toggle(500);
         $('#leftmenuExpander').css("left", "13%");
 
         $('#body').css("width", "86%");
