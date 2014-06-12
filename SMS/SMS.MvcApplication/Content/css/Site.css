@@ -773,3 +773,23 @@ table thead{
 .popup-table-header thead .sorting_desc:hover {
     cursor: pointer;
 }
+
+#totalSection .col1 {
+    width: 16px;
+    float: right;
+}
+
+#totalSection .col2 {
+    width: 150px;
+    float: right;
+}
+
+#totalSection .col3 {
+    width: 150px;
+    float: right;
+}
+
+#totalSection .col4 {
+    width: 20px;
+    float: right;
+}
