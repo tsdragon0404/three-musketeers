@@ -15,6 +15,8 @@
 
     $('#' + root.id + ' .popup-table-header').table();
     
+    $('#' + root.id).sortingTable();
+    
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
 
