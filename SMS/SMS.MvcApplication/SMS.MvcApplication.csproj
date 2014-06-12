@@ -756,6 +756,9 @@
     <Content Include="Images\IconControls\product-add-icon.png" />
     <Content Include="Images\IconControls\reject-icon.png" />
     <Content Include="Images\IconControls\reload-icon.png" />
+    <Content Include="Images\IconControls\sort_asc.png" />
+    <Content Include="Images\IconControls\sort_both.png" />
+    <Content Include="Images\IconControls\sort_desc.png" />
     <Content Include="Images\IconControls\table-avai.png" />
     <Content Include="Images\IconControls\table-empty.png" />
     <Content Include="Images\IconControls\table.png" />

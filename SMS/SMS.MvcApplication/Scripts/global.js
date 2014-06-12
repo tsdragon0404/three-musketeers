@@ -125,35 +125,35 @@ $.fn.sortingTable = function () {
 $(document).on("click", '.popup-table-header th.sort_both', (function () {
     var id = $(this).attr('sort-index').split('-')[0];
     var index = $(this).attr('sort-index').split('-')[1];
-    $('#' + id).find('.popup-table-header thead th').each(function (idx, element) {
-        if ($(element).hasClass('sorting_asc') || $(element).hasClass('sorting_desc')) {
-            $(element).removeClass('sorting_desc');
-            $(element).removeClass('sorting_asc');
-            $(element).addClass('sort_both');
-        }
-    });
+    removeSortIcon(id);
     $(this).removeClass('sort_both');
     $(this).addClass('sorting_asc');
     
-    $('#' + id + ' .popup-content form tbody tr').replaceWith($('#' + id + ' .popup-content form tbody tr').sortingTableASC(index));
+    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'asc'));
+    $('#' + id + ' .popup-content form tbody').rebuildSorting();
 }));
 
 $(document).on("click", '.popup-table-header th.sorting_asc', (function () {
     var id = $(this).attr('sort-index').split('-')[0];
-    $('#' + id).find('.popup-table-header thead th').each(function (idx, element) {
-        if ($(element).hasClass('sorting_asc') || $(element).hasClass('sorting_desc')) {
-            $(element).removeClass('sorting_desc');
-            $(element).removeClass('sorting_asc');
-            $(element).addClass('sort_both');
-        }
-    });
+    var index = $(this).attr('sort-index').split('-')[1];
+    removeSortIcon(id);
     $(this).removeClass('sorting_asc');
     $(this).addClass('sorting_desc');
-    
+    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'desc'));
+    $('#' + id + ' .popup-content form tbody').rebuildSorting();
 }));
 
 $(document).on("click", '.popup-table-header th.sorting_desc', (function () {
     var id = $(this).attr('sort-index').split('-')[0];
+    var index = $(this).attr('sort-index').split('-')[1];
+    removeSortIcon(id);
+    $(this).removeClass('sorting_desc');
+    $(this).addClass('sorting_asc');
+    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'asc'));
+    $('#' + id + ' .popup-content form tbody').rebuildSorting();
+}));
+
+function removeSortIcon(id) {
     $('#' + id).find('.popup-table-header thead th').each(function (idx, element) {
         if ($(element).hasClass('sorting_asc') || $(element).hasClass('sorting_desc')) {
             $(element).removeClass('sorting_desc');
@@ -161,23 +161,27 @@ $(document).on("click", '.popup-table-header th.sorting_desc', (function () {
             $(element).addClass('sort_both');
         }
     });
-    $(this).removeClass('sorting_desc');
-    $(this).addClass('sorting_asc');
-}));
-
-Array.prototype.sortByProp = function (value, type) {
-    if (type == 'desc') {
-        return this.sort(function(a, b) {
-            return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
-        });
-    } else {
-        return this.sort(function (a, b) {
-            return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
-        });
-    }
 }
 
-$.fn.sortingTableASC = function (index) {
+Array.prototype.sortByProp = function(value, type) {
+    if (type == 'desc') {
+        return this.sort(function (a, b) {
+            if ($.isNumeric(a[value]) && $.isNumeric(b[value]))
+                return (parseFloat(a[value]) < parseFloat(b[value])) ? 1 : (parseFloat(a[value]) > parseFloat(b[value])) ? -1 : 0;
+            else
+                return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
+        });
+    } else {
+        return this.sort(function(a, b) {
+            if ($.isNumeric(a[value]) && $.isNumeric(b[value]))
+                return (parseFloat(a[value]) > parseFloat(b[value])) ? 1 : (parseFloat(a[value]) < parseFloat(b[value])) ? -1 : 0;
+            else
+                return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
+        });
+    }
+};
+
+$.fn.Sorting = function (index, sortType) {
     var data = new Array();
     var result = new Array();
     this.each(function (idx, element) {
@@ -187,8 +191,20 @@ $.fn.sortingTableASC = function (index) {
             }
         });
     });
-    data.sortByProp('Value');
-    for (var z = 0; z < data.length; z++)
+    data.sortByProp('Value', sortType);
+    for (var z = 0; z < data.length; z++) {
         result[z] = data[z].Data;
-    return result;
+    }
+    return $(result);
+};
+
+$.fn.rebuildSorting = function() {
+    this.find('tr').each(function(idx, e) {
+        if(idx%2) {
+            $(e).addClass('alt');
+        } else {
+            $(e).removeClass('alt');
+        }
+    });
+    return this;
 };
