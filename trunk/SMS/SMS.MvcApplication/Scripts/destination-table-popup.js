@@ -16,6 +16,7 @@
     
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
     $('#' + root.id + ' .popup-table-header').table();
+    $('#' + root.id).sortingTable();
 
     this.OpenPopup = function () {
         $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));

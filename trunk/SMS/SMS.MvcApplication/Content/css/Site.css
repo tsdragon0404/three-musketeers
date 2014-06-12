@@ -652,7 +652,7 @@ label.ui-state-error {
 }
 
 .product-search-popup .col5 {
-    width: 50px;
+    width: 80px;
 }
 
 .edit-label-popup .col1 {
@@ -746,3 +746,30 @@ table thead{
     color: #0073ea;
 }
 /* end fix gumby */
+
+.popup-table-header thead .sort_both {
+    background: url(../../Images/IconControls/sort_both.png) no-repeat center left;
+    padding-left: 20px;
+}
+
+.popup-table-header thead .sort_both:hover {
+    cursor: pointer;
+}
+
+.popup-table-header thead .sorting_asc {
+    background: url(../../Images/IconControls/sort_asc.png) no-repeat center left;
+    padding-left: 20px;
+}
+
+.popup-table-header thead .sorting_asc:hover {
+    cursor: pointer;
+}
+
+.popup-table-header thead .sorting_desc {
+    background: url(../../Images/IconControls/sort_desc.png) no-repeat center left;
+    padding-left: 20px;
+}
+
+.popup-table-header thead .sorting_desc:hover {
+    cursor: pointer;
+}
