@@ -11,7 +11,6 @@
         autoOpen: false,
         closeOnEscape: true,
         width: 600,
-        height: 400,
         modal: true
     });
     
@@ -20,7 +19,6 @@
 
     this.OpenPopup = function () {
         $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
-
         $.ajax({
             type: 'POST',
             url: root.getDataUrl,
@@ -43,6 +41,15 @@
                 }
             }).click(function (e) {
                 root.select(e);
+                return false;
+            });
+            
+            $('#' + root.id + ' .popupClose').button({
+                icons: {
+                    primary: "ui-icon-close"
+                }
+            }).click(function () {
+                $('#' + root.id).dialog('close');
                 return false;
             });
 
