@@ -298,6 +298,26 @@ label.ui-state-error {
     background-image: url(../../Images/IconControls/accept-icon.png);
 }
 
+.icon-edit-info {
+    background: url("../../Images/IconControls/all-icon.png") -64px -112px no-repeat;
+    height: 16px;
+    width: 16px;
+}
+
+.icon-edit-info:hover {
+    cursor: pointer;
+}
+
+.icon-save-info {
+    background: url("../../Images/IconControls/all-icon.png") -96px -112px no-repeat;
+    height: 16px;
+    width: 16px;
+}
+
+.icon-save-info:hover {
+    cursor: pointer;
+}
+
 .Rmenu {
     position: fixed;
     display: none;
@@ -552,10 +572,6 @@ label.ui-state-error {
 .popup-content{
     height: 350px !important;
     overflow: auto;
-    border-left: 1px solid #F1EAEA;
-    border-bottom: 1px solid #F1EAEA;
-    border-right: 2px solid #F1EAEA;
-    background-color: #F8F8F5;
     margin-bottom: 5px;
 }
 

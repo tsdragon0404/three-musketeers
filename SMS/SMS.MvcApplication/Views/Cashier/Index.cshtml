@@ -19,23 +19,23 @@
     var currency = "@BranchConfig.Currency";
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
-    {{each(idx) OrderTables}}
-    <div class="row" id="orderTable-${ID}">
-        <div class="row div-header">
-            <div class="eleven columns">
-                <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name: </span><span class="label-custom-data">&nbsp;${Table.Name}</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span data-labelID="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span data-labelID="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+    <form id="form-table-order-${ID}">
+        {{each(idx) OrderTables}}
+        <div class="row" id="orderTable-${ID}">
+            <div class="row div-header">
+                <div class="eleven columns">
+                    <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name: </span><span class="label-custom-data">&nbsp;${Table.Name}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+                </div>
+                <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
             </div>
-            <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
-        </div>
-        <form id="form-table-order-${ID}">
             <table id="order-${ID}" class="table-order">
                 <colgroup>
                     <col class="col1" />
@@ -131,9 +131,51 @@
                     </tr>
                 </tfoot>
             </table>
-        </form>
-    </div>
-    {{/each}}
+        </div>
+        {{/each}}
+        <div class="row" id="totalSection">
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
+                <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            @if (BranchConfig.UseServiceFee)
+            {
+                <div class="row" id="ServiceFree">
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                    <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
+                    <div class="center col4"><input type="checkbox" id="chkUseServiceFee" {{if UseServiceFee == true }}checked{{/if}} /></div>
+                </div>
+            }
+            <div class="row" id="OtherFree">
+                <div class="center col1"><div class="icon-edit-info" id="otherfee-${ID}" title="${OtherFeeDescription}"></div></div>
+                <div class="right col2">
+                    <input type="text" id="txtOtherFee" class="required right hide" name="discount" value="${OtherFee.formatAsMoney()}" title="Other fee" />
+                    <input type="text" id="txtOtherFeeDescription" class="required left hide" value="${OtherFeeDescription}" title="Other fee description" />
+                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @BranchConfig.Currency</span>
+                </div>
+                <div class="left col3"><span data-labelID="lblOtherFee" class="label-custom-label">Other Fee:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            @foreach (var tax in BranchConfig.Taxs)
+            {
+                <div class="row" id="tax-@tax.Key">
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
+                    <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
+                    <div class="center col4"><input type="checkbox" id="chkUseTax-@tax.Key" checked="@BranchConfig.UseServiceFee" /></div>
+                </div>
+            }
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+        </div>
+    </form>
 </script>
 <script id="ordertable-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderDetails}}
@@ -254,39 +296,6 @@
         
         <div id="order-detail">
             <div class="row" id="tblContent"></div>
-        
-            <div class="row" id="totalSection">
-                <div class="row">
-                    <div class="center col1">&nbsp;</div>
-                    <div class="right col2"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
-                    <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
-                    <div class="center col4">&nbsp;</div>
-                </div>
-                @if (BranchConfig.UseServiceFee)
-                {
-                    <div class="row" id="ServiceFree">
-                        <div class="center col1">&nbsp;</div>
-                        <div class="right col2"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
-                        <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
-                        <div class="center col4"><input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></div>
-                    </div>
-                }
-                @foreach (var tax in BranchConfig.Taxs)
-                {
-                    <div class="row" id="tax-@tax.Key">
-                        <div class="center col1">&nbsp;</div>
-                        <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
-                        <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
-                        <div class="center col4"><input type="checkbox" id="chkUseTax-@tax.Key" checked="@BranchConfig.UseServiceFee" /></div>
-                    </div>
-                }
-                <div class="row">
-                    <div class="center col1">&nbsp;</div>
-                    <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
-                    <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
-                    <div class="center col4">&nbsp;</div>
-                </div>
-            </div>
             <div class="row" id="button-payment">
                 <div class="four columns right border-top payment">
                     <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
@@ -359,6 +368,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $(document).tooltip();
         $('div.split-pane').splitPane();
         var paneheight = @UserContext.ListTableHeight + '%';
         $('#area-table, .split-pane-divider').css('bottom', paneheight);
@@ -386,7 +396,7 @@
         });
         
         $('#button-payment').hide();
-        $('#totalSection').hide();
+        //$('#totalSection').hide();
         $('#order-header').hide();
 
         refreshTableArea();
@@ -519,24 +529,7 @@
         refreshOrderArea();
     }));
     
-    $("#chkUseServiceFee").click( function(){
-        if($(this).is(':checked')) {
-            $('#ServiceFree').removeClass('RmenuDisable');
-        } else {
-            $('#ServiceFree').addClass('RmenuDisable');
-        }
-        CalculateTotal();
-    });
-        
-    $('input[id^="chkUseTax-"]').click( function(){
-        var type = $(this).attr('id').split('-')[1];
-        if($(this).is(':checked')) {
-            $('#tax-' + type).removeClass('RmenuDisable');
-        } else {
-            $('#tax-' + type).addClass('RmenuDisable');
-        }
-        CalculateTotal();
-    });
+    
     
     function refreshOrderArea() {
         var orderId = $('#curOrderID').val();
@@ -558,7 +551,7 @@
                     bindEventForControl();
 
                     $('#button-payment').show();
-                    $('#totalSection').show();
+                    //$('#totalSection').show();
                     $('#order-header').show();
                 }
             });
@@ -583,7 +576,7 @@
             $('#curCustomerName').text('');
             $("#addProduct").hide();
             $('#button-payment').hide();
-            $('#totalSection').hide();
+            //$('#totalSection').hide();
             $('#order-header').hide();
             CalculateTotal();
         }
@@ -805,7 +798,7 @@
                 bindEventForControl();
 
                 $('#button-payment').show();
-                $('#totalSection').show();
+                //$('#totalSection').show();
                 $('#order-header').show();
                 refreshTableArea();
             }
@@ -891,6 +884,9 @@
         $('input[id^="discount"]').change(function() {
             $(this).val($(this).val().readMoneyAsNumber());
             updateOrderedProduct(this);
+        });
+        
+        $('input[name="discount"]').change(function() {
             $(this).val($(this).val().formatAsMoney());
         });
 
@@ -912,6 +908,61 @@
                     greaterOrEqualZero: true
                 }
             }
+        });
+        
+        $('div[id^="otherfee-"]').click(function() {
+            if($(this).hasClass('icon-edit-info')) {
+                $('#valueOtherFee').hide();
+                $('#txtOtherFee').show();
+                $('#txtOtherFeeDescription').show();
+                $(this).removeClass('icon-edit-info');
+                $(this).addClass('icon-save-info');
+            } else {
+                var orderId = $(this).attr('id').split('-')[1];
+                var otherFee = $('#txtOtherFee').val().readMoneyAsNumber();
+                var otherFeeDescription = $('#txtOtherFeeDescription').val().trim();
+                
+                if(otherFee != $('#valueOtherFee').text().readMoneyAsNumber() && otherFeeDescription != $(this).attr('title')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("UpdateOtherFee")',
+                        data: { orderID: orderId, otherFee: otherFee, otherFeeDescription: otherFeeDescription }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            refreshOrderArea();
+                        }
+                    });
+                }
+
+                $('#valueOtherFee').show();
+                $('#txtOtherFee').hide();
+                $('#txtOtherFeeDescription').hide();
+                $(this).removeClass('icon-save-info');
+                $(this).addClass('icon-edit-info');
+            }
+        });
+        
+        $("#chkUseServiceFee").click( function(){
+            if($(this).is(':checked')) {
+                $('#ServiceFree' + ' div.col2').removeClass('RmenuDisable');
+                $('#ServiceFree' + ' div.col3').removeClass('RmenuDisable');
+                $('#ServiceFree' + ' div.col4').removeClass('RmenuDisable');
+            } else {
+                $('#ServiceFree' + ' div.col2').addClass('RmenuDisable');
+                $('#ServiceFree' + ' div.col3').addClass('RmenuDisable');
+                $('#ServiceFree' + ' div.col4').addClass('RmenuDisable');
+            }
+            CalculateTotal();
+        });
+        
+        $('input[id^="chkUseTax-"]').click( function(){
+            var type = $(this).attr('id').split('-')[1];
+            if($(this).is(':checked')) {
+                $('#tax-' + type).removeClass('RmenuDisable');
+            } else {
+                $('#tax-' + type).addClass('RmenuDisable');
+            }
+            CalculateTotal();
         });
 
         CalculateTotal();
@@ -1152,6 +1203,7 @@
         var sumAmount = 0;
         var totalAmount;
         var fee = 0;
+        var otherfee = 0;
         var tax = 0;
         
         $('table[id^="order-"]').each(function(idx, e) {
@@ -1180,7 +1232,9 @@
         if(!$('#chkUseServiceFee').is(':checked'))
             fee = 0;
 
-        sumAmount = sumAmount > 0 ? sumAmount + fee : 0;
+        otherfee = $('#txtOtherFee').val().readMoneyAsNumber();
+
+        sumAmount = sumAmount > 0 ? sumAmount + fee + otherfee : 0;
         
         $('#totalSection div[id^="tax-"]').each(function(index, element) {
             if($(element).find('input[id^="chkUseTax-"]').is(':checked'))

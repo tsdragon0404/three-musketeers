@@ -740,6 +740,7 @@
     <Content Include="Images\flag-vn.png" />
     <Content Include="Images\IconControls\accept-icon.png" />
     <Content Include="Images\IconControls\add-icon.png" />
+    <Content Include="Images\IconControls\add-more-icon.png" />
     <Content Include="Images\IconControls\pooling-icon.png" />
     <Content Include="Images\IconControls\all-icon.png" />
     <Content Include="Images\IconControls\confirm-icon.png" />
@@ -751,9 +752,7 @@
     <Content Include="Images\IconControls\expander-icon.png" />
     <Content Include="Images\IconControls\info-icon.png" />
     <Content Include="Images\IconControls\move-icon.png" />
-    <Content Include="Images\IconControls\new-icon.png" />
     <Content Include="Images\IconControls\pending-icon.png" />
-    <Content Include="Images\IconControls\product-add-icon.png" />
     <Content Include="Images\IconControls\reject-icon.png" />
     <Content Include="Images\IconControls\reload-icon.png" />
     <Content Include="Images\IconControls\sort_asc.png" />

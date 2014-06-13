@@ -29,5 +29,10 @@ namespace SMS.Services.Impl
         {
             return Management.RemoveMultiOrder(order);
         }
+
+        public ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
+        {
+            return Management.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
+        }
     }
 }
