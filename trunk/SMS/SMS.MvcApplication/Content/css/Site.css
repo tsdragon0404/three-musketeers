@@ -97,9 +97,9 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 
 
 .button.green {
-	-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
-	box-shadow:inset 0px 1px 0px 0px #9acc85;
+	-moz-box-shadow:inset 0 1px 0 0 #9acc85;
+	-webkit-box-shadow:inset 0 1px 0 0 #9acc85;
+	box-shadow:inset 0 1px 0 0 #9acc85;
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #74ad5a), color-stop(1, #68a54b));
 	background:-moz-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
 	background:-webkit-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
@@ -570,7 +570,6 @@ label.ui-state-error {
 }
 
 .popup-content{
-    height: 350px !important;
     overflow: auto;
     margin-bottom: 5px;
 }
@@ -605,6 +604,19 @@ label.ui-state-error {
 .popup-table-header, .popup-table-header thead{
     background: transparent;
     color: #fff;
+}
+
+.payment-popup .row {
+    padding: 0;
+}
+
+.payment-popup .page {
+    box-shadow: 0 0 10px 2px #888;
+    -moz-box-shadow:0 0 10px 2px #888;
+    -webkit-box-shadow: 0 0 10px 2px #888;
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
 }
 /* end style for all popups */
 

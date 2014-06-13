@@ -765,8 +765,12 @@
     <Content Include="Images\IconControls\users-icon.png" />
     <Content Include="Images\IconControls\warning-icon.png" />
     <Content Include="Images\logo.jpg" />
+    <Content Include="Images\page-border-lr.png" />
+    <Content Include="Images\page-border-tb.png" />
+    <Content Include="Images\page-corner.png" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
+    <Content Include="Scripts\payment-popup.js" />
     <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
@@ -820,6 +824,7 @@
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
     <Content Include="Views\Kitchen\Index.cshtml" />
     <Content Include="Views\Shared\DestinationTablePopup.cshtml" />
+    <Content Include="Views\Shared\PaymentPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
