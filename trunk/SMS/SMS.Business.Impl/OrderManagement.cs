@@ -68,5 +68,14 @@ namespace SMS.Business.Impl
             }
             return new ServiceResult();
         }
+
+        public ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
+        {
+            var order = Repository.Get(orderID);
+            order.OtherFee = otherFee;
+            order.OtherFeeDescription = otherFeeDescription;
+            Repository.Update(order);
+            return new ServiceResult();
+        }
     }
 }

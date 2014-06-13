@@ -9,5 +9,6 @@ namespace SMS.Services
         ServiceResult DeleteByOrderTableID(long orderTableID);
         ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID);
         ServiceResult RemoveMultiOrder(long[] order);
+        ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
     }
 }
