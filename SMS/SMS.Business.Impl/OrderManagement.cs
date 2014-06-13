@@ -73,7 +73,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.Get(orderID);
             order.OtherFee = otherFee;
-            order.OtherFeeDescription = otherFeeDescription;
+            order.OtherFeeDescription = otherFee == 0 ? "" : otherFeeDescription;
             Repository.Update(order);
             return new ServiceResult();
         }

@@ -71,14 +71,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(order));
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
             var order = OrderService.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
 
-            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(order));
         }
 
         [HttpPost]

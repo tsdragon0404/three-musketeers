@@ -150,7 +150,7 @@
                 </div>
             }
             <div class="row" id="OtherFree">
-                <div class="center col1"><div class="icon-edit-info" id="otherfee-${ID}" title="${OtherFeeDescription}"></div></div>
+                <div class="center col1"><div class="icon-edit-info" id="otherfee-${ID}" data="${OtherFeeDescription}" title="${OtherFeeDescription}"></div></div>
                 <div class="right col2">
                     <input type="text" id="txtOtherFee" class="required right hide" name="discount" value="${OtherFee.formatAsMoney()}" title="Other fee" />
                     <input type="text" id="txtOtherFeeDescription" class="required left hide" value="${OtherFeeDescription}" title="Other fee description" />
@@ -396,7 +396,6 @@
         });
         
         $('#button-payment').hide();
-        //$('#totalSection').hide();
         $('#order-header').hide();
 
         refreshTableArea();
@@ -551,7 +550,6 @@
                     bindEventForControl();
 
                     $('#button-payment').show();
-                    //$('#totalSection').show();
                     $('#order-header').show();
                 }
             });
@@ -576,7 +574,6 @@
             $('#curCustomerName').text('');
             $("#addProduct").hide();
             $('#button-payment').hide();
-            //$('#totalSection').hide();
             $('#order-header').hide();
             CalculateTotal();
         }
@@ -798,7 +795,6 @@
                 bindEventForControl();
 
                 $('#button-payment').show();
-                //$('#totalSection').show();
                 $('#order-header').show();
                 refreshTableArea();
             }
@@ -922,7 +918,7 @@
                 var otherFee = $('#txtOtherFee').val().readMoneyAsNumber();
                 var otherFeeDescription = $('#txtOtherFeeDescription').val().trim();
                 
-                if(otherFee != $('#valueOtherFee').text().readMoneyAsNumber() && otherFeeDescription != $(this).attr('title')) {
+                if(otherFee != $('#valueOtherFee').text().readMoneyAsNumber() || otherFeeDescription != $(this).attr('data')) {
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("UpdateOtherFee")',
@@ -1203,7 +1199,7 @@
         var sumAmount = 0;
         var totalAmount;
         var fee = 0;
-        var otherfee = 0;
+        var otherfee;
         var tax = 0;
         
         $('table[id^="order-"]').each(function(idx, e) {
@@ -1232,7 +1228,7 @@
         if(!$('#chkUseServiceFee').is(':checked'))
             fee = 0;
 
-        otherfee = $('#txtOtherFee').val().readMoneyAsNumber();
+        otherfee = $('#txtOtherFee').length > 0 ? $('#txtOtherFee').val().readMoneyAsNumber() : 0;
 
         sumAmount = sumAmount > 0 ? sumAmount + fee + otherfee : 0;
         
