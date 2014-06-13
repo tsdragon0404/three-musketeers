@@ -363,6 +363,7 @@
     </table>
 
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("PaymentPopup", new PopupModel { PopupID = "pdtPayment", PopupTitle = "Payment" })
     @Html.Partial("DestinationTablePopup", new PopupModel { PopupID = "destinationTablePopup", PopupTitle = "Select destination table" })
 </div>
 
@@ -383,6 +384,10 @@
             icons: {
                 primary: "ui-icon-check"
             }
+        }).click(function() {
+            var payment = new PaymentPopup("pdtPayment", 500);
+            payment.OpenPopup();
+            return false;
         });
 
         $('#printInvoice').button({

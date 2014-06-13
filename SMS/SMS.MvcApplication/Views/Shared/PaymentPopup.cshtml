@@ -1,0 +1,56 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+
+<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
+    <div class="row">
+        <div class="six columns popup-content">
+            <div class="page">
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+                content<br/>
+            </div>
+        </div>
+        <div class="six columns">
+            <div class="row">
+                test
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/payment-popup.js")"></script>
+<script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
+    {{each(idx) ListProduct}}
+    <tr class="{{if idx%2}}alt{{/if}}">
+        <td>${ProductCode}</td>
+        <td>${Name}</td>
+        <td>${ProductCategory.Name}</td>
+        <td class="right">${Price.formatAsMoney()}</td>
+        <td class="right">
+            <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
+        <td class="center">
+            <button class="popupSelect" id="select-${ID}" tabindex="${tabIdx + 1}">Select</button></td>
+    </tr>
+    {{/each}}
+</script>

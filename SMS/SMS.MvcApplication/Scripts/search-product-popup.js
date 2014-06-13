@@ -6,7 +6,6 @@
     this.selectCallback = selectCallback;
 
     $('#' + root.id).dialog({
-        dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
         width: 800,
