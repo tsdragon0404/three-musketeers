@@ -385,7 +385,7 @@
                 primary: "ui-icon-check"
             }
         }).click(function() {
-            var payment = new PaymentPopup("pdtPayment", 500);
+            var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId);
             payment.OpenPopup();
             return false;
         });
@@ -395,7 +395,7 @@
                 primary: "ui-icon-print"
             }
         }).click(function () {
-            var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderTableId, null, $('#invoice-preview-tmpl'));
+            var invoice = new PrintPreviewPopup(400, '@Url.Action("GetDataForPreviewInvoice")', getCurrentOrderId, null, $('#invoice-preview-tmpl'));
             invoice.OpenPopup();
             return false;
         });
@@ -561,8 +561,8 @@
         }
     }
 
-    function getCurrentOrderTableId() {
-        return { orderTableID: $('#curOrderTableID').val() };
+    function getCurrentOrderId() {
+        return { orderID: $('#curOrderID').val() };
     }
 
     function refreshTableArea() {
