@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Core.Common.Session;
 using Core.Common.Validation;
+using SMS.Common;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -34,7 +35,8 @@ namespace SMS.Business.Impl
                             {
                                 BranchID = UserContext.BranchID,
                                 OrderNumber = "ORDER" + DateTime.Now.ToString("yyMMddHHmmss"),
-                                Customer = new Customer {ID = 1}
+                                Customer = new Customer {ID = 1},
+                                UseServiceFee = BranchConfig.UseServiceFee
                             };
             Repository.Add(order);
 
