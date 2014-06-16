@@ -571,11 +571,10 @@ label.ui-state-error {
 
 .popup-content{
     overflow: auto;
-    margin-bottom: 5px;
 }
 
 .popup-buttons {
-    margin-bottom: 10px;
+    margin: 5px 0;
 }
 
 .popup-content table tr.alt {

@@ -1,9 +1,5 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide edit-label-popup">
-    <div class="popup-buttons">
-        <button id="multi-edit-label-save">Save</button>
-        <button id="multi-edit-label-cancel">Cancel</button>
-    </div>
     <table class="popup-table-header">
         <colgroup>
             <col class="col1" />
@@ -22,16 +18,20 @@
     </table>
     <div class="popup-content">
         <table>
-        <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-        </colgroup>
+            <colgroup>
+                <col class="col1" />
+                <col class="col2" />
+                <col class="col3" />
+                <col class="col4" />
+            </colgroup>
             <tbody id="label-dictionary">
                 
             </tbody>
         </table>
+    </div>
+    <div class="popup-buttons right">
+        <button id="multi-edit-label-save">Save</button>
+        <button id="multi-edit-label-cancel">Cancel</button>
     </div>
 </div>
 <script id="multi-edit-label-item-tmpl" type="text/x-jquery-tmpl">

@@ -11,6 +11,7 @@
         autoOpen: false,
         closeOnEscape: true,
         width: 600,
+        height: 500,
         modal: true
     });
     

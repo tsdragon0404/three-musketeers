@@ -1,7 +1,9 @@
-﻿function PaymentPopup(id, height) {
+﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback) {
     var root = this;
     this.id = id;
     this.height = height;
+    this.getDataUrl = getDataUrl;
+    this.getDataForPostCallback = getDataForPostCallback;
 
     $('#' + root.id).dialog({
         autoOpen: false,
@@ -17,6 +19,7 @@
 
         var parentHeight = $(popupId).height();
         $(popupId + ' .popup-content').height(parentHeight);
-        $(popupId + ' .popup-content').css('margin-bottom', '0');
     };
+    
+
 }
