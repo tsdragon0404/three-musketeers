@@ -113,11 +113,11 @@ $.fn.table = function () {
     }
 };
 
-$.fn.sortingTable = function () {
+$.fn.sortingTable = function (sortColumn) {
     var popupId = this.attr('id');
     this.find('.popup-table-header thead th').each(function (idx, element) {
         $(element).attr('sort-index', popupId + '-' + idx);
-        if ($(element).text() != '')
+        if ($.inArray(idx, sortColumn) >= 0)
             $(element).addClass('sort_both');
     });
 };

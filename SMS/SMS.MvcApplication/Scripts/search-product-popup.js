@@ -14,7 +14,7 @@
 
     $('#' + root.id + ' .popup-table-header').table();
     
-    $('#' + root.id).sortingTable();
+    $('#' + root.id).sortingTable([0,1,2,3]);
     
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
