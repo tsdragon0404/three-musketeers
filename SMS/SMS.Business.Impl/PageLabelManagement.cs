@@ -20,7 +20,7 @@ namespace SMS.Business.Impl
         {
             var ids = new List<long>{ pageID };
             if (includeGlobalLabels)
-                ids.Add(ConstConfig.GlobalPageID);
+                ids.Add(ConstPage.Global);
             return new ServiceResult<IList<TDto>>
                    {
                        Data = Mapper.Map<IList<TDto>>(Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == UserContext.BranchID).ToList())
