@@ -22,6 +22,7 @@
             var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
             labelController.ScanElements();
             @if(UserContext.IsSystemAdmin)
+            
             {
                 <text>
             labelController.BuildEditControl(@ViewData[SMS.Common.Constant.ConstConfig.PageIDKey]);
@@ -44,6 +45,7 @@
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
+                        <li>@Html.ActionLink("Configuration", "Index", "ConfigurationHome", new { area = "Configuration" }, null)</li>
                         <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Kitchen", "Index", "Kitchen", new { area = "" }, null)</li>
                     </ul>
@@ -109,14 +111,13 @@
                                         new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Administrator" },
                                         new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Administrator" },
                                         new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Administrator" },
-                                        
                                     };
                     <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                             @foreach (var menu in adminMenu)
                             {
                                 var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
-                                    ? "ui-tabs-selected ui-state-active"
+                                    ? "ui-tabs-active ui-state-active"
                                     : "";
                                 
                                 <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
@@ -129,6 +130,37 @@
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('#admin-menu li').hover(function() {
+                                $(this).addClass('ui-state-hover');
+                            }, function() {
+                                $(this).removeClass('ui-state-hover');
+                            });
+                        });
+                    </script>
+                }
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Configuration")
+                {
+                    var configMenu = new List<HyperlinkModel>
+                                    {
+                                        new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Configuration" },
+                                    };
+                    <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                            @foreach (var menu in configMenu)
+                            {
+                                var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
+                                    ? "ui-tabs-active ui-state-active"
+                                    : "";
+                                
+                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
+                                    @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
+                                </li>
+                            }
+                        </ul>   
+                    </div>
+                    <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#config-menu li').hover(function() {
                                 $(this).addClass('ui-state-hover');
                             }, function() {
                                 $(this).removeClass('ui-state-hover');
