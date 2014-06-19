@@ -386,7 +386,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>c9d6c724-dcfd-4f46-8116-aae6a412d4b8</rd:DataSourceID>
+      <rd:DataSourceID>0f994839-d985-49ab-aa6a-0f14bdb31c23</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -459,7 +459,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>SMSDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\Projects\TM\SMS\SMS.MvcApplication\SMSDataSet1.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Projects\TM\SMS\SMS.MvcApplication\SMSDataSet.xsd</rd:SchemaPath>
         <rd:TableName>Product</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
