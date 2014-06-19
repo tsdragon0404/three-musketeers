@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="SmsDataSource">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=.;Initial Catalog=SMS</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>a8f6da2a-24c7-4be2-a2a3-213b897968d3</DataSourceID>
+</RptDataSource>
