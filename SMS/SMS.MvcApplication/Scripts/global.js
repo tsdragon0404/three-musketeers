@@ -22,7 +22,7 @@ function ExpandColapseMenu() {
     var link = $('#expander');
     if (link.hasClass('expanded')) {
         $('#leftmenu').css("width", "0").toggle(500);
-        $('#leftmenuExpander').css("left", "0%");
+        $('#leftmenuExpander').css("left", "0");
 
         $('#body').css("width", "99%");
         
