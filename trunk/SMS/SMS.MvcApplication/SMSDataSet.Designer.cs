@@ -909,7 +909,7 @@ namespace SMS.MvcApplication {
         private void InitClass() {
             this.DataSetName = "SMSDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/SMSDataSet1.xsd";
+            this.Namespace = "http://tempuri.org/SMSDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableArea = new AreaDataTable();
