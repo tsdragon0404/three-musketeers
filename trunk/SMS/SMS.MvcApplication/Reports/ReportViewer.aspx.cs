@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Reporting.WebForms;
+using SMS.Common;
+using SMS.Services;
 
 namespace SMS.MvcApplication.Reports
 {
     public partial class ReportViewer : System.Web.UI.Page
     {
+        public virtual IProductService ProductService { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                SsrsViewer.Visible = true;
-                SsrsViewer.LocalReport.ReportPath = string.Format(@"Reports\{0}.rdlc", "test");
+                ProductService = ServiceLocator.Resolve<IProductService>();
 
+                SsrsViewer.Visible = true;
+                SsrsViewer.LocalReport.ReportPath = string.Format(@"Reports\{0}.rdlc", "rptProductList");
+
+                //IAreaService areaService = new AreaService();
                 //SqlCommand cmd = new SqlCommand();
 
                 //cmd.Parameters.Add(new SqlParameter("@StartDate", startDate));
@@ -35,7 +42,7 @@ namespace SMS.MvcApplication.Reports
 
                 /* Associate thisDataSet  (now loaded with the stored 
                procedure result) with the  ReportViewer datasource */
-                var datasource = new ReportDataSource("test", new DataTable());
+                var datasource = new ReportDataSource("ds_Product", ProductService.GetAll().Data);
 
                 SsrsViewer.LocalReport.DataSources.Clear();
                 SsrsViewer.LocalReport.DataSources.Add(datasource);

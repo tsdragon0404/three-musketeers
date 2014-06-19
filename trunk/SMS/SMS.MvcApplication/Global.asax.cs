@@ -117,6 +117,7 @@ namespace SMS.MvcApplication
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
 
             container = containerBuilder.Build();
+            ServiceLocator.Initialize(container);
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container, new RequestLifetimeScopeProvider(container)));
         }

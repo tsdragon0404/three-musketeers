@@ -235,6 +235,11 @@
     <Compile Include="Reports\ReportViewer.aspx.designer.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SMSDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMSDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -849,6 +854,17 @@
     <Content Include="Views\Kitchen\Index.cshtml" />
     <Content Include="Views\Shared\DestinationTablePopup.cshtml" />
     <Content Include="Views\Shared\PaymentPopup.cshtml" />
+    <Content Include="SMSDataSet1.xsc">
+      <DependentUpon>SMSDataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="SMSDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SMSDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SMSDataSet1.xss">
+      <DependentUpon>SMSDataSet1.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
