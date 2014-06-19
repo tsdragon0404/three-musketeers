@@ -210,6 +210,9 @@
     <Compile Include="Areas\Administrator\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TableController.cs" />
     <Compile Include="Areas\Administrator\Models\AdminModel.cs" />
+    <Compile Include="Areas\Configuration\ConfigurationAreaRegistration.cs" />
+    <Compile Include="Areas\Configuration\Controllers\ConfigurationHomeController.cs" />
+    <Compile Include="Areas\Configuration\Controllers\GlobalLabelController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Base\BaseController.cs" />
@@ -789,6 +792,11 @@
     <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
     <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Areas\Configuration\Views\Web.config" />
+    <Content Include="Areas\Configuration\Views\ConfigurationHome\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Configuration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Configuration\Views\GlobalLabel\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -845,6 +853,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Views\Shared\" />
+    <Folder Include="Areas\Configuration\Models\" />
+    <Folder Include="Areas\Configuration\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -876,6 +886,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\rptProductList.rdlc" />
     <EmbeddedResource Include="Reports\test.rdlc" />
   </ItemGroup>
   <PropertyGroup>
