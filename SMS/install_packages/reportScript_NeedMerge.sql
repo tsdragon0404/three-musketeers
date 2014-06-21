@@ -11,7 +11,8 @@ GO
 CREATE TABLE [dbo].[Report](
 	[ReportID] [int] NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
-	[Title] [nvarchar](100) NOT NULL,
+	[VNTitle] [nvarchar](100) NULL,
+  [ENTitle] [nvarchar](100) NULL,
  CONSTRAINT [PK_Report] PRIMARY KEY CLUSTERED 
 (
 	[ReportID] ASC
@@ -46,4 +47,5 @@ CREATE TABLE [dbo].[ReportDatasourceParameter](
 
 GO
 
-
+/* them khoa ngoai cho may bang nay ho voi 
+      Report 1--* ReportDatasource 1--* ReportDatasourceParameter */
