@@ -32,8 +32,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReportManagement.cs" />
     <Compile Include="IOrderDetailManagement.cs" />
     <Compile Include="IOrderTableManagement.cs" />
     <Compile Include="IOrderManagement.cs" />

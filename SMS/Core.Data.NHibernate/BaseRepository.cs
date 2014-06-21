@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -235,6 +236,14 @@ namespace Core.Data.NHibernate
         public bool Exists(Expression<Func<TEntity, bool>> predicate)
         {
             return Session.Query<TEntity>().Any(predicate);
+        }
+
+        public object ExecuteStoredProcedure(string spName)
+        {
+            return Session.CreateSQLQuery("exec " + spName).SetResultTransformer(new DataTableResultTransformer())
+                    //.SetParameter("pUserId", userId)
+                    //.SetParameter("pIsLocked", isLocked)
+                    .List()[0];
         }
 
         #endregion IBaseRepository<TEntity>

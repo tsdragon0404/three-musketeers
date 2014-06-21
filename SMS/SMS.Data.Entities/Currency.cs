@@ -7,6 +7,7 @@ namespace SMS.Data.Entities
     public class Currency : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
         public virtual string Name { get; set; }
+
         public virtual decimal Exchange { get; set; }
 
         public virtual IList<Branch> Branches { get; set; }

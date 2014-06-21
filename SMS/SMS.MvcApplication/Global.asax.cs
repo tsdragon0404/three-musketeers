@@ -119,6 +119,8 @@ namespace SMS.MvcApplication
             container = containerBuilder.Build();
             ServiceLocator.Initialize(container);
 
+            ServiceLocator.Initialize(container);
+
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container, new RequestLifetimeScopeProvider(container)));
         }
 

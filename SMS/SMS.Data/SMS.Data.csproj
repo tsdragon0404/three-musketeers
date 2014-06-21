@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReportRepository.cs" />
     <Compile Include="IOrderStatusRepository.cs" />
     <Compile Include="IOrderDetailRepository.cs" />
     <Compile Include="IOrderTableRepository.cs" />
@@ -52,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
       <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
       <Name>Core.Data.NHibernate</Name>
