@@ -37,6 +37,7 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="LanguageReportDto.cs" />
     <Compile Include="LanguageProductCategoryDto.cs" />
     <Compile Include="OrderBasicDto.cs" />
     <Compile Include="OrderTableBasicDto.cs" />
@@ -66,6 +67,9 @@
     <Compile Include="InvoiceDetailDto.cs" />
     <Compile Include="InvoiceTableDto.cs" />
     <Compile Include="InvoiceDto.cs" />
+    <Compile Include="ReportDto.cs" />
+    <Compile Include="ReportDatasourceDto.cs" />
+    <Compile Include="ReportDatasourceParameterDto.cs" />
     <Compile Include="TaxDto.cs" />
     <Compile Include="UnitDto.cs" />
     <Compile Include="ProductCategoryDto.cs" />

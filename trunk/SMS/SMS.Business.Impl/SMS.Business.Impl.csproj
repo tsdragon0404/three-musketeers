@@ -42,10 +42,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaManagement.cs" />
     <Compile Include="BaseManagement.cs" />
+    <Compile Include="ReportManagement.cs" />
     <Compile Include="OrderDetailManagement.cs" />
     <Compile Include="OrderTableManagement.cs" />
     <Compile Include="OrderManagement.cs" />

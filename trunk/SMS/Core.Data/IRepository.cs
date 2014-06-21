@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -106,6 +107,12 @@ namespace Core.Data
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
         bool Exists(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Execute the given stored procedure
+        /// </summary>
+        /// <param name="spName">The stored procedure name</param>
+        object ExecuteStoredProcedure(string spName);
     }
 
     /// <summary>

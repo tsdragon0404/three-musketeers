@@ -46,6 +46,7 @@
     <Compile Include="Constant\ConstPage.cs" />
     <Compile Include="Constant\ConstStyle.cs" />
     <Compile Include="Constant\ConstConfig.cs" />
+    <Compile Include="Constant\ReportDatasourceParameterType.cs" />
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Constant\OrderStatus.cs" />
     <Compile Include="Message\SystemMessages.cs" />

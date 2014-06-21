@@ -37,6 +37,9 @@
     <Compile Include="Area.cs" />
     <Compile Include="Branch.cs" />
     <Compile Include="BranchTax.cs" />
+    <Compile Include="ReportDatasourceParameter.cs" />
+    <Compile Include="ReportDatasource.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />

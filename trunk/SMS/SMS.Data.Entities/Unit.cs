@@ -6,7 +6,9 @@ namespace SMS.Data.Entities
     public class Unit : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
         public virtual string VNName { get; set; }
+
         public virtual string ENName { get; set; }
+
         public virtual long BranchID { get; set; }
 
         #region Implementation of IEnableEntity

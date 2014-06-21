@@ -6,7 +6,9 @@ namespace SMS.Data.Entities
     public class Tax : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
         public virtual string Name { get; set; }
+
         public virtual string Description { get; set; }
+
         public virtual decimal Value { get; set; }
 
         #region Implementation of IEnableEntity

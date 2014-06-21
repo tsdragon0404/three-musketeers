@@ -8,44 +8,31 @@ namespace SMS.MvcApplication.Reports
 {
     public partial class ReportViewer : System.Web.UI.Page
     {
-        public virtual IProductService ProductService { get; set; }
+        private IReportService reportService;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                ProductService = ServiceLocator.Resolve<IProductService>();
+                reportService = ServiceLocator.Resolve<IReportService>();
+                var reportDatasources = reportService.LoadReportDatasources("test");
+
+                if(!reportDatasources.Success)
+                {
+                    // handle errors
+                    return;
+                }
 
                 SsrsViewer.Visible = true;
-                SsrsViewer.LocalReport.ReportPath = string.Format(@"Reports\{0}.rdlc", "rptProductList");
-
-                //IAreaService areaService = new AreaService();
-                //SqlCommand cmd = new SqlCommand();
-
-                //cmd.Parameters.Add(new SqlParameter("@StartDate", startDate));
-                //cmd.Parameters.Add(new SqlParameter("@EndDate", endDate));
-
-                //thisConnectionString = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString;
-
-                //SqlConnection thisConnection = new SqlConnection(thisConnectionString);
-
-                //cmd.Connection = thisConnection;
-
-                //cmd.CommandText = string.Format("GET_{0}", rptName);
-                //cmd.CommandType = CommandType.StoredProcedure;
-                //SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                //System.Data.DataSet thisDataSet = new System.Data.DataSet();
-
-                ///* Put the stored procedure result into a dataset */
-                //da.Fill(thisDataSet);
-
-                /* Associate thisDataSet  (now loaded with the stored 
-               procedure result) with the  ReportViewer datasource */
-                var datasource = new ReportDataSource("ds_Product", ProductService.GetAll().Data);
-
+                SsrsViewer.LocalReport.ReportPath = string.Format(@"Reports\{0}.rdlc", "test");
                 SsrsViewer.LocalReport.DataSources.Clear();
-                SsrsViewer.LocalReport.DataSources.Add(datasource);
+
+                foreach (DataTable table in reportDatasources.Data.Tables)
+                {
+                    var datasource = new ReportDataSource(table.TableName, table);
+                    SsrsViewer.LocalReport.DataSources.Add(datasource);
+                }
+
                 //List lst = new List();
                 //ReportParameter rptParam1 = new ReportParameter("StartDate", startDate.ToShortDateString());
                 //ReportParameter rptParam2 = new ReportParameter("EndDate", endDate.ToShortDateString());
