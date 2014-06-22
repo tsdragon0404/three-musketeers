@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -13,7 +14,7 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<DataSet> LoadReportDatasources(string reportName)
+        public ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString)
         {
             var report = Repository.FindOne(x => x.Name == reportName);
             if(report == null)
@@ -21,11 +22,12 @@ namespace SMS.Business.Impl
                 return new ServiceResult<DataSet> { Errors = new List<ValidationError> { new ValidationError("Report name", "Report name is not valid") } };
             }
 
-            var returnData = new DataSet("reportDataSet");
+            var returnData = new DataSet(Common.Constant.ConstReport.ReportDataSetName);
             
             foreach (var reportDatasource in report.ReportDatasources)
             {
-                var reportData = (DataTable)Repository.ExecuteStoredProcedure(reportDatasource.Name);
+                var parameters = reportDatasource.ReportDatasourceParameters.ToDictionary(x => x.Name, y => queryString.ContainsKey(y.Name) ? queryString[y.Name] : null);
+                var reportData = (DataTable)Repository.ExecuteStoredProcedure(reportDatasource.Name, parameters);
                 reportData.TableName = reportDatasource.Name;
                 returnData.Tables.Add(reportData);
             }

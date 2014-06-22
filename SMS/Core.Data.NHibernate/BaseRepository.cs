@@ -238,12 +238,19 @@ namespace Core.Data.NHibernate
             return Session.Query<TEntity>().Any(predicate);
         }
 
-        public object ExecuteStoredProcedure(string spName)
+        public object ExecuteStoredProcedure(string spName, Dictionary<string, string> parameters)
         {
-            return Session.CreateSQLQuery("exec " + spName).SetResultTransformer(new DataTableResultTransformer())
-                    //.SetParameter("pUserId", userId)
-                    //.SetParameter("pIsLocked", isLocked)
-                    .List()[0];
+            var paramstr = parameters.Aggregate(" ", (current, parameter) => current + string.Format(":{0}, ", parameter.Key));
+
+            if (parameters.Count > 0)
+                paramstr = paramstr.Remove(paramstr.Length - 2);
+
+            var query = Session.CreateSQLQuery(string.Format("exec {0}{1}", spName, paramstr));
+
+            foreach (var parameter in parameters)
+                query.SetParameter(parameter.Key, parameter.Value);
+
+            return query.SetResultTransformer(new DataTableResultTransformer()).List()[0];
         }
 
         #endregion IBaseRepository<TEntity>

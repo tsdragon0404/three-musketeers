@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
 using Core.Common.Validation;
 using SMS.Business;
 using SMS.Data.Dtos;
@@ -11,9 +13,9 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<DataSet> LoadReportDatasources(string reportName)
+        public ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString)
         {
-            return Management.LoadReportDatasources(reportName);
+            return Management.LoadReportDatasources(reportName, queryString);
         }
     }
 }
