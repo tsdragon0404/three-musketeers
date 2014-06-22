@@ -4,6 +4,6 @@
     {
         public static string ReportDataSetName = "dataSet";
         public static string ReportKey = "report";
-        public static string ReportPathTemplate = @"Reports\{0}.rdl";
+        public static string ReportPathTemplate = @"Reports\{0}.rdlc";
     }
 }

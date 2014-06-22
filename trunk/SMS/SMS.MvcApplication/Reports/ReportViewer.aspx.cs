@@ -35,6 +35,7 @@ namespace SMS.MvcApplication.Reports
                 }
 
                 SsrsViewer.Visible = true;
+                SsrsViewer.ProcessingMode = ProcessingMode.Local;
                 SsrsViewer.LocalReport.ReportPath = string.Format(Common.Constant.ConstReport.ReportPathTemplate, reportName);
                 SsrsViewer.LocalReport.DataSources.Clear();
 

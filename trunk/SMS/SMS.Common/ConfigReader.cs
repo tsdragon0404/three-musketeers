@@ -4,9 +4,9 @@ namespace SMS.Common
 {
     public class ConfigReader
     {
-        public static string GetTheme()
+        public static string CurrentTheme
         {
-            return ConfigurationManager.AppSettings["theme"];
+            get { return ConfigurationManager.AppSettings["theme"]; }
         } 
     }
 }
