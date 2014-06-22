@@ -112,7 +112,8 @@ namespace Core.Data
         /// Execute the given stored procedure
         /// </summary>
         /// <param name="spName">The stored procedure name</param>
-        object ExecuteStoredProcedure(string spName);
+        /// <param name="parameters"> </param>
+        object ExecuteStoredProcedure(string spName, Dictionary<string, string> parameters);
     }
 
     /// <summary>

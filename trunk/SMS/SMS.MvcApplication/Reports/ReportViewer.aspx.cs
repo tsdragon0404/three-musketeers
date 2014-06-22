@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using Microsoft.Reporting.WebForms;
 using SMS.Common;
 using SMS.Services;
@@ -14,8 +15,18 @@ namespace SMS.MvcApplication.Reports
         {
             if (!IsPostBack)
             {
+                if (string.IsNullOrEmpty(Request.QueryString[Common.Constant.ConstReport.ReportKey]))
+                {
+                    // handle errors
+                    return;
+                }
+
+                var reportName = Request.QueryString[Common.Constant.ConstReport.ReportKey];
+
                 reportService = ServiceLocator.Resolve<IReportService>();
-                var reportDatasources = reportService.LoadReportDatasources("test");
+
+                var queryString = Request.QueryString.Cast<string>().ToDictionary(x => x, y => Request.QueryString[y]);
+                var reportDatasources = reportService.LoadReportDatasources(reportName, queryString);
 
                 if(!reportDatasources.Success)
                 {
@@ -24,23 +35,11 @@ namespace SMS.MvcApplication.Reports
                 }
 
                 SsrsViewer.Visible = true;
-                SsrsViewer.LocalReport.ReportPath = string.Format(@"Reports\{0}.rdlc", "test");
+                SsrsViewer.LocalReport.ReportPath = string.Format(Common.Constant.ConstReport.ReportPathTemplate, reportName);
                 SsrsViewer.LocalReport.DataSources.Clear();
 
                 foreach (DataTable table in reportDatasources.Data.Tables)
-                {
-                    var datasource = new ReportDataSource(table.TableName, table);
-                    SsrsViewer.LocalReport.DataSources.Add(datasource);
-                }
-
-                //List lst = new List();
-                //ReportParameter rptParam1 = new ReportParameter("StartDate", startDate.ToShortDateString());
-                //ReportParameter rptParam2 = new ReportParameter("EndDate", endDate.ToShortDateString());
-
-                //ReportParameter rptParam3 = new ReportParameter("LOBCode", lobCode);
-                //lst.Add(rptParam3);
-                //ReportViewer1.LocalReport.SetParameters(lst);
-
+                    SsrsViewer.LocalReport.DataSources.Add(new ReportDataSource(table.TableName, table));
 
                 SsrsViewer.LocalReport.Refresh();
             }

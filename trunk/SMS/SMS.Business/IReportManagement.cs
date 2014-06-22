@@ -7,6 +7,6 @@ namespace SMS.Business
 {
     public interface IReportManagement : IBaseManagement<ReportDto, long>
     {
-        ServiceResult<DataSet> LoadReportDatasources(string reportName);
+        ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString);
     }
 }
