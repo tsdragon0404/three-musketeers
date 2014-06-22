@@ -19,7 +19,11 @@ namespace SMS.Business.Impl
             var report = Repository.FindOne(x => x.Name == reportName);
             if(report == null)
             {
-                return new ServiceResult<DataSet> { Errors = new List<ValidationError> { new ValidationError("Report name", "Report name is not valid") } };
+                return new ServiceResult<DataSet>
+                           {
+                               Errors = new List<ValidationError> {new ValidationError("Report name", "Report name is not valid")},
+                               Success = false
+                           };
             }
 
             var returnData = new DataSet(Common.Constant.ConstReport.ReportDataSetName);
