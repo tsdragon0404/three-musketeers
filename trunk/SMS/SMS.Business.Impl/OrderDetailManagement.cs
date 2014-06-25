@@ -80,5 +80,14 @@ namespace SMS.Business.Impl
             var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.Ordered).ToList();
             return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
         }
+
+        public ServiceResult<IList<TDto>> GetOrderedProductByStatuses<TDto>(IList<long> statuses = null)
+        {
+            if(statuses == null)
+                return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.GetAll()) };
+
+            var orderProducts = Repository.Find(x => statuses.Contains(x.OrderStatus.ID)).ToList();
+            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
+        }
     }
 }

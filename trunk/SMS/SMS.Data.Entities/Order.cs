@@ -6,17 +6,13 @@ namespace SMS.Data.Entities
 {
     public class Order : Entity, IAuditableEntity
     {
-        public virtual long BranchID { get; set; }
+        public virtual Branch Branch { get; set; }
 
         public virtual string OrderNumber { get; set; }
 
         public virtual string Comment { get; set; }
 
         public virtual Customer Customer { get; set; }
-
-        public virtual string Tax { get; set; }
-
-        public virtual bool UseServiceFee { get; set; }
 
         public virtual decimal OtherFee { get; set; }
 

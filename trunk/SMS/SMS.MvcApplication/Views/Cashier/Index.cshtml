@@ -142,11 +142,11 @@
             </div>
             @if (BranchConfig.UseServiceFee)
             {
-                <div class="row {{if UseServiceFee == false }}RmenuDisable{{/if}}" id="ServiceFree">
+                <div class="row" id="ServiceFree">
                     <div class="center col1">&nbsp;</div>
                     <div class="right col2"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
                     <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
-                    <div class="center col4"><input type="checkbox" id="chkUseServiceFee" {{if UseServiceFee == true }}checked{{/if}} /></div>
+                    <div class="center col4"><input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></div>
                 </div>
             }
             <div class="row" id="OtherFree">
@@ -385,7 +385,7 @@
                 primary: "ui-icon-check"
             }
         }).click(function() {
-            var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId);
+            var payment = new PaymentPopup("pdtPayment", 600, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment');
             payment.OpenPopup();
             return false;
         });
@@ -563,6 +563,10 @@
 
     function getCurrentOrderId() {
         return { orderID: $('#curOrderID').val() };
+    }
+
+    function getUseServiceFee() {
+        return $("#chkUseServiceFee").is(':checked');
     }
 
     function refreshTableArea() {

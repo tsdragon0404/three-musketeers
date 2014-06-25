@@ -37,6 +37,9 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="PaymentTableDto.cs" />
+    <Compile Include="PaymentDetailDto.cs" />
+    <Compile Include="PaymentDto.cs" />
     <Compile Include="LanguageReportDto.cs" />
     <Compile Include="LanguageProductCategoryDto.cs" />
     <Compile Include="OrderBasicDto.cs" />

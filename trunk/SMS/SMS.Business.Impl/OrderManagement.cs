@@ -33,10 +33,9 @@ namespace SMS.Business.Impl
         {
             var order = new Order
                             {
-                                BranchID = UserContext.BranchID,
+                                Branch = new Branch { ID = UserContext.BranchID },
                                 OrderNumber = "ORDER" + DateTime.Now.ToString("yyMMddHHmmss"),
-                                Customer = new Customer {ID = 1},
-                                UseServiceFee = BranchConfig.UseServiceFee
+                                Customer = new Customer { ID = 1 }
                             };
             Repository.Add(order);
 
@@ -77,6 +76,12 @@ namespace SMS.Business.Impl
             order.OtherFee = otherFee;
             order.OtherFeeDescription = otherFee == 0 ? "" : otherFeeDescription;
             Repository.Update(order);
+            return new ServiceResult();
+        }
+
+        public ServiceResult Payment(long orderID)
+        {
+
             return new ServiceResult();
         }
     }

@@ -11,5 +11,6 @@ namespace SMS.Business
         ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID);
         ServiceResult RemoveMultiOrder(long[] order);
         ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
+        ServiceResult Payment(long orderID);
     }
 }
