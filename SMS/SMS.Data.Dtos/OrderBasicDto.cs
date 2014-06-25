@@ -9,8 +9,6 @@ namespace SMS.Data.Dtos
         public virtual string OrderNumber { get; set; }
         public virtual string Comment { get; set; }
         public virtual CustomerDto Customer { get; set; }
-        public virtual string Tax { get; set; }
-        public virtual bool UseServiceFee { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
 

@@ -60,6 +60,11 @@ namespace SMS.Common.AutoMapper
             Mapper.CreateMap<Report, LanguageReportDto>()
                 .ForMember(x => x.Title, y => y.ResolveUsing(z =>
                     UserContext.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
+
+            Mapper.CreateMap<OrderDto, PaymentDto>();
+            Mapper.CreateMap<LanguageOrderTableDto, PaymentTableDto>();
+            Mapper.CreateMap<LanguageOrderDetailDto, PaymentDetailDto>();
+            Mapper.CreateMap<Currency, CurrencyDto>();
         }
     }
 }

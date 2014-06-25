@@ -34,5 +34,10 @@ namespace SMS.Services.Impl
         {
             return Management.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
         }
+
+        public ServiceResult Payment(long orderID)
+        {
+            return Management.Payment(orderID);
+        }
     }
 }

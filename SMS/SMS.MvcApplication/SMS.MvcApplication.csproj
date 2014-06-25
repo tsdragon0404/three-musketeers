@@ -793,9 +793,12 @@
     <Content Include="Reports\ReportViewer.aspx" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
+    <Content Include="Scripts\meadco-scriptx-1.0.2.js" />
+    <Content Include="Scripts\meadco-scriptx-1.0.2.min.js" />
     <Content Include="Scripts\payment-popup.js" />
     <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
+    <Content Include="ScriptX\smsx.cab" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Areas\Configuration\Views\Web.config" />
     <Content Include="Areas\Configuration\Views\ConfigurationHome\Index.cshtml" />
@@ -857,6 +860,7 @@
     <Content Include="SMSDataSet.xsc">
       <DependentUpon>SMSDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="ScriptX\ScriptX.msi" />
     <None Include="SMSDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SMSDataSet.Designer.cs</LastGenOutput>

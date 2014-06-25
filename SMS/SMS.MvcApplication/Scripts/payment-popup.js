@@ -1,9 +1,10 @@
-﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback) {
+﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback, templateId) {
     var root = this;
     this.id = id;
     this.height = height;
     this.getDataUrl = getDataUrl;
     this.getDataForPostCallback = getDataForPostCallback;
+    this.templateId = templateId;
 
     $('#' + root.id).dialog({
         autoOpen: false,
@@ -12,14 +13,27 @@
         height: root.height,
         modal: true
     });
+    
+    $('#' + root.id + ' #print').click(function () {
+        if (MeadCo.ScriptX.Init()) {
+            MeadCo.ScriptX.Printing.header = "";
+            MeadCo.ScriptX.Printing.footer = "";
+            MeadCo.ScriptX.PreviewPage();
+        }
+        else {
+            window.print();
+        }
+        
+        return false;
+    });
 
     this.OpenPopup = function () {
         renderData();
         var popupId = '#' + root.id;
         $(popupId).dialog("open");
-
+        
         var parentHeight = $(popupId).height();
-        $(popupId + ' .popup-content').height(parentHeight);
+        $(popupId + ' .payment-content').height(parentHeight);
     };
     
     function renderData() {
@@ -31,12 +45,7 @@
         }).done(function (result) {
             if (!result.Success)
                 return;
-            //if (root.formatDataForPrintInvoicePreview)
-            //    root.formatDataForPrintInvoicePreview(result.Data);
-
-            //$('#printPreviewPopup .print-content').html(root.template.tmpl(result.Data));
-            //$('#printPreviewPopup').dialog("open");
-            //SetHeightPopupContent('#printPreviewPopup');
+            $('#' + root.id + ' .page').html($('#' + root.templateId).tmpl(result.Data).scanLabel());
         });
     }
 }

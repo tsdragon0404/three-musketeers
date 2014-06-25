@@ -200,14 +200,24 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(orderTable));
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult GetDataForPayment(long orderID)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetailByOrderID<OrderDto>(orderID);
+            var order = OrderService.GetOrderDetailByOrderID<PaymentDto>(orderID);
 
-            return Json(JsonModel.Create(order));
+            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Payment(long orderID)
+        {
+            if (orderID <= 0) return Json(JsonModel.Create(false));
+
+            var result = OrderService.Payment(orderID);
+
+            return Json(JsonModel.Create(result));
         }
     }
 }

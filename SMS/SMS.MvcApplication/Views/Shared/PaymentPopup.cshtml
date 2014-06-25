@@ -1,56 +1,84 @@
-﻿@model SMS.MvcApplication.Models.PopupModel
-
+﻿@using Core.Common.Session
+@model SMS.MvcApplication.Models.PopupModel
+<!-- MeadCo ScriptX -->
+<object classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="@Url.Content("~/ScriptX")/smsx.cab#Version=7,4,0,8" id=factory style="display:none">
+</object>
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
     <div class="row">
-        <div class="six columns popup-content">
+        <div class="six columns payment-content">
             <div class="page">
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
-                content<br/>
             </div>
         </div>
-        <div class="six columns">
+        <div class="six columns payment-config">
             <div class="row">
-                test
+                <button id="print"><span data-labelID="lblPrint">In hóa đơn</span></button>
             </div>
         </div>
     </div>
 </div>
-
 <script src="@Url.Content("~/Scripts/payment-popup.js")"></script>
-<script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
-    {{each(idx) ListProduct}}
-    <tr class="{{if idx%2}}alt{{/if}}">
-        <td>${ProductCode}</td>
-        <td>${Name}</td>
-        <td>${ProductCategory.Name}</td>
-        <td class="right">${Price.formatAsMoney()}</td>
-        <td class="right">
-            <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
-        <td class="center">
-            <button class="popupSelect" id="select-${ID}" tabindex="${tabIdx + 1}">Select</button></td>
-    </tr>
-    {{/each}}
+<script src="@Url.Content("~/Scripts/meadco-scriptx-1.0.2.js")"></script>
+<script id="payment-detail-@Model.PopupID" type="text/x-jquery-tmpl">
+    <table style="width: 480px; font-family: courier">
+        <colgroup>
+            <col style="width: 30px"/>
+            <col style="width: 150px"/>
+            <col style="width: 100px"/>
+            <col style="width: 100px"/>
+            <col style="width: 100px"/>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="5" class="center" style="font-weight: bold">${Branch.CompanyName}</th>
+            </tr>
+            <tr>
+                <th colspan="5" class="center">ĐIỆN THOẠI: ${Branch.Phone}</th>
+            </tr>
+            <tr style="border-top: 3px gray double">
+                <th colspan="5">TÊN BÀN</th>
+            </tr>
+            <tr>
+                <th>STT</th>
+                <th>SẢN PHẨM</th>
+                <th>SỐ LƯỢNG</th>
+                <th>ĐƠN GIÁ</th>
+                <th>THÀNH TIỀN</th>
+            </tr>
+        </thead>
+        <tbody id="payment-detail">
+            {{each(idx) OrderTables}}
+            <tr style="border-top: 1px gray solid">
+                <td colspan="5">${Table.Name}</td>
+            </tr>
+            {{each(idx) OrderDetails}}
+            <tr>
+                <td class="left">${idx + 1}</td>
+                <td>${Product.Name}</td>
+                <td class="right">${Quantity.formatAsMoney()}</td>
+                <td class="right">${Product.Price.formatAsMoney()}</td>
+                <td class="right">${Amount.formatAsMoney()}</td>
+            </tr>
+            {{/each}}
+        {{/each}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td>Tổng cộng:</td>
+            <td class="right">${SumAmount}</td>
+        </tr>
+        <tr>
+            <td colspan="5">Ngày lập: 21-06-2014</td>
+        </tr>
+        <tr>
+            <td colspan="5">Người lập: @UserContext.UserName</td>
+        </tr>
+        <tr>
+            <td class="center" colspan="5">----------------------</td>
+        </tr>
+        <tr>
+            <td class="center" colspan="5">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
+        </tr>
+    </tfoot>
+</table>
 </script>
