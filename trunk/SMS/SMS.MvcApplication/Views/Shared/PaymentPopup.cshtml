@@ -6,7 +6,9 @@
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
     <div class="row">
         <div class="six columns payment-content">
-            <div class="page">
+            <div class="leftContent" style="height: 297mm; width: 215mm">
+                <div class="page" style="height: 297mm !important; width: 210mm !important">
+                </div>
             </div>
         </div>
         <div class="six columns payment-config">
@@ -59,26 +61,26 @@
                 <td class="right">${Amount.formatAsMoney()}</td>
             </tr>
             {{/each}}
-        {{/each}}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3"></td>
-            <td>Tổng cộng:</td>
-            <td class="right">${SumAmount}</td>
-        </tr>
-        <tr>
-            <td colspan="5">Ngày lập: 21-06-2014</td>
-        </tr>
-        <tr>
-            <td colspan="5">Người lập: @UserContext.UserName</td>
-        </tr>
-        <tr>
-            <td class="center" colspan="5">----------------------</td>
-        </tr>
-        <tr>
-            <td class="center" colspan="5">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
-        </tr>
+            {{/each}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>Tổng cộng:</td>
+                <td class="right">${SumAmount}</td>
+            </tr>
+            <tr>
+                <td colspan="5">Ngày lập: 21-06-2014</td>
+            </tr>
+            <tr>
+                <td colspan="5">Người lập: @UserContext.UserName</td>
+            </tr>
+            <tr>
+                <td class="center" colspan="5">----------------------</td>
+            </tr>
+            <tr>
+                <td class="center" colspan="5">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
+            </tr>
     </tfoot>
 </table>
 </script>
