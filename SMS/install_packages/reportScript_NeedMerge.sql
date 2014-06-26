@@ -48,4 +48,7 @@ CREATE TABLE [dbo].[ReportDatasourceParameter](
 GO
 
 /* them khoa ngoai cho may bang nay ho voi 
-      Report 1--* ReportDatasource 1--* ReportDatasourceParameter */
+      Report 1--* ReportDatasource 1--* ReportDatasourceParameter 
+   
+   Cho may cai primarykey identity dum t luon
+      */
