@@ -25,7 +25,10 @@ namespace SMS.MvcApplication.Reports
 
                 reportService = ServiceLocator.Resolve<IReportService>();
 
-                var queryString = Request.QueryString.Cast<string>().ToDictionary(x => x, y => Request.QueryString[y]);
+                var queryString = Request.QueryString.Cast<string>()
+                    .Where(x => x.Contains(Common.Constant.ConstReport.DatasourceParamPrefix))
+                    .ToDictionary(x => x.Replace(Common.Constant.ConstReport.DatasourceParamPrefix, ""), y => Request.QueryString[y]);
+
                 var reportDatasources = reportService.LoadReportDatasources(reportName, queryString);
 
                 if(!reportDatasources.Success)
@@ -37,6 +40,13 @@ namespace SMS.MvcApplication.Reports
                 SsrsViewer.Visible = true;
                 SsrsViewer.ProcessingMode = ProcessingMode.Local;
                 SsrsViewer.LocalReport.ReportPath = string.Format(Common.Constant.ConstReport.ReportPathTemplate, reportName);
+
+                foreach (var param in Request.QueryString.Cast<string>().Where(x => x.Contains(Common.Constant.ConstReport.ReportParamPrefix)))
+                {
+                    var reportParam = param.Replace(Common.Constant.ConstReport.ReportParamPrefix, "");
+                    SsrsViewer.LocalReport.SetParameters(new ReportParameter(reportParam, Request.QueryString[param]));
+                }
+
                 SsrsViewer.LocalReport.DataSources.Clear();
 
                 foreach (DataTable table in reportDatasources.Data.Tables)
