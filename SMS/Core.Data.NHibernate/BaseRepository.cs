@@ -71,7 +71,7 @@ namespace Core.Data.NHibernate
             if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
             {
                 ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
-                ((IAuditableEntity)entity).CreatedUser = UserContext.UserName;
+                ((IAuditableEntity)entity).CreatedUser = UserInformation.UserName;
             }
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)))
             {
@@ -222,7 +222,7 @@ namespace Core.Data.NHibernate
             if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
             {
                 ((IAuditableEntity)entity).ModifiedDate = DateTime.Now;
-                ((IAuditableEntity)entity).ModifiedUser = UserContext.UserName;
+                ((IAuditableEntity)entity).ModifiedUser = UserInformation.UserName;
             }
 
             Session.Update(entity);

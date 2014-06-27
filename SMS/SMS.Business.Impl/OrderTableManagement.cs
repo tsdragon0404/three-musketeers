@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Session;
 using Core.Common.Validation;
+using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;

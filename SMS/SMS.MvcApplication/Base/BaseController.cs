@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using Core.Common.Session;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Filters;
 using SMS.MvcApplication.Models;

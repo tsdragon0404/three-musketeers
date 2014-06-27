@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Common.Session;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 

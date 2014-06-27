@@ -18,6 +18,7 @@ using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
 using SMS.Common.Message;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Services;
 
@@ -64,6 +65,8 @@ namespace SMS.MvcApplication
             UserContext.BranchID = 1;
             UserContext.DefaultAreaID = 0;
             UserContext.ListTableHeight = 65;
+
+            UserInformation.UserName = "Lam Vu";
 
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;

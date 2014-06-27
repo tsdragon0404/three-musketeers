@@ -18,7 +18,16 @@ namespace SMS.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = UserService.Get<UserDto>(model.Username, model.Password);
+                var response = UserService.Get<UserDto>(model.Username, model.Password);
+                if (!response.Success)
+                {
+                    // handle error
+                    ModelState.AddModelError(response.Errors[0].Property, response.Errors[0].ErrorMessage);
+                    return View(model);
+                }
+
+                var user = response.Data;
+
             }
             return View();
         }
