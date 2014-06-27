@@ -37,6 +37,8 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="UserRoleDto.cs" />
+    <Compile Include="UserDto.cs" />
     <Compile Include="PaymentTableDto.cs" />
     <Compile Include="PaymentDetailDto.cs" />
     <Compile Include="PaymentDto.cs" />
@@ -80,7 +82,7 @@
     <Compile Include="ProductDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBranchDto.cs" />
-    <Compile Include="UserDto.cs" />
+    <Compile Include="UserProfileDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMS.Common\SMS.Common.csproj">

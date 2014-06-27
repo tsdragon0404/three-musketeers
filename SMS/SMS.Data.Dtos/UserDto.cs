@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SMS.Data.Dtos
 {
-    public class UserDto : EnableSortableDto
+    public class UserDto
     {
         public virtual long ID { get; set; }
-        public virtual string UserCode { get; set; }
-        public virtual string UserLogin { get; set; }
-        public virtual string UserPassword { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string CellPhone { get; set; }
-
-        public virtual DateTime? CreatedDate { get; set; }
-        public virtual string CreatedUser { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string ModifiedUser { get; set; }
+        public virtual string Username { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Displayname { get; set; }
+        public virtual DateTime? LastLoginDate { get; set; }
+        public virtual bool IsLockedOut { get; set; }
+        public virtual DateTime? LastLockedOutDate { get; set; }
+        public virtual int FailedPasswordAttemptCount { get; set; }
+        public virtual IList<UserRoleDto> Roles { get; set; }
     }
 }

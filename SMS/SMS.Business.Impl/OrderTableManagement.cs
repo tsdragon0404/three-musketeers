@@ -32,8 +32,8 @@ namespace SMS.Business.Impl
                                                                         Table = table,
                                                                     }));
 
-            return new ServiceResult<IList<TDto>>
-                       {Data = Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.Area.SEQ).ThenBy(x => x.Table.ID).ToList())};
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(
+                       Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.Area.SEQ).ThenBy(x => x.Table.ID).ToList()));
         }
 
         public ServiceResult<long> CreateOrderTable(long tableID)
@@ -43,13 +43,13 @@ namespace SMS.Business.Impl
             var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tableID}};
             Repository.Add(orderTable);
 
-            return new ServiceResult<long> {Data = orderTable.ID};
+            return ServiceResult<long>.CreateSuccessResult(orderTable.ID);
         }
 
         public ServiceResult CheckTableStatus(long tableID)
         {
             var result = Repository.Find(x => x.Table.ID == tableID);
-            return new ServiceResult {Success = result.Any()};
+            return ServiceResult.CreateResult(result.Any());
         }
 
         public ServiceResult<long> CreateMultiOrderTable(long[] tableID)
@@ -60,7 +60,7 @@ namespace SMS.Business.Impl
                 var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tblID}};
                 Repository.Add(orderTable);
             }
-            return new ServiceResult<long> { Data = orderId };
+            return ServiceResult<long>.CreateSuccessResult(orderId);
         }
 
         public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
@@ -70,7 +70,7 @@ namespace SMS.Business.Impl
             Repository.Update(orderTable);
 
             var result = OrderRepository.Get(orderTableID);
-            return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) }; 
+            return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result)); 
         }
 
         public ServiceResult PoolingTable(long[] orderTable)
@@ -101,7 +101,7 @@ namespace SMS.Business.Impl
                         OrderRepository.Delete(orderID);
                 }
             }
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
     }
 }

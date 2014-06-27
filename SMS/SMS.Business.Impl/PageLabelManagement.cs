@@ -21,10 +21,10 @@ namespace SMS.Business.Impl
             var ids = new List<long>{ pageID };
             if (includeGlobalLabels)
                 ids.Add(ConstPage.Global);
-            return new ServiceResult<IList<TDto>>
-                   {
-                       Data = Mapper.Map<IList<TDto>>(Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == UserContext.BranchID).ToList())
-                   };
+
+            var labels = Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == UserContext.BranchID).ToList();
+
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(labels));
         }
 
         public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
@@ -60,7 +60,7 @@ namespace SMS.Business.Impl
                 }
             }
 
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult Copy(long fromBranchID, long toBranchID)
@@ -79,7 +79,7 @@ namespace SMS.Business.Impl
                                });
             }
 
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
     }
 }
