@@ -834,3 +834,8 @@ table thead{
     padding: 0px;
     font-weight: normal;
 }
+
+.leftContent {
+    margin: 0 auto;
+    height: auto;
+}
