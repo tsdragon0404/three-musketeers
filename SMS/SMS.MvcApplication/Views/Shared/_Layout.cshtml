@@ -1,6 +1,11 @@
 ﻿@using SMS.Common.Session
 @using SMS.Common
 @using SMS.MvcApplication.Models
+@{
+    var url = Request.Url.AbsoluteUri;
+    var urlWithoutAction = ViewContext.RouteData.Values["action"].ToString() == "Index"
+        ? url : @url.Remove(url.LastIndexOf("/", StringComparison.Ordinal));
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +26,7 @@
         $(document).ready(function() {
             var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
             labelController.ScanElements();
-            @if(UserContext.IsSystemAdmin)
+            @if (SmsSystem.UserContext.IsSystemAdmin)
             
             {
                 <text>
@@ -51,7 +56,7 @@
                     </ul>
                 </nav>
                 <ul id="user">
-                    @if(UserContext.IsSystemAdmin)
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
@@ -61,11 +66,11 @@
                     @{
                         var classVN = "";
                         var classEN = "";
-                        if (UserContext.Language == Language.English)
+                        if (SmsSystem.UserContext.Language == Language.English)
                         {
                             classEN = "class=\"hide\"";
                         }
-                        if (UserContext.Language == Language.Vietnamese)
+                        if (SmsSystem.UserContext.Language == Language.Vietnamese)
                         {
                             classVN = "class=\"hide\"";
                         }
@@ -85,11 +90,11 @@
                         changeLanguage(@((int)Language.English));
                         return false;
                     });
-    
+
                     function changeLanguage(id) {
                         $.ajax({
                             type: 'POST',
-                            url: location.pathname + '/ChangeLanguage',
+                            url: '@urlWithoutAction' + '/ChangeLanguage',
                             data: { language: id }
                         }).done(function (result) {
                             if(result.Success)

@@ -22,9 +22,9 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID)
         {
-            var usedTables = Repository.Find(x => (x.Table.Area.ID == areaID || areaID == 0 ) && x.Order.Branch.ID == UserContext.BranchID  && x.Table.Enable).ToList();
+            var usedTables = Repository.Find(x => (x.Table.Area.ID == areaID || areaID == 0) && x.Order.Branch.ID == SmsSystem.UserContext.BranchID && x.Table.Enable).ToList();
 
-            var availableTables = TableRepository.Find(x => (x.Area.ID == areaID || areaID == 0) && x.Area.BranchID == UserContext.BranchID && !x.OrderTables.Any());
+            var availableTables = TableRepository.Find(x => (x.Area.ID == areaID || areaID == 0) && x.Area.BranchID == SmsSystem.UserContext.BranchID && !x.OrderTables.Any());
 
             usedTables.AddRange(availableTables.Select(table => new OrderTable
                                                                     {

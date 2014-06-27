@@ -18,7 +18,7 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TDto>> GetAllByBranch<TDto>()
         {
             var result =
-                Repository.Find(x => x.BranchID == UserContext.BranchID && x.Enable).OrderBy(x => x.SEQ).ToList();
+                Repository.Find(x => x.BranchID == SmsSystem.UserContext.BranchID && x.Enable).OrderBy(x => x.SEQ).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(!result.Any() ? null : Mapper.Map<IList<TDto>>(result));
         }
     }

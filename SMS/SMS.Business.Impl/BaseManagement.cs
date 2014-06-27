@@ -31,7 +31,7 @@ namespace SMS.Business.Impl
             var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = UserContext.PageSize;
+            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
 
             return ServiceResult<IPagedList<TDto>>.CreateSuccessResult(PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo));
         }
@@ -41,7 +41,7 @@ namespace SMS.Business.Impl
             var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = UserContext.PageSize;
+            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
 
             return ServiceResult<IPagedList<TModel>>.CreateSuccessResult( PagedList<TModel>.CreatePageList(filteredRecords, pagingInfo));
         }

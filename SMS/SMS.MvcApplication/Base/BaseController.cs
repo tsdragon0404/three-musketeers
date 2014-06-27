@@ -46,14 +46,14 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult ChangeLanguage(Language language)
         {
-            UserContext.Language = language;
+            SmsSystem.UserContext.Language = language;
             return Json(JsonModel.Create(true));
         }
 
         [HttpPost]
         public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
         {
-            return Json(!UserContext.IsSystemAdmin
+            return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.Save(pageID, listLabels.ToList())));
         }
@@ -61,7 +61,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult GetAllPageLabel(int pageID)
         {
-            return Json(!UserContext.IsSystemAdmin
+            return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }

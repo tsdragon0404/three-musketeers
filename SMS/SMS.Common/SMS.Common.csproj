@@ -67,6 +67,7 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="Session\SmsAuthorizeAttribute.cs" />
+    <Compile Include="Session\SmsSystem.cs" />
     <Compile Include="Session\UserContext.cs" />
   </ItemGroup>
   <ItemGroup>

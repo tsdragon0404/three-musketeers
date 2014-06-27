@@ -1,4 +1,4 @@
-﻿@using Core.Common.Session
+﻿@using SMS.Common.Session
 @model SMS.MvcApplication.Models.PopupModel
 <!-- MeadCo ScriptX -->
 <object classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="@Url.Content("~/ScriptX")/smsx.cab#Version=7,4,0,8" id=factory style="display:none">
@@ -73,7 +73,7 @@
                 <td colspan="5">Ngày lập: 21-06-2014</td>
             </tr>
             <tr>
-                <td colspan="5">Người lập: @UserContext.UserName</td>
+                <td colspan="5">Người lập: @SmsSystem.UserContext.UserName</td>
             </tr>
             <tr>
                 <td class="center" colspan="5">----------------------</td>
