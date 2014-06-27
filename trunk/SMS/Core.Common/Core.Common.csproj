@@ -42,8 +42,7 @@
     <Compile Include="CustomAttributes\LengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
-    <Compile Include="Session\Language.cs" />
-    <Compile Include="Session\UserContext.cs" />
+    <Compile Include="Information\UserInformation.cs" />
     <Compile Include="Validation\ValidationError.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
