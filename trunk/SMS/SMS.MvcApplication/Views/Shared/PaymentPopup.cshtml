@@ -5,13 +5,13 @@
 </object>
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
     <div class="row">
-        <div class="six columns payment-content">
-            <div class="leftContent" style="height: 297mm; width: 215mm">
-                <div class="page" style="height: 297mm !important; width: 210mm !important">
+        <div class="nine columns payment-content">
+            <div class="leftContent" style="width: 175mm;">
+                <div class="page" style="width: 170mm !important">
                 </div>
             </div>
         </div>
-        <div class="six columns payment-config">
+        <div class="three columns payment-config">
             <div class="row">
                 <button id="print"><span data-labelID="lblPrint">In hóa đơn</span></button>
             </div>
@@ -21,7 +21,7 @@
 <script src="@Url.Content("~/Scripts/payment-popup.js")"></script>
 <script src="@Url.Content("~/Scripts/meadco-scriptx-1.0.2.js")"></script>
 <script id="payment-detail-@Model.PopupID" type="text/x-jquery-tmpl">
-    <table style="width: 480px; font-family: courier">
+    <table style="width: 100%; font-family: courier">
         <colgroup>
             <col style="width: 30px"/>
             <col style="width: 150px"/>

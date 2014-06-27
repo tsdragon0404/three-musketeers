@@ -385,7 +385,7 @@
                 primary: "ui-icon-check"
             }
         }).click(function() {
-            var payment = new PaymentPopup("pdtPayment", 600, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment');
+            var payment = new PaymentPopup("pdtPayment", 800, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment');
             payment.OpenPopup();
             return false;
         });

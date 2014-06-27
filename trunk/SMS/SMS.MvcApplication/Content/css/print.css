@@ -18,9 +18,7 @@
         top: 0 !important;
         left: 0 !important;
         border: none !important;
-        height: auto !important;
-        width: auto !important;
-        overflow: hidden;
+        overflow: hidden !important;
     }
 
 	div[aria-describedby="pdtPayment"] .ui-dialog-titlebar, #print {
@@ -33,19 +31,19 @@
 
     #pdtPayment {
         height: auto !important;
+        overflow: hidden !important;
     }
 
     #pdtPayment .payment-content, #pdtPayment .payment-content .leftContent{
         height: auto !important;
         width: auto !important;
-        overflow: hidden;
+        overflow: hidden !important;
     }
 
     div[id="pdtPayment"] .page, #pdtPayment .page table {
-        top: 0 !important;
-        left: 0 !important;
-        overflow: hidden;
-        height: auto;
+        overflow: hidden !important;
+        height: auto !important;
+        width: auto !important;
         padding: 0;
         margin: 0;
         box-shadow: none;
@@ -53,8 +51,6 @@
         -webkit-box-shadow: none;
     }
 }
-
-
 
 @page {
     size: auto;
