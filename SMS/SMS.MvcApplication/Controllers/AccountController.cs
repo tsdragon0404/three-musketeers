@@ -14,6 +14,7 @@ namespace SMS.MvcApplication.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
