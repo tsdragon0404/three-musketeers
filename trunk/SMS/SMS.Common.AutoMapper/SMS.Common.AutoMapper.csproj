@@ -59,10 +59,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
-      <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
-      <Name>Core.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">
       <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
       <Name>Core.Data</Name>
