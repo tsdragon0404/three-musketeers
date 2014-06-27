@@ -49,6 +49,8 @@
     <Compile Include="AreaMap.cs" />
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchTaxMap.cs" />
+    <Compile Include="UserRoleMap.cs" />
+    <Compile Include="UserMap.cs" />
     <Compile Include="ReportDatasourceParameterMap.cs" />
     <Compile Include="ReportDatasourceMap.cs" />
     <Compile Include="ReportMap.cs" />

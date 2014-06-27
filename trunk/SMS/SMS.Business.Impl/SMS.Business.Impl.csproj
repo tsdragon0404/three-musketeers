@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AreaManagement.cs" />
     <Compile Include="BaseManagement.cs" />
+    <Compile Include="UserManagement.cs" />
     <Compile Include="ReportManagement.cs" />
     <Compile Include="OrderDetailManagement.cs" />
     <Compile Include="OrderTableManagement.cs" />

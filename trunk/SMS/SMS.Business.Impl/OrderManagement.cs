@@ -21,7 +21,7 @@ namespace SMS.Business.Impl
         public ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID)
         {
             var result = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
-            return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) };
+            return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SMS.Business.Impl
             var order = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
             var orderID = order == null ? 0 : order.ID;
 
-            return new ServiceResult { Success = Repository.Delete(orderID) };
+            return ServiceResult.CreateResult(Repository.Delete(orderID));
         }
 
         public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
@@ -58,7 +58,7 @@ namespace SMS.Business.Impl
                 Repository.Delete(orderID);
 
             var result = Repository.Get(orderID);
-            return new ServiceResult<TDto> { Data = result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result) };
+            return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
 
         public ServiceResult RemoveMultiOrder(long[] order)
@@ -67,7 +67,7 @@ namespace SMS.Business.Impl
             {
                 Repository.Delete(orderID);
             }
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
@@ -76,13 +76,13 @@ namespace SMS.Business.Impl
             order.OtherFee = otherFee;
             order.OtherFeeDescription = otherFee == 0 ? "" : otherFeeDescription;
             Repository.Update(order);
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult Payment(long orderID)
         {
 
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
     }
 }

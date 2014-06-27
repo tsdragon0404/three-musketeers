@@ -1,33 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class User : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    public class User : Entity, IAuditableEntity
     {
-        public virtual string UserCode { get; set; }
+        public virtual string Username { get; set; }
 
-        public virtual string UserLogin { get; set; }
+        public virtual string Password { get; set; }
 
-        public virtual string UserPassword { get; set; }
+        public virtual string Displayname { get; set; }
 
-        public virtual string FirstName { get; set; }
+        public virtual DateTime? LastLoginDate { get; set; }
 
-        public virtual string LastName { get; set; }
+        public virtual bool IsLockedOut { get; set; }
 
-        public virtual string CellPhone { get; set; }
+        public virtual DateTime? LastLockedOutDate { get; set; }
 
-        #region Implementation of IEnableEntity
+        public virtual int FailedPasswordAttemptCount { get; set; }
 
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
+        public virtual IList<UserRole> Roles { get; set; }
 
         #region Implementation of IAuditableEntity
 

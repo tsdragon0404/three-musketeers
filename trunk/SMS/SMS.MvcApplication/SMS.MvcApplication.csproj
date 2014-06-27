@@ -213,6 +213,7 @@
     <Compile Include="Areas\Configuration\ConfigurationAreaRegistration.cs" />
     <Compile Include="Areas\Configuration\Controllers\ConfigurationHomeController.cs" />
     <Compile Include="Areas\Configuration\Controllers\GlobalLabelController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Base\BaseController.cs" />
@@ -226,6 +227,7 @@
     </Compile>
     <Compile Include="Models\CashierModel.cs" />
     <Compile Include="Models\HyperlinkModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PopupModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\ReportViewer.aspx.cs">

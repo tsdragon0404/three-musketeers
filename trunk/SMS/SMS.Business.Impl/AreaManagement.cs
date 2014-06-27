@@ -19,7 +19,7 @@ namespace SMS.Business.Impl
         {
             var result =
                 Repository.Find(x => x.BranchID == UserContext.BranchID && x.Enable).OrderBy(x => x.SEQ).ToList();
-            return new ServiceResult<IList<TDto>> { Data = !result.Any() ? null : Mapper.Map<IList<TDto>>(result) };
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(!result.Any() ? null : Mapper.Map<IList<TDto>>(result));
         }
     }
 }

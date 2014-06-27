@@ -18,13 +18,7 @@ namespace SMS.Business.Impl
         {
             var report = Repository.FindOne(x => x.Name == reportName);
             if(report == null)
-            {
-                return new ServiceResult<DataSet>
-                           {
-                               Errors = new List<ValidationError> {new ValidationError("Report name", "Report name is not valid")},
-                               Success = false
-                           };
-            }
+                return ServiceResult<DataSet>.CreateFailResult(new ValidationError("Report name", "Report name is not valid"));
 
             var returnData = new DataSet(Common.Constant.ConstReport.ReportDataSetName);
             
@@ -36,7 +30,7 @@ namespace SMS.Business.Impl
                 returnData.Tables.Add(reportData);
             }
 
-            return new ServiceResult<DataSet> { Data = returnData };
+            return ServiceResult<DataSet>.CreateSuccessResult(returnData);
         }
     }
 }

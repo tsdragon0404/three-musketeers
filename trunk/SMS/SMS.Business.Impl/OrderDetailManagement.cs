@@ -25,7 +25,7 @@ namespace SMS.Business.Impl
         {
             var product = ProductRepository.Get(productID);
             if (product == null)
-                return new ServiceResult<TDto> {Data = Mapper.Map<TDto>(new OrderTable())};
+                return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(new OrderTable()));
             var orderDetail = new OrderDetail
                                   {
                                       OrderTable = new OrderTable {ID = orderTableID},
@@ -34,14 +34,14 @@ namespace SMS.Business.Impl
                                       OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? 1 : 5)
                                   };
             Repository.Add(orderDetail);
-            return new ServiceResult<TDto> { Data = Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)) };
+            return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)));
         }
 
         public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
         {
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
-                return new ServiceResult {Success = false};
+                return ServiceResult.CreateFailResult();
             switch (columnName)
             {
                 case "qty":
@@ -61,33 +61,33 @@ namespace SMS.Business.Impl
             }
             Repository.Update(orderDetail);
 
-            return new ServiceResult();
+            return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
         {
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
-                return new ServiceResult<TDto>{ Data = Mapper.Map<TDto>(new OrderDetail())};
+                return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(new OrderDetail()));
             orderDetail.OrderStatus = OrderStatusRepository.Get(value);
             Repository.Update(orderDetail);
 
-            return new ServiceResult<TDto>{ Data = Mapper.Map<TDto>(orderDetail)};
+            return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(orderDetail));
         }
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
         {
             var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.Ordered).ToList();
-            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
         }
 
         public ServiceResult<IList<TDto>> GetOrderedProductByStatuses<TDto>(IList<long> statuses = null)
         {
             if(statuses == null)
-                return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(Repository.GetAll()) };
+                return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetAll()));
 
             var orderProducts = Repository.Find(x => statuses.Contains(x.OrderStatus.ID)).ToList();
-            return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
         }
     }
 }
