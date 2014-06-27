@@ -58,13 +58,17 @@ namespace SMS.MvcApplication
             MappingRegister();
 
             // initialize user context - will move to login function
-            UserContext.UserID = 1;
-            UserContext.UserName = "Lam Vu";
-            UserContext.PageSize = 3;
-            UserContext.IsSystemAdmin = true;
-            UserContext.BranchID = 1;
-            UserContext.DefaultAreaID = 0;
-            UserContext.ListTableHeight = 65;
+            var userContext = new UserContext
+                                  {
+                                      UserID = 1,
+                                      UserName = "Lam Vu",
+                                      PageSize = 3,
+                                      IsSystemAdmin = true,
+                                      BranchID = 1,
+                                      DefaultAreaID = 0,
+                                      ListTableHeight = 65,
+                                  };
+            SmsSystem.UserContext = userContext;
 
             UserInformation.UserName = "Lam Vu";
 

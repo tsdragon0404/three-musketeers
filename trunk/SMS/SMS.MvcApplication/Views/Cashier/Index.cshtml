@@ -1,4 +1,4 @@
-﻿@using Core.Common.Session
+﻿@using SMS.Common.Session
 @using SMS.Common
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
@@ -371,11 +371,11 @@
     $(document).ready(function () {
         $(document).tooltip();
         $('div.split-pane').splitPane();
-        var paneheight = @UserContext.ListTableHeight + '%';
+        var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
         $('#area-table, .split-pane-divider').css('bottom', paneheight);
         $('#tableorder').css('height', paneheight);
 
-        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@UserContext.DefaultAreaID"]'));
+        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@SmsSystem.UserContext.DefaultAreaID"]'));
         if (tabindex < 0)
             tabindex = 0;
         $('#area-table').tabs({ active: tabindex });

@@ -1,11 +1,12 @@
 ﻿using System.Web.Mvc;
 using SMS.Data.Dtos;
+using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         public IUserService UserService { get; set; }
 
@@ -14,6 +15,12 @@ namespace SMS.MvcApplication.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
@@ -31,6 +38,6 @@ namespace SMS.MvcApplication.Controllers
 
             }
             return View();
-        }
+        }   
     }
 }

@@ -18,13 +18,13 @@ namespace SMS.Business.Impl
         public override ServiceResult<IList<ErrorMessageDto>> GetAll()
         {
             return ServiceResult<IList<ErrorMessageDto>>.CreateSuccessResult(
-                Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.BranchID == UserContext.BranchID).ToList()));
+                Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.BranchID == SmsSystem.UserContext.BranchID).ToList()));
        
         }
         public override ServiceResult<IList<TModel>> GetAll<TModel>()
         {
             return ServiceResult<IList<TModel>>.CreateSuccessResult(
-                Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == UserContext.BranchID).ToList()));
+                Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == SmsSystem.UserContext.BranchID).ToList()));
         }
     }
 }

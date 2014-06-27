@@ -22,7 +22,7 @@ namespace SMS.Business.Impl
             if (includeGlobalLabels)
                 ids.Add(ConstPage.Global);
 
-            var labels = Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == UserContext.BranchID).ToList();
+            var labels = Repository.Find(x => ids.Contains(x.Page.ID) && x.BranchID == SmsSystem.UserContext.BranchID).ToList();
 
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(labels));
         }
@@ -31,7 +31,7 @@ namespace SMS.Business.Impl
         {
             var labelIds = listLabels.ConvertAll(x => x.LabelID);
             var pageLabels = Repository.Find(
-                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == UserContext.BranchID).ToList();
+                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsSystem.UserContext.BranchID).ToList();
 
             if (pageLabels.Any())
             {
@@ -51,7 +51,7 @@ namespace SMS.Business.Impl
                 {
                     Repository.Add(new PageLabel
                                        {
-                                           BranchID = UserContext.BranchID,
+                                           BranchID = SmsSystem.UserContext.BranchID,
                                            LabelID = labelID,
                                            Page = new Page {ID = pageID},
                                            VNText = listLabels.First(x => x.LabelID == labelID).VNText,
