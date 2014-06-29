@@ -77,7 +77,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
         {
-            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.Ordered).ToList();
+            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.SentToKitchen).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
         }
 
