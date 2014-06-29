@@ -839,3 +839,12 @@ table thead{
     margin: 0 auto;
     height: auto;
 }
+
+.rightContent {
+    height: auto;
+    border: 2px gray solid;
+}
+
+.payment-config {
+    margin: 0;
+}

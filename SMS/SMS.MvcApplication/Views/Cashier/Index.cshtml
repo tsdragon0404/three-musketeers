@@ -57,17 +57,17 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th><span data-labelID="lblNo">No</span></th>
-                        <th><span data-labelID="lblProductName">Product Name</span></th>
-                        <th><span data-labelID="lblQuantity">Quantity</span></th>
-                        <th><span data-labelID="lblUnit">Unit</span></th>
-                        <th><span data-labelID="lblPrice">Price</span></th>
+                        <th data-labelID="lblNo">No</th>
+                        <th data-labelID="lblProductName">Product Name</th>
+                        <th data-labelID="lblQuantity">Quantity</th>
+                        <th data-labelID="lblUnit">Unit</th>
+                        <th data-labelID="lblPrice">Price</th>
                         @if(BranchConfig.UseDiscountOnProduct)
                         {
-                            <th><span data-labelID="lblDiscount">Discount</span></th>
+                            <th data-labelID="lblDiscount">Discount</th>
                         }
-                        <th><span data-labelID="lblAmount">Amount</span></th>
-                        <th><span data-labelID="lblRemarks">Remarks</span></th>
+                        <th data-labelID="lblAmount">Amount</th>
+                        <th data-labelID="lblRemarks">Remarks</th>
                         @if(BranchConfig.UseKitchenFunction)
                         {
                             <th></th>
@@ -298,8 +298,8 @@
             <div class="row" id="tblContent"></div>
             <div class="row" id="button-payment">
                 <div class="four columns right border-top payment">
-                    <button id="payment"><span data-labelID="lblPayment">Thanh toán</span></button>
-                    <button id="printInvoice"><span data-labelID="lblPrintInvoice">In trước hóa đơn</span></button>
+                    <button id="payment" data-labelID="lblPayment">Thanh toán</button>
+                    <button id="printInvoice" data-labelID="lblPrintInvoice">In trước hóa đơn</button>
                 </div>
             </div>
         </div>
@@ -310,31 +310,31 @@
             <td>
                 <div class="rmenu-detail"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblDetail">Chi tiết</span></td>
+            <td class="RmenuItem" data-labelID="lblDetail">Chi tiết</td>
         </tr>
         <tr id="rmenu-useTable">
             <td>
                 <div class="rmenu-add"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblUseNow">Sử dụng ngay</span></td>
+            <td class="RmenuItem" data-labelID="lblUseNow">Sử dụng ngay</td>
         </tr>
         <tr id="rmenu-move">
             <td>
                 <div class="rmenu-move"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
+            <td class="RmenuItem" data-labelID="lblMoveTable">Chuyển bàn</td>
         </tr>
         <tr id="rmenu-pooling">
             <td>
                 <div class="rmenu-pooling"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblPoolingTable">Nhập bàn</span></td>
+            <td class="RmenuItem" data-labelID="lblPoolingTable">Nhập bàn</td>
         </tr>
         <tr id="rmenu-del">
             <td>
                 <div class="rmenu-delete"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblDelete">Xóa thông tin</span></td>
+            <td class="RmenuItem" data-labelID="lblDelete">Xóa thông tin</td>
         </tr>
     </table>
     <table class="Rmenu" id="changeCustomer">
@@ -342,7 +342,7 @@
             <td>
                 <div class="menu-customer"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblChangeCustomer">Change Customer</span></td>
+            <td class="RmenuItem" data-labelID="lblChangeCustomer">Change Customer</td>
         </tr>
     </table>
     <table class="Rmenu" id="changeTable">
@@ -350,7 +350,7 @@
             <td>
                 <div class="rmenu-move"></div>
             </td>
-            <td class="RmenuItem"><span data-labelID="lblMoveTable">Chuyển bàn</span></td>
+            <td class="RmenuItem" data-labelID="lblMoveTable">Chuyển bàn</td>
         </tr>
     </table>
     <table class="Rmenu" id="mainRightMenu">
@@ -385,7 +385,7 @@
                 primary: "ui-icon-check"
             }
         }).click(function() {
-            var payment = new PaymentPopup("pdtPayment", 800, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment');
+            var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment');
             payment.OpenPopup();
             return false;
         });
