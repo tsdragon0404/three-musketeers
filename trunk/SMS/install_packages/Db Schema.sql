@@ -484,6 +484,7 @@ BEGIN
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
 		[DiscountComment] [nvarchar](255) NULL,
+		[KitchenComment] [nvarchar] (255) NULL,
 		[OrderStatusID] [tinyint] NULL,
 	 CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
 	(
