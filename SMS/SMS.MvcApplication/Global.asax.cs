@@ -75,7 +75,7 @@ namespace SMS.MvcApplication
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;
             BranchConfig.UseKitchenFunction = true;
-            BranchConfig.UseDiscountOnProduct = false;
+            BranchConfig.UseDiscountOnProduct = true;
             BranchConfig.Currency = "VND";
             BranchConfig.Taxs = new Dictionary<string, decimal>
                                 {
