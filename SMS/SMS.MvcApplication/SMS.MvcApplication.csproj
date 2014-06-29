@@ -215,6 +215,7 @@
     <Compile Include="Areas\Configuration\Controllers\GlobalLabelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
+    <Compile Include="Models\KitchenModel.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\BaseView.cs" />

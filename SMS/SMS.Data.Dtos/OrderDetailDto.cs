@@ -13,6 +13,7 @@ namespace SMS.Data.Dtos
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
+        public virtual string KitchenComment { get; set; }
         public virtual OrderStatusDto OrderStatus { get; set; }
     }
 }
