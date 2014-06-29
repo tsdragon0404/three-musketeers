@@ -10,5 +10,6 @@ namespace SMS.Business
         ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);
         ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value);
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
+        ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
     }
 }

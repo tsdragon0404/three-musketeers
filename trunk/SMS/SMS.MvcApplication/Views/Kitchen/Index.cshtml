@@ -1,6 +1,72 @@
-﻿@{
+﻿@using SMS.Common
+@using SMS.Common.Constant
+@using SMS.Data.Dtos
+@{
     ViewBag.Title = "Index";
 }
+@*@{
+    var orderedProducts = (List<LanguageOrderDetailDto>) ViewBag.OrderedProducts;
+    int i = 1;
+}*@
+
+<script id="orderedProducts-tmpl" type="text/x-jquery-tmpl">  
+    {{if Data.length >0}}
+    {{each(idx) Data}}
+    <tr id="${ID}">
+        <td>${idx+1}</td>
+        <td>${Product.Name} - ${Product.ProductCode}</td>
+        <td>${Quantity}</td>
+        <td>${Comment}</td>
+        <td class="center icon">
+            <div class="{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}" id="status-${ID}" title="${OrderStatus.Name}"></div>
+        </td>
+        <td>
+            <button id="btnAccept-${ID}"><span data-labelID="lblAccept">Accept</span></button>
+        </td>
+        <td>
+            <button id="btnRejected-${ID}"><span data-labelID="lblReject">Reject</span></button>
+        </td>
+        <td>
+            <input type="text" id="kitchencmt-${ID}" class="remarksInput"/>                          
+        </td>                        
+    </tr> 
+    {{/each}}
+    {{else}}
+    <tr>
+        <td colspan="8">No Record</td>
+    </tr>
+    {{/if}}        
+</script>
+
+<script id="confirmedProducts-tmpl" type="text/x-jquery-tmpl">
+    {{if Data.length > 0}}
+    {{each(idx) Data}}                
+    <tr id="${ID}">
+        <td>${idx + 1}</td>
+        <td>${Product.Name} - ${Product.ProductCode}</td>
+        <td>${Quantity}</td>
+        <td>${Comment}</td>
+        <td class="center icon">
+            <div class="{{if OrderStatus.ID == 3}}icon-accept{{/if}}" id="confirmedstatus-${ID}" title="${OrderStatus.Name}"></div>
+        </td>
+        <td>
+            <button id="btnConfirmedDone-${ID}"><span data-labelID="lbConfirmedDone">Done</span></button>
+        </td>
+        <td >
+            <button id="btnConfirmedRejected-${ID}"><span data-labelID="lbConfirmedReject">Reject</span></button>
+        </td>
+        <td>
+            <input type="text" id="confirmedkitchencmt-${ID}" class="remarksInput"/>                          
+        </td>                        
+    </tr>
+    {{/each}}
+    {{else}}
+    <tr>
+        <td colspan="8">No Record</td>
+    </tr>
+    {{/if}} 
+                    
+</script>
 
 <div id="kitchen">
     <div class="row">
@@ -20,40 +86,128 @@
                     <th>Quantity</th>
                     <th>Remarks</th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                     <th>Kitchen remarks</th>
                 </tr>
             </thead>
             <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row">
+        <table id="confirmedProducts">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col />
+                <col style="width: 100px;" />
+                <col />
+            </colgroup>
+            <thead>
                 <tr>
-                    <td>1</td>
-                    <td>Com chien</td>
-                    <td>1</td>
-                    <td>khong lay com</td>
-                    <td>[status-icon]</td>
-                    <td><input type="text" /></td>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Remarks</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Kitchen remarks</th>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Lau ca</td>
-                    <td>1</td>
-                    <td>khong lay ca</td>
-                    <td>[status-icon]</td>
-                    <td><input type="text" /></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Suon xao chua ngot</td>
-                    <td>1</td>
-                    <td></td>
-                    <td>[status-icon]</td>
-                    <td><input type="text" /></td>
-                </tr>
+            </thead>
+            <tbody>
             </tbody>
         </table>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#orderedProducts').table();
+            
+            GetOrderedProducts();
+            GetAcceptedProducts();
+          
         });
+        
+
+        function GetOrderedProducts()
+        {
+            $.post("@Url.Action("GetOrderedProducts")",
+                function (orderedProducts) {
+                    //a = orderedProducts;
+                   
+                    $('#orderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
+                    $('button[id^="btnAccept"]').button({ 
+                    icons: {
+                               primary: "ui-icon-check"
+                           }
+                     }).click(function () {
+                        UpdateOrderedProductStatus(this,3);
+                     });
+                    
+                    $('button[id^="btnRejected"]').button({
+                        icons: {
+                            primary: "ui-icon-arrowreturnthick-1-w"
+                        }
+                    }).click(function () {
+                        UpdateOrderedProductStatus(this, 4);
+                    });
+                    $('#orderedProducts').table();
+                });            
+        }
+        //ui-icon-arrowreturnthick-1-w"
+        function GetAcceptedProducts()
+        {
+             $.post("@Url.Action("GetAcceptedProducts")",
+                function (acceptedProducts) {
+                    
+                    $('#confirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
+                    $('button[id^="btnConfirmedDone"]').button({
+                        icons: {
+                            primary: "ui-icon-check"
+                        }
+                    }).click(function () {
+                        UpdateOrderedProductStatus(this,5);
+                    });
+                    
+                    $('button[id^="btnConfirmedRejected"]').button({
+                        icons: {
+                            primary: "ui-icon-arrowreturnthick-1-w"
+                        }
+                    }).click(function () {
+                        UpdateOrderedProductStatus(this, 4);
+                    });
+                    $('#confirmedProducts').table();
+                });
+        }
+
+       
+        function UpdateOrderedProductStatus(e,value) {
+            var orderDetailId = $(e).attr('id').split('-')[1];
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateOrderedProductStatus")',
+            data: { orderDetailID: orderDetailId, value: value }
+        }).done(function (result) {
+            if (result.Data.ID == 0 || !result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function () {
+                    });
+                popup.OpenPopup();
+            } else {
+                GetOrderedProducts();
+                GetAcceptedProducts();
+            }
+        });
+    }
+
     </script>
 </div>

@@ -18,6 +18,8 @@ namespace SMS.MvcApplication.Controllers
         [GetLabel(Common.Constant.ConstPage.Kitchen)]
         public ActionResult Index()
         {
+            //var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
+            //ViewBag.OrderedProducts = products.Data;
             return View();
         }
 
@@ -25,6 +27,22 @@ namespace SMS.MvcApplication.Controllers
         {
             var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
             return Json(JsonModel.Create(products));
+        }
+
+        [HttpPost]
+        public JsonResult GetAcceptedProducts()
+        {
+            var acceptedProducts = OrderDetailService.GetAcceptedProductForKitchen<LanguageOrderDetailDto>();
+            return Json(JsonModel.Create((acceptedProducts)));
+        }
+        [HttpPost]
+        public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
+        {
+            if (orderDetailID <= 0) return Json(JsonModel.Create(false));
+
+            var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
+
+            return Json(JsonModel.Create(orderDetail));
         }
     }
 }

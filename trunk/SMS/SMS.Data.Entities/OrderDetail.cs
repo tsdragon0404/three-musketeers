@@ -20,6 +20,8 @@ namespace SMS.Data.Entities
 
         public virtual string DiscountComment { get; set; }
 
+        public virtual string KitchenComment { get; set; }
+
         public virtual OrderStatus OrderStatus { get; set; }
     }
 }

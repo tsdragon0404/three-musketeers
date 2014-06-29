@@ -30,5 +30,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetOrderedProductForKitchen<TDto>();
         }
+
+        public ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>()
+        {
+            return Management.GetAcceptedProductForKitchen<TDto>();
+        }
     }
 }
