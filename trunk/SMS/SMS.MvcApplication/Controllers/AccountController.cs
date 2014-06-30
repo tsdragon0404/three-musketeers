@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -35,9 +38,35 @@ namespace SMS.MvcApplication.Controllers
                 }
 
                 var user = response.Data;
-
+                SetSessionData(user);
+                FormsAuthentication.SetAuthCookie(user.ID.ToString(), true);
             }
             return View();
-        }   
+        }
+
+        private void SetSessionData(UserDto user)
+        {
+            var userContext = new UserContext
+                              {
+                                  BranchID = 1,
+                                  DefaultAreaID = 0,
+                                  Language = Language.Vietnamese,
+                                  ListTableHeight = 65,
+                                  PageSize = 3,
+                                  UserID = user.ID,
+                                  UserName = user.Username,
+                                  DisplayName = user.Displayname,
+                                  RoleNames = user.Roles.Select(x => x.Name).ToList()
+                              };
+
+            SmsSystem.UserContext = userContext;
+        }
+
+        public ActionResult LogOff()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

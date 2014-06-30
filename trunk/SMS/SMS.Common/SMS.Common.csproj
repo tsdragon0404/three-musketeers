@@ -52,6 +52,8 @@
     <Compile Include="Constant\ConstStyle.cs" />
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\ConstReport.cs" />
+    <Compile Include="Constant\ConstSessionKey.cs" />
+    <Compile Include="Constant\ConstRoleName.cs" />
     <Compile Include="Constant\ReportDatasourceParameterType.cs" />
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Constant\OrderStatus.cs" />

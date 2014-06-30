@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common;
 using Core.Common.CustomAttributes;
-using Core.Common.Session;
+using Core.Common.Information;
 using NHibernate;
 using NHibernate.Linq;
 

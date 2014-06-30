@@ -60,6 +60,10 @@
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
+                    @if(Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
+                    }
                 </ul>
                 <ul id="language">
                     
