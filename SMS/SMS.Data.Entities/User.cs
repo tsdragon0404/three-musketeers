@@ -14,13 +14,15 @@ namespace SMS.Data.Entities
 
         public virtual DateTime? LastLoginDate { get; set; }
 
+        public virtual bool IsSystemAdmin { get; set; }
+
         public virtual bool IsLockedOut { get; set; }
 
         public virtual DateTime? LastLockedOutDate { get; set; }
 
         public virtual int FailedPasswordAttemptCount { get; set; }
 
-        public virtual IList<UserRole> Roles { get; set; }
+        public virtual IList<Role> Roles { get; set; }
 
         #region Implementation of IAuditableEntity
 

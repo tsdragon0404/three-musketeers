@@ -64,7 +64,7 @@
     <Compile Include="User.cs" />
     <Compile Include="UserProfile.cs" />
     <Compile Include="UserBranch.cs" />
-    <Compile Include="UserRole.cs" />
+    <Compile Include="Role.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common\Core.Common.csproj">

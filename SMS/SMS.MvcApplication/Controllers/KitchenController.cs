@@ -9,7 +9,7 @@ using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
 {
-    [SmsAuthorize(ConstRoleName.SystemAdmin, ConstRoleName.BranchAdmin, ConstRoleName.User)]
+    [SmsAuthorize]
     public class KitchenController : BaseController
     {
         #region Fields
