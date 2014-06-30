@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using SMS.Common.Constant;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Filters;
@@ -7,6 +9,7 @@ using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
 {
+    [SmsAuthorize(ConstRoleName.SystemAdmin, ConstRoleName.BranchAdmin, ConstRoleName.User)]
     public class CashierController : BaseController
     {
         #region Fields
@@ -19,7 +22,7 @@ namespace SMS.MvcApplication.Controllers
 
         #endregion
 
-        [GetLabel(Common.Constant.ConstPage.Cashier)]
+        [GetLabel(ConstPage.Cashier)]
         public ActionResult Index()
         {
             var cashierModel = new CashierModel

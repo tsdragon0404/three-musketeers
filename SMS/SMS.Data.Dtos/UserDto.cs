@@ -14,5 +14,10 @@ namespace SMS.Data.Dtos
         public virtual DateTime? LastLockedOutDate { get; set; }
         public virtual int FailedPasswordAttemptCount { get; set; }
         public virtual IList<UserRoleDto> Roles { get; set; }
+
+        public virtual DateTime? CreatedDate { get; set; }
+        public virtual string CreatedUser { get; set; }
+        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual string ModifiedUser { get; set; }
     }
 }

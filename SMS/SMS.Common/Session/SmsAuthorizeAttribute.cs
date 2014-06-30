@@ -1,42 +1,35 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using SMS.Common.Constant;
 
 namespace SMS.Common.Session
 {
     public class SmsAuthorizeAttribute : AuthorizeAttribute
     {
+        private readonly string[] _roleName;
+        public SmsAuthorizeAttribute(params string[] roleName)
+        {
+            _roleName = roleName;
+            if (_roleName == null || _roleName.Length == 0)
+                _roleName = new[] { ConstRoleName.User };
+        }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var authorized = base.AuthorizeCore(httpContext);
-            if (!authorized)
+            if (SmsSystem.UserContext.UserID == 0)
             {
-                // The user is not authorized => no need to go any further
+                httpContext.Response.Redirect("~/Account/Login");
                 return false;
             }
 
-            // We have an authenticated user, let's get his username
-            string authenticatedUser = httpContext.User.Identity.Name;
-
+            if (!SmsSystem.UserContext.RoleNames.Intersect(_roleName.ToList()).Any())
+            {
+                httpContext.Response.Redirect("~");
+                return false;
+            }
 
             return true;
-        }
-
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-        {
-            if (filterContext.HttpContext.Items.Contains("redirectToCompleteProfile"))
-            {
-                var routeValues = new RouteValueDictionary(new
-                {
-                    controller = "someController",
-                    action = "someAction",
-                });
-                filterContext.Result = new RedirectToRouteResult(routeValues);
-            }
-            else
-            {
-                base.HandleUnauthorizedRequest(filterContext);
-            }
         }
     }
 }

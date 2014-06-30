@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Session
+﻿namespace Core.Common.Information
 {
     public class UserInformation
     {

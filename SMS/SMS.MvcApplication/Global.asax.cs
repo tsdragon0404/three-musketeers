@@ -10,7 +10,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
-using Core.Common.Session;
+using Core.Common.Information;
 using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -56,19 +56,6 @@ namespace SMS.MvcApplication
             AutofacRegister();
 
             MappingRegister();
-
-            // initialize user context - will move to login function
-            var userContext = new UserContext
-                                  {
-                                      UserID = 1,
-                                      UserName = "Lam Vu",
-                                      PageSize = 3,
-                                      IsSystemAdmin = true,
-                                      BranchID = 1,
-                                      DefaultAreaID = 0,
-                                      ListTableHeight = 65,
-                                  };
-            SmsSystem.UserContext = userContext;
 
             UserInformation.UserName = "Lam Vu";
 

@@ -7,6 +7,6 @@ namespace SMS.Common
         public static string CurrentTheme
         {
             get { return ConfigurationManager.AppSettings["theme"]; }
-        } 
+        }
     }
 }
