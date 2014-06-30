@@ -9,7 +9,7 @@ namespace SMS.Common.Session
         {
             get
             {
-                if (HttpContext.Current.Session[ConstSessionKey.UserContext] != null)
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.UserContext] != null)
                 {
                     return HttpContext.Current.Session[ConstSessionKey.UserContext] as UserContext;
                 }

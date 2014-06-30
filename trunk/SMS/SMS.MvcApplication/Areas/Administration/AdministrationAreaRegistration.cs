@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace SMS.MvcApplication.Areas.Administrator
+namespace SMS.MvcApplication.Areas.Administration
 {
-    public class AdministratorAreaRegistration : AreaRegistration
+    public class AdministrationAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "Administrator";
+                return "Administration";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Administrator_default",
-                "Administrator/{controller}/{action}/{id}",
+                "Administration_default",
+                "Administration/{controller}/{action}/{id}",
                 new { controller = "AdminHome", action = "Index", id = UrlParameter.Optional }
             );
         }

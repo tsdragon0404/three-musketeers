@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 
-namespace SMS.MvcApplication.Areas.Configuration.Controllers
+namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
-    public class ConfigurationHomeController : Controller
+    public class AdminHomeController : Controller
     {
         public ActionResult Index()
         {

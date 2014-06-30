@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using SMS.Common.Session;
@@ -39,9 +40,11 @@ namespace SMS.MvcApplication.Controllers
 
                 var user = response.Data;
                 SetSessionData(user);
-                FormsAuthentication.SetAuthCookie(user.ID.ToString(), true);
+                FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
+                return RedirectToAction("Index", "Home");
             }
-            return View();
+
+            return View(model);
         }
 
         private void SetSessionData(UserDto user)

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace SMS.MvcApplication.Areas.Configuration.Controllers
+namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
     public class GlobalLabelController : Controller
     {

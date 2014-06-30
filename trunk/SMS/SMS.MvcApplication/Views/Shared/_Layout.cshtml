@@ -49,8 +49,8 @@
                 <nav class="border-bottom">
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("Administrator", "Index", "AdminHome", new { area = "Administrator" }, null)</li>
-                        <li>@Html.ActionLink("Configuration", "Index", "ConfigurationHome", new { area = "Configuration" }, null)</li>
+                        <li>@Html.ActionLink("Branch Data", "Index", "DataHome", new { area = "Data" }, null)</li>
+                        <li>@Html.ActionLink("Administration", "Index", "AdminHome", new { area = "Administration" }, null)</li>
                         <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Kitchen", "Index", "Kitchen", new { area = "" }, null)</li>
                     </ul>
@@ -60,7 +60,7 @@
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
-                    @if(Request.IsAuthenticated)
+                    @if(Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
                     {
                         <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
                     }
@@ -113,13 +113,13 @@
         </div>
         <div id="body" class="border-left">
             <section>
-                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administrator")
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Data")
                 {
                     var adminMenu = new List<HyperlinkModel>
                                     {
-                                        new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Administrator" },
-                                        new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Administrator" },
-                                        new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Administrator" },
+                                        new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Data" },
+                                        new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Data" },
+                                        new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Data" },
                                     };
                     <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -146,11 +146,11 @@
                         });
                     </script>
                 }
-                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Configuration")
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administration")
                 {
                     var configMenu = new List<HyperlinkModel>
                                     {
-                                        new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Configuration" },
+                                        new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Administration" },
                                     };
                     <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
