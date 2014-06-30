@@ -1,6 +1,6 @@
 ﻿using SMS.Common.Paging;
 
-namespace SMS.MvcApplication.Areas.Administrator.Models
+namespace SMS.MvcApplication.Models
 {
     public class AdminModel<TDto>
     {

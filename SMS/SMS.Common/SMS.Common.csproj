@@ -56,7 +56,7 @@
     <Compile Include="Constant\ConstRoleName.cs" />
     <Compile Include="Constant\ReportDatasourceParameterType.cs" />
     <Compile Include="Constant\DiscountType.cs" />
-    <Compile Include="Constant\OrderStatus.cs" />
+    <Compile Include="Constant\ConstOrderStatus.cs" />
     <Compile Include="Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
