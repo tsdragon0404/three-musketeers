@@ -23,6 +23,9 @@ namespace SMS.Common.Session
                 return false;
             }
 
+            if (SmsSystem.UserContext.IsSystemAdmin)
+                return true;
+
             if (!SmsSystem.UserContext.RoleNames.Intersect(_roleName.ToList()).Any())
             {
                 httpContext.Response.Redirect("~");

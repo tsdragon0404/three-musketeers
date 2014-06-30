@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SMS.Common.Constant;
 
 namespace SMS.Common.Session
 {
@@ -8,6 +7,7 @@ namespace SMS.Common.Session
         public long UserID { get; set; }
         public string UserName { get; set; } 
         public string DisplayName { get; set; }
+        public bool IsSystemAdmin { get; set; }
         public List<string> RoleNames { get; set; }
 
         public int PageSize { get; set; }
@@ -21,15 +21,5 @@ namespace SMS.Common.Session
         public int ListTableHeight { get; set; }
 
         public Language Language { get; set; }
-
-        public bool IsSystemAdmin
-        {
-            get { return RoleNames != null && RoleNames.Contains(ConstRoleName.SystemAdmin); }
-        }
-
-        public bool IsBranchAdmin
-        {
-            get { return RoleNames != null && RoleNames.Contains(ConstRoleName.BranchAdmin); }
-        }
     }
 }

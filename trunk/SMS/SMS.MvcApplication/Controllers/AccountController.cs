@@ -59,6 +59,7 @@ namespace SMS.MvcApplication.Controllers
                                   UserID = user.ID,
                                   UserName = user.Username,
                                   DisplayName = user.Displayname,
+                                  IsSystemAdmin = user.IsSystemAdmin,
                                   RoleNames = user.Roles.Select(x => x.Name).ToList()
                               };
 

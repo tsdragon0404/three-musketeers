@@ -1,7 +1,7 @@
 ﻿table{
     margin: 0;
 }
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], select {
     width: 100%;
     padding: 1px 3px;
     border: 1px solid #ddd;
@@ -14,7 +14,7 @@ input{
     margin: 0;
 }
 
-input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover, input[type="password"]:focus{
+input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover, input[type="password"]:focus, select:hover, select:focus {
     border-color: #0af;
 }
 

@@ -11,6 +11,7 @@ namespace SMS.Data.Mapping
             Map(x => x.Password);
             Map(x => x.Displayname);
             Map(x => x.LastLoginDate);
+            Map(x => x.IsSystemAdmin);
             Map(x => x.IsLockedOut);
             Map(x => x.LastLockedOutDate);
             Map(x => x.FailedPasswordAttemptCount);
@@ -19,7 +20,7 @@ namespace SMS.Data.Mapping
                 .Cascade.All()
                 .Table("UsersInRole")
                 .ParentKeyColumn("UserID")
-                .ChildKeyColumn("UserRoleID")
+                .ChildKeyColumn("RoleID")
                 .Not.LazyLoad();
         }
     }
