@@ -1,15 +1,14 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
-using SMS.Common.Session;
+using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
-using SMS.MvcApplication.Filters;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Controllers
 {
-    [SmsAuthorize]
+    [SmsAuthorize(ConstPage.Kitchen)]
     public class KitchenController : BaseController
     {
         #region Fields
@@ -18,7 +17,7 @@ namespace SMS.MvcApplication.Controllers
 
         #endregion
 
-        [GetLabel(ConstPage.Kitchen)]
+        [PageID(ConstPage.Kitchen)]
         public ActionResult Index()
         {
             //var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();

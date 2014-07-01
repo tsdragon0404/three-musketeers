@@ -1,11 +1,12 @@
-﻿using SMS.Common.Session;
+﻿using SMS.Common.Constant;
+using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Data.Controllers
 {
-    [SmsAuthorize]
+    [SmsAuthorize(ConstPage.Data_Table)]
     public class TableController : AdminBaseController<TableDto, long, ITableService>
     {
         #region Fields

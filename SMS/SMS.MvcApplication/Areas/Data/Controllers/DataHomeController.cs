@@ -1,10 +1,11 @@
 ﻿using System.Web.Mvc;
-using SMS.Common.Session;
+using SMS.Common.Constant;
+using SMS.Common.CustomAttributes;
 using SMS.MvcApplication.Base;
 
 namespace SMS.MvcApplication.Areas.Data.Controllers
 {
-    [SmsAuthorize]
+    [SmsAuthorize(ConstPage.Data_Home)]
     public class DataHomeController : BaseController
     {
         public ActionResult Index()

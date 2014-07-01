@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -64,6 +65,12 @@ namespace SMS.MvcApplication.Controllers
                               };
 
             SmsSystem.UserContext = userContext;
+
+            var pageIds = new List<long>();
+            foreach (var roleDto in user.Roles)
+                pageIds.AddRange(roleDto.Pages.Select(x => x.ID));
+
+            SmsSystem.AllowPages = pageIds;
         }
 
         public ActionResult LogOff()
