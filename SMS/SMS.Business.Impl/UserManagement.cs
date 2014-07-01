@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using Core.Common.Validation;
 using SMS.Data;
@@ -14,7 +12,7 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
-        public virtual IRoleRepository RoleRepository { get; set; }
+        public virtual IUsersInRoleRepository UsersInRoleRepository { get; set; }
 
         #endregion
 
@@ -32,20 +30,22 @@ namespace SMS.Business.Impl
 
         public override ServiceResult<UserDto> Save(UserDto dto)
         {
-            if (dto.ID != 0)
+            var roleIds = dto.Roles.Select(x => x.ID).ToList();
+            dto.Roles.Clear();
+
+            var result = base.Save(dto);
+
+            var roles = UsersInRoleRepository.Find(x => x.UserID == result.Data.ID).ToList();
+            foreach (var role in roles)
             {
-                var domainUser = Repository.Get(dto.ID);
-                domainUser.Roles.Clear();
-                Repository.Merge(domainUser);
+                UsersInRoleRepository.Delete(role.ID);
+            }
+            foreach (var roleId in roleIds)
+            {
+                UsersInRoleRepository.Add(new UsersInRole { RoleID = roleId, UserID = result.Data.ID });
             }
 
-            if (dto.Roles.Any())
-            {
-                var roleIds = dto.Roles.Select(x => x.ID).ToList();
-                dto.Roles = Mapper.Map<List<RoleDto>>(RoleRepository.Find(x => roleIds.Contains(x.ID)).ToList());
-            }
-
-            return base.Save(dto);
+            return result;
         }
     }
 }
