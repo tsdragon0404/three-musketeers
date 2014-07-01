@@ -54,15 +54,20 @@
                             }
                         </select>
                     </div>
-                    <div class="three columns">
+                    <div class="three columns center">
+                        <button id="addPages-${ID}" class="assignButton">></button>
+                        <button id="addAllPages-${ID}" class="assignButton">>></button>
+                        <button id="removeAllPages-${ID}" class="assignButton"><<</button>
+                        <button id="removePages-${ID}" class="assignButton"><</button>
                     </div>
                     <div class="three columns">
                         <select name="assignedPages" id="assignedPages-${ID}" multiple="multiple" size="4">
                             {{each Pages}}
-                                <option value="${ID}">${VNTitle}/${ENTitle}</option>
+                            <option value="${ID}">${VNTitle}/${ENTitle}</option>
                             {{/each}}
                         </select>
                     </div>
+                    {{html buildScriptForAssignListBox(ID)}}
                 </div>
                 <div class="row">
                     <div class="eleven columns right">
@@ -73,6 +78,17 @@
             </div>
         </td>
     </tr>
+</script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalPages-' + id + '", "' + 'assignedPages-' + id + '", "' + 'addPages-' + id + '", "' + 'removePages-' + id + '", "' + 'addAllPages-' + id + '", "' + 'removeAllPages-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+             + 'var listBox = new AssignListBox(' + param + ');'
+             + 'listBox.bindEvents();'
+             + '</sc' + 'ript>';
+    }
 </script>
 
 <div id="admin-body">
@@ -139,11 +155,18 @@
             });
 
             function getAreaForSave(recordID) {
+                var pages = Array();
+
+                $('#assignedPages-' + recordID + ' option').each(function (idx, e) {
+                    pages.push({ ID: $(e).val() });
+                });
+
                 var data = {
                     ID: recordID,
                     Name: $('#name-' + recordID).val(),
                     BranchID: $('#branchID-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
+                    Pages: pages
                 };
                 return data;
             }

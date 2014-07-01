@@ -1,4 +1,6 @@
-﻿namespace SMS.Data.Dtos
+﻿using System.Collections.Generic;
+
+namespace SMS.Data.Dtos
 {
     public class PageDto
     {
@@ -8,5 +10,7 @@
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
         public virtual string Path { get; set; }
+        public virtual IList<PageLabelDto> PageLabels { get; set; }
+        public virtual IList<RoleDto> RolesHasPermission { get; set; }
     }
 }

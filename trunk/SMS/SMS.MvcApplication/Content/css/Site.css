@@ -432,6 +432,9 @@ label.ui-state-error {
 .edit-record {
     
 }
+.assignButton {
+    width: 50px;
+}
 #record-table .ui-state-active {
     border-bottom: none;
 }

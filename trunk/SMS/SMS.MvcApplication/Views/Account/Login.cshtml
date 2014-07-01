@@ -8,9 +8,9 @@
 {
     @Html.AntiForgeryToken()
     @Html.LabelFor(x => x.Username)
-    @Html.TextBoxFor(x => x.Username)
+    @Html.TextBoxFor(x => x.Username, new { @Value = "system"})
     @Html.LabelFor(x => x.Password)
-    @Html.PasswordFor(x => x.Password)
+    @Html.PasswordFor(x => x.Password, new { @Value = "123"})
 
     <input type="submit" value="submit" />
 }
