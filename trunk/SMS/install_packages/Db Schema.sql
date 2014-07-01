@@ -811,9 +811,16 @@ DELETE FROM dbo.Page
 GO
 INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Path )
 VALUES 
+( 0, N'Global', N'Global', N'Global', N'Global', N'' ),
 ( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', N'' ),
 ( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' ),
-( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', N'/Kitchen' )
+( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', N'/Kitchen' ),
+( 4, N'Tài khoản', N'Account', N'Tài khoản', N'Account', N'/Account' ),
+( 5, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', N'/Reports/ReportViewer.aspx' ),
+( 20, N'Admin', N'Admin', N'Admin', N'Admin', N'/Administration' ),
+( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'/Administration/GlobalLabel' ),
+( 22, N'Role', N'Role', N'Role', N'Role', N'/Administration/Role' ),
+( 23, N'User', N'User', N'User', N'User', N'/Administration/User' )
 GO
 
 DELETE FROM dbo.OrderStatus
