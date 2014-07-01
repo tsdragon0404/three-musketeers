@@ -18,25 +18,6 @@ namespace SMS.Business.Impl
 
         public override ServiceResult<RoleDto> Save(RoleDto dto)
         {
-            //if (dto.ID != 0)
-            //{
-            //    var domainRole = Repository.Get(dto.ID);
-            //    domainRole.Pages.Clear();
-            //}
-
-            //if (dto.Pages.Any())
-            //{
-            //    foreach (var pageDto in dto.Pages)
-            //    {
-            //        var domainPage = PageRepository.Get(pageDto.ID);
-            //        pageDto.VNTitle = domainPage.VNTitle;
-            //        pageDto.VNDescription = domainPage.VNDescription;
-            //        pageDto.ENTitle = domainPage.ENTitle;
-            //        pageDto.ENDescription = domainPage.ENDescription;
-            //        pageDto.Path = domainPage.Path;
-            //    }
-            //}
-
             var pageIds = dto.Pages.Select(x => x.ID).ToList();
             dto.Pages.Clear();
             
