@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using SMS.Common.Constant;
 
 namespace SMS.Common.Session
@@ -21,5 +22,22 @@ namespace SMS.Common.Session
                 HttpContext.Current.Session[ConstSessionKey.UserContext] = value;
             }
         } 
+
+        public static List<long> AllowPages
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.RolePermission] != null)
+                {
+                    return HttpContext.Current.Session[ConstSessionKey.RolePermission] as List<long>;
+                }
+
+                return new List<long>();
+            }
+            set
+            {
+                HttpContext.Current.Session[ConstSessionKey.RolePermission] = value;
+            }
+        }
     }
 }
