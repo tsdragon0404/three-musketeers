@@ -72,10 +72,6 @@ namespace Core.Data.NHibernate
                 ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
                 ((IAuditableEntity)entity).CreatedUser = UserInformation.UserName;
             }
-            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)))
-            {
-                ((IEnableEntity)entity).Enable = true;
-            }
 
             Session.Save(entity);
         }

@@ -9,11 +9,11 @@ namespace SMS.Data.Mapping
         {
             Table("Page");
             Id(x => x.ID).Column("PageID");
-            Map(x => x.VNTitle).Not.Update();
-            Map(x => x.ENTitle).Not.Update();
-            Map(x => x.VNDescription).Not.Update();
-            Map(x => x.ENDescription).Not.Update();
-            Map(x => x.Path).Not.Update();
+            Map(x => x.VNTitle);
+            Map(x => x.ENTitle);
+            Map(x => x.VNDescription);
+            Map(x => x.ENDescription);
+            Map(x => x.Path);
             HasMany(x => x.PageLabels).KeyColumn("PageLabelID").Inverse();
         }
     }
