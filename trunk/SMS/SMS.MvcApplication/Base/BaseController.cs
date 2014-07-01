@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using SMS.Common.CustomAttributes;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
-using SMS.MvcApplication.Filters;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -27,10 +27,10 @@ namespace SMS.MvcApplication.Base
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var attribute = filterContext.ActionDescriptor.GetFilterAttributes(false).FirstOrDefault();
-            if(attribute != null && (attribute as GetLabelAttribute) != null)
+            var attribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PageIDAttribute), false).FirstOrDefault();
+            if(attribute != null && (attribute as PageIDAttribute) != null)
             {
-                var pageID = (attribute as GetLabelAttribute).PageID;
+                var pageID = (attribute as PageIDAttribute).PageID;
                 var viewResult = filterContext.Result as ViewResult;
                 if (viewResult != null)
                 {

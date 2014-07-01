@@ -1,11 +1,12 @@
-﻿using SMS.Common.Session;
+﻿using SMS.Common.Constant;
+using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
-    [SmsAuthorize]
+    [SmsAuthorize(ConstPage.Admin_User)]
     public class UserController : AdminBaseController<UserDto, long, IUserService>
     {
         #region Fields
