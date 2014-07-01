@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUsersInRoleRepository.cs" />
     <Compile Include="IRolePermissionRepository.cs" />
     <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUserRepository.cs" />
