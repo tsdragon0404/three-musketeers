@@ -796,6 +796,7 @@
     <Content Include="Reports\ReportViewer.aspx" />
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
+    <Content Include="Scripts\assignListBox.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.min.js" />
     <Content Include="Scripts\payment-popup.js" />
