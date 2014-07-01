@@ -53,10 +53,10 @@
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\ConstReport.cs" />
     <Compile Include="Constant\ConstSessionKey.cs" />
-    <Compile Include="Constant\ConstRoleName.cs" />
     <Compile Include="Constant\ReportDatasourceParameterType.cs" />
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Constant\ConstOrderStatus.cs" />
+    <Compile Include="CustomAttributes\PageIDAttribute.cs" />
     <Compile Include="Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Session\Language.cs" />
-    <Compile Include="Session\SmsAuthorizeAttribute.cs" />
+    <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
     <Compile Include="Session\SmsSystem.cs" />
     <Compile Include="Session\UserContext.cs" />
   </ItemGroup>

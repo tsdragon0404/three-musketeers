@@ -9,10 +9,14 @@
         public const int Account = 4;
         public const int ReportViewer = 5;
 
-        public const int AdminHome = 20;
-        public const int GlobalLabel = 21;
-        public const int Role = 22;
-        public const int User = 23;
+        public const int Admin_Home = 20;
+        public const int Admin_GlobalLabel = 21;
+        public const int Admin_Role = 22;
+        public const int Admin_User = 23;
 
+        public const int Data_Home = 40;
+        public const int Data_Area= 41;
+        public const int Data_Table = 42;
+        public const int Data_ProductCategory = 43;
     }
 }
