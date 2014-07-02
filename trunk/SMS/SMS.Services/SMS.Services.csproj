@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBranchService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="IReportService.cs" />

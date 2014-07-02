@@ -1,0 +1,22 @@
+﻿@model SMS.MvcApplication.Models.SelectBranchModel
+@{
+    ViewBag.Title = "SelectBranch";
+}
+
+<h2>SelectBranch</h2>
+@using (Html.BeginForm("SelectBranch", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.SelectedBranchID, new { @Id = "selectedBranchId" })
+    foreach (var branch in Model.Branches)
+    {
+        <a id="branchSelect-@branch.ID" data-id="@branch.ID" href="#">@branch.Name</a>
+    }
+}
+<script type="text/javascript">
+    $('a[id^="branchSelect-"]').click(function () {
+        $('#selectedBranchId').val($(this).attr('data-id'));
+        $(this).closest("form").submit();
+        return false;
+    });
+</script>

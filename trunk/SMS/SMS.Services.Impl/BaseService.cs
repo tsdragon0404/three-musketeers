@@ -48,5 +48,10 @@ namespace SMS.Services.Impl
         {
             return Management.Delete(primaryKey);
         }
+
+        public ServiceResult CheckExisted(TPrimaryKey primaryKey)
+        {
+            return Management.CheckExisted(primaryKey);
+        }
     }
 }

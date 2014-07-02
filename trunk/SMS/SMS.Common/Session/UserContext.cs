@@ -11,7 +11,6 @@ namespace SMS.Common.Session
         public List<string> RoleNames { get; set; }
 
         public int PageSize { get; set; }
-        public int BranchID { get; set; }
 
         public long DefaultAreaID { get; set; }
 

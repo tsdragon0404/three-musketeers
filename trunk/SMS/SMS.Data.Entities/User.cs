@@ -27,6 +27,8 @@ namespace SMS.Data.Entities
 
         public virtual IList<Role> Roles { get; set; }
 
+        public virtual IList<Branch> Branches { get; set; }
+
         #region Implementation of IAuditableEntity
 
         public virtual DateTime? CreatedDate { get; set; }

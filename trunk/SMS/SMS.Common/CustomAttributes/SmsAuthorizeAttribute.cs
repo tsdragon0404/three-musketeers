@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 
 namespace SMS.Common.CustomAttributes
@@ -20,7 +21,7 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
-            return SmsSystem.UserContext.IsSystemAdmin || SmsSystem.AllowPages.Contains(pageID);
+            return SmsSystem.UserContext.IsSystemAdmin || pageID == ConstPage.Global || SmsSystem.AllowPageIDs.Contains(pageID);
         }
     }
 }

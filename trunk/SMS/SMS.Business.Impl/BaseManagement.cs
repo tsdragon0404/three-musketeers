@@ -76,7 +76,11 @@ namespace SMS.Business.Impl
         {
             return ServiceResult.CreateResult(Repository.Delete(primaryKey));
         }
-
+        
+        public virtual ServiceResult CheckExisted(TPrimaryKey primaryKey)
+        {
+            return ServiceResult.CreateResult(Repository.Get(primaryKey) != null);
+        }
         #endregion
     }
 }
