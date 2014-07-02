@@ -1,11 +1,20 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<UserDto>
 @{
     ViewBag.Title = "Index";
 }
+@{
+    var numberOfColumns = 5;
+    if (SmsSystem.UserContext.IsSystemAdmin)
+    {
+        numberOfColumns = 6;
+    }
+}
+
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="6">
+        <td colspan="@numberOfColumns">
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right">
@@ -39,18 +48,21 @@
                         {{/if}}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="three columns right">
-                        Is system admin
+                @if (SmsSystem.UserContext.IsSystemAdmin)
+                {
+                    <div class="row">
+                        <div class="three columns right">
+                            Is system admin
+                        </div>
+                        <div class="three columns">
+                            {{if IsSystemAdmin == true}}
+                            <input type="checkbox" name="systemAdmin" checked id="systemAdmin-${ID}"/>
+                            {{else}}
+                            <input type="checkbox" name="systemAdmin" id="systemAdmin-${ID}"/>
+                            {{/if}}
+                        </div>
                     </div>
-                    <div class="three columns">
-                        {{if IsSystemAdmin == true}}
-                        <input type="checkbox" name="systemAdmin" checked id="systemAdmin-${ID}"/>
-                        {{else}}
-                        <input type="checkbox" name="systemAdmin" id="systemAdmin-${ID}"/>
-                        {{/if}}
-                    </div>
-                </div>
+                }
                 <div class="row">
                     <div class="three columns right">
                         Pages
@@ -123,7 +135,10 @@
                 <col style="width: 60px;" />
                 <col />
                 <col />
-                <col style="width: 110px;" />
+                @if (SmsSystem.UserContext.IsSystemAdmin)
+                {
+                    <col style="width: 110px;" />
+                }
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
@@ -132,7 +147,10 @@
                     <th>No</th>
                     <th>User name</th>
                     <th>Display name</th>
-                    <th>System admin</th>
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
+                    {
+                        <th>System admin</th>
+                    }
                     <th>Locked</th>
                 </tr>
             </thead>
@@ -148,7 +166,10 @@
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.Username</td>
                         <td>@dto.Displayname</td>
-                        <td>@dto.IsSystemAdmin</td>
+                        @if (SmsSystem.UserContext.IsSystemAdmin)
+                        {
+                            <td>@dto.IsSystemAdmin</td>
+                        }
                         <td>@dto.IsLockedOut</td>
                     </tr>
                 }
@@ -157,7 +178,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="5"></td>
+                    <td colspan="@(numberOfColumns - 1)"></td>
                 </tr>
             </tfoot>
         </table>
@@ -187,7 +208,12 @@
                     Username: $('#username-' + recordID).val(),
                     Password: $('#password-' + recordID).val(),
                     Displayname: $('#displayname-' + recordID).val(),
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
+                    {
+                        <text>
                     IsSystemAdmin: $('#systemAdmin-' + recordID).prop('checked'),
+                        </text>
+                    }
                     IsLockedOut: $('#locked-' + recordID).prop('checked'),
                     Roles: roles
                 };
