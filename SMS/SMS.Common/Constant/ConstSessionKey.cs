@@ -3,6 +3,7 @@
     public class ConstSessionKey
     {
         public static string UserContext = "UserContext";
-        public static string RolePermission = "RolePermission";
+        public static string AllowRoles = "AllowRoleIds";
+        public static string SelectedBranchID = "SelectedBranchID";
     }
 }

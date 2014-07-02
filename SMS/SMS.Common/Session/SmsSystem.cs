@@ -23,20 +23,37 @@ namespace SMS.Common.Session
             }
         } 
 
-        public static List<long> AllowPages
+        public static List<long> AllowPageIDs
         {
             get
             {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.RolePermission] != null)
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.AllowRoles] != null)
                 {
-                    return HttpContext.Current.Session[ConstSessionKey.RolePermission] as List<long>;
+                    return HttpContext.Current.Session[ConstSessionKey.AllowRoles] as List<long>;
                 }
 
                 return new List<long>();
             }
             set
             {
-                HttpContext.Current.Session[ConstSessionKey.RolePermission] = value;
+                HttpContext.Current.Session[ConstSessionKey.AllowRoles] = value;
+            }
+        }
+
+        public static long SelectedBranchID
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.SelectedBranchID] != null)
+                {
+                    return (long)HttpContext.Current.Session[ConstSessionKey.SelectedBranchID];
+                }
+
+                return 0;
+            }
+            set
+            {
+                HttpContext.Current.Session[ConstSessionKey.SelectedBranchID] = value;
             }
         }
     }

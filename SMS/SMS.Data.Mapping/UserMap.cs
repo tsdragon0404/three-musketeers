@@ -22,6 +22,13 @@ namespace SMS.Data.Mapping
                 .ParentKeyColumn("UserID")
                 .ChildKeyColumn("RoleID")
                 .Not.LazyLoad();
+
+            HasManyToMany(x => x.Branches)
+                .Cascade.All()
+                .Table("UserBranch")
+                .ParentKeyColumn("UserID")
+                .ChildKeyColumn("BranchID").ChildWhere(x => x.Enable)
+                .Not.LazyLoad();
         }
     }
 }

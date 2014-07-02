@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="AreaService.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="BranchService.cs" />
     <Compile Include="RoleService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="ReportService.cs" />

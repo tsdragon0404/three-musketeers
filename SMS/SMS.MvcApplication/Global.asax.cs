@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,12 +16,10 @@ using Core.Common.Information;
 using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using FluentNHibernate.Utils;
 using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
 using SMS.Common.Message;
-using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Services;
 
@@ -31,7 +28,7 @@ namespace SMS.MvcApplication
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         #region Fields
 
@@ -60,8 +57,6 @@ namespace SMS.MvcApplication
             AutofacRegister();
 
             MappingRegister();
-
-            UserInformation.UserName = "Lam Vu";
 
             BranchConfig.UseServiceFee = true;
             BranchConfig.ServiceFee = 20000;

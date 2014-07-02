@@ -8,6 +8,7 @@
         public const int Kitchen = 3;
         public const int Account = 4;
         public const int ReportViewer = 5;
+        //public const int SelectBranch = 6;
 
         public const int Admin_Home = 20;
         public const int Admin_GlobalLabel = 21;

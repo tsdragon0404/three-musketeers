@@ -29,6 +29,13 @@ namespace SMS.Data.Mapping
             Map(x => x.Info8);
             Map(x => x.Info9);
             Map(x => x.Info10);
+
+            HasManyToMany(x => x.UsersInBranch)
+                .Cascade.All()
+                .Table("UserBranch")
+                .ParentKeyColumn("BranchID")
+                .ChildKeyColumn("UserID")
+                .Not.LazyLoad();
         }
     }
 }

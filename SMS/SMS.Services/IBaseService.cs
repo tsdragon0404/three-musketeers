@@ -13,6 +13,7 @@ namespace SMS.Services
         ServiceResult<TDto> GetByID(TPrimaryKey primaryKey);
         ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey);
         ServiceResult<TDto> Save(TDto dto);
-        ServiceResult Delete(TPrimaryKey primaryKey); 
+        ServiceResult Delete(TPrimaryKey primaryKey);
+        ServiceResult CheckExisted(TPrimaryKey primaryKey); 
     }
 }

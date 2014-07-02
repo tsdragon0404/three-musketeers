@@ -9,6 +9,10 @@ namespace SMS.Common.AutoMapper
     {
         public static void Register()
         {
+            Mapper.CreateMap<Branch, LanguageBranchBasicDto>()
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    SmsSystem.UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
+
             Mapper.CreateMap<Area, LanguageAreaDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     SmsSystem.UserContext.Language == Language.Vietnamese ? z.VNName : z.ENName));
