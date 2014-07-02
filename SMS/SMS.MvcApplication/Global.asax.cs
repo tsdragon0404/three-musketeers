@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -14,6 +17,7 @@ using Core.Common.Information;
 using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Utils;
 using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
@@ -84,6 +88,39 @@ namespace SMS.MvcApplication
 
         }
 
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            LogError(exception);
+            
+            var httpException = exception as HttpException;
+
+            if (httpException != null)
+            {
+                string action;
+
+                switch (httpException.GetHttpCode())
+                {
+                    case 404:
+                        // page not found
+                        action = "HttpError404";
+                        break;
+                    case 500:
+                        // server error
+                        action = "HttpError500";
+                        break;
+                    default:
+                        action = "General";
+                        break;
+                }
+
+                // clear error on server
+                Server.ClearError();
+
+                //Response.Redirect(String.Format("~/Error/{0}/?message={1}", action, exception.Message));
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -134,6 +171,25 @@ namespace SMS.MvcApplication
             LanguageDtoMappingRegister.Register();
         }
 
+        private void LogError(Exception exception)
+        {
+            var path = Server.MapPath("~") + "\\Logs\\";
+            var filename = string.Format("log-{0}.txt", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"));
+            var writer = File.CreateText(path + filename);
+
+            var errorString = "Exception:" + exception.Message;
+            errorString += "\nStack trace:\n" + exception.StackTrace;
+
+            while (exception.InnerException != null)
+            {
+                exception = exception.InnerException;
+                errorString += "\n\nInner exception:\n" + exception.Message;
+                errorString += "\nStack trace:\n" + exception.StackTrace;
+            }
+
+            writer.Write(errorString);
+            writer.Close();
+        }
         #endregion
     }
 }
