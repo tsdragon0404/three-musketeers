@@ -28,7 +28,7 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
         {
-            var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch));
+            var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch, null));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
@@ -38,7 +38,7 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
         {
-            var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch));
+            var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, null));
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = SmsSystem.UserContext.PageSize;

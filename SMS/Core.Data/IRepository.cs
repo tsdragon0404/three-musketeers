@@ -77,9 +77,10 @@ namespace Core.Data
         /// Finds entities by text and AllowSearchAttribute.
         /// </summary>
         /// <param name="textSearch">The text to search.</param>
+        /// <param name="predicate">The predicate to search.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
-        IEnumerable<TEntity> FindByString(string textSearch,
+        IEnumerable<TEntity> FindByString(string textSearch, Expression<Func<TEntity, bool>> predicate,
                                           params Expression<Func<TEntity, object>>[] fetchSelectors);
         
         /// <summary>

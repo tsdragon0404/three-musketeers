@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using AutoMapper;
 using Core.Common.Validation;
+using SMS.Common.Paging;
+using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -29,6 +34,9 @@ namespace SMS.Business.Impl
 
         public override ServiceResult<UserDto> Save(UserDto dto)
         {
+            if (!SmsSystem.UserContext.IsSystemAdmin)
+                dto.IsSystemAdmin = false;
+
             var roleIds = dto.Roles.Select(x => x.ID).ToList();
             dto.Roles.Clear();
 
@@ -45,6 +53,20 @@ namespace SMS.Business.Impl
             }
 
             return result;
+        }
+
+        public override ServiceResult<IPagedList<UserDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        {
+            Expression<Func<User, bool>> predicate = x => !x.IsSystemAdmin;
+            if (SmsSystem.UserContext.IsSystemAdmin)
+                predicate = null;
+
+            var filteredRecords = Mapper.Map<IList<UserDto>>(Repository.FindByString(textSearch, predicate));
+
+            pagingInfo.TotalItemCount = filteredRecords.Count();
+            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
+
+            return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
         }
     }
 }

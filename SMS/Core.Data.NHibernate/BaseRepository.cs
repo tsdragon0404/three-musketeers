@@ -131,11 +131,12 @@ namespace Core.Data.NHibernate
         /// Finds entities by text and AllowSearchAttribute.
         /// </summary>
         /// <param name="textSearch">The text to search.</param>
+        /// <param name="predicate">The predicate to search.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
-        public IEnumerable<TEntity> FindByString(string textSearch, params Expression<Func<TEntity, object>>[] fetchSelectors)
+        public IEnumerable<TEntity> FindByString(string textSearch, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
-            var entities = Fetches(Session.Query<TEntity>(), fetchSelectors);
+            var entities = Fetches(GetQuery(predicate), fetchSelectors);
 
             if (textSearch.IsNullOrEmpty())
                 return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
