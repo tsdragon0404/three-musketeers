@@ -57,6 +57,7 @@
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Constant\ConstOrderStatus.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
+    <Compile Include="Message\Message.cs" />
     <Compile Include="Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
