@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using SMS.Common.Session;
 
 namespace SMS.Common.Message
 {
     public class SystemMessages
     {
-        private static Dictionary<long, string> messages;
+        private static List<Message> messages;
 
-        public static void Initialize(Dictionary<long, string> errorMessages)
+        public static bool IsInitialized { get; set; }
+
+        public static void Initialize(List<Message> errorMessages)
         {
             messages = errorMessages;
+            IsInitialized = true;
         }
 
         public static string Get(long id)
         {
-            return messages.ContainsKey(id) ? messages[id] : string.Empty;
-        }
-
-        public static void Update(long id, string message)
-        {
-            if (messages.ContainsKey(id))
-                messages[id] = message;
-            else
-                messages.Add(id, message);
+            return messages.Exists(x => x.ID == id) && IsInitialized
+                ? SmsSystem.UserContext.Language == Language.Vietnamese ? messages.First(x => x.ID == id).VNText : messages.First(x => x.ID == id).ENText
+                : string.Empty;
         }
     }
 }

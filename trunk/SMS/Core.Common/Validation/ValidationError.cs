@@ -2,7 +2,6 @@
 {
     public class ValidationError
     {
-        public string Property { get; set; }
         public string OriginalMessage { get; set; }
         public object[] FormatArgs { get; set; }
 
@@ -11,9 +10,8 @@
             get { return string.Format(OriginalMessage, FormatArgs); }
         }
 
-        public ValidationError(string property, string originalMessage, params object[] args)
+        public ValidationError(string originalMessage, params object[] args)
         {
-            Property = property;
             OriginalMessage = originalMessage;
             FormatArgs = args;
         }

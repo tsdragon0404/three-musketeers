@@ -38,8 +38,8 @@ namespace SMS.MvcApplication.Controllers
                 var response = UserService.Get<UserDto>(model.Username, model.Password);
                 if (!response.Success)
                 {
-                    // handle error
-                    ModelState.AddModelError(response.Errors[0].Property, response.Errors[0].ErrorMessage);
+                    model.ShowError = true;
+                    model.ErrorMessage = "No branch available for this user. Please contact administrator.";
                     return View(model);
                 }
 
