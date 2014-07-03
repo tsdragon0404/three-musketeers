@@ -15,13 +15,13 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public override ServiceResult<IList<ErrorMessageDto>> GetAll()
+        public ServiceResult<IList<ErrorMessageDto>> GetMessagesForSelectedBranch()
         {
             return ServiceResult<IList<ErrorMessageDto>>.CreateSuccessResult(
                 Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID).ToList()));
        
         }
-        public override ServiceResult<IList<TModel>> GetAll<TModel>()
+        public ServiceResult<IList<TModel>> GetMessagesForSelectedBranch<TModel>()
         {
             return ServiceResult<IList<TModel>>.CreateSuccessResult(
                 Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID).ToList()));

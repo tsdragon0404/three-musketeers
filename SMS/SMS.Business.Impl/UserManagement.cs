@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using Core.Common.Validation;
+using SMS.Common.Constant;
+using SMS.Common.Message;
 using SMS.Common.Paging;
 using SMS.Common.Session;
 using SMS.Data;
@@ -24,10 +26,10 @@ namespace SMS.Business.Impl
         {
             var user = Repository.FindOne(x => x.Username == username && x.Password == password);
             if(user == null)
-                return ServiceResult<TModel>.CreateFailResult(new ValidationError("username or password", "username or password incorrect"));
+                return ServiceResult<TModel>.CreateFailResult(new ValidationError(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid)));
 
             if(user.IsLockedOut)
-                return ServiceResult<TModel>.CreateFailResult(new ValidationError("user", "This user is temporary locked, please contact admin"));
+                return ServiceResult<TModel>.CreateFailResult(new ValidationError(SystemMessages.Get(ConstMessageIds.Login_UserLocked)));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }
