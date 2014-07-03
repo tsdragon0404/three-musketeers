@@ -3,6 +3,12 @@
 EXEC sp_rename 'User', 'UserProfile'
 EXEC sp_rename N'UserProfile.PK_User', N'PK_UserProfile', N'INDEX'; 
 
+IF EXISTS (SELECT * 
+  FROM sys.foreign_keys 
+   WHERE object_id = OBJECT_ID(N'FK_UserBranch_User')
+   AND parent_object_id = OBJECT_ID(N'UserBranch')
+)
+  ALTER TABLE [UserBranch] DROP CONSTRAINT [FK_UserBranch_User]
 
 /****** Object:  Table [dbo].[User]    Script Date: 06/27/2014 16:35:41 ******/
 SET ANSI_NULLS ON
@@ -48,6 +54,12 @@ GO
 ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_FailedPasswordAttemptCount]  DEFAULT ((0)) FOR [FailedPasswordAttemptCount]
 GO
 
+ALTER TABLE [dbo].[UserBranch]  WITH CHECK ADD  CONSTRAINT [FK_UserBranch_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+ALTER TABLE [dbo].[UserBranch] CHECK CONSTRAINT [FK_UserBranch_User]
+GO
 
 
 CREATE TABLE [dbo].[Role](
@@ -71,6 +83,10 @@ CREATE TABLE [dbo].[UsersInRole](
 	[UsersInRoleID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
 	[RoleID] [int] NOT NULL,
+  [CreatedDate] [datetime] NULL,
+	[CreatedUser] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	[ModifiedUser] [varchar](50) NULL,
  CONSTRAINT [PK_UsersInRole] PRIMARY KEY CLUSTERED 
 (
 	[UsersInRoleID] ASC
@@ -97,6 +113,10 @@ CREATE TABLE [dbo].[RolePermission](
 	[RolePermissionID] [bigint] IDENTITY(1,1) NOT NULL,
 	[RoleID] [int] NOT NULL,
 	[PageID] [int] NOT NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedUser] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	[ModifiedUser] [varchar](50) NULL,
  CONSTRAINT [PK_RolePermission] PRIMARY KEY CLUSTERED 
 (
 	[RolePermissionID] ASC
