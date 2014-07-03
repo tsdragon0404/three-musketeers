@@ -6,6 +6,7 @@ using System.Web.Security;
 using Core.Common.Information;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Message;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
@@ -18,6 +19,7 @@ namespace SMS.MvcApplication.Controllers
     {
         public IUserService UserService { get; set; }
         public IBranchService BranchService { get; set; }
+        public IErrorMessageService ErrorMessageService { get; set; }
 
         public ActionResult Index()
         {
@@ -39,7 +41,7 @@ namespace SMS.MvcApplication.Controllers
                 if (!response.Success)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = "No branch available for this user. Please contact administrator.";
+                    model.ErrorMessage = response.Errors[0].ErrorMessage;
                     return View(model);
                 }
 
@@ -50,7 +52,7 @@ namespace SMS.MvcApplication.Controllers
                 if (!user.Branches.Any() && !user.IsSystemAdmin)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = "No branch available for this user. Please contact administrator.";
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoBranchAvailable);
                     return View(model);
                 }
 
@@ -58,6 +60,8 @@ namespace SMS.MvcApplication.Controllers
                     return RedirectToAction("SelectBranch");
 
                 SmsSystem.SelectedBranchID = user.Branches[0].ID;
+                
+                SystemMessages.Initialize(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.ID, x.VNMessage, x.ENMessage)).ToList());
 
                 return RedirectToAction("Index", "Home");
             }
