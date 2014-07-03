@@ -21,6 +21,12 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
+            if(SmsSystem.SelectedBranchID <= 0)
+            {
+                httpContext.Response.Redirect("~/Account/SelectBranch");
+                return false;
+            }
+
             return SmsSystem.UserContext.IsSystemAdmin || pageID == ConstPage.Global || SmsSystem.AllowPageIDs.Contains(pageID);
         }
     }
