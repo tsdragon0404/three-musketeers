@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPageMenuManagement.cs" />
     <Compile Include="IBranchManagement.cs" />
     <Compile Include="IRoleManagement.cs" />
     <Compile Include="IUserManagement.cs" />

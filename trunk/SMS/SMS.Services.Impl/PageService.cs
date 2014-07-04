@@ -15,5 +15,15 @@ namespace SMS.Services.Impl
         {
             return Management.GetAllWithoutGlobal();
         }
+
+        public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
+        {
+            return Management.GetAccessiblePagesForUser();
+        }
+
+        public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
+        {
+            return Management.GetAccessiblePagesForUser<TModel>();
+        }
     }
 }

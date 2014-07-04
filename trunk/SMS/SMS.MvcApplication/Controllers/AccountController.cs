@@ -3,10 +3,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Core.Common;
 using Core.Common.Information;
 using SMS.Common.Constant;
-using SMS.Common.CustomAttributes;
 using SMS.Common.Message;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
@@ -24,6 +22,9 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult Login()
         {
+            if (SmsSystem.UserContext.UserID != 0)
+                return RedirectToAction("Index", "Home");
+
             SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
             var branches = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem {Value = x.ID.ToString(), Text = x.Name}).ToList();
             return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
@@ -46,7 +47,7 @@ namespace SMS.MvcApplication.Controllers
                 if (!user.Branches.Select(x => x.ID).Contains(model.SelectedBranch) && !user.IsSystemAdmin)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = "ko co quyen vao branch nay";
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
                 }
 
                 if (model.ShowError)
@@ -101,28 +102,28 @@ namespace SMS.MvcApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        [SmsAuthorize(ConstPage.Global, true)]
-        public ActionResult SelectBranch()
-        {
-            var branches = BranchService.GetAssignedBranchesForUser<LanguageBranchBasicDto>().Data;
-            return View(new SelectBranchModel { Branches = branches });
-        }
+        //[SmsAuthorize(ConstPage.Global, true)]
+        //public ActionResult SelectBranch()
+        //{
+        //    var branches = BranchService.GetAssignedBranchesForUser<LanguageBranchBasicDto>().Data;
+        //    return View(new SelectBranchModel { Branches = branches });
+        //}
 
-        [HttpPost]
-        [SmsAuthorize(ConstPage.Global, true)]
-        [ValidateAntiForgeryToken]
-        public ActionResult SelectBranch(SelectBranchModel model)
-        {
-            var checkResult = BranchService.CheckExisted(model.SelectedBranchID);
-            if(!checkResult.Success)
-            {
-                // handle error
-                ModelState.AddModelError("BranchID", "The selected branch does not existed. Please contact administrator.");
-                return View(model);
-            }
+        //[HttpPost]
+        //[SmsAuthorize(ConstPage.Global, true)]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult SelectBranch(SelectBranchModel model)
+        //{
+        //    var checkResult = BranchService.CheckExisted(model.SelectedBranchID);
+        //    if(!checkResult.Success)
+        //    {
+        //        // handle error
+        //        ModelState.AddModelError("BranchID", "The selected branch does not existed. Please contact administrator.");
+        //        return View(model);
+        //    }
 
-            SmsSystem.SelectedBranchID = model.SelectedBranchID;
-            return RedirectToAction("Index", "Home");
-        }
+        //    SmsSystem.SelectedBranchID = model.SelectedBranchID;
+        //    return RedirectToAction("Index", "Home");
+        //}
     }
 }

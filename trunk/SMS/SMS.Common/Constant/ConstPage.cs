@@ -6,9 +6,7 @@
         public const int HomePage = 1;
         public const int Cashier = 2;
         public const int Kitchen = 3;
-        public const int Account = 4;
-        public const int ReportViewer = 5;
-        //public const int SelectBranch = 6;
+        public const int Login = 4;
 
         public const int Admin_Home = 20;
         public const int Admin_GlobalLabel = 21;
@@ -19,5 +17,7 @@
         public const int Data_Area= 41;
         public const int Data_Table = 42;
         public const int Data_ProductCategory = 43;
+
+        public const int ReportViewer = 99;
     }
 }
