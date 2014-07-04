@@ -22,7 +22,7 @@ namespace SMS.MvcApplication.Base
                              };
             var model = new AdminModel<TDto>
             {
-                ListRecord = Service.FindByString(textSearch, pagingInfo).Data,
+                ListRecord = Service.FindByString(textSearch, pagingInfo, true).Data,
                 PagingInfo = pagingInfo
             };
 

@@ -5,5 +5,6 @@
         public static string UserContext = "UserContext";
         public static string AllowRoles = "AllowRoleIds";
         public static string SelectedBranchID = "SelectedBranchID";
+        public static string Language = "Language";
     }
 }

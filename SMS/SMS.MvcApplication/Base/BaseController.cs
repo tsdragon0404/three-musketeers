@@ -46,7 +46,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult ChangeLanguage(Language language)
         {
-            SmsSystem.UserContext.Language = language;
+            SmsSystem.Language = language;
             return Json(JsonModel.Create(true));
         }
 

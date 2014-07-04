@@ -56,5 +56,22 @@ namespace SMS.Common.Session
                 HttpContext.Current.Session[ConstSessionKey.SelectedBranchID] = value;
             }
         }
+
+        public static Language Language
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.Language] != null)
+                {
+                    return (Language)HttpContext.Current.Session[ConstSessionKey.Language];
+                }
+
+                return Language.Vietnamese;
+            }
+            set
+            {
+                HttpContext.Current.Session[ConstSessionKey.Language] = value;
+            }
+        }
     }
 }

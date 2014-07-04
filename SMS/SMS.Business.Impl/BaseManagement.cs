@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Core.Common.Validation;
 using Core.Data;
 using AutoMapper;
@@ -16,19 +18,38 @@ namespace SMS.Business.Impl
 
         #region Implementation of IBaseManagement<TDto,in TPrimaryKey>
 
-        public virtual ServiceResult<IList<TDto>> GetAll()
+        public virtual ServiceResult<IList<TDto>> GetAll(bool includeDisable)
         {
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetAll().ToList()));
+            List<TEntity> result;
+
+            if (typeof (IEnableEntity).IsAssignableFrom(typeof (TEntity)) && !includeDisable)
+                result = Repository.Find(x => (x as IEnableEntity).Enable).ToList();
+            else
+                result = Repository.GetAll().ToList();
+
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
         }
 
-        public virtual ServiceResult<IList<TModel>> GetAll<TModel>()
+        public virtual ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable)
         {
-            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(Repository.GetAll().ToList()));
+            List<TEntity> result;
+
+            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
+                result = Repository.Find(x => (x as IEnableEntity).Enable).ToList();
+            else
+                result = Repository.GetAll().ToList();
+
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
-        public virtual ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public virtual ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
-            var filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch, null));
+            IList<TDto> filteredRecords;
+
+            if (typeof (IEnableEntity).IsAssignableFrom(typeof (TEntity)) && !includeDisable)
+                filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).ToList());
+            else
+                filteredRecords = Mapper.Map<IList<TDto>>(Repository.FindByString(textSearch, null).ToList());
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
@@ -36,9 +57,14 @@ namespace SMS.Business.Impl
             return ServiceResult<IPagedList<TDto>>.CreateSuccessResult(PagedList<TDto>.CreatePageList(filteredRecords, pagingInfo));
         }
 
-        public virtual ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        public virtual ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
-            var filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, null));
+            IList<TModel> filteredRecords;
+
+            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
+                filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).ToList());
+            else
+                filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, null).ToList());
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = SmsSystem.UserContext.PageSize;

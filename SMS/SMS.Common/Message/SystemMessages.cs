@@ -31,11 +31,11 @@ namespace SMS.Common.Message
         {
             if (id < 0)
                 return systemMessages.Exists(x => x.ID == id)
-                    ? SmsSystem.UserContext.Language == Language.Vietnamese ? systemMessages.First(x => x.ID == id).VNText : systemMessages.First(x => x.ID == id).ENText
+                    ? SmsSystem.Language == Language.Vietnamese ? systemMessages.First(x => x.ID == id).VNText : systemMessages.First(x => x.ID == id).ENText
                     : string.Empty;
 
             return messages.Exists(x => x.ID == id)
-                ? SmsSystem.UserContext.Language == Language.Vietnamese ? messages.First(x => x.ID == id).VNText : messages.First(x => x.ID == id).ENText
+                ? SmsSystem.Language == Language.Vietnamese ? messages.First(x => x.ID == id).VNText : messages.First(x => x.ID == id).ENText
                 : string.Empty;
         }
     }
