@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using Core.Common;
 using Core.Common.Information;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
@@ -21,15 +22,11 @@ namespace SMS.MvcApplication.Controllers
         public IBranchService BranchService { get; set; }
         public IErrorMessageService ErrorMessageService { get; set; }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Login()
         {
             SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
-            return View(new LoginModel{Username = "system", Password = "123"});
+            var branches = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem {Value = x.ID.ToString(), Text = x.Name}).ToList();
+            return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
         }
 
         [HttpPost]
@@ -43,25 +40,25 @@ namespace SMS.MvcApplication.Controllers
                 {
                     model.ShowError = true;
                     model.ErrorMessage = response.Errors[0].ErrorMessage;
-                    return View(model);
                 }
 
                 var user = response.Data;
-                SetSessionData(user);
-                FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
-
-                if (!user.Branches.Any() && !user.IsSystemAdmin)
+                if (!user.Branches.Select(x => x.ID).Contains(model.SelectedBranch) && !user.IsSystemAdmin)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoBranchAvailable);
+                    model.ErrorMessage = "ko co quyen vao branch nay";
+                }
+
+                if (model.ShowError)
+                {
+                    model.ListBranch = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Name }).ToList();
                     return View(model);
                 }
 
-                if (user.Branches.Count > 1 || user.IsSystemAdmin)
-                    return RedirectToAction("SelectBranch");
+                SetSessionData(user);
+                FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
+                SmsSystem.SelectedBranchID = model.SelectedBranch;
 
-                SmsSystem.SelectedBranchID = user.Branches[0].ID;
-                
                 SystemMessages.SetMessages(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
 
                 return RedirectToAction("Index", "Home");
@@ -77,7 +74,6 @@ namespace SMS.MvcApplication.Controllers
             var userContext = new UserContext
                               {
                                   DefaultAreaID = 0,
-                                  Language = Language.Vietnamese,
                                   ListTableHeight = 65,
                                   PageSize = 3,
                                   UserID = user.ID,

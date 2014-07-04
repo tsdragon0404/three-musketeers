@@ -15,12 +15,16 @@
             <div id="errorMessage" class="@errorClass">@Model.ErrorMessage</div>
             <table class="no-border">
                 <tr>
-                    <td> @Html.LabelFor(x => x.Username)</td>
+                    <td><label for="Username">Username</label></td>
                     <td>@Html.TextBoxFor(x => x.Username)</td>
                 </tr>
                 <tr>
-                    <td>@Html.LabelFor(x => x.Password)</td>
+                    <td><label for="Password">Password</label></td>
                     <td>@Html.PasswordFor(x => x.Password)</td>
+                </tr>
+                <tr>
+                    <td><label for="ListBranch">Branch</label></td>
+                    <td>@Html.DropDownListFor(x => x.SelectedBranch, Model.ListBranch)</td>
                 </tr>
             </table>
             <div class="right">

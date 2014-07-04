@@ -18,7 +18,5 @@ namespace SMS.Common.Session
         /// Contain height value for List table section in Cashier page (in percent)
         /// </summary>
         public int ListTableHeight { get; set; }
-
-        public Language Language { get; set; }
     }
 }

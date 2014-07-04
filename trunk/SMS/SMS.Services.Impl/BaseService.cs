@@ -9,24 +9,24 @@ namespace SMS.Services.Impl
     {
         public virtual TIManagement Management { get; set; }
 
-        public ServiceResult<IList<TDto>> GetAll()
+        public ServiceResult<IList<TDto>> GetAll(bool includeDisable)
         {
-            return Management.GetAll();
+            return Management.GetAll(includeDisable);
         }
 
-        public ServiceResult<IList<TModel>> GetAll<TModel>()
+        public ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable)
         {
-            return Management.GetAll<TModel>();
+            return Management.GetAll<TModel>(includeDisable);
         }
 
-        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
         {
-            return Management.FindByString(textSearch, pagingInfo);
+            return Management.FindByString(textSearch, pagingInfo, includeDisable);
         }
 
-        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo)
+        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
         {
-            return Management.FindByString<TModel>(textSearch, pagingInfo);
+            return Management.FindByString<TModel>(textSearch, pagingInfo, includeDisable);
         }
 
         public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)

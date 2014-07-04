@@ -57,7 +57,7 @@ namespace SMS.Business.Impl
             return result;
         }
 
-        public override ServiceResult<IPagedList<UserDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo)
+        public override ServiceResult<IPagedList<UserDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
             Expression<Func<User, bool>> predicate = x => !x.IsSystemAdmin;
             if (SmsSystem.UserContext.IsSystemAdmin)
