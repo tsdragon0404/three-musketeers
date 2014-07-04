@@ -2,15 +2,39 @@
 @{
     ViewBag.Title = "Login";
 }
-
-<h2>Login</h2>
-@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.LabelFor(x => x.Username)
-    @Html.TextBoxFor(x => x.Username, new { @Value = "system"})
-    @Html.LabelFor(x => x.Password)
-    @Html.PasswordFor(x => x.Password, new { @Value = "123"})
-
-    <input type="submit" value="submit" />
+@{
+    var errorClass = "hide";
+    if (Model.ShowError) { errorClass = ""; }
 }
+
+<div id="login" class="row">
+    <div id="loginform" class="border-all ui-corner-all">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div id="errorMessage" class="@errorClass">@Model.ErrorMessage</div>
+            <table class="no-border">
+                <tr>
+                    <td> @Html.LabelFor(x => x.Username)</td>
+                    <td>@Html.TextBoxFor(x => x.Username)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(x => x.Password)</td>
+                    <td>@Html.PasswordFor(x => x.Password)</td>
+                </tr>
+            </table>
+            <div class="right">
+                <button id="loginButton">Login</button>
+                <script type="text/javascript">
+                    $('#loginButton').button({
+                        icons: {
+                            primary: "ui-icon-person"
+                        }
+                    }).click(function() {
+                        $(this).closest('form').submit();
+                    });
+                </script>
+            </div>
+        }
+    </div>
+</div>

@@ -28,7 +28,7 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            return View(new LoginModel{Username = "system", Password = "123"});
         }
 
         [HttpPost]
@@ -100,6 +100,7 @@ namespace SMS.MvcApplication.Controllers
             Session.Abandon();
             FormsAuthentication.SignOut();
             UserInformation.UserName = string.Empty;
+            SystemMessages.Clear();
             return RedirectToAction("Login", "Account");
         }
 
