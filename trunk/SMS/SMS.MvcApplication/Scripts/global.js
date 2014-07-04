@@ -46,7 +46,7 @@ function SetHeightBodySection() {
     var footerHeight = $('#footer').outerHeight(true);
     var menuHeight = $('#admin-menu, #config-menu').outerHeight(true);
 
-    $('#body #admin-body, #body #config-body, #body #cashier, #body #kitchen').height(windowHeight - headerHeight - footerHeight - menuHeight);
+    $('#body > div').height(windowHeight - headerHeight - footerHeight - menuHeight);
     $('#leftmenu').height(windowHeight - headerHeight - footerHeight);
     
     // set position for expander

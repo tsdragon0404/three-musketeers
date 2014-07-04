@@ -112,75 +112,73 @@
             <a href="#" id="expander" class="expanded">&lt;</a>
         </div>
         <div id="body" class="border-left">
-            <section>
-                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Data")
-                {
-                    var adminMenu = new List<HyperlinkModel>
-                                    {
-                                        new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Data" },
-                                        new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Data" },
-                                        new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Data" },
-                                    };
-                    <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                            @foreach (var menu in adminMenu)
-                            {
-                                var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
-                                    ? "ui-tabs-active ui-state-active"
-                                    : "";
+            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Data")
+            {
+                var adminMenu = new List<HyperlinkModel>
+                                {
+                                    new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Data" },
+                                    new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Data" },
+                                    new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Data" },
+                                };
+                <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        @foreach (var menu in adminMenu)
+                        {
+                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
+                                ? "ui-tabs-active ui-state-active"
+                                : "";
                                 
-                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                    @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
-                                </li>
-                            }
-                        </ul>   
-                    </div>
-                    <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#admin-menu li').hover(function() {
-                                $(this).addClass('ui-state-hover');
-                            }, function() {
-                                $(this).removeClass('ui-state-hover');
-                            });
+                            <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
+                                @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
+                            </li>
+                        }
+                    </ul>   
+                </div>
+                <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#admin-menu li').hover(function() {
+                            $(this).addClass('ui-state-hover');
+                        }, function() {
+                            $(this).removeClass('ui-state-hover');
                         });
-                    </script>
-                }
-                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administration")
-                {
-                    var configMenu = new List<HyperlinkModel>
-                                    {
-                                        new HyperlinkModel { Text = "Role", ActionName = "Index", ControllerName = "Role", AreaName = "Administration" },
-                                        new HyperlinkModel { Text = "User", ActionName = "Index", ControllerName = "User", AreaName = "Administration" },
-                                        new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Administration" },
-                                    };
-                    <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                            @foreach (var menu in configMenu)
-                            {
-                                var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
-                                    ? "ui-tabs-active ui-state-active"
-                                    : "";
+                    });
+                </script>
+            }
+            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administration")
+            {
+                var configMenu = new List<HyperlinkModel>
+                                {
+                                    new HyperlinkModel { Text = "Role", ActionName = "Index", ControllerName = "Role", AreaName = "Administration" },
+                                    new HyperlinkModel { Text = "User", ActionName = "Index", ControllerName = "User", AreaName = "Administration" },
+                                    new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Administration" },
+                                };
+                <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        @foreach (var menu in configMenu)
+                        {
+                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
+                                ? "ui-tabs-active ui-state-active"
+                                : "";
                                 
-                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                    @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
-                                </li>
-                            }
-                        </ul>   
-                    </div>
-                    <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#config-menu li').hover(function() {
-                                $(this).addClass('ui-state-hover');
-                            }, function() {
-                                $(this).removeClass('ui-state-hover');
-                            });
+                            <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
+                                @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
+                            </li>
+                        }
+                    </ul>   
+                </div>
+                <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#config-menu li').hover(function() {
+                            $(this).addClass('ui-state-hover');
+                        }, function() {
+                            $(this).removeClass('ui-state-hover');
                         });
-                    </script>
-                }
-                @RenderBody()
-            </section>
+                    });
+                </script>
+            }
+            @RenderBody()
         </div>
     </div>
 

@@ -851,3 +851,18 @@ table thead{
 .payment-config {
     margin: 0;
 }
+
+#loginform {
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+}
+#loginform table {
+    margin-bottom: 10px;
+}
+#loginform table td{
+    padding: 3px 0;
+}
+#loginform label {
+    margin: 0;
+}

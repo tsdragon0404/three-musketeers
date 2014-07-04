@@ -67,11 +67,6 @@ namespace SMS.MvcApplication
                                 {
                                     {"VAT", 10}
                                 };
-
-            var errorMessageService = container.Resolve<IErrorMessageService>();
-            var allMessage = errorMessageService.GetAll().Data;
-
-            SystemMessages.Initialize(allMessage.Select(x => new Message(x.ID, x.VNMessage, x.ENMessage)).ToList());
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

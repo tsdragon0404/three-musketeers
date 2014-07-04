@@ -16,6 +16,12 @@ namespace SMS.Common.Message
             IsInitialized = true;
         }
 
+        public static void Clear()
+        {
+            messages = new List<Message>();
+            IsInitialized = false;
+        }
+
         public static string Get(long id)
         {
             return messages.Exists(x => x.ID == id) && IsInitialized
