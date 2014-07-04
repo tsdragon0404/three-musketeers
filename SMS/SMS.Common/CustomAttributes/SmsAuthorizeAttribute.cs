@@ -8,9 +8,11 @@ namespace SMS.Common.CustomAttributes
     public class SmsAuthorizeAttribute : AuthorizeAttribute
     {
         private readonly long pageID;
-        public SmsAuthorizeAttribute(long pageID)
+        private readonly bool selectBranch;
+        public SmsAuthorizeAttribute(long pageID, bool selectBranch = false)
         {
             this.pageID = pageID;
+            this.selectBranch = selectBranch;
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
@@ -21,7 +23,7 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
-            if(SmsSystem.SelectedBranchID <= 0)
+            if (SmsSystem.SelectedBranchID <= 0 && !selectBranch)
             {
                 httpContext.Response.Redirect("~/Account/SelectBranch");
                 return false;
