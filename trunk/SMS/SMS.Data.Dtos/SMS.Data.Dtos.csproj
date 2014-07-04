@@ -51,7 +51,6 @@
     <Compile Include="LanguageUnitDto.cs" />
     <Compile Include="LanguageOrderDetailDto.cs" />
     <Compile Include="LanguageOrderTableDto.cs" />
-    <Compile Include="LanguageErrorMessageDto.cs" />
     <Compile Include="ErrorMessageDto.cs" />
     <Compile Include="LanguageInvoiceTableDto.cs" />
     <Compile Include="LanguageTableDto.cs" />

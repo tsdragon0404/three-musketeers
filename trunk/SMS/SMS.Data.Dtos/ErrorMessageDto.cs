@@ -4,6 +4,8 @@
     {
         public virtual long ID { get; set; }
 
+        public virtual long MessageID { get; set; }
+
         public virtual long BranchID { get; set; }
 
         public virtual string VNMessage { get; set; }

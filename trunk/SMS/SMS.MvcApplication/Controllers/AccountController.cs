@@ -28,6 +28,7 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult Login()
         {
+            SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
             return View(new LoginModel{Username = "system", Password = "123"});
         }
 
@@ -61,7 +62,7 @@ namespace SMS.MvcApplication.Controllers
 
                 SmsSystem.SelectedBranchID = user.Branches[0].ID;
                 
-                SystemMessages.Initialize(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.ID, x.VNMessage, x.ENMessage)).ToList());
+                SystemMessages.SetMessages(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
 
                 return RedirectToAction("Index", "Home");
             }

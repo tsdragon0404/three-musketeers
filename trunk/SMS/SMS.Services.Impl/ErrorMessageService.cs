@@ -20,5 +20,15 @@ namespace SMS.Services.Impl
         {
             return Management.GetMessagesForSelectedBranch<TModel>();
         }
+
+        public ServiceResult<IList<ErrorMessageDto>> GetSystemMessages()
+        {
+            return Management.GetSystemMessages();
+        }
+
+        public ServiceResult<IList<TModel>> GetSystemMessages<TModel>()
+        {
+            return Management.GetSystemMessages<TModel>();
+        }
     }
 }

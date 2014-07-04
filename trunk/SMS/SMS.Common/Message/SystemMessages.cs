@@ -7,24 +7,34 @@ namespace SMS.Common.Message
     public class SystemMessages
     {
         private static List<Message> messages;
+        private static List<Message> systemMessages;
 
-        public static bool IsInitialized { get; set; }
-
-        public static void Initialize(List<Message> errorMessages)
+        public static void SetMessages(List<Message> errorMessages)
         {
             messages = errorMessages;
-            IsInitialized = true;
         }
 
-        public static void Clear()
+        public static void SetSystemMessages(List<Message> systemMgs)
+        {
+            if (systemMgs != null)
+                systemMessages = systemMgs;
+        }
+
+        public static void Clear(bool clearSystemMessage = false)
         {
             messages = new List<Message>();
-            IsInitialized = false;
+            if(clearSystemMessage)
+                systemMessages = new List<Message>();
         }
 
         public static string Get(long id)
         {
-            return messages.Exists(x => x.ID == id) && IsInitialized
+            if (id < 0)
+                return systemMessages.Exists(x => x.ID == id)
+                    ? SmsSystem.UserContext.Language == Language.Vietnamese ? systemMessages.First(x => x.ID == id).VNText : systemMessages.First(x => x.ID == id).ENText
+                    : string.Empty;
+
+            return messages.Exists(x => x.ID == id)
                 ? SmsSystem.UserContext.Language == Language.Vietnamese ? messages.First(x => x.ID == id).VNText : messages.First(x => x.ID == id).ENText
                 : string.Empty;
         }
