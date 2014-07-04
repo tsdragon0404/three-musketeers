@@ -8,5 +8,7 @@ namespace SMS.Services
     {
         ServiceResult<IList<ErrorMessageDto>> GetMessagesForSelectedBranch();
         ServiceResult<IList<TModel>> GetMessagesForSelectedBranch<TModel>();
+        ServiceResult<IList<ErrorMessageDto>> GetSystemMessages();
+        ServiceResult<IList<TModel>> GetSystemMessages<TModel>();
     }
 }

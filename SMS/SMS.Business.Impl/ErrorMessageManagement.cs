@@ -18,13 +18,25 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<ErrorMessageDto>> GetMessagesForSelectedBranch()
         {
             return ServiceResult<IList<ErrorMessageDto>>.CreateSuccessResult(
-                Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID).ToList()));
+                Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID && x.ID > 0).ToList()));
        
         }
         public ServiceResult<IList<TModel>> GetMessagesForSelectedBranch<TModel>()
         {
             return ServiceResult<IList<TModel>>.CreateSuccessResult(
-                Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID).ToList()));
+                Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID && x.ID > 0).ToList()));
+        }
+
+        public ServiceResult<IList<ErrorMessageDto>> GetSystemMessages()
+        {
+            return ServiceResult<IList<ErrorMessageDto>>.CreateSuccessResult(
+                Mapper.Map<IList<ErrorMessageDto>>(Repository.Find(x => x.ID < 0).ToList()));
+
+        }
+        public ServiceResult<IList<TModel>> GetSystemMessages<TModel>()
+        {
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(
+                Mapper.Map<IList<TModel>>(Repository.Find(x => x.ID < 0).ToList()));
         }
     }
 }

@@ -57,10 +57,6 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Text, y => y.ResolveUsing(z =>
                     SmsSystem.UserContext.Language == Language.Vietnamese ? z.VNText : z.ENText));
 
-            Mapper.CreateMap<ErrorMessage, LanguageErrorMessageDto>()
-                .ForMember(x => x.Message, y => y.ResolveUsing(z =>
-                    SmsSystem.UserContext.Language == Language.Vietnamese ? z.VNMessage : z.ENMessage));
-
             Mapper.CreateMap<Report, LanguageReportDto>()
                 .ForMember(x => x.Title, y => y.ResolveUsing(z =>
                     SmsSystem.UserContext.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
