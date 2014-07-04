@@ -1,11 +1,8 @@
-﻿@using SMS.Common.Session
+﻿@using SMS.Common.Constant
+@using SMS.Common.Session
 @using SMS.Common
 @using SMS.MvcApplication.Models
-@{
-    var url = Request.Url.AbsoluteUri;
-    var urlWithoutAction = ViewContext.RouteData.Values["action"].ToString() == "Index"
-        ? url : @url.Remove(url.LastIndexOf("/", StringComparison.Ordinal));
-}
+@using Core.Common
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,10 +24,9 @@
             var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
             labelController.ScanElements();
             @if (SmsSystem.UserContext.IsSystemAdmin)
-            
             {
                 <text>
-            labelController.BuildEditControl(@ViewData[SMS.Common.Constant.ConstConfig.PageIDKey]);
+            labelController.BuildEditControl(@PageID);
                 </text>
             }
         });
@@ -48,11 +44,21 @@
                 </div>
                 <nav class="border-bottom">
                     <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("Branch Data", "Index", "DataHome", new { area = "Data" }, null)</li>
-                        <li>@Html.ActionLink("Administration", "Index", "AdminHome", new { area = "Administration" }, null)</li>
-                        <li>@Html.ActionLink("Cashier", "Index", "Cashier", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("Kitchen", "Index", "Kitchen", new { area = "" }, null)</li>
+                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.MainMenu))
+                        {
+                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
+
+                            if (page == null) { continue; }
+
+                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
+                            {
+                                <li><a href="@page.Action">@page.Title</a></li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, null)</li>
+                            }
+                        }
                     </ul>
                 </nav>
                 <ul id="user">
@@ -60,7 +66,7 @@
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
-                    @if(Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
+                    @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
                     {
                         <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
                     }
@@ -98,7 +104,7 @@
                     function changeLanguage(id) {
                         $.ajax({
                             type: 'POST',
-                            url: '@urlWithoutAction' + '/ChangeLanguage',
+                            url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
                             data: { language: id }
                         }).done(function (result) {
                             if(result.Success)
@@ -114,23 +120,30 @@
         <div id="body" class="border-left">
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Data")
             {
-                var adminMenu = new List<HyperlinkModel>
-                                {
-                                    new HyperlinkModel { Text = "Area", ActionName = "Index", ControllerName = "Area", AreaName = "Data" },
-                                    new HyperlinkModel { Text = "Table", ActionName = "Index", ControllerName = "Table", AreaName = "Data" },
-                                    new HyperlinkModel { Text = "Category", ActionName = "Index", ControllerName = "ProductCategory", AreaName = "Data" },
-                                };
                 <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @foreach (var menu in adminMenu)
+                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.DataTabMenu))
                         {
-                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
-                                ? "ui-tabs-active ui-state-active"
-                                : "";
-                                
-                            <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
-                            </li>
+                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
+
+                            if (page == null) { continue; }
+
+                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == page.Controller
+                                                    ? "ui-tabs-active ui-state-active"
+                                                    : "";
+                            
+                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
+                            {
+                                <li class="ui-state-default ui-corner-top @selectedClass">
+                                    <a href="@page.Action" class="ui-tabs-anchor">@page.Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
+                                    @Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, new { @class = "ui-tabs-anchor" })
+                                </li>
+                            }
                         }
                     </ul>   
                 </div>
@@ -147,23 +160,30 @@
             }
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administration")
             {
-                var configMenu = new List<HyperlinkModel>
-                                {
-                                    new HyperlinkModel { Text = "Role", ActionName = "Index", ControllerName = "Role", AreaName = "Administration" },
-                                    new HyperlinkModel { Text = "User", ActionName = "Index", ControllerName = "User", AreaName = "Administration" },
-                                    new HyperlinkModel { Text = "Global label", ActionName = "Index", ControllerName = "GlobalLabel", AreaName = "Administration" },
-                                };
                 <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @foreach (var menu in configMenu)
+                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.AdminTabMenu))
                         {
-                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == menu.ControllerName
-                                ? "ui-tabs-active ui-state-active"
-                                : "";
-                                
-                            <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                @Html.ActionLink(menu.Text, menu.ActionName, menu.ControllerName, new { area = menu.AreaName }, new { @class = "ui-tabs-anchor" })
-                            </li>
+                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
+
+                            if (page == null) { continue; }
+
+                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == page.Controller
+                                                    ? "ui-tabs-active ui-state-active"
+                                                    : "";
+                            
+                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
+                            {
+                                <li class="ui-state-default ui-corner-top @selectedClass">
+                                    <a href="@page.Action" class="ui-tabs-anchor">@page.Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
+                                    @Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, new { @class = "ui-tabs-anchor" })
+                                </li>
+                            }
                         }
                     </ul>   
                 </div>

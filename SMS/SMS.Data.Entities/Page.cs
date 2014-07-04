@@ -12,7 +12,11 @@ namespace SMS.Data.Entities
 
         public virtual string ENDescription { get; set; }
 
-        public virtual string Path { get; set; }
+        public virtual string Area { get; set; }
+
+        public virtual string Controller { get; set; }
+
+        public virtual string Action { get; set; }
 
         public virtual IList<PageLabel> PageLabels { get; set; }
     }

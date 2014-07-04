@@ -12,6 +12,8 @@ namespace SMS.MvcApplication.Base
     public abstract class BaseController : Controller
     {
         public virtual IPageLabelService PageLabelService { get; set; }
+        public virtual IPageService PageService { get; set; }
+        public virtual IPageMenuService PageMenuService { get; set; }
 
         protected override JsonResult Json(object data, string contentType,
             Encoding contentEncoding, JsonRequestBehavior behavior)
@@ -27,19 +29,26 @@ namespace SMS.MvcApplication.Base
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var attribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PageIDAttribute), false).FirstOrDefault();
-            if(attribute != null && (attribute as PageIDAttribute) != null)
+            var viewResult = filterContext.Result as ViewResult;
+            if (viewResult != null)
             {
-                var pageID = (attribute as PageIDAttribute).PageID;
-                var viewResult = filterContext.Result as ViewResult;
-                if (viewResult != null)
+
+                var attribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof (PageIDAttribute), false).FirstOrDefault();
+                if (attribute != null && (attribute as PageIDAttribute) != null)
                 {
+                    var pageID = (attribute as PageIDAttribute).PageID;
                     var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID, true).Data.ToDictionary(x => x.LabelID, x => x.Text);
+
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
                     viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
                 }
-            }
 
+                var allowPages = PageService.GetAccessiblePagesForUser<LanguagePageDto>().Data.ToList();
+                viewResult.ViewData.Add(Common.Constant.ConstConfig.AccessiblePagesForUserKey, allowPages);
+
+                var pageMenus = PageMenuService.GetMenuByPageIds(allowPages.Select(x => x.ID).ToList()).Data;
+                viewResult.ViewData.Add(Common.Constant.ConstConfig.PageMenuKey, pageMenus);
+            }
             base.OnActionExecuted(filterContext);
         }
 

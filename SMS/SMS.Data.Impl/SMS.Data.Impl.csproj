@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="AreaRepository.cs" />
     <Compile Include="BranchRepository.cs" />
+    <Compile Include="PageMenuRepository.cs" />
     <Compile Include="UsersInRoleRepository.cs" />
     <Compile Include="RolePermissionRepository.cs" />
     <Compile Include="RoleRepository.cs" />

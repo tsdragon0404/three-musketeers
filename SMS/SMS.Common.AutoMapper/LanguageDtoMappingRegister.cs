@@ -53,6 +53,12 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.UnitName, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.UnitVNName : z.UnitENName));
 
+            Mapper.CreateMap<Page, LanguagePageDto>()
+                .ForMember(x => x.Title, y => y.ResolveUsing(z =>
+                    SmsSystem.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle))
+                .ForMember(x => x.Description, y => y.ResolveUsing(z =>
+                    SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
+
             Mapper.CreateMap<PageLabel, LanguagePageLabelDto>()
                 .ForMember(x => x.Text, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNText : z.ENText));
