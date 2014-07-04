@@ -122,6 +122,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[ErrorMessage](
 		[ErrorMessageID] [int] NOT NULL,
+		[MessageID] [int] NULL,
 		[BranchID] [int] NULL,
 		[VNMessage] [nvarchar](1000) NULL,
 		[ENMessage] [nvarchar](1000) NULL,
