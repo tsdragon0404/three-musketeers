@@ -105,7 +105,7 @@ namespace SMS.MvcApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        [SmsAuthorize(ConstPage.Global)]
+        [SmsAuthorize(ConstPage.Global, true)]
         public ActionResult SelectBranch()
         {
             var branches = BranchService.GetAssignedBranchesForUser<LanguageBranchBasicDto>().Data;
@@ -113,7 +113,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        [SmsAuthorize(ConstPage.Global)]
+        [SmsAuthorize(ConstPage.Global, true)]
         [ValidateAntiForgeryToken]
         public ActionResult SelectBranch(SelectBranchModel model)
         {
