@@ -425,7 +425,9 @@ BEGIN
 		[ENTitle] [nvarchar](255) NULL,
 		[VNDescription] [nvarchar](500) NULL,
 		[ENDescription] [nvarchar](500) NULL,
-		[Path] [varchar](500) NULL,
+	  [Area] [varchar](50) NULL,
+	  [Controller] [varchar](50) NULL,
+	  [Action] [varchar](50) NULL,
 	 CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
 	(
 		[PageID] ASC
@@ -803,6 +805,26 @@ BEGIN
 END
 GO
 
+CREATE TABLE [dbo].[PageMenu](
+	[PageMenuID] [int] IDENTITY(1,1) NOT NULL,
+	[GroupName] [nvarchar](50) NULL,
+	[PageID] [int] NULL,
+	[SEQ] [int] NULL,
+ CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 
+(
+	[PageMenuID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[MenuGroup]  WITH CHECK ADD  CONSTRAINT [FK_MenuGroup_Page] FOREIGN KEY([PageID])
+REFERENCES [dbo].[Page] ([PageID])
+GO
+
+ALTER TABLE [dbo].[MenuGroup] CHECK CONSTRAINT [FK_MenuGroup_Page]
+GO
+
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
@@ -810,19 +832,44 @@ GO
 
 DELETE FROM dbo.Page
 GO
-INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Path )
+INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Area, Controller, [Action] )
 VALUES 
-( 0, N'Global', N'Global', N'Global', N'Global', N'' ),
-( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', N'' ),
-( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', N'/Cashier' ),
-( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', N'/Kitchen' ),
-( 4, N'Tài khoản', N'Account', N'Tài khoản', N'Account', N'/Account' ),
-( 5, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', N'/Reports/ReportViewer.aspx' ),
-( 20, N'Admin', N'Admin', N'Admin', N'Admin', N'/Administration' ),
-( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'/Administration/GlobalLabel' ),
-( 22, N'Role', N'Role', N'Role', N'Role', N'/Administration/Role' ),
-( 23, N'User', N'User', N'User', N'User', N'/Administration/User' )
+( 0, N'Global', N'Global', N'Global', N'Global', NULL, NULL, NULL ),
+( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', NULL, N'Home', N'Index' ),
+( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', NULL, N'Cashier', N'Index' ),
+( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', NULL, N'Kitchen', N'Index' ),
+( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', NULL, N'Account', N'Login' ),
+
+( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
+
+( 20, N'Admin', N'Admin', N'Admin', N'Admin', N'Administration', N'AdminHome', N'Index' ),
+( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'Administration', N'GlobalLabel', N'Index' ),
+( 22, N'Role', N'Role', N'Role', N'Role', N'Administration', N'Role', N'Index' ),
+( 23, N'User', N'User', N'User', N'User', N'Administration', N'User', N'Index' ),
+
+( 40, N'Data', N'Data', N'Data', N'Data', N'Data', N'DataHome', N'Index' ),
+( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'Data', N'Area', N'Index' ),
+( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'Data', N'Table', N'Index' ),
+( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'Data', N'ProductCategory', N'Index' )
 GO
+
+DELETE FROM dbo.PageMenu
+GO
+INSERT INTO dbo.PageMenu ( GroupName, PageID, SEQ )
+VALUES 
+( N'MainMenu', 1, 10 ),
+( N'MainMenu', 40, 20 ),
+( N'MainMenu', 20, 30 ),
+( N'MainMenu', 2, 40 ),
+( N'MainMenu', 3, 50 ),
+
+( N'AdminTabMenu', 21, 10 ),
+( N'AdminTabMenu', 22, 20 ),
+( N'AdminTabMenu', 23, 30 ),
+
+( N'DataTabMenu', 41, 10 ),
+( N'DataTabMenu', 42, 20 ),
+( N'DataTabMenu', 43, 30 )
 
 DELETE FROM dbo.OrderStatus
 GO
