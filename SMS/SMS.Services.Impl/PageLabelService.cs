@@ -11,12 +11,12 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID, bool includeGlobalLabels = false)
+        public ServiceResult<IList<TDto>> GetByPageID<TDto>(long pageID, bool includeGlobalLabels = false)
         {
             return Management.GetByPageID<TDto>(pageID, includeGlobalLabels);
         }
 
-        public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
+        public ServiceResult Save(long pageID, List<PageLabelDto> listLabels)
         {
             return Management.Save(pageID, listLabels);
         }

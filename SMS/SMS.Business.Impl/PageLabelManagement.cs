@@ -16,7 +16,7 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID, bool includeGlobalLabels = false)
+        public ServiceResult<IList<TDto>> GetByPageID<TDto>(long pageID, bool includeGlobalLabels = false)
         {
             var ids = new List<long>{ pageID };
             if (includeGlobalLabels)
@@ -27,7 +27,7 @@ namespace SMS.Business.Impl
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(labels));
         }
 
-        public ServiceResult Save(int pageID, List<PageLabelDto> listLabels)
+        public ServiceResult Save(long pageID, List<PageLabelDto> listLabels)
         {
             var labelIds = listLabels.ConvertAll(x => x.LabelID);
             var pageLabels = Repository.Find(

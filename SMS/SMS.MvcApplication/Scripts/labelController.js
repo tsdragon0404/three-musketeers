@@ -1,8 +1,10 @@
-﻿function LabelController(labelDictionary, multiEditId, popupId) {
+﻿function LabelController(labelDictionary, multiEditId, popupId, getAllPageLabelUrl, multiEditPageLabelUrl) {
     var root = this;
     this.labelDictionary = labelDictionary;
     this.multiEditId = multiEditId;
     this.popupId = popupId;
+    this.getAllPageLabelUrl = getAllPageLabelUrl;
+    this.multiEditPageLabelUrl = multiEditPageLabelUrl;
 
     this.ScanElements = function () {
         if (root.labelDictionary == null)
@@ -27,7 +29,7 @@
             $(root.multiEditId).click(function () {
                 $.ajax({
                     type: 'POST',
-                    url: location.pathname + '/GetAllPageLabel',
+                    url: root.getAllPageLabelUrl,
                     data: { pageID: pageID }
                 }).done(function (result) {
                     if (!result.Success)
@@ -43,7 +45,7 @@
                             }
                         });
                         if (!exists){
-                            var value = '';
+                            var value;
                             if (element.nodeName == 'INPUT')
                                 value = $(element).val();
                             else
@@ -74,7 +76,7 @@
                 
                 $.ajax({
                     type: 'POST',
-                    url: location.pathname + '/MultiEditPageLabel',
+                    url: root.multiEditPageLabelUrl,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ pageID: pageID, listLabels: data })

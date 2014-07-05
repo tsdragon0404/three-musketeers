@@ -2,22 +2,22 @@
 {
     public class ConstPage
     {
-        public const int Global = 0;
-        public const int HomePage = 1;
-        public const int Cashier = 2;
-        public const int Kitchen = 3;
-        public const int Login = 4;
-
-        public const int Admin_Home = 20;
-        public const int Admin_GlobalLabel = 21;
-        public const int Admin_Role = 22;
-        public const int Admin_User = 23;
-
-        public const int Data_Home = 40;
-        public const int Data_Area= 41;
-        public const int Data_Table = 42;
-        public const int Data_ProductCategory = 43;
-
-        public const int ReportViewer = 99;
+        public const long Global = 0;
+        public const long HomePage = 1;
+        public const long Cashier = 2;
+        public const long Kitchen = 3;
+        public const long Login = 4;
+                     
+        public const long Admin_Home = 20;
+        public const long Admin_GlobalLabel = 21;
+        public const long Admin_Role = 22;
+        public const long Admin_User = 23;
+                     
+        public const long Data_Home = 40;
+        public const long Data_Area= 41;
+        public const long Data_Table = 42;
+        public const long Data_ProductCategory = 43;
+                     
+        public const long ReportViewer = 99;
     }
 }
