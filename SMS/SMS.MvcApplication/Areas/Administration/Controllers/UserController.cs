@@ -7,6 +7,7 @@ using SMS.Services;
 namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
     [SmsAuthorize(ConstPage.Admin_User)]
+    [PageID(ConstPage.Admin_User)]
     public class UserController : AdminBaseController<UserDto, long, IUserService>
     {
         #region Fields
