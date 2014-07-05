@@ -13,6 +13,8 @@ namespace SMS.Data.Mapping
             Map(x => x.UseServiceFee);
             Map(x => x.ServiceFee);
 
+            HasOne(x => x.BranchInfo).Cascade.All();
+
             HasManyToMany(x => x.UsersInBranch)
                 .Cascade.All()
                 .Table("UserBranch")
