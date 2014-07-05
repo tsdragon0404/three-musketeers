@@ -12,8 +12,6 @@ namespace SMS.MvcApplication.Areas.Administration.Controllers
     {
         #region Fields
 
-        public virtual IPageService PageService { get; set; }
-
         #endregion
 
         public override System.Web.Mvc.ActionResult Index(string textSearch, int page = 1)
