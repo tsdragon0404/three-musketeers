@@ -56,7 +56,3 @@ VALUES
 
 ( 1, 1, 1, N'{0} is not valid', N'{0} không hợp lệ' )
 GO
-
-INSERT INTO [User] ( UserName, Password, DisplayName, IsSystemAdmin )
-VALUES ( 'system', '123', 'system', 1)
-GO
