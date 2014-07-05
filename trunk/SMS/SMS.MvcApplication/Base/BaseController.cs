@@ -60,7 +60,7 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public JsonResult MultiEditPageLabel(int pageID, PageLabelDto[] listLabels)
+        public JsonResult MultiEditPageLabel(long pageID, PageLabelDto[] listLabels)
         {
             return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
@@ -68,7 +68,7 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public JsonResult GetAllPageLabel(int pageID)
+        public JsonResult GetAllPageLabel(long pageID)
         {
             return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)

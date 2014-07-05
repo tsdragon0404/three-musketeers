@@ -6,8 +6,8 @@ namespace SMS.Services
 {
     public interface IPageLabelService : IBaseService<PageLabelDto, long>
     {
-        ServiceResult<IList<TDto>> GetByPageID<TDto>(int pageID, bool includeGlobalLabels = false);
-        ServiceResult Save(int pageID, List<PageLabelDto> listLabels);
+        ServiceResult<IList<TDto>> GetByPageID<TDto>(long pageID, bool includeGlobalLabels = false);
+        ServiceResult Save(long pageID, List<PageLabelDto> listLabels);
         ServiceResult Copy(long fromBranchID, long toBranchID);
     }
 }

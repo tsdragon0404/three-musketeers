@@ -21,7 +21,8 @@
     <script type="text/javascript">
         var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
         $(document).ready(function() {
-            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup');
+            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup', 
+                '@Url.Action("GetAllPageLabel", "Home", new { area = "" })', '@Url.Action("MultiEditPageLabel", "Home", new { area = "" })');
             labelController.ScanElements();
             @if (SmsSystem.UserContext.IsSystemAdmin)
             {

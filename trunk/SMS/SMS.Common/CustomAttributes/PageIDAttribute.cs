@@ -4,9 +4,9 @@ namespace SMS.Common.CustomAttributes
 {
     public sealed class PageIDAttribute : Attribute
     {
-        public int PageID { get; private set; }
+        public long PageID { get; private set; }
 
-        public PageIDAttribute(int pageID)
+        public PageIDAttribute(long pageID)
         {
             PageID = pageID;
         }
