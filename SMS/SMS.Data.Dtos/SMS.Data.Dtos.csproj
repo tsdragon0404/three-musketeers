@@ -37,6 +37,8 @@
     <Compile Include="AreaDto.cs" />
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
+    <Compile Include="BranchInfoDto.cs" />
+    <Compile Include="OrderDataDto.cs" />
     <Compile Include="PageMenu.cs" />
     <Compile Include="PageBasicDto.cs" />
     <Compile Include="LanguagePageDto.cs" />
@@ -55,9 +57,7 @@
     <Compile Include="LanguageOrderDetailDto.cs" />
     <Compile Include="LanguageOrderTableDto.cs" />
     <Compile Include="ErrorMessageDto.cs" />
-    <Compile Include="LanguageInvoiceTableDto.cs" />
     <Compile Include="LanguageTableDto.cs" />
-    <Compile Include="LanguageInvoiceDetailDto.cs" />
     <Compile Include="LanguagePageLabelDto.cs" />
     <Compile Include="OrderDetailDto.cs" />
     <Compile Include="OrderDiscountDto.cs" />

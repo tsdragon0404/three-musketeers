@@ -15,6 +15,7 @@ namespace SMS.Common.AutoMapper
         public static void Register()
         {
             Map<Branch, BranchDto>();
+            Map<BranchInfo, BranchInfoDto>();
             Map<Product, ProductDto>();
             Map<ProductCategory, ProductCategoryDto>();
             Map<Table, TableDto>();
@@ -40,6 +41,7 @@ namespace SMS.Common.AutoMapper
             Map<Role, RoleDto>();
             Map<Currency, CurrencyDto>();
             Map<OrderDto, PaymentDto>();
+            Map<OrderDto, OrderDataDto>();
 
             Map<Report, ReportDto>();
             Map<ReportDatasource, ReportDatasourceDto>();

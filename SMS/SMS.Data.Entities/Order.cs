@@ -8,6 +8,11 @@ namespace SMS.Data.Entities
     {
         public virtual Branch Branch { get; set; }
 
+        public virtual BranchInfo BranchInfo
+        {
+            get { return new BranchInfo {ID = Branch.ID}; }
+        }
+
         public virtual string OrderNumber { get; set; }
 
         public virtual string Comment { get; set; }

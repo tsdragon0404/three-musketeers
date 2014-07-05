@@ -1,26 +1,71 @@
-﻿@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Session
 @model SMS.MvcApplication.Models.PopupModel
 <!-- MeadCo ScriptX -->
 <object classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="@Url.Content("~/ScriptX")/smsx.cab#Version=7,4,0,8" id=factory style="display:none">
 </object>
+<script src="@Url.Content("~/Scripts/meadco-scriptx-1.0.2.js")"></script>
+<!-- MeadCo ScriptX -->
+
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
     <div class="row">
-        <div class="nine columns payment-content">
+        <div class="eight columns payment-content">
             <div class="leftContent" style="width: 175mm;">
                 <div class="page" style="width: 170mm !important">
                 </div>
             </div>
         </div>
-        <div class="three columns payment-config">
-            <div class="rightContent">
-                <button id="payment" data-labelID="lblPayment">Thanh toán</button>
-                <button id="print" data-labelID="lblPrint">In hóa đơn</button>
+        <div class="four columns payment-config">
+            <div class="rightContent right">
+                <table>
+                    <colgroup>
+                        <col style="width: 30px"/>
+                        <col style="width: 150px"/>
+                        <col style="width: 150px"/>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Tổng tiền: </td>
+                            <td class="right"><span id="lblSumlAmount">0</span> @BranchConfig.Currency</td>
+                        </tr>
+                    @if (BranchConfig.UseServiceFee)
+                    {
+                        <tr id="ServiceFree">
+                            <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></td>
+                            <td>Service Fee:</td>
+                            <td class="right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</td>
+                        </tr>
+                    }
+                    @foreach (var tax in BranchConfig.Taxs)
+                    {
+                        <tr id="tax-@tax.Key">
+                            <td class="right"><input type="checkbox" id="popupChkUseTax-@tax.Key" /></td>
+                            <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
+                            <td class="right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</td>
+                        </tr>
+                    }
+                        <tr>
+                            <td></td>
+                            <td>Tiền khách đưa: </td>
+                            <td class="right"><input id="tienkhachdua" style="width: 100px"/> @BranchConfig.Currency</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Tiền trả lại: </td>
+                            <td class="right"><span id="lbltralai">0</span> @BranchConfig.Currency</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <button id="payment" data-labelID="lblPayment">Hoàn tất thanh toán</button>
+                    <button id="print" data-labelID="lblPrint">In hóa đơn</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script src="@Url.Content("~/Scripts/payment-popup.js")"></script>
-<script src="@Url.Content("~/Scripts/meadco-scriptx-1.0.2.js")"></script>
 <script id="payment-detail-@Model.PopupID" type="text/x-jquery-tmpl">
     <table style="width: 100%; font-family: courier">
         <colgroup>
@@ -32,10 +77,10 @@
         </colgroup>
         <thead>
             <tr>
-                <th colspan="5" class="center" style="font-weight: bold">${Branch.CompanyName}</th>
+                <th colspan="5" class="center" style="font-weight: bold">${BranchInfo.CompanyName}</th>
             </tr>
             <tr>
-                <th colspan="5" class="center">ĐIỆN THOẠI: ${Branch.Phone}</th>
+                <th colspan="5" class="center">ĐIỆN THOẠI: ${BranchInfo.Phone}</th>
             </tr>
             <tr style="border-top: 3px gray double">
                 <th colspan="5">TÊN BÀN</th>
@@ -67,8 +112,13 @@
         <tfoot>
             <tr>
                 <td colspan="3"></td>
+                <td>Phí dịch vụ:</td>
+                <td class="right">${ServiceFee.formatAsMoney()}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
                 <td>Tổng cộng:</td>
-                <td class="right">${SumAmount}</td>
+                <td class="right">${SumAmount.formatAsMoney()}</td>
             </tr>
             <tr>
                 <td colspan="5">Ngày lập: 21-06-2014</td>

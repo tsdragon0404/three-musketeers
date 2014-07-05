@@ -15,8 +15,8 @@ namespace SMS.Data.Dtos
         public virtual decimal ServiceFee { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
-        public virtual decimal InvoiceAmount { get; set; }
         public virtual string Currency { get; set; }
+        public virtual int UseVisa { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

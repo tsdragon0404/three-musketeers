@@ -28,6 +28,24 @@ BEGIN
 		[CurrencyID] [int] NULL,
 		[UseServiceFee] [bit] NULL,
 		[ServiceFee] [numeric](12, 2) NULL,
+		[Enable] [bit] NULL,
+		[SEQ] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_Branch] PRIMARY KEY CLUSTERED 
+	(
+		[BranchID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BranchInfo]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[BranchInfo](
+		[BranchID] [int] NOT NULL,
 		[CompanyCode] [nvarchar](255) NULL,
 		[CompanyName] [nvarchar](510) NULL,
 		[Phone] [nvarchar](50) NULL,
@@ -45,13 +63,7 @@ BEGIN
 		[Info8] [nvarchar](510) NULL,
 		[Info9] [nvarchar](510) NULL,
 		[Info10] [nvarchar](510) NULL,
-		[Enable] [bit] NULL,
-		[SEQ] [int] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [varchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [varchar](50) NULL,
-	 CONSTRAINT [PK_Branch] PRIMARY KEY CLUSTERED 
+	 CONSTRAINT [PK_BranchInfo] PRIMARY KEY CLUSTERED 
 	(
 		[BranchID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -148,8 +160,8 @@ BEGIN
 		[ServiceFee] [numeric](12, 2) NULL,
 		[OtherFee] [numeric](12, 2) NULL,
 		[OtherFeeDescription] [nvarchar](255) NULL,
-		[InvoiceAmount] [numeric](12, 2) NULL,
 		[Currency] [varchar](10) NULL,
+		[UseVisa] [int] NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
@@ -177,7 +189,7 @@ BEGIN
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[Comment] [nvarchar](255) NULL,
+		[DiscountComment] [nvarchar](255) NULL,
 	 CONSTRAINT [PK_InvoiceDetail] PRIMARY KEY CLUSTERED 
 	(
 		[InvoiceDetailID] ASC
@@ -194,7 +206,7 @@ BEGIN
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[Comment] [nvarchar](255) NULL,
+		[DiscountComment] [nvarchar](255) NULL,
 	 CONSTRAINT [PK_InvoiceDiscount] PRIMARY KEY CLUSTERED 
 	(
 		[InvoiceDiscountID] ASC
@@ -209,15 +221,16 @@ BEGIN
 		[InvoiceTableID] [bigint] IDENTITY(1,1) NOT NULL,
 		[InvoiceID] [bigint] NULL,
 		[TableID] [int] NULL,
+		[TableVNName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+		[TableENName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 		[Discount] [numeric](12, 2) NULL,
 		[DiscountType] [tinyint] NULL,
 		[DiscountCode] [nvarchar](50) NULL,
-		[Comment] [nvarchar](255) NULL,
+		[DiscountComment] [nvarchar](255) NULL,
 		[Tax] [numeric](12, 2) NULL,
 		[ServiceFee] [numeric](12, 2) NULL,
 		[OtherFee] [numeric](12, 2) NULL,
 		[OtherFeeDescription] [nvarchar](255) NULL,
-		[TableAmount] [numeric](12, 2) NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
@@ -378,14 +391,14 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[User](
 		[UserID] [int] IDENTITY(1,1) NOT NULL,
-		[UserCode] [nvarchar](255) NULL,
-		[UserLogin] [varchar](255) NULL,
-		[UserPassword] [varchar](1000) NULL,
-		[FirstName] [nvarchar](255) NULL,
-		[LastName] [nvarchar](255) NULL,
-		[CellPhone] [varchar](50) NULL,
-		[Enable] [bit] NULL,
-		[SEQ] [int] NULL,
+		[Username] [varchar](255) NOT NULL,
+		[Password] [varchar](1000) NOT NULL,
+		[DisplayName] [nvarchar](50) NULL,
+		[LastLoginDate] [datetime] NULL,
+		[IsSystemAdmin] [bit] NOT NULL,
+		[IsLockedOut] [bit] NOT NULL,
+		[LastLockedOutDate] [datetime] NULL,
+		[FailedPasswordAttemptCount] [int] NOT NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
@@ -409,13 +422,53 @@ BEGIN
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
 		[ModifiedUser] [varchar](50) NULL,
-	 CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
 	(
 		[UserBranchID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserProfile]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[UserProfile](
+		[UserID] [int] IDENTITY(1,1) NOT NULL,
+		[UserCode] [nvarchar](255) NULL,
+		[UserLogin] [varchar](255) NULL,
+		[UserPassword] [varchar](1000) NULL,
+		[FirstName] [nvarchar](255) NULL,
+		[LastName] [nvarchar](255) NULL,
+		[CellPhone] [varchar](50) NULL,
+		[Enable] [bit] NULL,
+		[SEQ] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_UserProfile] PRIMARY KEY CLUSTERED 
+	(
+		[UserID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UsersInRole]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[UsersInRole](
+		[UsersInRoleID] [int] IDENTITY(1,1) NOT NULL,
+		[UserID] [int] NOT NULL,
+		[RoleID] [int] NOT NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_UsersInRole] PRIMARY KEY CLUSTERED 
+	(
+		[UsersInRoleID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Page]') AND type in (N'U'))
 BEGIN
@@ -425,10 +478,10 @@ BEGIN
 		[ENTitle] [nvarchar](255) NULL,
 		[VNDescription] [nvarchar](500) NULL,
 		[ENDescription] [nvarchar](500) NULL,
-	  [Area] [varchar](50) NULL,
-	  [Controller] [varchar](50) NULL,
-	  [Action] [varchar](50) NULL,
-	 CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
+		[Area] [varchar](50) NULL,
+		[Controller] [varchar](50) NULL,
+		[Action] [varchar](50) NULL,
+	CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
 	(
 		[PageID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -545,13 +598,111 @@ BEGIN
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
 		[ModifiedUser] [varchar](50) NULL,
-	 CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
 	(
 		[OrderTableID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageMenu]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[PageMenu](
+		[PageMenuID] [int] IDENTITY(1,1) NOT NULL,
+		[GroupName] [nvarchar](50) NULL,
+		[PageID] [int] NULL,
+		[SEQ] [int] NULL,
+	CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 
+	(
+		[PageMenuID] ASC
+	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Role]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Role](
+		[RoleID] [int] IDENTITY(1,1) NOT NULL,
+		[Name] [varchar](64) NOT NULL,
+		[BranchID] [int] NULL,
+		[Enable] [bit] NULL,
+	 CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
+	(
+		[RoleID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RolePermission]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[RolePermission](
+		[RolePermissionID] [bigint] IDENTITY(1,1) NOT NULL,
+		[RoleID] [int] NOT NULL,
+		[PageID] [int] NOT NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_RolePermission] PRIMARY KEY CLUSTERED 
+	(
+		[RolePermissionID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Report]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Report](
+		[ReportID] [int] IDENTITY(1,1) NOT NULL,
+		[Name] [nvarchar](50) NOT NULL,
+		[VNTitle] [nvarchar](100) NULL,
+		[ENTitle] [nvarchar](100) NULL,
+	 CONSTRAINT [PK_Report] PRIMARY KEY CLUSTERED 
+	(
+		[ReportID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReportDatasource]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[ReportDatasource](
+		[ReportDatasourceID] [int] IDENTITY(1,1) NOT NULL,
+		[ReportID] [int] NULL,
+		[Name] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_ReportDatasource] PRIMARY KEY CLUSTERED 
+	(
+		[ReportDatasourceID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReportDatasourceParameter]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[ReportDatasourceParameter](
+		[ReportDatasourceParameterID] [int] IDENTITY(1,1) NOT NULL,
+		[ReportDatasourceID] [int] NULL,
+		[Name] [nvarchar](50) NULL,
+		[Type] [int] NULL,
+	 CONSTRAINT [PK_ReportDatasourceParameter] PRIMARY KEY CLUSTERED 
+	(
+		[ReportDatasourceParameterID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageLabel_Page]') AND type in (N'F'))
 BEGIN
@@ -805,79 +956,79 @@ BEGIN
 END
 GO
 
-CREATE TABLE [dbo].[PageMenu](
-	[PageMenuID] [int] IDENTITY(1,1) NOT NULL,
-	[GroupName] [nvarchar](50) NULL,
-	[PageID] [int] NULL,
-	[SEQ] [int] NULL,
- CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 
-(
-	[PageMenuID] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Role_Branch]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[Role]  WITH CHECK ADD  CONSTRAINT [FK_Role_Branch] FOREIGN KEY([BranchID])
+	REFERENCES [dbo].[Branch] ([BranchID])
 
+	ALTER TABLE [dbo].[Role] CHECK CONSTRAINT [FK_Role_Branch]
+END
 GO
 
-ALTER TABLE [dbo].[MenuGroup]  WITH CHECK ADD  CONSTRAINT [FK_MenuGroup_Page] FOREIGN KEY([PageID])
-REFERENCES [dbo].[Page] ([PageID])
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageMenu_Page]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[PageMenu]  WITH CHECK ADD  CONSTRAINT [FK_PageMenu_Page] FOREIGN KEY([PageID])
+	REFERENCES [dbo].[Page] ([PageID])
+
+	ALTER TABLE [dbo].[PageMenu] CHECK CONSTRAINT [FK_PageMenu_Page]
+END
 GO
 
-ALTER TABLE [dbo].[MenuGroup] CHECK CONSTRAINT [FK_MenuGroup_Page]
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_IsSystemAdmin]') AND type in (N'D'))
+BEGIN
+	ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_IsSystemAdmin]  DEFAULT ((0)) FOR [IsSystemAdmin]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_IsLockedOut]') AND type in (N'D'))
+BEGIN
+	ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_IsLockedOut]  DEFAULT ((0)) FOR [IsLockedOut]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_FailedPasswordAttemptCount]') AND type in (N'D'))
+BEGIN
+	ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_FailedPasswordAttemptCount]  DEFAULT ((0)) FOR [FailedPasswordAttemptCount]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UsersInRole_Role]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[UsersInRole]  WITH CHECK ADD  CONSTRAINT [FK_UsersInRole_Role] FOREIGN KEY([RoleID])
+	REFERENCES [dbo].[Role] ([RoleID])
+
+	ALTER TABLE [dbo].[UsersInRole] CHECK CONSTRAINT [FK_UsersInRole_Role]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UsersInRole_User]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[UsersInRole]  WITH CHECK ADD  CONSTRAINT [FK_UsersInRole_User] FOREIGN KEY([UserID])
+	REFERENCES [dbo].[User] ([UserID])
+
+	ALTER TABLE [dbo].[UsersInRole] CHECK CONSTRAINT [FK_UsersInRole_User]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_RolePermission_Role]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK_RolePermission_Role] FOREIGN KEY([RoleID])
+	REFERENCES [dbo].[Role] ([RoleID])
+
+	ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK_RolePermission_Role]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_RolePermission_User]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK_RolePermission_User] FOREIGN KEY([PageID])
+	REFERENCES [dbo].[Page] ([PageID])
+
+	ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK_RolePermission_User]
+END
 GO
 
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
-
-DELETE FROM dbo.Page
-GO
-INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Area, Controller, [Action] )
-VALUES 
-( 0, N'Global', N'Global', N'Global', N'Global', NULL, NULL, NULL ),
-( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', NULL, N'Home', N'Index' ),
-( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', NULL, N'Cashier', N'Index' ),
-( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', NULL, N'Kitchen', N'Index' ),
-( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', NULL, N'Account', N'Login' ),
-
-( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
-
-( 20, N'Admin', N'Admin', N'Admin', N'Admin', N'Administration', N'AdminHome', N'Index' ),
-( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'Administration', N'GlobalLabel', N'Index' ),
-( 22, N'Role', N'Role', N'Role', N'Role', N'Administration', N'Role', N'Index' ),
-( 23, N'User', N'User', N'User', N'User', N'Administration', N'User', N'Index' ),
-
-( 40, N'Data', N'Data', N'Data', N'Data', N'Data', N'DataHome', N'Index' ),
-( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'Data', N'Area', N'Index' ),
-( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'Data', N'Table', N'Index' ),
-( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'Data', N'ProductCategory', N'Index' )
-GO
-
-DELETE FROM dbo.PageMenu
-GO
-INSERT INTO dbo.PageMenu ( GroupName, PageID, SEQ )
-VALUES 
-( N'MainMenu', 1, 10 ),
-( N'MainMenu', 40, 20 ),
-( N'MainMenu', 20, 30 ),
-( N'MainMenu', 2, 40 ),
-( N'MainMenu', 3, 50 ),
-
-( N'AdminTabMenu', 21, 10 ),
-( N'AdminTabMenu', 22, 20 ),
-( N'AdminTabMenu', 23, 30 ),
-
-( N'DataTabMenu', 41, 10 ),
-( N'DataTabMenu', 42, 20 ),
-( N'DataTabMenu', 43, 30 )
-
-DELETE FROM dbo.OrderStatus
-GO
-INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
-VALUES 
-(1, N'Chưa chuyển bếp', N'Chưa chuyển bếp'),
-(2, N'Đã chuyển bếp', N'Đã chuyển bếp'),
-(3, N'Bếp nhận', N'Bếp nhận'),
-(4, N'Bếp trả lại', N'Bếp trả lại'),
-(5, N'Giao khách', N'Giao khách')
-GO

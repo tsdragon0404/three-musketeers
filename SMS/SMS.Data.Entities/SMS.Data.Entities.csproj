@@ -37,6 +37,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Branch.cs" />
     <Compile Include="BranchTax.cs" />
+    <Compile Include="BranchInfo.cs" />
     <Compile Include="PageMenu.cs" />
     <Compile Include="UsersInRole.cs" />
     <Compile Include="RolePermission.cs" />

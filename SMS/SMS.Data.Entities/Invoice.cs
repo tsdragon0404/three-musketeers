@@ -25,9 +25,9 @@ namespace SMS.Data.Entities
 
         public virtual string OtherFeeDescription { get; set; }
 
-        public virtual decimal InvoiceAmount { get; set; }
-
         public virtual string Currency { get; set; }
+
+        public virtual int UseVisa { get; set; }
 
         #region Implementation of IAuditableEntity
 
