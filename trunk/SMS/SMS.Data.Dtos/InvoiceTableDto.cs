@@ -9,12 +9,14 @@ namespace SMS.Data.Dtos
         public virtual long ID { get; set; }
         public virtual long InvoiceID { get; set; }
         public virtual InvoiceDto Invoice { get; set; }
-        public virtual TableDto Table { get; set; }
+        public virtual long TableID { get; set; }
+        public virtual string TableVNName { get; set; }
+        public virtual string TableENName { get; set; }
         public virtual IList<InvoiceDetailDto> InvoiceDetails { get; set; }
         public virtual decimal Discount { get; set; }
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }
-        public virtual string Comment { get; set; }
+        public virtual string DiscountComment { get; set; }
         public virtual decimal Tax { get; set; }
         public virtual decimal ServiceFee { get; set; }
         public virtual decimal OtherFee { get; set; }

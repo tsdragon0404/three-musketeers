@@ -48,7 +48,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetail<OrderDto>(orderTableID);
+            var order = OrderService.GetOrderDetail<OrderDataDto>(orderTableID);
 
             return Json(JsonModel.Create(order));
         }
@@ -58,7 +58,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0 || tableID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderTableService.MoveTable<OrderDto>(orderTableID, tableID);
+            var order = OrderTableService.MoveTable<OrderDataDto>(orderTableID, tableID);
 
             return Json(JsonModel.Create(order));
         }
@@ -68,7 +68,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetailByOrderID<OrderDto>(orderID);
+            var order = OrderService.GetOrderDetailByOrderID<OrderDataDto>(orderID);
 
             return Json(JsonModel.Create(order));
         }
@@ -143,14 +143,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(result));
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult CreateOrderTable(long tableID)
         {
             if (tableID <= 0) return Json(JsonModel.Create(false));
 
             var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
-            return Json(JsonModel.Create(orderTableID));
+            return Json(JsonModel.Create(orderTableID), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -193,23 +193,13 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetDataForPreviewInvoice(long orderTableID)
-        {
-            if (orderTableID <= 0) return Json(JsonModel.Create(false));
-
-            var orderTable = OrderTableService.GetByID<LanguageOrderTableDto>(orderTableID);
-
-            return Json(JsonModel.Create(orderTable));
-        }
-
-        //[HttpPost]
         public JsonResult GetDataForPayment(long orderID)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
             var order = OrderService.GetOrderDetailByOrderID<PaymentDto>(orderID);
 
-            return Json(JsonModel.Create(order), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(order));
         }
 
         [HttpPost]

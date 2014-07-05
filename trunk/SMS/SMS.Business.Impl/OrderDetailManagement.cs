@@ -68,7 +68,7 @@ namespace SMS.Business.Impl
         {
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
-                return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(new OrderDetail()));
+                return ServiceResult<TDto>.CreateFailResult();
             orderDetail.OrderStatus = OrderStatusRepository.Get(value);
             Repository.Update(orderDetail);
 

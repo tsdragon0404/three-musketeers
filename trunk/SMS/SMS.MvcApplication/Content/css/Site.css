@@ -317,6 +317,16 @@ label.ui-state-error {
     cursor: pointer;
 }
 
+.icon-cancel-info {
+    background: url("../../Images/IconControls/all-icon.png") 0 -64px no-repeat;
+    height: 16px;
+    width: 16px;
+}
+
+.icon-cancel-info:hover {
+    cursor: pointer;
+}
+
 .Rmenu {
     position: fixed;
     display: none;
@@ -843,13 +853,13 @@ table thead{
     height: auto;
 }
 
-.rightContent {
-    height: auto;
-    border: 2px gray solid;
-}
-
 .payment-config {
     margin: 0;
+    float: right;
+}
+
+.payment-config table, .payment-config table td {
+    border: none;
 }
 
 #loginform {

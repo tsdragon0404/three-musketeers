@@ -17,7 +17,6 @@ namespace SMS.Data.Mapping
             Map(x => x.ServiceFee);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
-            Map(x => x.InvoiceAmount);
             Map(x => x.Currency);
         }
     }

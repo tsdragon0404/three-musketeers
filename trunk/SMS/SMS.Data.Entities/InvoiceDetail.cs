@@ -26,6 +26,6 @@ namespace SMS.Data.Entities
 
         public virtual string DiscountCode { get; set; }
 
-        public virtual string Comment { get; set; }
+        public virtual string DiscountComment { get; set; }
     }
 }

@@ -9,16 +9,17 @@ namespace SMS.Data.Mapping
         {
             Table("InvoiceTable");
             References(x => x.Invoice).Column("InvoiceID");
-            References(x => x.Table).Column("TableID");
+            Map(x => x.TableID);
+            Map(x => x.TableVNName);
+            Map(x => x.TableENName);
             Map(x => x.Discount);
             Map(x => x.DiscountType).CustomType<DiscountType>();
             Map(x => x.DiscountCode);
-            Map(x => x.Comment);
+            Map(x => x.DiscountComment);
             Map(x => x.Tax);
             Map(x => x.ServiceFee);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
-            Map(x => x.TableAmount);
             HasMany(x => x.InvoiceDetails).KeyColumn("InvoiceTableID").Inverse().Cascade.AllDeleteOrphan();
         }
     }

@@ -65,7 +65,8 @@ namespace SMS.MvcApplication
             BranchConfig.Currency = "VND";
             BranchConfig.Taxs = new Dictionary<string, decimal>
                                 {
-                                    {"VAT", 10}
+                                    {"VAT", 10},
+                                    {"ABC", 10}
                                 };
         }
 

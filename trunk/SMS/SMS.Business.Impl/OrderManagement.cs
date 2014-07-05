@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
+using SMS.Common;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -14,6 +15,9 @@ namespace SMS.Business.Impl
         #region Fields
 
         public virtual IOrderTableRepository OrderTableRepository { get; set; }
+        public virtual IInvoiceRepository InvoiceRepository { get; set; }
+        public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
+        public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
 
         #endregion
 
@@ -80,6 +84,70 @@ namespace SMS.Business.Impl
 
         public ServiceResult Payment(long orderID)
         {
+            var order = Repository.Get(orderID);
+
+            if (order == null)
+                return ServiceResult.CreateFailResult();
+
+            var invoice = new Invoice
+                              {
+                                  InvoiceNumber = "INV-" + DateTime.Now.ToString("yyyyMMdd"),
+                                  InvoiceDate = DateTime.Now,
+                                  BranchID = order.Branch.ID,
+                                  CustomerID = order.Customer.ID,
+                                  Currency = BranchConfig.Currency,
+                                  UserID = SmsSystem.UserContext.UserID,
+                                  Tax = 0,
+                                  Comment = order.Comment ?? "",
+                                  ServiceFee = 0,
+                                  OtherFee = order.OtherFee,
+                                  OtherFeeDescription = order.OtherFeeDescription ?? ""
+                              };
+            InvoiceRepository.Add(invoice);
+            InvoiceRepository.SaveAllChanges();
+
+            foreach (var orderTable in order.OrderTables)
+            {
+                var invoiceTable = new InvoiceTable
+                                       {
+                                           Invoice = invoice,
+                                           TableID = orderTable.Table.ID,
+                                           TableVNName = orderTable.Table.VNName,
+                                           TableENName = orderTable.Table.ENName,
+                                           Discount = orderTable.Discount,
+                                           DiscountCode = orderTable.DiscountCode ?? "",
+                                           DiscountType = orderTable.DiscountType,
+                                           DiscountComment = orderTable.DiscountComment ?? "",
+                                           OtherFee = orderTable.OtherFee,
+                                           OtherFeeDescription = orderTable.OtherFeeDescription ?? ""
+                                           
+                                       };
+                InvoiceTableRepository.Add(invoiceTable);
+                InvoiceTableRepository.SaveAllChanges();
+
+                foreach (var orderDetail in orderTable.OrderDetails)
+                {
+                    var invoiceDetail = new InvoiceDetail
+                                            {
+                                                InvoiceTable = invoiceTable,
+                                                ProductCode = orderDetail.Product.ProductCode,
+                                                ProductVNName = orderDetail.Product.VNName,
+                                                ProductENName = orderDetail.Product.ENName,
+                                                UnitVNName = orderDetail.Product.Unit.VNName,
+                                                UnitENName = orderDetail.Product.Unit.ENName,
+                                                Quantity = orderDetail.Quantity,
+                                                Price = orderDetail.Product.Price,
+                                                Discount = orderDetail.Discount,
+                                                DiscountCode = orderDetail.DiscountCode ?? "",
+                                                DiscountType = orderDetail.DiscountType,
+                                                DiscountComment = orderDetail.DiscountComment ?? ""
+                                            };
+                    InvoiceDetailRepository.Add(invoiceDetail);
+                    InvoiceDetailRepository.SaveAllChanges();
+                }
+            }
+
+            Repository.Delete(orderID);
 
             return ServiceResult.CreateSuccessResult();
         }

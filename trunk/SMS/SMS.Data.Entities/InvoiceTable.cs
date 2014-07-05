@@ -9,7 +9,11 @@ namespace SMS.Data.Entities
     {
         public virtual Invoice Invoice { get; set; }
 
-        public virtual Table Table { get; set; }
+        public virtual long TableID { get; set; }
+
+        public virtual string TableVNName { get; set; }
+
+        public virtual string TableENName { get; set; }
 
         public virtual decimal Discount { get; set; }
 
@@ -17,7 +21,7 @@ namespace SMS.Data.Entities
 
         public virtual string DiscountCode { get; set; }
 
-        public virtual string Comment { get; set; }
+        public virtual string DiscountComment { get; set; }
 
         public virtual decimal Tax { get; set; }
 
@@ -26,8 +30,6 @@ namespace SMS.Data.Entities
         public virtual decimal OtherFee { get; set; }
 
         public virtual string OtherFeeDescription { get; set; }
-
-        public virtual decimal TableAmount { get; set; }
 
         public virtual IList<InvoiceDetail> InvoiceDetails { get; set; }
 
