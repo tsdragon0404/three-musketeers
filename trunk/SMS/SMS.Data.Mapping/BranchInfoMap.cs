@@ -3,12 +3,13 @@ using FluentNHibernate.Mapping;
 
 namespace SMS.Data.Mapping
 {
-    public class BrancInfoMap : ClassMap<BranchInfo>
+    public class BranchInfoMap : ClassMap<BranchInfo>
     {
-        public BrancInfoMap()
+        public BranchInfoMap()
         {
             Table("BranchInfo");
-            Id(x => x.ID).Column("BranchID");
+            Id(x => x.ID).Column("BranchID").GeneratedBy.Foreign("Branch");
+            HasOne(x => x.Branch).Constrained().ForeignKey();
             Map(x => x.CompanyCode);
             Map(x => x.CompanyName);
             Map(x => x.Phone);

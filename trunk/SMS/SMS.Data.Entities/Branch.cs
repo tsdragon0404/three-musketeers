@@ -16,6 +16,8 @@ namespace SMS.Data.Entities
 
         public virtual decimal ServiceFee { get; set; }
 
+        public virtual BranchInfo BranchInfo { get; set; }
+
         public virtual IList<User> UsersInBranch { get; set; }
 
         #region Implementation of IEnableEntity

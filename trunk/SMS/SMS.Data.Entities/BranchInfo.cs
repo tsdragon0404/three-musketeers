@@ -2,6 +2,8 @@
 {
     public class BranchInfo : Entity
     {
+        public virtual Branch Branch { get; set; }
+
         public virtual string CompanyCode { get; set; }
 
         public virtual string CompanyName { get; set; }

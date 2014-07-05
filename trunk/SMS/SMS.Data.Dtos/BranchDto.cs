@@ -10,6 +10,7 @@ namespace SMS.Data.Dtos
         public virtual CurrencyDto Currency { get; set; }
         public virtual bool UseServiceFee { get; set; }
         public virtual decimal ServiceFee { get; set; }
+        public virtual BranchInfoDto BranchInfo { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }
