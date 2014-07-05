@@ -7,6 +7,7 @@ using SMS.Services;
 namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
     [SmsAuthorize(ConstPage.Admin_Role)]
+    [PageID(ConstPage.Admin_Role)]
     public class RoleController : AdminBaseController<RoleDto, long, IRoleService>
     {
         #region Fields

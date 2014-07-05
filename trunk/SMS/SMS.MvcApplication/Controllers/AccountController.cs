@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Common.Information;
 using SMS.Common.Constant;
+using SMS.Common.CustomAttributes;
 using SMS.Common.Message;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
@@ -20,6 +21,7 @@ namespace SMS.MvcApplication.Controllers
         public IBranchService BranchService { get; set; }
         public IErrorMessageService ErrorMessageService { get; set; }
 
+        [PageID(ConstPage.Login)]
         public ActionResult Login()
         {
             if (SmsSystem.UserContext.UserID != 0)
@@ -32,6 +34,7 @@ namespace SMS.MvcApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PageID(ConstPage.Login)]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)

@@ -6,6 +6,7 @@ using SMS.MvcApplication.Base;
 namespace SMS.MvcApplication.Areas.Administration.Controllers
 {
     [SmsAuthorize(ConstPage.Admin_Home)]
+    [PageID(ConstPage.Admin_Home)]
     public class AdminHomeController : BaseController
     {
         public ActionResult Index()
