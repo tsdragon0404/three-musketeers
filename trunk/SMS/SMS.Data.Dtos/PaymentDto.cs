@@ -14,13 +14,9 @@ namespace SMS.Data.Dtos
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
         public virtual IList<PaymentTableDto> OrderTables { get; set; }
-        public virtual decimal SumAmount
+        public virtual decimal SubTotal
         {
             get { return !OrderTables.Any() ? 0 : OrderTables.Sum(x => x.TableAmount); }
-        }
-        public virtual decimal TotalAmount
-        {
-            get { return SumAmount + OtherFee; }
         }
 
         public virtual DateTime? CreatedDate { get; set; }
