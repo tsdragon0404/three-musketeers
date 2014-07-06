@@ -27,7 +27,7 @@
                         <tr>
                             <td></td>
                             <td>Tổng tiền: </td>
-                            <td class="right"><span id="lblSumlAmount">0</span> @BranchConfig.Currency</td>
+                            <td class="right"><span id="lblSubTotal">0</span> @BranchConfig.Currency</td>
                         </tr>
                     @if (BranchConfig.UseServiceFee)
                     {
@@ -112,13 +112,28 @@
         <tfoot>
             <tr>
                 <td colspan="3"></td>
-                <td>Phí dịch vụ:</td>
-                <td class="right">${ServiceFee.formatAsMoney()}</td>
+                <td>Tổng cộng:</td>
+                <td class="right">${SubTotal.formatAsMoney()} @BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td>Tổng cộng:</td>
-                <td class="right">${SumAmount.formatAsMoney()}</td>
+                <td>Phí dịch vụ:</td>
+                <td class="right">${ServiceFee.formatAsMoney()} @BranchConfig.Currency</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td>Dịch vụ khác:</td>
+                <td class="right">${OtherFee.formatAsMoney()} @BranchConfig.Currency</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td>Thuế:</td>
+                <td class="right">${Tax.formatAsMoney()} @BranchConfig.Currency</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td>Tiền thanh toán:</td>
+                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="5">Ngày lập: 21-06-2014</td>

@@ -62,34 +62,67 @@
                 return;
 
             root.Data = result.Data;
-
-            $('#lblSumlAmount').text(root.Data.SumAmount.formatAsMoney());
+            
+            $('#lblSubTotal').text(root.Data.SubTotal.formatAsMoney());
             $('#' + root.id + ' #popupchkUseServiceFee').prop('checked', root.useServiceFee);
             $('#' + root.id + ' input[id^="popupChkUseTax-"]').each(function (idx, e) {
                 $(e).prop('checked', root.useTax[idx]);
             });
 
-            var serviceFee = 0;
-            if ($('#' + root.id + ' #popupchkUseServiceFee').length > 0
-                    && $('#' + root.id + ' #popupchkUseServiceFee').is(':checked')) {
-                serviceFee = $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
-            }
-            root.Data.ServiceFee = serviceFee;
-            root.Data.SumAmount += serviceFee;
-
-            var tax = 0;
-            $('#' + root.id + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
-                if ($(element).find('input[id^="popupChkUseTax-"]').is(':checked')) {
-                    var value = $(element).find('span[id^="tax-value-"]').text();
-                    tax += root.Data.SumAmount > 0 ? root.Data.SumAmount * value / 100 : 0;
-                    $(element).find('span[id^="tax-amount-"]').text((root.Data.SumAmount * value / 100).formatAsMoney());
-                } else {
-                    $(element).find('span[id^="tax-amount-"]').text('0');
-                }
-            });
-
-            $('#' + root.id + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
+            processData();
         });
+    }
+    
+    $('#' + root.id + ' #popupchkUseServiceFee').click(function () {
+        if ($(this).is(':checked')) {
+            $('#' + root.id + ' #ServiceFree').removeClass('RmenuDisable');
+        } else {
+            $('#' + root.id + ' #ServiceFree').addClass('RmenuDisable');
+        }
+        processData();
+    });
+    
+    $('#' + root.id + ' input[id^="popupChkUseTax-"]').click(function () {
+        var type = $(this).attr('id').split('-')[1];
+        if ($(this).is(':checked')) {
+            $('#' + root.id + ' #tax-' + type).removeClass('RmenuDisable');
+        } else {
+            $('#' + root.id + ' #tax-' + type).addClass('RmenuDisable');
+        }
+        processData();
+    });
+
+    function processData() {
+        var serviceFee = 0;
+        if ($('#' + root.id + ' #popupchkUseServiceFee').length > 0
+                && $('#' + root.id + ' #popupchkUseServiceFee').is(':checked')) {
+
+            $('#' + root.id + ' #ServiceFree').removeClass('RmenuDisable');
+            serviceFee = $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
+            $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text(serviceFee.formatAsMoney());
+        } else {
+            $('#' + root.id + ' #ServiceFree').addClass('RmenuDisable');
+        }
+
+        root.Data.ServiceFee = serviceFee;
+        root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee;
+
+        var tax = 0;
+        $('#' + root.id + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
+            if ($(element).find('input[id^="popupChkUseTax-"]').is(':checked')) {
+                $(element).removeClass('RmenuDisable');
+                var value = $(element).find('span[id^="tax-value-"]').text();
+                tax += root.Data.SumAmount > 0 ? root.Data.SumAmount * value / 100 : 0;
+                $(element).find('span[id^="tax-amount-"]').text((root.Data.SumAmount * value / 100).formatAsMoney());
+            } else {
+                $(element).addClass('RmenuDisable');
+                $(element).find('span[id^="tax-amount-"]').text('0');
+            }
+        });
+        root.Data.Tax = tax;
+        root.Data.TotalAmount = root.Data.SumAmount + tax;
+
+        $('#' + root.id + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
     }
     
     function payment() {
@@ -125,14 +158,4 @@
 
         popup.OpenPopup();
     }
-    
-    //$.fn.Calculation = function () {
-    //    var serviceFee = 0;
-    //    if ($('#' + root.id + ' #popupchkUseServiceFee').length > 0
-    //            && $('#' + root.id + ' #popupchkUseServiceFee').is(':checked')) {
-    //        serviceFee = $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
-    //    }
-    //    this.ServiceFee = serviceFee;
-    //    return this;
-    //};
 }
