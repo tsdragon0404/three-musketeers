@@ -20,7 +20,9 @@ VALUES
 ( 40, N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchDataHome', N'Index' ),
 ( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'BranchData', N'Area', N'Index' ),
 ( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'BranchData', N'Table', N'Index' ),
-( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' )
+( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' ),
+
+( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( GroupName, PageID, SEQ )
@@ -30,6 +32,7 @@ VALUES
 ( N'MainMenu', 3, 30 ),
 ( N'MainMenu', 20, 40 ),
 ( N'MainMenu', 40, 50 ),
+( N'MainMenu', 60, 60 ),
 
 ( N'BranchTabMenu', 21, 10 ),
 ( N'BranchTabMenu', 22, 20 ),
