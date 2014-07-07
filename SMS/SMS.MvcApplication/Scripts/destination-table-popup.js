@@ -21,6 +21,7 @@
 
     this.OpenPopup = function () {
         $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
+        //$('#select-area-' + root.id).selectmenu();
         $.ajax({
             type: 'POST',
             url: root.getDataUrl,

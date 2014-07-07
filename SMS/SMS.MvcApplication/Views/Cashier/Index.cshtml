@@ -70,7 +70,7 @@
                         <th data-labelID="lblRemarks">Remarks</th>
                         @if(BranchConfig.UseKitchenFunction)
                         {
-                            <th></th>
+                            <th class="icon"><div id="sendToKitchen-${ID}" class="icon-transfer" title="Send all to kitchen" /></th>
                         }
                         <th></th>
                     </tr>
@@ -264,7 +264,6 @@
                 <span id="curCustomerName" class="label-custom-data"></span>
             </div>
         </div>
-        
         <div id="order-detail">
             <div class="row" id="tblContent"></div>
             <div class="row" id="button-payment">
@@ -349,7 +348,6 @@
         if (tabindex < 0)
             tabindex = 0;
         $('#area-table').tabs({ active: tabindex });
-        
         $("#payment").button({
             icons: {
                 primary: "ui-icon-check"
@@ -816,6 +814,11 @@
 
     function bindEventForControl() {
         $('table[id^="order-"]').table();
+
+        $('div[id^="sendToKitchen-"').unbind('click');
+        $('div[id^="sendToKitchen-"').click(function() {
+            
+        });
 
         $('input[id^="qty"]').spinner({
             step: 0.5,
