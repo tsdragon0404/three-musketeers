@@ -145,6 +145,10 @@
 
                         popup.OpenPopup();
                     } else {
+                        $('#' + root.id + ' #popupchkUseServiceFee').hide();
+                        $('#' + root.id + ' input[id^="popupChkUseTax-"]').hide();
+                        $('#' + root.id + ' #payment').addClass('RmenuDisable');
+                        $('#' + root.id + ' #payment').prop("disabled", true);
                         if (MeadCo.ScriptX.Init()) {
                             MeadCo.ScriptX.Printing.header = "";
                             MeadCo.ScriptX.Printing.footer = "";
