@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common;
 using SMS.Common.Constant;
+using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -58,7 +59,7 @@ namespace SMS.Business.Impl
                         orderDetail.DiscountComment = "";
                         break;
                     }
-                case "KitchenComment":
+                case "kitchenComment":
                     orderDetail.KitchenComment = value;
                     break;
 
@@ -81,7 +82,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
         {
-            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.SentToKitchen).ToList();
+            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.SentToKitchen && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
         }
 
@@ -96,7 +97,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>()
         {
-            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.KitchenAccepted).ToList();
+            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.KitchenAccepted && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
             return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
         }
     }

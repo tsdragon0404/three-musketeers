@@ -1,14 +1,7 @@
-﻿@using SMS.Common
-@using SMS.Common.Constant
-@using SMS.Data.Dtos
+﻿@using SMS.Common.Constant
 @{
     ViewBag.Title = "Index";
 }
-@*@{
-    var orderedProducts = (List<LanguageOrderDetailDto>) ViewBag.OrderedProducts;
-    int i = 1;
-}*@
-
 <script id="orderedProducts-tmpl" type="text/x-jquery-tmpl">  
     {{if Data.length >0}}
     {{each(idx) Data}}
@@ -16,20 +9,15 @@
         <td>${idx+1}</td>
         <td>${Product.Name} - ${Product.ProductCode}</td>
         <td>${Quantity}</td>
-        <td>${Comment}</td>
-        <td>
-            <button id="btnAccept-${ID}"><span data-labelID="lblAccept">Accept</span></button>
-        </td>
-        <td>
-            <button id="btnConfirmedAcceptAndDone-${ID}"><span data-labelID="lblAcceptAndDone">Accept & Done</span></button>
-        </td>
+        <td class="word-break">${Comment}</td>
         <td>
             <input type="text" id="kitchencmt-${ID}" class="remarksInput"/>                          
         </td>         
         <td>
             <button id="btnRejected-${ID}"><span data-labelID="lblReject">Reject</span></button>
+            <button id="btnAccept-${ID}"><span data-labelID="lblAccept">Accept</span></button>
+            <button id="btnConfirmedAcceptAndDone-${ID}"><span data-labelID="lblAcceptAndDone">Accept & Done</span></button>
         </td>
-                       
     </tr> 
     {{/each}}
     {{else}}
@@ -46,15 +34,13 @@
         <td>${idx + 1}</td>
         <td>${Product.Name} - ${Product.ProductCode}</td>
         <td>${Quantity}</td>
-        <td>${Comment}</td>
-        <td>
-            <button id="btnConfirmedDone-${ID}"><span data-labelID="lbConfirmedDone">Done</span></button>
-        </td>
+        <td class="word-break">${Comment}</td>
         <td>
             <input type="text" id="confirmedkitchencmt-${ID}" class="remarksInput"/>                          
         </td>         
         <td >
             <button id="btnConfirmedRejected-${ID}"><span data-labelID="lbConfirmedReject">Reject</span></button>
+            <button id="btnConfirmedDone-${ID}"><span data-labelID="lbConfirmedDone">Done</span></button>
         </td>
                        
     </tr>
@@ -68,22 +54,21 @@
 </script>
 
 <div id="kitchen">
-    <div class="row" id="radOrderedStatus">
-        <input type="radio" id="radOrderedProducts" name="radio" checked="checked"><label for="radOrderedProducts">Ordered Products</label>
-        <input type="radio" id="radAcceptedProducts" name="radio" ><label for="radAcceptedProducts">Accepted Products</label>
+    <div class="row">
+        <div id="radOrderedStatus">
+            <input type="radio" id="radOrderedProducts" name="radio" checked="checked"><label for="radOrderedProducts">Ordered Products</label>
+            <input type="radio" id="radAcceptedProducts" name="radio" ><label for="radAcceptedProducts">Accepted Products</label>
+        </div>
     </div>
-    <br/>
     <div class="row" id="orderedProducts">
         <table id="tblOrderedProducts">
             <colgroup>
                 <col class="col1" />
-                <col class="col2"/>
+                <col class="col2" />
                 <col class="col3" />
-                <col class="col4"/>
+                <col class="col4" />
                 <col class="col5" />
-                <col class="col6"/>
-                <col class="col7"/>
-                <col class="col8"/>
+                <col class="col6" />
             </colgroup>
             <thead>
                 <tr>
@@ -91,8 +76,6 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Remarks</th>
-                    <th></th>
-                    <th></th>
                     <th>Kitchen remarks</th>
                     <th></th>
                 </tr>
@@ -106,12 +89,11 @@
         <table id="tblConfirmedProducts">
             <colgroup>
                 <col class="col1" />
-                <col class="col2"/>
+                <col class="col2" />
                 <col class="col3" />
-                <col class="col4"/>
+                <col class="col4" />
                 <col class="col5" />
-                <col class="col6"/>
-                <col class="col7"/>
+                <col class="col6" />
             </colgroup>
             <thead>
                 <tr>
@@ -119,7 +101,6 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Remarks</th>
-                    <th></th>
                     <th>Kitchen remarks</th>
                     <th></th>
                 </tr>
@@ -147,16 +128,11 @@
                 $('#confirmedProducts').show();
                 $('#orderedProducts').hide();
             });
-             
-
-
         });
         function GetOrderedProducts()
         {
             $.post("@Url.Action("GetOrderedProducts")",
                 function (orderedProducts) {
-                    //a = orderedProducts;
-                   
                     $('#tblOrderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
                     $('button[id^="btnAccept"]').button({ 
                         icons: {
@@ -165,12 +141,12 @@
                     }).click(function () {
                         UpdateOrderedProductStatus(this,@ConstOrderStatus.KitchenAccepted);
                     });
-                    
+
                     $('button[id^="btnConfirmedAcceptAndDone"]').button({
                         icons: {
                             primary: "ui-icon-check"
                         }
-                    }).click(function () {
+                    }).click(function() {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
                     });
                     
@@ -180,16 +156,12 @@
                         }
                     }).click(function () {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
-                    });
-                    
-                    $('input[id^="kitchencmt"]').change(function() {
-                        updateKitchenComments(this);
+                        updateKitchenComments(this, 'kitchencmt-');
                     });
                     
                     $('#tblOrderedProducts').table();
                 });            
         }
-        //ui-icon-arrowreturnthick-1-w"
         function GetAcceptedProducts()
         {
             $.post("@Url.Action("GetAcceptedProducts")",
@@ -210,17 +182,14 @@
                         }
                     }).click(function () {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
-                        updateKitchenComments(this);
+                        updateKitchenComments(this, 'confirmedkitchencmt-');
                     });
-                    $('input[id^="confirmedkitchencmt"]').change(function() {
-                        updateKitchenComments(this);
-                    });
+
                     $('#tblConfirmedProducts').table();
                 });
         }
-
-       
-        function UpdateOrderedProductStatus(e,value) {
+   
+        function UpdateOrderedProductStatus(e, value) {
             var orderDetailId = $(e).attr('id').split('-')[1];
             
             $.ajax({
@@ -246,10 +215,11 @@
                 }
             });
         }
-        function updateKitchenComments(e) {
-            var colName = "KitchenComment";
+        
+        function updateKitchenComments(e, name) {
+            var colName = "kitchenComment";
             var orderDetailId = $(e).attr('id').split('-')[1];
-            var value = $(e).val();
+            var value = $('#' + name + orderDetailId).val();
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("UpdateOrderedProduct")',
