@@ -618,16 +618,16 @@
         
         switch (value) {
             case @ConstOrderStatus.Ordered:
-                value = 2;
+                value = @ConstOrderStatus.SentToKitchen;
                 break;
             case @ConstOrderStatus.SentToKitchen:
-                value = 3;
+                value = @ConstOrderStatus.KitchenAccepted;
                 break;
             case @ConstOrderStatus.KitchenAccepted:
-                value = 5;
+                value = @ConstOrderStatus.Done;
                 break;
             case @ConstOrderStatus.KitchenRejected:
-                value = 5;
+                value = @ConstOrderStatus.SentToKitchen;
                 break;
             case @ConstOrderStatus.Done:
                 return;

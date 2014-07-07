@@ -20,8 +20,6 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Kitchen)]
         public ActionResult Index()
         {
-            //var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
-            //ViewBag.OrderedProducts = products.Data;
             return View();
         }
         [HttpPost]

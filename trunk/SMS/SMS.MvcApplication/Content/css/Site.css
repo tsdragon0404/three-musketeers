@@ -876,3 +876,59 @@ table thead{
 #loginform label {
     margin: 0;
 }
+
+#radOrderedStatus {
+    padding: 10px;
+}
+
+#tblOrderedProducts .col1{
+    width: 3%;
+}
+
+#tblOrderedProducts .col2{
+    width: 20%;
+}
+
+#tblOrderedProducts .col3{
+    width: 7%;
+}
+
+#tblOrderedProducts .col4{
+    width: 18%;
+}
+
+#tblOrderedProducts .col5{
+    width: 18%;
+}
+
+#tblOrderedProducts .col6{
+    width: 34%;
+}
+
+#tblConfirmedProducts .col1{
+    width: 3%;
+}
+
+#tblConfirmedProducts .col2{
+    width: 20%;
+}
+
+#tblConfirmedProducts .col3{
+    width: 7%;
+}
+
+#tblConfirmedProducts .col4{
+    width: 20%;
+}
+
+#tblConfirmedProducts .col5{
+    width: 30%;
+}
+
+#tblConfirmedProducts .col6{
+    width: 20%;
+}
+
+.word-break {
+    word-break: break-all;
+}
