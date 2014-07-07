@@ -28,7 +28,7 @@ namespace SMS.MvcApplication.Controllers
                 return RedirectToAction("Index", "Home");
 
             SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
-            var temp = BranchService.GetAll().Data;
+            
             var branches = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem {Value = x.ID.ToString(), Text = x.Name}).ToList();
             return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
         }

@@ -1,0 +1,224 @@
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
+@model SMS.MvcApplication.Models.AdminModel<UserDto>
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    var numberOfColumns = 5;
+    if (SmsSystem.UserContext.IsSystemAdmin)
+    {
+        numberOfColumns = 6;
+    }
+}
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="@numberOfColumns">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="three columns right">
+                        Username
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="username" value="${Username}" id="username-${ID}" />
+                    </div>
+                    <div class="three columns right">
+                        Password
+                    </div>
+                    <div class="three columns">
+                        <input type="password" name="password" value="${Password}" id="password-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        Display name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="displayname" value="${Displayname}" id="displayname-${ID}" />
+                    </div>
+                    <div class="three columns right">
+                        Locked
+                    </div>
+                    <div class="three columns">
+                        {{if IsLockedOut == true}}
+                        <input type="checkbox" name="locked" checked id="locked-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="locked" id="locked-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                @if (SmsSystem.UserContext.IsSystemAdmin)
+                {
+                    <div class="row">
+                        <div class="three columns right">
+                            Is system admin
+                        </div>
+                        <div class="three columns">
+                            {{if IsSystemAdmin == true}}
+                            <input type="checkbox" name="systemAdmin" checked id="systemAdmin-${ID}"/>
+                            {{else}}
+                            <input type="checkbox" name="systemAdmin" id="systemAdmin-${ID}"/>
+                            {{/if}}
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="three columns right">
+                        Pages
+                    </div>
+                    <div class="three columns">
+                    </div>
+                    <div class="three columns right">
+                        Assigned pages
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns push_three">
+                        <select id="originalRoles-${ID}" multiple="multiple" size="4">
+                            @foreach (RoleDto role in ViewBag.ListRole)
+                            {
+                                <text>
+                                    <option value="@role.ID">@role.Name</option>
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addRoles-${ID}" class="assignButton">></button>
+                        <button id="addAllRoles-${ID}" class="assignButton">>></button>
+                        <button id="removeAllRoles-${ID}" class="assignButton"><<</button>
+                        <button id="removeRoles-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="three columns">
+                        <select name="assignedRoles" id="assignedRoles-${ID}" multiple="multiple" size="4">
+                            {{each Roles}}
+                            <option value="${ID}">${Name}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
+                </div>
+                <div class="row">
+                    <div class="eleven columns right">
+                        <input type="button" id="save-${ID}" value="Save" />
+                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalRoles-' + id + '", "' + 'assignedRoles-' + id + '", "' + 'addRoles-' + id + '", "' + 'removeRoles-' + id + '", "' + 'addAllRoles-' + id + '", "' + 'removeAllRoles-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+             + 'var listBox = new AssignListBox(' + param + ');'
+             + 'listBox.bindEvents();'
+             + '</sc' + 'ript>';
+    }
+</script>
+
+<div id="branch-body">
+    <div class="row">
+        <h4 class="admin-page-title">Maintain Role</h4>
+    </div>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
+    <div class="row">
+        <table id="record-table" class="no-border">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col />
+                <col />
+                @if (SmsSystem.UserContext.IsSystemAdmin)
+                {
+                    <col style="width: 110px;" />
+                }
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>User name</th>
+                    <th>Display name</th>
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
+                    {
+                        <th>System admin</th>
+                    }
+                    <th>Locked</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="@altClass" data-id="@dto.ID">
+                        <td>
+                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.Username</td>
+                        <td>@dto.Displayname</td>
+                        @if (SmsSystem.UserContext.IsSystemAdmin)
+                        {
+                            <td>@dto.IsSystemAdmin</td>
+                        }
+                        <td>@dto.IsLockedOut</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="@(numberOfColumns - 1)"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
+                
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl, 'Warning', 'Delete this record?');
+                adminfunc.bind();
+            });
+
+            function getAreaForSave(recordID) {
+                var roles = Array();
+
+                $('#assignedRoles-' + recordID + ' option').each(function (idx, e) {
+                    roles.push({ ID: $(e).val() });
+                });
+
+                var data = {
+                    ID: recordID,
+                    Username: $('#username-' + recordID).val(),
+                    Password: $('#password-' + recordID).val(),
+                    Displayname: $('#displayname-' + recordID).val(),
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
+                    {
+                        <text>
+                    IsSystemAdmin: $('#systemAdmin-' + recordID).prop('checked'),
+                        </text>
+                    }
+                    IsLockedOut: $('#locked-' + recordID).prop('checked'),
+                    Roles: roles
+                };
+                return data;
+            }
+        </script>
+    </div>
+</div>
