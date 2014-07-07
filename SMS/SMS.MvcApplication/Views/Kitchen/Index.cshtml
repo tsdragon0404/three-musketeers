@@ -17,18 +17,19 @@
         <td>${Product.Name} - ${Product.ProductCode}</td>
         <td>${Quantity}</td>
         <td>${Comment}</td>
-        <td class="center icon">
-            <div class="{{if OrderStatus.ID == 2}}icon-pending{{/if}}{{if OrderStatus.ID == 3}}icon-accept{{/if}}" id="status-${ID}" title="${OrderStatus.Name}"></div>
-        </td>
         <td>
             <button id="btnAccept-${ID}"><span data-labelID="lblAccept">Accept</span></button>
         </td>
         <td>
-            <button id="btnRejected-${ID}"><span data-labelID="lblReject">Reject</span></button>
+            <button id="btnConfirmedAcceptAndDone-${ID}"><span data-labelID="lblAcceptAndDone">Accept & Done</span></button>
         </td>
         <td>
             <input type="text" id="kitchencmt-${ID}" class="remarksInput"/>                          
-        </td>                        
+        </td>         
+        <td>
+            <button id="btnRejected-${ID}"><span data-labelID="lblReject">Reject</span></button>
+        </td>
+                       
     </tr> 
     {{/each}}
     {{else}}
@@ -46,18 +47,16 @@
         <td>${Product.Name} - ${Product.ProductCode}</td>
         <td>${Quantity}</td>
         <td>${Comment}</td>
-        <td class="center icon">
-            <div class="{{if OrderStatus.ID == 3}}icon-accept{{/if}}" id="confirmedstatus-${ID}" title="${OrderStatus.Name}"></div>
-        </td>
         <td>
             <button id="btnConfirmedDone-${ID}"><span data-labelID="lbConfirmedDone">Done</span></button>
         </td>
+        <td>
+            <input type="text" id="confirmedkitchencmt-${ID}" class="remarksInput"/>                          
+        </td>         
         <td >
             <button id="btnConfirmedRejected-${ID}"><span data-labelID="lbConfirmedReject">Reject</span></button>
         </td>
-        <td>
-            <input type="text" id="confirmedkitchencmt-${ID}" class="remarksInput"/>                          
-        </td>                        
+                       
     </tr>
     {{/each}}
     {{else}}
@@ -69,15 +68,22 @@
 </script>
 
 <div id="kitchen">
-    <div class="row">
-        <table id="orderedProducts">
+    <div class="row" id="radOrderedStatus">
+        <input type="radio" id="radOrderedProducts" name="radio" checked="checked"><label for="radOrderedProducts">Ordered Products</label>
+        <input type="radio" id="radAcceptedProducts" name="radio" ><label for="radAcceptedProducts">Accepted Products</label>
+    </div>
+    <br/>
+    <div class="row" id="orderedProducts">
+        <table id="tblOrderedProducts">
             <colgroup>
-                <col style="width: 75px;" />
-                <col />
-                <col style="width: 100px;" />
-                <col />
-                <col style="width: 100px;" />
-                <col />
+                <col class="col1" />
+                <col class="col2"/>
+                <col class="col3" />
+                <col class="col4"/>
+                <col class="col5" />
+                <col class="col6"/>
+                <col class="col7"/>
+                <col class="col8"/>
             </colgroup>
             <thead>
                 <tr>
@@ -87,8 +93,8 @@
                     <th>Remarks</th>
                     <th></th>
                     <th></th>
-                    <th></th>
                     <th>Kitchen remarks</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -96,19 +102,16 @@
             </tbody>
         </table>
     </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="row">
-        <table id="confirmedProducts">
+    <div class="row" id="confirmedProducts">       
+        <table id="tblConfirmedProducts">
             <colgroup>
-                <col style="width: 75px;" />
-                <col />
-                <col style="width: 100px;" />
-                <col />
-                <col style="width: 100px;" />
-                <col />
+                <col class="col1" />
+                <col class="col2"/>
+                <col class="col3" />
+                <col class="col4"/>
+                <col class="col5" />
+                <col class="col6"/>
+                <col class="col7"/>
             </colgroup>
             <thead>
                 <tr>
@@ -117,9 +120,8 @@
                     <th>Quantity</th>
                     <th>Remarks</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
                     <th>Kitchen remarks</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -128,51 +130,78 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            
-            GetOrderedProducts();
-            GetAcceptedProducts();
-          
-        });
-        
+            $("#radOrderedStatus" ).buttonset();
+            if($('#radOrderedProducts').is(':checked')) {
+                GetOrderedProducts();
+                $('#confirmedProducts').hide();
+            }
+            $('#radOrderedProducts').click(function() {
+                $('#radOrderedProducts').checked = true;
+                GetOrderedProducts();
+                $('#orderedProducts').show();
+                $('#confirmedProducts').hide();
+            });
+            $('#radAcceptedProducts').click(function() {
+                $('#radAcceptedProducts').checked = true;
+                GetAcceptedProducts();
+                $('#confirmedProducts').show();
+                $('#orderedProducts').hide();
+            });
+             
 
+
+        });
         function GetOrderedProducts()
         {
             $.post("@Url.Action("GetOrderedProducts")",
                 function (orderedProducts) {
                     //a = orderedProducts;
                    
-                    $('#orderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
+                    $('#tblOrderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
                     $('button[id^="btnAccept"]').button({ 
-                    icons: {
-                               primary: "ui-icon-check"
-                           }
-                     }).click(function () {
-                        UpdateOrderedProductStatus(this,3);
-                     });
+                        icons: {
+                            primary: "ui-icon-check"
+                        }
+                    }).click(function () {
+                        UpdateOrderedProductStatus(this,@ConstOrderStatus.KitchenAccepted);
+                    });
+                    
+                    $('button[id^="btnConfirmedAcceptAndDone"]').button({
+                        icons: {
+                            primary: "ui-icon-check"
+                        }
+                    }).click(function () {
+                        UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
+                    });
                     
                     $('button[id^="btnRejected"]').button({
                         icons: {
                             primary: "ui-icon-arrowreturnthick-1-w"
                         }
                     }).click(function () {
-                        UpdateOrderedProductStatus(this, 4);
+                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
                     });
-                    $('#orderedProducts').table();
+                    
+                    $('input[id^="kitchencmt"]').change(function() {
+                        updateKitchenComments(this);
+                    });
+                    
+                    $('#tblOrderedProducts').table();
                 });            
         }
         //ui-icon-arrowreturnthick-1-w"
         function GetAcceptedProducts()
         {
-             $.post("@Url.Action("GetAcceptedProducts")",
+            $.post("@Url.Action("GetAcceptedProducts")",
                 function (acceptedProducts) {
                     
-                    $('#confirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
+                    $('#tblConfirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
                     $('button[id^="btnConfirmedDone"]').button({
                         icons: {
                             primary: "ui-icon-check"
                         }
                     }).click(function () {
-                        UpdateOrderedProductStatus(this,5);
+                        UpdateOrderedProductStatus(this,@ConstOrderStatus.Done);
                     });
                     
                     $('button[id^="btnConfirmedRejected"]').button({
@@ -180,34 +209,63 @@
                             primary: "ui-icon-arrowreturnthick-1-w"
                         }
                     }).click(function () {
-                        UpdateOrderedProductStatus(this, 4);
+                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
+                        updateKitchenComments(this);
                     });
-                    $('#confirmedProducts').table();
+                    $('input[id^="confirmedkitchencmt"]').change(function() {
+                        updateKitchenComments(this);
+                    });
+                    $('#tblConfirmedProducts').table();
                 });
         }
 
        
         function UpdateOrderedProductStatus(e,value) {
             var orderDetailId = $(e).attr('id').split('-')[1];
-
+            
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("UpdateOrderedProductStatus")',
-            data: { orderDetailID: orderDetailId, value: value }
+                data: { orderDetailID: orderDetailId, value: value }
+            }).done(function (result) {
+                if (result.Data.ID == 0 || !result.Success) {
+                    var popup = new MessagePopup('Thông báo',
+                        'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                        4,
+                        function () {
+                        });
+                    popup.OpenPopup();
+                } else {
+                    if($('#radOrderedProducts').is(':checked')) {
+                        GetOrderedProducts();
+                    }
+                    if($('#radAcceptedProducts').is(':checked')) {
+                        GetAcceptedProducts();
+                    }
+                    
+                }
+            });
+        }
+        function updateKitchenComments(e) {
+            var colName = "KitchenComment";
+            var orderDetailId = $(e).attr('id').split('-')[1];
+            var value = $(e).val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateOrderedProduct")',
+            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
         }).done(function (result) {
-            if (result.Data.ID == 0 || !result.Success) {
+            if(!result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
-                    function () {
+                    function() {
                     });
+
                 popup.OpenPopup();
-            } else {
-                GetOrderedProducts();
-                GetAcceptedProducts();
-            }
+            } 
         });
-    }
+    }        
 
     </script>
 </div>
