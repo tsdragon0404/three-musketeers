@@ -12,32 +12,32 @@ VALUES
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
-( 20, N'Admin', N'Admin', N'Admin', N'Admin', N'Administration', N'AdminHome', N'Index' ),
-( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'Administration', N'GlobalLabel', N'Index' ),
-( 22, N'Role', N'Role', N'Role', N'Role', N'Administration', N'Role', N'Index' ),
-( 23, N'User', N'User', N'User', N'User', N'Administration', N'User', N'Index' ),
+( 20, N'Branch', N'Branch', N'Branch', N'Branch', N'Branch', N'BranchHome', N'Index' ),
+( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'Branch', N'GlobalLabel', N'Index' ),
+( 22, N'Role', N'Role', N'Role', N'Role', N'Branch', N'Role', N'Index' ),
+( 23, N'User', N'User', N'User', N'User', N'Branch', N'User', N'Index' ),
 
-( 40, N'Data', N'Data', N'Data', N'Data', N'Data', N'DataHome', N'Index' ),
-( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'Data', N'Area', N'Index' ),
-( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'Data', N'Table', N'Index' ),
-( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'Data', N'ProductCategory', N'Index' )
+( 40, N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchDataHome', N'Index' ),
+( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'BranchData', N'Area', N'Index' ),
+( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'BranchData', N'Table', N'Index' ),
+( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( GroupName, PageID, SEQ )
 VALUES 
 ( N'MainMenu', 1, 10 ),
-( N'MainMenu', 40, 20 ),
-( N'MainMenu', 20, 30 ),
-( N'MainMenu', 2, 40 ),
-( N'MainMenu', 3, 50 ),
+( N'MainMenu', 2, 20 ),
+( N'MainMenu', 3, 30 ),
+( N'MainMenu', 20, 40 ),
+( N'MainMenu', 40, 50 ),
 
-( N'AdminTabMenu', 21, 10 ),
-( N'AdminTabMenu', 22, 20 ),
-( N'AdminTabMenu', 23, 30 ),
+( N'BranchTabMenu', 21, 10 ),
+( N'BranchTabMenu', 22, 20 ),
+( N'BranchTabMenu', 23, 30 ),
 
-( N'DataTabMenu', 41, 10 ),
-( N'DataTabMenu', 42, 20 ),
-( N'DataTabMenu', 43, 30 )
+( N'BranchDataTabMenu', 41, 10 ),
+( N'BranchDataTabMenu', 42, 20 ),
+( N'BranchDataTabMenu', 43, 30 )
 
 INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
 VALUES 

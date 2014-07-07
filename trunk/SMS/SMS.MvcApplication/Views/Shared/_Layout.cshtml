@@ -2,7 +2,6 @@
 @using SMS.Common.Session
 @using SMS.Common
 @using SMS.MvcApplication.Models
-@using Core.Common
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,26 +40,16 @@
         <div id="leftmenu">
             <div>
                 <div id="logo">
-                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/logo.jpg" alt="logo"/></a>
+                    <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
                 </div>
                 <nav class="border-bottom">
-                    <ul id="menu">
-                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.MainMenu))
-                        {
-                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
-
-                            if (page == null) { continue; }
-
-                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
-                            {
-                                <li><a href="@page.Action">@page.Title</a></li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, null)</li>
-                            }
-                        }
-                    </ul>
+                    @{
+                        var option = new BuildMenuOption
+                                         {
+                                             ListId = "menu"
+                                         };
+                    }
+                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
                 </nav>
                 <ul id="user">
                     @if (SmsSystem.UserContext.IsSystemAdmin)
@@ -119,34 +108,20 @@
             <a href="#" id="expander" class="expanded">&lt;</a>
         </div>
         <div id="body" class="border-left">
-            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Data")
+            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "BranchData")
             {
-                <div id="admin-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.DataTabMenu))
-                        {
-                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
-
-                            if (page == null) { continue; }
-
-                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == page.Controller
-                                                    ? "ui-tabs-active ui-state-active"
-                                                    : "";
-                            
-                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
-                            {
-                                <li class="ui-state-default ui-corner-top @selectedClass">
-                                    <a href="@page.Action" class="ui-tabs-anchor">@page.Title</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                    @Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, new { @class = "ui-tabs-anchor" })
-                                </li>
-                            }
-                        }
-                    </ul>   
+                <div id="branchdata-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    @{
+                        var adminOption = new BuildMenuOption
+                                         {
+                                             ListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                             SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                             HyperLinkClass = "ui-tabs-anchor",
+                                             ListItemClass = "ui-state-default ui-corner-top"
+                                         };
+                    }
+                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
                 </div>
                 <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
                 <script type="text/javascript">
@@ -159,34 +134,20 @@
                     });
                 </script>
             }
-            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Administration")
+            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
             {
-                <div id="config-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @foreach (var pageMenu in PageMenus.Where(x => x.GroupName == ConstPageMenuGroupName.AdminTabMenu))
-                        {
-                            var page = AccessiblePagesForUser.FirstOrDefault(x => x.ID == pageMenu.PageID);
-
-                            if (page == null) { continue; }
-
-                            var selectedClass = ViewContext.RouteData.Values["controller"].ToString() == page.Controller
-                                                    ? "ui-tabs-active ui-state-active"
-                                                    : "";
-                            
-                            if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
-                            {
-                                <li class="ui-state-default ui-corner-top @selectedClass">
-                                    <a href="@page.Action" class="ui-tabs-anchor">@page.Title</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="ui-state-default ui-corner-top @Html.Raw(selectedClass)">
-                                    @Html.ActionLink(@page.Title, @page.Action, @page.Controller, new { area = @page.Area }, new { @class = "ui-tabs-anchor" })
-                                </li>
-                            }
-                        }
-                    </ul>   
+                <div id="branch-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    @{
+                        var adminOption = new BuildMenuOption
+                                         {
+                                             ListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                             SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                             HyperLinkClass = "ui-tabs-anchor",
+                                             ListItemClass = "ui-state-default ui-corner-top"
+                                         };
+                    }
+                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
                 </div>
                 <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
                 <script type="text/javascript">
