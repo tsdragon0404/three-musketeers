@@ -58,6 +58,10 @@ namespace SMS.Business.Impl
                         orderDetail.DiscountComment = "";
                         break;
                     }
+                case "KitchenComment":
+                    orderDetail.KitchenComment = value;
+                    break;
+
             }
             Repository.Update(orderDetail);
 

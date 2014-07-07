@@ -24,7 +24,7 @@ namespace SMS.MvcApplication.Controllers
             //ViewBag.OrderedProducts = products.Data;
             return View();
         }
-
+        [HttpPost]
         public JsonResult GetOrderedProducts()
         {
             var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
@@ -45,6 +45,15 @@ namespace SMS.MvcApplication.Controllers
             var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
             return Json(JsonModel.Create(orderDetail));
+        }
+        [HttpPost]
+        public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
+        {
+            if (orderDetailID <= 0) return Json(JsonModel.Create(false));
+
+            var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
+
+            return Json(JsonModel.Create(result));
         }
     }
 }
