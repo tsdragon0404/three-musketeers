@@ -1,7 +1,7 @@
 ﻿table{
     margin: 0;
 }
-input[type="text"], input[type="password"], select {
+input[type="text"], input[type="password"] {
     width: 100%;
     padding: 1px 3px;
     border: 1px solid #ddd;
@@ -755,6 +755,11 @@ button.ui-button.small span {
     padding-top: 3px;
     padding-bottom: 3px;
 }
+#loginform .ui-selectmenu-button {
+    display: table-cell;
+}
+
+
 /* Corner radius */
 .ui-corner-all,
 .ui-corner-top,
@@ -865,17 +870,24 @@ table thead{
 #loginform {
     width: 350px;
     margin: 100px auto;
-    padding: 20px;
+    padding: 20px 10px 20px 20px;
 }
 #loginform table {
     margin-bottom: 10px;
 }
 #loginform table td{
-    padding: 3px 0;
+    padding: 3px 10px 3px 3px;
 }
 #loginform label {
     margin: 0;
 }
+#loginform select {
+    width: 250px;
+}
+#loginButton {
+    margin-right: 10px;
+}
+
 
 #radOrderedStatus {
     padding: 10px;
