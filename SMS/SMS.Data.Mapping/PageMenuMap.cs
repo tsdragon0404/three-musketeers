@@ -9,6 +9,7 @@ namespace SMS.Data.Mapping
             Table("PageMenu");
             Map(x => x.GroupName);
             Map(x => x.PageID);
+            Map(x => x.ParentID);
         }
     }
 }
