@@ -609,8 +609,9 @@ GO
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageMenu]') AND type in (N'U'))
 BEGIN
 	CREATE TABLE [dbo].[PageMenu](
-		[PageMenuID] [int] IDENTITY(1,1) NOT NULL,
+		[PageMenuID] [int] NOT NULL,
 		[GroupName] [nvarchar](50) NULL,
+		[ParentID] [int] NOT NULL,
 		[PageID] [int] NULL,
 		[SEQ] [int] NULL,
 	CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 

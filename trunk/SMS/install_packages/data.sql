@@ -25,22 +25,25 @@ VALUES
 ( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' )
 GO
 
-INSERT INTO dbo.PageMenu ( GroupName, PageID, SEQ )
+INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
 VALUES 
-( N'MainMenu', 1, 10 ),
-( N'MainMenu', 2, 20 ),
-( N'MainMenu', 3, 30 ),
-( N'MainMenu', 20, 40 ),
-( N'MainMenu', 40, 50 ),
-( N'MainMenu', 60, 60 ),
+( 1, N'MainMenu', 0, 1, 10 ),
+( 2, N'MainMenu', 0, 2, 20 ),
+( 3, N'MainMenu', 0, 3, 30 ),
+( 4, N'MainMenu', 0, 20, 40 ),
+( 5, N'MainMenu', 4, 40, 50 ),
+( 6, N'MainMenu', 4, 21, 60 ),
+( 7, N'MainMenu', 4, 22, 70 ),
+( 8, N'MainMenu', 4, 23, 80 ),
+( 9, N'MainMenu', 0, 60, 90 ),
 
-( N'BranchTabMenu', 21, 10 ),
-( N'BranchTabMenu', 22, 20 ),
-( N'BranchTabMenu', 23, 30 ),
+( 20, N'BranchTabMenu', 0, 21, 10 ),
+( 21, N'BranchTabMenu', 0, 22, 20 ),
+( 22, N'BranchTabMenu', 0, 23, 30 ),
 
-( N'BranchDataTabMenu', 41, 10 ),
-( N'BranchDataTabMenu', 42, 20 ),
-( N'BranchDataTabMenu', 43, 30 )
+( 30, N'BranchDataTabMenu', 0, 41, 10 ),
+( 31, N'BranchDataTabMenu', 0, 42, 20 ),
+( 32, N'BranchDataTabMenu', 0, 43, 30 )
 
 INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
 VALUES 
