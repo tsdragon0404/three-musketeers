@@ -23,22 +23,25 @@
                     <td>@Html.PasswordFor(x => x.Password)</td>
                 </tr>
                 <tr>
-                    <td><label for="ListBranch">Branch</label></td>
+                    <td><label for="SelectedBranch">Branch</label></td>
                     <td>@Html.DropDownListFor(x => x.SelectedBranch, Model.ListBranch)</td>
                 </tr>
             </table>
             <div class="right">
                 <button id="loginButton">Login</button>
-                <script type="text/javascript">
-                    $('#loginButton').button({
-                        icons: {
-                            primary: "ui-icon-person"
-                        }
-                    }).click(function() {
-                        $(this).closest('form').submit();
-                    });
-                </script>
             </div>
+            <script type="text/javascript">
+                $('#loginButton').button({
+                    icons: {
+                        primary: "ui-icon-person"
+                    }
+                }).click(function() {
+                    $(this).closest('form').submit();
+                });
+
+                $('#SelectedBranch').selectmenu();
+                $('#test').selectmenu();
+            </script>
         }
     </div>
 </div>
