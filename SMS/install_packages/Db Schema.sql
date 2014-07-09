@@ -611,7 +611,7 @@ BEGIN
 	CREATE TABLE [dbo].[PageMenu](
 		[PageMenuID] [int] NOT NULL,
 		[GroupName] [nvarchar](50) NULL,
-		[ParentID] [int] NOT NULL,
+		[ParentID] [int] NULL,
 		[PageID] [int] NULL,
 		[SEQ] [int] NULL,
 	CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 
