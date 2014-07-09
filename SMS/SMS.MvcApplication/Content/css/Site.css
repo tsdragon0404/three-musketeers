@@ -1,7 +1,7 @@
 ﻿table{
     margin: 0;
 }
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], select {
     width: 100%;
     padding: 1px 3px;
     border: 1px solid #ddd;
@@ -758,7 +758,9 @@ button.ui-button.small span {
 #loginform .ui-selectmenu-button {
     display: table-cell;
 }
-
+.ui-selectmenu-button span.ui-selectmenu-text {
+    padding: 2px 30px 2px 5px;
+}
 
 /* Corner radius */
 .ui-corner-all,
