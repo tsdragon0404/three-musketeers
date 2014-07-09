@@ -111,6 +111,9 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#tblOrderedProducts').table();
+            $('#tblConfirmedProducts').table();
+
             $("#radOrderedStatus" ).buttonset();
             if($('#radOrderedProducts').is(':checked')) {
                 GetOrderedProducts();
@@ -129,17 +132,16 @@
                 $('#orderedProducts').hide();
             });
         });
-        function GetOrderedProducts()
-        {
+        function GetOrderedProducts() {
             $.post("@Url.Action("GetOrderedProducts")",
-                function (orderedProducts) {
+                function(orderedProducts) {
                     $('#tblOrderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
-                    $('button[id^="btnAccept"]').button({ 
+                    $('button[id^="btnAccept"]').button({
                         icons: {
                             primary: "ui-icon-check"
                         }
-                    }).click(function () {
-                        UpdateOrderedProductStatus(this,@ConstOrderStatus.KitchenAccepted);
+                    }).click(function() {
+                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenAccepted);
                     });
 
                     $('button[id^="btnConfirmedAcceptAndDone"]').button({
@@ -149,42 +151,39 @@
                     }).click(function() {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
                     });
-                    
+
                     $('button[id^="btnRejected"]').button({
                         icons: {
                             primary: "ui-icon-arrowreturnthick-1-w"
                         }
-                    }).click(function () {
+                    }).click(function() {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
                         updateKitchenComments(this, 'kitchencmt-');
                     });
-                    
                     $('#tblOrderedProducts').table();
-                });            
+                });
         }
-        function GetAcceptedProducts()
-        {
+        function GetAcceptedProducts() {
             $.post("@Url.Action("GetAcceptedProducts")",
-                function (acceptedProducts) {
-                    
+                function(acceptedProducts) {
+
                     $('#tblConfirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
                     $('button[id^="btnConfirmedDone"]').button({
                         icons: {
                             primary: "ui-icon-check"
                         }
-                    }).click(function () {
-                        UpdateOrderedProductStatus(this,@ConstOrderStatus.Done);
+                    }).click(function() {
+                        UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
                     });
-                    
+
                     $('button[id^="btnConfirmedRejected"]').button({
                         icons: {
                             primary: "ui-icon-arrowreturnthick-1-w"
                         }
-                    }).click(function () {
+                    }).click(function() {
                         UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
                         updateKitchenComments(this, 'confirmedkitchencmt-');
                     });
-
                     $('#tblConfirmedProducts').table();
                 });
         }

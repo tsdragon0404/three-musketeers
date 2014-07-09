@@ -20,25 +20,26 @@
 <script type="text/javascript">
     var itemPerSide = 3;
     var visiblePages = 5;
-    var pageCount = @Model.PageCount;
     var currentPage = @Model.CurrentPage;
+    var pageCount = @Model.PageCount;
+    if (pageCount != 0) {
+        var firstTime = true;
 
-    var firstTime = true;
+        $('#Paginationdiv').twbsPagination({
+            totalPages: pageCount,
+            visiblePages: visiblePages,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (firstTime) {
+                    firstTime = false;
+                    return false;
+                }
 
-    $('#Paginationdiv').twbsPagination({
-        totalPages: pageCount,
-        visiblePages: visiblePages,
-        startPage: currentPage,
-        onPageClick: function (event, page) {
-            if (firstTime) {
-                firstTime = false;
+                $('#pagingForm #paging-CurrentPage').val(page);
+                $('#pagingForm').submit();
+
                 return false;
             }
-
-            $('#pagingForm #paging-CurrentPage').val(page);
-            $('#pagingForm').submit();
-
-            return false;
-        }
-    });
+        });
+    }
 </script>
