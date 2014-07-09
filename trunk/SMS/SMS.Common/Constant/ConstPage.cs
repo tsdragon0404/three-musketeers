@@ -1,4 +1,6 @@
-﻿namespace SMS.Common.Constant
+﻿using System.Collections.Generic;
+
+namespace SMS.Common.Constant
 {
     public class ConstPage
     {
@@ -21,5 +23,7 @@
         public const long Report_Dashboard = 60;
 
         public const long ReportViewer = 99;
+
+        public static List<long> PublicPages = new List<long> {Global, HomePage, Login};
     }
 }

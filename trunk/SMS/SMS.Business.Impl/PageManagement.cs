@@ -18,10 +18,15 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<PageDto>> GetAllWithoutGlobal()
+        public ServiceResult<IList<PageDto>> GetProtectedPages()
         {
-            var result = Repository.Find(x => x.ID != ConstPage.Global).ToList();
-            return ServiceResult<IList<PageDto>>.CreateSuccessResult(Mapper.Map<IList<PageDto>>(result));
+            return GetProtectedPages<PageDto>();
+        }
+
+        public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
+        {
+            var result = Repository.Find(x => !ConstPage.PublicPages.Contains(x.ID)).ToList();
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
         public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
@@ -32,22 +37,16 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
         {
             if (SmsSystem.UserContext.UserID == 0)
-            {
-                var resultNotLogin = Repository.Find(x => x.ID == ConstPage.HomePage).ToList();
-                return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(resultNotLogin));
-            }
+                return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(new List<Page>()));
 
             if (SmsSystem.UserContext.IsSystemAdmin)
-            {
-                var resultSystemAdmin = Repository.Find(x => x.ID != ConstPage.Global).ToList();
-                return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(resultSystemAdmin));
-            }
+                return GetProtectedPages<TModel>();
 
             var user = UserRepository.Get(SmsSystem.UserContext.UserID);
             var accessiblePageIds = new List<long>();
 
             foreach (var role in user.Roles)
-                accessiblePageIds.AddRange(role.Pages.Select(x => x.ID));
+                accessiblePageIds.AddRange(role.Pages.Where(x => !ConstPage.PublicPages.Contains(x.ID)).Select(x => x.ID));
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
             var result = Repository.Find(x => accessiblePageIds.Contains(x.ID)).ToList();

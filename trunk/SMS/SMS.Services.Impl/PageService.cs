@@ -11,9 +11,14 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<IList<PageDto>> GetAllWithoutGlobal()
+        public ServiceResult<IList<PageDto>> GetProtectedPages()
         {
-            return Management.GetAllWithoutGlobal();
+            return Management.GetProtectedPages();
+        }
+
+        public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
+        {
+            return Management.GetProtectedPages<TModel>();
         }
 
         public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
