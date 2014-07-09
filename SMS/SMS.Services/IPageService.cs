@@ -6,7 +6,8 @@ namespace SMS.Services
 {
     public interface IPageService : IBaseService<PageDto, long>
     {
-        ServiceResult<IList<PageDto>> GetAllWithoutGlobal();
+        ServiceResult<IList<PageDto>> GetProtectedPages();
+        ServiceResult<IList<TModel>> GetProtectedPages<TModel>();
         ServiceResult<IList<PageDto>> GetAccessiblePagesForUser();
         ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>();
     }

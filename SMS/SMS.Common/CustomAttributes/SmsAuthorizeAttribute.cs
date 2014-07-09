@@ -33,7 +33,7 @@ namespace SMS.Common.CustomAttributes
             }
 
             return SmsSystem.UserContext.IsSystemAdmin
-                || publicPageIds.Contains(pageID)
+                || ConstPage.PublicPages.Contains(pageID)
                 || SmsSystem.AllowPageIDs.Contains(pageID);
         }
     }
