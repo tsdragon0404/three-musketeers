@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.Session;
@@ -9,6 +10,8 @@ namespace SMS.Common.CustomAttributes
     {
         private readonly long pageID;
         private readonly bool selectBranch;
+        private readonly List<long> publicPageIds = new List<long> {ConstPage.Global, ConstPage.HomePage, ConstPage.Login};
+
         public SmsAuthorizeAttribute(long pageID, bool selectBranch = false)
         {
             this.pageID = pageID;
@@ -29,7 +32,9 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
-            return SmsSystem.UserContext.IsSystemAdmin || pageID == ConstPage.Global || SmsSystem.AllowPageIDs.Contains(pageID);
+            return SmsSystem.UserContext.IsSystemAdmin
+                || publicPageIds.Contains(pageID)
+                || SmsSystem.AllowPageIDs.Contains(pageID);
         }
     }
 }
