@@ -46,7 +46,9 @@
                     @{
                         var option = new BuildMenuOption
                                          {
-                                             ListId = "menu"
+                                             ListId = "menu",
+                                             SelectedListItemClass = "menu-selected",
+                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
                                          };
                     }
                     @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
