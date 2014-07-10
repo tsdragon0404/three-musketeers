@@ -40,5 +40,10 @@ namespace SMS.Services.Impl
         {
             return Management.PoolingTable(orderTable);
         }
+
+        public ServiceResult SendToKitchen(long orderTableID)
+        {
+            return Management.SendToKitchen(orderTableID);
+        }
     }
 }

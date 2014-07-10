@@ -24,15 +24,15 @@
         <div class="row" id="orderTable-${ID}">
             <div class="row div-header">
                 <div class="eleven columns">
-                    <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name: </span><span class="label-custom-data">&nbsp;${Table.Name}</span>
+                    <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name:</span><span class="label-custom-data"> ${Table.Name}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span data-labelID="lblOrderBy" class="label-custom-label">Order by: </span><span class="label-custom-data">${CreatedUser}</span>
+                    <span data-labelID="lblOrderBy" class="label-custom-label">Order by:</span><span class="label-custom-data"> ${CreatedUser}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span data-labelID="lblOrderDate" class="label-custom-label">Order date: </span><span class="label-custom-data">${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+                    <span data-labelID="lblOrderDate" class="label-custom-label">Order date:</span><span class="label-custom-data"> ${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by: </span><span class="label-custom-data">${ModifiedUser}</span>
+                    <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by:</span><span class="label-custom-data"> ${ModifiedUser}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date: </span><span class="label-custom-data">${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+                    <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date:</span><span class="label-custom-data"> ${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
                 </div>
                 <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
             </div>
@@ -817,7 +817,8 @@
 
         $('div[id^="sendToKitchen-"').unbind('click');
         $('div[id^="sendToKitchen-"').click(function() {
-            
+            var orderTableId = $(this).attr('id').split('-')[1];
+            sendToKitchen(orderTableId);
         });
 
         $('input[id^="qty"]').spinner({
@@ -934,6 +935,20 @@
         });
 
         CalculateTotal();
+    }
+
+    function sendToKitchen(orderTableId) {
+        if (orderTableId != '' && orderTableId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SendToKitchen")',
+                data: { orderTableID: orderTableId }
+            }).done(function(result) {
+                if (result.Success) {
+                    refreshOrderArea();
+                }
+            });
+        }
     }
 
     function onDeleteProductFromOrderDetail(orderDetailId) {

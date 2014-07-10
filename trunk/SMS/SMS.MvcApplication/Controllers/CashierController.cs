@@ -211,5 +211,15 @@ namespace SMS.MvcApplication.Controllers
 
             return Json(JsonModel.Create(result));
         }
+
+        [HttpPost]
+        public JsonResult SendToKitchen(long orderTableID)
+        {
+            if (orderTableID <= 0) return Json(JsonModel.Create(false));
+
+            var result = OrderTableService.SendToKitchen(orderTableID);
+
+            return Json(JsonModel.Create(result));
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using FluentNHibernate.Mapping;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {

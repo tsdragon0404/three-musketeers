@@ -11,7 +11,7 @@
         <td>${Quantity}</td>
         <td class="word-break">${Comment}</td>
         <td>
-            <input type="text" id="kitchencmt-${ID}" class="remarksInput"/>                          
+            <input type="text" id="kitchencmt-${ID}" value="${KitchenComment}" class="remarksInput"/>                          
         </td>         
         <td>
             <button id="btnRejected-${ID}"><span data-labelID="lblReject">Reject</span></button>
@@ -36,7 +36,7 @@
         <td>${Quantity}</td>
         <td class="word-break">${Comment}</td>
         <td>
-            <input type="text" id="confirmedkitchencmt-${ID}" class="remarksInput"/>                          
+            <input type="text" id="confirmedkitchencmt-${ID}" value="${KitchenComment}" class="remarksInput"/>                          
         </td>         
         <td >
             <button id="btnConfirmedRejected-${ID}"><span data-labelID="lbConfirmedReject">Reject</span></button>
@@ -109,122 +109,126 @@
             </tbody>
         </table>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tblOrderedProducts').table();
-            $('#tblConfirmedProducts').table();
+</div>
 
-            $("#radOrderedStatus" ).buttonset();
-            if($('#radOrderedProducts').is(':checked')) {
-                GetOrderedProducts();
-                $('#confirmedProducts').hide();
-            }
-            $('#radOrderedProducts').click(function() {
-                $('#radOrderedProducts').checked = true;
-                GetOrderedProducts();
-                $('#orderedProducts').show();
-                $('#confirmedProducts').hide();
-            });
-            $('#radAcceptedProducts').click(function() {
-                $('#radAcceptedProducts').checked = true;
-                GetAcceptedProducts();
-                $('#confirmedProducts').show();
-                $('#orderedProducts').hide();
-            });
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblOrderedProducts').table();
+        $('#tblConfirmedProducts').table();
+
+        $("#radOrderedStatus" ).buttonset();
+        if($('#radOrderedProducts').is(':checked')) {
+            GetOrderedProducts();
+            $('#confirmedProducts').hide();
+        }
+        $('#radOrderedProducts').click(function() {
+            $('#radOrderedProducts').checked = true;
+            GetOrderedProducts();
+            $('#orderedProducts').show();
+            $('#confirmedProducts').hide();
         });
-        function GetOrderedProducts() {
-            $.post("@Url.Action("GetOrderedProducts")",
-                function(orderedProducts) {
-                    $('#tblOrderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
-                    $('button[id^="btnAccept"]').button({
-                        icons: {
-                            primary: "ui-icon-check"
-                        }
-                    }).click(function() {
-                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenAccepted);
-                    });
-
-                    $('button[id^="btnConfirmedAcceptAndDone"]').button({
-                        icons: {
-                            primary: "ui-icon-check"
-                        }
-                    }).click(function() {
-                        UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
-                    });
-
-                    $('button[id^="btnRejected"]').button({
-                        icons: {
-                            primary: "ui-icon-arrowreturnthick-1-w"
-                        }
-                    }).click(function() {
-                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
-                        updateKitchenComments(this, 'kitchencmt-');
-                    });
-                    $('#tblOrderedProducts').table();
-                });
-        }
-        function GetAcceptedProducts() {
-            $.post("@Url.Action("GetAcceptedProducts")",
-                function(acceptedProducts) {
-
-                    $('#tblConfirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
-                    $('button[id^="btnConfirmedDone"]').button({
-                        icons: {
-                            primary: "ui-icon-check"
-                        }
-                    }).click(function() {
-                        UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
-                    });
-
-                    $('button[id^="btnConfirmedRejected"]').button({
-                        icons: {
-                            primary: "ui-icon-arrowreturnthick-1-w"
-                        }
-                    }).click(function() {
-                        UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
-                        updateKitchenComments(this, 'confirmedkitchencmt-');
-                    });
-                    $('#tblConfirmedProducts').table();
-                });
-        }
-   
-        function UpdateOrderedProductStatus(e, value) {
-            var orderDetailId = $(e).attr('id').split('-')[1];
-            
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("UpdateOrderedProductStatus")',
-                data: { orderDetailID: orderDetailId, value: value }
-            }).done(function (result) {
-                if (result.Data.ID == 0 || !result.Success) {
-                    var popup = new MessagePopup('Thông báo',
-                        'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
-                        4,
-                        function () {
-                        });
-                    popup.OpenPopup();
-                } else {
-                    if($('#radOrderedProducts').is(':checked')) {
-                        GetOrderedProducts();
+        $('#radAcceptedProducts').click(function() {
+            $('#radAcceptedProducts').checked = true;
+            GetAcceptedProducts();
+            $('#confirmedProducts').show();
+            $('#orderedProducts').hide();
+        });
+    });
+    
+    function GetOrderedProducts() {
+        $.post("@Url.Action("GetOrderedProducts")",
+            function(orderedProducts) {
+                $('#tblOrderedProducts tbody').html($('#orderedProducts-tmpl').tmpl(orderedProducts));
+                $('button[id^="btnAccept"]').button({
+                    icons: {
+                        primary: "ui-icon-check"
                     }
-                    if($('#radAcceptedProducts').is(':checked')) {
-                        GetAcceptedProducts();
+                }).click(function() {
+                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenAccepted);
+                });
+
+                $('button[id^="btnConfirmedAcceptAndDone"]').button({
+                    icons: {
+                        primary: "ui-icon-check"
                     }
-                    
-                }
+                }).click(function() {
+                    UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
+                });
+
+                $('button[id^="btnRejected"]').button({
+                    icons: {
+                        primary: "ui-icon-arrowreturnthick-1-w"
+                    }
+                }).click(function() {
+                    updateKitchenComments(this, 'kitchencmt-');
+                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
+                });
+                $('#tblOrderedProducts').table();
             });
-        }
-        
-        function updateKitchenComments(e, name) {
-            var colName = "kitchenComment";
-            var orderDetailId = $(e).attr('id').split('-')[1];
-            var value = $('#' + name + orderDetailId).val();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("UpdateOrderedProduct")',
-            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
+    }
+    
+    function GetAcceptedProducts() {
+        $.post("@Url.Action("GetAcceptedProducts")",
+            function(acceptedProducts) {
+
+                $('#tblConfirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
+                $('button[id^="btnConfirmedDone"]').button({
+                    icons: {
+                        primary: "ui-icon-check"
+                    }
+                }).click(function() {
+                    UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
+                });
+
+                $('button[id^="btnConfirmedRejected"]').button({
+                    icons: {
+                        primary: "ui-icon-arrowreturnthick-1-w"
+                    }
+                }).click(function() {
+                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
+                    updateKitchenComments(this, 'confirmedkitchencmt-');
+                });
+                $('#tblConfirmedProducts').table();
+            });
+    }
+   
+    function UpdateOrderedProductStatus(e, value) {
+        var orderDetailId = $(e).attr('id').split('-')[1];
+            
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProductStatus")',
+            data: { orderDetailID: orderDetailId, value: value }
         }).done(function (result) {
-            if(!result.Success) {
+            if (result.Data.ID == 0 || !result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function () {
+                    });
+                popup.OpenPopup();
+            } else {
+                if($('#radOrderedProducts').is(':checked')) {
+                    GetOrderedProducts();
+                }
+                if($('#radAcceptedProducts').is(':checked')) {
+                    GetAcceptedProducts();
+                }
+                    
+            }
+        });
+    }
+        
+    function updateKitchenComments(e, name) {
+        var colName = "kitchenComment";
+        var orderDetailId = $(e).attr('id').split('-')[1];
+        var value = $('#' + name + orderDetailId).val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProduct")',
+            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
+        }).done(function(result) {
+            if (!result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,
@@ -232,9 +236,7 @@
                     });
 
                 popup.OpenPopup();
-            } 
+            }
         });
-    }        
-
-    </script>
-</div>
+    }
+</script>

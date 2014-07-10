@@ -38,6 +38,7 @@
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchTaxDto.cs" />
     <Compile Include="BranchInfoDto.cs" />
+    <Compile Include="RejectDto.cs" />
     <Compile Include="OrderDataDto.cs" />
     <Compile Include="PageMenu.cs" />
     <Compile Include="PageBasicDto.cs" />
