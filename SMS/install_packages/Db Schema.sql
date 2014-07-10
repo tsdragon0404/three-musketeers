@@ -699,6 +699,28 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Reject]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Reject](
+		[RejectID] [bigint] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
+		[ProductCode] [varchar](50) NULL,
+		[ProductVNName] [nvarchar](1000) NULL,
+		[ProductENName] [nvarchar](1000) NULL,
+		[Quantity] [numeric](10, 2) NULL,
+		[UnitVNName] [nvarchar](255) NULL,
+		[UnitENName] [nvarchar](255) NULL,
+		[OrderComment] [nvarchar](255) NULL,
+		[KitchenComment] [nvarchar](255) NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [varchar](50) NULL,
+	 CONSTRAINT [PK_Reject] PRIMARY KEY CLUSTERED 
+	(
+		[RejectID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
 
 /*************************************************************************************/
 /*************************************************************************************/

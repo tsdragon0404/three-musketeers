@@ -8,7 +8,7 @@ WHERE OBJECT_NAME(parent_object_id) IN ('Area', 'Branch', 'BranchInfo', 'BranchT
 										'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
 										'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
 										'UserProfile', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
-										'Report', 'PageMenu')
+										'Report', 'PageMenu', 'Reject')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
 WHILE @@FETCH_STATUS = 0
@@ -29,7 +29,7 @@ WHERE type = 'U'
 					'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
 					'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
 					'UserProfile', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
-					'Report', 'PageMenu')
+					'Report', 'PageMenu', 'Reject')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
 WHILE @@FETCH_STATUS = 0
