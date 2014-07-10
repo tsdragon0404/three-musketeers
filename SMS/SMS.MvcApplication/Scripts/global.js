@@ -77,10 +77,17 @@ function SetHeightPopupContent(popupId) {
 function pad(s) { return (s < 10) ? '0' + s : s; }
 
 String.prototype.formatAsDateTime = function () {
-    if (this == '')
-        return '--/--/-- --:--';
+    if (this == '' || this == null)
+        return '';
     var d = new Date(this);
-    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1)].join(':');
+    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1), pad(d.getSeconds() + 1)].join(':');
+};
+
+String.prototype.formatAsDate = function () {
+    if (this == '' || this == null)
+        return '';
+    var d = new Date(this);
+    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
 };
 
 Number.prototype.formatAsMoney = function () {

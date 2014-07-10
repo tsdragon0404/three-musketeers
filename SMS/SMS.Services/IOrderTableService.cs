@@ -12,5 +12,6 @@ namespace SMS.Services
         ServiceResult<long> CreateMultiOrderTable(long[] table);
         ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
         ServiceResult PoolingTable(long[] orderTable);
+        ServiceResult SendToKitchen(long orderTableID);
     }
 }

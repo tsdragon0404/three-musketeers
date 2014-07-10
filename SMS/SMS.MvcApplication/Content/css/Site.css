@@ -726,6 +726,10 @@ label.ui-state-error {
     width: auto;
 }
 
+.move-table-popup select {
+    width: 200px;
+}
+
 /* end table column width */
 
 /* fix themes */
@@ -890,6 +894,15 @@ table thead{
     margin-right: 10px;
 }
 
+#orderedProducts {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#confirmedProducts {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 
 #radOrderedStatus {
     padding: 10px;

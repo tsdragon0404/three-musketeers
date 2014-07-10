@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
@@ -19,6 +20,7 @@ namespace SMS.Business.Impl
         public virtual IOrderTableRepository OrderTableRepository { get; set; }
         public virtual IOrderTableManagement OrderTableManagement { get; set; }
         public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
+        public virtual IRejectRepository RejectRepository { get; set; }
 
         #endregion
 
@@ -76,6 +78,24 @@ namespace SMS.Business.Impl
                 return ServiceResult<TDto>.CreateFailResult();
             orderDetail.OrderStatus = OrderStatusRepository.Get(value);
             Repository.Update(orderDetail);
+
+            if(orderDetail.OrderStatus.ID == ConstOrderStatus.KitchenRejected)
+            {
+                RejectRepository.Add(new Reject
+                                         {
+                                             BranchID = SmsSystem.SelectedBranchID,
+                                             ProductCode = orderDetail.Product.ProductCode,
+                                             ProductVNName = orderDetail.Product.VNName,
+                                             ProductENName = orderDetail.Product.ENName,
+                                             Quantity = orderDetail.Quantity,
+                                             UnitVNName = orderDetail.Product.Unit.VNName,
+                                             UnitENName = orderDetail.Product.Unit.ENName,
+                                             OrderComment = orderDetail.Comment,
+                                             KitchenComment = orderDetail.KitchenComment,
+                                             CreatedDate = DateTime.Now,
+                                             CreatedUser = SmsSystem.UserContext.UserName
+                                         });
+            }
 
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(orderDetail));
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -17,6 +18,7 @@ namespace SMS.Business.Impl
         public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
         public virtual IOrderRepository OrderRepository { get; set; }
         public virtual IOrderManagement OrderManagement { get; set; }
+        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
 
         #endregion
 
@@ -99,6 +101,26 @@ namespace SMS.Business.Impl
                     Repository.SaveAllChanges();
                     if (!Repository.Exists(x => x.Order.ID == orderID))
                         OrderRepository.Delete(orderID);
+                }
+            }
+            return ServiceResult.CreateSuccessResult();
+        }
+
+        public ServiceResult SendToKitchen(long orderTableID)
+        {
+            var orderDetailList =
+                OrderDetailRepository.Find(
+                    x =>
+                    x.OrderTable.ID == orderTableID &&
+                    (x.OrderStatus.ID == ConstOrderStatus.Ordered ||
+                     x.OrderStatus.ID == ConstOrderStatus.KitchenRejected)).ToList();
+            if (orderDetailList.Any())
+            {
+                foreach (var orderDetail in orderDetailList)
+                {
+                    orderDetail.OrderStatus = OrderStatusRepository.Get(ConstOrderStatus.SentToKitchen);
+                    OrderDetailRepository.Update(orderDetail);
+                    OrderDetailRepository.SaveAllChanges();
                 }
             }
             return ServiceResult.CreateSuccessResult();

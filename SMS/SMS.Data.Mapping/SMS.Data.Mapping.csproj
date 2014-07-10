@@ -50,6 +50,7 @@
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchTaxMap.cs" />
     <Compile Include="BranchInfoMap.cs" />
+    <Compile Include="RejectMap.cs" />
     <Compile Include="PageMenuMap.cs" />
     <Compile Include="UsersInRoleMap.cs" />
     <Compile Include="RolePermissionMap.cs" />

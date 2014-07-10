@@ -42,6 +42,7 @@ namespace SMS.Common.AutoMapper
             Map<Currency, CurrencyDto>();
             Map<OrderDto, PaymentDto>();
             Map<OrderDto, OrderDataDto>();
+            Map<Reject, RejectDto>();
 
             Map<Report, ReportDto>();
             Map<ReportDatasource, ReportDatasourceDto>();
