@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
@@ -12,16 +11,12 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
-using Core.Common.Information;
 using Core.Data.NHibernate.Interceptors;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
-using SMS.Common.Message;
-using SMS.Data.Dtos;
-using SMS.Services;
 
 namespace SMS.MvcApplication
 {
