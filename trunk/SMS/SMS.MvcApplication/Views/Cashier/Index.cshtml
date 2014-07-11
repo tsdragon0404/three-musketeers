@@ -815,8 +815,8 @@
     function bindEventForControl() {
         $('table[id^="order-"]').table();
 
-        $('div[id^="sendToKitchen-"').unbind('click');
-        $('div[id^="sendToKitchen-"').click(function() {
+        $('div[id^="sendToKitchen-"]').unbind('click');
+        $('div[id^="sendToKitchen-"]').click(function() {
             var orderTableId = $(this).attr('id').split('-')[1];
             sendToKitchen(orderTableId);
         });
