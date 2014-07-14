@@ -53,15 +53,14 @@ namespace SMS.MvcApplication
 
             MappingRegister();
 
-            BranchConfig.UseServiceFee = true;
+            BranchConfig.UseServiceFee = false;
             BranchConfig.ServiceFee = 20000;
-            BranchConfig.UseKitchenFunction = true;
-            BranchConfig.UseDiscountOnProduct = true;
+            BranchConfig.UseKitchenFunction = false;
+            BranchConfig.UseDiscountOnProduct = false;
             BranchConfig.Currency = "VND";
             BranchConfig.Taxs = new Dictionary<string, decimal>
                                 {
-                                    {"VAT", 10},
-                                    {"ABC", 10}
+                                    //{"VAT", 10}
                                 };
         }
 
