@@ -4,12 +4,11 @@ using Core.Common.Validation;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
-using SMS.Data.Entities;
 using AutoMapper;
 
 namespace SMS.Business.Impl
 {
-    public class BranchManagement : BaseManagement<BranchDto, Branch, long, IBranchRepository>, IBranchManagement
+    public class BranchManagement : BaseManagement<BranchDto, Data.Entities.Branch, long, IBranchRepository>, IBranchManagement
     {
         #region Fields
 

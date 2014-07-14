@@ -8,7 +8,8 @@ namespace SMS.Common.Session
         public string UserName { get; set; } 
         public string DisplayName { get; set; }
         public bool IsSystemAdmin { get; set; }
-        public List<string> RoleNames { get; set; }
+        public IList<string> RoleNames { get; set; }
+        public IList<Branch> AllowBranches { get; set; }
 
         public int PageSize { get; set; }
 
@@ -18,5 +19,11 @@ namespace SMS.Common.Session
         /// Contain height value for List table section in Cashier page (in percent)
         /// </summary>
         public int ListTableHeight { get; set; }
+
+        public UserContext()
+        {
+            RoleNames = new List<string>();
+            AllowBranches = new List<Branch>();
+        }
     }
 }

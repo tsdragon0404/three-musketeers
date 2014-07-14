@@ -45,6 +45,8 @@ namespace SMS.MvcApplication.Controllers
                 {
                     model.ShowError = true;
                     model.ErrorMessage = response.Errors[0].ErrorMessage;
+                    model.ListBranch = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Name }).ToList();
+                    return View(model);
                 }
 
                 var user = response.Data;
@@ -52,10 +54,6 @@ namespace SMS.MvcApplication.Controllers
                 {
                     model.ShowError = true;
                     model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
-                }
-
-                if (model.ShowError)
-                {
                     model.ListBranch = BranchService.GetAll<LanguageBranchBasicDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Name }).ToList();
                     return View(model);
                 }
@@ -76,6 +74,10 @@ namespace SMS.MvcApplication.Controllers
         {
             UserInformation.UserName = user.Username;
 
+            var allowBranches = user.IsSystemAdmin
+                                    ? BranchService.GetAll().Data
+                                    : user.Branches;
+
             var userContext = new UserContext
                               {
                                   DefaultAreaID = 0,
@@ -85,7 +87,8 @@ namespace SMS.MvcApplication.Controllers
                                   UserName = user.Username,
                                   DisplayName = user.Displayname,
                                   IsSystemAdmin = user.IsSystemAdmin,
-                                  RoleNames = user.Roles.Select(x => x.Name).ToList()
+                                  RoleNames = user.Roles.Select(x => x.Name).ToList(),
+                                  AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
                               };
 
             SmsSystem.UserContext = userContext;
@@ -104,6 +107,11 @@ namespace SMS.MvcApplication.Controllers
             UserInformation.UserName = string.Empty;
             SystemMessages.Clear();
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult AccessDenied()
+        {
+            return View();
         }
 
         //[SmsAuthorize(ConstPage.Global, true)]

@@ -128,12 +128,14 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 #leftmenu {
     width: 13%;
     float: left;
-    overflow: hidden;
     position: relative;
 }
 
 #leftmenu > div {
     padding-left: 15px;    
+}
+.submenu {
+    min-width: 150px;
 }
 
 #language {
@@ -765,6 +767,17 @@ button.ui-button.small span {
 .ui-selectmenu-button span.ui-selectmenu-text {
     padding: 2px 30px 2px 5px;
 }
+ul#menu, ul#user {
+    border-color: #fcfdfd;
+}
+.ui-widget-content li {
+    font-weight: normal;
+    color: #222222;
+}
+.ui-state-active .ui-widget-content, .ui-state-active .ui-widget-content a {
+    color: #1d5987;
+}
+
 
 /* Corner radius */
 .ui-corner-all,

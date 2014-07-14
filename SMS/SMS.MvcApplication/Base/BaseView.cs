@@ -9,8 +9,6 @@ namespace SMS.MvcApplication.Base
 {
     public abstract class BaseView<T> : WebViewPage<T>
     {
-        private const string LISTID = "{{LISTID}}";
-        private const string LISTCLASS = "{{LISTCLASS}}";
         private const string SUBLISTCLASS = "{{SUBLISTCLASS}}";
         private const string LISTITEMCLASS = "{{LISTITEMCLASS}}";
         private const string SELECTEDLISTITEMCLASS = "{{SELECTEDLISTITEMCLASS}}";
@@ -41,11 +39,9 @@ namespace SMS.MvcApplication.Base
             if (PageMenus == null || !PageMenus.Any() || AccessiblePagesForUser == null || !AccessiblePagesForUser.Any())
                 return string.Empty;
 
-            string menu = string.Format("<ul{0}{1}>", LISTID, LISTCLASS);
+            var menu = "";
 
             menu = PageMenus.Where(x => x.GroupName == groupName && x.ParentID == 0).Aggregate(menu, (current, pageMenu) => current + BuildMenuItem(pageMenu, option));
-
-            menu += "</ul>";
 
             return MergeMenuWithOption(menu, option);
         }
@@ -84,11 +80,9 @@ namespace SMS.MvcApplication.Base
         private string MergeMenuWithOption(string menu, BuildMenuOption option)
         {
             if (option == null)
-                return menu.Replace(LISTID, "").Replace(LISTCLASS, "").Replace(LISTITEMCLASS, "").Replace(HYPERLINKCLASS, "");
+                return menu.Replace(LISTITEMCLASS, "").Replace(HYPERLINKCLASS, "");
 
             var mergeMenu = menu;
-            mergeMenu = mergeMenu.Replace(LISTID, !option.ListId.IsNullOrEmpty() ? string.Format(" id=\"{0}\"", option.ListId) : "");
-            mergeMenu = mergeMenu.Replace(LISTCLASS, !option.ListClass.IsNullOrEmpty() ? string.Format(" class=\"{0}\"", option.ListClass) : "");
             mergeMenu = mergeMenu.Replace(SUBLISTCLASS, !option.SubListClass.IsNullOrEmpty() ? string.Format(" class=\"{0}\"", option.SubListClass) : "");
             mergeMenu = mergeMenu.Replace(LISTITEMCLASS + SELECTEDLISTITEMCLASS, string.Format(" class=\"{0} {1}\"", option.ListItemClass, option.SelectedListItemClass));
             mergeMenu = mergeMenu.Replace(LISTITEMCLASS, !option.ListItemClass.IsNullOrEmpty() ? string.Format(" class=\"{0}\"", option.ListItemClass) : "");
