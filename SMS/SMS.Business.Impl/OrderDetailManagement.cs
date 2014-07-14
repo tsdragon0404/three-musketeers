@@ -34,7 +34,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? 1 : 5)
+                                      OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? ConstOrderStatus.Ordered : ConstOrderStatus.Done)
                                   };
             Repository.Add(orderDetail);
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)));

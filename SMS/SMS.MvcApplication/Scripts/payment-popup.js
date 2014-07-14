@@ -1,4 +1,4 @@
-﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback, templateId, getUrlForCallback, useServiceFee, useTax) {
+﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback, templateId, getUrlForCallback, refreshCallback, useServiceFee, useTax) {
     var root = this;
     this.id = id;
     this.height = height;
@@ -6,6 +6,7 @@
     this.getDataForPostCallback = getDataForPostCallback;
     this.templateId = templateId;
     this.getUrlForCallback = getUrlForCallback;
+    this.refreshCallback = refreshCallback;
     this.useServiceFee = useServiceFee;
     this.useTax = useTax;
     this.Data = null;
@@ -15,7 +16,8 @@
         closeOnEscape: true,
         width: "100%",
         height: root.height,
-        modal: true
+        modal: true,
+        close: refreshCallback
     });
 
     $('#' + root.id + ' #print').button({
@@ -47,6 +49,11 @@
         var popupId = '#' + root.id;
         $(popupId).dialog("open");
         
+        $('#' + root.id + ' #popupchkUseServiceFee').show();
+        $('#' + root.id + ' input[id^="popupChkUseTax-"]').show();
+        $('#' + root.id + ' #payment').removeClass('RmenuDisable');
+        $('#' + root.id + ' #payment').prop("disabled", false);
+
         var parentHeight = $(popupId).height();
         $(popupId + ' .payment-content').height(parentHeight);
     };
@@ -121,6 +128,8 @@
         });
         root.Data.Tax = tax;
         root.Data.TotalAmount = root.Data.SumAmount + tax;
+        $('#' + root.id + ' #lblTotalAmount').text(root.Data.TotalAmount.formatAsMoney());
+        $('#' + root.id + ' #txtcash').val(root.Data.TotalAmount.formatAsMoney());
 
         $('#' + root.id + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
     }

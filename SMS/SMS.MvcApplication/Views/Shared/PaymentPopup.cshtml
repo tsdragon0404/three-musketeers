@@ -26,41 +26,50 @@
                     <tbody>
                         <tr>
                             <td></td>
-                            <td>Tổng tiền: </td>
+                            <td>Tổng tiền món ăn: </td>
                             <td class="right"><span id="lblSubTotal">0</span> @BranchConfig.Currency</td>
                         </tr>
-                    @if (BranchConfig.UseServiceFee)
-                    {
-                        <tr id="ServiceFree">
-                            <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></td>
-                            <td>Service Fee:</td>
-                            <td class="right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</td>
+                        @if (BranchConfig.UseServiceFee)
+                        {
+                            <tr id="ServiceFree">
+                                <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></td>
+                                <td>Service Fee:</td>
+                                <td class="right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</td>
+                            </tr>
+                        }
+                        @foreach (var tax in BranchConfig.Taxs)
+                        {
+                            <tr id="tax-@tax.Key">
+                                <td class="right"><input type="checkbox" id="popupChkUseTax-@tax.Key" /></td>
+                                <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
+                                <td class="right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</td>
+                            </tr>
+                        }
+                         <tr class="border-top">
+                            <td></td>
+                            <td>Tổng tiền hóa đơn: </td>
+                            <td class="right"><span id="lblTotalAmount">0</span> @BranchConfig.Currency</td>
                         </tr>
-                    }
-                    @foreach (var tax in BranchConfig.Taxs)
-                    {
-                        <tr id="tax-@tax.Key">
-                            <td class="right"><input type="checkbox" id="popupChkUseTax-@tax.Key" /></td>
-                            <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
-                            <td class="right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</td>
-                        </tr>
-                    }
                         <tr>
                             <td></td>
                             <td>Tiền khách đưa: </td>
-                            <td class="right"><input id="tienkhachdua" style="width: 100px"/> @BranchConfig.Currency</td>
+                            <td class="right"><input class="right" id="txtcash" style="width: 100px"/> @BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Tiền trả lại: </td>
-                            <td class="right"><span id="lbltralai">0</span> @BranchConfig.Currency</td>
+                            <td class="right"><span id="lblReturn">0</span> @BranchConfig.Currency</td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="right">
+                                <button id="payment" data-labelID="lblPayment">Hoàn tất thanh toán</button>
+                                <button id="print" data-labelID="lblPrint">In hóa đơn</button>            
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
-                <div class="row">
-                    <button id="payment" data-labelID="lblPayment">Hoàn tất thanh toán</button>
-                    <button id="print" data-labelID="lblPrint">In hóa đơn</button>
-                </div>
                 <div class="row">
                     <a href="#">Hóa đơn VAT</a>
                     <fieldset>
