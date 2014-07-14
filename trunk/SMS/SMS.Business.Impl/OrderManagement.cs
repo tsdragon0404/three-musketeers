@@ -36,7 +36,7 @@ namespace SMS.Business.Impl
         {
             var order = new Order
                             {
-                                Branch = new Branch { ID = SmsSystem.SelectedBranchID },
+                                Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID },
                                 OrderNumber = "ORDER" + DateTime.Now.ToString("yyMMddHHmmss"),
                                 Customer = new Customer { ID = 1 }
                             };

@@ -42,27 +42,80 @@
                 <div id="logo">
                     <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
                 </div>
-                <nav class="border-bottom">
+                <ul id="menu">
                     @{
                         var option = new BuildMenuOption
-                                         {
-                                             ListId = "menu",
-                                             SelectedListItemClass = "menu-selected",
-                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                         };
+                                            {
+                                                SelectedListItemClass = "menu-selected",
+                                                CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                SubListClass = "submenu"
+                                            };
                     }
                     @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
-                </nav>
-                <ul id="user">
+                    <li>-</li>
+                    @if (SmsSystem.UserContext.AllowBranches.Count > 1)
+                    {
+                        <li>
+                            @SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name
+                            
+                            <ul>
+                                @foreach(var branch in SmsSystem.UserContext.AllowBranches)
+                                {
+                                    <li>@branch.Name</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else if (SmsSystem.UserContext.AllowBranches.Count == 1)
+                    {
+                        <li>@SmsSystem.UserContext.AllowBranches[0].Name</li>
+                    }
                     @if (SmsSystem.UserContext.IsSystemAdmin)
                     {
                         <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
                     }
                     @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
                     {
-                        <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
+                        <li>User Profile
+                            <ul class="submenu">
+                                <li>Save cashier info</li>
+                                <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
+                            </ul>
+                        </li>
                     }
                 </ul>
+                @*<ul id="user">
+                    @if (SmsSystem.UserContext.AllowBranches.Count > 1)
+                    {
+                        <li>
+                            @SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name
+                            
+                            <ul>
+                                @foreach(var branch in SmsSystem.UserContext.AllowBranches)
+                                {
+                                    <li>@branch.Name</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else if (SmsSystem.UserContext.AllowBranches.Count == 1)
+                    {
+                        <li>@SmsSystem.UserContext.AllowBranches[0].Name</li>
+                    }
+                    @if (SmsSystem.UserContext.IsSystemAdmin)
+                    {
+                        <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
+                    }
+                    @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
+                    {
+                        <li>User Profile
+                            <ul>
+                                <li>Save cashier info</li>
+                                <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
+                            </ul>
+                        </li>
+                    }
+                </ul>*@
                 <ul id="language">
                     
                     @{
@@ -83,6 +136,8 @@
                 </ul> 
 
                 <script type="text/javascript">
+                    $('#menu').menu();
+                    
                     $('#change-language-vn').click(function () {
                         changeLanguage(@((int)Language.Vietnamese));
                         return false;
@@ -113,18 +168,19 @@
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "BranchData")
             {
                 <div id="branchdata-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    @{
-                        var adminOption = new BuildMenuOption
-                                         {
-                                             ListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                                             SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                             SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                             HyperLinkClass = "ui-tabs-anchor",
-                                             ListItemClass = "ui-state-default ui-corner-top"
-                                         };
-                    }
-                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        @{
+                            var adminOption = new BuildMenuOption
+                                                  {
+                                                      SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                      HyperLinkClass = "ui-tabs-anchor",
+                                                      ListItemClass = "ui-state-default ui-corner-top"
+                                                  };
+                        }
+                        @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
+                    </ul>
                 </div>
                 <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
                 <script type="text/javascript">
@@ -140,17 +196,18 @@
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
             {
                 <div id="branch-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    @{
-                        var adminOption = new BuildMenuOption
-                                         {
-                                             ListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                                             CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                             SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                             HyperLinkClass = "ui-tabs-anchor",
-                                             ListItemClass = "ui-state-default ui-corner-top"
-                                         };
-                    }
-                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        @{
+                            var adminOption = new BuildMenuOption
+                                                  {
+                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                      HyperLinkClass = "ui-tabs-anchor",
+                                                      ListItemClass = "ui-state-default ui-corner-top"
+                                                  };
+                        }
+                        @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
+                    </ul>
                 </div>
                 <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
                 <script type="text/javascript">

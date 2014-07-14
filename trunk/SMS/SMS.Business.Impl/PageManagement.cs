@@ -48,7 +48,6 @@ namespace SMS.Business.Impl
             foreach (var role in user.Roles)
                 accessiblePageIds.AddRange(role.Pages.Where(x => !ConstPage.PublicPages.Contains(x.ID)).Select(x => x.ID));
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
-            accessiblePageIds.Add(ConstPage.HomePage);
 
             var result = Repository.Find(x => accessiblePageIds.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
