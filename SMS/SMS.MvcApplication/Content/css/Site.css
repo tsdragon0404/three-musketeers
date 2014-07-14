@@ -777,8 +777,13 @@ ul#menu, ul#user {
 .ui-state-active .ui-widget-content, .ui-state-active .ui-widget-content a {
     color: #1d5987;
 }
-
-
+#menu a {
+    display: block;
+    padding: 3px 15px 3px 5px;
+}
+#menu li {
+    padding: 0;
+}
 /* Corner radius */
 .ui-corner-all,
 .ui-corner-top,
