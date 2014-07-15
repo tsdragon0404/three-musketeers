@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICurrencyRepository.cs" />
     <Compile Include="IRejectRepository.cs" />
     <Compile Include="IPageMenuRepository.cs" />
     <Compile Include="IBranchRepository.cs" />

@@ -1,5 +1,4 @@
-﻿@using SMS.Common.Session
-@using SMS.Data.Dtos
+﻿@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<BranchDto>
 @{
     ViewBag.Title = "Index";
@@ -29,7 +28,17 @@
                     </div>
                     <div class="three columns">
                         <select name="currency" id="currency-${ID}">
-
+                            <option value="0">[Not selected]</option>
+                            @foreach (CurrencyDto currency in ViewBag.ListCurrency)
+                            {
+                                <text>
+                                    {{if Currency != null && Currency.ID == @currency.ID}}
+                                    <option value="@currency.ID" selected>@currency.Name</option>
+                                    {{else}}
+                                    <option value="@currency.ID">@currency.Name</option>
+                                    {{/if}}
+                                </text>
+                            }
                         </select>
                     </div>
                     
@@ -57,10 +66,10 @@
                         Enabled
                     </div>
                     <div class="three columns">
-                        {{if Enabled }}
-                        <input type="checkbox" name="enabled" checked id="enabled-${ID}"/>
+                        {{if Enable }}
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
                         {{else}}
-                        <input type="checkbox" name="enabled" id="enabled-${ID}"/>
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
                         {{/if}}
                     </div>
                     <div class="three columns right">
@@ -157,25 +166,18 @@
             });
 
             function getAreaForSave(recordID) {
-                var roles = Array();
-
-                $('#assignedRoles-' + recordID + ' option').each(function (idx, e) {
-                    roles.push({ ID: $(e).val() });
-                });
 
                 var data = {
                     ID: recordID,
-                    Username: $('#username-' + recordID).val(),
-                    Password: $('#password-' + recordID).val(),
-                    Displayname: $('#displayname-' + recordID).val(),
-                    @if (SmsSystem.UserContext.IsSystemAdmin)
-                    {
-                        <text>
-                    IsSystemAdmin: $('#systemAdmin-' + recordID).prop('checked'),
-                        </text>
-                    }
-                    IsLockedOut: $('#locked-' + recordID).prop('checked'),
-                    Roles: roles
+                    VNName: $('#vnName-' + recordID).val(),
+                    ENName: $('#enName-' + recordID).val(),
+                    Currency: {
+                        ID: $('#currency-' + recordID).val()
+                    },
+                    UseServiceFee: $('#useServiceFee-' + recordID).prop('checked'),
+                    ServiceFee: $('#serviceFee-' + recordID).val(),
+                    Enable: $('#enable-' + recordID).prop('checked'),
+                    SEQ: $('#seq-' + recordID).val()
                 };
                 return data;
             }
