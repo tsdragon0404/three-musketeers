@@ -414,19 +414,21 @@ GO
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserBranch]') AND type in (N'U'))
 BEGIN
 	CREATE TABLE [dbo].[UserBranch](
-		[UserBranchID] [bigint] IDENTITY(1,1) NOT NULL,
-		[UserID] [int] NULL,
-		[BranchID] [int] NULL,
-		[AccessLevel] [tinyint] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [varchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [varchar](50) NULL,
-	CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
-	(
-		[UserBranchID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
+	[UserBranchID] [bigint] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NULL,
+	[BranchID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedUser] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	[ModifiedUser] [varchar](50) NULL,
+	[IsSuspended] [bit] NOT NULL DEFAULT(0),
+	[DefaultAreaID] [bigint] NOT NULL DEFAULT(0),
+	[ListTableHeight] [int] NULL,
+ CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
+(
+	[UserBranchID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
 END
 GO
 
