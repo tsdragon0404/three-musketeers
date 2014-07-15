@@ -3,7 +3,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.MvcApplication.Base;
 
-namespace SMS.MvcApplication.Areas.Branch.Controllers
+namespace SMS.MvcApplication.Areas.System.Controllers
 {
     [SmsAuthorize(ConstPage.System_Home)]
     [PageID(ConstPage.System_Home)]
