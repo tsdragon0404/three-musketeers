@@ -43,6 +43,14 @@
     }).click(function () {
         payment();
     });
+    
+    $('#' + root.id + ' #print-VAT').button({
+        icons: {
+            primary: "ui-icon-print"
+        }
+    }).click(function () {
+        
+    });
 
     this.OpenPopup = function () {
         renderData();
@@ -53,6 +61,8 @@
         $('#' + root.id + ' input[id^="popupChkUseTax-"]').show();
         $('#' + root.id + ' #payment').removeClass('RmenuDisable');
         $('#' + root.id + ' #payment').prop("disabled", false);
+        $('#' + root.id + ' #btnTaxInvoice').hide();
+        $('#' + root.id + ' #taxInvoice').hide();
 
         var parentHeight = $(popupId).height();
         $(popupId + ' .payment-content').height(parentHeight);
@@ -79,6 +89,10 @@
             processData();
         });
     }
+
+    $('#' + root.id + ' #btnTaxInvoice').click(function () {
+        $('#' + root.id + ' #taxInvoice').toggle(300);
+    });
     
     $('#' + root.id + ' #popupchkUseServiceFee').click(function () {
         if ($(this).is(':checked')) {
@@ -158,6 +172,7 @@
                         $('#' + root.id + ' input[id^="popupChkUseTax-"]').hide();
                         $('#' + root.id + ' #payment').addClass('RmenuDisable');
                         $('#' + root.id + ' #payment').prop("disabled", true);
+                        $('#' + root.id + ' #btnTaxInvoice').show();
                         if (MeadCo.ScriptX.Init()) {
                             MeadCo.ScriptX.Printing.header = "";
                             MeadCo.ScriptX.Printing.footer = "";
