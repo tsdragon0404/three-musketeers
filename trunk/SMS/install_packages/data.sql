@@ -41,8 +41,8 @@ VALUES
 ( 7, N'MainMenu', 4, 22, 70 ),
 ( 8, N'MainMenu', 4, 23, 80 ),
 ( 9, N'MainMenu', 0, 80, 90 ),
-( 10, N'MainMenu', 0, 81, 100 ),
-( 11, N'MainMenu', 0, 82, 110 ),
+( 10, N'MainMenu', 10, 81, 100 ),
+( 11, N'MainMenu', 10, 82, 110 ),
 ( 12, N'MainMenu', 0, 60, 120 ),
 
 ( 20, N'BranchTabMenu', 0, 21, 10 ),
