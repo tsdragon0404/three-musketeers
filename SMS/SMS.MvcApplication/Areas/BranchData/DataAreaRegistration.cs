@@ -15,7 +15,7 @@ namespace SMS.MvcApplication.Areas.BranchData
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Data_default",
+                "BranchData_default",
                 "BranchData/{controller}/{action}/{id}",
                 new { controller = "BranchDataHome", action = "Index", id = UrlParameter.Optional }
             );
