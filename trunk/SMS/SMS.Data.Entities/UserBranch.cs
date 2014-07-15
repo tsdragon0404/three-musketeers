@@ -9,7 +9,11 @@ namespace SMS.Data.Entities
 
         public virtual long BranchID { get; set; }
 
-        public virtual long AccessLevel { get; set; }
+        public virtual long DefaultAreaID { get; set; }
+
+        public virtual int ListTableHeight { get; set; }
+
+        public virtual bool IsSuspended { get; set; }
 
         #region Implementation of IAuditableEntity
 

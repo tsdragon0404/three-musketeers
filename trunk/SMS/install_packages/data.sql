@@ -9,6 +9,7 @@ VALUES
 ( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', NULL, N'Cashier', N'Index' ),
 ( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', NULL, N'Kitchen', N'Index' ),
 ( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', NULL, N'Account', N'Login' ),
+( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', NULL, N'Account', N'AccessDenied' ),
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
@@ -22,7 +23,11 @@ VALUES
 ( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'BranchData', N'Table', N'Index' ),
 ( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' ),
 
-( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' )
+( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' ),
+
+( 80, N'System', N'System', N'System', N'System', N'System', N'SystemHome', N'Index' ),
+( 81, N'Branch', N'Branch', N'Branch', N'Branch', N'System', N'Branch', N'Index' ),
+( 82, N'User', N'User', N'User', N'User', N'System', N'User', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -35,7 +40,10 @@ VALUES
 ( 6, N'MainMenu', 4, 21, 60 ),
 ( 7, N'MainMenu', 4, 22, 70 ),
 ( 8, N'MainMenu', 4, 23, 80 ),
-( 9, N'MainMenu', 0, 60, 90 ),
+( 9, N'MainMenu', 0, 80, 90 ),
+( 10, N'MainMenu', 0, 81, 100 ),
+( 11, N'MainMenu', 0, 82, 110 ),
+( 12, N'MainMenu', 0, 60, 120 ),
 
 ( 20, N'BranchTabMenu', 0, 21, 10 ),
 ( 21, N'BranchTabMenu', 0, 22, 20 ),

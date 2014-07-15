@@ -210,6 +210,10 @@
     <Compile Include="Areas\Branch\Controllers\UserController.cs" />
     <Compile Include="Areas\Report\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Areas\System\Controllers\BranchController.cs" />
+    <Compile Include="Areas\System\Controllers\SystemHomeController.cs" />
+    <Compile Include="Areas\System\Controllers\UserController.cs" />
+    <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Base\AdminBaseController.cs" />
     <Compile Include="Areas\BranchData\Controllers\AreaController.cs" />
     <Compile Include="Areas\BranchData\Controllers\BranchDataHomeController.cs" />
@@ -818,6 +822,10 @@
     <Content Include="Areas\Report\Views\Web.config" />
     <Content Include="Areas\Report\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\System\Views\Web.config" />
+    <Content Include="Areas\System\Views\SystemHome\Index.cshtml" />
+    <Content Include="Areas\System\Views\Branch\Index.cshtml" />
+    <Content Include="Areas\System\Views\User\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -891,6 +899,8 @@
     <Folder Include="Areas\Branch\Views\Shared\" />
     <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Report\Views\Shared\" />
+    <Folder Include="Areas\System\Models\" />
+    <Folder Include="Areas\System\Views\Shared\" />
     <Folder Include="Filters\" />
     <Folder Include="Logs\" />
   </ItemGroup>
