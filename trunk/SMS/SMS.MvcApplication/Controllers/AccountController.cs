@@ -113,29 +113,5 @@ namespace SMS.MvcApplication.Controllers
         {
             return View();
         }
-
-        //[SmsAuthorize(ConstPage.Global, true)]
-        //public ActionResult SelectBranch()
-        //{
-        //    var branches = BranchService.GetAssignedBranchesForUser<LanguageBranchBasicDto>().Data;
-        //    return View(new SelectBranchModel { Branches = branches });
-        //}
-
-        //[HttpPost]
-        //[SmsAuthorize(ConstPage.Global, true)]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult SelectBranch(SelectBranchModel model)
-        //{
-        //    var checkResult = BranchService.CheckExisted(model.SelectedBranchID);
-        //    if(!checkResult.Success)
-        //    {
-        //        // handle error
-        //        ModelState.AddModelError("BranchID", "The selected branch does not existed. Please contact administrator.");
-        //        return View(model);
-        //    }
-
-        //    SmsSystem.SelectedBranchID = model.SelectedBranchID;
-        //    return RedirectToAction("Index", "Home");
-        //}
     }
 }
