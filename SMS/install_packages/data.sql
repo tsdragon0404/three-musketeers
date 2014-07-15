@@ -51,7 +51,10 @@ VALUES
 
 ( 30, N'BranchDataTabMenu', 0, 41, 10 ),
 ( 31, N'BranchDataTabMenu', 0, 42, 20 ),
-( 32, N'BranchDataTabMenu', 0, 43, 30 )
+( 32, N'BranchDataTabMenu', 0, 43, 30 ),
+
+( 40, N'SystemTabMenu', 0, 81, 10 ),
+( 41, N'SystemTabMenu', 0, 82, 20 )
 
 INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
 VALUES 
