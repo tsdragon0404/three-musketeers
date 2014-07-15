@@ -5,21 +5,21 @@ using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.Services;
 
-namespace SMS.MvcApplication.Areas.BranchData.Controllers
+namespace SMS.MvcApplication.Areas.System.Controllers
 {
-    [SmsAuthorize(ConstPage.Data_Table)]
-    [PageID(ConstPage.Data_Table)]
-    public class TableController : AdminBaseController<TableDto, long, ITableService>
+    [SmsAuthorize(ConstPage.System_User)]
+    [PageID(ConstPage.System_User)]
+    public class UserController : AdminBaseController<UserDto, long, IUserService>
     {
         #region Fields
 
-        public virtual IAreaService AreaService { get; set; }
+        public virtual IRoleService RoleService { get; set; }
 
         #endregion
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListArea = AreaService.GetAll().Data;
+            ViewBag.ListRole = RoleService.GetAll().Data;
             return base.Index(textSearch, page);
         }
         

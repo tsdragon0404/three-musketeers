@@ -39,6 +39,7 @@ namespace SMS.Common.AutoMapper
             Map<ErrorMessage, ErrorMessageDto>();
             Map<User, UserDto>();
             Map<Role, RoleDto>();
+            Map<UserBranch, UserBranchDto>();
             Map<Currency, CurrencyDto>();
             Map<OrderDto, PaymentDto>();
             Map<OrderDto, OrderDataDto>();

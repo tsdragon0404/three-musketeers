@@ -81,11 +81,11 @@
                                 <li>@Html.ActionLink("Edit profile", "Edit", "Account", new { area = "" }, null)</li>
                                 @if (Request.RequestContext.RouteData.Values["controller"] != null && Request.RequestContext.RouteData.Values["controller"].ToString() == "Cashier")
                                 {
-                                    <li><a href="#">Save cashier info</a></li>
+                                    <li><a id="saveCashierInfo" href="#">Save cashier info</a></li>
                                 }
-                                <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
                             </ul>
                         </li>
+                        <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
                     }
                 </ul>
                 <ul id="language">
@@ -130,6 +130,36 @@
                                 location.reload();
                         });
                     }
+
+                    $('#saveCashierInfo').click(function () {
+                        var tabId = -1;
+                        var selectedTab = $('#areas li.ui-state-active a');
+                        if (selectedTab.length > 0) {
+                            tabId = selectedTab.attr('href').split('-')[1];
+                        }
+                        var height = -1;
+                        var divider = $('#cashier #tableorder');
+                        if (divider.length > 0) {
+                            var heightInPx = divider.height();
+                            var parentHeightInPx = divider.offsetParent().height();
+                            height = Math.round(100 * heightInPx / parentHeightInPx);
+                        }
+
+                        if (tabId == -1 || height == -1)
+                            return false;
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("SaveCashierInfo", "Cashier", new { area = "" })',
+                            data: {
+                                DefaultAreaID: tabId,
+                                ListTableHeight: height
+                            }
+                        }).done(function (result) {
+                            
+                        });
+                        return false;
+                    });
                 </script>
             </div>
         </div>

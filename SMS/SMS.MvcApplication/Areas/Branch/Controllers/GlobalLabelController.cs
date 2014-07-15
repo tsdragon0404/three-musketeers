@@ -5,8 +5,8 @@ using SMS.MvcApplication.Base;
 
 namespace SMS.MvcApplication.Areas.Branch.Controllers
 {
-    [SmsAuthorize(ConstPage.Admin_GlobalLabel)]
-    [PageID(ConstPage.Admin_GlobalLabel)]
+    [SmsAuthorize(ConstPage.Branch_GlobalLabel)]
+    [PageID(ConstPage.Branch_GlobalLabel)]
     public class GlobalLabelController : BaseController
     {
         public ActionResult Index()

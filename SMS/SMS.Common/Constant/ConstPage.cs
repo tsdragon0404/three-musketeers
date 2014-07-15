@@ -9,11 +9,12 @@ namespace SMS.Common.Constant
         public const long Cashier = 2;
         public const long Kitchen = 3;
         public const long Login = 4;
+        public const long AccessDenied = 5;
                      
-        public const long Admin_Home = 20;
-        public const long Admin_GlobalLabel = 21;
-        public const long Admin_Role = 22;
-        public const long Admin_User = 23;
+        public const long Branch_Home = 20;
+        public const long Branch_GlobalLabel = 21;
+        public const long Branch_Role = 22;
+        public const long Branch_User = 23;
                      
         public const long Data_Home = 40;
         public const long Data_Area= 41;
@@ -21,6 +22,10 @@ namespace SMS.Common.Constant
         public const long Data_ProductCategory = 43;
 
         public const long Report_Dashboard = 60;
+
+        public const long System_Home = 80;
+        public const long System_Branch = 81;
+        public const long System_User = 82;
 
         public const long ReportViewer = 99;
 
