@@ -167,54 +167,50 @@
             <a href="#" id="expander" class="expanded">&lt;</a>
         </div>
         <div id="body" class="border-left">
+            @{
+                var adminAreaNames = new[] { "BranchData", "Branch", "System" };
+            }
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "BranchData")
             {
-                <div id="branchdata-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                         @{
-                var adminOption = new BuildMenuOption
-                {
-                    SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                    CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                    SelectedListItemClass = "ui-tabs-active ui-state-active",
-                    HyperLinkClass = "ui-tabs-anchor",
-                    ListItemClass = "ui-state-default ui-corner-top"
-                };
+                            var adminOption = new BuildMenuOption
+                                                  {
+                                                      SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                      HyperLinkClass = "ui-tabs-anchor",
+                                                      ListItemClass = "ui-state-default ui-corner-top"
+                                                  };
                         }
                         @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
                     </ul>
                 </div>
-                <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('#admin-menu li').hover(function() {
-                            $(this).addClass('ui-state-hover');
-                        }, function() {
-                            $(this).removeClass('ui-state-hover');
-                        });
-                    });
-                </script>
             }
             @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
             {
-                <div id="branch-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                         @{
-                var adminOption = new BuildMenuOption
-                {
-                    CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                    SelectedListItemClass = "ui-tabs-active ui-state-active",
-                    HyperLinkClass = "ui-tabs-anchor",
-                    ListItemClass = "ui-state-default ui-corner-top"
-                };
+                            var adminOption = new BuildMenuOption
+                                                  {
+                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                      HyperLinkClass = "ui-tabs-anchor",
+                                                      ListItemClass = "ui-state-default ui-corner-top"
+                                                  };
                         }
                         @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
                     </ul>
                 </div>
+            }
+            @if (ViewContext.RouteData.DataTokens["area"] != null && adminAreaNames.Contains(ViewContext.RouteData.DataTokens["area"].ToString()))
+            {
                 <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
                 <script type="text/javascript">
                     $(document).ready(function() {
-                        $('#config-menu li').hover(function() {
+                        $('#tabs-menu li').hover(function() {
                             $(this).addClass('ui-state-hover');
                         }, function() {
                             $(this).removeClass('ui-state-hover');

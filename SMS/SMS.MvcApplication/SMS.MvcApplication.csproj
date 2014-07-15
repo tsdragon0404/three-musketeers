@@ -826,6 +826,7 @@
     <Content Include="Areas\System\Views\SystemHome\Index.cshtml" />
     <Content Include="Areas\System\Views\Branch\Index.cshtml" />
     <Content Include="Areas\System\Views\User\Index.cshtml" />
+    <Content Include="Areas\System\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
