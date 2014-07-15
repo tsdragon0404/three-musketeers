@@ -536,7 +536,7 @@ label.ui-state-error {
 
 .link-label {
     cursor: pointer;
-    color: #76BBD8;
+    color: #76BBD8 !important;
     text-decoration: underline;
 }
 
