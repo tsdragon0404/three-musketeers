@@ -143,14 +143,14 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create(result));
         }
 
-        //[HttpPost]
+        [HttpPost]
         public JsonResult CreateOrderTable(long tableID)
         {
             if (tableID <= 0) return Json(JsonModel.Create(false));
 
             var orderTableID = OrderTableService.CreateOrderTable(tableID);
 
-            return Json(JsonModel.Create(orderTableID), JsonRequestBehavior.AllowGet);
+            return Json(JsonModel.Create(orderTableID));
         }
 
         [HttpPost]
@@ -220,6 +220,12 @@ namespace SMS.MvcApplication.Controllers
             var result = OrderTableService.SendToKitchen(orderTableID);
 
             return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
+        public JsonResult SaveCashierInfo(CashierInfoModel info)
+        {
+            return Json(JsonModel.Create(true));
         }
     }
 }
