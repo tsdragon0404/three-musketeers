@@ -192,11 +192,11 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
     float: right;
 }
 
-#cashier {
+#content {
     overflow: auto;
 }
 
-#cashier .ui-spinner-input, #searchProduct .ui-spinner-input {
+#body .cashier .ui-spinner-input, #searchProduct .ui-spinner-input {
     width: 40px;
 }
 
@@ -432,9 +432,6 @@ label.ui-state-error {
 }
 
 /* Stylesheet for Admin */
-#admin-body {
-    overflow: auto;
-}
 .admin-page-title {
     margin-bottom: 5px;
 }
