@@ -15,12 +15,5 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         public virtual IRoleService RoleService { get; set; }
 
         #endregion
-
-        //public override ActionResult Index(string textSearch, int page = 1)
-        //{
-        //    ViewBag.ListRole = RoleService.GetAll().Data;
-        //    return base.Index(textSearch, page);
-        //}
-        
     }
 }
