@@ -419,7 +419,7 @@
         }
     }));
         
-    $(document).on("contextmenu", "#cashier", function(e) {
+    $(document).on("contextmenu", ".cashier", function(e) {
         if($(e.target).parents('.tbls').length <= 0) {
             $("#right-menu").hide();
             //displayCustomMenu('#mainRightMenu', e);
