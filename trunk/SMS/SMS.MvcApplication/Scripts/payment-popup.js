@@ -1,9 +1,9 @@
-﻿function PaymentPopup(id, height, getDataUrl, getDataForPostCallback, templateId, getUrlForCallback, refreshCallback, useServiceFee, useTax) {
+﻿function PaymentPopup(id, height, getDataUrl, orderId, templateId, getUrlForCallback, refreshCallback, useServiceFee, useTax) {
     var root = this;
     this.id = id;
     this.height = height;
     this.getDataUrl = getDataUrl;
-    this.getDataForPostCallback = getDataForPostCallback;
+    this.orderId = orderId;
     this.templateId = templateId;
     this.getUrlForCallback = getUrlForCallback;
     this.refreshCallback = refreshCallback;
@@ -69,7 +69,7 @@
     };
     
     function renderData() {
-        var postData = getDataForPostCallback();
+        var postData = { orderID: root.orderId };
         $.ajax({
             type: 'POST',
             url: root.getDataUrl,
@@ -91,7 +91,7 @@
     }
 
     $('#' + root.id + ' #btnTaxInvoice').click(function () {
-        $('#' + root.id + ' #taxInvoice').toggle(300);
+        $('#' + root.id + ' #taxInvoice').toggle();
     });
     
     $('#' + root.id + ' #popupchkUseServiceFee').click(function () {
@@ -153,7 +153,7 @@
             'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
             3,
             function() {
-                var postData = getDataForPostCallback();
+                var postData = { orderID: root.orderId };
                 $.ajax({
                     type: 'POST',
                     url: root.getUrlForCallback,
