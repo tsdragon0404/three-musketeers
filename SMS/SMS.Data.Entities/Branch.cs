@@ -18,7 +18,7 @@ namespace SMS.Data.Entities
 
         public virtual BranchInfo BranchInfo { get; set; }
 
-        public virtual IList<User> UsersInBranch { get; set; }
+        public virtual IList<User> Users { get; set; }
 
         #region Implementation of IEnableEntity
 

@@ -80,6 +80,32 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="three columns push_three">
+                        <select id="originalUsers-${ID}" multiple="multiple" size="4">
+                            @foreach (UserBasicDto user in ViewBag.ListUser)
+                            {
+                                <text>
+                                    <option value="@user.ID">@user.Username</option>
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addUsers-${ID}" class="assignButton">></button>
+                        <button id="addAllUsers-${ID}" class="assignButton">>></button>
+                        <button id="removeAllUsers-${ID}" class="assignButton"><<</button>
+                        <button id="removeUsers-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="three columns">
+                        <select name="assignedUsers" id="assignedUsers-${ID}" multiple="multiple" size="4">
+                            {{each Users}}
+                            <option value="${ID}">${Username}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
+                </div>
+                <div class="row">
                     <div class="eleven columns right">
                         <input type="button" id="save-${ID}" value="Save" />
                         <input type="button" id="cancel-${ID}" value="Cancel" />
@@ -88,6 +114,17 @@
             </div>
         </td>
     </tr>
+</script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalUsers-' + id + '", "' + 'assignedUsers-' + id + '", "' + 'addUsers-' + id + '", "' + 'removeUsers-' + id + '", "' + 'addAllUsers-' + id + '", "' + 'removeAllUsers-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+            + 'var listBox = new AssignListBox(' + param + ');'
+            + 'listBox.bindEvents();'
+            + '</sc' + 'ript>';
+    }
 </script>
 
 <div id="content">

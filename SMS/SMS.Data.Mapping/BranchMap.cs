@@ -15,11 +15,11 @@ namespace SMS.Data.Mapping
 
             HasOne(x => x.BranchInfo).Cascade.All();
 
-            HasManyToMany(x => x.UsersInBranch)
+            HasManyToMany(x => x.Users)
                 .Cascade.All()
                 .Table("UserBranch")
                 .ParentKeyColumn("BranchID")
-                .ChildKeyColumn("UserID")
+                .ChildKeyColumn("UserID").ChildWhere("IsSystemAdmin = 0 AND UseSystemConfig = 0")
                 .Not.LazyLoad();
         }
     }
