@@ -396,6 +396,7 @@ BEGIN
 		[DisplayName] [nvarchar](50) NULL,
 		[LastLoginDate] [datetime] NULL,
 		[IsSystemAdmin] [bit] NOT NULL,
+		[UseSystemConfig] [bit] NOT NULL DEFAULT(0),
 		[IsLockedOut] [bit] NOT NULL,
 		[LastLockedOutDate] [datetime] NULL,
 		[FailedPasswordAttemptCount] [int] NOT NULL,
