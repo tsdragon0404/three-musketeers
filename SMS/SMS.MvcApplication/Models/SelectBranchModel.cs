@@ -6,6 +6,6 @@ namespace SMS.MvcApplication.Models
     public class SelectBranchModel
     {
         public long SelectedBranchID { get; set; }
-        public IList<LanguageBranchBasicDto> Branches { get; set; }
+        public IList<LanguageBranchDto> Branches { get; set; }
     }
 }

@@ -14,4 +14,11 @@ namespace SMS.Data.Dtos
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual string ModifiedUser { get; set; }
     }
+
+    public class LanguageTableDto
+    {
+        public virtual long ID { get; set; }
+        public virtual string Name { get; set; }
+        public virtual LanguageAreaDto Area { get; set; }
+    }
 }

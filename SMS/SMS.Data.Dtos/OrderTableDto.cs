@@ -4,13 +4,30 @@ using SMS.Common.Constant;
 
 namespace SMS.Data.Dtos
 {
-    public class OrderTableDto
+    public class OrderTableDto : OrderTableBasicDto
     {
-        public virtual long ID { get; set; }
         public virtual long OrderID { get; set; }
         public virtual IList<LanguageOrderDetailDto> OrderDetails { get; set; }
-        public virtual decimal Discount { get; set; }
+    }
+
+    public class LanguageOrderTableDto : OrderTableBasicDto
+    {
+        public virtual LanguageTableDto Table { get; set; }
+        public virtual IList<LanguageOrderDetailDto> OrderDetails { get; set; }
+    }
+
+    public class SimpleOrderTableDto
+    {
+        public virtual long ID { get; set; }
+        public virtual OrderBasicDto Order { get; set; }
+        public virtual LanguageTableDto Table { get; set; }
+    }
+
+    public class OrderTableBasicDto
+    {
+        public virtual long ID { get; set; }
         public virtual DiscountType DiscountType { get; set; }
+        public virtual decimal Discount { get; set; }
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
         public virtual bool UseServiceFee { get; set; }

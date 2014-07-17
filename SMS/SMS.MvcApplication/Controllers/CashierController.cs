@@ -187,7 +187,7 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult GetTablesByAreaID(long areaID)
         {
             if (areaID < 0) return Json(JsonModel.Create(false));
-            var listTable = OrderTableService.GetTablesByAreaID<OrderTableBasicDto>(areaID);
+            var listTable = OrderTableService.GetTablesByAreaID<SimpleOrderTableDto>(areaID);
 
             return Json(JsonModel.Create(listTable));
         }
