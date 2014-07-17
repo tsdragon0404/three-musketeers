@@ -87,6 +87,7 @@ namespace SMS.MvcApplication.Controllers
                                   UserName = user.Username,
                                   DisplayName = user.Displayname,
                                   IsSystemAdmin = user.IsSystemAdmin,
+                                  UseSystemConfig = user.UseSystemConfig,
                                   RoleNames = user.Roles.Select(x => x.Name).ToList(),
                                   AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
                               };

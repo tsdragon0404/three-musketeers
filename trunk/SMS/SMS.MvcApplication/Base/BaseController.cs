@@ -74,5 +74,15 @@ namespace SMS.MvcApplication.Base
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }
+
+        [HttpPost]
+        public JsonResult ChangeBranch(long branchID)
+        {
+            if (!SmsSystem.UserContext.AllowBranches.Select(x => x.ID).Contains(branchID))
+                return Json(JsonModel.Create(false));
+
+            SmsSystem.SelectedBranchID = branchID;
+            return Json(JsonModel.Create(true));
+        }
     }
 }

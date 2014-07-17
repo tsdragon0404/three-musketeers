@@ -13,15 +13,14 @@ namespace SMS.MvcApplication.Areas.System.Controllers
     {
         #region Fields
 
-        public virtual IRoleService RoleService { get; set; }
+        public virtual IBranchService BranchService { get; set; }
 
         #endregion
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListRole = RoleService.GetAll().Data;
+            ViewBag.ListBranch = BranchService.GetAll().Data;
             return base.Index(textSearch, page);
         }
-        
     }
 }
