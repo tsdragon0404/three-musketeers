@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SMS.Data.Dtos
 {
@@ -11,6 +12,7 @@ namespace SMS.Data.Dtos
         public virtual bool UseServiceFee { get; set; }
         public virtual decimal ServiceFee { get; set; }
         public virtual BranchInfoDto BranchInfo { get; set; }
+        public virtual IList<UserDto> Users { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

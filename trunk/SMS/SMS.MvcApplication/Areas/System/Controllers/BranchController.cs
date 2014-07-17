@@ -21,7 +21,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         public override ActionResult Index(string textSearch, int page = 1)
         {
             ViewBag.ListCurrency = CurrencyService.GetAll().Data;
-            ViewBag.ListUser = UserService.GetAll<UserBasicDto>().Data;
+            ViewBag.ListUser = UserService.GetUserForBranchAssignment<UserBasicDto>().Data;
             return base.Index(textSearch, page);
         }
     }

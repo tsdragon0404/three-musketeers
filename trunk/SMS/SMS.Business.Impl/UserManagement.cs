@@ -105,5 +105,12 @@ namespace SMS.Business.Impl
 
             return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
         }
+
+        public ServiceResult<IList<TModel>> GetUserForBranchAssignment<TModel>()
+        {
+            var result = Repository.Find(x => !x.UseSystemConfig && !x.IsSystemAdmin).ToList();
+
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+        }
     }
 }

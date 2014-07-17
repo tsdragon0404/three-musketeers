@@ -17,7 +17,7 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TModel>> GetAssignedBranchesForUser<TModel>()
         {
             var result = Repository.Find(x => 
-                (x.UsersInBranch.Select(y => y.ID).Contains(SmsSystem.UserContext.UserID) && x.Enable) 
+                (x.Users.Select(y => y.ID).Contains(SmsSystem.UserContext.UserID) && x.Enable) 
                 || SmsSystem.UserContext.IsSystemAdmin).ToList();
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
