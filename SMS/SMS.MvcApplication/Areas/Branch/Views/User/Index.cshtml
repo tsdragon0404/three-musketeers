@@ -41,7 +41,7 @@
                         Locked
                     </div>
                     <div class="three columns">
-                        {{if IsLockedOut == true}}
+                        {{if IsLockedOut}}
                         <input type="checkbox" name="locked" checked id="locked-${ID}"/>
                         {{else}}
                         <input type="checkbox" name="locked" id="locked-${ID}"/>
@@ -55,7 +55,7 @@
                             Is system admin
                         </div>
                         <div class="three columns">
-                            {{if IsSystemAdmin == true}}
+                            {{if IsSystemAdmin}}
                             <input type="checkbox" name="systemAdmin" checked id="systemAdmin-${ID}"/>
                             {{else}}
                             <input type="checkbox" name="systemAdmin" id="systemAdmin-${ID}"/>

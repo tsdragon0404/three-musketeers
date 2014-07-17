@@ -23,7 +23,7 @@ namespace SMS.Data.Dtos
         {
             get
             {
-                var serviceFee = BranchConfig.UseServiceFee == true ? (UseServiceFee == true ? BranchConfig.ServiceFee : 0) : 0;
+                var serviceFee = BranchConfig.UseServiceFee ? (UseServiceFee ? BranchConfig.ServiceFee : 0) : 0;
                 var detailAmount = !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount);
                 return detailAmount + serviceFee + OtherFee - Discount;
             }
