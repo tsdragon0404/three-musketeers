@@ -37,10 +37,15 @@ namespace SMS.Business.Impl
             var order = new Order
                             {
                                 Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID },
-                                OrderNumber = "ORDER" + DateTime.Now.ToString("yyMMddHHmmss"),
                                 Customer = new Customer { ID = 1 }
                             };
             Repository.Add(order);
+            Repository.SaveAllChanges();
+
+            var text = "00000" + order.ID;
+            order.OrderNumber = "ODR-" +  DateTime.Now.ToString("yyMMdd") + text.PadRight(5);
+            Repository.Update(order);
+            Repository.SaveAllChanges();
 
             return order.ID;
         }
