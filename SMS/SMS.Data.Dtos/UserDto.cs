@@ -11,6 +11,7 @@ namespace SMS.Data.Dtos
         public virtual string Displayname { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
         public virtual bool IsSystemAdmin { get; set; }
+        public virtual bool UseSystemConfig { get; set; }
         public virtual bool IsLockedOut { get; set; }
         public virtual DateTime? LastLockedOutDate { get; set; }
         public virtual int FailedPasswordAttemptCount { get; set; }

@@ -8,6 +8,7 @@ namespace SMS.Common.Session
         public string UserName { get; set; } 
         public string DisplayName { get; set; }
         public bool IsSystemAdmin { get; set; }
+        public bool UseSystemConfig { get; set; }
         public IList<string> RoleNames { get; set; }
         public IList<Branch> AllowBranches { get; set; }
 

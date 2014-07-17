@@ -56,12 +56,11 @@
                     @if (SmsSystem.UserContext.AllowBranches.Count > 1)
                     {
                         <li>
-                            @SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name
-                            
-                            <ul>
+                            <a>@SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name</a>
+                            <ul class="submenu">
                                 @foreach(var branch in SmsSystem.UserContext.AllowBranches)
                                 {
-                                    <li>@branch.Name</li>
+                                    <li><a href="#" data-branchId="@branch.ID" id="changeBranch-@branch.ID">@branch.Name</a></li>
                                 }
                             </ul>
                         </li>
@@ -157,6 +156,18 @@
                             }
                         }).done(function (result) {
                             
+                        });
+                        return false;
+                    });
+                    $('a[id^="changeBranch-"]').click(function() {
+                        var id = $(this).attr('data-branchId');
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ChangeBranch", "Home", new { area = "" })',
+                            data: { branchID: id }
+                        }).done(function (result) {
+                            if(result.Success)
+                                location.reload();
                         });
                         return false;
                     });

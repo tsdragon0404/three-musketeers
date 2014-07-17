@@ -9,12 +9,12 @@ namespace SMS.Services.Impl
     {
         public virtual TIManagement Management { get; set; }
 
-        public ServiceResult<IList<TDto>> GetAll(bool includeDisable)
+        public ServiceResult<IList<TDto>> GetAll(bool includeDisable = false)
         {
             return Management.GetAll(includeDisable);
         }
 
-        public ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable)
+        public ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable = false)
         {
             return Management.GetAll<TModel>(includeDisable);
         }

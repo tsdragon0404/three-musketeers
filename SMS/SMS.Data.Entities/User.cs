@@ -19,6 +19,8 @@ namespace SMS.Data.Entities
 
         public virtual bool IsSystemAdmin { get; set; }
 
+        public virtual bool UseSystemConfig { get; set; }
+
         public virtual bool IsLockedOut { get; set; }
 
         public virtual DateTime? LastLockedOutDate { get; set; }
