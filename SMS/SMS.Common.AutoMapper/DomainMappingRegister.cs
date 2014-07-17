@@ -14,40 +14,44 @@ namespace SMS.Common.AutoMapper
 
         public static void Register()
         {
+            Map<Area, AreaDto>();
             Map<Branch, BranchDto>();
             Map<BranchInfo, BranchInfoDto>();
-            Map<Product, ProductDto>();
-            Map<ProductCategory, ProductCategoryDto>();
-            Map<Table, TableDto>();
-            Map<Unit, UnitDto>();
-            Map<Invoice, InvoiceDto>();
-            Map<InvoiceTable, InvoiceTableDto>();
-            Map<InvoiceDetail, InvoiceDetailDto>();
-            Map<Area, AreaDto>();
-            Map<Page, PageDto>();
-            Map<PageMenu, PageMenuDto>();
-            Map<PageLabel, PageLabelDto>();
-            Map<Order, OrderDto>();
-            Map<Order, PaymentDto>();
-            Map<OrderTable, OrderTableDto>();
-            Map<OrderTable, PaymentTableDto>();
-            Map<OrderDetail, OrderDetailDto>();
-            Map<OrderDetail, PaymentDetailDto>();
-            Map<OrderStatus, OrderStatusDto>();
-            Map<OrderDiscount, OrderDiscountDto>();
+            Map<BranchTax, BranchTaxDto>();
+            Map<Currency, CurrencyDto>();
             Map<Customer, CustomerDto>();
             Map<ErrorMessage, ErrorMessageDto>();
-            Map<User, UserDto>();
-            Map<Role, RoleDto>();
-            Map<UserBranch, UserBranchDto>();
-            Map<Currency, CurrencyDto>();
-            Map<OrderDto, PaymentDto>();
-            Map<OrderDto, OrderDataDto>();
+            Map<InvoiceDetail, InvoiceDetailDto>();
+            Map<Invoice, InvoiceDto>();
+            Map<InvoiceTable, InvoiceTableDto>();
+            Map<OrderDetail, OrderDetailDto>();
+            Map<OrderDiscount, OrderDiscountDto>();
+            Map<Order, OrderDto>();
+            Map<OrderStatus, OrderStatusDto>();
+            Map<OrderTable, OrderTableDto>();
+            Map<Page, PageDto>();
+            Map<PageLabel, PageLabelDto>();
+            Map<PageMenu, PageMenuDto>();
+            Map<ProductCategory, ProductCategoryDto>();
+            Map<Product, ProductDto>();
             Map<Reject, RejectDto>();
-
-            Map<Report, ReportDto>();
             Map<ReportDatasource, ReportDatasourceDto>();
             Map<ReportDatasourceParameter, ReportDatasourceParameterDto>();
+            Map<Report, ReportDto>();
+            Map<Role, RoleDto>();
+            Map<Table, TableDto>();
+            Map<Tax, TaxDto>();
+            Map<Unit, UnitDto>();
+            Map<UserBranch, UserBranchDto>();
+            Map<User, UserDto>();
+            Map<User, UserBasicDto>();
+
+            Map<OrderDto, PaymentDto>(); //TODO: check mapping between dtos
+            Map<OrderDto, OrderDataDto>();
+            
+            Map<OrderDetail, PaymentDetailDto>(); //TODO: check all payment dto
+            Map<Order, PaymentDto>();
+            Map<OrderTable, PaymentTableDto>();
         }
     }
 }

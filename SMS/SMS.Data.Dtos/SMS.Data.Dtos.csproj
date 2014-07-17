@@ -39,14 +39,12 @@
     <Compile Include="BranchTaxDto.cs" />
     <Compile Include="BranchInfoDto.cs" />
     <Compile Include="RejectDto.cs" />
-    <Compile Include="OrderDataDto.cs" />
     <Compile Include="PageMenu.cs" />
     <Compile Include="RoleDto.cs" />
     <Compile Include="UserDto.cs" />
     <Compile Include="PaymentTableDto.cs" />
     <Compile Include="PaymentDetailDto.cs" />
     <Compile Include="PaymentDto.cs" />
-    <Compile Include="OrderBasicDto.cs" />
     <Compile Include="ErrorMessageDto.cs" />
     <Compile Include="OrderDetailDto.cs" />
     <Compile Include="OrderDiscountDto.cs" />
