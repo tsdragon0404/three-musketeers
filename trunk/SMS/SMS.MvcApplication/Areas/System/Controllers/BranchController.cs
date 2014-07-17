@@ -14,12 +14,14 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         #region Fields
 
         public virtual ICurrencyService CurrencyService { get; set; }
+        public virtual IUserService UserService { get; set; }
 
         #endregion
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
             ViewBag.ListCurrency = CurrencyService.GetAll().Data;
+            ViewBag.ListUser = UserService.GetAll<UserBasicDto>().Data;
             return base.Index(textSearch, page);
         }
     }
