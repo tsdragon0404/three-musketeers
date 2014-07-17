@@ -2,11 +2,22 @@
 
 namespace SMS.Data.Dtos
 {
-    public class OrderDetailDto
+    public class OrderDetailDto : OrderDetailBasicDto
     {
-        public virtual long ID { get; set; }
         public virtual OrderTableDto OrderTable { get; set; }
         public virtual ProductDto Product { get; set; }
+        public virtual OrderStatusDto OrderStatus { get; set; }
+    }
+
+    public class LanguageOrderDetailDto : OrderDetailBasicDto
+    {
+        public virtual LanguageProductDto Product { get; set; }
+        public virtual LanguageOrderStatusDto OrderStatus { get; set; }
+    }
+
+    public class OrderDetailBasicDto
+    {
+        public virtual long ID { get; set; }
         public virtual decimal Quantity { get; set; }
         public virtual string Comment { get; set; }
         public virtual decimal Discount { get; set; }
@@ -14,6 +25,5 @@ namespace SMS.Data.Dtos
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
         public virtual string KitchenComment { get; set; }
-        public virtual OrderStatusDto OrderStatus { get; set; }
     }
 }

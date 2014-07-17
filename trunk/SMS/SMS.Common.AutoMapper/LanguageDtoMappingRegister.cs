@@ -9,7 +9,7 @@ namespace SMS.Common.AutoMapper
     {
         public static void Register()
         {
-            Mapper.CreateMap<Data.Entities.Branch, LanguageBranchBasicDto>()
+            Mapper.CreateMap<Data.Entities.Branch, LanguageBranchDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
@@ -40,7 +40,7 @@ namespace SMS.Common.AutoMapper
                     SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
 
             Mapper.CreateMap<OrderTable, LanguageOrderTableDto>();
-            Mapper.CreateMap<OrderTable, OrderTableBasicDto>();
+            Mapper.CreateMap<OrderTable, SimpleOrderTableDto>();
             Mapper.CreateMap<Order, OrderBasicDto>();
             Mapper.CreateMap<Order, OrderDataDto>();
 
