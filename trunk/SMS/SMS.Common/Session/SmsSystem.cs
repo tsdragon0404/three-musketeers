@@ -21,7 +21,12 @@ namespace SMS.Common.Session
             {
                 HttpContext.Current.Session[ConstSessionKey.UserContext] = value;
             }
-        } 
+        }
+
+        public static string SessionId
+        {
+            get { return HttpContext.Current.Session != null ? HttpContext.Current.Session.SessionID : string.Empty; }
+        }
 
         public static List<long> AllowPageIDs
         {
