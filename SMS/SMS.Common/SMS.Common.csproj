@@ -50,7 +50,7 @@
     <Compile Include="AppLock\LockGroup.cs" />
     <Compile Include="AppLock\LockStatus.cs" />
     <Compile Include="AppLock\Payment.cs" />
-    <Compile Include="BranchConfig.cs" />
+    <Compile Include="Session\BranchConfig.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
     <Compile Include="Constant\ConstPage.cs" />

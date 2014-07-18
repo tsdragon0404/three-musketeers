@@ -58,9 +58,8 @@ namespace SMS.MvcApplication.Controllers
                     return View(model);
                 }
 
-                SetSessionData(user);
+                SetSessionData(user, user.Branches.First(x => x.ID == model.SelectedBranch));
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
-                SmsSystem.SelectedBranchID = model.SelectedBranch;
 
                 SystemMessages.SetMessages(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
 
@@ -70,9 +69,10 @@ namespace SMS.MvcApplication.Controllers
             return View(model);
         }
 
-        private void SetSessionData(UserDto user)
+        private void SetSessionData(UserDto user, BranchDto branch)
         {
             UserInformation.UserName = user.Username;
+            SmsSystem.SelectedBranchID = branch.ID;
 
             var allowBranches = user.IsSystemAdmin
                                     ? BranchService.GetAll().Data
@@ -92,7 +92,19 @@ namespace SMS.MvcApplication.Controllers
                                   AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
                               };
 
+
+            var branchConfig = new BranchConfig
+                                   {
+                                       Currency = branch.Currency.Name,
+                                       ServiceFee = branch.ServiceFee,
+                                       UseServiceFee = branch.UseServiceFee,
+                                       UseKitchenFunction = false,
+                                       UseDiscountOnProduct = false,
+                                       Taxs = new Dictionary<string, decimal>()
+                                   };
+
             SmsSystem.UserContext = userContext;
+            SmsSystem.BranchConfig = branchConfig;
 
             var pageIds = new List<long>();
             foreach (var roleDto in user.Roles)

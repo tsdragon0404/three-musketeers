@@ -2,7 +2,6 @@
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
-using SMS.Common;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -100,7 +99,7 @@ namespace SMS.Business.Impl
                                   InvoiceDate = DateTime.Now,
                                   BranchID = order.Branch.ID,
                                   CustomerID = order.Customer.ID,
-                                  Currency = BranchConfig.Currency,
+                                  Currency = SmsSystem.BranchConfig.Currency,
                                   UserID = SmsSystem.UserContext.UserID,
                                   Tax = 0,
                                   Comment = order.Comment ?? "",

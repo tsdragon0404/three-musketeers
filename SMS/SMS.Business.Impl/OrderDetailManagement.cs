@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
-using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Common.Session;
 using SMS.Data;
@@ -34,7 +33,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = OrderStatusRepository.Get(BranchConfig.UseKitchenFunction ? ConstOrderStatus.Ordered : ConstOrderStatus.Done)
+                                      OrderStatus = OrderStatusRepository.Get(SmsSystem.BranchConfig.UseKitchenFunction ? ConstOrderStatus.Ordered : ConstOrderStatus.Done)
                                   };
             Repository.Add(orderDetail);
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)));
