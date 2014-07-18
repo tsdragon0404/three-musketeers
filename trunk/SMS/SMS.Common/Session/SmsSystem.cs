@@ -21,6 +21,23 @@ namespace SMS.Common.Session
             {
                 HttpContext.Current.Session[ConstSessionKey.UserContext] = value;
             }
+        } 
+
+        public static BranchConfig BranchConfig
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.BranchConfig] != null)
+                {
+                    return HttpContext.Current.Session[ConstSessionKey.BranchConfig] as BranchConfig;
+                }
+
+                return new BranchConfig();
+            }
+            set
+            {
+                HttpContext.Current.Session[ConstSessionKey.BranchConfig] = value;
+            }
         }
 
         public static string SessionId

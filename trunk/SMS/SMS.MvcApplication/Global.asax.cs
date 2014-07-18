@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Web;
@@ -52,16 +51,6 @@ namespace SMS.MvcApplication
             AutofacRegister();
 
             MappingRegister();
-
-            BranchConfig.UseServiceFee = false;
-            BranchConfig.ServiceFee = 20000;
-            BranchConfig.UseKitchenFunction = false;
-            BranchConfig.UseDiscountOnProduct = false;
-            BranchConfig.Currency = "VND";
-            BranchConfig.Taxs = new Dictionary<string, decimal>
-                                {
-                                    //{"VAT", 10}
-                                };
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
