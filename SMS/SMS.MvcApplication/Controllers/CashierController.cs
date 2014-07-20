@@ -203,11 +203,11 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult Payment(long orderID)
+        public JsonResult Payment(long orderID, decimal tax, decimal serviceFee)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderService.Payment(orderID);
+            var result = OrderService.Payment(orderID, tax, serviceFee);
 
             return Json(JsonModel.Create(result));
         }
@@ -226,6 +226,26 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult SaveCashierInfo(CashierInfoModel info)
         {
             return Json(JsonModel.Create(true));
+        }
+
+        [HttpPost]
+        public JsonResult GetOrderDiscount(long orderID)
+        {
+            if (orderID <= 0) return Json(JsonModel.Create(false));
+
+            var listOrderDiscount = OrderService.GetOrderDiscount<OrderDiscountDto>(orderID);
+
+            return Json(JsonModel.Create(listOrderDiscount));
+        }
+
+        [HttpPost]
+        public JsonResult SaveOrderDiscount(long orderID, string[] discountType, string[] discountCode, string[] discountComment, string[] discount)
+        {
+            if (orderID <= 0) return Json(JsonModel.Create(false));
+
+            var listOrderDiscount = OrderService.GetOrderDiscount<OrderDiscountDto>(orderID);
+
+            return Json(JsonModel.Create(listOrderDiscount));
         }
     }
 }

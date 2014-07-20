@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
@@ -17,6 +18,7 @@ namespace SMS.Business.Impl
         public virtual IInvoiceRepository InvoiceRepository { get; set; }
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
         public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
+        public virtual IOrderDiscountRepository OrderDiscountRepository { get; set; }
 
         #endregion
 
@@ -59,7 +61,6 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
         {
-
             var orderTable = OrderTableRepository.FindOne(x => x.Order.ID == orderID);
             if (orderTable == null)
                 Repository.Delete(orderID);
@@ -86,7 +87,7 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult Payment(long orderID)
+        public ServiceResult Payment(long orderID, decimal tax, decimal serviceFee)
         {
             var order = Repository.Get(orderID);
 
@@ -101,9 +102,9 @@ namespace SMS.Business.Impl
                                   CustomerID = order.Customer.ID,
                                   Currency = SmsSystem.BranchConfig.Currency,
                                   UserID = SmsSystem.UserContext.UserID,
-                                  Tax = 0,
+                                  Tax = tax,
                                   Comment = order.Comment ?? "",
-                                  ServiceFee = 0,
+                                  ServiceFee = serviceFee,
                                   OtherFee = order.OtherFee,
                                   OtherFeeDescription = order.OtherFeeDescription ?? ""
                               };
@@ -154,6 +155,13 @@ namespace SMS.Business.Impl
             Repository.Delete(orderID);
 
             return ServiceResult.CreateSuccessResult();
+        }
+
+        public ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID)
+        {
+            var result =
+                OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(!result.Any() ? null : Mapper.Map<IList<TDto>>(result));
         }
     }
 }

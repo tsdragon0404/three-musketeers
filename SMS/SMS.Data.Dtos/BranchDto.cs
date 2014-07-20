@@ -11,6 +11,8 @@ namespace SMS.Data.Dtos
         public virtual CurrencyDto Currency { get; set; }
         public virtual bool UseServiceFee { get; set; }
         public virtual decimal ServiceFee { get; set; }
+        public virtual bool UseDiscountOnProduct { get; set; }
+        public virtual bool UseKitchenFunction { get; set; }
         public virtual BranchInfoDto BranchInfo { get; set; }
         public virtual IList<UserDto> Users { get; set; }
 

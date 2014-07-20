@@ -8,7 +8,7 @@ namespace SMS.Data.Mapping
         public OrderDiscountMap()
         {
             Table("OrderDiscount");
-            References(x => x.Order).Column("OrderID");
+            Map(x => x.OrderID);
             Map(x => x.Discount);
             Map(x => x.DiscountType).CustomType<DiscountType>();
             Map(x => x.DiscountCode);
