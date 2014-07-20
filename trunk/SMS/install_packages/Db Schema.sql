@@ -28,6 +28,8 @@ BEGIN
 		[CurrencyID] [int] NULL,
 		[UseServiceFee] [bit] NULL,
 		[ServiceFee] [numeric](12, 2) NULL,
+		[UseDiscountOnProduct] [bit] NULL,
+		[UseKitchenFunction] [bit] NULL,
 		[Enable] [bit] NULL,
 		[SEQ] [int] NULL,
 		[CreatedDate] [datetime] NULL,
