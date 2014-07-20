@@ -1,17 +1,19 @@
-﻿function PaymentPopup(id, height, getDataUrl, orderId, templateId, getUrlForCallback, refreshCallback, useServiceFee, useTax) {
+﻿function PaymentPopup(id, height, getDataUrl, orderId, templateId, templateVatId, getUrlForCallback, refreshCallback, useServiceFee, useTax) {
     var root = this;
     this.id = id;
     this.height = height;
     this.getDataUrl = getDataUrl;
     this.orderId = orderId;
     this.templateId = templateId;
+    this.templateVatId = templateVatId;
     this.getUrlForCallback = getUrlForCallback;
     this.refreshCallback = refreshCallback;
     this.useServiceFee = useServiceFee;
     this.useTax = useTax;
+    this.popupId = '#' + id;
     this.Data = null;
 
-    $('#' + root.id).dialog({
+    $(root.popupId).dialog({
         autoOpen: false,
         closeOnEscape: true,
         width: "100%",
@@ -20,7 +22,7 @@
         close: refreshCallback
     });
 
-    $('#' + root.id + ' #print').button({
+    $(root.popupId + ' #print').button({
         icons: {
             primary: "ui-icon-print"
         }
@@ -36,36 +38,27 @@
         return false;
     });
     
-    $('#' + root.id + ' #payment').button({
+    $(root.popupId + ' #payment').button({
         icons: {
             primary: "ui-icon-check"
         }
     }).click(function () {
         payment();
     });
-    
-    $('#' + root.id + ' #print-VAT').button({
-        icons: {
-            primary: "ui-icon-print"
-        }
-    }).click(function () {
-        
-    });
 
     this.OpenPopup = function () {
         renderData();
-        var popupId = '#' + root.id;
-        $(popupId).dialog("open");
+        $(root.popupId).dialog("open");
         
-        $('#' + root.id + ' #popupchkUseServiceFee').show();
-        $('#' + root.id + ' input[id^="popupChkUseTax-"]').show();
-        $('#' + root.id + ' #payment').removeClass('RmenuDisable');
-        $('#' + root.id + ' #payment').prop("disabled", false);
-        $('#' + root.id + ' #btnTaxInvoice').hide();
-        $('#' + root.id + ' #taxInvoice').hide();
+        $(root.popupId + ' #popupchkUseServiceFee').show();
+        $(root.popupId + ' input[id^="popupChkUseTax-"]').show();
+        $(root.popupId + ' #payment').prop("disabled", false);
+        $(root.popupId + ' #payment').removeClass('RmenuDisable');
+        $(root.popupId + ' #btnTaxInvoice').hide();
+        $(root.popupId + ' #taxInvoice').hide();
 
-        var parentHeight = $(popupId).height();
-        $(popupId + ' .payment-content').height(parentHeight);
+        var parentHeight = $(root.popupId).height();
+        $(root.popupId + ' .payment-content').height(parentHeight);
     };
     
     function renderData() {
@@ -81,8 +74,8 @@
             root.Data = result.Data;
             
             $('#lblSubTotal').text(root.Data.SubTotal.formatAsMoney());
-            $('#' + root.id + ' #popupchkUseServiceFee').prop('checked', root.useServiceFee);
-            $('#' + root.id + ' input[id^="popupChkUseTax-"]').each(function (idx, e) {
+            $(root.popupId + ' #popupchkUseServiceFee').prop('checked', root.useServiceFee);
+            $(root.popupId + ' input[id^="popupChkUseTax-"]').each(function (idx, e) {
                 $(e).prop('checked', root.useTax[idx]);
             });
 
@@ -90,46 +83,52 @@
         });
     }
 
-    $('#' + root.id + ' #btnTaxInvoice').click(function () {
-        $('#' + root.id + ' #taxInvoice').toggle();
+    $(root.popupId + ' #btnTaxInvoice').click(function () {
+        if ($(this).is(':checked')) {
+            $(root.popupId + ' #taxInvoice').show();
+            $(root.popupId + ' .page').html($('#' + root.templateVatId).tmpl(root.Data).scanLabel());
+        } else {
+            $(root.popupId + ' #taxInvoice').hide();
+            $(root.popupId + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
+        }
     });
     
-    $('#' + root.id + ' #popupchkUseServiceFee').click(function () {
+    $(root.popupId + ' #popupchkUseServiceFee').click(function () {
         if ($(this).is(':checked')) {
-            $('#' + root.id + ' #ServiceFree').removeClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').removeClass('RmenuDisable');
         } else {
-            $('#' + root.id + ' #ServiceFree').addClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').addClass('RmenuDisable');
         }
         processData();
     });
     
-    $('#' + root.id + ' input[id^="popupChkUseTax-"]').click(function () {
+    $(root.popupId + ' input[id^="popupChkUseTax-"]').click(function () {
         var type = $(this).attr('id').split('-')[1];
         if ($(this).is(':checked')) {
-            $('#' + root.id + ' #tax-' + type).removeClass('RmenuDisable');
+            $(root.popupId + ' #tax-' + type).removeClass('RmenuDisable');
         } else {
-            $('#' + root.id + ' #tax-' + type).addClass('RmenuDisable');
+            $(root.popupId + ' #tax-' + type).addClass('RmenuDisable');
         }
         processData();
     });
 
     function processData() {
         var serviceFee = 0;
-        if ($('#' + root.id + ' #popupchkUseServiceFee').length > 0
-                && $('#' + root.id + ' #popupchkUseServiceFee').is(':checked')) {
+        if ($(root.popupId + ' #popupchkUseServiceFee').length > 0
+                && $(root.popupId + ' #popupchkUseServiceFee').is(':checked')) {
 
-            $('#' + root.id + ' #ServiceFree').removeClass('RmenuDisable');
-            serviceFee = $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
-            $('#' + root.id + ' .payment-config tr[id="ServiceFree"] .fee').text(serviceFee.formatAsMoney());
+            $(root.popupId + ' #ServiceFree').removeClass('RmenuDisable');
+            serviceFee = $(root.popupId + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
+            $(root.popupId + ' .payment-config tr[id="ServiceFree"] .fee').text(serviceFee.formatAsMoney());
         } else {
-            $('#' + root.id + ' #ServiceFree').addClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').addClass('RmenuDisable');
         }
 
         root.Data.ServiceFee = serviceFee;
         root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee;
 
         var tax = 0;
-        $('#' + root.id + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
+        $(root.popupId + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
             if ($(element).find('input[id^="popupChkUseTax-"]').is(':checked')) {
                 $(element).removeClass('RmenuDisable');
                 var value = $(element).find('span[id^="tax-value-"]').text();
@@ -142,10 +141,10 @@
         });
         root.Data.Tax = tax;
         root.Data.TotalAmount = root.Data.SumAmount + tax;
-        $('#' + root.id + ' #lblTotalAmount').text(root.Data.TotalAmount.formatAsMoney());
-        $('#' + root.id + ' #txtcash').val(root.Data.TotalAmount.formatAsMoney());
+        $(root.popupId + ' #lblTotalAmount').text(root.Data.TotalAmount.formatAsMoney());
+        $(root.popupId + ' #txtcash').val(root.Data.TotalAmount.formatAsMoney());
 
-        $('#' + root.id + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
+        $(root.popupId + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());
     }
     
     function payment() {
@@ -153,11 +152,10 @@
             'Bàn đã sẵn sàng để thanh toán.<br />Thanh toán ngay?',
             3,
             function() {
-                var postData = { orderID: root.orderId };
                 $.ajax({
                     type: 'POST',
                     url: root.getUrlForCallback,
-                    data: postData
+                    data: { orderID: root.orderId, tax: root.Data.Tax, serviceFee: root.Data.ServiceFee }
                 }).done(function(result) {
                     if (!result.Success) {
                         popup = new MessagePopup('Thông báo',
@@ -168,11 +166,11 @@
 
                         popup.OpenPopup();
                     } else {
-                        $('#' + root.id + ' #popupchkUseServiceFee').hide();
-                        $('#' + root.id + ' input[id^="popupChkUseTax-"]').hide();
-                        $('#' + root.id + ' #payment').addClass('RmenuDisable');
-                        $('#' + root.id + ' #payment').prop("disabled", true);
-                        $('#' + root.id + ' #btnTaxInvoice').show();
+                        $(root.popupId + ' #popupchkUseServiceFee').hide();
+                        $(root.popupId + ' input[id^="popupChkUseTax-"]').hide();
+                        $(root.popupId + ' #payment').addClass('RmenuDisable');
+                        $(root.popupId + ' #payment').prop("disabled", true);
+                        $(root.popupId + ' #btnTaxInvoice').show();
                         if (MeadCo.ScriptX.Init()) {
                             MeadCo.ScriptX.Printing.header = "";
                             MeadCo.ScriptX.Printing.footer = "";

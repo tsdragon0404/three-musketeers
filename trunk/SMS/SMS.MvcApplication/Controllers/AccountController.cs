@@ -29,7 +29,7 @@ namespace SMS.MvcApplication.Controllers
 
             SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
             
-            var branches = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem {Value = x.ID.ToString(), Text = x.Name}).ToList();
+            var branches = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem {Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name}).ToList();
             return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
         }
 
@@ -45,7 +45,7 @@ namespace SMS.MvcApplication.Controllers
                 {
                     model.ShowError = true;
                     model.ErrorMessage = response.Errors[0].ErrorMessage;
-                    model.ListBranch = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Name }).ToList();
+                    model.ListBranch = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
                     return View(model);
                 }
 
@@ -54,7 +54,7 @@ namespace SMS.MvcApplication.Controllers
                 {
                     model.ShowError = true;
                     model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
-                    model.ListBranch = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Name }).ToList();
+                    model.ListBranch = BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
                     return View(model);
                 }
 
@@ -98,8 +98,8 @@ namespace SMS.MvcApplication.Controllers
                                        Currency = branch.Currency.Name,
                                        ServiceFee = branch.ServiceFee,
                                        UseServiceFee = branch.UseServiceFee,
-                                       UseKitchenFunction = false,
-                                       UseDiscountOnProduct = false,
+                                       UseKitchenFunction = branch.UseKitchenFunction,
+                                       UseDiscountOnProduct = branch.UseDiscountOnProduct,
                                        Taxs = new Dictionary<string, decimal>()
                                    };
 

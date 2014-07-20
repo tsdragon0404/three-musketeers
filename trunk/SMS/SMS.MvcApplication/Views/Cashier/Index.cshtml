@@ -1,5 +1,4 @@
 ﻿@using SMS.Common.Session
-@using SMS.Common
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
@@ -14,9 +13,9 @@
 <script type="text/javascript">
     var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
     var listArea = @Html.Raw(Json.Encode(Model.ListArea));
-    var serviceFee = @BranchConfig.ServiceFee;
-    var useServiceFee = "@BranchConfig.UseServiceFee";
-    var currency = "@BranchConfig.Currency";
+    var serviceFee = @SmsSystem.BranchConfig.ServiceFee;
+    var useServiceFee = "@SmsSystem.BranchConfig.UseServiceFee";
+    var currency = "@SmsSystem.BranchConfig.Currency";
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     <form id="form-table-order-${ID}">
@@ -43,13 +42,13 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
-                    @if(BranchConfig.UseDiscountOnProduct)
+                    @if(SmsSystem.BranchConfig.UseDiscountOnProduct)
                     {
                         <col class="col6" />
                     }
                     <col class="col7" />
                     <col class="col8" />
-                    @if(BranchConfig.UseKitchenFunction)
+                    @if(SmsSystem.BranchConfig.UseKitchenFunction)
                     {
                         <col class="col9" />
                     }
@@ -62,13 +61,13 @@
                         <th data-labelID="lblQuantity">Quantity</th>
                         <th data-labelID="lblUnit">Unit</th>
                         <th data-labelID="lblPrice">Price</th>
-                        @if(BranchConfig.UseDiscountOnProduct)
+                        @if(SmsSystem.BranchConfig.UseDiscountOnProduct)
                         {
                             <th data-labelID="lblDiscount">Discount</th>
                         }
                         <th data-labelID="lblAmount">Amount</th>
                         <th data-labelID="lblRemarks">Remarks</th>
-                        @if(BranchConfig.UseKitchenFunction)
+                        @if(SmsSystem.BranchConfig.UseKitchenFunction)
                         {
                             <th class="icon"><div id="sendToKitchen-${ID}" class="icon-transfer" title="Send all to kitchen" /></th>
                         }
@@ -84,7 +83,7 @@
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
 
-                        @if(BranchConfig.UseDiscountOnProduct)
+                        @if(SmsSystem.BranchConfig.UseDiscountOnProduct)
                         {
                             <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
                         }
@@ -93,7 +92,7 @@
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
                         
-                        @if(BranchConfig.UseKitchenFunction)
+                        @if(SmsSystem.BranchConfig.UseKitchenFunction)
                         {
                             <td class="center icon">
                                 <div class="{{if OrderStatus.ID == @ConstOrderStatus.Ordered}}icon-transfer{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.SentToKitchen}}icon-pending{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenAccepted}}icon-accept{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected}}icon-reject{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.Done}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected}}:${KitchenComment}{{/if}}"></div>
@@ -113,11 +112,11 @@
                         </td>
                         @{
                             var colspan = 8;
-                            if (!BranchConfig.UseDiscountOnProduct)
+                            if (!SmsSystem.BranchConfig.UseDiscountOnProduct)
                             {
                                 colspan -= 1;
                             }
-                            if(!BranchConfig.UseKitchenFunction)
+                            if(!SmsSystem.BranchConfig.UseKitchenFunction)
                             {
                                 colspan -= 1;
                             }
@@ -125,7 +124,7 @@
                         <td colspan="@colspan">
                             <div class="row">
                                 <div class="two columns push_eight right"><span data-labelID="lblSubtotal">Sub total:</span></div>
-                                <div class="two columns right"><span class="sub-total">0</span> @BranchConfig.Currency</div>
+                                <div class="two columns right"><span class="sub-total">0</span> @SmsSystem.BranchConfig.Currency</div>
                             </div>
                         </td>
                     </tr>
@@ -136,17 +135,17 @@
         <div class="row" id="totalSection">
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2"><span class="sum_amount">0</span> @BranchConfig.Currency</div>
+                <div class="right col2"><span class="sum_amount">0</span> @SmsSystem.BranchConfig.Currency</div>
                 <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
-            @if (BranchConfig.UseServiceFee)
+            @if (SmsSystem.BranchConfig.UseServiceFee)
             {
                 <div class="row" id="ServiceFree">
                     <div class="center col1">&nbsp;</div>
-                    <div class="right col2"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</div>
+                    <div class="right col2"><span class="fee">@SmsSystem.BranchConfig.ServiceFee</span> @SmsSystem.BranchConfig.Currency</div>
                     <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
-                    <div class="center col4"><input type="checkbox" id="chkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></div>
+                    <div class="center col4"><input type="checkbox" id="chkUseServiceFee" checked="@SmsSystem.BranchConfig.UseServiceFee" /></div>
                 </div>
             }
             <div class="row" id="OtherFree">
@@ -156,30 +155,42 @@
                 </div>
                 <div class="right col2">
                     <input type="text" id="txtOtherFee" class="required right hide" name="number" value="${OtherFee.formatAsMoney()}" title="Other fee" />
-                    <input type="text" id="txtOtherFeeDescription" class="required left hide" value="${OtherFeeDescription}" title="Other fee description" />
-                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @BranchConfig.Currency</span>
+                    <input type="text" id="txtOtherFeeDescription" class="left hide" value="${OtherFeeDescription}" title="Other fee description" />
+                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @SmsSystem.BranchConfig.Currency</span>
                 </div>
                 <div class="left col3"><span data-labelID="lblOtherFee" class="label-custom-label">Other Fee:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
-            @foreach (var tax in BranchConfig.Taxs)
+            @foreach (var tax in SmsSystem.BranchConfig.Taxs)
             {
                 <div class="row" id="tax-@tax.Key">
                     <div class="center col1">&nbsp;</div>
-                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</div>
+                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @SmsSystem.BranchConfig.Currency</div>
                     <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
                     <div class="center col4"><input type="checkbox" id="chkUseTax-@tax.Key" checked="checked" /></div>
                 </div>
             }
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfig.Currency</div>
+                <div class="right col2 border-top"><span class="total_amount">0</span> @SmsSystem.BranchConfig.Currency</div>
                 <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="center col1">
+                    <div class="icon-edit-info" id="edit-discount" title="Edit"></div>
+                    <div class="icon-cancel-info" id="cancel-discount" title="Cancel"></div>
+                </div>
+                <div class="right col2 border-top"><span class="discount_amount">0</span> @SmsSystem.BranchConfig.Currency</div>
+                <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            <div class="row right" id="discount-area">
             </div>
         </div>
     </form>
 </script>
+
 <script id="ordertable-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) OrderDetails}}
     <tr id="${ID}">
@@ -190,14 +201,14 @@
         </td>
         <td>${Product.Unit.Name}</td>
         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-        @if(BranchConfig.UseDiscountOnProduct)
+        @if (SmsSystem.BranchConfig.UseDiscountOnProduct)
         {
             <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
         }
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        @if(BranchConfig.UseKitchenFunction)
+        @if (SmsSystem.BranchConfig.UseKitchenFunction)
         {
             <td class="center icon">
                 <div class="{{if OrderStatus.ID == @ConstOrderStatus.Ordered }}icon-transfer{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.SentToKitchen }}icon-pending{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenAccepted }}icon-accept{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected }}icon-reject{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.Done }}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
@@ -209,6 +220,7 @@
     </tr>
     {{/each}}    
 </script>
+
 <script id="table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
     {{if idx % @ConstStyle.GridNumber == 0}}
@@ -229,6 +241,31 @@
     </div>
     {{/if}}
     {{/each}}
+</script>
+
+<script id="discount-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <div id="order-discount-${ID}">
+        <a href="#" id="remove-${ID}"><span class="ui-icon ui-icon-closethick float-right remove-discount"></span></a>
+        <select id="select-discount-type" name="select-discount-type-${ID}">
+            <option value="@DiscountType.Number" {{if DiscountType == 0}}selected="selected"{{/if}} >@DiscountType.Number</option>
+            <option value="@DiscountType.Percent" {{if DiscountType == 1}}selected="selected"{{/if}}>@DiscountType.Percent</option>
+        </select>
+        <input title="Discount code" id="discount-code" value="${DiscountCode}" />
+        <input title="Discount comment" id="discount-comment" value="${DiscountComment}" />
+        <input title="Discount" type="text" id="discount" class="required right" name="number" value="${Discount.formatAsMoney()}" />
+        <div class="center col4"></div>
+    </div>
+    {{/each}}
+        <a href="#" id="remove-0"><span class="ui-icon ui-icon-closethick float-right remove-discount"></span></a>
+        <select id="select-discount-type" name="select-discount-type-${ID}">
+            <option value="@DiscountType.Number">@DiscountType.Number</option>
+            <option value="@DiscountType.Percent">@DiscountType.Percent</option>
+        </select>
+        <input title="Discount code" id="discount-code" />
+        <input title="Discount comment" id="discount-comment" />
+        <input title="Discount" id="discount" class="right" />
+        <div class="center col4"></div>
 </script>
 
 <div id="content" class="split-pane horizontal-percent cashier">
@@ -343,7 +380,7 @@
         var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
         $('#area-table, .split-pane-divider').css('bottom', paneheight);
         $('#tableorder').css('height', paneheight);
-
+        
         var tabindex = $('#areas li a').index($('#areas li a[href="#area-@SmsSystem.UserContext.DefaultAreaID"]'));
         if (tabindex < 0)
             tabindex = 0;
@@ -360,7 +397,7 @@
                 useTax[idx] = $(e).is(':checked');
             });
             if(orderId > 0) {
-                var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment', '@Url.Action("Payment")', onRefresh, useServiceFee, useTax);
+                var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment', 'print-tax-pdtPayment', '@Url.Action("Payment")', onRefresh, useServiceFee, useTax);
                 payment.OpenPopup();
                 return false;
             }
@@ -620,20 +657,20 @@
         var value = parseInt($(e).attr('id').split('-')[2]);
         
         switch (value) {
-            case @ConstOrderStatus.Ordered:
-                value = @ConstOrderStatus.SentToKitchen;
-                break;
-            case @ConstOrderStatus.SentToKitchen:
-                value = @ConstOrderStatus.KitchenAccepted;
-                break;
-            case @ConstOrderStatus.KitchenAccepted:
-                value = @ConstOrderStatus.Done;
-                break;
-            case @ConstOrderStatus.KitchenRejected:
-                value = @ConstOrderStatus.SentToKitchen;
-                break;
-            case @ConstOrderStatus.Done:
-                return;
+        case @ConstOrderStatus.Ordered:
+            value = @ConstOrderStatus.SentToKitchen;
+            break;
+        case @ConstOrderStatus.SentToKitchen:
+            value = @ConstOrderStatus.KitchenAccepted;
+            break;
+        case @ConstOrderStatus.KitchenAccepted:
+            value = @ConstOrderStatus.Done;
+            break;
+        case @ConstOrderStatus.KitchenRejected:
+            value = @ConstOrderStatus.SentToKitchen;
+            break;
+        case @ConstOrderStatus.Done:
+            return;
         }
         
         $.ajax({
@@ -654,22 +691,22 @@
                 $(e).attr('title', result.Data.OrderStatus.Name);
                 var cssClass;
                 switch (result.Data.OrderStatus.ID) {
-                    case @ConstOrderStatus.Ordered:
-                        cssClass = 'transfer';
-                        break;
-                    case @ConstOrderStatus.SentToKitchen:
-                        cssClass = 'pending';
-                        break;
-                    case @ConstOrderStatus.KitchenAccepted:
-                        cssClass = 'accept';
-                        break;
-                    case @ConstOrderStatus.KitchenRejected:
-                        cssClass = 'reject';
-                        break;
-                    case @ConstOrderStatus.Done:
-                        cssClass = 'done';
-                        break;
-                    default : cssClass = 'done';
+                case @ConstOrderStatus.Ordered:
+                    cssClass = 'transfer';
+                    break;
+                case @ConstOrderStatus.SentToKitchen:
+                    cssClass = 'pending';
+                    break;
+                case @ConstOrderStatus.KitchenAccepted:
+                    cssClass = 'accept';
+                    break;
+                case @ConstOrderStatus.KitchenRejected:
+                    cssClass = 'reject';
+                    break;
+                case @ConstOrderStatus.Done:
+                    cssClass = 'done';
+                    break;
+                default : cssClass = 'done';
                 }
                 $(e).attr('class', 'icon-' + cssClass);
             }
@@ -710,16 +747,16 @@
                 'Bạn đang thực hiện xóa thông tin 1 bàn.<br />Bạn muốn thực hiện?',
                 3,
                 function() {
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("CancelTable")',
-                data: { orderTableID: orderTableId }
-            }).done(function(result) {
-                if (result.Success) {
-                    refreshTableArea();
-                    refreshOrderArea();
-                }
-            });
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CancelTable")',
+                        data: { orderTableID: orderTableId }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            refreshTableArea();
+                            refreshOrderArea();
+                        }
+                    });
                 });
 
             popup.OpenPopup();
@@ -935,6 +972,52 @@
                 $('#tax-' + type).addClass('RmenuDisable');
             }
             CalculateTotal();
+        });
+        
+        $('#cancel-discount').hide();
+
+        $('#edit-discount').unbind('click');
+        $('#edit-discount').click(function() {
+            var orderId = $('#curOrderID').val();
+            
+            if($(this).hasClass('icon-edit-info')) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetOrderDiscount")',
+                    data: { orderID: orderId }
+                }).done(function(result) {
+                    if (result.Success) {
+                        $('#discount-area').html($('#discount-tmpl').tmpl(result));
+                        
+                        //$('form[id^="form-table-order-"]').validate({
+                        //    rules: {
+                        //        qty: {
+                        //            greaterThanZero: true
+                        //        },
+                        //        discount: {
+                        //            greaterOrEqualZero: true
+                        //        }
+                        //    }
+                        //});
+                    }
+                });
+
+                $(this).removeClass('icon-edit-info');
+                $(this).addClass('icon-save-info');
+                $('#cancel-discount').show();
+            } else {
+                
+
+
+                $(this).removeClass('icon-save-info');
+                $(this).addClass('icon-edit-info');
+                $('#cancel-discount').hide();
+            }
+        });
+        
+        $('#cancel-discount').unbind('click');
+        $('#cancel-discount').click(function() {
+            refreshOrderArea();
         });
 
         CalculateTotal();

@@ -16,6 +16,10 @@ namespace SMS.Data.Entities
 
         public virtual decimal ServiceFee { get; set; }
 
+        public virtual bool UseDiscountOnProduct { get; set; }
+
+        public virtual bool UseKitchenFunction { get; set; }
+
         public virtual BranchInfo BranchInfo { get; set; }
 
         public virtual IList<User> Users { get; set; }

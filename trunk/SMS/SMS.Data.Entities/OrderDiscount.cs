@@ -4,7 +4,7 @@ namespace SMS.Data.Entities
 {
     public class OrderDiscount : Entity
     {
-        public virtual Order Order { get; set; }
+        public virtual long OrderID { get; set; }
 
         public virtual decimal Discount { get; set; }
 

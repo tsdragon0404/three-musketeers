@@ -1,4 +1,5 @@
-﻿using Core.Common.Validation;
+﻿using System.Collections.Generic;
+using Core.Common.Validation;
 using SMS.Business;
 using SMS.Data.Dtos;
 
@@ -35,9 +36,14 @@ namespace SMS.Services.Impl
             return Management.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
         }
 
-        public ServiceResult Payment(long orderID)
+        public ServiceResult Payment(long orderID, decimal tax, decimal serviceFee)
         {
-            return Management.Payment(orderID);
+            return Management.Payment(orderID, tax, serviceFee);
+        }
+
+        public ServiceResult<IList<TDto>> GetOrderDiscount<TDto>(long orderID)
+        {
+            return Management.GetOrderDiscount<TDto>(orderID);
         }
     }
 }

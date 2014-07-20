@@ -1,5 +1,4 @@
-﻿@using SMS.Common
-@using SMS.Common.Session
+﻿@using SMS.Common.Session
 @model SMS.MvcApplication.Models.PopupModel
 <!-- MeadCo ScriptX -->
 <object classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="@Url.Content("~/ScriptX")/smsx.cab#Version=7,4,0,8" id=factory style="display:none">
@@ -27,38 +26,38 @@
                         <tr>
                             <td></td>
                             <td>Tổng tiền món ăn: </td>
-                            <td class="right"><span id="lblSubTotal">0</span> @BranchConfig.Currency</td>
+                            <td class="right"><span id="lblSubTotal">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
-                        @if (BranchConfig.UseServiceFee)
+                        @if (SmsSystem.BranchConfig.UseServiceFee)
                         {
                             <tr id="ServiceFree">
-                                <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@BranchConfig.UseServiceFee" /></td>
+                                <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@SmsSystem.BranchConfig.UseServiceFee" /></td>
                                 <td>Service Fee:</td>
-                                <td class="right"><span class="fee">@BranchConfig.ServiceFee</span> @BranchConfig.Currency</td>
+                                <td class="right"><span class="fee">@SmsSystem.BranchConfig.ServiceFee</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
                         }
-                        @foreach (var tax in BranchConfig.Taxs)
+                        @foreach (var tax in SmsSystem.BranchConfig.Taxs)
                         {
                             <tr id="tax-@tax.Key">
                                 <td class="right"><input type="checkbox" id="popupChkUseTax-@tax.Key" /></td>
                                 <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
-                                <td class="right"><span id="tax-amount-@tax.Key">0</span> @BranchConfig.Currency</td>
+                                <td class="right"><span id="tax-amount-@tax.Key">0</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
                         }
                          <tr class="border-top">
                             <td></td>
                             <td>Tổng tiền hóa đơn: </td>
-                            <td class="right"><span id="lblTotalAmount">0</span> @BranchConfig.Currency</td>
+                            <td class="right"><span id="lblTotalAmount">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Tiền khách đưa: </td>
-                            <td class="right"><input class="right" id="txtcash" style="width: 100px"/> @BranchConfig.Currency</td>
+                            <td class="right"><input class="right" id="txtcash" style="width: 100px"/> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Tiền trả lại: </td>
-                            <td class="right"><span id="lblReturn">0</span> @BranchConfig.Currency</td>
+                            <td class="right"><span id="lblReturn">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -71,9 +70,10 @@
                     </tfoot>
                 </table>
                 <div class="row left print-tax">
-                    <a id="btnTaxInvoice" href="#" class="link-label">Hóa đơn VAT</a>
+                    <input type="checkbox" id="btnTaxInvoice" /><span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
                     <div id="taxInvoice">
-                        <button id="print-VAT" data-labelID="lblPrintVAT">In hóa đơn VAT</button>
+                        <input type="radio" value="In nhanh"/>
+                        <input type="radio" value="In chi tiết"/>
                     </div>
                 </div>
             </div>
@@ -128,27 +128,27 @@
             <tr>
                 <td colspan="3"></td>
                 <td>Tổng cộng:</td>
-                <td class="right">${SubTotal.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${SubTotal.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Phí dịch vụ:</td>
-                <td class="right">${ServiceFee.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${ServiceFee.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Dịch vụ khác:</td>
-                <td class="right">${OtherFee.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${OtherFee.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Thuế:</td>
-                <td class="right">${Tax.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${Tax.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Tiền thanh toán:</td>
-                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${TotalAmount.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
                 <td colspan="5">Ngày lập: ${CreatedDate.formatAsDate()}</td>
@@ -172,79 +172,56 @@
             <col style="width: 150px"/>
             <col style="width: 100px"/>
             <col style="width: 100px"/>
-            <col style="width: 100px"/>
         </colgroup>
         <thead>
             <tr>
-                <th colspan="5" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
+                <th colspan="4" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
             </tr>
             <tr>
-                <th colspan="5" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
-            </tr>
-            <tr style="border-top: 3px gray double">
-                <th colspan="5">TÊN BÀN</th>
+                <th colspan="4" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
             </tr>
             <tr>
                 <th>STT</th>
                 <th>SẢN PHẨM</th>
                 <th>SỐ LƯỢNG</th>
-                <th>ĐƠN GIÁ</th>
                 <th>THÀNH TIỀN</th>
             </tr>
         </thead>
-        <tbody id="payment-detail">
-            {{each(idx) OrderTables}}
-            <tr style="border-top: 1px gray solid">
-                <td colspan="5">${Table.Name}</td>
-            </tr>
-            {{each(idx) OrderDetails}}
+        <tbody>
             <tr>
-                <td class="left">${idx + 1}</td>
-                <td>${Product.Name}</td>
-                <td class="right">${Quantity.formatAsMoney()}</td>
-                <td class="right">${Product.Price.formatAsMoney()}</td>
-                <td class="right">${Amount.formatAsMoney()}</td>
+                <td class="left">1</td>
+                <td>Đồ ăn, nước uống</td>
+                <td class="right">1.00</td>
+                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()}</td>
             </tr>
-            {{/each}}
-            {{/each}}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Tổng cộng:</td>
-                <td class="right">${SubTotal.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
-                <td colspan="3"></td>
-                <td>Phí dịch vụ:</td>
-                <td class="right">${ServiceFee.formatAsMoney()} @BranchConfig.Currency</td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td>Dịch vụ khác:</td>
-                <td class="right">${OtherFee.formatAsMoney()} @BranchConfig.Currency</td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Thuế:</td>
-                <td class="right">${Tax.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${Tax.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Tiền thanh toán:</td>
-                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfig.Currency</td>
+                <td class="right">${TotalAmount.formatAsMoney()} @SmsSystem.BranchConfig.Currency</td>
             </tr>
             <tr>
-                <td colspan="5">Ngày lập: ${CreatedDate.formatAsDate()}</td>
+                <td colspan="4">Ngày lập: ${CreatedDate.formatAsDate()}</td>
             </tr>
             <tr>
-                <td colspan="5">Người lập: @SmsSystem.UserContext.UserName</td>
+                <td colspan="4">Người lập: @SmsSystem.UserContext.UserName</td>
             </tr>
             <tr>
-                <td class="center" colspan="5">----------------------</td>
+                <td class="center" colspan="4">----------------------</td>
             </tr>
             <tr>
-                <td class="center" colspan="5">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
+                <td class="center" colspan="4">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
             </tr>
     </tfoot>
 </table>

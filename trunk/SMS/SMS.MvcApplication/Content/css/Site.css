@@ -978,3 +978,11 @@ table thead{
 .print-tax {
     padding-top: 15px !important;
 }
+
+#select-discount-type, #discount-code, #discount-comment, #discount {
+    width: 100px;
+}
+
+.remove-discount {
+    margin-top: 3px;
+}

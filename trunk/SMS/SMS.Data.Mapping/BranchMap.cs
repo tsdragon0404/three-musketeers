@@ -12,6 +12,8 @@ namespace SMS.Data.Mapping
             References(x => x.Currency).Column("CurrencyID");
             Map(x => x.UseServiceFee);
             Map(x => x.ServiceFee);
+            Map(x => x.UseDiscountOnProduct);
+            Map(x => x.UseKitchenFunction);
 
             HasOne(x => x.BranchInfo).Cascade.All();
 
