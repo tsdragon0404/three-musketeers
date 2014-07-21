@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using SMS.Common.Constant;
@@ -36,6 +37,12 @@ namespace SMS.Common.CustomAttributes
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
+            if (filterContext.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return;
+            }
+
             if (Status == AuthorizeStatus.NotLogin)
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary(
