@@ -12,9 +12,9 @@ namespace SMS.Data.Entities
     {
         public override bool IsValid()
         {
-            Errors = new List<ValidationError>();
+            Errors = new List<Error>();
             if (ID < 0)
-                Errors.Add(new ValidationError(SystemMessages.Get(ConstMessageIds.NotValid), "ID"));
+                Errors.Add(new Error(SystemMessages.Get(ConstMessageIds.NotValid), ErrorType.Validate, "ID"));
 
             var propertyInfos = GetType().GetProperties().ToList();
 
@@ -27,7 +27,7 @@ namespace SMS.Data.Entities
                     var parseAttribute = attribute as IValidationAttribute;
                     var isValid = parseAttribute.ValidateObject(this, propertyInfo);
                     if (!isValid)
-                        Errors.Add(new ValidationError(SystemMessages.Get(parseAttribute.MessageID), propertyInfo.Name, parseAttribute.MessageArgs));
+                        Errors.Add(new Error(SystemMessages.Get(parseAttribute.MessageID), ErrorType.Validate, propertyInfo.Name, parseAttribute.MessageArgs));
                 }
             }
 

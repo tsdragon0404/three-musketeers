@@ -41,9 +41,10 @@
     <Compile Include="CustomAttributes\RequiredAttribute.cs" />
     <Compile Include="CustomAttributes\LengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\ErrorType.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
     <Compile Include="Information\UserInformation.cs" />
-    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\Error.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

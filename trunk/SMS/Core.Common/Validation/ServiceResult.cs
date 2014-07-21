@@ -12,9 +12,9 @@ namespace Core.Common.Validation
             set { success = value; }
         }
 
-        public List<ValidationError> Errors { get; set; }
+        public List<Error> Errors { get; set; }
 
-        public static ServiceResult CreateFailResult(params ValidationError[] errors)
+        public static ServiceResult CreateFailResult(params Error[] errors)
         {
             return CreateResult(false, errors);
         }
@@ -24,7 +24,7 @@ namespace Core.Common.Validation
             return CreateResult(true);
         }
 
-        public static ServiceResult CreateResult(bool success, params ValidationError[] errors)
+        public static ServiceResult CreateResult(bool success, params Error[] errors)
         {
             return new ServiceResult
             {
@@ -38,7 +38,7 @@ namespace Core.Common.Validation
     {
         public T Data { get; set; }
 
-        public new static ServiceResult<T> CreateFailResult(params ValidationError[] errors)
+        public new static ServiceResult<T> CreateFailResult(params Error[] errors)
         {
             return new ServiceResult<T>
             {
