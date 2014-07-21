@@ -6,7 +6,7 @@ namespace Core.Data
     public interface IEntity<TPrimaryKey>
     {
         TPrimaryKey ID { get; set; }
-        IList<ValidationError> Errors { get; set; }
+        IList<Error> Errors { get; set; }
 
         bool IsValid();
     }
@@ -14,7 +14,7 @@ namespace Core.Data
     public abstract class EntityWithTypedId<TPrimaryKey> : IEntity<TPrimaryKey>
     {
         public virtual TPrimaryKey ID { get; set; }
-        public virtual IList<ValidationError> Errors { get; set; }
+        public virtual IList<Error> Errors { get; set; }
 
         public abstract bool IsValid();
     }
