@@ -163,7 +163,7 @@
                         var id = $(this).attr('data-branchId');
                         $.ajax({
                             type: 'POST',
-                            url: '@Url.Action("ChangeBranch", "Home", new { area = "" })',
+                            url: '@Url.Action("ChangeBranch", "Account", new { area = "" })',
                             data: { branchID: id }
                         }).done(function (result) {
                             if(result.Success)

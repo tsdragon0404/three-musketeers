@@ -18,6 +18,7 @@ namespace SMS.Data.Mapping
             HasOne(x => x.BranchInfo).Cascade.All();
 
             HasManyToMany(x => x.Users)
+                .Inverse()
                 .Cascade.All()
                 .Table("UserBranch")
                 .ParentKeyColumn("BranchID")

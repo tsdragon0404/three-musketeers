@@ -159,9 +159,8 @@ namespace SMS.Business.Impl
 
         public ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID)
         {
-            var result =
-                OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(!result.Any() ? null : Mapper.Map<IList<TDto>>(result));
+            var result = OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
         }
     }
 }

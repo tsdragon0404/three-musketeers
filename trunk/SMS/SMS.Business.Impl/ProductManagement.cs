@@ -39,7 +39,7 @@ namespace SMS.Business.Impl
             var result =
                 Repository.Find(x => x.ProductCategory.BranchID == SmsSystem.SelectedBranchID && x.Enable).OrderBy(
                     x => x.ProductCategory.SEQ).ThenBy(x => x.SEQ).ToList();
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(!result.Any() ? null : Mapper.Map<IList<TDto>>(result));
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
         }
     }
 }

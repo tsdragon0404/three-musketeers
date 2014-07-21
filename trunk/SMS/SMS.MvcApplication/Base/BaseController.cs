@@ -11,9 +11,9 @@ namespace SMS.MvcApplication.Base
 {
     public abstract class BaseController : Controller
     {
-        public virtual IPageLabelService PageLabelService { get; set; }
-        public virtual IPageService PageService { get; set; }
-        public virtual IPageMenuService PageMenuService { get; set; }
+        public IPageLabelService PageLabelService { get; set; }
+        public IPageService PageService { get; set; }
+        public IPageMenuService PageMenuService { get; set; }
 
         protected override JsonResult Json(object data, string contentType,
             Encoding contentEncoding, JsonRequestBehavior behavior)
@@ -73,16 +73,6 @@ namespace SMS.MvcApplication.Base
             return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
-        }
-
-        [HttpPost]
-        public JsonResult ChangeBranch(long branchID)
-        {
-            if (!SmsSystem.UserContext.AllowBranches.Select(x => x.ID).Contains(branchID))
-                return Json(JsonModel.Create(false));
-
-            SmsSystem.SelectedBranchID = branchID;
-            return Json(JsonModel.Create(true));
         }
     }
 }
