@@ -18,6 +18,8 @@ namespace SMS.Data.Entities
 
         public virtual string OtherFeeDescription { get; set; }
 
+        public virtual IList<OrderDiscount> OrderDiscounts { get; set; }
+
         public virtual IList<OrderTable> OrderTables { get; set; }
 
         #region Implementation of IAuditableEntity

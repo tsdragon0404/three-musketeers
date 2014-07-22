@@ -1,0 +1,95 @@
+﻿@using SMS.Common.Constant
+@model SMS.MvcApplication.Models.PopupModel
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide discount-popup">
+    <table class="popup-table-header">
+        <colgroup>
+            <col class="col1" />
+            <col class="col2" />
+            <col class="col3" />
+            <col class="col4" />
+            <col class="col5" />
+            <col class="col6" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Discount type</th>
+                <th>Discount code</th>
+                <th>Discount comment</th>
+                <th>Discount</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <div class="popup-content">
+        <form>
+            <table id="table-detail-@Model.PopupID">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                    <col class="col6" />
+                </colgroup>
+                <tbody id="discount-table">
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="right popup-buttons">
+        <button id="addNew" data-labelID="lblAddDiscount">Add</button> 
+        <button id="saveDiscount" data-labelID="lblSaveDiscount">Save</button>
+        <button class="popupClose">Cancel</button>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/discount-popup.js")"></script>
+<script id="discount-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <tr id="order-discount-${idx + 1}">
+        <td>${idx + 1}</td>
+        <td>
+            <select id="select-discount-type" name="select-discount-type-${idx + 1}">
+                <option value="@DiscountType.Number" {{if DiscountType == 0}}selected="selected"{{/if}} >@DiscountType.Number</option>
+                <option value="@DiscountType.Percent" {{if DiscountType == 1}}selected="selected"{{/if}}>@DiscountType.Percent</option>
+            </select>
+        </td>
+        <td>
+            <input title="Discount code" id="discount-code" value="${DiscountCode}" />
+        </td>
+        <td>
+            <input title="Discount comment" id="discount-comment" value="${DiscountComment}" />
+        </td>
+        <td>
+            <input title="Discount" type="text" id="discount" class="required right" name="number" value="${Discount.formatAsMoney()}" />
+        </td>
+        <td>
+            <a href="#" id="remove-${idx + 1}"><span class="ui-icon ui-icon-closethick float-right margin-top-control"></span></a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<script id="new-discount-tmpl" type="text/x-jquery-tmpl">
+    <tr id="order-discount">
+        <td class="sequence"></td>
+        <td>
+            <select id="select-discount-type" name="select-discount-type">
+                <option value="@DiscountType.Number" >@DiscountType.Number</option>
+                <option value="@DiscountType.Percent" >@DiscountType.Percent</option>
+            </select>
+        </td>
+        <td>
+            <input title="Discount code" id="discount-code" value="" />
+        </td>
+        <td>
+            <input title="Discount comment" id="discount-comment" value="" />
+        </td>
+        <td>
+            <input title="Discount" type="text" id="discount" class="required right" name="number" value="" />
+        </td>
+        <td>
+            <a href="#" id="remove"><span class="ui-icon ui-icon-closethick float-right margin-top-control"></span></a>
+        </td>
+    </tr>
+</script>

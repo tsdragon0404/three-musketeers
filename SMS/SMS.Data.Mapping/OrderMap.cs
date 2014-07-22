@@ -13,6 +13,7 @@ namespace SMS.Data.Mapping
             References(x => x.Customer).Column("CustomerID");
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
+            HasMany(x => x.OrderDiscounts).KeyColumn("OrderID").Inverse().Cascade.AllDeleteOrphan();
             HasMany(x => x.OrderTables).KeyColumn("OrderID").Inverse().Cascade.AllDeleteOrphan();
         }
     }

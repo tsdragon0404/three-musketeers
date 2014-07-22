@@ -979,10 +979,31 @@ table thead{
     padding-top: 15px !important;
 }
 
-#select-discount-type, #discount-code, #discount-comment, #discount {
+.margin-top-control {
+    margin-top: 3px;
+}
+
+.discount-popup .col1 {
+    width: 40px;
+}
+
+.discount-popup .col2 {
+    width: 120px;
+}
+
+.discount-popup .col3 {
+    width: 150px;
+}
+
+.discount-popup .col4 {
+    width: 150px;
+}
+
+.discount-popup .col5 {
     width: 100px;
 }
 
-.remove-discount {
-    margin-top: 3px;
+.discount-popup input {
+    width: 100% !important;
+    padding: 0px !important;
 }

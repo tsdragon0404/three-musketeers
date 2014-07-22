@@ -22,6 +22,7 @@
         close: refreshCallback
     });
 
+    $(root.popupId + ' #print').unbind('click');
     $(root.popupId + ' #print').button({
         icons: {
             primary: "ui-icon-print"
@@ -38,6 +39,7 @@
         return false;
     });
     
+    $(root.popupId + ' #payment').unbind('click');
     $(root.popupId + ' #payment').button({
         icons: {
             primary: "ui-icon-check"
@@ -83,6 +85,7 @@
         });
     }
 
+    $(root.popupId + ' #btnTaxInvoice').unbind('click');
     $(root.popupId + ' #btnTaxInvoice').click(function () {
         if ($(this).is(':checked')) {
             $(root.popupId + ' #taxInvoice').show();
@@ -93,6 +96,7 @@
         }
     });
     
+    $(root.popupId + ' #popupchkUseServiceFee').unbind('click');
     $(root.popupId + ' #popupchkUseServiceFee').click(function () {
         if ($(this).is(':checked')) {
             $(root.popupId + ' #ServiceFree').removeClass('RmenuDisable');
@@ -102,6 +106,7 @@
         processData();
     });
     
+    $(root.popupId + ' input[id^="popupChkUseTax-"]').unbind('click');
     $(root.popupId + ' input[id^="popupChkUseTax-"]').click(function () {
         var type = $(this).attr('id').split('-')[1];
         if ($(this).is(':checked')) {

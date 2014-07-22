@@ -31,7 +31,7 @@
                         @if (SmsSystem.BranchConfig.UseServiceFee)
                         {
                             <tr id="ServiceFree">
-                                <td class="right"><input type="checkbox" id="popupchkUseServiceFee" checked="@SmsSystem.BranchConfig.UseServiceFee" /></td>
+                                <td class="right"><input type="checkbox" class="margin-top-control" id="popupchkUseServiceFee" checked="@SmsSystem.BranchConfig.UseServiceFee" /></td>
                                 <td>Service Fee:</td>
                                 <td class="right"><span class="fee">@SmsSystem.BranchConfig.ServiceFee</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
@@ -39,7 +39,7 @@
                         @foreach (var tax in SmsSystem.BranchConfig.Taxs)
                         {
                             <tr id="tax-@tax.Key">
-                                <td class="right"><input type="checkbox" id="popupChkUseTax-@tax.Key" /></td>
+                                <td class="right"><input type="checkbox" class="margin-top-control" id="popupChkUseTax-@tax.Key" /></td>
                                 <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
                                 <td class="right"><span id="tax-amount-@tax.Key">0</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
@@ -70,7 +70,7 @@
                     </tfoot>
                 </table>
                 <div class="row left print-tax">
-                    <input type="checkbox" id="btnTaxInvoice" /><span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
+                    <input type="checkbox" class="margin-top-control" id="btnTaxInvoice" /><span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
                     <div id="taxInvoice">
                         <input type="radio" value="In nhanh"/>
                         <input type="radio" value="In chi tiết"/>
