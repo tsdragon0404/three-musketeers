@@ -803,6 +803,7 @@
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\assignListBox.js" />
+    <Content Include="Scripts\discount-popup.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.min.js" />
@@ -891,6 +892,7 @@
     </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
+    <Content Include="Views\Shared\DiscountPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,6 +21,7 @@ namespace SMS.Data.Dtos
         public virtual CustomerDto Customer { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
+        public virtual IList<OrderDiscountDto> OrderDiscounts { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

@@ -20,6 +20,8 @@ namespace SMS.Data.Entities
 
         public virtual bool UseKitchenFunction { get; set; }
 
+        public virtual IList<BranchTax> Taxs { get; set; }
+
         public virtual BranchInfo BranchInfo { get; set; }
 
         public virtual IList<User> Users { get; set; }

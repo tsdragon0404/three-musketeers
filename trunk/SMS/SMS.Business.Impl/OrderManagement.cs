@@ -18,6 +18,7 @@ namespace SMS.Business.Impl
         public virtual IInvoiceRepository InvoiceRepository { get; set; }
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
         public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
+        public virtual IInvoiceDiscountRepository InvoiceDiscountRepository { get; set; }
         public virtual IOrderDiscountRepository OrderDiscountRepository { get; set; }
 
         #endregion
@@ -150,6 +151,19 @@ namespace SMS.Business.Impl
                     InvoiceDetailRepository.Add(invoiceDetail);
                     InvoiceDetailRepository.SaveAllChanges();
                 }
+            }
+
+            foreach (var orderDiscount in order.OrderDiscounts)
+            {
+                InvoiceDiscountRepository.Add(new InvoiceDiscount
+                                                  {
+                                                      InvoiceID = invoice.ID,
+                                                      DiscountType = orderDiscount.DiscountType,
+                                                      DiscountCode = orderDiscount.DiscountCode ?? "",
+                                                      DiscountComment = orderDiscount.DiscountComment ?? "",
+                                                      Discount = orderDiscount.Discount
+                                                  });
+                InvoiceDiscountRepository.SaveAllChanges();
             }
 
             Repository.Delete(orderID);

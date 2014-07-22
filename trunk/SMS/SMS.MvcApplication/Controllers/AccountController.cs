@@ -28,7 +28,7 @@ namespace SMS.MvcApplication.Controllers
                 return RedirectToAction("Index", "Home");
 
             SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
-
+            
             var branches = GetBranchList();
             return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
         }
@@ -109,18 +109,18 @@ namespace SMS.MvcApplication.Controllers
                                     : user.Branches;
 
             var userContext = new UserContext
-            {
-                DefaultAreaID = 0,
-                ListTableHeight = 65,
-                PageSize = 3,
-                UserID = user.ID,
-                UserName = user.Username,
-                DisplayName = user.Displayname,
-                IsSystemAdmin = user.IsSystemAdmin,
-                UseSystemConfig = user.UseSystemConfig,
-                RoleNames = user.Roles.Select(x => x.Name).ToList(),
-                AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
-            };
+                              {
+                                  DefaultAreaID = 0,
+                                  ListTableHeight = 65,
+                                  PageSize = 3,
+                                  UserID = user.ID,
+                                  UserName = user.Username,
+                                  DisplayName = user.Displayname,
+                                  IsSystemAdmin = user.IsSystemAdmin,
+                                  UseSystemConfig = user.UseSystemConfig,
+                                  RoleNames = user.Roles.Select(x => x.Name).ToList(),
+                                  AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
+                              };
 
             SmsSystem.UserContext = userContext;
         }
@@ -129,15 +129,24 @@ namespace SMS.MvcApplication.Controllers
         {
             SmsSystem.SelectedBranchID = branch.ID;
 
-            var branchConfig = new BranchConfig
+            var branchTax = new Dictionary<string, decimal>();
+            if (branch.Taxs.Any())
             {
-                Currency = branch.Currency.Name,
-                ServiceFee = branch.ServiceFee,
-                UseServiceFee = branch.UseServiceFee,
-                UseKitchenFunction = branch.UseKitchenFunction,
-                UseDiscountOnProduct = branch.UseDiscountOnProduct,
-                Taxs = new Dictionary<string, decimal>()
-            };
+                foreach (var tax in branch.Taxs)
+                {
+                    branchTax.Add(tax.Tax.Name, tax.Tax.Value);
+                }
+            }
+
+            var branchConfig = new BranchConfig
+                                   {
+                                       Currency = branch.Currency.Name,
+                                       ServiceFee = branch.ServiceFee,
+                                       UseServiceFee = branch.UseServiceFee,
+                                       UseKitchenFunction = branch.UseKitchenFunction,
+                                       UseDiscountOnProduct = branch.UseDiscountOnProduct,
+                                       Taxs = branchTax
+                                   };
 
             SmsSystem.BranchConfig = branchConfig;
         }

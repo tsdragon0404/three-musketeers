@@ -16,6 +16,7 @@ namespace SMS.Data.Mapping
             Map(x => x.UseKitchenFunction);
 
             HasOne(x => x.BranchInfo).Cascade.All();
+            HasMany(x => x.Taxs).KeyColumn("BranchID").Inverse().Cascade.AllDeleteOrphan();
 
             HasManyToMany(x => x.Users)
                 .Inverse()

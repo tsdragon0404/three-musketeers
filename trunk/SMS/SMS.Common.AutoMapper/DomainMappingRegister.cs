@@ -23,6 +23,7 @@ namespace SMS.Common.AutoMapper
             Map<ErrorMessage, ErrorMessageDto>();
             Map<InvoiceDetail, InvoiceDetailDto>();
             Map<Invoice, InvoiceDto>();
+            Map<InvoiceDiscount, InvoiceDiscountDto>();
             Map<InvoiceTable, InvoiceTableDto>();
             Map<OrderDetail, OrderDetailDto>();
             Map<OrderDiscount, OrderDiscountDto>();
