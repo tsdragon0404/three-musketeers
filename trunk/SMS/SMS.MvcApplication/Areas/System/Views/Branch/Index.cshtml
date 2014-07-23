@@ -198,12 +198,17 @@
                 var saveUrl = '@Url.Action("SaveData")';
                 var deleteUrl = '@Url.Action("DeleteData")';
                 
-                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl, 'Warning', 'Delete this record?');
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
                 adminfunc.bind();
             });
 
-            function getAreaForSave(recordID) {
+            function getDataForSave(recordID) {
+                var users = Array();
 
+                $('#assignedUsers-' + recordID + ' option').each(function (idx, e) {
+                    users.push({ ID: $(e).val() });
+                });
+                
                 var data = {
                     ID: recordID,
                     VNName: $('#vnName-' + recordID).val(),
@@ -214,7 +219,8 @@
                     UseServiceFee: $('#useServiceFee-' + recordID).prop('checked'),
                     ServiceFee: $('#serviceFee-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
-                    SEQ: $('#seq-' + recordID).val()
+                    SEQ: $('#seq-' + recordID).val(),
+                    Users: users
                 };
                 return data;
             }

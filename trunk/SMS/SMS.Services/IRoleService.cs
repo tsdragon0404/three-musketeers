@@ -1,8 +1,11 @@
-﻿using SMS.Data.Dtos;
+﻿using System.Collections.Generic;
+using Core.Common.Validation;
+using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
     public interface IRoleService : IBaseService<RoleDto, long>
     {
+        ServiceResult<IList<RoleDto>> GetByUserID(long id);
     }
 }

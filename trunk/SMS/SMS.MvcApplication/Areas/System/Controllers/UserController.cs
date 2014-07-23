@@ -15,6 +15,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         #region Fields
 
         public virtual IBranchService BranchService { get; set; }
+        public virtual IRoleService RoleService { get; set; }
 
         #endregion
 
@@ -26,9 +27,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         public override JsonResult SaveData(UserDto data)
         {
-            if(data.Branches == null)
-                data.Branches = new List<BranchDto>();
-
+            data.Roles = RoleService.GetByUserID(data.ID).Data;
             return base.SaveData(data);
         }
     }

@@ -18,14 +18,14 @@ namespace SMS.Data.Mapping
             Map(x => x.FailedPasswordAttemptCount);
 
             HasManyToMany(x => x.Roles)
-                .Cascade.All()
+                .Cascade.None()
                 .Table("UsersInRole")
                 .ParentKeyColumn("UserID")
                 .ChildKeyColumn("RoleID")
                 .Not.LazyLoad();
 
             HasManyToMany(x => x.Branches)
-                .Cascade.All()
+                .Cascade.None()
                 .Table("UserBranch")
                 .ParentKeyColumn("UserID")
                 .ChildKeyColumn("BranchID").ChildWhere(x => x.Enable)

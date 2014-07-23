@@ -150,11 +150,11 @@
                 var saveUrl = '@Url.Action("SaveData")';
                 var deleteUrl = '@Url.Action("DeleteData")';
                 
-                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getAreaForSave, deleteUrl, 'Warning', 'Delete this record?');
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
                 adminfunc.bind();
             });
 
-            function getAreaForSave(recordID) {
+            function getDataForSave(recordID) {
                 var pages = Array();
 
                 $('#assignedPages-' + recordID + ' option').each(function (idx, e) {

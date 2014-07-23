@@ -6,6 +6,6 @@ namespace SMS.Services
 {
     public interface IBranchService : IBaseService<BranchDto, long>
     {
-        ServiceResult<IList<TModel>> GetAssignedBranchesForUser<TModel>();
+        ServiceResult<IList<TModel>> GetUserAssignedBranches<TModel>(long id);
     }
 }

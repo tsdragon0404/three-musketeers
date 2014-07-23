@@ -19,8 +19,7 @@ namespace SMS.Data.Mapping
             HasMany(x => x.Taxs).KeyColumn("BranchID").Inverse().Cascade.AllDeleteOrphan();
 
             HasManyToMany(x => x.Users)
-                .Inverse()
-                .Cascade.All()
+                .Cascade.None()
                 .Table("UserBranch")
                 .ParentKeyColumn("BranchID")
                 .ChildKeyColumn("UserID").ChildWhere("IsSystemAdmin = 0 AND UseSystemConfig = 0")
