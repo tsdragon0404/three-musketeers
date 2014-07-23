@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
@@ -15,7 +14,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         #region Fields
 
         public virtual IRoleService RoleService { get; set; }
-
+        public virtual IBranchService BranchService { get; set; }
         #endregion
 
         public override ActionResult Index(string textSearch, int page = 1)
@@ -26,9 +25,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
         public override JsonResult SaveData(UserDto data)
         {
-            if(data.Roles == null)
-                data.Roles = new List<RoleDto>();
-
+            data.Branches = BranchService.GetUserAssignedBranches<BranchDto>(data.ID).Data;
             return base.SaveData(data);
         }
     }

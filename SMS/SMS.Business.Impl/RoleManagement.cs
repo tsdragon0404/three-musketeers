@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
+using AutoMapper;
 
 namespace SMS.Business.Impl
 {
@@ -10,21 +12,15 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
-        public virtual IRolePermissionRepository RolePermissionRepository { get; set; }
-
         #endregion
 
-        public override ServiceResult<RoleDto> Save(RoleDto dto)
+        public ServiceResult<IList<RoleDto>> GetByUserID(long id)
         {
-            var pageIds = dto.Pages.Select(x => x.ID).ToList();
-            dto.Pages.Clear();
-            
-            var result = base.Save(dto);
+            if (id == 0)
+                return ServiceResult<IList<RoleDto>>.CreateSuccessResult(new List<RoleDto>());
 
-            foreach (var pageId in pageIds)
-                RolePermissionRepository.Add(new RolePermission { RoleID = result.Data.ID, PageID = pageId });
-
-            return result;
+            var result = Repository.Find(x => x.UsersInRole.Select(y => y.ID).Contains(id)).ToList();
+            return ServiceResult<IList<RoleDto>>.CreateSuccessResult(Mapper.Map<IList<RoleDto>>(result));
         }
     }
 }

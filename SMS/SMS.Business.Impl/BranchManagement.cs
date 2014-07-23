@@ -14,12 +14,12 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<TModel>> GetAssignedBranchesForUser<TModel>()
+        public ServiceResult<IList<TModel>> GetUserAssignedBranches<TModel>(long id)
         {
-            var result = Repository.Find(x => 
-                (x.Users.Select(y => y.ID).Contains(SmsSystem.UserContext.UserID) && x.Enable) 
-                || SmsSystem.UserContext.IsSystemAdmin).ToList();
+            if(id == 0)
+                return ServiceResult<IList<TModel>>.CreateSuccessResult(new List<TModel>());
 
+            var result = Repository.Find(x => (x.Users.Select(y => y.ID).Contains(id) && x.Enable)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
     }

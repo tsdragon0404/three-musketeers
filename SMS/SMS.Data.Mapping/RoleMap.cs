@@ -10,15 +10,13 @@ namespace SMS.Data.Mapping
             Map(x => x.BranchID);
             Map(x => x.Name);
             HasManyToMany(x => x.UsersInRole)
-                .Inverse()
-                .Cascade.All()
+                .Cascade.None()
                 .Table("UsersInRole")
                 .ParentKeyColumn("RoleID")
                 .ChildKeyColumn("UserID")
                 .Not.LazyLoad();
             HasManyToMany(x => x.Pages)
-                .Inverse()
-                .Cascade.All()
+                .Cascade.None()
                 .Table("RolePermission")
                 .ParentKeyColumn("RoleID")
                 .ChildKeyColumn("PageID")

@@ -11,9 +11,9 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<IList<TModel>> GetAssignedBranchesForUser<TModel>()
+        public ServiceResult<IList<TModel>> GetUserAssignedBranches<TModel>(long id)
         {
-            return Management.GetAssignedBranchesForUser<TModel>();
+            return Management.GetUserAssignedBranches<TModel>(id);
         }
     }
 }
