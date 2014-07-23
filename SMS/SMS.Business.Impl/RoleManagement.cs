@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using System.Linq;
 using Core.Common.Validation;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -23,15 +21,8 @@ namespace SMS.Business.Impl
             
             var result = base.Save(dto);
 
-            var rolePermissions = RolePermissionRepository.Find(x => x.RoleID == result.Data.ID).ToList();
-            foreach (var rolePermission in rolePermissions)
-            {
-                RolePermissionRepository.Delete(rolePermission.ID);
-            }
             foreach (var pageId in pageIds)
-            {
                 RolePermissionRepository.Add(new RolePermission { RoleID = result.Data.ID, PageID = pageId });
-            }
 
             return result;
         }

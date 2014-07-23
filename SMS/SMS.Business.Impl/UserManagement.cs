@@ -20,16 +20,18 @@ namespace SMS.Business.Impl
 
         public virtual IUsersInRoleRepository UsersInRoleRepository { get; set; }
         public virtual IUserBranchRepository UserBranchRepository { get; set; }
+        public virtual IRoleRepository RoleRepository { get; set; }
+        public virtual IBranchRepository BranchRepository { get; set; }
 
         #endregion
 
         public ServiceResult<TModel> Get<TModel>(string username, string password)
         {
             var user = Repository.FindOne(x => x.Username == username && x.Password == password);
-            if(user == null)
+            if (user == null)
                 return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
 
-            if(user.IsLockedOut)
+            if (user.IsLockedOut)
                 return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UserLocked), ErrorType.Business));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
@@ -43,41 +45,53 @@ namespace SMS.Business.Impl
                 dto.UseSystemConfig = false;
             }
 
-            var newRoleIds = new List<long>();
-            var newBranchIds = new List<long>();
-            if (dto.Roles != null)
+            var updateRolesFlag = dto.Roles != null;
+            var newRoleIds = !updateRolesFlag ? new List<long>() : dto.Roles.Select(x => x.ID).ToList();
+            var oldRoleIds = new List<long>();
+
+            if (dto.ID != 0)
             {
-                newRoleIds = dto.Roles.Select(x => x.ID).ToList();
-                dto.Roles.Clear();
+                var oldRoles = RoleRepository.Find(x => x.UsersInRole.Select(y => y.ID).Contains(dto.ID)).ToList();
+                oldRoleIds = oldRoles.Select(x => x.ID).ToList();
+                dto.Roles = Mapper.Map<IList<RoleDto>>(oldRoles);
             }
-            if(dto.Branches != null)
+            else
+                dto.Roles = new List<RoleDto>();
+
+            var updateBranchesFlag = dto.Branches != null;
+            var newBranchIds = !updateBranchesFlag ? new List<long>() : dto.Branches.Select(x => x.ID).ToList();
+            var oldBranchIds = new List<long>();
+
+            if (dto.ID != 0)
             {
-                newBranchIds = dto.Branches.Select(x => x.ID).ToList();
-                dto.Branches.Clear();
+                var oldBranches = BranchRepository.Find(x => x.Users.Select(y => y.ID).Contains(dto.ID)).ToList();
+                oldBranchIds = oldBranches.Select(x => x.ID).ToList();
+                dto.Branches = Mapper.Map<IList<BranchDto>>(oldBranches);
             }
+            else
+                dto.Branches = new List<BranchDto>();
 
             var result = base.Save(dto);
 
             #region User roles
 
-            var oldRoleIds = UsersInRoleRepository.Find(x => x.UserID == result.Data.ID).Select(x => x.ID).ToList();
+            if (updateRolesFlag)
+            {
+                var removeRoleIds = oldRoleIds.Except(newRoleIds);
+                foreach (var roleId in removeRoleIds)
+                    UsersInRoleRepository.Delete(roleId);
 
-            var removeRoleIds = oldRoleIds.Except(newRoleIds);
-            foreach (var roleId in removeRoleIds)
-                UsersInRoleRepository.Delete(roleId);
-
-            var addRoleIds = newRoleIds.Except(oldRoleIds);
-            foreach (var roleId in addRoleIds)
-                UsersInRoleRepository.Add(new UsersInRole { RoleID = roleId, UserID = result.Data.ID }); 
+                var addRoleIds = newRoleIds.Except(oldRoleIds);
+                foreach (var roleId in addRoleIds)
+                    UsersInRoleRepository.Add(new UsersInRole {RoleID = roleId, UserID = result.Data.ID});
+            }
 
             #endregion
 
-            if (!SmsSystem.UserContext.IsSystemAdmin && !SmsSystem.UserContext.UseSystemConfig)
+            if ((!SmsSystem.UserContext.IsSystemAdmin && !SmsSystem.UserContext.UseSystemConfig) || !updateBranchesFlag)
                 return result;
 
             #region User Branches
-            
-            var oldBranchIds = UserBranchRepository.Find(x => x.UserID == result.Data.ID).Select(x => x.ID).ToList();
 
             var removeBranchIds = oldBranchIds.Except(newBranchIds);
             foreach (var branchId in removeBranchIds)
@@ -85,7 +99,7 @@ namespace SMS.Business.Impl
 
             var addBranchIds = newBranchIds.Except(oldBranchIds);
             foreach (var branchId in addBranchIds)
-                UserBranchRepository.Add(new UserBranch { BranchID = branchId, UserID = result.Data.ID }); 
+                UserBranchRepository.Add(new UserBranch { BranchID = branchId, UserID = result.Data.ID });
 
             #endregion
 
