@@ -37,9 +37,12 @@ namespace SMS.Common.CustomAttributes
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            if (filterContext.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
-                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                if(Status == AuthorizeStatus.DontHaveAccessRight)
+                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, "ko co quyen vao trang nay");
+                if (Status == AuthorizeStatus.NotLogin)
+                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, "chua dang nhap vao he thong");
                 return;
             }
 
@@ -70,6 +73,25 @@ namespace SMS.Common.CustomAttributes
             NotLogin = 0,
             DontHaveAccessRight = 1,
             HasAccessRight = 2
+        }
+
+        private class SmsStatusCodeResult : ActionResult
+        {
+            private HttpStatusCode StatusCode { get; set; }
+            private string StatusDescription { get; set; }
+
+            public SmsStatusCodeResult(HttpStatusCode statusCode, string statusDescription)
+            {
+                StatusCode = statusCode;
+                StatusDescription = statusDescription;
+            }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                context.HttpContext.Response.StatusCode = (int)StatusCode;
+                context.HttpContext.Response.StatusDescription = StatusDescription;
+                context.HttpContext.Response.End();
+            }
         }
     }
 }

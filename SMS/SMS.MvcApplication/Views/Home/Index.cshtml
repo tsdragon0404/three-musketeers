@@ -19,7 +19,7 @@
     </section>
 }*@
 <div id="content">
-    <h3>We suggest the following:</h3>
+    <h3>We suggest the following:<a id="aaa" href="#">test ajax</a></h3>
     <ol class="round">
         <li class="one">
             <h5>Getting Started</h5>
@@ -44,4 +44,22 @@
             <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
         </li>
     </ol>
+    <script type="text/javascript">
+        $('#aaa').click(function() {
+            //$.ajax({
+            //    type: 'POST',
+            //    url: 'http://localhost/test',
+            //    data: {id : 1 }
+            //}).done(function (result) {
+            //    alert("aaa");
+            //});
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("OrderProduct", "Cashier", new {area=""})',
+                data: { orderTableID: 1, productID: 1, quantity: 1 }
+            }).done(function (result) {
+                alert('post success');
+            });
+        });
+    </script>
 </div>
