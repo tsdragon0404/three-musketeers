@@ -11,9 +11,9 @@ namespace SMS.MvcApplication.Base
 {
     public abstract class BaseController : Controller
     {
-        public IPageLabelService PageLabelService { get; set; }
-        public IPageService PageService { get; set; }
-        public IPageMenuService PageMenuService { get; set; }
+        public virtual IPageLabelService PageLabelService { get; set; }
+        public virtual IPageService PageService { get; set; }
+        public virtual IPageMenuService PageMenuService { get; set; }
 
         protected override JsonResult Json(object data, string contentType,
             Encoding contentEncoding, JsonRequestBehavior behavior)

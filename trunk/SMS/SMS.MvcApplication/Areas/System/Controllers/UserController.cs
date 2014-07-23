@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
@@ -21,6 +22,14 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         {
             ViewBag.ListBranch = BranchService.GetAll().Data;
             return base.Index(textSearch, page);
+        }
+
+        public override JsonResult SaveData(UserDto data)
+        {
+            if(data.Branches == null)
+                data.Branches = new List<BranchDto>();
+
+            return base.SaveData(data);
         }
     }
 }

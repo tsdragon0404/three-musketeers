@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
@@ -22,6 +23,13 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
             ViewBag.ListRole = RoleService.GetAll().Data;
             return base.Index(textSearch, page);
         }
-        
+
+        public override JsonResult SaveData(UserDto data)
+        {
+            if(data.Roles == null)
+                data.Roles = new List<RoleDto>();
+
+            return base.SaveData(data);
+        }
     }
 }
