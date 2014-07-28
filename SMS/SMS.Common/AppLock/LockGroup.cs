@@ -7,19 +7,17 @@ namespace SMS.Common.AppLock
 {
     public class LockGroup<T> : List<T> where T: ILockItem, new()
     {
-        public bool ProcessItem(object key)
+        public void ProcessItem(object key)
         {
             var itemStatus = GetItemStatus(key);
 
             if (itemStatus == LockStatus.LockByAnotherUser)
-                return false;
+                throw new LockException();
 
-            if(itemStatus == LockStatus.Unlock)
+            if (itemStatus == LockStatus.Unlock)
                 AddLock(key);
             else
                 UpdateLock(key);
-
-            return true;
         }
 
         private LockStatus GetItemStatus(object key)
