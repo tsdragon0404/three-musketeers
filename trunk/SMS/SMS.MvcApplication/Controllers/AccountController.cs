@@ -90,6 +90,7 @@ namespace SMS.MvcApplication.Controllers
 
         private void SetSessionData(UserDto user, BranchDto branch)
         {
+            SetClientData();
             SetUserData(user);
             SetBranchData(branch);
 
@@ -98,6 +99,15 @@ namespace SMS.MvcApplication.Controllers
                 pageIds.AddRange(roleDto.Pages.Select(x => x.ID));
 
             SmsSystem.AllowPageIDs = pageIds;
+        }
+
+        private void SetClientData()
+        {
+            SmsSystem.ClientInfo = new ClientInfo
+                                       {
+                                           IpAddress = Request.UserHostAddress,
+                                           UserAgent = Request.UserAgent
+                                       };
         }
 
         private void SetUserData(UserDto user)

@@ -21,6 +21,23 @@ namespace SMS.Common.Session
             {
                 HttpContext.Current.Session[ConstSessionKey.UserContext] = value;
             }
+        }
+
+        public static ClientInfo ClientInfo
+        {
+            get
+            {
+                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.ClientInfo] != null)
+                {
+                    return HttpContext.Current.Session[ConstSessionKey.ClientInfo] as ClientInfo;
+                }
+
+                return new ClientInfo();
+            }
+            set
+            {
+                HttpContext.Current.Session[ConstSessionKey.ClientInfo] = value;
+            }
         } 
 
         public static BranchConfig BranchConfig
