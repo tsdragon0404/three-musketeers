@@ -1,0 +1,112 @@
+﻿@using SMS.Data.Dtos
+@model SMS.MvcApplication.Models.AdminModel<ProductDto>
+@{
+    ViewBag.Title = "Index";
+}
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="8">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="three columns right">
+                        Code
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="catCode" value="${ProductCode}" id="catCode-${ID}" />
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<div id="content">
+    <div class="row">
+        <h4 class="admin-page-title">Maintain Area</h4>
+    </div>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
+    <div class="row">
+        <table id="record-table">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col style="width: 100px;" />
+                <col />
+                <col />
+                <col style="width: 100px;" />
+                <col style="width: 60px;" />
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>Code</th>
+                    <th>VN name</th>
+                    <th>EN name</th>
+                    <th>Branch</th>
+                    <th>SEQ</th>
+                    <th>Enabled</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="@altClass" data-id="@dto.ID">
+                        <td>
+                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.ProductCode</td>
+                        <td>@dto.VNName</td>
+                        <td>@dto.ENName</td>
+                        <td>@dto.ProductCategory.VNName</td>
+                        <td>@dto.SEQ</td>
+                        <td>@dto.Enable</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="7"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
+                
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
+                adminfunc.bind();
+            });
+
+            function getDataForSave(recordID) {
+                var data = {
+                    ID: recordID,
+                    ProductCategoryCode: $('#catCode-' + recordID).val(),
+                    VNName: $('#vnName-' + recordID).val(),
+                    ENName: $('#enName-' + recordID).val(),
+                    VNDescription: $('#vnDesc-' + recordID).val(),
+                    ENDescription: $('#enDesc-' + recordID).val(),
+                    BranchID: $('#branchID-' + recordID).val(),
+                    Enable: $('#enable-' + recordID).prop('checked'),
+                    SEQ: $('#seq-' + recordID).val()
+                };
+                return data;
+            }
+        </script>
+    </div>
+</div>

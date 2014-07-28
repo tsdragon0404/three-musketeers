@@ -26,40 +26,42 @@
             
             $(root.popupId + ' .popup-table-header').table();
 
-            $(root.multiEditId).click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: root.getAllPageLabelUrl,
-                    data: { pageID: pageID }
-                }).done(function (result) {
-                    if (!result.Success)
-                        return;
+            if (root.multiEditId != '') {
+                $(root.multiEditId).click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: root.getAllPageLabelUrl,
+                        data: { pageID: pageID }
+                    }).done(function(result) {
+                        if (!result.Success)
+                            return;
 
-                    $('[data-labelID]').each(function (i, element) {
-                        var id = $(element).attr('data-labelID');
-                        var exists = false;
-                        $(result.Data).each(function (j, label) {
-                            if(label.LabelID == id) {
-                                exists = true;
-                                return;
+                        $('[data-labelID]').each(function(i, element) {
+                            var id = $(element).attr('data-labelID');
+                            var exists = false;
+                            $(result.Data).each(function(j, label) {
+                                if (label.LabelID == id) {
+                                    exists = true;
+                                    return;
+                                }
+                            });
+                            if (!exists) {
+                                var value;
+                                if (element.nodeName == 'INPUT')
+                                    value = $(element).val();
+                                else
+                                    value = $(element).text();
+                                result.Data[result.Data.length] = { LabelID: id, VNText: value, ENText: value };
                             }
                         });
-                        if (!exists){
-                            var value;
-                            if (element.nodeName == 'INPUT')
-                                value = $(element).val();
-                            else
-                                value = $(element).text();
-                            result.Data[result.Data.length] = { LabelID: id, VNText: value, ENText: value };
-                        }
+                        $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
+
+                        root.OpenPopup();
                     });
-                    $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
-
-                    root.OpenPopup();
+                    return false;
                 });
-                return false;
-            });
-
+            }
+            
             $('#multi-edit-label-save').button({
                 icons: {
                     primary: "ui-icon-circle-check"

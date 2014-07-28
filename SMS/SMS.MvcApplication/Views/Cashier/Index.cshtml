@@ -179,8 +179,12 @@
             <div class="row">
                 <div class="center col1">
                     <div class="icon-edit-info" id="edit-discount" title="Edit"></div>
+                    <div class="icon-cancel-info" id="cancel-discount" title="Cancel"></div>
                 </div>
-                <div class="right col2 border-top"><span class="discount_amount">0</span> @SmsSystem.BranchConfig.Currency</div>
+                <div class="right col2 border-top">
+                    <span class="discountAmount">${DiscountValue.formatAsMoney()}</span> @SmsSystem.BranchConfig.Currency
+
+                </div>
                 <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>

@@ -50,8 +50,8 @@
         <td>${idx + 1}</td>
         <td>
             <select id="select-discount-type" name="select-discount-type-${idx + 1}">
-                <option value="@DiscountType.Number" {{if DiscountType == 0}}selected="selected"{{/if}} >@DiscountType.Number</option>
-                <option value="@DiscountType.Percent" {{if DiscountType == 1}}selected="selected"{{/if}}>@DiscountType.Percent</option>
+                <option value="@((int)DiscountType.Number)" {{if DiscountType == 0}}selected="selected"{{/if}} >@DiscountType.Number</option>
+                <option value="@((int)DiscountType.Percent)" {{if DiscountType == 1}}selected="selected"{{/if}}>@DiscountType.Percent</option>
             </select>
         </td>
         <td>
