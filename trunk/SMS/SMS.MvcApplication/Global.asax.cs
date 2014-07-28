@@ -15,6 +15,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using SMS.Common;
+using SMS.Common.AppLock;
 using SMS.Common.AutoMapper;
 
 namespace SMS.MvcApplication
@@ -66,32 +67,15 @@ namespace SMS.MvcApplication
         {
             var exception = Server.GetLastError();
             LogError(exception);
-            
-            var httpException = exception as HttpException;
 
-            if (httpException != null)
+            var lockException = exception as LockException;
+            if (lockException != null && Request.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
-                string action;
-
-                switch (httpException.GetHttpCode())
-                {
-                    case 404:
-                        // page not found
-                        action = "HttpError404";
-                        break;
-                    case 500:
-                        // server error
-                        action = "HttpError500";
-                        break;
-                    default:
-                        action = "General";
-                        break;
-                }
-
-                // clear error on server
+                Response.StatusCode = lockException.StatusCode;
+                Response.StatusDescription = "Lock error";
+                Response.Write("Lock error");
+                Response.End();
                 Server.ClearError();
-
-                //Response.Redirect(String.Format("~/Error/{0}/?message={1}", action, exception.Message));
             }
         }
 

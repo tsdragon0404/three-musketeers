@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AppLock\ApplicationLock.cs" />
     <Compile Include="AppLock\ILockItem.cs" />
+    <Compile Include="AppLock\LockException.cs" />
     <Compile Include="AppLock\LockGroup.cs" />
     <Compile Include="AppLock\LockStatus.cs" />
     <Compile Include="AppLock\Payment.cs" />
