@@ -20,6 +20,7 @@ namespace SMS.Common.Constant
         public const long Data_Area= 41;
         public const long Data_Table = 42;
         public const long Data_ProductCategory = 43;
+        public const long Data_Product = 44;
 
         public const long Report_Dashboard = 60;
 

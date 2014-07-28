@@ -13,6 +13,11 @@ namespace SMS.Data.Dtos
     {
         public virtual LanguageProductDto Product { get; set; }
         public virtual LanguageOrderStatusDto OrderStatus { get; set; }
+
+        public virtual decimal Amount
+        {
+            get { return Quantity * Product.Price - Discount; }
+        }
     }
 
     public class OrderDetailBasicDto

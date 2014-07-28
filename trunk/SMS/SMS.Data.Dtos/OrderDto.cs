@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SMS.Common.Constant;
+using SMS.Common.Session;
 
 namespace SMS.Data.Dtos
 {
@@ -11,6 +14,27 @@ namespace SMS.Data.Dtos
     public class OrderDataDto : OrderBasicDto
     {
         public virtual IList<LanguageOrderTableDto> OrderTables { get; set; }
+
+        public virtual decimal SubTotal
+        {
+            get { return !OrderTables.Any() ? 0 : OrderTables.Sum(x => x.TableAmount); }
+        }
+
+        public virtual decimal DiscountValue
+        {
+            get
+            {
+                var result = 0M;
+                foreach (var orderDiscount in OrderDiscounts)
+                {
+                    if (orderDiscount.DiscountType == DiscountType.Number)
+                        result += orderDiscount.Discount;
+                    if (orderDiscount.DiscountType == DiscountType.Percent)
+                        result += (SubTotal + OtherFee + (SmsSystem.BranchConfig.UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0))*orderDiscount.Discount/100;
+                }
+                return result;
+            }
+        }
     }
 
     public class OrderBasicDto

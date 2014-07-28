@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SMS.Common.Constant;
+using SMS.Common.Session;
 
 namespace SMS.Data.Dtos
 {
@@ -14,6 +16,16 @@ namespace SMS.Data.Dtos
     {
         public virtual LanguageTableDto Table { get; set; }
         public virtual IList<LanguageOrderDetailDto> OrderDetails { get; set; }
+
+        public virtual decimal TableAmount
+        {
+            get
+            {
+                var serviceFee = SmsSystem.BranchConfig.UseServiceFee ? (UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0) : 0;
+                var detailAmount = !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount);
+                return detailAmount + serviceFee + OtherFee - Discount;
+            }
+        }
     }
 
     public class SimpleOrderTableDto

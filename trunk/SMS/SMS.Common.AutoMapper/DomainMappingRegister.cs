@@ -46,13 +46,7 @@ namespace SMS.Common.AutoMapper
             Map<UserBranch, UserBranchDto>();
             Map<User, UserDto>();
             Map<User, UserBasicDto>();
-
-            Map<OrderDto, PaymentDto>(); //TODO: check mapping between dtos
             Map<OrderDto, OrderDataDto>();
-            
-            Map<OrderDetail, PaymentDetailDto>(); //TODO: check all payment dto
-            Map<Order, PaymentDto>();
-            Map<OrderTable, PaymentTableDto>();
         }
     }
 }

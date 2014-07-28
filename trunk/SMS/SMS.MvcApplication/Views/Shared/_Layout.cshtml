@@ -17,10 +17,17 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript" src="~/Scripts/labelController.js"></script>
+    @{
+        var pageLabelEdit = "";
+        if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+        {
+            pageLabelEdit = "#page-label-multi-edit";
+        }
+    }
     <script type="text/javascript">
         var labelDictionary = @Html.Raw(Json.Encode(LabelDictionary));
         $(document).ready(function() {
-            var labelController = new LabelController(labelDictionary, '#page-label-multi-edit', '#editLabelPopup', 
+            var labelController = new LabelController(labelDictionary, '@pageLabelEdit', '#editLabelPopup', 
                 '@Url.Action("GetAllPageLabel", "Home", new { area = "" })', '@Url.Action("MultiEditPageLabel", "Home", new { area = "" })');
             labelController.ScanElements();
             @if (SmsSystem.UserContext.IsSystemAdmin)
@@ -32,212 +39,214 @@
         });
     </script>
 </head>
-<body>
-    @Html.Partial("EditLabelPopup", new PopupModel { PopupID = "editLabelPopup", PopupTitle = "Edit Labels" })
-    @Html.Partial("PrintInvoicePreview", new PopupModel { PopupID = "printPreviewPopup", PopupTitle = "Print Preview" })
+    <body>
+        @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+        {
+            @Html.Partial("EditLabelPopup", new PopupModel {PopupID = "editLabelPopup", PopupTitle = "Edit Labels"})
+        }
 
-    <div class="ui-helper-clearfix">
-        <div id="leftmenu">
-            <div>
-                <div id="logo">
-                    <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
-                </div>
-                <ul id="menu">
-                    @{
-                        var option = new BuildMenuOption
-                                            {
-                                                SelectedListItemClass = "menu-selected",
-                                                CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                SubListClass = "submenu"
-                                            };
-                    }
-                    @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
-                    <li>-</li>
-                    @if (SmsSystem.UserContext.AllowBranches.Count > 1)
-                    {
-                        <li>
-                            <a>@SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name</a>
-                            <ul class="submenu">
-                                @foreach(var branch in SmsSystem.UserContext.AllowBranches)
-                                {
-                                    <li><a href="#" data-branchId="@branch.ID" id="changeBranch-@branch.ID">@branch.Name</a></li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                    else if (SmsSystem.UserContext.AllowBranches.Count == 1)
-                    {
-                        <li class="ui-state-disabled"><a>@SmsSystem.UserContext.AllowBranches[0].Name</a></li>
-                    }
-                    @if (SmsSystem.UserContext.IsSystemAdmin)
-                    {
-                        <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
-                    }
-                    @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
-                    {
-                        <li><a>User</a>
-                            <ul class="submenu">
-                                <li>@Html.ActionLink("Edit profile", "Edit", "Account", new { area = "" }, null)</li>
-                                @if (Request.RequestContext.RouteData.Values["controller"] != null && Request.RequestContext.RouteData.Values["controller"].ToString() == "Cashier")
-                                {
-                                    <li><a id="saveCashierInfo" href="#">Save cashier info</a></li>
-                                }
-                            </ul>
-                        </li>
-                        <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
-                    }
-                </ul>
-                <ul id="language">
-                    
-                    @{
-                        var classVN = "";
-                        var classEN = "";
-                        if (SmsSystem.Language == Language.English)
+        <div class="ui-helper-clearfix">
+            <div id="leftmenu">
+                <div>
+                    <div id="logo">
+                        <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
+                    </div>
+                    <ul id="menu">
+                        @{
+                            var option = new BuildMenuOption
+                                             {
+                                                 SelectedListItemClass = "menu-selected",
+                                                 CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                 SubListClass = "submenu"
+                                             };
+                        }
+                        @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
+                        <li>-</li>
+                        @if (SmsSystem.UserContext.AllowBranches.Count > 1)
                         {
-                            classEN = "class=\"hide\"";
+                            <li>
+                                <a>@SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name</a>
+                                <ul class="submenu">
+                                    @foreach(var branch in SmsSystem.UserContext.AllowBranches)
+                                    {
+                                        <li><a href="#" data-branchId="@branch.ID" id="changeBranch-@branch.ID">@branch.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
                         }
-                        if (SmsSystem.Language == Language.Vietnamese)
+                        else if (SmsSystem.UserContext.AllowBranches.Count == 1)
                         {
-                            classVN = "class=\"hide\"";
+                            <li class="ui-state-disabled"><a>@SmsSystem.UserContext.AllowBranches[0].Name</a></li>
                         }
-                    }
+                        @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+                        {
+                            <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
+                        }
+                        @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
+                        {
+                            <li><a>User</a>
+                                <ul class="submenu">
+                                    <li>@Html.ActionLink("Edit profile", "Edit", "Account", new { area = "" }, null)</li>
+                                    @if (Request.RequestContext.RouteData.Values["controller"] != null && Request.RequestContext.RouteData.Values["controller"].ToString() == "Cashier")
+                                    {
+                                        <li><a id="saveCashierInfo" href="#">Save cashier info</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, null)</li>
+                        }
+                    </ul>
+                    <ul id="language">
                     
-                    <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguageVN">Vietnamese</span></a></li>
-                    <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguageEN">English</span></a></li>
-                </ul> 
-
-                <script type="text/javascript">
-                    $('#menu').menu();
-
-                    $('#change-language-vn').click(function () {
-                        changeLanguage(@((int)Language.Vietnamese));
-                        return false;
-                    });
-    
-                    $('#change-language-en').click(function () {
-                        changeLanguage(@((int)Language.English));
-                        return false;
-                    });
-
-                    function changeLanguage(id) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
-                            data: { language: id }
-                        }).done(function (result) {
-                            if(result.Success)
-                                location.reload();
-                        });
-                    }
-
-                    $('#saveCashierInfo').click(function () {
-                        var tabId = -1;
-                        var selectedTab = $('#areas li.ui-state-active a');
-                        if (selectedTab.length > 0) {
-                            tabId = selectedTab.attr('href').split('-')[1];
-                        }
-                        var height = -1;
-                        var divider = $('#cashier #tableorder');
-                        if (divider.length > 0) {
-                            var heightInPx = divider.height();
-                            var parentHeightInPx = divider.offsetParent().height();
-                            height = Math.round(100 * heightInPx / parentHeightInPx);
-                        }
-
-                        if (tabId == -1 || height == -1)
-                            return false;
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("SaveCashierInfo", "Cashier", new { area = "" })',
-                            data: {
-                                DefaultAreaID: tabId,
-                                ListTableHeight: height
+                        @{
+                            var classVN = "";
+                            var classEN = "";
+                            if (SmsSystem.Language == Language.English)
+                            {
+                                classEN = "class=\"hide\"";
                             }
-                        }).done(function (result) {
+                            if (SmsSystem.Language == Language.Vietnamese)
+                            {
+                                classVN = "class=\"hide\"";
+                            }
+                        }
+                    
+                        <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguageVN">Vietnamese</span></a></li>
+                        <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguageEN">English</span></a></li>
+                    </ul> 
+
+                    <script type="text/javascript">
+                        $('#menu').menu();
+
+                        $('#change-language-vn').click(function () {
+                            changeLanguage(@((int)Language.Vietnamese));
+                            return false;
+                        });
+    
+                        $('#change-language-en').click(function () {
+                            changeLanguage(@((int)Language.English));
+                            return false;
+                        });
+
+                        function changeLanguage(id) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
+                                data: { language: id }
+                            }).done(function (result) {
+                                if(result.Success)
+                                    location.reload();
+                            });
+                        }
+
+                        $('#saveCashierInfo').click(function () {
+                            var tabId = -1;
+                            var selectedTab = $('#areas li.ui-state-active a');
+                            if (selectedTab.length > 0) {
+                                tabId = selectedTab.attr('href').split('-')[1];
+                            }
+                            var height = -1;
+                            var divider = $('#cashier #tableorder');
+                            if (divider.length > 0) {
+                                var heightInPx = divider.height();
+                                var parentHeightInPx = divider.offsetParent().height();
+                                height = Math.round(100 * heightInPx / parentHeightInPx);
+                            }
+
+                            if (tabId == -1 || height == -1)
+                                return false;
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("SaveCashierInfo", "Cashier", new { area = "" })',
+                                data: {
+                                    DefaultAreaID: tabId,
+                                    ListTableHeight: height
+                                }
+                            }).done(function (result) {
                             
+                            });
+                            return false;
                         });
-                        return false;
-                    });
-                    $('a[id^="changeBranch-"]').click(function() {
-                        var id = $(this).attr('data-branchId');
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("ChangeBranch", "Account", new { area = "" })',
-                            data: { branchID: id }
-                        }).done(function (result) {
-                            if(result.Success)
-                                location.reload();
+                        $('a[id^="changeBranch-"]').click(function() {
+                            var id = $(this).attr('data-branchId');
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("ChangeBranch", "Account", new { area = "" })',
+                                data: { branchID: id }
+                            }).done(function (result) {
+                                if(result.Success)
+                                    location.reload();
+                            });
+                            return false;
                         });
-                        return false;
-                    });
-                </script>
+                    </script>
+                </div>
+            </div>
+            <div id="leftmenuExpander">
+                <a href="#" id="expander" class="expanded">&lt;</a>
+            </div>
+            <div id="body" class="border-left">
+                @{
+                    var adminAreaNames = new[] { "BranchData", "Branch", "System" };
+                }
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "BranchData")
+                {
+                    <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                            @{
+                                var adminOption = new BuildMenuOption
+                                                      {
+                                                          SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                                                          CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                          SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                          HyperLinkClass = "ui-tabs-anchor",
+                                                          ListItemClass = "ui-state-default ui-corner-top"
+                                                      };
+                            }
+                            @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
+                        </ul>
+                    </div>
+                }
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
+                {
+                    <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                            @{
+                                var adminOption = new BuildMenuOption
+                                                      {
+                                                          CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                          SelectedListItemClass = "ui-tabs-active ui-state-active",
+                                                          HyperLinkClass = "ui-tabs-anchor",
+                                                          ListItemClass = "ui-state-default ui-corner-top"
+                                                      };
+                            }
+                            @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
+                        </ul>
+                    </div>
+                }
+                @if (ViewContext.RouteData.DataTokens["area"] != null && adminAreaNames.Contains(ViewContext.RouteData.DataTokens["area"].ToString()))
+                {
+                    <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#tabs-menu li').hover(function() {
+                                $(this).addClass('ui-state-hover');
+                            }, function() {
+                                $(this).removeClass('ui-state-hover');
+                            });
+                        });
+                    </script>
+                }
+                @RenderBody()
             </div>
         </div>
-        <div id="leftmenuExpander">
-            <a href="#" id="expander" class="expanded">&lt;</a>
-        </div>
-        <div id="body" class="border-left">
-            @{
-                var adminAreaNames = new[] { "BranchData", "Branch", "System" };
-            }
-            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "BranchData")
-            {
-                <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @{
-                            var adminOption = new BuildMenuOption
-                                                  {
-                                                      SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                                      HyperLinkClass = "ui-tabs-anchor",
-                                                      ListItemClass = "ui-state-default ui-corner-top"
-                                                  };
-                        }
-                        @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
-                    </ul>
-                </div>
-            }
-            @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
-            {
-                <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                        @{
-                            var adminOption = new BuildMenuOption
-                                                  {
-                                                      CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                      SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                                      HyperLinkClass = "ui-tabs-anchor",
-                                                      ListItemClass = "ui-state-default ui-corner-top"
-                                                  };
-                        }
-                        @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
-                    </ul>
-                </div>
-            }
-            @if (ViewContext.RouteData.DataTokens["area"] != null && adminAreaNames.Contains(ViewContext.RouteData.DataTokens["area"].ToString()))
-            {
-                <script type="text/javascript" src="@Url.Content("~/Scripts/admin-function.js")"></script>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('#tabs-menu li').hover(function() {
-                            $(this).addClass('ui-state-hover');
-                        }, function() {
-                            $(this).removeClass('ui-state-hover');
-                        });
-                    });
-                </script>
-            }
-            @RenderBody()
-        </div>
-    </div>
 
-    @*<footer id="footer">
+        @*<footer id="footer">
         &copy; @DateTime.Now.Year - My ASP.NET MVC Application
     </footer>*@
-    @Html.Partial("MessagePopup")
-    @Html.Partial("AjaxLoader")
-    @RenderSection("scripts", required: false)
-</body>
+        @Html.Partial("MessagePopup")
+        @Html.Partial("AjaxLoader")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
