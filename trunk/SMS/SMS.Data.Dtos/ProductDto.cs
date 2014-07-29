@@ -20,6 +20,7 @@ namespace SMS.Data.Dtos
     public class LanguageProductDto : ProductBasicDto
     {
         public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
         public virtual decimal Quantity { get; set; }
         public virtual LanguageUnitDto Unit { get; set; }
         public virtual LanguageProductCategoryDto ProductCategory { get; set; }
