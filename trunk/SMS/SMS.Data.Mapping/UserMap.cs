@@ -9,7 +9,9 @@ namespace SMS.Data.Mapping
             Table("[User]");
             Map(x => x.Username).Not.Update();
             Map(x => x.Password);
-            Map(x => x.Displayname);
+            Map(x => x.FirstName);
+            Map(x => x.LastName);
+            Map(x => x.CellPhone);
             Map(x => x.LastLoginDate);
             Map(x => x.IsSystemAdmin);
             Map(x => x.UseSystemConfig);

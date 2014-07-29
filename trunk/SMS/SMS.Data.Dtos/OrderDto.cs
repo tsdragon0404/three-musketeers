@@ -35,6 +35,11 @@ namespace SMS.Data.Dtos
                 return result;
             }
         }
+
+        public virtual decimal Total
+        {
+            get { return SubTotal + OtherFee + (SmsSystem.BranchConfig.UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0) - DiscountValue; }
+        }
     }
 
     public class OrderBasicDto

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -175,6 +176,37 @@ namespace SMS.Business.Impl
         {
             var result = OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
+        }
+
+        public ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
+        {
+            var orderDiscounts = OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
+            foreach(var orderDiscount in orderDiscounts)
+            {
+                OrderDiscountRepository.Delete(orderDiscount.ID);
+                OrderDiscountRepository.SaveAllChanges();
+            }
+
+            for (int i = 0; i < discountTypes.Length; i++)
+            {
+                var discountType = int.Parse(discountTypes[i]) == 0 ? DiscountType.Number : DiscountType.Percent;
+                var discount = discounts[i];
+                var discountCode = discountCodes[i];
+                var discountComment = discountComments[i];
+
+                if (discount == "") continue;
+                var orderDiscount = new OrderDiscount
+                                        {
+                                            OrderID = orderID,
+                                            Discount = decimal.Parse(discount),
+                                            DiscountType = discountType,
+                                            DiscountCode = discountCode,
+                                            DiscountComment = discountComment
+                                        };
+                OrderDiscountRepository.Add(orderDiscount);
+                OrderDiscountRepository.SaveAllChanges();
+            }
+            return ServiceResult.CreateSuccessResult();
         }
     }
 }

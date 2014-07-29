@@ -125,7 +125,6 @@ namespace SMS.MvcApplication.Controllers
                                   PageSize = 3,
                                   UserID = user.ID,
                                   UserName = user.Username,
-                                  DisplayName = user.Displayname,
                                   IsSystemAdmin = user.IsSystemAdmin,
                                   UseSystemConfig = user.UseSystemConfig,
                                   RoleNames = user.Roles.Select(x => x.Name).ToList(),

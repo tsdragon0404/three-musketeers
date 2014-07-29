@@ -9,9 +9,6 @@ namespace SMS.Data.Mapping
             Table("UserBranch");
             Map(x => x.BranchID);
             Map(x => x.UserID);
-            Map(x => x.DefaultAreaID);
-            Map(x => x.IsSuspended);
-            Map(x => x.ListTableHeight);
         }
     }
 }

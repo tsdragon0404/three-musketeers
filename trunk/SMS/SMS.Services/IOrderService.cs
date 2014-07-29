@@ -13,5 +13,6 @@ namespace SMS.Services
         ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
         ServiceResult Payment(long orderID, decimal tax, decimal serviceFee);
         ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID);
+        ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts);
     }
 }
