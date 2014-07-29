@@ -394,8 +394,9 @@ BEGIN
 	CREATE TABLE [dbo].[User](
 		[UserID] [int] IDENTITY(1,1) NOT NULL,
 		[Username] [varchar](255) NOT NULL,
-		[Password] [varchar](1000) NOT NULL,
-		[DisplayName] [nvarchar](50) NULL,
+		[FirstName] [nvarchar](255) NULL,
+		[LastName] [nvarchar](255) NULL,
+		[CellPhone] [varchar](50) NULL,
 		[LastLoginDate] [datetime] NULL,
 		[IsSystemAdmin] [bit] NOT NULL,
 		[UseSystemConfig] [bit] NOT NULL DEFAULT(0),
@@ -420,13 +421,6 @@ BEGIN
 	[UserBranchID] [bigint] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
 	[BranchID] [int] NULL,
-	[CreatedDate] [datetime] NULL,
-	[CreatedUser] [varchar](50) NULL,
-	[ModifiedDate] [datetime] NULL,
-	[ModifiedUser] [varchar](50) NULL,
-	[IsSuspended] [bit] NOT NULL DEFAULT(0),
-	[DefaultAreaID] [bigint] NOT NULL DEFAULT(0),
-	[ListTableHeight] [int] NULL,
  CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
 (
 	[UserBranchID] ASC
@@ -435,28 +429,26 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserProfile]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserConfig]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[UserProfile](
-		[UserID] [int] IDENTITY(1,1) NOT NULL,
-		[UserCode] [nvarchar](255) NULL,
-		[UserLogin] [varchar](255) NULL,
-		[UserPassword] [varchar](1000) NULL,
-		[FirstName] [nvarchar](255) NULL,
-		[LastName] [nvarchar](255) NULL,
-		[CellPhone] [varchar](50) NULL,
-		[Enable] [bit] NULL,
-		[SEQ] [int] NULL,
+	CREATE TABLE [dbo].[UserConfig](
+		[UserConfigID] [bigint] IDENTITY(1,1) NOT NULL,
+		[UserID] [int] NULL,
+		[BranchID] [int] NULL,
+		[IsSuspended] [bit] NOT NULL,
+		[DefaultAreaID] [bigint] NOT NULL,
+		[ListTableHeight] [int] NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
 		[ModifiedUser] [varchar](50) NULL,
-	 CONSTRAINT [PK_UserProfile] PRIMARY KEY CLUSTERED 
+	 CONSTRAINT [PK_UserConfig] PRIMARY KEY CLUSTERED 
 	(
-		[UserID] ASC
+		[UserConfigID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
+GO
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UsersInRole]') AND type in (N'U'))
 BEGIN
