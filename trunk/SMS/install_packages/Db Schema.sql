@@ -394,6 +394,7 @@ BEGIN
 	CREATE TABLE [dbo].[User](
 		[UserID] [int] IDENTITY(1,1) NOT NULL,
 		[Username] [varchar](255) NOT NULL,
+		[Password] [varchar](1000) NOT NULL,
 		[FirstName] [nvarchar](255) NULL,
 		[LastName] [nvarchar](255) NULL,
 		[CellPhone] [varchar](50) NULL,
