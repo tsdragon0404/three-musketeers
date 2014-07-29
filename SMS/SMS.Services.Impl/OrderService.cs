@@ -45,5 +45,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetOrderDiscount<TDto>(orderID);
         }
+
+        public ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
+        {
+            return Management.SaveOrderDiscount(orderID, discountTypes, discountCodes, discountComments, discounts);
+        }
     }
 }

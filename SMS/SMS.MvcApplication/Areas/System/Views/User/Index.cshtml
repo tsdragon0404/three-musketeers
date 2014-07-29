@@ -36,12 +36,6 @@
                 </div>
                 <div class="row">
                     <div class="three columns right">
-                        Display name
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="displayname" value="${Displayname}" id="displayname-${ID}" />
-                    </div>
-                    <div class="three columns right">
                         Locked
                     </div>
                     <div class="three columns">
@@ -148,7 +142,6 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
-                <col />
                 @if (SmsSystem.UserContext.IsSystemAdmin)
                 {
                     <col style="width: 110px;" />
@@ -161,7 +154,6 @@
                     <th></th>
                     <th>No</th>
                     <th>User name</th>
-                    <th>Display name</th>
                     @if (SmsSystem.UserContext.IsSystemAdmin)
                     {
                         <th>System admin</th>
@@ -181,7 +173,6 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.Username</td>
-                        <td>@dto.Displayname</td>
                         @if (SmsSystem.UserContext.IsSystemAdmin)
                         {
                             <td>@dto.IsSystemAdmin</td>
@@ -224,7 +215,6 @@
                     ID: recordID,
                     Username: $('#username-' + recordID).val(),
                     Password: $('#password-' + recordID).val(),
-                    Displayname: $('#displayname-' + recordID).val(),
                     @if (SmsSystem.UserContext.IsSystemAdmin)
                     {
                         <text>

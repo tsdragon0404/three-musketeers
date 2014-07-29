@@ -6,7 +6,6 @@ namespace SMS.Data.Dtos
     public class UserDto : UserBasicDto
     {
         public virtual string Password { get; set; }
-        public virtual string Displayname { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
         public virtual bool IsSystemAdmin { get; set; }
         public virtual bool UseSystemConfig { get; set; }
@@ -26,5 +25,8 @@ namespace SMS.Data.Dtos
     {
         public virtual long ID { get; set; }
         public virtual string Username { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string CellPhone { get; set; }
     }
 }

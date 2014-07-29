@@ -239,13 +239,11 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveOrderDiscount(long orderID, string[] discountType, string[] discountCode, string[] discountComment, string[] discount)
+        public JsonResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
         {
-            if (orderID <= 0) return Json(JsonModel.Create(false));
+            var result = OrderService.SaveOrderDiscount(orderID, discountTypes, discountCodes, discountComments, discounts);
 
-            var listOrderDiscount = OrderService.GetOrderDiscount<OrderDiscountDto>(orderID);
-
-            return Json(JsonModel.Create(listOrderDiscount));
+            return Json(JsonModel.Create(result));
         }
     }
 }

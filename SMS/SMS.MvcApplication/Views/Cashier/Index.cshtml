@@ -135,7 +135,7 @@
         <div class="row" id="totalSection">
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2"><span class="sum_amount">0</span> @SmsSystem.BranchConfig.Currency</div>
+                <div class="right col2"><span class="sum_amount">${SubTotal.formatAsMoney()}</span> @SmsSystem.BranchConfig.Currency</div>
                 <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
@@ -161,6 +161,24 @@
                 <div class="left col3"><span data-labelID="lblOtherFee" class="label-custom-label">Other Fee:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
+            <div class="row">
+                <div class="center col1">
+                    <div class="icon-edit-info" id="edit-discount" title="Edit"></div>
+                    <div class="icon-cancel-info" id="cancel-discount" title="Cancel"></div>
+                </div>
+                <div class="right col2">
+                    <div id="order-discount"></div>
+                    <span class="discountAmount">${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @SmsSystem.BranchConfig.Currency</span>
+                </div>
+                <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2 border-top"><span class="total">${Total.formatAsMoney()}</span> @SmsSystem.BranchConfig.Currency</div>
+                <div class="left col3 border-top"><span data-labelID="lblTotal" class="label-custom-label">Total:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
             @foreach (var tax in SmsSystem.BranchConfig.Taxs)
             {
                 <div class="row" id="tax-@tax.Key">
@@ -176,20 +194,33 @@
                 <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
-            <div class="row">
-                <div class="center col1">
-                    <div class="icon-edit-info" id="edit-discount" title="Edit"></div>
-                    <div class="icon-cancel-info" id="cancel-discount" title="Cancel"></div>
-                </div>
-                <div class="right col2 border-top">
-                    <span class="discountAmount">${DiscountValue.formatAsMoney()}</span> @SmsSystem.BranchConfig.Currency
-
-                </div>
-                <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
-                <div class="center col4">&nbsp;</div>
-            </div>
         </div>
     </form>
+</script>
+
+<script id="discount-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <select id="discount-type" name="discount-type">
+        {{if DiscountType == @((int)DiscountType.Number)}}
+        <option value="@((int)DiscountType.Number)" selected>@DiscountType.Number</option>
+        {{else}}
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        {{/if}}
+        {{if DiscountType == @((int)DiscountType.Percent)}}
+        <option value="@((int)DiscountType.Percent)" selected>@DiscountType.Percent</option>
+        {{else}}
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+        {{/if}}
+    </select>
+    <input title="Discount" id="discount" value="${Discount.formatAsMoney()}" class="required right" name="number" />
+    {{/each}}
+    {{if Data.length < 1}}
+    <select id="discount-type" name="discount-type">
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+    </select>
+    <input title="Discount" id="discount" class="required right" name="number"/>
+    {{/if}}
 </script>
 
 <script id="ordertable-tmpl" type="text/x-jquery-tmpl">
@@ -347,7 +378,6 @@
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
     @Html.Partial("PaymentPopup", new PopupModel { PopupID = "pdtPayment", PopupTitle = "Payment" })
     @Html.Partial("DestinationTablePopup", new PopupModel { PopupID = "destinationTablePopup", PopupTitle = "Select destination table" })
-    @Html.Partial("DiscountPopup", new PopupModel { PopupID = "pdtDiscount", PopupTitle = "Discount management" })
 </div>
 
 <script type="text/javascript">
@@ -877,17 +907,6 @@
             UpdateOrderedProductStatus(this);
         });
         
-        $('form[id^="form-table-order-"]').validate({
-            rules: {
-                qty: {
-                    greaterThanZero: true
-                },
-                discount: {
-                    greaterOrEqualZero: true
-                }
-            }
-        });
-        
         $('#cancel-other-fee').hide();
 
         $('#edit-other-fee').unbind('click');
@@ -950,13 +969,81 @@
             }
             CalculateTotal();
         });
+        
+        $('#cancel-discount').hide();
 
         $('#edit-discount').unbind('click');
         $('#edit-discount').click(function() {
             var orderId = $('#curOrderID').val();
-            if (orderId > 0) {
-                var popup = new DiscountPopup("pdtDiscount", orderId, '@Url.Action("")', onRefresh);
-                popup.OpenPopup();
+            
+            if(orderId < 1)
+                return false;
+            
+            if($(this).hasClass('icon-edit-info')) {
+                $('.discountAmount').hide();
+                $('#discountCurrency').hide();
+
+                $(this).removeClass('icon-edit-info');
+                $(this).addClass('icon-save-info');
+                $('#cancel-discount').show();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetOrderDiscount")',
+                        data: { orderID: orderId }
+                 }).done(function(result) {
+                     if (result.Success) {
+                         $('#order-discount').html($('#discount-tmpl').tmpl(result));
+                         
+                         $('input[name="number"]').unbind('change');
+                         $('input[name="number"]').change(function() {
+                             $(this).val($(this).val().formatAsMoney());
+                         });
+                     }
+                 });
+            } else {
+                
+                var discountType = $('#discount-type').val();
+                var discount = $('#discount').val().trim();
+
+                var arrdiscountType = [],
+                    arrdiscount = [],
+                    arrdiscountCode = [],
+                    arrdiscountComment = [];
+
+                arrdiscountType[arrdiscountType.length] = discountType;
+                arrdiscount[arrdiscount.length] = discount;
+                arrdiscountCode[arrdiscountCode.length] = "";
+                arrdiscountComment[arrdiscountComment.length] = "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveOrderDiscount")',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ orderID: orderId, discountTypes: arrdiscountType, discountCodes: arrdiscountCode, discountComments: arrdiscountComment, discounts: arrdiscount })
+                }).done(function(result) {
+                    if (result.Success) {
+                        refreshOrderArea();
+                    }
+                });
+            }
+            return false;
+        });
+        
+        $('#cancel-discount').unbind('click');
+        $('#cancel-discount').click(function() {
+            refreshOrderArea();
+        });
+
+        $('form[id^="form-table-order-"]').validate({
+            rules: {
+                qty: {
+                    greaterThanZero: true
+                },
+                discount: {
+                    greaterOrEqualZero: true
+                }
             }
         });
 
@@ -1208,12 +1295,13 @@
     }
     
     function CalculateTotal() {
-        var subTotal;
-        var sumAmount = 0;
-        var totalAmount;
-        var fee = 0;
-        var otherfee;
-        var tax = 0;
+        var subTotal,
+            sumAmount = 0,
+            totalAmount,
+            fee = 0,
+            otherfee,
+            orderdiscount,
+            tax = 0;
         
         $('table[id^="order-"]').each(function(idx, e) {
             subTotal = 0;
@@ -1243,8 +1331,12 @@
 
         otherfee = $('#txtOtherFee').length > 0 ? $('#txtOtherFee').val().readMoneyAsNumber() : 0;
 
-        sumAmount = sumAmount > 0 ? sumAmount + fee + otherfee : 0;
+        orderdiscount = $('#totalSection .discountAmount').text().readMoneyAsNumber();
+
+        sumAmount = sumAmount > 0 ? sumAmount + fee + otherfee - orderdiscount : 0;
         
+        $('#totalSection .total').text(sumAmount.formatAsMoney());
+
         $('#totalSection div[id^="tax-"]').each(function(index, element) {
             if($(element).find('input[id^="chkUseTax-"]').is(':checked'))
             {
