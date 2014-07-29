@@ -19,7 +19,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListArea = AreaService.GetAll().Data;
+            ViewBag.ListArea = AreaService.GetAllByBranch<LanguageAreaDto>().Data;
             return base.Index(textSearch, page);
         }
         

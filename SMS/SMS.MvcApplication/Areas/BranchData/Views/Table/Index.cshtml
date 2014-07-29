@@ -27,14 +27,13 @@
                     </div>
                     <div class="three columns">
                         <select name="areaID" id="areaID-${ID}">
-                            <option value="0">[Not selected]</option>
-                            @foreach (AreaDto area in ViewBag.ListArea)
+                            @foreach (LanguageAreaDto area in ViewBag.ListArea)
                             {
                                 <text>
                                     {{if Area != null && Area.ID == @area.ID}}
-                                    <option value="@area.ID" selected>@area.VNName/@area.ENName</option>
+                                    <option value="@area.ID" selected>@area.Name</option>
                                     {{else}}
-                                    <option value="@area.ID">@area.VNName/@area.ENName</option>
+                                    <option value="@area.ID">@area.Name</option>
                                     {{/if}}
                                 </text>
                             }
@@ -138,16 +137,16 @@
                 adminfunc.bind();
             });
 
-            function getDataForSave(recordID) {
+            function getDataForSave(recordId) {
                 var data = {
-                    ID: recordID,
-                    VNName: $('#vnName-' + recordID).val(),
-                    ENName: $('#enName-' + recordID).val(),
+                    ID: recordId,
+                    VNName: $('#vnName-' + recordId).val(),
+                    ENName: $('#enName-' + recordId).val(),
                     Area: {
-                         ID: $('#areaID-' + recordID).val()
+                         ID: $('#areaID-' + recordId).val()
                     },
-                    Enable: $('#enable-' + recordID).prop('checked'),
-                    SEQ: $('#seq-' + recordID).val()
+                    Enable: $('#enable-' + recordId).prop('checked'),
+                    SEQ: $('#seq-' + recordId).val()
                 };
                 return data;
             }
