@@ -1053,3 +1053,19 @@ GO
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
+
+CREATE TRIGGER [dbo].[trigger_ProductPriceLog] ON dbo.Product FOR UPDATE
+AS
+	SET NOCOUNT ON
+	IF UPDATE(Price)
+	BEGIN
+		DECLARE @oldPrice NUMERIC(12, 2);
+		SELECT @oldPrice = Price FROM deleted;
+
+		IF EXISTS ( SELECT TOP 1 1 FROM inserted WHERE Price <> @oldPrice )
+		BEGIN
+			INSERT INTO dbo.ProductPriceHistory (ProductID, OldPrice, NewPrice, CreatedDate, CreatedUser )
+			SELECT ProductID, @oldPrice, Price, ModifiedDate, ModifiedUser FROM inserted
+		END
+	END
+GO
