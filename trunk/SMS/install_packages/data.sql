@@ -1,5 +1,5 @@
-﻿INSERT INTO [User] ( UserName, Password, DisplayName, IsSystemAdmin )
-VALUES ( 'system', '123', 'system', 1)
+﻿INSERT INTO [User] ( UserName, Password, IsSystemAdmin )
+VALUES ( 'system', '123', 1)
 GO
 
 INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, Area, Controller, [Action] )
@@ -22,6 +22,7 @@ VALUES
 ( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'BranchData', N'Area', N'Index' ),
 ( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'BranchData', N'Table', N'Index' ),
 ( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' ),
+( 44, N'Sản phẩm', N'Product', N'Quản lý sản phẩm', N'Maintain product', N'BranchData', N'Product', N'Index' ),
 
 ( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' ),
 
@@ -44,6 +45,7 @@ VALUES
 ( 10, N'MainMenu', 9, 81, 100 ),
 ( 11, N'MainMenu', 9, 82, 110 ),
 ( 12, N'MainMenu', 0, 60, 120 ),
+( 13, N'MainMenu', 0, 44, 130 ),
 
 ( 20, N'BranchTabMenu', 0, 21, 10 ),
 ( 21, N'BranchTabMenu', 0, 22, 20 ),
@@ -52,6 +54,7 @@ VALUES
 ( 30, N'BranchDataTabMenu', 0, 41, 10 ),
 ( 31, N'BranchDataTabMenu', 0, 42, 20 ),
 ( 32, N'BranchDataTabMenu', 0, 43, 30 ),
+( 33, N'BranchDataTabMenu', 0, 44, 40 ),
 
 ( 40, N'SystemTabMenu', 0, 81, 10 ),
 ( 41, N'SystemTabMenu', 0, 82, 20 )
