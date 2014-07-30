@@ -16,7 +16,7 @@ namespace SMS.Data.Entities
 
         public virtual string ENDescription { get; set; }
 
-        public virtual long BranchID { get; set; }
+        public virtual Branch Branch { get; set; }
 
         public virtual IList<Product> Products { get; set; }
 

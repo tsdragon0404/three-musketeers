@@ -20,7 +20,7 @@ namespace SMS.Data.Dtos
     {
         public virtual long ID { get; set; }
         public virtual string ProductCategoryCode { get; set; }
-        public virtual long BranchID { get; set; }
+        public virtual BranchDto Branch { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }
