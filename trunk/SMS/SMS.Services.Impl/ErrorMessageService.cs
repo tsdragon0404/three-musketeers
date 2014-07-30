@@ -11,16 +11,6 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<IList<ErrorMessageDto>> GetMessagesForSelectedBranch()
-        {
-            return Management.GetMessagesForSelectedBranch();
-        }
-
-        public ServiceResult<IList<TModel>> GetMessagesForSelectedBranch<TModel>()
-        {
-            return Management.GetMessagesForSelectedBranch<TModel>();
-        }
-
         public ServiceResult<IList<ErrorMessageDto>> GetSystemMessages()
         {
             return Management.GetSystemMessages();

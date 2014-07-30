@@ -4,6 +4,7 @@
     {
         Validate = 0,
         Business = 1,
-        Locked = 2
+        Locked = 2,
+        CodeImplementation = 3
     }
 }

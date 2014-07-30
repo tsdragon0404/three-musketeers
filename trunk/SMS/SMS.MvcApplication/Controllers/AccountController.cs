@@ -75,7 +75,7 @@ namespace SMS.MvcApplication.Controllers
                 SetSessionData(user, branch);
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
 
-                SystemMessages.SetMessages(ErrorMessageService.GetMessagesForSelectedBranch().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
+                SystemMessages.SetMessages(ErrorMessageService.GetAllByBranch(SmsSystem.SelectedBranchID).Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
 
                 return RedirectToAction("Index", "Home");
             }

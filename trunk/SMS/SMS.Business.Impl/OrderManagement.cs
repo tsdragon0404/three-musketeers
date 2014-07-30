@@ -100,7 +100,7 @@ namespace SMS.Business.Impl
                               {
                                   InvoiceNumber = "INV-" + DateTime.Now.ToString("yyyyMMdd"),
                                   InvoiceDate = DateTime.Now,
-                                  BranchID = order.Branch.ID,
+                                  Branch = new Data.Entities.Branch { ID = order.Branch.ID },
                                   CustomerID = order.Customer.ID,
                                   Currency = SmsSystem.BranchConfig.Currency,
                                   UserID = SmsSystem.UserContext.UserID,

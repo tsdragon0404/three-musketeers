@@ -220,6 +220,7 @@
     <Compile Include="Areas\BranchData\Controllers\BranchDataHomeController.cs" />
     <Compile Include="Areas\BranchData\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\BranchData\Controllers\TableController.cs" />
+    <Compile Include="Base\AdminBranchBaseController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Areas\BranchData\DataAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />

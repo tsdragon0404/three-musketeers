@@ -9,7 +9,8 @@ namespace SMS.Data.Mapping
             Table("Area");
             Map(x => x.VNName);
             Map(x => x.ENName);
-            Map(x => x.BranchID);
+            References(x => x.Branch).Column("BranchID")
+                .Cascade.None();
             HasMany(x => x.Tables)
                 .KeyColumn("AreaID")
                 .Inverse();

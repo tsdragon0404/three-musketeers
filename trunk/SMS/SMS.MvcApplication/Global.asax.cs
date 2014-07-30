@@ -15,8 +15,8 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using SMS.Common;
-using SMS.Common.AppLock;
 using SMS.Common.AutoMapper;
+using SMS.Common.Exceptions;
 
 namespace SMS.MvcApplication
 {

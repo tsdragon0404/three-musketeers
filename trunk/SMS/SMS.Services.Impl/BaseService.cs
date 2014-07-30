@@ -19,14 +19,49 @@ namespace SMS.Services.Impl
             return Management.GetAll<TModel>(includeDisable);
         }
 
-        public ServiceResult<IPagedList<TDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
+        public ServiceResult<IPagedList<TDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
         {
-            return Management.FindByString(textSearch, pagingInfo, includeDisable);
+            return Management.Search(textSearch, pagingInfo, includeDisable);
         }
 
-        public ServiceResult<IPagedList<TModel>> FindByString<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
+        public ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
         {
-            return Management.FindByString<TModel>(textSearch, pagingInfo, includeDisable);
+            return Management.Search<TModel>(textSearch, pagingInfo, includeDisable);
+        }
+
+        public ServiceResult<IList<TDto>> GetAllByBranch(long branchID, bool includeDisable = false)
+        {
+            return Management.GetAllByBranch(branchID, includeDisable);
+        }
+
+        public ServiceResult<IList<TModel>> GetAllByBranch<TModel>(long branchID, bool includeDisable = false)
+        {
+            return Management.GetAllByBranch<TModel>(branchID, includeDisable);
+        }
+
+        public ServiceResult<IPagedList<TDto>> SearchByBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
+        {
+            return Management.SearchByBranch(textSearch, pagingInfo, branchID, includeDisable);
+        }
+
+        public ServiceResult<IPagedList<TModel>> SearchByBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
+        {
+            return Management.SearchByBranch<TModel>(textSearch, pagingInfo, branchID, includeDisable);
+        }
+
+        public ServiceResult<TDto> GetByIDForCurrentBranch(TPrimaryKey primaryKey)
+        {
+            return Management.GetByIDForCurrentBranch(primaryKey);
+        }
+
+        public ServiceResult<TModel> GetByIDForCurrentBranch<TModel>(TPrimaryKey primaryKey)
+        {
+            return Management.GetByIDForCurrentBranch<TModel>(primaryKey);
+        }
+
+        public ServiceResult DeleteInCurrentBranch(TPrimaryKey primaryKey)
+        {
+            return Management.DeleteInCurrentBranch(primaryKey);
         }
 
         public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
@@ -47,11 +82,6 @@ namespace SMS.Services.Impl
         public ServiceResult Delete(TPrimaryKey primaryKey)
         {
             return Management.Delete(primaryKey);
-        }
-
-        public ServiceResult CheckExisted(TPrimaryKey primaryKey)
-        {
-            return Management.CheckExisted(primaryKey);
         }
     }
 }

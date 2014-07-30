@@ -1,12 +1,11 @@
 ﻿using System;
 using Core.Data;
+using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
 {
-    public class Invoice : Entity, IAuditableEntity
+    public class Invoice : Entity, IAuditableEntity, IBranchEntity
     {
-        public virtual long BranchID { get; set; }
-
         public virtual string InvoiceNumber { get; set; }
 
         public virtual DateTime InvoiceDate { get; set; }
@@ -28,6 +27,12 @@ namespace SMS.Data.Entities
         public virtual string Currency { get; set; }
 
         public virtual int UseVisa { get; set; }
+
+        #region Implementation of IBranchEntity
+
+        public virtual Branch Branch { get; set; }
+
+        #endregion
 
         #region Implementation of IAuditableEntity
 

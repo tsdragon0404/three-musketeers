@@ -7,7 +7,8 @@ namespace SMS.Data.Mapping
         public RoleMap()
         {
             Table("[Role]");
-            Map(x => x.BranchID);
+            References(x => x.Branch).Column("BranchID")
+                .Cascade.None();
             Map(x => x.Name);
             HasManyToMany(x => x.UsersInRole)
                 .Cascade.None()

@@ -8,7 +8,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 {
     [SmsAuthorize(ConstPage.Data_ProductCategory)]
     [PageID(ConstPage.Data_ProductCategory)]
-    public class ProductCategoryController : AdminBaseController<ProductCategoryDto, long, IProductCategoryService>
+    public class ProductCategoryController : AdminBranchBaseController<ProductCategoryDto, long, IProductCategoryService>
     {
         #region Fields
 
