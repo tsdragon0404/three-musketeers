@@ -1,4 +1,5 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<ProductCategoryDto>
 @{
     ViewBag.Title = "Index";
@@ -102,8 +103,8 @@
                     <th></th>
                     <th>No</th>
                     <th>Code</th>
-                    <th>VN name</th>
-                    <th>EN name</th>
+                    <th>Name</th>
+                    <th>Description</th>
                     <th>Branch</th>
                     <th>SEQ</th>
                     <th>Enabled</th>
@@ -120,9 +121,19 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.ProductCategoryCode</td>
-                        <td>@dto.VNName</td>
-                        <td>@dto.ENName</td>
-                        <td>@dto.BranchID</td>
+                        @if(@SmsSystem.Language == Language.Vietnamese)
+                        {
+                            <td>@dto.VNName</td>
+                            <td>@dto.VNDescription</td>
+                            <td>@dto.Branch.VNName</td>
+                        }
+                        else
+                        {
+                            <td>@dto.ENName</td>
+                            <td>@dto.ENDescription</td>
+                            <td>@dto.Branch.ENName</td>
+                        }
+                        
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
                     </tr>
@@ -150,17 +161,17 @@
                 adminfunc.bind();
             });
 
-            function getDataForSave(recordID) {
+            function getDataForSave(recordId) {
                 var data = {
-                    ID: recordID,
-                    ProductCategoryCode: $('#catCode-' + recordID).val(),
-                    VNName: $('#vnName-' + recordID).val(),
-                    ENName: $('#enName-' + recordID).val(),
-                    VNDescription: $('#vnDesc-' + recordID).val(),
-                    ENDescription: $('#enDesc-' + recordID).val(),
-                    BranchID: $('#branchID-' + recordID).val(),
-                    Enable: $('#enable-' + recordID).prop('checked'),
-                    SEQ: $('#seq-' + recordID).val()
+                    ID: recordId,
+                    ProductCategoryCode: $('#catCode-' + recordId).val(),
+                    VNName: $('#vnName-' + recordId).val(),
+                    ENName: $('#enName-' + recordId).val(),
+                    VNDescription: $('#vnDesc-' + recordId).val(),
+                    ENDescription: $('#enDesc-' + recordId).val(),
+                    BranchID: $('#branchID-' + recordId).val(),
+                    Enable: $('#enable-' + recordId).prop('checked'),
+                    SEQ: $('#seq-' + recordId).val()
                 };
                 return data;
             }

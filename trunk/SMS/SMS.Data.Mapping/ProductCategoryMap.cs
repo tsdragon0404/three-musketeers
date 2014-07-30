@@ -12,7 +12,7 @@ namespace SMS.Data.Mapping
             Map(x => x.ENName);
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
-            Map(x => x.BranchID);
+            References(x => x.Branch).Column("BranchID");
             HasMany(x => x.Products)
                 .KeyColumn("ProductID")
                 .Inverse();
