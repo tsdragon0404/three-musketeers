@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -26,8 +27,8 @@ namespace SMS.MvcApplication.Controllers
         {
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAllByBranch<LanguageAreaDto>().Data,
-                                       ListProduct = ProductService.GetAllByBranch<LanguageProductDto>().Data,
+                                       ListArea = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID).Data,
+                                       ListProduct = ProductService.GetAllByBranch<LanguageProductDto>(SmsSystem.SelectedBranchID).Data,
                                    };
 
             return View(cashierModel);

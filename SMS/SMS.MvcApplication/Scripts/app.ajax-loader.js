@@ -10,6 +10,7 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
     $(".ajax-loader-mask").hide();
 
     var message = 'Unknown request';
+    var title = 'Error';
     
     if (jqXHR.status == 404) {
         
@@ -18,7 +19,7 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
         message = thrownError;
     }
     
-    var popup = new MessagePopup('Error', message, 4);
+    var popup = new MessagePopup(title, message, 4);
     popup.OpenPopup();
     return;
 });

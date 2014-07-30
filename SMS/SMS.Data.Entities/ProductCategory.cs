@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Data;
+using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
 {
-    public class ProductCategory : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    public class ProductCategory : Entity, IAuditableEntity, ISortableEntity, IEnableEntity, IBranchEntity
     {
         public virtual string ProductCategoryCode { get; set; }
 
@@ -16,9 +17,13 @@ namespace SMS.Data.Entities
 
         public virtual string ENDescription { get; set; }
 
+        public virtual IList<Product> Products { get; set; }
+
+        #region Implementation of IBranchEntity
+
         public virtual Branch Branch { get; set; }
 
-        public virtual IList<Product> Products { get; set; }
+        #endregion
 
         #region Implementation of IEnableEntity
 

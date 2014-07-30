@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Data;
 using Core.Common.Validation;
 using SMS.Data.Dtos;

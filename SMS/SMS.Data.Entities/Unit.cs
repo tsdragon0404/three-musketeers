@@ -1,15 +1,20 @@
 ﻿using System;
 using Core.Data;
+using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
 {
-    public class Unit : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    public class Unit : Entity, IAuditableEntity, ISortableEntity, IEnableEntity, IBranchEntity
     {
         public virtual string VNName { get; set; }
 
         public virtual string ENName { get; set; }
 
-        public virtual long BranchID { get; set; }
+        #region Implementation of IBranchEntity
+
+        public virtual Branch Branch { get; set; }
+
+        #endregion
 
         #region Implementation of IEnableEntity
 

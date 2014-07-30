@@ -8,7 +8,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 {
     [SmsAuthorize(ConstPage.Data_Area)]
     [PageID(ConstPage.Data_Area)]
-    public class AreaController : AdminBaseController<AreaDto, long, IAreaService>
+    public class AreaController : AdminBranchBaseController<AreaDto, long, IAreaService>
     {
         #region Fields
 

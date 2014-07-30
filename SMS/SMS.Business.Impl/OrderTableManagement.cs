@@ -26,7 +26,7 @@ namespace SMS.Business.Impl
         {
             var usedTables = Repository.Find(x => (x.Table.Area.ID == areaID || areaID == 0) && x.Order.Branch.ID == SmsSystem.SelectedBranchID && x.Table.Enable).ToList();
 
-            var availableTables = TableRepository.Find(x => (x.Area.ID == areaID || areaID == 0) && x.Area.BranchID == SmsSystem.SelectedBranchID && !x.OrderTables.Any());
+            var availableTables = TableRepository.Find(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsSystem.SelectedBranchID && !x.OrderTables.Any());
 
             usedTables.AddRange(availableTables.Select(table => new OrderTable
                                                                     {
@@ -79,13 +79,13 @@ namespace SMS.Business.Impl
         {
             var orderTableFirst = new OrderTable {ID = 0};
             
-            for (var i = 0; i < orderTable.Length; i++)
+            foreach (var id in orderTable)
             {
                 if (orderTableFirst.ID == 0)
-                    orderTableFirst = Repository.Get(orderTable[i]) ?? orderTableFirst;
+                    orderTableFirst = Repository.Get(id) ?? orderTableFirst;
                 else
                 {
-                    var orderTableID = orderTable[i];
+                    var orderTableID = id;
                     var orderDetailList = OrderDetailRepository.Find(x => x.OrderTable.ID == orderTableID).ToList();
                     if (orderDetailList.Any())
                     {

@@ -1,13 +1,18 @@
 ﻿using System;
 using Core.Data;
+using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
 {
-    public class BranchTax : Entity, IAuditableEntity
+    public class BranchTax : Entity, IAuditableEntity, IBranchEntity
     {
-        public virtual long BranchID { get; set; }
-
         public virtual Tax Tax { get; set; }
+
+        #region Implementation of IBranchEntity
+
+        public virtual Branch Branch { get; set; }
+
+        #endregion
 
         #region Implementation of IAuditableEntity
 

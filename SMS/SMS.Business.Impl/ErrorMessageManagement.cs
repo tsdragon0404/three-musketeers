@@ -15,17 +15,6 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<ErrorMessageDto>> GetMessagesForSelectedBranch()
-        {
-            return GetMessagesForSelectedBranch<ErrorMessageDto>();
-       
-        }
-        public ServiceResult<IList<TModel>> GetMessagesForSelectedBranch<TModel>()
-        {
-            return ServiceResult<IList<TModel>>.CreateSuccessResult(
-                Mapper.Map<IList<TModel>>(Repository.Find(x => x.BranchID == SmsSystem.SelectedBranchID && x.ID > 0).ToList()));
-        }
-
         public ServiceResult<IList<ErrorMessageDto>> GetSystemMessages()
         {
             return GetSystemMessages<ErrorMessageDto>();

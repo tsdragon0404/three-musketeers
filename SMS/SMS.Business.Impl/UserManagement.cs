@@ -37,7 +37,7 @@ namespace SMS.Business.Impl
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }
 
-        public override ServiceResult<IPagedList<UserDto>> FindByString(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
+        public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
             Expression<Func<User, bool>> predicate = x => !x.IsSystemAdmin && x.UseSystemConfig;
             if (SmsSystem.UserContext.IsSystemAdmin)

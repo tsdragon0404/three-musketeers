@@ -34,12 +34,13 @@ namespace SMS.Business.Impl
             return returnValue;
         }
 
-        public ServiceResult<IList<TDto>> GetAllByBranch<TDto>()
-        {
-            var result =
-                Repository.Find(x => x.ProductCategory.Branch.ID == SmsSystem.SelectedBranchID && x.Enable).OrderBy(
-                    x => x.ProductCategory.SEQ).ThenBy(x => x.SEQ).ToList();
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
-        }
+        // temporary removed
+        //public ServiceResult<IList<TDto>> GetAllByBranch<TDto>()
+        //{
+        //    var result =
+        //        Repository.Find(x => x.ProductCategory.Branch.ID == SmsSystem.SelectedBranchID && x.Enable).OrderBy(
+        //            x => x.ProductCategory.SEQ).ThenBy(x => x.SEQ).ToList();
+        //    return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
+        //}
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Data;
+using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
 {
-    public class Order : Entity, IAuditableEntity
+    public class Order : Entity, IAuditableEntity, IBranchEntity
     {
-        public virtual Branch Branch { get; set; }
-
         public virtual string OrderNumber { get; set; }
 
         public virtual string Comment { get; set; }
@@ -21,6 +20,12 @@ namespace SMS.Data.Entities
         public virtual IList<OrderDiscount> OrderDiscounts { get; set; }
 
         public virtual IList<OrderTable> OrderTables { get; set; }
+
+        #region Implementation of IBranchEntity
+
+        public virtual Branch Branch { get; set; }
+
+        #endregion
 
         #region Implementation of IAuditableEntity
 

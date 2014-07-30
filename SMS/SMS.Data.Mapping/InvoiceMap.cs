@@ -7,7 +7,8 @@ namespace SMS.Data.Mapping
         public InvoiceMap()
         {
             Table("Invoice");
-            Map(x => x.BranchID);
+            References(x => x.Branch).Column("BranchID")
+                .Cascade.None();
             Map(x => x.InvoiceNumber);
             Map(x => x.InvoiceDate);
             Map(x => x.Comment);

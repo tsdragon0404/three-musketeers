@@ -7,7 +7,8 @@ namespace SMS.Data.Mapping
         public BranchTaxMap()
         {
             Table("BranchTax");
-            Map(x => x.BranchID);
+            References(x => x.Branch).Column("BranchID")
+                .Cascade.None();
             References(x => x.Tax).Column("TaxID");
         }
     }
