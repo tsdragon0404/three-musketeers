@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common;
-using Core.Common.Validation;
-using SMS.Common.Session;
 using SMS.Data;
 using AutoMapper;
 using SMS.Data.Dtos;
@@ -16,6 +14,13 @@ namespace SMS.Business.Impl
 
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
 
+        public override System.Func<IEnumerable<Product>, IOrderedEnumerable<Product>> ExecuteOrderFunc
+        {
+            get
+            {
+                return x => x.OrderBy(y => y.ProductCategory.SEQ).ThenBy(y => y.SEQ);
+            }
+        }
         #endregion
 
         public IList<LanguageProductDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
@@ -33,14 +38,5 @@ namespace SMS.Business.Impl
 
             return returnValue;
         }
-
-        // temporary removed
-        //public ServiceResult<IList<TDto>> GetAllByBranch<TDto>()
-        //{
-        //    var result =
-        //        Repository.Find(x => x.ProductCategory.Branch.ID == SmsSystem.SelectedBranchID && x.Enable).OrderBy(
-        //            x => x.ProductCategory.SEQ).ThenBy(x => x.SEQ).ToList();
-        //    return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
-        //}
     }
 }

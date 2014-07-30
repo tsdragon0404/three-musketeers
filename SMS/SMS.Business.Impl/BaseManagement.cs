@@ -35,6 +35,10 @@ namespace SMS.Business.Impl
                 return null;
             }
         }
+        public virtual Func<IEnumerable<TEntity>, IOrderedEnumerable<TEntity>> ExecuteOrderFunc
+        {
+            get { return null; }
+        }
 
         #region Implementation of IBaseManagement<TDto,in TPrimaryKey>
 
@@ -45,12 +49,15 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable)
         {
-            List<TEntity> result;
+            IEnumerable<TEntity> result;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                result = Repository.Find(x => (x as IEnableEntity).Enable).ToList();
+                result = Repository.Find(x => (x as IEnableEntity).Enable);
             else
-                result = Repository.GetAll().ToList();
+                result = Repository.GetAll();
+
+            if (ExecuteOrderFunc != null)
+                result = ExecuteOrderFunc(result);
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
@@ -62,12 +69,17 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
-            IList<TModel> filteredRecords;
+            IEnumerable<TEntity> queryResult;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).ToList());
+                queryResult = Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable);
             else
-                filteredRecords = Mapper.Map<IList<TModel>>(Repository.FindByString(textSearch, null).ToList());
+                queryResult = Repository.FindByString(textSearch, null);
+
+            if (ExecuteOrderFunc != null)
+                queryResult = ExecuteOrderFunc(queryResult);
+
+            var filteredRecords = Mapper.Map<IList<TModel>>(queryResult);
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
             pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
@@ -85,12 +97,15 @@ namespace SMS.Business.Impl
             if (GetBranchID == null)
                 return ServiceResult<IList<TModel>>.CreateFailResult(new Error("GetBranchID function is not defined", ErrorType.CodeImplementation));
 
-            List<TEntity> result;
+            IEnumerable<TEntity> result;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                result = Repository.Find(x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID).ToList();
+                result = Repository.Find(x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID);
             else
-                result = Repository.GetAll().Where(x => GetBranchID(x) == branchID).ToList();
+                result = Repository.GetAll().Where(x => GetBranchID(x) == branchID);
+
+            if (ExecuteOrderFunc != null)
+                result = ExecuteOrderFunc(result);
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
@@ -105,12 +120,15 @@ namespace SMS.Business.Impl
             if (GetBranchID == null)
                 return ServiceResult<IPagedList<TModel>>.CreateFailResult(new Error("GetBranchID function is not defined", ErrorType.CodeImplementation));
 
-            List<TEntity> queryResult;
+            IEnumerable<TEntity> queryResult;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                queryResult = Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID).ToList();
+                queryResult = Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID);
             else
-                queryResult = Repository.FindByString(textSearch, null).Where(x => GetBranchID(x) == branchID).ToList();
+                queryResult = Repository.FindByString(textSearch, null).Where(x => GetBranchID(x) == branchID);
+
+            if (ExecuteOrderFunc != null)
+                queryResult = ExecuteOrderFunc(queryResult);
 
             var filteredRecords = Mapper.Map<IList<TModel>>(queryResult);
             pagingInfo.TotalItemCount = filteredRecords.Count();

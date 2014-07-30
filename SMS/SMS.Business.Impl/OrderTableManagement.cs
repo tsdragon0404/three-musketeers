@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
 using SMS.Common.Constant;
@@ -19,6 +20,14 @@ namespace SMS.Business.Impl
         public virtual IOrderRepository OrderRepository { get; set; }
         public virtual IOrderManagement OrderManagement { get; set; }
         public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
+
+        public override Func<IEnumerable<OrderTable>, IOrderedEnumerable<OrderTable>> ExecuteOrderFunc
+        {
+            get
+            {
+                return x => x.OrderBy(y => y.Table.Area.SEQ).ThenBy(y => y.Table.ID);
+            }
+        }
 
         #endregion
 
