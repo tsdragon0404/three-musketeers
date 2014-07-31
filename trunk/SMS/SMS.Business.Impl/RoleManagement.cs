@@ -14,12 +14,12 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<RoleDto>> GetByUserID(long id)
+        public ServiceResult<IList<RoleDto>> GetByUserID(long userID)
         {
-            if (id == 0)
+            if (userID == 0)
                 return ServiceResult<IList<RoleDto>>.CreateSuccessResult(new List<RoleDto>());
 
-            var result = Repository.Find(x => x.UsersInRole.Select(y => y.ID).Contains(id)).ToList();
+            var result = Repository.Find(x => x.UsersInRole.Select(y => y.ID).Contains(userID)).ToList();
             return ServiceResult<IList<RoleDto>>.CreateSuccessResult(Mapper.Map<IList<RoleDto>>(result));
         }
     }

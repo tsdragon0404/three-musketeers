@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Core.Common;
 using SMS.Data;
-using AutoMapper;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 
@@ -14,29 +13,26 @@ namespace SMS.Business.Impl
 
         public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
 
-        public override System.Func<IEnumerable<Product>, IOrderedEnumerable<Product>> ExecuteOrderFunc
+        #endregion
+
+        #region Func
+
+        public override Func<Product, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.ProductCategory.Branch.ID == y;
+            }
+        }
+
+        public override Func<IEnumerable<Product>, IOrderedEnumerable<Product>> ExecuteOrderFunc
         {
             get
             {
                 return x => x.OrderBy(y => y.ProductCategory.SEQ).ThenBy(y => y.SEQ);
             }
-        }
+        } 
+
         #endregion
-
-        public IList<LanguageProductDto> GetProductsOrderingByInvoiceTableID(long invoiceTableID)
-        {
-            var invoiceTable = InvoiceTableRepository.Get(invoiceTableID);
-            var productCodes = invoiceTable.InvoiceDetails.Select(x => x.ProductCode).ToList();
-            
-            var products = Repository.Find(x => productCodes.Contains(x.ProductCode));
-            var returnValue = Mapper.Map<IList<LanguageProductDto>>(products.ToList());
-
-            returnValue.Apply(x => x.Quantity =
-                invoiceTable.InvoiceDetails.FirstOrDefault(y => y.ProductCode == x.ProductCode) == null
-                    ? 0
-                    : invoiceTable.InvoiceDetails.First(y => y.ProductCode == x.ProductCode).Quantity);
-
-            return returnValue;
-        }
     }
 }

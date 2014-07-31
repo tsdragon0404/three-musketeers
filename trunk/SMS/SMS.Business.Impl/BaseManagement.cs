@@ -15,30 +15,37 @@ namespace SMS.Business.Impl
         where TEntity: IEntity<TPrimaryKey>
     {
         public virtual TIRepository Repository { get; set; }
+
+        #region Func
+
+        public virtual Func<TEntity, long, bool> BelongToBranch
+        {
+            get
+            {
+                if (typeof(IBranchEntity).IsAssignableFrom(typeof(TEntity)))
+                    return (x, y) => ((IBranchEntity)x).Branch.ID == y;
+
+                return null;
+            }
+        }
+
         public virtual Func<TEntity, bool> BelongToCurrentBranch
         {
             get
             {
-                if (typeof(IBranchEntity).IsAssignableFrom(typeof(TEntity)))
-                    return x => ((IBranchEntity)x).Branch.ID == SmsSystem.SelectedBranchID;
+                if (BelongToBranch != null)
+                    return x => BelongToBranch(x, SmsSystem.SelectedBranchID);
 
                 return null;
             }
         }
-        public virtual Func<TEntity, long> GetBranchID
-        {
-            get
-            {
-                if (typeof(IBranchEntity).IsAssignableFrom(typeof(TEntity)))
-                    return x => ((IBranchEntity)x).Branch.ID;
 
-                return null;
-            }
-        }
         public virtual Func<IEnumerable<TEntity>, IOrderedEnumerable<TEntity>> ExecuteOrderFunc
         {
             get { return null; }
-        }
+        } 
+
+        #endregion
 
         #region Implementation of IBaseManagement<TDto,in TPrimaryKey>
 
@@ -94,15 +101,15 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IList<TModel>> GetAllByBranch<TModel>(long branchID, bool includeDisable)
         {
-            if (GetBranchID == null)
-                return ServiceResult<IList<TModel>>.CreateFailResult(new Error("GetBranchID function is not defined", ErrorType.CodeImplementation));
+            if (BelongToBranch == null)
+                return ServiceResult<IList<TModel>>.CreateFailResult(new Error("BelongToBranch function is not defined", ErrorType.CodeImplementation));
 
             IEnumerable<TEntity> result;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                result = Repository.Find(x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID);
+                result = Repository.Find(x => (x as IEnableEntity).Enable).Where(x => BelongToBranch(x, branchID));
             else
-                result = Repository.GetAll().Where(x => GetBranchID(x) == branchID);
+                result = Repository.GetAll().Where(x => BelongToBranch(x, branchID));
 
             if (ExecuteOrderFunc != null)
                 result = ExecuteOrderFunc(result);
@@ -117,15 +124,15 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<IPagedList<TModel>> SearchByBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable)
         {
-            if (GetBranchID == null)
-                return ServiceResult<IPagedList<TModel>>.CreateFailResult(new Error("GetBranchID function is not defined", ErrorType.CodeImplementation));
+            if (BelongToBranch == null)
+                return ServiceResult<IPagedList<TModel>>.CreateFailResult(new Error("BelongToBranch function is not defined", ErrorType.CodeImplementation));
 
             IEnumerable<TEntity> queryResult;
 
             if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                queryResult = Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).Where(x => GetBranchID(x) == branchID);
+                queryResult = Repository.FindByString(textSearch, x => (x as IEnableEntity).Enable).Where(x => BelongToBranch(x, branchID));
             else
-                queryResult = Repository.FindByString(textSearch, null).Where(x => GetBranchID(x) == branchID);
+                queryResult = Repository.FindByString(textSearch, null).Where(x => BelongToBranch(x, branchID));
 
             if (ExecuteOrderFunc != null)
                 queryResult = ExecuteOrderFunc(queryResult);
@@ -144,20 +151,27 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<TModel> GetByIDForCurrentBranch<TModel>(TPrimaryKey primaryKey)
         {
-            var record = Repository.Get(primaryKey);
-            if (BelongToCurrentBranch != null && BelongToCurrentBranch(record))
-                return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
+            if(BelongToCurrentBranch == null)
+                return ServiceResult<TModel>.CreateFailResult(new Error("BelongToCurrentBranch function is not defined", ErrorType.CodeImplementation));
 
-            return ServiceResult<TModel>.CreateFailResult(new Error("Cannot get data from another branch", ErrorType.Business));
+            var record = Repository.Get(primaryKey);
+            if(record == null)
+                return ServiceResult<TModel>.CreateFailResult(new Error("The requested data does not existed", ErrorType.Business));
+
+            return BelongToCurrentBranch(record) 
+                ? ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record)) 
+                : ServiceResult<TModel>.CreateFailResult(new Error("Cannot get data from another branch", ErrorType.Business));
         }
         
         public virtual ServiceResult DeleteInCurrentBranch(TPrimaryKey primaryKey)
         {
-            var record = Repository.Get(primaryKey);
-            if (BelongToCurrentBranch != null && BelongToCurrentBranch(record))
-                return ServiceResult.CreateResult(Repository.Delete(primaryKey));
+            if(BelongToCurrentBranch == null)
+                return ServiceResult.CreateFailResult(new Error("BelongToCurrentBranch function is not defined", ErrorType.CodeImplementation));
 
-            return ServiceResult.CreateFailResult(new Error("Cannot get data from another branch", ErrorType.Business));
+            var record = Repository.Get(primaryKey);
+            return BelongToCurrentBranch(record) 
+                ? ServiceResult.CreateResult(Repository.Delete(primaryKey)) 
+                : ServiceResult.CreateFailResult(new Error("Cannot delete data in another branch", ErrorType.Business));
         }
 
         public virtual ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
@@ -167,7 +181,10 @@ namespace SMS.Business.Impl
 
         public virtual ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
         {
-            return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(Repository.Get(primaryKey)));
+            var record = Repository.Get(primaryKey);
+            return record == null 
+                ? ServiceResult<TModel>.CreateFailResult(new Error("The requested data does not existed", ErrorType.Business)) 
+                : ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
         }
 
         public virtual ServiceResult<TDto> Save(TDto dto)

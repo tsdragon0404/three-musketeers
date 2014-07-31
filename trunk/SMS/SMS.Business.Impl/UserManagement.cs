@@ -18,10 +18,17 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
-        public virtual IUsersInRoleRepository UsersInRoleRepository { get; set; }
-        public virtual IUserBranchRepository UserBranchRepository { get; set; }
-        public virtual IRoleRepository RoleRepository { get; set; }
-        public virtual IBranchRepository BranchRepository { get; set; }
+        #endregion
+
+        #region Func
+
+        public override Func<User, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.Branches.Any(b => b.ID == y);
+            }
+        }
 
         #endregion
 

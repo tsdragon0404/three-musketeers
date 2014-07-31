@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
-using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
@@ -14,12 +14,24 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<TModel>> GetUserAssignedBranches<TModel>(long id)
+        #region Func
+
+        public override Func<Data.Entities.Branch, long, bool> BelongToBranch
         {
-            if(id == 0)
+            get
+            {
+                return (x, y) => x.ID == y;
+            }
+        }
+
+        #endregion
+
+        public ServiceResult<IList<TModel>> GetUserAssignedBranches<TModel>(long userID)
+        {
+            if(userID == 0)
                 return ServiceResult<IList<TModel>>.CreateSuccessResult(new List<TModel>());
 
-            var result = Repository.Find(x => (x.Users.Select(y => y.ID).Contains(id) && x.Enable)).ToList();
+            var result = Repository.Find(x => (x.Users.Select(y => y.ID).Contains(userID) && x.Enable)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
     }

@@ -31,6 +31,18 @@ namespace SMS.Business.Impl
 
         #endregion
 
+        #region Func
+
+        public override Func<OrderTable, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.Order.Branch.ID == y;
+            }
+        }
+
+        #endregion
+
         public ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID)
         {
             var usedTables = Repository.Find(x => (x.Table.Area.ID == areaID || areaID == 0) && x.Order.Branch.ID == SmsSystem.SelectedBranchID && x.Table.Enable).ToList();

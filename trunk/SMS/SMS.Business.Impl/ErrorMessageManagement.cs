@@ -2,7 +2,6 @@
 using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
-using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
