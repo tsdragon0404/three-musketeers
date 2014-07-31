@@ -21,6 +21,7 @@ namespace SMS.Common.AutoMapper
             Map<Currency, CurrencyDto>();
             Map<Customer, CustomerDto>();
             Map<ErrorMessage, ErrorMessageDto>();
+            Map<ErrorMessage, Message.Message>();
             Map<InvoiceDetail, InvoiceDetailDto>();
             Map<Invoice, InvoiceDto>();
             Map<InvoiceDiscount, InvoiceDiscountDto>();

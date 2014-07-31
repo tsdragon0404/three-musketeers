@@ -17,6 +17,8 @@ using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
+using SMS.Common.Message;
+using SMS.Services;
 
 namespace SMS.MvcApplication
 {
@@ -52,6 +54,9 @@ namespace SMS.MvcApplication
             AutofacRegister();
 
             MappingRegister();
+
+            var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
+            SystemMessages.SetSystemMessages(errorMessageService.GetSystemMessages<Message>().Data);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -108,8 +113,6 @@ namespace SMS.MvcApplication
             container = containerBuilder.Build();
             ServiceLocator.Initialize(container);
 
-            ServiceLocator.Initialize(container);
-
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container, new RequestLifetimeScopeProvider(container)));
         }
 
@@ -119,7 +122,6 @@ namespace SMS.MvcApplication
                            .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
                                c => c.FromConnectionStringWithKey("SmsDb")))
                            .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
-                //.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
                            .BuildSessionFactory();
         }
 

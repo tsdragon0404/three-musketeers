@@ -9,12 +9,14 @@ namespace Core.Common.CustomAttributes
         public decimal Min { get; set; }
         public decimal Max { get; set; }
         public int MessageID { get; set; }
+        public string FallbackMessage { get; set; }
 
-        public RangeAttribute(decimal min, decimal max, int messageId)
+        public RangeAttribute(decimal min, decimal max, int messageId, string fallbackMessage)
         {
             Min = min;
             Max = max;
             MessageID = messageId;
+            FallbackMessage = fallbackMessage;
         }
 
         public object[] MessageArgs
