@@ -9,7 +9,9 @@ VALUES
 ( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', NULL, N'Cashier', N'Index' ),
 ( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', NULL, N'Kitchen', N'Index' ),
 ( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', NULL, N'Account', N'Login' ),
-( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', NULL, N'Account', N'AccessDenied' ),
+( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', NULL, N'Error', N'AccessDenied' ),
+( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', NULL, N'Error', N'Unknown' ),
+( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', NULL, N'Error', N'NotFound' ),
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
