@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
 using SMS.Common.Constant;
@@ -13,6 +14,18 @@ namespace SMS.Business.Impl
     public class PageLabelManagement : BaseManagement<PageLabelDto, PageLabel, long, IPageLabelRepository>, IPageLabelManagement
     {
         #region Fields
+
+        #endregion
+
+        #region Func
+
+        public override Func<PageLabel, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.BranchID == y;
+            }
+        }
 
         #endregion
 

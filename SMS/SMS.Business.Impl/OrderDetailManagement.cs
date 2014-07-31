@@ -23,6 +23,18 @@ namespace SMS.Business.Impl
 
         #endregion
 
+        #region Func
+
+        public override Func<OrderDetail, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.OrderTable.Order.Branch.ID == y;
+            }
+        }
+
+        #endregion
+
         public ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
         {
             var product = ProductRepository.Get(productID);
