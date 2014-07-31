@@ -11,5 +11,7 @@
         public const int UnAuthorize_LoginRequired = -5;
 
         public const int Validate_NotValid = -7;
+
+        public const int Business_DataNotExist = -8;
     }
 }
