@@ -10,6 +10,8 @@ namespace SMS.Common.Constant
         public const long Kitchen = 3;
         public const long Login = 4;
         public const long AccessDenied = 5;
+        public const long UnknownError = 6;
+        public const long NotFoundError = 7;
                      
         public const long Branch_Home = 20;
         public const long Branch_GlobalLabel = 21;

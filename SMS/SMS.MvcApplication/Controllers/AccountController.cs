@@ -167,12 +167,6 @@ namespace SMS.MvcApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        [PageID(ConstPage.AccessDenied)]
-        public ActionResult AccessDenied()
-        {
-            return View();
-        }
-
         [HttpPost]
         [SmsAuthorize(ConstPage.Global)]
         public JsonResult ChangeBranch(long branchID)

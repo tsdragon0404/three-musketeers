@@ -62,7 +62,7 @@ namespace SMS.Common.CustomAttributes
                     new RouteValueDictionary(
                         new
                         {
-                            controller = "Account",
+                            controller = "Error",
                             action = "AccessDenied",
                             area = ""
                         })
