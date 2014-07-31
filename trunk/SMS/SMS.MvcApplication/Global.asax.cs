@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
@@ -81,6 +82,23 @@ namespace SMS.MvcApplication
                 Response.Write("Lock error");
                 Response.End();
                 Server.ClearError();
+            }
+
+            var httpException = exception as HttpException;
+            if(httpException != null)
+            {
+                Response.Clear();
+                Server.ClearError();
+
+                var statusCode = httpException.GetHttpCode();
+                var action = "Unknown";
+
+                if (statusCode == (int)HttpStatusCode.NotFound)
+                    action = "NotFound";
+                else if (statusCode == (int)HttpStatusCode.Unauthorized)
+                    action = "AccessDenied";
+
+                Response.RedirectToRoute("Default", new { controller = "Error", action });
             }
         }
 
