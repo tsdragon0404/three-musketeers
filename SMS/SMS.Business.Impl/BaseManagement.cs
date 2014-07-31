@@ -4,6 +4,8 @@ using System.Linq;
 using Core.Common.Validation;
 using Core.Data;
 using AutoMapper;
+using SMS.Common.Constant;
+using SMS.Common.Message;
 using SMS.Common.Paging;
 using SMS.Common.Session;
 using SMS.Data.Entities.Interfaces;
@@ -155,12 +157,10 @@ namespace SMS.Business.Impl
                 return ServiceResult<TModel>.CreateFailResult(new Error("BelongToCurrentBranch function is not defined", ErrorType.CodeImplementation));
 
             var record = Repository.Get(primaryKey);
-            if(record == null)
-                return ServiceResult<TModel>.CreateFailResult(new Error("The requested data does not existed", ErrorType.Business));
+            if (record == null || !BelongToCurrentBranch(record))
+                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business));
 
-            return BelongToCurrentBranch(record) 
-                ? ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record)) 
-                : ServiceResult<TModel>.CreateFailResult(new Error("Cannot get data from another branch", ErrorType.Business));
+            return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
         }
         
         public virtual ServiceResult DeleteInCurrentBranch(TPrimaryKey primaryKey)
@@ -170,8 +170,8 @@ namespace SMS.Business.Impl
 
             var record = Repository.Get(primaryKey);
             return BelongToCurrentBranch(record) 
-                ? ServiceResult.CreateResult(Repository.Delete(primaryKey)) 
-                : ServiceResult.CreateFailResult(new Error("Cannot delete data in another branch", ErrorType.Business));
+                ? ServiceResult.CreateResult(Repository.Delete(primaryKey))
+                : ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business));
         }
 
         public virtual ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
@@ -182,8 +182,8 @@ namespace SMS.Business.Impl
         public virtual ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
         {
             var record = Repository.Get(primaryKey);
-            return record == null 
-                ? ServiceResult<TModel>.CreateFailResult(new Error("The requested data does not existed", ErrorType.Business)) 
+            return record == null
+                ? ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business)) 
                 : ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
         }
 

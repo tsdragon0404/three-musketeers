@@ -14,7 +14,7 @@ namespace SMS.Data.Entities
         {
             Errors = new List<Error>();
             if (ID < 0)
-                Errors.Add(new Error(SystemMessages.Get(ConstMessageIds.NotValid), ErrorType.Validate, "ID"));
+                Errors.Add(new Error(SystemMessages.Get(ConstMessageIds.Validate_NotValid, "{0} is not valid"), ErrorType.Validate, "ID"));
 
             var propertyInfos = GetType().GetProperties().ToList();
 
@@ -27,7 +27,7 @@ namespace SMS.Data.Entities
                     var parseAttribute = attribute as IValidationAttribute;
                     var isValid = parseAttribute.ValidateObject(this, propertyInfo);
                     if (!isValid)
-                        Errors.Add(new Error(SystemMessages.Get(parseAttribute.MessageID), ErrorType.Validate, propertyInfo.Name, parseAttribute.MessageArgs));
+                        Errors.Add(new Error(SystemMessages.Get(parseAttribute.MessageID, parseAttribute.FallbackMessage), ErrorType.Validate, propertyInfo.Name, parseAttribute.MessageArgs));
                 }
             }
 

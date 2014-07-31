@@ -6,15 +6,15 @@ namespace SMS.Common.Message
 {
     public class SystemMessages
     {
-        private static List<Message> messages;
-        private static List<Message> systemMessages;
+        private static IList<Message> messages;
+        private static IList<Message> systemMessages;
 
-        public static void SetMessages(List<Message> errorMessages)
+        public static void SetMessages(IList<Message> errorMessages)
         {
             messages = errorMessages;
         }
 
-        public static void SetSystemMessages(List<Message> systemMgs)
+        public static void SetSystemMessages(IList<Message> systemMgs)
         {
             if (systemMgs != null)
                 systemMessages = systemMgs;
@@ -27,16 +27,16 @@ namespace SMS.Common.Message
                 systemMessages = new List<Message>();
         }
 
-        public static string Get(long id)
+        public static string Get(long id, string fallbackMessage)
         {
             if (id < 0)
-                return systemMessages.Exists(x => x.ID == id)
-                    ? SmsSystem.Language == Language.Vietnamese ? systemMessages.First(x => x.ID == id).VNText : systemMessages.First(x => x.ID == id).ENText
-                    : string.Empty;
+                return systemMessages.Any(x => x.MessageID == id)
+                    ? SmsSystem.Language == Language.Vietnamese ? systemMessages.First(x => x.MessageID == id).VNMessage : systemMessages.First(x => x.MessageID == id).ENMessage
+                    : string.Format("[{0}]", fallbackMessage);
 
-            return messages.Exists(x => x.ID == id)
-                ? SmsSystem.Language == Language.Vietnamese ? messages.First(x => x.ID == id).VNText : messages.First(x => x.ID == id).ENText
-                : string.Empty;
+            return messages.Any(x => x.MessageID == id)
+                ? SmsSystem.Language == Language.Vietnamese ? messages.First(x => x.MessageID == id).VNMessage : messages.First(x => x.MessageID == id).ENMessage
+                : string.Format("[{0}]", fallbackMessage);
         }
     }
 }

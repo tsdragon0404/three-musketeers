@@ -26,8 +26,6 @@ namespace SMS.MvcApplication.Controllers
         {
             if (SmsSystem.UserContext.UserID != 0)
                 return RedirectToAction("Index", "Home");
-
-            SystemMessages.SetSystemMessages(ErrorMessageService.GetSystemMessages().Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
             
             var branches = GetBranchList();
             return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
@@ -53,7 +51,7 @@ namespace SMS.MvcApplication.Controllers
                 if (!user.Branches.Select(x => x.ID).Contains(model.SelectedBranch) && !user.IsSystemAdmin)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator.");
                     model.ListBranch = GetBranchList();
                     return View(model);
                 }
@@ -67,7 +65,7 @@ namespace SMS.MvcApplication.Controllers
                 if(branch == null)
                 {
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);//TODO: should be branch not available
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable, "Branch not available.");
                     model.ListBranch = GetBranchList();
                     return View(model);
                 }
@@ -75,7 +73,7 @@ namespace SMS.MvcApplication.Controllers
                 SetSessionData(user, branch);
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
 
-                SystemMessages.SetMessages(ErrorMessageService.GetAllByBranch(SmsSystem.SelectedBranchID).Data.Select(x => new Message(x.MessageID, x.VNMessage, x.ENMessage)).ToList());
+                SystemMessages.SetMessages(ErrorMessageService.GetAllByBranch<Message>(SmsSystem.SelectedBranchID).Data);
 
                 return RedirectToAction("Index", "Home");
             }

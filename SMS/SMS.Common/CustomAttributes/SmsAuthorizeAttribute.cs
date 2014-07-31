@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using SMS.Common.Constant;
+using SMS.Common.Message;
 using SMS.Common.Session;
 
 namespace SMS.Common.CustomAttributes
@@ -40,9 +41,9 @@ namespace SMS.Common.CustomAttributes
             if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
                 if(Status == AuthorizeStatus.DontHaveAccessRight)
-                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, "ko co quyen vao trang nay");
+                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."));
                 if (Status == AuthorizeStatus.NotLogin)
-                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, "chua dang nhap vao he thong");
+                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired, "Login required."));
                 return;
             }
 

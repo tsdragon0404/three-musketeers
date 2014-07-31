@@ -73,6 +73,10 @@ VALUES
 ( -1, -1, 0, N'Incorrect username or password.', N'Tên đăng nhập hoặc mật khẩu không chính xác.' ),
 ( -2, -2, 0, N'This user is temporary locked, please contact administrator.', N'Tài khoản tạm khóa, vui lòng liên hệ quản trị viên.' ),
 ( -3, -3, 0, N'This user cannot log into this branch. Please contact administrator.', N'Tài khoản này không có quyền truy cập vào chi nhánh này. Vui lòng liên hệ quản trị viên.' ),
+( -4, -4, 0, N'You don''t have permission to access this page.', N'Bạn không đủ quyền hạn truy cập trang này.' ),
+( -5, -5, 0, N'Login required.', N'Bạn chưa đăng nhập.' ),
+( -6, -6, 0, N'Branch not available.', N'Chi nhánh này không tồn tại.' ),
+( -7, -7, 0, N'{0} is not valid.', N'{0} không hợp lệ.' ),
+( -8, -8, 0, N'The requested data does not existed.', N'Dữ liệu không tồn tại.' )
 
-( 1, 1, 1, N'{0} is not valid', N'{0} không hợp lệ' )
 GO

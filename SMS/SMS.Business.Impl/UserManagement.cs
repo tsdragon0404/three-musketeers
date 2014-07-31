@@ -36,10 +36,10 @@ namespace SMS.Business.Impl
         {
             var user = Repository.FindOne(x => x.Username == username && x.Password == password);
             if (user == null)
-                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
+                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid, "Username or password invalid"), ErrorType.Business));
 
             if (user.IsLockedOut)
-                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UserLocked), ErrorType.Business));
+                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UserLocked, "This user is temporary locked. Please contact Administrator."), ErrorType.Business));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }
