@@ -21,7 +21,9 @@ namespace SMS.Business.Impl
         {
             get
             {
-                return (x, y) => x.ProductCategory.Branch.ID == y;
+                return (x, y) => x.ProductCategory != null
+                                 && x.ProductCategory.Branch != null
+                                 && x.ProductCategory.Branch.ID == y;
             }
         }
 

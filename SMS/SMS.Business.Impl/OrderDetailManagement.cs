@@ -29,7 +29,10 @@ namespace SMS.Business.Impl
         {
             get
             {
-                return (x, y) => x.OrderTable.Order.Branch.ID == y;
+                return (x, y) => x.OrderTable != null
+                                 && x.OrderTable.Order != null
+                                 && x.OrderTable.Order.Branch != null
+                                 && x.OrderTable.Order.Branch.ID == y;
             }
         }
 

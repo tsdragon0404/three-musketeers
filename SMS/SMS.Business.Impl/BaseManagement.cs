@@ -25,7 +25,7 @@ namespace SMS.Business.Impl
             get
             {
                 if (typeof(IBranchEntity).IsAssignableFrom(typeof(TEntity)))
-                    return (x, y) => ((IBranchEntity)x).Branch.ID == y;
+                    return (x, y) => ((IBranchEntity)x).Branch != null && ((IBranchEntity)x).Branch.ID == y;
 
                 return null;
             }
@@ -192,17 +192,13 @@ namespace SMS.Business.Impl
             var result = new ServiceResult<TDto>();
 
             var entity = Mapper.Map<TEntity>(dto);
+            if (entity is IBranchEntity)
+                (entity as IBranchEntity).Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID };
+
             if (entity.ID is long && long.Parse(entity.ID.ToString()) == 0)
-            {
-                if (entity is IBranchEntity)
-                    (entity as IBranchEntity).Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID };
                 Repository.Add(entity);
-            }
             else
             {
-                if (entity is IBranchEntity)
-                    (entity as IBranchEntity).Branch.ID = SmsSystem.SelectedBranchID;
-
                 var mergeEntity = Repository.Merge(entity);
                 Repository.Update(mergeEntity);
             }

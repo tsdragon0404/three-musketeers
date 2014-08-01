@@ -1,11 +1,12 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<AreaDto>
 @{
     ViewBag.Title = "Index";
 }
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="7">
+        <td colspan="5">
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right">
@@ -23,19 +24,11 @@
                 </div>
                 <div class="row">
                     <div class="three columns right">
-                        Branch ID
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
-                    </div>
-                    <div class="three columns right">
                         SEQ
                     </div>
                     <div class="three columns">
                         <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
                     </div>
-                </div>
-                <div class="row">
                     <div class="three columns right">
                         Enable
                     </div>
@@ -71,8 +64,6 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
-                <col />
-                <col style="width: 100px;" />
                 <col style="width: 60px;" />
                 <col style="width: 75px;" />
             </colgroup>
@@ -80,9 +71,7 @@
                 <tr>
                     <th></th>
                     <th>No</th>
-                    <th>VN Name</th>
-                    <th>EN Name</th>
-                    <th>Branch</th>
+                    <th>Name</th>
                     <th>SEQ</th>
                     <th>Enabled</th>
                 </tr>
@@ -97,9 +86,7 @@
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.VNName</td>
-                        <td>@dto.ENName</td>
-                        <td>@dto.Branch.ID</td>
+                        <td>@(SmsSystem.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
                     </tr>
@@ -109,7 +96,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="6"></td>
+                    <td colspan="4"></td>
                 </tr>
             </tfoot>
         </table>
@@ -132,7 +119,6 @@
                     ID: recordID,
                     VNName: $('#vnName-' + recordID).val(),
                     ENName: $('#enName-' + recordID).val(),
-                    BranchID: $('#branchID-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()
                 };
