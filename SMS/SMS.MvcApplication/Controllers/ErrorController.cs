@@ -7,8 +7,8 @@ namespace SMS.MvcApplication.Controllers
 {
     public class ErrorController : Controller
     {
-        [PageID(ConstPage.UnknownError)]
-        public ActionResult Unknown()
+        [PageID(ConstPage.Error)]
+        public ActionResult Index()
         {
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return View();
