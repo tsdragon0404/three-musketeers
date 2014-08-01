@@ -84,22 +84,22 @@ namespace SMS.MvcApplication
                 Server.ClearError();
             }
 
-            var httpException = exception as HttpException;
-            if(httpException != null)
-            {
-                Response.Clear();
-                Server.ClearError();
+            //var httpException = exception as HttpException;
+            //if(httpException != null)
+            //{
+            //    Response.Clear();
+            //    Server.ClearError();
 
-                var statusCode = httpException.GetHttpCode();
-                var action = "Unknown";
+            //    var statusCode = httpException.GetHttpCode();
+            //    var action = "Unknown";
 
-                if (statusCode == (int)HttpStatusCode.NotFound)
-                    action = "NotFound";
-                else if (statusCode == (int)HttpStatusCode.Unauthorized)
-                    action = "AccessDenied";
+            //    if (statusCode == (int)HttpStatusCode.NotFound)
+            //        action = "NotFound";
+            //    else if (statusCode == (int)HttpStatusCode.Unauthorized)
+            //        action = "AccessDenied";
 
-                Response.RedirectToRoute("Default", new { controller = "Error", action });
-            }
+            //    Response.RedirectToRoute("Default", new { controller = "Error", action });
+            //}
         }
 
         #endregion
