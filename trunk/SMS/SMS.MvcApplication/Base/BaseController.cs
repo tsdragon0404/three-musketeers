@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using SMS.Common.CustomAttributes;
@@ -73,6 +74,12 @@ namespace SMS.MvcApplication.Base
             return Json(!SmsSystem.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
+        }
+
+        protected ActionResult ErrorPage(IList<Core.Common.Validation.Error> errors)
+        {
+            TempData["Error"] = errors;
+            return RedirectToAction("Index", "Error", new {area = ""});
         }
     }
 }

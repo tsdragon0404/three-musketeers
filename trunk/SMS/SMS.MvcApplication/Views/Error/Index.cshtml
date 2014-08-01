@@ -1,6 +1,6 @@
 ﻿@model HandleErrorInfo
 @{
-    ViewBag.Title = "Unknown Error";
+    ViewBag.Title = "Error";
 }
 
 <div>
@@ -8,8 +8,24 @@
 </div>
 <div>
     <div>
-        An unexpected error has occurred. Please contact the system administrator.
+        Errors occurred. Please contact the system administrator.
     </div>
+    @if(TempData["Error"] != null)
+    {
+        var errors = TempData["Error"] as List<Core.Common.Validation.Error>;
+        if (errors != null && errors.Any())
+        {
+        <div>
+            <ul>
+                @foreach (var error in errors)
+                {
+                    <li>Error type: @error.Type - @error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+        }
+    }
+    
     @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
     {
         <div>

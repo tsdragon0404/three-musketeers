@@ -23,10 +23,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
         {
             var serviceResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
             if(!serviceResult.Success || serviceResult.Data == null)
-            {
-                //TODO: handle service error
-                throw new Exception("ko lay dc du lieu khu vuc");
-            }
+                return ErrorPage(serviceResult.Errors);
 
             ViewBag.ListArea = serviceResult.Data;
             return base.Index(textSearch, page);

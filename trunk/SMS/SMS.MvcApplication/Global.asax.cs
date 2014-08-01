@@ -91,7 +91,7 @@ namespace SMS.MvcApplication
             //    Server.ClearError();
 
             //    var statusCode = httpException.GetHttpCode();
-            //    var action = "Unknown";
+            //    var action = "Index";
 
             //    if (statusCode == (int)HttpStatusCode.NotFound)
             //        action = "NotFound";
