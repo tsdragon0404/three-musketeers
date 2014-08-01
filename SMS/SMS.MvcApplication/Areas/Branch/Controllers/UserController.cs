@@ -19,13 +19,22 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListRole = RoleService.GetAll().Data;
+            var roleListResult = RoleService.GetAll();
+            if (!roleListResult.Success || roleListResult.Data == null)
+                return ErrorPage(roleListResult.Errors);
+
+            ViewBag.ListRole = roleListResult.Data;
             return base.Index(textSearch, page);
         }
 
+        [HttpPost]
         public override JsonResult SaveData(UserDto data)
         {
-            data.Branches = BranchService.GetUserAssignedBranches<BranchDto>(data.ID).Data;
+            var branchListResult = BranchService.GetUserAssignedBranches<BranchDto>(data.ID);
+            if (!branchListResult.Success || branchListResult.Data == null)
+                return AJaxError(branchListResult.Errors[0].ErrorMessage);
+
+            data.Branches = branchListResult.Data;
             return base.SaveData(data);
         }
     }

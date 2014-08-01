@@ -21,11 +21,11 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            var serviceResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
-            if(!serviceResult.Success || serviceResult.Data == null)
-                return ErrorPage(serviceResult.Errors);
+            var areaListResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            if(!areaListResult.Success || areaListResult.Data == null)
+                return ErrorPage(areaListResult.Errors);
 
-            ViewBag.ListArea = serviceResult.Data;
+            ViewBag.ListArea = areaListResult.Data;
             return base.Index(textSearch, page);
         }
         

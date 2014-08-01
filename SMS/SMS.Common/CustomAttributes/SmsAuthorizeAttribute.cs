@@ -41,9 +41,9 @@ namespace SMS.Common.CustomAttributes
             if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
                 if(Status == AuthorizeStatus.DontHaveAccessRight)
-                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."));
+                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."));
                 if (Status == AuthorizeStatus.NotLogin)
-                    filterContext.Result = new SmsStatusCodeResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired, "Login required."));
+                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired, "Login required."));
                 return;
             }
 
@@ -74,25 +74,6 @@ namespace SMS.Common.CustomAttributes
             NotLogin = 0,
             DontHaveAccessRight = 1,
             HasAccessRight = 2
-        }
-
-        private class SmsStatusCodeResult : ActionResult
-        {
-            private HttpStatusCode StatusCode { get; set; }
-            private string StatusDescription { get; set; }
-
-            public SmsStatusCodeResult(HttpStatusCode statusCode, string statusDescription)
-            {
-                StatusCode = statusCode;
-                StatusDescription = statusDescription;
-            }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                context.HttpContext.Response.StatusCode = (int)StatusCode;
-                context.HttpContext.Response.StatusDescription = StatusDescription;
-                context.HttpContext.Response.End();
-            }
         }
     }
 }

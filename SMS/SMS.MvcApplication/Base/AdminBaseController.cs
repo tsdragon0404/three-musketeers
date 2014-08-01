@@ -20,9 +20,14 @@ namespace SMS.MvcApplication.Base
                                  TextSearch = textSearch,
                                  FormNameToSubmit = Url.Action("Index")
                              };
+
+            var recordList = Service.Search(textSearch, pagingInfo, true);
+            if (!recordList.Success || recordList.Data == null)
+                return ErrorPage(recordList.Errors);
+
             var model = new AdminModel<TDto>
             {
-                ListRecord = Service.Search(textSearch, pagingInfo, true).Data,
+                ListRecord = recordList.Data,
                 PagingInfo = pagingInfo
             };
 

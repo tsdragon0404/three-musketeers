@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using SMS.Common.CustomAttributes;
@@ -38,17 +39,25 @@ namespace SMS.MvcApplication.Base
                 if (attribute != null && (attribute as PageIDAttribute) != null)
                 {
                     var pageID = (attribute as PageIDAttribute).PageID;
-                    var labelDictionary = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID, true).Data.ToDictionary(x => x.LabelID, x => x.Text);
+                    var pageLabelResult = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID, true);
+                    if(pageLabelResult.Success && pageLabelResult.Data != null)
+                    {
+                        var labelDictionary = pageLabelResult.Data.ToDictionary(x => x.LabelID, x => x.Text);
 
-                    viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
-                    viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
+                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
+                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
+                    }
                 }
 
-                var allowPages = PageService.GetAccessiblePagesForUser<LanguagePageDto>().Data.ToList();
-                viewResult.ViewData.Add(Common.Constant.ConstConfig.AccessiblePagesForUserKey, allowPages);
+                var allowPagesResult = PageService.GetAccessiblePagesForUser<LanguagePageDto>();
+                if (allowPagesResult.Success && allowPagesResult.Data != null)
+                {
+                    viewResult.ViewData.Add(Common.Constant.ConstConfig.AccessiblePagesForUserKey, allowPagesResult.Data);
 
-                var pageMenus = PageMenuService.GetMenuByPageIds(allowPages.Select(x => x.ID).ToList()).Data;
-                viewResult.ViewData.Add(Common.Constant.ConstConfig.PageMenuKey, pageMenus);
+                    var pageMenusResult = PageMenuService.GetMenuByPageIds(allowPagesResult.Data.Select(x => x.ID).ToList());
+                    if (pageMenusResult.Success && pageMenusResult.Data != null)
+                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageMenuKey, pageMenusResult.Data);
+                }
             }
             base.OnActionExecuted(filterContext);
         }
@@ -80,6 +89,11 @@ namespace SMS.MvcApplication.Base
         {
             TempData["Error"] = errors;
             return RedirectToAction("Index", "Error", new {area = ""});
+        }
+
+        protected JsonResult AJaxError(string errorString)
+        {
+            return new SmsStatusCodeJsonResult(HttpStatusCode.InternalServerError, errorString);
         }
     }
 }
