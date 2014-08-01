@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Session;
@@ -20,7 +21,14 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListArea = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID).Data;
+            var serviceResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            if(!serviceResult.Success || serviceResult.Data == null)
+            {
+                //TODO: handle service error
+                throw new Exception("ko lay dc du lieu khu vuc");
+            }
+
+            ViewBag.ListArea = serviceResult.Data;
             return base.Index(textSearch, page);
         }
         

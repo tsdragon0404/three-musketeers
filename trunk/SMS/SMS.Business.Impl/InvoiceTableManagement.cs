@@ -14,7 +14,9 @@ namespace SMS.Business.Impl
         {
             get
             {
-                return (x, y) => x.Invoice.Branch.ID == y;
+                return (x, y) => x.Invoice != null
+                                 && x.Invoice.Branch != null 
+                                 && x.Invoice.Branch.ID == y;
             }
         }
 

@@ -1,11 +1,12 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<TableDto>
 @{
     ViewBag.Title = "Index";
 }
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="7">
+        <td colspan="6">
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right">
@@ -81,7 +82,6 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
-                <col />
                 <col style="width: 120px;" />
                 <col style="width: 60px;" />
                 <col style="width: 75px;" />
@@ -90,8 +90,7 @@
                 <tr>
                     <th></th>
                     <th>No</th>
-                    <th>VN name</th>
-                    <th>EN name</th>
+                    <th>Name</th>
                     <th>Area</th>
                     <th>SEQ</th>
                     <th>Enabled</th>
@@ -107,9 +106,12 @@
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.VNName</td>
-                        <td>@dto.ENName</td>
-                        <td>@Html.Raw(dto.Area != null ? dto.Area.VNName + "/" + dto.Area.ENName : "")</td>
+                        <td>@(SmsSystem.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
+                        <td>@if (dto.Area != null)
+                            {
+                                @(SmsSystem.Language == Language.Vietnamese ? dto.Area.VNName : dto.Area.ENName)
+                            }
+                        </td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
                     </tr>
@@ -119,7 +121,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="6"></td>
+                    <td colspan="5"></td>
                 </tr>
             </tfoot>
         </table>
