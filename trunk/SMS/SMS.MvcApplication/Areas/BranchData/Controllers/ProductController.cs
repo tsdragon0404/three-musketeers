@@ -21,8 +21,16 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListCategory = ProductCategoryService.GetAllByBranch<LanguageProductCategoryDto>(SmsSystem.SelectedBranchID).Data;
-            ViewBag.ListUnit = UnitService.GetAllByBranch<LanguageUnitDto>(SmsSystem.SelectedBranchID).Data;
+            var categoryListResult = ProductCategoryService.GetAllByBranch<LanguageProductCategoryDto>(SmsSystem.SelectedBranchID);
+            if (!categoryListResult.Success || categoryListResult.Data == null)
+                return ErrorPage(categoryListResult.Errors);
+
+            var unitListResult = UnitService.GetAllByBranch<LanguageUnitDto>(SmsSystem.SelectedBranchID);
+            if (!unitListResult.Success || unitListResult.Data == null)
+                return ErrorPage(unitListResult.Errors);
+
+            ViewBag.ListCategory = categoryListResult.Data;
+            ViewBag.ListUnit = unitListResult.Data;
             return base.Index(textSearch, page);
         }
     }

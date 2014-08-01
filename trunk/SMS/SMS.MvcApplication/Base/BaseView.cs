@@ -24,14 +24,14 @@ namespace SMS.MvcApplication.Base
             get { return (long?)ViewData[Common.Constant.ConstConfig.PageIDKey]; }
         }
 
-        protected List<LanguagePageDto> AccessiblePagesForUser
+        protected IList<LanguagePageDto> AccessiblePagesForUser
         {
-            get { return ViewData[Common.Constant.ConstConfig.AccessiblePagesForUserKey] as List<LanguagePageDto>; }
+            get { return ViewData[Common.Constant.ConstConfig.AccessiblePagesForUserKey] as IList<LanguagePageDto>; }
         }
 
-        protected List<PageMenuDto> PageMenus
+        protected IList<PageMenuDto> PageMenus
         {
-            get { return ViewData[Common.Constant.ConstConfig.PageMenuKey] as List<PageMenuDto>; }
+            get { return ViewData[Common.Constant.ConstConfig.PageMenuKey] as IList<PageMenuDto>; }
         }
 
         protected string BuildMenuList(string groupName, BuildMenuOption option = null)

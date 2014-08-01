@@ -17,7 +17,11 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListPage = PageService.GetProtectedPages().Data;
+            var pageListResult = PageService.GetProtectedPages();
+            if (!pageListResult.Success || pageListResult.Data == null)
+                return ErrorPage(pageListResult.Errors);
+
+            ViewBag.ListPage = pageListResult.Data;
             return base.Index(textSearch, page);
         }
         

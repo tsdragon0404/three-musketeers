@@ -19,9 +19,14 @@ namespace SMS.MvcApplication.Base
                                  TextSearch = textSearch,
                                  FormNameToSubmit = Url.Action("Index")
                              };
+
+            var recordList = Service.SearchByBranch(textSearch, pagingInfo, SmsSystem.SelectedBranchID, true);
+            if (!recordList.Success || recordList.Data == null)
+                return ErrorPage(recordList.Errors);
+
             var model = new AdminModel<TDto>
             {
-                ListRecord = Service.SearchByBranch(textSearch, pagingInfo, SmsSystem.SelectedBranchID, true).Data,
+                ListRecord = recordList.Data,
                 PagingInfo = pagingInfo
             };
 
