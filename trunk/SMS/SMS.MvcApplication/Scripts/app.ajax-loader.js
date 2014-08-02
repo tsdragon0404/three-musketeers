@@ -15,7 +15,7 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
     if (jqXHR.status == 404) {
         
     }
-    if (jqXHR.status == 401 || jqXHR.status == 999) {
+    if (jqXHR.status == 401 || jqXHR.status == 999 || jqXHR.status == 500) {
         message = thrownError;
     }
     
