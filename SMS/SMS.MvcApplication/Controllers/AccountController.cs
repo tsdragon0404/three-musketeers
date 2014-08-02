@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Common.Information;
+using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Message;
@@ -21,6 +22,8 @@ namespace SMS.MvcApplication.Controllers
         public IBranchService BranchService { get; set; }
         public IErrorMessageService ErrorMessageService { get; set; }
 
+        private List<Error> errors;
+
         [PageID(ConstPage.Login)]
         public ActionResult Login()
         {
@@ -28,7 +31,7 @@ namespace SMS.MvcApplication.Controllers
                 return RedirectToAction("Index", "Home");
             
             var branches = GetBranchList();
-            return View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
+            return branches == null ? ErrorPage(errors) : View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
         }
 
         [HttpPost]
@@ -41,18 +44,24 @@ namespace SMS.MvcApplication.Controllers
                 var response = UserService.Get<UserDto>(model.Username, model.Password);
                 if (!response.Success)
                 {
+                    var branches = GetBranchList();
+                    if (branches == null) return ErrorPage(errors);
+
                     model.ShowError = true;
                     model.ErrorMessage = response.Errors[0].ErrorMessage;
-                    model.ListBranch = GetBranchList();
+                    model.ListBranch = branches;
                     return View(model);
                 }
 
                 var user = response.Data;
                 if (!user.Branches.Select(x => x.ID).Contains(model.SelectedBranch) && !user.IsSystemAdmin)
                 {
+                    var branches = GetBranchList();
+                    if (branches == null) return ErrorPage(errors);
+
                     model.ShowError = true;
                     model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator.");
-                    model.ListBranch = GetBranchList();
+                    model.ListBranch = branches;
                     return View(model);
                 }
 
@@ -64,16 +73,28 @@ namespace SMS.MvcApplication.Controllers
 
                 if(branch == null)
                 {
+                    var branches = GetBranchList();
+                    if (branches == null) return ErrorPage(errors);
+
                     model.ShowError = true;
                     model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable, "Branch not available.");
-                    model.ListBranch = GetBranchList();
+                    model.ListBranch = branches;
                     return View(model);
                 }
 
-                SetSessionData(user, branch);
+                if (!SetSessionData(user, branch))
+                {
+                    Session.Abandon();
+                    return ErrorPage(errors);
+                }
+
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
 
-                SystemMessages.SetMessages(ErrorMessageService.GetAllByBranch<Message>(SmsSystem.SelectedBranchID).Data);
+                var errorMessagesResult = ErrorMessageService.GetAllByBranch<Message>(SmsSystem.SelectedBranchID);
+                if(!errorMessagesResult.Success|| errorMessagesResult.Data == null)
+                    return ErrorPage(errorMessagesResult.Errors);
+
+                SystemMessages.SetMessages(errorMessagesResult.Data);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -83,13 +104,21 @@ namespace SMS.MvcApplication.Controllers
 
         private IList<SelectListItem> GetBranchList()
         {
-            return BranchService.GetAll<LanguageBranchDto>().Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
+            var branchListResult = BranchService.GetAll<LanguageBranchDto>();
+            if (!branchListResult.Success || branchListResult.Data == null)
+            {
+                errors = branchListResult.Errors;
+                return null;
+            }
+
+            return branchListResult.Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
         } 
 
-        private void SetSessionData(UserDto user, BranchDto branch)
+        private bool SetSessionData(UserDto user, BranchDto branch)
         {
             SetClientData();
-            SetUserData(user);
+            if (!SetUserData(user))
+                return false;
             SetBranchData(branch);
 
             var pageIds = new List<long>();
@@ -97,6 +126,7 @@ namespace SMS.MvcApplication.Controllers
                 pageIds.AddRange(roleDto.Pages.Select(x => x.ID));
 
             SmsSystem.AllowPageIDs = pageIds;
+            return true;
         }
 
         private void SetClientData()
@@ -108,13 +138,23 @@ namespace SMS.MvcApplication.Controllers
                                        };
         }
 
-        private void SetUserData(UserDto user)
+        private bool SetUserData(UserDto user)
         {
             UserInformation.UserName = user.Username;
 
-            var allowBranches = user.IsSystemAdmin
-                                    ? BranchService.GetAll().Data
-                                    : user.Branches;
+            List<Branch> allowBranches;
+            if (user.IsSystemAdmin)
+            {
+                var branchListResult = BranchService.GetAll<Branch>();
+                if(!branchListResult.Success || branchListResult.Data == null)
+                {
+                    errors = branchListResult.Errors;
+                    return false;
+                }
+                allowBranches = branchListResult.Data.ToList();
+            }
+            else
+                allowBranches = user.Branches.Select(x => new Branch(x.ID, x.VNName, x.ENName)).ToList();
 
             var userContext = new UserContext
                               {
@@ -126,10 +166,11 @@ namespace SMS.MvcApplication.Controllers
                                   IsSystemAdmin = user.IsSystemAdmin,
                                   UseSystemConfig = user.UseSystemConfig,
                                   RoleNames = user.Roles.Select(x => x.Name).ToList(),
-                                  AllowBranches = new List<Branch>(allowBranches.Select(x => new Branch(x.ID, x.VNName, x.ENName)))
+                                  AllowBranches = allowBranches
                               };
 
             SmsSystem.UserContext = userContext;
+            return true;
         }
 
         private void SetBranchData(BranchDto branch)

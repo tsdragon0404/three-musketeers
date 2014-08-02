@@ -16,6 +16,7 @@ namespace SMS.Common.AutoMapper
         {
             Map<Area, AreaDto>();
             Map<Branch, BranchDto>();
+            Map<Branch, Session.Branch>();
             Map<BranchInfo, BranchInfoDto>();
             Map<BranchTax, BranchTaxDto>();
             Map<Currency, CurrencyDto>();
