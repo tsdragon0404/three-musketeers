@@ -32,6 +32,6 @@ namespace SMS.Common.Constant
 
         public const long ReportViewer = 99;
 
-        public static List<long> PublicPages = new List<long> { Global, HomePage, Login, AccessDenied };
+        public static List<long> PublicPages = new List<long> { Global, HomePage, Login, AccessDenied, Error, NotFoundError };
     }
 }

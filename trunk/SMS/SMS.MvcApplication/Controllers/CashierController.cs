@@ -25,10 +25,18 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Cashier)]
         public ActionResult Index()
         {
+            var areaListResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            if (!areaListResult.Success || areaListResult.Data == null)
+                return ErrorPage(areaListResult.Errors);
+
+            var productListResult = ProductService.GetAllByBranch<LanguageProductDto>(SmsSystem.SelectedBranchID);
+            if (!productListResult.Success || productListResult.Data == null)
+                return ErrorPage(productListResult.Errors);
+
             var cashierModel = new CashierModel
                                    {
-                                       ListArea = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID).Data,
-                                       ListProduct = ProductService.GetAllByBranch<LanguageProductDto>(SmsSystem.SelectedBranchID).Data,
+                                       ListArea = areaListResult.Data,
+                                       ListProduct = productListResult.Data,
                                    };
 
             return View(cashierModel);
