@@ -12,13 +12,15 @@
                     <div class="three columns right">
                         VN Name
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                         <input type="text" name="vnName" value="${VNName}" id="vnName-${ID}" />
                     </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         EN Name
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                         <input type="text" name="enName" value="${ENName}" id="enName-${ID}"/>
                     </div>
                 </div>
@@ -26,9 +28,8 @@
                     <div class="three columns right">
                         Currency
                     </div>
-                    <div class="three columns">
+                    <div class="two columns">
                         <select name="currency" id="currency-${ID}">
-                            <option value="0">[Not selected]</option>
                             @foreach (CurrencyDto currency in ViewBag.ListCurrency)
                             {
                                 <text>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="row">
                     <div class="three columns right">
-                        Enable Service Fee
+                        Use Service Fee
                     </div>
                     <div class="three columns">
                         {{if UseServiceFee }}
@@ -54,11 +55,37 @@
                         <input type="checkbox" name="useServiceFee" id="useServiceFee-${ID}"/>
                         {{/if}}
                     </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         Service Fee
                     </div>
+                    <div class="two columns">
+                        <input type="text" class="right" name="serviceFee" value="${ServiceFee}" id="serviceFee-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        Use discount on Product
+                    </div>
                     <div class="three columns">
-                        <input type="text" name="serviceFee" value="${ServiceFee}" id="serviceFee-${ID}"/>
+                        {{if UseDiscountOnProduct }}
+                        <input type="checkbox" name="enable" checked id="useDiscountOnProduct-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="useDiscountOnProduct-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right">
+                        Use Kitchen function
+                    </div>
+                    <div class="three columns">
+                        {{if UseKitchenFunction }}
+                        <input type="checkbox" name="enable" checked id="useKitchenFunction-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="useKitchenFunction-${ID}"/>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="row">
@@ -72,15 +99,17 @@
                         <input type="checkbox" name="enable" id="enable-${ID}"/>
                         {{/if}}
                     </div>
+                </div>
+                <div class="row">
                     <div class="three columns right">
                         SEQ
                     </div>
-                    <div class="three columns">
+                    <div class="two columns">
                         <input type="text" name="seq" value="${SEQ}" id="seq-${ID}"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns push_three">
+                    <div class="three columns push_one">
                         <select id="originalUsers-${ID}" multiple="multiple" size="4">
                             @foreach (UserBasicDto user in ViewBag.ListUser)
                             {
@@ -106,7 +135,7 @@
                     {{html buildScriptForAssignListBox(ID)}}
                 </div>
                 <div class="row">
-                    <div class="eleven columns right">
+                    <div class="eleven columns center">
                         <input type="button" id="save-${ID}" value="Save" />
                         <input type="button" id="cancel-${ID}" value="Cancel" />
                     </div>
@@ -202,24 +231,24 @@
                 adminfunc.bind();
             });
 
-            function getDataForSave(recordID) {
+            function getDataForSave(recordId) {
                 var users = Array();
 
-                $('#assignedUsers-' + recordID + ' option').each(function (idx, e) {
+                $('#assignedUsers-' + recordId + ' option').each(function (idx, e) {
                     users.push({ ID: $(e).val() });
                 });
                 
                 var data = {
-                    ID: recordID,
-                    VNName: $('#vnName-' + recordID).val(),
-                    ENName: $('#enName-' + recordID).val(),
+                    ID: recordId,
+                    VNName: $('#vnName-' + recordId).val(),
+                    ENName: $('#enName-' + recordId).val(),
                     Currency: {
-                        ID: $('#currency-' + recordID).val()
+                        ID: $('#currency-' + recordId).val()
                     },
-                    UseServiceFee: $('#useServiceFee-' + recordID).prop('checked'),
-                    ServiceFee: $('#serviceFee-' + recordID).val(),
-                    Enable: $('#enable-' + recordID).prop('checked'),
-                    SEQ: $('#seq-' + recordID).val(),
+                    UseServiceFee: $('#useServiceFee-' + recordId).prop('checked'),
+                    ServiceFee: $('#serviceFee-' + recordId).val(),
+                    Enable: $('#enable-' + recordId).prop('checked'),
+                    SEQ: $('#seq-' + recordId).val(),
                     Users: users
                 };
                 return data;
