@@ -25,14 +25,14 @@
                     <tbody>
                         <tr>
                             <td></td>
-                            <td>Tổng tiền món ăn: </td>
+                            <td data-labelID="lblSumTotal">Tổng tiền món ăn: </td>
                             <td class="right"><span id="lblSubTotal">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         @if (SmsSystem.BranchConfig.UseServiceFee)
                         {
                             <tr id="ServiceFree">
                                 <td class="right"><input type="checkbox" class="margin-top-control" id="popupchkUseServiceFee" checked="@SmsSystem.BranchConfig.UseServiceFee" /></td>
-                                <td>Service Fee:</td>
+                                <td data-labelID="lblServiceFee">Service Fee:</td>
                                 <td class="right"><span class="fee">@SmsSystem.BranchConfig.ServiceFee</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
                         }
@@ -46,17 +46,17 @@
                         }
                          <tr class="border-top">
                             <td></td>
-                            <td>Tổng tiền hóa đơn: </td>
+                            <td data-labelID="lblTotal">Tổng tiền hóa đơn: </td>
                             <td class="right"><span id="lblTotalAmount">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Tiền khách đưa: </td>
+                            <td data-labelID="lblCash">Tiền khách đưa: </td>
                             <td class="right"><input class="right" id="txtcash" style="width: 100px"/> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Tiền trả lại: </td>
+                            <td data-labelID="lblReturn">Tiền trả lại: </td>
                             <td class="right"><span id="lblReturn">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                     </tbody>

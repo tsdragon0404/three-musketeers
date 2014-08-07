@@ -1,18 +1,24 @@
 ﻿using System;
+using Core.Common.CustomAttributes;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
     public class Product : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
+        [AllowSearch]
         public virtual string ProductCode { get; set; }
 
+        [AllowSearch]
         public virtual string VNName { get; set; }
 
+        [AllowSearch]
         public virtual string ENName { get; set; }
 
+        [AllowSearch]
         public virtual string VNDescription { get; set; }
 
+        [AllowSearch]
         public virtual string ENDescription { get; set; }
 
         public virtual Unit Unit { get; set; }

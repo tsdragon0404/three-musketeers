@@ -16,7 +16,13 @@ namespace SMS.Data.Mapping
             Map(x => x.UseKitchenFunction);
 
             HasOne(x => x.BranchInfo).Cascade.All();
-            HasMany(x => x.Taxs).KeyColumn("BranchID").Inverse().Cascade.AllDeleteOrphan();
+            
+            HasManyToMany(x => x.Taxs)
+                .Cascade.None()
+                .Table("BranchTax")
+                .ParentKeyColumn("BranchID")
+                .ChildKeyColumn("TaxID")
+                .Not.LazyLoad();
 
             HasManyToMany(x => x.Users)
                 .Cascade.None()
