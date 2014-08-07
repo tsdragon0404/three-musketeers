@@ -69,12 +69,12 @@
                         </tr>
                     </tfoot>
                 </table>
-                <div class="row left print-tax">
-                    <input type="checkbox" class="margin-top-control" id="btnTaxInvoice" /><span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
-                    <div id="taxInvoice">
-                        <input type="radio" value="In nhanh"/>
-                        <input type="radio" value="In chi tiết"/>
-                    </div>
+                <div class="row left print-tax" style="display: none">
+                    @if (SmsSystem.BranchConfig.Taxs.Count > 0)
+                    {
+                        <input type="checkbox" class="margin-top-control" id="btnTaxInvoice" />
+                        <span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
+                    }
                 </div>
             </div>
         </div>

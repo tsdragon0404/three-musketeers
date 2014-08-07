@@ -175,7 +175,7 @@
                         $(root.popupId + ' input[id^="popupChkUseTax-"]').hide();
                         $(root.popupId + ' #payment').addClass('RmenuDisable');
                         $(root.popupId + ' #payment').prop("disabled", true);
-                        $(root.popupId + ' #btnTaxInvoice').show();
+                        $(root.popupId + ' .print-tax').show();
                         if (MeadCo.ScriptX.Init()) {
                             MeadCo.ScriptX.Printing.header = "";
                             MeadCo.ScriptX.Printing.footer = "";
