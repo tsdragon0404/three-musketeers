@@ -1,4 +1,5 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<BranchDto>
 @{
     ViewBag.Title = "Index";
@@ -9,7 +10,7 @@
         <td colspan="6">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblVNName">
                         VN Name
                     </div>
                     <div class="four columns">
@@ -17,7 +18,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblENName">
                         EN Name
                     </div>
                     <div class="four columns">
@@ -25,7 +26,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblCurrency">
                         Currency
                     </div>
                     <div class="two columns">
@@ -45,7 +46,7 @@
                     
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblUseServiceFee">
                         Use Service Fee
                     </div>
                     <div class="three columns">
@@ -57,7 +58,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblServiceFee">
                         Service Fee
                     </div>
                     <div class="two columns">
@@ -65,7 +66,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblUseDiscountOnProduct">
                         Use discount on Product
                     </div>
                     <div class="three columns">
@@ -77,7 +78,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblUseKitchenFunction">
                         Use Kitchen function
                     </div>
                     <div class="three columns">
@@ -89,8 +90,144 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
-                        Enabled
+                    <div class="three columns right" data-labelID="lblCompanyCode">
+                        Company code
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="companyCode" value="${BranchInfo.CompanyCode}" id="companyCode-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblCompanyName">
+                        Company name
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="companyName" value="${BranchInfo.CompanyName}" id="companyName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblPhone">
+                        Phone
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="phone" value="${BranchInfo.Phone}" id="phone-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblFax">
+                        Fax
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="fax" value="${BranchInfo.Fax}" id="fax-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblEmail">
+                        Email
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="email" value="${BranchInfo.Email}" id="email-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblTaxCode">
+                        Tax code
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="taxCode" value="${BranchInfo.TaxCode}" id="taxCode-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblAddress">
+                        Address
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="address" value="${BranchInfo.Address}" id="address-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo1">
+                        Info 1
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info1" value="${BranchInfo.Info1}" id="info1-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo2">
+                        Info 2
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info2" value="${BranchInfo.Info2}" id="info2-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo3">
+                        Info 3
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info3" value="${BranchInfo.Info3}" id="info3-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo4">
+                        Info 4
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info4" value="${BranchInfo.Info4}" id="info4-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo5">
+                        Info 5
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info5" value="${BranchInfo.Info5}" id="info5-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo6">
+                        Info 6
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info6" value="${BranchInfo.Info6}" id="info6-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo7">
+                        Info 7
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info7" value="${BranchInfo.Info7}" id="info7-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo8">
+                        Info 8
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info8" value="${BranchInfo.Info8}" id="info8-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo9">
+                        Info 9
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info9" value="${BranchInfo.Info9}" id="info9-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblInfo10">
+                        Info 10
+                    </div>
+                    <div class="four columns">
+                        <input type="text" name="info10" value="${BranchInfo.Info10}" id="info10-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblEnable">
+                        Enable
                     </div>
                     <div class="three columns">
                         {{if Enable }}
@@ -101,11 +238,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblSEQ">
                         SEQ
                     </div>
                     <div class="two columns">
-                        <input type="text" name="seq" value="${SEQ}" id="seq-${ID}"/>
+                        <input type="text" name="seq" value="${SEQ}" id="seq-${ID}" class="right"/>
                     </div>
                 </div>
                 <div class="row">
@@ -169,18 +306,18 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
-                <col style="width: 200px;" />
+                <col style="width: 400px;" />
                 <col style="width: 110px;" />
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
                 <tr>
                     <th></th>
-                    <th>No</th>
-                    <th>VN Name/EN Name</th>
-                    <th>Service Fee</th>
-                    <th>Enabled</th>
-                    <th>SEQ</th>
+                    <th data-labelID="lblNo">No</th>
+                    <th data-labelID="lblName">Name</th>
+                    <th data-labelID="lblCompanyName">Company name</th>
+                    <th data-labelID="lblEnable">Enabled</th>
+                    <th data-labelID="lblSEQ">SEQ</th>
                 </tr>
             </thead>
             <tbody>
@@ -189,21 +326,18 @@
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
                     <tr class="@altClass" data-id="@dto.ID">
                         <td>
-                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="RmenuDisable" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.VNName/@dto.ENName</td>
-                        <td>
-                            @if (dto.UseServiceFee)
-                            {
-                                @dto.ServiceFee
-                            }
-                            else
-                            {
-                                @Html.Raw("-")
-                            }
-                        </td>
+                        @if(@SmsSystem.Language == Language.Vietnamese)
+                        {
+                            <td>@dto.VNName</td>
+                        }else
+                        {
+                            <td>@dto.ENName</td>
+                        }
+                        <td>@dto.BranchInfo.CompanyName</td>
                         <td>@dto.Enable</td>
                         <td>@dto.SEQ</td>
                     </tr>
@@ -247,6 +381,17 @@
                     },
                     UseServiceFee: $('#useServiceFee-' + recordId).prop('checked'),
                     ServiceFee: $('#serviceFee-' + recordId).val(),
+                    UseDiscountOnProduct: $('#useDiscountOnProduct-' + recordId).prop('checked'),
+                    UseKitchenFunction: $('#useKitchenFunction-' + recordId).prop('checked'),
+                    BranchInfo: {
+                        CompanyCode: $('#companyCode-' + recordId).val(),
+                        CompanyName: $('#companyName-' + recordId).val(),
+                        Phone: $('#phone-' + recordId).val(),
+                        Fax: $('#fax-' + recordId).val(),
+                        Email: $('#email-' + recordId).val(),
+                        TaxCode: $('#taxCode-' + recordId).val(),
+                        Address: $('#address-' + recordId).val(),
+                    },
                     Enable: $('#enable-' + recordId).prop('checked'),
                     SEQ: $('#seq-' + recordId).val(),
                     Users: users
