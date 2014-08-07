@@ -47,6 +47,12 @@
     }).click(function () {
         payment();
     });
+    
+    $(root.popupId + ' #txtcash').unbind('keyup');
+    $(root.popupId + ' #txtcash').keyup(function () {
+        $(this).val($(this).val().readMoneyAsNumber().formatAsMoney());
+        $('.return').text(($(this).val().readMoneyAsNumber() - root.Data.TotalAmount).formatAsMoney());
+    });
 
     this.OpenPopup = function () {
         renderData();
@@ -75,7 +81,9 @@
 
             root.Data = result.Data;
             
-            $('#lblSubTotal').text(root.Data.SubTotal.formatAsMoney());
+            $('.subTotal').text(root.Data.SubTotal.formatAsMoney());
+            $('.otherFee').text(root.Data.OtherFee.formatAsMoney());
+            $('.discount').text('-' + root.Data.DiscountValue.formatAsMoney());
             $(root.popupId + ' #popupchkUseServiceFee').prop('checked', root.useServiceFee);
             $(root.popupId + ' input[id^="popupChkUseTax-"]').each(function (idx, e) {
                 $(e).prop('checked', root.useTax[idx]);
@@ -130,7 +138,7 @@
         }
 
         root.Data.ServiceFee = serviceFee;
-        root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee;
+        root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee - root.Data.DiscountValue;
 
         var tax = 0;
         $(root.popupId + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
@@ -146,7 +154,8 @@
         });
         root.Data.Tax = tax;
         root.Data.TotalAmount = root.Data.SumAmount + tax;
-        $(root.popupId + ' #lblTotalAmount').text(root.Data.TotalAmount.formatAsMoney());
+        $(root.popupId + ' .total').text(root.Data.SumAmount.formatAsMoney());
+        $(root.popupId + ' .totalAmount').text(root.Data.TotalAmount.formatAsMoney());
         $(root.popupId + ' #txtcash').val(root.Data.TotalAmount.formatAsMoney());
 
         $(root.popupId + ' .page').html($('#' + root.templateId).tmpl(root.Data).scanLabel());

@@ -25,8 +25,13 @@
                     <tbody>
                         <tr>
                             <td></td>
-                            <td data-labelID="lblSumTotal">Tổng tiền món ăn: </td>
-                            <td class="right"><span id="lblSubTotal">0</span> @SmsSystem.BranchConfig.Currency</td>
+                            <td data-labelID="lblSumTotal">Sum Amount: </td>
+                            <td class="right"><span class="subTotal">0</span> @SmsSystem.BranchConfig.Currency</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td data-labelID="lblSumTotal">Other fee: </td>
+                            <td class="right"><span class="otherFee">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         @if (SmsSystem.BranchConfig.UseServiceFee)
                         {
@@ -36,6 +41,16 @@
                                 <td class="right"><span class="fee">@SmsSystem.BranchConfig.ServiceFee</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
                         }
+                        <tr>
+                            <td></td>
+                            <td data-labelID="lblDiscountValue">Discount Amount: </td>
+                            <td class="right"><span class="discount">0</span> @SmsSystem.BranchConfig.Currency</td>
+                        </tr>
+                        <tr class="border-top">
+                            <td></td>
+                            <td data-labelID="lblTotal">Total: </td>
+                            <td class="right"><span class="total">0</span> @SmsSystem.BranchConfig.Currency</td>
+                        </tr>
                         @foreach (var tax in SmsSystem.BranchConfig.Taxs)
                         {
                             <tr id="tax-@tax.Key">
@@ -44,20 +59,20 @@
                                 <td class="right"><span id="tax-amount-@tax.Key">0</span> @SmsSystem.BranchConfig.Currency</td>
                             </tr>
                         }
-                         <tr class="border-top">
+                        <tr class="border-top">
                             <td></td>
-                            <td data-labelID="lblTotal">Tổng tiền hóa đơn: </td>
-                            <td class="right"><span id="lblTotalAmount">0</span> @SmsSystem.BranchConfig.Currency</td>
+                            <td data-labelID="lblTotalAmount">Total Amount: </td>
+                            <td class="right"><span class="totalAmount">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td data-labelID="lblCash">Tiền khách đưa: </td>
-                            <td class="right"><input class="right" id="txtcash" style="width: 100px"/> @SmsSystem.BranchConfig.Currency</td>
+                            <td class="right"><input type="text" class="right" id="txtcash" style="width: 100px"/> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td data-labelID="lblReturn">Tiền trả lại: </td>
-                            <td class="right"><span id="lblReturn">0</span> @SmsSystem.BranchConfig.Currency</td>
+                            <td class="right"><span class="return">0</span> @SmsSystem.BranchConfig.Currency</td>
                         </tr>
                     </tbody>
                     <tfoot>
