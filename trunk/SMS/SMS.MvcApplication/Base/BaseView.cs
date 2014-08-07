@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using SMS.Data.Dtos;
 using Core.Common;
 using SMS.MvcApplication.Models;
@@ -89,6 +90,14 @@ namespace SMS.MvcApplication.Base
             mergeMenu = mergeMenu.Replace(HYPERLINKCLASS, !option.HyperLinkClass.IsNullOrEmpty() ? string.Format(" class=\"{0}\"", option.HyperLinkClass) : "");
 
             return mergeMenu;
+        }
+
+        protected string JsonEncode(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings
+                                                                         {
+                                                                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                                                         });
         }
     }
 

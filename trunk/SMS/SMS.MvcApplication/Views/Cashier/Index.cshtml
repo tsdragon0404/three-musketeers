@@ -11,8 +11,8 @@
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
-    var listProduct = @Html.Raw(Json.Encode(Model.ListProduct));
-    var listArea = @Html.Raw(Json.Encode(Model.ListArea));
+    var listProduct = @Html.Raw(JsonEncode(Model.ListProduct));
+    var listArea = @Html.Raw(JsonEncode(Model.ListArea));
     var serviceFee = @SmsSystem.BranchConfig.ServiceFee;
     var useServiceFee = "@SmsSystem.BranchConfig.UseServiceFee";
     var currency = "@SmsSystem.BranchConfig.Currency";

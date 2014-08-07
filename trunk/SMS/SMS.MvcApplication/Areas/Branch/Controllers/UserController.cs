@@ -32,7 +32,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         {
             var branchListResult = BranchService.GetUserAssignedBranches<BranchDto>(data.ID);
             if (!branchListResult.Success || branchListResult.Data == null)
-                return AJaxError(branchListResult.Errors[0].ErrorMessage);
+                return ErrorAjax(branchListResult.Errors[0].ErrorMessage);
 
             data.Branches = branchListResult.Data;
             return base.SaveData(data);
