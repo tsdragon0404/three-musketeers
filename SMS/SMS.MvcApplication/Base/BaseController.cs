@@ -91,7 +91,7 @@ namespace SMS.MvcApplication.Base
             return RedirectToAction("Index", "Error", new {area = ""});
         }
 
-        protected JsonResult AJaxError(string errorString)
+        protected JsonResult ErrorAjax(string errorString)
         {
             return new SmsStatusCodeJsonResult(HttpStatusCode.InternalServerError, errorString);
         }
