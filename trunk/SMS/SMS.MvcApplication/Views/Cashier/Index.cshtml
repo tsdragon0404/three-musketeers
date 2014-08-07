@@ -168,7 +168,7 @@
                 </div>
                 <div class="right col2">
                     <div id="order-discount"></div>
-                    <span class="discountAmount">${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @SmsSystem.BranchConfig.Currency</span>
+                    <span class="discountAmount">-${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @SmsSystem.BranchConfig.Currency</span>
                 </div>
                 <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
@@ -212,7 +212,7 @@
         <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
         {{/if}}
     </select>
-    <input title="Discount" id="discount" value="${Discount.formatAsMoney()}" class="required right" name="number" />
+    <input type="text" title="Discount" id="discount" value="${Discount.formatAsMoney()}" class="required right" name="number" />
     {{/each}}
     {{if Data.length < 1}}
     <select id="discount-type" name="discount-type">

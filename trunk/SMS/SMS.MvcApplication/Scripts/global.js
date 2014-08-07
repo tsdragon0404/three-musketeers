@@ -91,7 +91,9 @@ String.prototype.formatAsDate = function () {
 };
 
 Number.prototype.formatAsMoney = function () {
-    return this.toLocaleString('en');
+    if (!isNaN(parseFloat(this)))
+        return parseFloat(this).toLocaleString('en');
+    return 0;
 };
 String.prototype.formatAsMoney = function () {
     if (!isNaN(parseFloat(this)))
@@ -103,6 +105,9 @@ String.prototype.readMoneyAsNumber = function() {
     var str = this;
     if (this.indexOf(',') >= 0) {
         str = str.replace(/,/g, '');
+    }
+    if (this.indexOf('-') >= 0) {
+        str = str.replace(/-/g, '');
     }
 
     return parseFloat(str);
