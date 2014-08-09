@@ -42,11 +42,19 @@
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
                 place.next().addClass(root.detailRowCss);
 
-                $('#save-' + result.Data.ID).button().click(function () {
+                $('#save-' + result.Data.ID).button({
+                    icons: {
+                        primary: "ui-icon-disk"
+                    }
+                }).click(function() {
                     saveRecord(result.Data.ID);
                     return false;
                 });
-                $('#cancel-' + result.Data.ID).button().click(function () {
+                $('#cancel-' + result.Data.ID).button({
+                    icons: {
+                        primary: "ui-icon-close"
+                    }
+                }).click(function () {
                     cancelRecord();
                     return false;
                 });
@@ -78,11 +86,19 @@
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
                 place.next().addClass(root.detailRowCss);
 
-                $("#save-0").button().click(function () {
+                $("#save-0").button({
+                    icons: {
+                        primary: "ui-icon-disk"
+                    }
+                }).click(function () {
                     saveRecord(0);
                     return false;
                 });
-                $('#cancel-0').button().click(function () {
+                $('#cancel-0').button({
+                    icons: {
+                        primary: "ui-icon-close"
+                    }
+                }).click(function () {
                     cancelRecord();
                     return false;
                 });

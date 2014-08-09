@@ -273,8 +273,8 @@
                 </div>
                 <div class="row">
                     <div class="eleven columns center">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -391,6 +391,16 @@
                         Email: $('#email-' + recordId).val(),
                         TaxCode: $('#taxCode-' + recordId).val(),
                         Address: $('#address-' + recordId).val(),
+                        Info1: $('#info1-' + recordId).val(),
+                        Info2: $('#info2-' + recordId).val(),
+                        Info3: $('#info3-' + recordId).val(),
+                        Info4: $('#info4-' + recordId).val(),
+                        Info5: $('#info5-' + recordId).val(),
+                        Info6: $('#info6-' + recordId).val(),
+                        Info7: $('#info7-' + recordId).val(),
+                        Info8: $('#info8-' + recordId).val(),
+                        Info9: $('#info9-' + recordId).val(),
+                        Info10: $('#info10-' + recordId).val()
                     },
                     Enable: $('#enable-' + recordId).prop('checked'),
                     SEQ: $('#seq-' + recordId).val(),

@@ -9,13 +9,13 @@
         <td colspan="8">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblCode">
                         Code
                     </div>
                     <div class="three columns">
                         <input type="text" name="catCode" value="${ProductCode}" id="catCode-${ID}" />
                     </div>
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblPrice">
                         Price
                     </div>
                     <div class="three columns">
@@ -23,13 +23,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblVNName">
                         VN Name
                     </div>
-                    <div class="three columns">
+                    <div class="three columns" data-labelID="lblENName">
                         <input type="text" name="vnName" value="${VNName}" id="vnName-${ID}" />
                     </div>
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblVNDescripton">
                         VN Description
                     </div>
                     <div class="three columns">
@@ -37,13 +37,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblENName">
                         EN Name
                     </div>
                     <div class="three columns">
                         <input type="text" name="vnName" value="${ENName}" id="enName-${ID}" />
                     </div>
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblENDescription">
                         EN Description
                     </div>
                     <div class="three columns">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblCategory">
                         Category
                     </div>
                     <div class="three columns">
@@ -68,7 +68,7 @@
                             }
                         </select>
                     </div>
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblEnable">
                         Enable
                     </div>
                     <div class="three columns">
@@ -79,7 +79,7 @@
                         {{/if}}
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" data-labelID="lblUnit">
                     <div class="two columns right">
                         Unit
                     </div>
@@ -97,17 +97,17 @@
                             }
                         </select>
                     </div>
-                    <div class="two columns right">
+                    <div class="two columns right" data-labelID="lblSEQ">
                         SEQ
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 20%;" class="right"/>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="ten columns right">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -137,13 +137,13 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>No</th>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>SEQ</th>
-                    <th>Enabled</th>
+                    <th data-labelID="lblNo">No</th>
+                    <th data-labelID="lblCode">Code</th>
+                    <th data-labelID="lblName">Name</th>
+                    <th data-labelID="lblDescription">Description</th>
+                    <th data-labelID="lblCategory">Category</th>
+                    <th data-labelID="lblSEQ">SEQ</th>
+                    <th data-labelID="lblEnable">Enabled</th>
                 </tr>
             </thead>
             <tbody>

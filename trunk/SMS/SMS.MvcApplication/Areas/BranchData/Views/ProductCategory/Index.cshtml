@@ -9,27 +9,21 @@
         <td colspan="8">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblCode">
                         Code
                     </div>
                     <div class="three columns">
                         <input type="text" name="catCode" value="${ProductCategoryCode}" id="catCode-${ID}" />
                     </div>
-                    <div class="three columns right">
-                        Branch ID
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblVNName">
                         VN Name
                     </div>
                     <div class="three columns">
                         <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}"/>
                     </div>
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblENName">
                         EN Name
                     </div>
                     <div class="three columns">
@@ -37,13 +31,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblVNDescription">
                         VN Description
                     </div>
                     <div class="three columns">
                         <input type="text" name="VNDescription" value="${VNDescription}" id="vnDesc-${ID}"/>
                     </div>
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblENDescription">
                         EN Description
                     </div>
                     <div class="three columns">
@@ -51,13 +45,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblSEQ">
                         SEQ
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 20%;" class="right"/>
                     </div>
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblEnable">
                         Enable
                     </div>
                     <div class="three columns">
@@ -69,9 +63,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="eleven columns right">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -94,20 +88,18 @@
                 <col style="width: 100px;" />
                 <col />
                 <col />
-                <col style="width: 100px;" />
                 <col style="width: 60px;" />
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
                 <tr>
                     <th></th>
-                    <th>No</th>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Branch</th>
-                    <th>SEQ</th>
-                    <th>Enabled</th>
+                    <th data-labelID="lblNo">No</th>
+                    <th data-labelID="lblCode">Code</th>
+                    <th data-labelID="lblName">Name</th>
+                    <th data-labelID="lblDescription">Description</th>
+                    <th data-labelID="lblSEQ">SEQ</th>
+                    <th data-labelID="lblEnable">Enabled</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,13 +117,11 @@
                         {
                             <td>@dto.VNName</td>
                             <td>@dto.VNDescription</td>
-                            <td>@dto.Branch.VNName</td>
                         }
                         else
                         {
                             <td>@dto.ENName</td>
                             <td>@dto.ENDescription</td>
-                            <td>@dto.Branch.ENName</td>
                         }
                         
                         <td>@dto.SEQ</td>
@@ -169,7 +159,7 @@
                     ENName: $('#enName-' + recordId).val(),
                     VNDescription: $('#vnDesc-' + recordId).val(),
                     ENDescription: $('#enDesc-' + recordId).val(),
-                    BranchID: $('#branchID-' + recordId).val(),
+                    BranchID: @SmsSystem.SelectedBranchID,
                     Enable: $('#enable-' + recordId).prop('checked'),
                     SEQ: $('#seq-' + recordId).val()
                 };

@@ -9,13 +9,13 @@
         <td colspan="5">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblVNName">
                         VN name
                     </div>
                     <div class="three columns">
                         <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}" />
                     </div>
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblENName">
                         EN name
                     </div>
                     <div class="three columns">
@@ -23,13 +23,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblSEQ">
                         SEQ
                     </div>
                     <div class="three columns">
-                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}"/>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
                     </div>
-                    <div class="three columns right">
+                    <div class="two columns right" data-labelID="lblSEQ">
                         Enable
                     </div>
                     <div class="three columns">
@@ -41,9 +41,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="eleven columns right">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -70,10 +70,10 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>SEQ</th>
-                    <th>Enabled</th>
+                    <th data-labelID="lblNo">No</th>
+                    <th data-labelID="lblName">Name</th>
+                    <th data-labelID="lblSEQ">SEQ</th>
+                    <th data-labelID="lblEnable">Enabled</th>
                 </tr>
             </thead>
             <tbody>
