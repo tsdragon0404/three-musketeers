@@ -21,6 +21,11 @@ namespace SMS.Data.Dtos
         public virtual string CreatedUser { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual string ModifiedUser { get; set; }
+
+        public BranchDto()
+        {
+            BranchInfo = new BranchInfoDto();
+        }
     }
 
     public class LanguageBranchDto

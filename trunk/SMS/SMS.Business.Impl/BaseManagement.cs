@@ -201,6 +201,7 @@ namespace SMS.Business.Impl
             {
                 var mergeEntity = Repository.Merge(entity);
                 Repository.Update(mergeEntity);
+                entity = mergeEntity;
             }
             result.Data = Mapper.Map<TDto>(entity);
             return result;
