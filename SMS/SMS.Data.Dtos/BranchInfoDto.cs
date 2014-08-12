@@ -3,6 +3,7 @@
     public class BranchInfoDto
     {
         public virtual long ID { get; set; }
+        public virtual BranchDto Branch { get; set; }
         public virtual string CompanyCode { get; set; }
         public virtual string CompanyName { get; set; }
         public virtual string Phone { get; set; }

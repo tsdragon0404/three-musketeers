@@ -43,6 +43,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public virtual JsonResult GetSchemaForAdd()
         {
+            var a = new TDto();
             return Json(JsonModel.Create(new TDto()));
         }
 
