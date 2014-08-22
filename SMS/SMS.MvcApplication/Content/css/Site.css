@@ -372,7 +372,7 @@ label.ui-state-error {
 }
 
 .tbls:hover {
-    cursor: default;
+    cursor: pointer;
 }
 
 .tbls tr td {
