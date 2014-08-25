@@ -952,9 +952,9 @@
         $('#chkUseServiceFee').unbind('click');
         $("#chkUseServiceFee").click( function(){
             if($(this).is(':checked')) {
-                $('#ServiceFree').removeClass('RmenuDisable');
+                $('#ServiceFree').removeClass('icon-disable');
             } else {
-                $('#ServiceFree').addClass('RmenuDisable');
+                $('#ServiceFree').addClass('icon-disable');
             }
             CalculateTotal();
         });
@@ -963,9 +963,9 @@
         $('input[id^="chkUseTax-"]').click( function(){
             var type = $(this).attr('id').split('-')[1];
             if($(this).is(':checked')) {
-                $('#tax-' + type).removeClass('RmenuDisable');
+                $('#tax-' + type).removeClass('icon-disable');
             } else {
-                $('#tax-' + type).addClass('RmenuDisable');
+                $('#tax-' + type).addClass('icon-disable');
             }
             CalculateTotal();
         });

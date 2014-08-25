@@ -13,5 +13,7 @@
         public const int Validate_NotValid = -7;
 
         public const int Business_DataNotExist = -8;
+
+        public const int Forbidden = -9;
     }
 }

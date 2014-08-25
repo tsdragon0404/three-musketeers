@@ -61,7 +61,7 @@
         $(root.popupId + ' #popupchkUseServiceFee').show();
         $(root.popupId + ' input[id^="popupChkUseTax-"]').show();
         $(root.popupId + ' #payment').prop("disabled", false);
-        $(root.popupId + ' #payment').removeClass('RmenuDisable');
+        $(root.popupId + ' #payment').removeClass('icon-disable');
         $(root.popupId + ' #btnTaxInvoice').hide();
         $(root.popupId + ' #taxInvoice').hide();
 
@@ -107,9 +107,9 @@
     $(root.popupId + ' #popupchkUseServiceFee').unbind('click');
     $(root.popupId + ' #popupchkUseServiceFee').click(function () {
         if ($(this).is(':checked')) {
-            $(root.popupId + ' #ServiceFree').removeClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').removeClass('icon-disable');
         } else {
-            $(root.popupId + ' #ServiceFree').addClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').addClass('icon-disable');
         }
         processData();
     });
@@ -118,9 +118,9 @@
     $(root.popupId + ' input[id^="popupChkUseTax-"]').click(function () {
         var type = $(this).attr('id').split('-')[1];
         if ($(this).is(':checked')) {
-            $(root.popupId + ' #tax-' + type).removeClass('RmenuDisable');
+            $(root.popupId + ' #tax-' + type).removeClass('icon-disable');
         } else {
-            $(root.popupId + ' #tax-' + type).addClass('RmenuDisable');
+            $(root.popupId + ' #tax-' + type).addClass('icon-disable');
         }
         processData();
     });
@@ -130,11 +130,11 @@
         if ($(root.popupId + ' #popupchkUseServiceFee').length > 0
                 && $(root.popupId + ' #popupchkUseServiceFee').is(':checked')) {
 
-            $(root.popupId + ' #ServiceFree').removeClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').removeClass('icon-disable');
             serviceFee = $(root.popupId + ' .payment-config tr[id="ServiceFree"] .fee').text().readMoneyAsNumber();
             $(root.popupId + ' .payment-config tr[id="ServiceFree"] .fee').text(serviceFee.formatAsMoney());
         } else {
-            $(root.popupId + ' #ServiceFree').addClass('RmenuDisable');
+            $(root.popupId + ' #ServiceFree').addClass('icon-disable');
         }
 
         root.Data.ServiceFee = serviceFee;
@@ -143,12 +143,12 @@
         var tax = 0;
         $(root.popupId + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
             if ($(element).find('input[id^="popupChkUseTax-"]').is(':checked')) {
-                $(element).removeClass('RmenuDisable');
+                $(element).removeClass('icon-disable');
                 var value = $(element).find('span[id^="tax-value-"]').text();
                 tax += root.Data.SumAmount > 0 ? root.Data.SumAmount * value / 100 : 0;
                 $(element).find('span[id^="tax-amount-"]').text((root.Data.SumAmount * value / 100).formatAsMoney());
             } else {
-                $(element).addClass('RmenuDisable');
+                $(element).addClass('icon-disable');
                 $(element).find('span[id^="tax-amount-"]').text('0');
             }
         });
@@ -182,7 +182,7 @@
                     } else {
                         $(root.popupId + ' #popupchkUseServiceFee').hide();
                         $(root.popupId + ' input[id^="popupChkUseTax-"]').hide();
-                        $(root.popupId + ' #payment').addClass('RmenuDisable');
+                        $(root.popupId + ' #payment').addClass('icon-disable');
                         $(root.popupId + ' #payment').prop("disabled", true);
                         $(root.popupId + ' .print-tax').show();
                         if (MeadCo.ScriptX.Init()) {

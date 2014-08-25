@@ -1,4 +1,5 @@
-﻿@using SMS.Common.Session
+﻿@using SMS.Common.Constant
+@using SMS.Common.Session
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<AreaDto>
 @{
@@ -60,6 +61,11 @@
 
     <div class="row">
         <table id="record-table" class="no-border">
+            @{
+                var deleteCssClass = Model.CanDelete ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+                var editCssClass = Model.CanEdit ? ConstStyle.CssEditRecord : ConstStyle.CssIconDisable;
+                var addCssClass = Model.CanAdd ? ConstStyle.CssAddRecord : ConstStyle.CssIconDisable;
+            }
             <colgroup>
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
@@ -82,8 +88,8 @@
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
                     <tr class="@altClass" data-id="@dto.ID">
                         <td>
-                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                            <a href="#" class="@deleteCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="@editCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@(SmsSystem.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
@@ -95,7 +101,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td class="center"><a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
                     <td colspan="4"></td>
                 </tr>
             </tfoot>

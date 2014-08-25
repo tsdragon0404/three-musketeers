@@ -95,5 +95,10 @@ namespace SMS.MvcApplication.Base
         {
             return new SmsStatusCodeJsonResult(HttpStatusCode.InternalServerError, errorString);
         }
+
+        protected JsonResult ErrorAjax(HttpStatusCode statusCode, string errorString)
+        {
+            return new SmsStatusCodeJsonResult(statusCode, errorString);
+        }
     }
 }

@@ -326,7 +326,7 @@
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
                     <tr class="@altClass" data-id="@dto.ID">
                         <td>
-                            <a href="#" class="RmenuDisable" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="icon-disable" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
@@ -346,7 +346,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="center"><a href="#" id="addRecord"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
                     <td colspan="5"></td>
                 </tr>
             </tfoot>
