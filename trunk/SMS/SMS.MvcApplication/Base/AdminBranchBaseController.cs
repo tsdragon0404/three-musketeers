@@ -27,7 +27,10 @@ namespace SMS.MvcApplication.Base
             var model = new AdminModel<TDto>
             {
                 ListRecord = recordList.Data,
-                PagingInfo = pagingInfo
+                PagingInfo = pagingInfo,
+                CanAdd = CanAdd,
+                CanDelete = CanDelete,
+                CanEdit = CanEdit
             };
 
             return View(model);
