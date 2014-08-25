@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
+using SMS.Common.Constant;
+using SMS.Common.Message;
 using SMS.Common.Paging;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -10,6 +13,10 @@ namespace SMS.MvcApplication.Base
         where TDto : new()
     {
         public virtual TIService Service { get; set; }
+
+        protected virtual bool CanEdit { get { return true; } }
+        protected virtual bool CanAdd { get { return true; } }
+        protected virtual bool CanDelete { get { return true; } }
 
         [HttpGet]
         public virtual ActionResult Index(string textSearch, int page = 1)
@@ -28,7 +35,10 @@ namespace SMS.MvcApplication.Base
             var model = new AdminModel<TDto>
             {
                 ListRecord = recordList.Data,
-                PagingInfo = pagingInfo
+                PagingInfo = pagingInfo,
+                CanAdd = CanAdd,
+                CanDelete = CanDelete,
+                CanEdit = CanEdit
             };
 
             return View(model);
@@ -43,19 +53,24 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public virtual JsonResult GetSchemaForAdd()
         {
-            var a = new TDto();
+            if (!CanAdd)
+                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden, "Forbidden"));
             return Json(JsonModel.Create(new TDto()));
         }
 
         [HttpPost]
         public virtual JsonResult SaveData(TDto data)
         {
+            if (!CanAdd && !CanEdit)
+                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden, "Forbidden"));
             return Json(JsonModel.Create(Service.Save(data)));
         }
 
         [HttpPost]
         public virtual JsonResult DeleteData(TPrimaryKey recordID)
         {
+            if (!CanDelete)
+                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden, "Forbidden"));
             return Json(JsonModel.Create(Service.Delete(recordID)));
         }
     }
