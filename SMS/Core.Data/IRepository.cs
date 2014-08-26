@@ -67,9 +67,10 @@ namespace Core.Data
         /// Finds the specified predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
+        /// <param name="forceReload">Force to reload from db.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate,
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool forceReload = false,
                                   params Expression<Func<TEntity, object>>[] fetchSelectors);
 
         /// <summary>

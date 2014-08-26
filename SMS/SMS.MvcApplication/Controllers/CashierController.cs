@@ -189,7 +189,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(JsonModel.Create(ProductService.GetAll<LanguageProductDto>()));
+            return Json(JsonModel.Create(ProductService.ReloadProductList()));
         }
 
         [HttpPost]
