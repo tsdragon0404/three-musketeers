@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
+using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
 using SMS.Data.Entities;
+using Branch = SMS.Data.Entities.Branch;
 
 namespace SMS.Business.Impl
 {
@@ -59,6 +61,16 @@ namespace SMS.Business.Impl
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Update(branchToSave);
             }
+
+            SmsSystem.SetBranchConfig(branchToSave.ID, new BranchConfig
+                                                           {
+                                                               Currency = branchToSave.Currency.Name,
+                                                               ServiceFee = branchToSave.ServiceFee,
+                                                               UseServiceFee = branchToSave.UseServiceFee,
+                                                               UseKitchenFunction = branchToSave.UseKitchenFunction,
+                                                               UseDiscountOnProduct = branchToSave.UseDiscountOnProduct,
+                                                               Taxs = branchToSave.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                           });
 
             result.Data = Mapper.Map<BranchDto>(branchToSave);
             return result;
