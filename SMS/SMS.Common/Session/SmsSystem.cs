@@ -63,13 +63,6 @@ namespace SMS.Common.Session
 
                 return branchConfigs[SelectedBranchID];
             }
-            set
-            {
-                if (SelectedBranchID == 0)
-                    throw new Exception("Branch need to be selected before setting branch config");
-
-                SetBranchConfig(SelectedBranchID, value);
-            }
         }
 
         public static string SessionId
