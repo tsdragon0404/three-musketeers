@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
@@ -16,10 +17,12 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using SMS.Common;
+using SMS.Common.Session;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
 using SMS.Common.Message;
 using SMS.Services;
+using SMS.Data.Dtos;
 
 namespace SMS.MvcApplication
 {
@@ -58,6 +61,10 @@ namespace SMS.MvcApplication
 
             var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
             SystemMessages.SetSystemMessages(errorMessageService.GetSystemMessages<Message>().Data);
+
+            var branchService = ServiceLocator.Resolve<IBranchService>();
+            var branches = branchService.GetAll();
+            SetBranchConfigs(branches.Data);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -105,6 +112,22 @@ namespace SMS.MvcApplication
         #endregion
 
         #region Methods
+
+        private void SetBranchConfigs(IEnumerable<BranchDto> branches)
+        {
+            foreach (var branch in branches)
+            {
+                SmsSystem.SetBranchConfig(branch.ID, new BranchConfig
+                                                         {
+                                                             Currency = branch.Currency.Name,
+                                                             ServiceFee = branch.ServiceFee,
+                                                             UseServiceFee = branch.UseServiceFee,
+                                                             UseKitchenFunction = branch.UseKitchenFunction,
+                                                             UseDiscountOnProduct = branch.UseDiscountOnProduct,
+                                                             Taxs = branch.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                         });
+            }
+        }
 
         private void AutofacRegister()
         {

@@ -82,7 +82,7 @@ namespace SMS.MvcApplication.Controllers
                     return View(model);
                 }
 
-                if (!SetSessionData(user, branch))
+                if (!SetSessionData(user, branch.ID))
                 {
                     Session.Abandon();
                     return ErrorPage(errors);
@@ -114,18 +114,18 @@ namespace SMS.MvcApplication.Controllers
             return branchListResult.Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
         } 
 
-        private bool SetSessionData(UserDto user, BranchDto branch)
+        private bool SetSessionData(UserDto user, long branchID)
         {
             SetClientData();
             if (!SetUserData(user))
                 return false;
-            SetBranchData(branch);
 
             var pageIds = new List<long>();
             foreach (var roleDto in user.Roles)
                 pageIds.AddRange(roleDto.Pages.Select(x => x.ID));
 
             SmsSystem.AllowPageIDs = pageIds;
+            SmsSystem.SelectedBranchID = branchID;
             return true;
         }
 
@@ -173,32 +173,6 @@ namespace SMS.MvcApplication.Controllers
             return true;
         }
 
-        private void SetBranchData(BranchDto branch)
-        {
-            SmsSystem.SelectedBranchID = branch.ID;
-
-            var branchTax = new Dictionary<string, decimal>();
-            if (branch.Taxs.Any())
-            {
-                foreach (var tax in branch.Taxs)
-                {
-                    branchTax.Add(tax.Tax.Name, tax.Tax.Value);
-                }
-            }
-
-            var branchConfig = new BranchConfig
-                                   {
-                                       Currency = branch.Currency.Name,
-                                       ServiceFee = branch.ServiceFee,
-                                       UseServiceFee = branch.UseServiceFee,
-                                       UseKitchenFunction = branch.UseKitchenFunction,
-                                       UseDiscountOnProduct = branch.UseDiscountOnProduct,
-                                       Taxs = branchTax
-                                   };
-
-            SmsSystem.BranchConfig = branchConfig;
-        }
-
         public ActionResult LogOff()
         {
             Session.Abandon();
@@ -220,7 +194,6 @@ namespace SMS.MvcApplication.Controllers
                 return Json(JsonModel.Create(false));
 
             SmsSystem.SelectedBranchID = branchID;
-            SetBranchData(branch.Data);
 
             return Json(JsonModel.Create(true));
         }

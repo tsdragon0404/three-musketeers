@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using SMS.Common.Constant;
 
@@ -38,22 +39,36 @@ namespace SMS.Common.Session
             {
                 HttpContext.Current.Session[ConstSessionKey.ClientInfo] = value;
             }
-        } 
+        }
+
+        private static Dictionary<long, BranchConfig> branchConfigs; 
+
+        public static void SetBranchConfig(long branchID, BranchConfig config)
+        {
+            if (branchConfigs == null)
+                branchConfigs = new Dictionary<long, BranchConfig>();
+
+            if (branchConfigs.ContainsKey(branchID))
+                branchConfigs[branchID] = config;
+            else
+                branchConfigs.Add(branchID, config);
+        }
 
         public static BranchConfig BranchConfig
         {
             get
             {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstSessionKey.BranchConfig] != null)
-                {
-                    return HttpContext.Current.Session[ConstSessionKey.BranchConfig] as BranchConfig;
-                }
+                if (branchConfigs == null || !branchConfigs.ContainsKey(SelectedBranchID))
+                    throw new Exception("Branch config is not set");
 
-                return new BranchConfig();
+                return branchConfigs[SelectedBranchID];
             }
             set
             {
-                HttpContext.Current.Session[ConstSessionKey.BranchConfig] = value;
+                if (SelectedBranchID == 0)
+                    throw new Exception("Branch need to be selected before setting branch config");
+
+                SetBranchConfig(SelectedBranchID, value);
             }
         }
 
