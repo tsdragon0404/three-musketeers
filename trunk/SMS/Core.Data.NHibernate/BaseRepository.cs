@@ -118,11 +118,14 @@ namespace Core.Data.NHibernate
         /// Finds entities by the specified predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
+        /// <param name="forceReload">Force to reload from db.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
         public IEnumerable<TEntity> Find(
-            Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] fetchSelectors)
+            Expression<Func<TEntity, bool>> predicate, bool forceReload = false, params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
+            if(forceReload)
+                Session.Evict(typeof(TEntity));
             var entities = Fetches(GetQuery(predicate), fetchSelectors);
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
         }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Validation;
+using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
+using AutoMapper;
 
 namespace SMS.Business.Impl
 {
@@ -36,5 +39,18 @@ namespace SMS.Business.Impl
         } 
 
         #endregion
+
+        public ServiceResult<IList<LanguageProductDto>> ReloadProductList()
+        {
+            if (BelongToBranch == null)
+                return ServiceResult<IList<LanguageProductDto>>.CreateFailResult(new Error("BelongToBranch function is not defined", ErrorType.CodeImplementation));
+
+            var result = Repository.Find(x => x.Enable, true).Where(x => BelongToBranch(x, SmsSystem.SelectedBranchID));
+
+            if (ExecuteOrderFunc != null)
+                result = ExecuteOrderFunc(result);
+
+            return ServiceResult<IList<LanguageProductDto>>.CreateSuccessResult(Mapper.Map<IList<LanguageProductDto>>(result));
+        }
     }
 }
