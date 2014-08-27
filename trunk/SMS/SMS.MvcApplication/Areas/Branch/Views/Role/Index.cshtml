@@ -1,28 +1,23 @@
-﻿@using SMS.Data.Dtos
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<RoleDto>
 @{
     ViewBag.Title = "Index";
 }
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="5">
+        <td colspan="4">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right">
                         Name
                     </div>
                     <div class="three columns">
                         <input type="text" name="name" value="${Name}" id="name-${ID}" />
                     </div>
-                    <div class="three columns right">
-                        Branch ID
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="branchID" value="${BranchID}" id="branchID-${ID}"/>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="two columns right">
                         Enable
                     </div>
                     <div class="three columns">
@@ -34,22 +29,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="four columns right">
                         Pages
                     </div>
                     <div class="three columns">
                     </div>
-                    <div class="three columns right">
+                    <div class="four columns left">
                         Assigned pages
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns push_three">
-                        <select id="originalPages-${ID}" multiple="multiple" size="4">
+                    <div class="four columns right">
+                        <select id="originalPages-${ID}" multiple="multiple" size="10" style="width: 80%">
                             @foreach (PageDto page in ViewBag.ListPage)
                             {
                                 <text>
-                                    <option value="@page.ID">@page.VNTitle/@page.ENTitle</option>
+                                    <option value="@page.ID">@(SmsSystem.Language == Language.Vietnamese ? @page.VNTitle : @page.ENTitle)</option>
                                 </text>
                             }
                         </select>
@@ -60,19 +55,25 @@
                         <button id="removeAllPages-${ID}" class="assignButton"><<</button>
                         <button id="removePages-${ID}" class="assignButton"><</button>
                     </div>
-                    <div class="three columns">
-                        <select name="assignedPages" id="assignedPages-${ID}" multiple="multiple" size="4">
+                    <div class="four columns left">
+                        <select name="assignedPages" id="assignedPages-${ID}" multiple="multiple" size="10" style="width: 80%">
                             {{each Pages}}
-                            <option value="${ID}">${VNTitle}/${ENTitle}</option>
+                                @if (SmsSystem.Language == Language.Vietnamese)
+                                {
+                                    <option value="${ID}">${VNTitle}</option>
+                                }else
+                                {
+                                    <option value="${ID}">${ENTitle}</option>
+                                }
                             {{/each}}
                         </select>
                     </div>
                     {{html buildScriptForAssignListBox(ID)}}
                 </div>
                 <div class="row">
-                    <div class="eleven columns right">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -104,7 +105,6 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
-                <col style="width: 100px;" />
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
@@ -112,7 +112,6 @@
                     <th></th>
                     <th>No</th>
                     <th>Name</th>
-                    <th>Branch</th>
                     <th>Enabled</th>
                 </tr>
             </thead>
@@ -127,7 +126,6 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.Name</td>
-                        <td>@dto.Branch.ID</td>
                         <td>@dto.Enable</td>
                     </tr>
                 }
@@ -136,7 +134,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="4"></td>
+                    <td colspan="3"></td>
                 </tr>
             </tfoot>
         </table>
