@@ -23,12 +23,16 @@ namespace SMS.Common.Constant
         public const long Data_Table = 42;
         public const long Data_ProductCategory = 43;
         public const long Data_Product = 44;
+        public const long Data_Unit = 45;
+
 
         public const long Report_Dashboard = 60;
 
         public const long System_Home = 80;
         public const long System_Branch = 81;
         public const long System_User = 82;
+        public const long System_Tax = 84;
+        public const long System_Currency = 85;
 
         public const long ReportViewer = 99;
 
