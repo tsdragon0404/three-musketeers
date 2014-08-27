@@ -11,7 +11,7 @@
     this.yesButton = '<button class="yesButton">Yes</button>';//'<input type="button" class="yesButton" value="Yes" />';
     this.noButton = '<button class="noButton">No</button>';//'<input type="button" class="noButton" value="No" />';
 
-    var imgTmpl = '<img src="' + location.pathname + '/../Images/IconControls/{0}" alt="icon"/>';
+    var imgTmpl = '<img src="../../Images/IconControls/{0}" alt="icon"/>';
     this.infoIcon = imgTmpl.replace('{0}', 'info-icon.png');
     this.questionIcon = imgTmpl.replace('{0}', 'confirm-icon.png');
     this.warningIcon = imgTmpl.replace('{0}', 'warning-icon.png'); 
