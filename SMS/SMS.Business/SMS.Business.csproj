@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITaxManagement.cs" />
     <Compile Include="ICurrencyManagement.cs" />
     <Compile Include="IPageMenuManagement.cs" />
     <Compile Include="IBranchManagement.cs" />

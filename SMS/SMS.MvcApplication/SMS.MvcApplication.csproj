@@ -203,6 +203,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\BranchData\Controllers\UnitController.cs" />
     <Compile Include="Areas\BranchData\Controllers\ProductController.cs" />
     <Compile Include="Areas\Branch\BranchAreaRegistration.cs" />
     <Compile Include="Areas\Branch\Controllers\BranchHomeController.cs" />
@@ -212,6 +213,8 @@
     <Compile Include="Areas\Report\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\System\Controllers\BranchController.cs" />
+    <Compile Include="Areas\System\Controllers\CurrencyController.cs" />
+    <Compile Include="Areas\System\Controllers\TaxController.cs" />
     <Compile Include="Areas\System\Controllers\SystemHomeController.cs" />
     <Compile Include="Areas\System\Controllers\UserController.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
@@ -832,6 +835,9 @@
     <Content Include="Areas\System\Views\User\Index.cshtml" />
     <Content Include="Areas\System\Views\_ViewStart.cshtml" />
     <Content Include="Areas\BranchData\Views\Product\Index.cshtml" />
+    <Content Include="Areas\BranchData\Views\Unit\Index.cshtml" />
+    <Content Include="Areas\System\Views\Tax\Index.cshtml" />
+    <Content Include="Areas\System\Views\Currency\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />

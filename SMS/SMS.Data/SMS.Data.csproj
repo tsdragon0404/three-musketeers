@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITaxRepository.cs" />
     <Compile Include="IInvoiceDiscountRepository.cs" />
     <Compile Include="IOrderDiscountRepository.cs" />
     <Compile Include="IUserBranchRepository.cs" />
