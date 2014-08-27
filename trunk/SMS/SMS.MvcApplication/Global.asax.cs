@@ -124,7 +124,9 @@ namespace SMS.MvcApplication
                                                              UseServiceFee = branch.UseServiceFee,
                                                              UseKitchenFunction = branch.UseKitchenFunction,
                                                              UseDiscountOnProduct = branch.UseDiscountOnProduct,
-                                                             Taxs = branch.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                             Taxs = branch.Taxs != null
+                                                                    ? branch.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                                    : new Dictionary<string, decimal>()
                                                          });
             }
         }

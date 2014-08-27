@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -14,6 +15,9 @@ namespace SMS.Business.Impl
     public class BranchManagement : BaseManagement<BranchDto, Branch, long, IBranchRepository>, IBranchManagement
     {
         #region Fields
+
+        public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
+        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
 
         #endregion
 
@@ -60,6 +64,17 @@ namespace SMS.Business.Impl
                 AssignBranchValues(dto, branchToSave);
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Update(branchToSave);
+
+                if (!branchToSave.UseKitchenFunction)
+                {
+                    var ordersInKitchen = OrderDetailRepository.Find(x => (x.OrderStatus.ID == ConstOrderStatus.SentToKitchen || x.OrderStatus.ID == ConstOrderStatus.Ordered || x.OrderStatus.ID == ConstOrderStatus.KitchenAccepted) 
+                                                                        && x.OrderTable.Order.Branch.ID == branchToSave.ID);
+                    foreach (var order in ordersInKitchen)
+                    {
+                        order.OrderStatus = OrderStatusRepository.Get(ConstOrderStatus.Done);
+                        OrderDetailRepository.Update(order);
+                    }
+                }
             }
 
             SmsSystem.SetBranchConfig(branchToSave.ID, new BranchConfig
@@ -69,7 +84,9 @@ namespace SMS.Business.Impl
                                                                UseServiceFee = branchToSave.UseServiceFee,
                                                                UseKitchenFunction = branchToSave.UseKitchenFunction,
                                                                UseDiscountOnProduct = branchToSave.UseDiscountOnProduct,
-                                                               Taxs = branchToSave.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                               Taxs = branchToSave.Taxs != null 
+                                                                      ? branchToSave.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                                      : new Dictionary<string, decimal>()
                                                            });
 
             result.Data = Mapper.Map<BranchDto>(branchToSave);
