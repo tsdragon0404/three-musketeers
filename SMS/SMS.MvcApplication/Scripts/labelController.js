@@ -25,6 +25,7 @@
             $(".ajax-loader-mask").show();
             
             $(root.popupId + ' .popup-table-header').table();
+            $(root.popupId + ' .popup-table-header').sortingTable([1, 2, 3]);
 
             if (root.multiEditId != '') {
                 $(root.multiEditId).click(function() {
