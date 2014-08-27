@@ -15,10 +15,10 @@ VALUES
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
-( 20, N'Branch', N'Branch', N'Branch', N'Branch', N'Branch', N'BranchHome', N'Index' ),
+( 20, N'Chi nhánh', N'Branch', N'Chi nhánh', N'Branch', N'Branch', N'BranchHome', N'Index' ),
 ( 21, N'Global label', N'Global label', N'Global label', N'Global label', N'Branch', N'GlobalLabel', N'Index' ),
-( 22, N'Role', N'Role', N'Role', N'Role', N'Branch', N'Role', N'Index' ),
-( 23, N'User', N'User', N'User', N'User', N'Branch', N'User', N'Index' ),
+( 22, N'Quyền truy cập', N'Role', N'Quyền truy cập', N'Role', N'Branch', N'Role', N'Index' ),
+( 23, N'Quản lý người dùng', N'User', N'Quản lý người dùng', N'User', N'Branch', N'User', N'Index' ),
 
 ( 40, N'Quản lý dữ liệu', N'Data management', N'Quản lý dữ liệu', N'Data management', N'BranchData', N'', N'' ),
 ( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'BranchData', N'Area', N'Index' ),
@@ -29,12 +29,13 @@ VALUES
 
 ( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' ),
 
-( 80, N'System', N'System', N'System', N'System', N'System', N'SystemHome', N'Index' ),
-( 81, N'Branch', N'Branch', N'Branch', N'Branch', N'System', N'Branch', N'Index' ),
-( 82, N'User', N'User', N'User', N'User', N'System', N'User', N'Index' ),
-( 83, N'Thiết lập', N'Setup', N'Thiết lập', N'Setup', N'#', N'', N'' ),
+( 80, N'Hệ thống', N'System', N'Hệ thống', N'System', N'System', N'SystemHome', N'Index' ),
+( 81, N'Quản lý chi nhánh', N'Branch', N'Quản lý chi nhánh', N'Branch', N'System', N'Branch', N'Index' ),
+( 82, N'Quản lý người dùng', N'User', N'Quản lý người dùng', N'User', N'System', N'User', N'Index' ),
+( 83, N'Thiết lập dữ liệu', N'Setup', N'Thiết lập dữ liệu', N'Setup', N'#', N'', N'' ),
 ( 84, N'Thuế', N'Tax', N'Thuế', N'Tax', N'System', N'Tax', N'Index' ),
-( 85, N'Loại tiền tệ', N'Setup currency', N'Loại tiền tệ', N'Setup currency', N'System', N'Currency', N'Index' )
+( 85, N'Loại tiền tệ', N'Setup currency', N'Loại tiền tệ', N'Setup currency', N'System', N'Currency', N'Index' ),
+( 86, N'Thiết lập hệ thống', N'Sytem configuration', N'Thiết lập hệ thống', N'Sytem configuration', N'#', N'', N'' )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -60,6 +61,7 @@ VALUES
 ( 18, N'MainMenu', 9, 83, 30 ),
 ( 19, N'MainMenu', 18, 84, 10 ),
 ( 20, N'MainMenu', 18, 85, 10 ),
+( 21, N'MainMenu', 9, 86, 40 ),
 
 ( 50, N'BranchTabMenu', 0, 21, 10 ),
 ( 51, N'BranchTabMenu', 0, 22, 20 ),
