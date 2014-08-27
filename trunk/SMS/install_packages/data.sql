@@ -20,17 +20,21 @@ VALUES
 ( 22, N'Role', N'Role', N'Role', N'Role', N'Branch', N'Role', N'Index' ),
 ( 23, N'User', N'User', N'User', N'User', N'Branch', N'User', N'Index' ),
 
-( 40, N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchData', N'BranchDataHome', N'Index' ),
+( 40, N'Quản lý dữ liệu', N'Data management', N'Quản lý dữ liệu', N'Data management', N'BranchData', N'', N'' ),
 ( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', N'BranchData', N'Area', N'Index' ),
 ( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', N'BranchData', N'Table', N'Index' ),
 ( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', N'BranchData', N'ProductCategory', N'Index' ),
 ( 44, N'Sản phẩm', N'Product', N'Quản lý sản phẩm', N'Maintain product', N'BranchData', N'Product', N'Index' ),
+( 45, N'Đơn vị tính', N'Unit', N'Quản lý đơn vị tính', N'Maintain unit', N'BranchData', N'Unit', N'Index' ),
 
 ( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', N'Report', N'Dashboard', N'Index' ),
 
 ( 80, N'System', N'System', N'System', N'System', N'System', N'SystemHome', N'Index' ),
 ( 81, N'Branch', N'Branch', N'Branch', N'Branch', N'System', N'Branch', N'Index' ),
-( 82, N'User', N'User', N'User', N'User', N'System', N'User', N'Index' )
+( 82, N'User', N'User', N'User', N'User', N'System', N'User', N'Index' ),
+( 83, N'Thiết lập', N'Setup', N'Thiết lập', N'Setup', N'#', N'', N'' ),
+( 84, N'Thuế', N'Tax', N'Thuế', N'Tax', N'System', N'Tax', N'Index' ),
+( 85, N'Loại tiền tệ', N'Setup currency', N'Loại tiền tệ', N'Setup currency', N'System', N'Currency', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -44,22 +48,31 @@ VALUES
 ( 7, N'MainMenu', 4, 22, 70 ),
 ( 8, N'MainMenu', 4, 23, 80 ),
 ( 9, N'MainMenu', 0, 80, 90 ),
-( 10, N'MainMenu', 9, 81, 100 ),
-( 11, N'MainMenu', 9, 82, 110 ),
+
+( 10, N'MainMenu', 9, 81, 10 ),
+( 11, N'MainMenu', 9, 82, 20 ),
 ( 12, N'MainMenu', 0, 60, 120 ),
-( 13, N'MainMenu', 5, 44, 10 ),
+( 13, N'MainMenu', 5, 41, 10 ),
+( 14, N'MainMenu', 5, 42, 20 ),
+( 15, N'MainMenu', 5, 43, 30 ),
+( 16, N'MainMenu', 5, 44, 40 ),
+( 17, N'MainMenu', 5, 45, 40 ),
+( 18, N'MainMenu', 9, 83, 30 ),
+( 19, N'MainMenu', 18, 84, 10 ),
+( 20, N'MainMenu', 18, 85, 10 ),
 
-( 20, N'BranchTabMenu', 0, 21, 10 ),
-( 21, N'BranchTabMenu', 0, 22, 20 ),
-( 22, N'BranchTabMenu', 0, 23, 30 ),
+( 50, N'BranchTabMenu', 0, 21, 10 ),
+( 51, N'BranchTabMenu', 0, 22, 20 ),
+( 52, N'BranchTabMenu', 0, 23, 30 ),
 
-( 30, N'BranchDataTabMenu', 0, 41, 10 ),
-( 31, N'BranchDataTabMenu', 0, 42, 20 ),
-( 32, N'BranchDataTabMenu', 0, 43, 30 ),
-( 33, N'BranchDataTabMenu', 0, 44, 40 ),
+( 80, N'BranchDataTabMenu', 0, 41, 10 ),
+( 81, N'BranchDataTabMenu', 0, 42, 20 ),
+( 82, N'BranchDataTabMenu', 0, 43, 30 ),
+( 83, N'BranchDataTabMenu', 0, 44, 40 ),
+( 84, N'BranchDataTabMenu', 0, 45, 50 ),
 
-( 40, N'SystemTabMenu', 0, 81, 10 ),
-( 41, N'SystemTabMenu', 0, 82, 20 )
+( 100, N'SystemTabMenu', 0, 81, 10 ),
+( 101, N'SystemTabMenu', 0, 82, 20 )
 
 INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
 VALUES 
