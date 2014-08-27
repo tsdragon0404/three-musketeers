@@ -19,7 +19,9 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
         message = thrownError;
     }
     
-    var popup = new MessagePopup(title, message, 4);
+    var popup = new MessagePopup(title, message, 4, function () {
+        location.reload();
+    });
     popup.OpenPopup();
     return;
 });
