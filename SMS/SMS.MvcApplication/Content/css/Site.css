@@ -298,6 +298,22 @@ label.ui-state-error {
     background-image: url(../../Images/IconControls/accept-icon.png);
 }
 
+.info-icon {
+    background: url(../../Images/IconControls/info-icon.png) no-repeat !important;
+}
+
+.confirm-icon {
+    background: url(../../Images/IconControls/confirm-icon.png) no-repeat !important;
+}
+
+.warning-icon {
+    background: url(../../Images/IconControls/warning-icon.png) no-repeat !important;
+}
+
+.error-icon {
+    background: url(../../Images/IconControls/error-icon.png) no-repeat !important;
+}
+
 .icon-edit-info {
     background: url("../../Images/IconControls/all-icon.png") -64px -112px no-repeat;
     height: 16px;
@@ -565,10 +581,6 @@ label.ui-state-error {
 #popup table, #popup table td {
     background: transparent;
     border: none;
-}
-
-#popup table td {
-    padding: 0 10px 0 0;
 }
 
 #popup-icon {

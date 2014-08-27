@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
 }
+<script src="@Url.Content("~/Scripts/kinetic-v5.1.0.min.js")"></script>
+
 <script id="orderedProducts-tmpl" type="text/x-jquery-tmpl">  
     {{if Data.length >0}}
     {{each(idx) Data}}
@@ -109,6 +111,13 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div id="container" style="border: 1px solid; width: 700px; height: 500px"></div>
+        <input id="slider" type="range" min="-1" max="1" step="0.05" value="0">
+        <input type="button" id="addObject" value="Add object"/>
+        <input type="button" id="drawLine" value="Draw line"/>
+        <input type="button" id="cleanObject" value="Clean object"/>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -165,10 +174,10 @@
                 });
                 $('#tblOrderedProducts').table();
             });
-    }
+        }
     
-    function GetAcceptedProducts() {
-        $.post("@Url.Action("GetAcceptedProducts")",
+        function GetAcceptedProducts() {
+            $.post("@Url.Action("GetAcceptedProducts")",
             function(acceptedProducts) {
 
                 $('#tblConfirmedProducts tbody').html($('#confirmedProducts-tmpl').tmpl(acceptedProducts));
@@ -190,14 +199,14 @@
                 });
                 $('#tblConfirmedProducts').table();
             });
-    }
+        }
    
-    function UpdateOrderedProductStatus(e, value) {
-        var orderDetailId = $(e).attr('id').split('-')[1];
+        function UpdateOrderedProductStatus(e, value) {
+            var orderDetailId = $(e).attr('id').split('-')[1];
             
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("UpdateOrderedProductStatus")',
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateOrderedProductStatus")',
             data: { orderDetailID: orderDetailId, value: value }
         }).done(function (result) {
             if (result.Data.ID == 0 || !result.Success) {
@@ -239,4 +248,244 @@
             }
         });
     }
+</script>
+<script defer="defer">
+    var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 700,
+        height: 500,
+    });
+    
+    var background = new Kinetic.Rect({
+        x: 0,
+        y: 0,
+        width: stage.getWidth(),
+        height: stage.getHeight(),
+        name: 'main'
+    });
+
+    var layer = new Kinetic.Layer();
+    var darth = null;
+
+    layer.add(background);
+    stage.add(layer);
+    layer.drawScene();
+    
+    $('#cleanObject').click(function() {
+        layer.removeChildren();
+        layer.add(background);
+        layer.drawScene();
+    });
+
+    $('#drawLine').click(function() {
+        drawLine();
+    });
+
+    $('#addObject').click(function() {
+        var imageObj = new Image();
+        imageObj.onload = function() {
+            darth = new Kinetic.Image({
+                x: 0,
+                y: 0,
+                image: imageObj,
+                draggable: true
+            });
+            
+            layer.add(darth);
+
+            darth.cache();
+            darth.filters([Kinetic.Filters.Brighten]);
+            layer.draw();
+
+            $('#slider').change(function() {
+                darth.brightness($(this).val());
+                layer.batchDraw();
+            });
+
+            darth.on('dblclick', function() {
+                var imgWidth = this.getWidth() + 1;
+                var imgHeight = this.getHeight() + 1;
+                
+                var itemGroup = new Kinetic.Group({
+                    x : this.getX(),
+                    y : this.getY(),
+                    draggable : true
+                });
+
+                this.setX(0);
+                this.setY(0);
+                this.draggable(false);
+                
+                var selection = new Kinetic.Rect({
+                    x: 0,
+                    y: 0,
+                    width: this.getWidth()+1,
+                    height: this.getHeight()+1,
+                    stroke: 'black',
+                    name: 'cropper',
+                    strokeWidth: 1,
+                    dash: [10, 5]
+                });
+
+                layer.add(itemGroup);
+                itemGroup.add(this);
+                itemGroup.add(selection);
+                
+                addAnchor(itemGroup, 0, 0, 'topLeft');
+                addAnchor(itemGroup, imgWidth, 0, 'topRight');
+                addAnchor(itemGroup, imgWidth, imgHeight, 'bottomRight');
+                addAnchor(itemGroup, 0, imgHeight, 'bottomLeft');
+
+                layer.drawScene();
+            });
+            
+            darth.on("mouseover", function(evt) {
+                document.body.style.cursor = 'pointer';
+            });
+            
+            darth.on("mouseout", function(evt) {
+                document.body.style.cursor = 'default';
+            });
+        };
+        imageObj.src = "Images/IconControls/table-avai.png";
+    });
+    
+    function addAnchor(group, x, y, name) {
+        stage = group.getStage();
+        layer = group.getLayer();
+
+        var anchor = new Kinetic.Circle({
+            x : x,
+            y : y,
+            stroke : '#666',
+            fill : '#ddd',
+            strokeWidth : 0,
+            radius : 2,
+            name : name,
+            draggable : true,
+            dragOnTop : false
+        });
+
+        anchor.on('dragmove', function() {			
+            update(this);
+            layer.draw();
+        });
+        anchor.on('mousedown touchstart', function() {			
+            group.draggable(false);
+            this.moveToTop();
+        });
+        anchor.on('dragend', function() {	
+            group.draggable(true);
+            layer.draw();
+        });
+        // add hover styling
+        anchor.on('mouseover', function() {
+            layer = this.getLayer();
+            document.body.style.cursor = 'pointer';
+            this.setStrokeWidth(4);
+            layer.draw();
+        });
+        anchor.on('mouseout', function() {
+            layer = this.getLayer();
+            document.body.style.cursor = 'default';
+            this.setStrokeWidth(2);
+            layer.draw();
+        });
+
+        group.add(anchor);
+    }
+    
+    function stopDrag() {
+        for (var i = 0; i < layer.children.length; i++) {
+            layer.children[i].draggable(false);
+        }
+    }
+
+    function startDrag() {
+        for (var i = 0; i < layer.children.length; i++) {
+            layer.children[i].draggable(true);
+        }
+    }
+
+    function drawLine() {
+        var group, line, moving = false;
+
+        layer.on("mousedown", function(e) {
+            if (moving) {
+                moving = false;
+                layer.drawScene();
+            } else {
+                stopDrag();
+                var startNode = e.target;
+                
+                var mousePos = stage.getPointerPosition();
+
+                group = new Kinetic.Group({
+                    x: mousePos.x,
+                    y: mousePos.y,
+                    draggable: true
+                });
+
+                group.on("dragstart", function(evt) {
+                    this.moveToTop();
+                    document.body.style.cursor = 'move';
+                });
+                group.on("dragend", function(evt) {
+                    document.body.style.cursor = 'default';
+                });
+
+
+                line = new Kinetic.Line({
+                    points: [0, 0, 0, 0], //start point and end point are the same
+                    stroke: '#000',
+                    strokeWidth: 2,
+                    name: 'line'
+                });
+
+                line.on("mouseover", function(evt) {
+                    document.body.style.cursor = 'pointer';
+                });
+                line.on("mouseout", function(evt) {
+                    document.body.style.cursor = 'default';
+                });
+
+                group.add(line);
+                layer.add(group);
+                moving = true;
+            }
+        });
+
+        layer.on("mousemove", function(e) {
+            if (moving) {
+                var mousePos = stage.getPointerPosition();
+                var x = mousePos.x - group.getX();
+                var y = mousePos.y - group.getY();
+
+                var points = [0, 0, x, y];
+                line.setPoints(points);
+
+                moving = true;
+                layer.drawScene();
+            }
+        });
+
+        layer.on("mouseup", function(e) {
+            var endNode = e.target;
+
+            moving = false;
+            layer.draw();
+            layer.off('mousedown mousemove mouseup');
+            startDrag();
+        });
+    }
+    
+    //layer.on("click", function(e) {
+    //    if(e.target.getName() == "main")
+    //    {
+    //        layer.find('Circle').remove();
+    //        layer.drawScene();
+    //        startDrag();
+    //    }
+    //});
+
 </script>

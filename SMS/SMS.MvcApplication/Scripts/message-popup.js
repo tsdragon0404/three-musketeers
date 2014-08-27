@@ -7,15 +7,9 @@
     this.secondButtonCallback = secondButtonCallback;
 
     this.okButton = '<button class="okButton">Ok</button>';
-    this.cancelButton = '<button class="cancelButton">Cancel</button>';//'<input type="button" class="cancelButton" value="Cancel" />';
-    this.yesButton = '<button class="yesButton">Yes</button>';//'<input type="button" class="yesButton" value="Yes" />';
-    this.noButton = '<button class="noButton">No</button>';//'<input type="button" class="noButton" value="No" />';
-
-    var imgTmpl = '<img src="../../Images/IconControls/{0}" alt="icon"/>';
-    this.infoIcon = imgTmpl.replace('{0}', 'info-icon.png');
-    this.questionIcon = imgTmpl.replace('{0}', 'confirm-icon.png');
-    this.warningIcon = imgTmpl.replace('{0}', 'warning-icon.png'); 
-    this.errorIcon = imgTmpl.replace('{0}', 'error-icon.png');
+    this.cancelButton = '<button class="cancelButton">Cancel</button>';
+    this.yesButton = '<button class="yesButton">Yes</button>';
+    this.noButton = '<button class="noButton">No</button>';
 
     $('#popup').dialog({
         autoOpen: false,
@@ -30,9 +24,14 @@
 
     //unbind click event for buttons
     $('#popup-button input[type="button"]').unbind('click');
+
+    $('#popup-icon').removeClass('info-icon');
+    $('#popup-icon').removeClass('confirm-icon');
+    $('#popup-icon').removeClass('warning-icon');
+    $('#popup-icon').removeClass('error-icon');
     
     if (popupType == 1) {
-        $('#popup-icon').html(root.infoIcon);
+        $('#popup-icon').addClass('info-icon');
         $('#popup-button').html(root.okButton);
         $('#popup-button .okButton').button({
             icons: {
@@ -46,7 +45,7 @@
         });
     }
     else if (popupType == 2) {
-        $('#popup-icon').html(root.questionIcon);
+        $('#popup-icon').addClass('confirm-icon');
         $('#popup-button').html(root.okButton + root.cancelButton);
         $('#popup-button .okButton').button({
             icons: {
@@ -70,7 +69,7 @@
         });
     }
     else if (popupType == 3) {
-        $('#popup-icon').html(root.questionIcon);
+        $('#popup-icon').addClass('confirm-icon');
         $('#popup-button').html(root.yesButton + root.noButton);
         $('#popup-button .yesButton').button({
             icons: {
@@ -94,7 +93,7 @@
         });
     }
     else if (popupType == 4) {
-        $('#popup-icon').html(root.errorIcon);
+        $('#popup-icon').addClass('error-icon');
         $('#popup-button').html(root.okButton);
         $('#popup-button .okButton').button({
             icons: {
