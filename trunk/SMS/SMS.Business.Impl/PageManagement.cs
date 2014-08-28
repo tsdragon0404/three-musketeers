@@ -25,7 +25,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
         {
-            var result = Repository.Find(x => !ConstPage.PublicPages.Contains(x.ID)).ToList();
+            var result = Repository.Find(x => !ConstPage.PublicPages.Contains(x.ID) && !ExcludedPages.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
@@ -46,11 +46,23 @@ namespace SMS.Business.Impl
             var accessiblePageIds = new List<long>();
 
             foreach (var role in user.Roles)
-                accessiblePageIds.AddRange(role.Pages.Where(x => !ConstPage.PublicPages.Contains(x.ID)).Select(x => x.ID));
+                accessiblePageIds.AddRange(role.Pages.Where(x => !ConstPage.PublicPages.Contains(x.ID) && !ExcludedPages.Contains(x.ID)).Select(x => x.ID));
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
             var result = Repository.Find(x => accessiblePageIds.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+        }
+
+        private IEnumerable<long> ExcludedPages
+        {
+            get
+            {
+                var pages = new List<long>();
+                if(SmsSystem.BranchConfig != null && !SmsSystem.BranchConfig.UseKitchenFunction)
+                    pages.Add(ConstPage.Kitchen);
+
+                return pages;
+            }
         }
     }
 }
