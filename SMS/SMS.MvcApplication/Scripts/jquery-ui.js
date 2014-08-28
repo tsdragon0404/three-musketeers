@@ -8592,6 +8592,7 @@ var dialog = $.widget( "ui.dialog", {
 		}
 
 		this.overlay = $( "<div>" )
+		    .css("z-index", parseInt(this.uiDialog.css("z-index")) + parseInt(this.document.data("ui-dialog-overlays")))
 			.addClass( "ui-widget-overlay ui-front" )
 			.appendTo( this._appendTo() );
 		this._on( this.overlay, {
