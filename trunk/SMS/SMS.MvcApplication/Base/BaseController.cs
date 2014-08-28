@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
+using Castle.Core.Internal;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
@@ -35,17 +36,18 @@ namespace SMS.MvcApplication.Base
             if (viewResult != null)
             {
 
-                var attribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof (PageIDAttribute), false).FirstOrDefault();
-                if (attribute != null && (attribute as PageIDAttribute) != null)
+                var attribute = filterContext.ActionDescriptor.GetAttribute<PageIDAttribute>() ??
+                                filterContext.ActionDescriptor.ControllerDescriptor.GetAttribute<PageIDAttribute>();
+
+                if (attribute != null)
                 {
-                    var pageID = (attribute as PageIDAttribute).PageID;
-                    var pageLabelResult = PageLabelService.GetByPageID<LanguagePageLabelDto>(pageID, true);
+                    var pageLabelResult = PageLabelService.GetByPageID<LanguagePageLabelDto>(attribute.PageID, true);
                     if(pageLabelResult.Success && pageLabelResult.Data != null)
                     {
                         var labelDictionary = pageLabelResult.Data.ToDictionary(x => x.LabelID, x => x.Text);
 
                         viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
-                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, pageID);
+                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, attribute.PageID);
                     }
                 }
 

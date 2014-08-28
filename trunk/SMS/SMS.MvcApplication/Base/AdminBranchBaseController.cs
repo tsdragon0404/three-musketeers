@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Paging;
 using SMS.Common.Session;
+using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -46,6 +47,13 @@ namespace SMS.MvcApplication.Base
         public override JsonResult DeleteData(TPrimaryKey recordID)
         {
             return Json(JsonModel.Create(Service.DeleteInCurrentBranch(recordID)));
+        }
+        [HttpPost]
+        public JsonResult GetAllPageLabel(long pageID)
+        {
+            return Json(!SmsSystem.UserContext.IsSystemAdmin
+                            ? JsonModel.Create(false)
+                            : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }
     }
 }

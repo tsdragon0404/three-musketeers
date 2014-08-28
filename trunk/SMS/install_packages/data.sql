@@ -94,6 +94,7 @@ VALUES
 ( -5, -5, 0, N'Login required.', N'Bạn chưa đăng nhập.' ),
 ( -6, -6, 0, N'Branch not available.', N'Chi nhánh này không tồn tại.' ),
 ( -7, -7, 0, N'{0} is not valid.', N'{0} không hợp lệ.' ),
-( -8, -8, 0, N'The requested data does not existed.', N'Dữ liệu không tồn tại.' )
+( -8, -8, 0, N'The requested data does not existed.', N'Dữ liệu không tồn tại.' ),
+( -9, -9, 0, N'Forbidden.', N'Không được phép.' )
 
 GO
