@@ -208,7 +208,7 @@
                         </ul>
                     </div>
                 }
-                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "Branch")
+                @if (ViewContext.RouteData.DataTokens["area"] != null && ViewContext.RouteData.DataTokens["area"].ToString() == "SystemData")
                 {
                     <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -221,7 +221,7 @@
                                                           ListItemClass = "ui-state-default ui-corner-top"
                                                       };
                             }
-                            @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchTabMenu, adminOption)) 
+                            @Html.Raw(BuildMenuList(ConstPageMenuGroupName.SystemDataTabMenu, adminOption)) 
                         </ul>
                     </div>
                 }

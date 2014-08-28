@@ -13,7 +13,6 @@ namespace SMS.Common.Constant
         public const long Error = 6;
         public const long NotFoundError = 7;
                      
-        public const long Branch_Home = 20;
         public const long Branch_GlobalLabel = 21;
         public const long Branch_Role = 22;
         public const long Branch_User = 23;
@@ -33,6 +32,8 @@ namespace SMS.Common.Constant
         public const long System_User = 82;
         public const long System_Tax = 84;
         public const long System_Currency = 85;
+        public const long System_Configuration = 86;
+        public const long System_About = 87;
 
         public const long ReportViewer = 99;
 

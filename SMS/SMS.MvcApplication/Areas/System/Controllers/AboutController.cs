@@ -6,9 +6,9 @@ using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.System.Controllers
 {
-    [SmsAuthorize(ConstPage.System_Tax)]
-    [PageID(ConstPage.System_Tax)]
-    public class TaxController : AdminBaseController<TaxDto, long, ITaxService>
+    [SmsAuthorize(ConstPage.System_About)]
+    [PageID(ConstPage.System_About)]
+    public class AboutController : AdminBaseController<CurrencyDto, long, ICurrencyService>
     {
         #region Fields
 
