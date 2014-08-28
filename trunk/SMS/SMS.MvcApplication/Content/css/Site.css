@@ -300,18 +300,26 @@ label.ui-state-error {
 
 .info-icon {
     background: url(../../Images/IconControls/info-icon.png) no-repeat !important;
+    height: 48px;
+    width: 48px;
 }
 
 .confirm-icon {
     background: url(../../Images/IconControls/confirm-icon.png) no-repeat !important;
+    height: 48px;
+    width: 48px;
 }
 
 .warning-icon {
     background: url(../../Images/IconControls/warning-icon.png) no-repeat !important;
+    height: 48px;
+    width: 48px;
 }
 
 .error-icon {
     background: url(../../Images/IconControls/error-icon.png) no-repeat !important;
+    height: 48px;
+    width: 48px;
 }
 
 .icon-edit-info {
