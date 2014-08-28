@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.BranchData
             context.MapRoute(
                 "BranchData_default",
                 "BranchData/{controller}/{action}/{id}",
-                new { controller = "BranchDataHome", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Product", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
