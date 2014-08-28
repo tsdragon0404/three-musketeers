@@ -48,12 +48,5 @@ namespace SMS.MvcApplication.Base
         {
             return Json(JsonModel.Create(Service.DeleteInCurrentBranch(recordID)));
         }
-        [HttpPost]
-        public JsonResult GetAllPageLabel(long pageID)
-        {
-            return Json(!SmsSystem.UserContext.IsSystemAdmin
-                            ? JsonModel.Create(false)
-                            : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
-        }
     }
 }
