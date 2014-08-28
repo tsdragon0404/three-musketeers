@@ -117,6 +117,9 @@ BEGIN
 		[CustomerID] [int] IDENTITY(1,1) NOT NULL,
 		[CustomerCode] [varchar](50) NOT NULL,
 		[CustomerName] [nvarchar](255) NULL,
+		[CellPhone] [nvarchar](50) NULL,
+		[Address] [nvarchar](510) NULL,
+		[DOB] [datetime] NULL,
 		[BranchID] [int] NULL,
 		[Enable] [bit] NULL,
 		[SEQ] [int] NULL,
@@ -157,6 +160,10 @@ BEGIN
 		[InvoiceDate] [datetime] NULL,
 		[Comment] [nvarchar](255) NULL,
 		[CustomerID] [int] NULL,
+		[CustomerName] [nvarchar](255) NULL,
+		[CellPhone] [nvarchar](50) NULL,
+		[Address] [nvarchar](510) NULL,
+		[DOB] [datetime] NULL,
 		[UserID] [int] NULL,
 		[Tax] [numeric](12, 2) NULL,
 		[ServiceFee] [numeric](12, 2) NULL,
@@ -512,6 +519,10 @@ BEGIN
 		[OrderNumber] [varchar](50) NULL,
 		[Comment] [nvarchar](255) NULL,
 		[CustomerID] [int] NULL,
+		[CustomerName] [nvarchar](255) NULL,
+		[CellPhone] [nvarchar](50) NULL,
+		[Address] [nvarchar](510) NULL,
+		[DOB] [datetime] NULL,
 		[OtherFee] [numeric](12, 2) NULL,
 		[OtherFeeDescription] [nvarchar](255) NULL,
 		[CreatedDate] [datetime] NULL,
@@ -788,15 +799,6 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Invoice_Customer]') AND type in (N'F'))
-BEGIN
-	ALTER TABLE [dbo].[Invoice] WITH CHECK ADD CONSTRAINT [FK_Invoice_Customer] FOREIGN KEY([CustomerID])
-	REFERENCES [dbo].[Customer] ([CustomerID])
-
-	ALTER TABLE [dbo].[Invoice] CHECK CONSTRAINT [FK_Invoice_Customer]
-END
-GO
-
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Invoice_User]') AND type in (N'F'))
 BEGIN
 	ALTER TABLE [dbo].[Invoice] WITH CHECK ADD CONSTRAINT [FK_Invoice_User] FOREIGN KEY([UserID])
@@ -911,15 +913,6 @@ BEGIN
 	REFERENCES [dbo].[User] ([UserID])
 
 	ALTER TABLE [dbo].[UserBranch] CHECK CONSTRAINT [FK_UserBranch_User]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Order_Customer]') AND type in (N'F'))
-BEGIN
-	ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Customer] FOREIGN KEY([CustomerID])
-	REFERENCES [dbo].[Customer] ([CustomerID])
-
-	ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Customer]
 END
 GO
 
