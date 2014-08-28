@@ -616,6 +616,10 @@ label.ui-state-error {
     background-color: #fff2cc;
 }
 
+.popup-content table tr td {
+    word-break: break-all;
+}
+
 .textSearch {
     width: 200px !important;
 }
@@ -718,7 +722,7 @@ label.ui-state-error {
 }
 
 .edit-label-popup .col2 {
-    width: 120px;
+    width: 200px;
 }
 
 .edit-label-popup .col3 {
