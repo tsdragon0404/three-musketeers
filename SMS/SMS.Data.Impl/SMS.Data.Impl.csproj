@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="AreaRepository.cs" />
     <Compile Include="BranchRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="TaxRepository.cs" />
     <Compile Include="InvoiceDiscountRepository.cs" />
     <Compile Include="OrderDiscountRepository.cs" />

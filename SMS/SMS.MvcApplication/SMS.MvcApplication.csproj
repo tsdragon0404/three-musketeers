@@ -808,6 +808,7 @@
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\assignListBox.js" />
+    <Content Include="Scripts\customer-popup.js" />
     <Content Include="Scripts\discount-popup.js" />
     <Content Include="Scripts\flot\excanvas.min.js" />
     <Content Include="Scripts\flot\jquery.colorhelpers.min.js" />
@@ -921,6 +922,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Shared\CustomerPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

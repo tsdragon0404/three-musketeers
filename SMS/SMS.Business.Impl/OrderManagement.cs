@@ -208,5 +208,27 @@ namespace SMS.Business.Impl
             }
             return ServiceResult.CreateSuccessResult();
         }
+
+        public ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob)
+        {
+            var order = Repository.Get(orderID);
+            if (order == null)
+                return ServiceResult.CreateFailResult();
+
+            
+            if (customerID > 0)
+            {
+                order.Customer = new Customer {ID = customerID};
+            }else
+            {
+                order.Customer = null;
+                order.CustomerName = customerName;
+                order.Address = address;
+                order.CellPhone = cellPhone;
+                order.DOB = DateTime.Parse(dob);
+            }
+            Repository.Update(order);
+            return ServiceResult.CreateSuccessResult();
+        }
     }
 }

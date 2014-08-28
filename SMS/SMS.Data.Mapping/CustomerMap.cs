@@ -10,6 +10,9 @@ namespace SMS.Data.Mapping
             Map(x => x.BranchID);
             Map(x => x.CustomerCode);
             Map(x => x.CustomerName);
+            Map(x => x.Address);
+            Map(x => x.CellPhone);
+            Map(x => x.DOB);
         }
     }
 }
