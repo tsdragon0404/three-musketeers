@@ -19,6 +19,7 @@ namespace SMS.MvcApplication.Controllers
         public virtual IOrderTableService OrderTableService { get; set; }
         public virtual IOrderDetailService OrderDetailService { get; set; }
         public virtual IOrderService OrderService { get; set; }
+        public virtual ICustomerService CustomerService { get; set; }
 
         #endregion
 
@@ -251,6 +252,22 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
         {
             var result = OrderService.SaveOrderDiscount(orderID, discountTypes, discountCodes, discountComments, discounts);
+
+            return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
+        public JsonResult GetCustomer()
+        {
+            var result = CustomerService.GetAll<CustomerDto>();
+
+            return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
+        public JsonResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob )
+        {
+            var result = OrderService.ChangeCustomer(orderID, customerID, customerName, address, cellPhone, dob);
 
             return Json(JsonModel.Create(result));
         }

@@ -15,5 +15,6 @@ namespace SMS.Business
         ServiceResult Payment(long orderID, decimal tax, decimal serviceFee);
         ServiceResult<IList<TDto>> GetOrderDiscount<TDto>(long orderID);
         ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts);
+        ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob);
     }
 }

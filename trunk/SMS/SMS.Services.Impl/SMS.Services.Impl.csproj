@@ -39,6 +39,7 @@
     <Compile Include="AreaService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="BranchService.cs" />
+    <Compile Include="CustomerService.cs" />
     <Compile Include="TaxService.cs" />
     <Compile Include="CurrencyService.cs" />
     <Compile Include="PageMenuService.cs" />

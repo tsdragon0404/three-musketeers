@@ -13,6 +13,14 @@ namespace SMS.Data.Entities
 
         public virtual Customer Customer { get; set; }
 
+        public virtual string CustomerName { get; set; }
+
+        public virtual string CellPhone { get; set; }
+
+        public virtual string Address { get; set; }
+
+        public virtual DateTime? DOB { get; set; }
+
         public virtual decimal OtherFee { get; set; }
 
         public virtual string OtherFeeDescription { get; set; }

@@ -48,6 +48,10 @@ namespace SMS.Data.Dtos
         public virtual string OrderNumber { get; set; }
         public virtual string Comment { get; set; }
         public virtual CustomerDto Customer { get; set; }
+        public virtual string CustomerName { get; set; }
+        public virtual string CellPhone { get; set; }
+        public virtual string Address { get; set; }
+        public virtual DateTime? DOB { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
         public virtual IList<OrderDiscountDto> OrderDiscounts { get; set; }

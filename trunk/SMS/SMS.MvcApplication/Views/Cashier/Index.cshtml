@@ -378,6 +378,7 @@
     @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
     @Html.Partial("PaymentPopup", new PopupModel { PopupID = "pdtPayment", PopupTitle = "Payment" })
     @Html.Partial("DestinationTablePopup", new PopupModel { PopupID = "destinationTablePopup", PopupTitle = "Select destination table" })
+    @Html.Partial("CustomerPopup", new PopupModel { PopupID = "pdtCustomer", PopupTitle = "Customer" })
 </div>
 
 <script type="text/javascript">
@@ -525,6 +526,14 @@
         }
     }));
     
+    $(document).on("click", "#changeCustomer", (function(e){
+        var orderId = $('#curOrderID').val();
+        if (orderId > 0) {
+            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("GetCustomer")', changeCustomer);
+            popup.OpenPopup();
+        }
+    }));
+    
     $(document).on("click", "#mainRightMenu", (function(){
         refreshTableArea();
         refreshOrderArea();
@@ -582,6 +591,16 @@
             $('#order-header').hide();
             CalculateTotal();
         }
+    }
+    
+    function changeCustomer(orderId, customerId, customerName, address, cellPhone, dob) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCustomer")',
+            data: { orderID: orderId, customerID: customerId, customerName: customerName, address: address, cellPhone: cellPhone, dob: dob }
+        }).done(function (result) {
+            refreshOrderArea();
+        });
     }
 
     function updateOrderedProduct(e) {
