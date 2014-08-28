@@ -109,8 +109,8 @@
         autoOpen: false,
         closeOnEscape: true,
         resizable: false,
-        width: 800,
-        height: 500,
+        width: 900,
+        height: 600,
         modal: true
     });
 
