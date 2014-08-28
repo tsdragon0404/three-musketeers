@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
