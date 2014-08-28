@@ -58,7 +58,7 @@ namespace SMS.MvcApplication.Base
                 listItemClass += SELECTEDLISTITEMCLASS;
             
             if (page.Area.IsNullOrEmpty() && page.Controller.IsNullOrEmpty())
-                menuItem += string.Format("<li{0}><a{1} href=\"{2}\">{2}</a>", listItemClass, HYPERLINKCLASS, page.Title);
+                menuItem += string.Format("<li{0}><a{1} href=\"{3}\">{2}</a>", listItemClass, HYPERLINKCLASS, page.Title, page.Action);
             else
                 menuItem += string.Format("<li{0}><a{1} href=\"{2}\">{3}</a>", listItemClass, HYPERLINKCLASS,
                     Url.Action(page.Action, page.Controller, new { area = page.Area }), page.Title);
