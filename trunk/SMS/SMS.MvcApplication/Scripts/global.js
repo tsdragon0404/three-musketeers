@@ -127,7 +127,7 @@ $.fn.table = function () {
 
 $.fn.sortingTable = function (sortColumn) {
     var popupId = this.attr('id');
-    this.find('.popup-table-header thead th').each(function (idx, element) {
+    this.find(' .popup-table-header thead th').each(function (idx, element) {
         $(element).attr('sort-index', popupId + '-' + idx);
         if ($.inArray(idx, sortColumn) >= 0)
             $(element).addClass('sort_both');
@@ -218,5 +218,53 @@ $.fn.rebuildSorting = function() {
             $(e).removeClass('alt');
         }
     });
+    return this;
+};
+
+$.fn.searchTable = function (searchColumn) {
+    var popupId = this.attr('id');
+    this.find(' .popup-table-header thead .search-popup').remove();
+
+    var HTMLElement = '<tr class="search-popup">';
+    this.find(' .popup-table-header thead th').each(function (idx) {
+        HTMLElement = HTMLElement + '<th>';
+        if ($.inArray(idx, searchColumn) >= 0)
+            HTMLElement = HTMLElement + '<input type="text" search-index="' + popupId + '-' + idx +'" class="text-search" />';
+        
+        HTMLElement = HTMLElement + '</th>';
+    });
+    HTMLElement = HTMLElement + '</tr>';
+
+    this.find(' .popup-table-header thead').append(HTMLElement);
+};
+
+$(document).on("keypress", '.popup-table-header th input.text-search', (function (e) {
+    if (e.which == 13) {
+        var id = $(this).attr('search-index').split('-')[0];
+        var index = $(this).attr('search-index').split('-')[1];
+        var keyword = $(this).val();
+
+        $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Searching(index, keyword));
+        $('#' + id + ' .popup-content form tbody').rebuildSorting();
+    }
+}));
+
+$.fn.Searching = function (index, keyword) {
+    var data = new Array();
+    var result = new Array();
+    this.each(function (idx, element) {
+        $(element).find('td').each(function (i, e) {
+            if (i == index) {
+                var str = $(e).text().toUpperCase();
+                if (str.search(keyword.toUpperCase()) > 0)
+                    $(element).addClass('hide');
+                else
+                    $(element).removeClass('hide');
+            }
+        });
+    });
+    for (var z = 0; z < data.length; z++) {
+        result[z] = data[z].Data;
+    }
     return this;
 };

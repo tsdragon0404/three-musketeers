@@ -27,6 +27,7 @@
     <script type="text/javascript">
         var labelDictionary = @Html.Raw(JsonEncode(LabelDictionary));
         $(document).ready(function() {
+            
             var labelController = new LabelController(labelDictionary, '@pageLabelEdit', '#editLabelPopup', 
                 '@Url.Action("GetAllPageLabel", "Home", new { area = "" })', '@Url.Action("MultiEditPageLabel", "Home", new { area = "" })');
             labelController.ScanElements();

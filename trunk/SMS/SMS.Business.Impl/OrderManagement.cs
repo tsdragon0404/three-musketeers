@@ -215,17 +215,25 @@ namespace SMS.Business.Impl
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
-            
+
             if (customerID > 0)
             {
-                order.Customer = new Customer {ID = customerID};
-            }else
+                order.Customer = new Customer { ID = customerID };
+                order.CustomerName = String.Empty;
+                order.Address = String.Empty;
+                order.CellPhone = String.Empty;
+                order.DOB = null;
+            }
+            else
             {
                 order.Customer = null;
                 order.CustomerName = customerName;
                 order.Address = address;
                 order.CellPhone = cellPhone;
-                order.DOB = DateTime.Parse(dob);
+                if (dob.Trim() != "") 
+                    order.DOB = DateTime.Parse(dob);
+                else
+                    order.DOB = null;
             }
             Repository.Update(order);
             return ServiceResult.CreateSuccessResult();
