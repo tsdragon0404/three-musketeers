@@ -526,10 +526,10 @@
         }
     }));
     
-    $(document).on("click", "#changeCustomer", (function(e){
+    $(document).on("click", "#changeCustomer", (function(){
         var orderId = $('#curOrderID').val();
         if (orderId > 0) {
-            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("GetCustomer")', changeCustomer);
+            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("")', changeCustomer);
             popup.OpenPopup();
         }
     }));
@@ -558,7 +558,7 @@
                 else {
                     $('#curOrderID').val(result.Data.ID);
                     $('#curOrderNumber').text(result.Data.OrderNumber);
-                    $('#curCustomerName').text(result.Data.Customer.CustomerName);
+                    $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
                     $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
                     bindEventForControl();
@@ -598,7 +598,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeCustomer")',
             data: { orderID: orderId, customerID: customerId, customerName: customerName, address: address, cellPhone: cellPhone, dob: dob }
-        }).done(function (result) {
+        }).done(function () {
             refreshOrderArea();
         });
     }
@@ -813,7 +813,7 @@
             else {
                 $('#curOrderID').val(result.Data.ID);
                 $('#curOrderNumber').text(result.Data.OrderNumber);
-                $('#curCustomerName').text(result.Data.Customer.CustomerName);
+                $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
                 $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
                 bindEventForControl();
