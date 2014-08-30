@@ -8,13 +8,16 @@
     $('#' + root.id).dialog({
         autoOpen: false,
         closeOnEscape: true,
-        width: 800,
-        modal: true
+        width: 870,
+        height: 500,
+        modal: true,
+        resizable: false
     });
 
     $('#' + root.id + ' .popup-table-header').table();
     
-    $('#' + root.id).sortingTable([0,1,2,3]);
+    $('#' + root.id).sortingTable([1, 2, 3, 4]);
+    $('#' + root.id).searchTable([1, 2, 3, 4]);
     
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');

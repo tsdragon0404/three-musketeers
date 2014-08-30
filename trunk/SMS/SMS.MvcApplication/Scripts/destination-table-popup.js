@@ -10,18 +10,20 @@
         dialogClass: "no-close",
         autoOpen: false,
         closeOnEscape: true,
-        width: 600,
+        width: 700,
         height: 500,
-        modal: true
+        modal: true,
+        resizable: false
     });
     
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
     $('#' + root.id + ' .popup-table-header').table();
-    $('#' + root.id).sortingTable([0,1,2]);
+    $('#' + root.id).sortingTable([1, 2]);
+    $('#' + root.id).searchTable([1, 2]);
 
     this.OpenPopup = function () {
         $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
-        $('#select-area-' + root.id).selectmenu();
+        //$('#select-area-' + root.id).selectmenu();
         $.ajax({
             type: 'POST',
             url: root.getDataUrl,

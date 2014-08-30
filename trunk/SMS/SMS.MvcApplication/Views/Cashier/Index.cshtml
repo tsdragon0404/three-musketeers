@@ -259,7 +259,7 @@
     <div class='row' style="padding-top: 10px;">
         {{/if}}
         <div class="one column">
-            <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}-${Order.OrderNumber}{{/if}}">
+            <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}: ${Order.OrderNumber}{{/if}}">
                 <tr>
                     <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
                 </tr>
@@ -278,7 +278,10 @@
 <div id="content" class="split-pane horizontal-percent cashier">
     <div id="area-table" class="split-pane-component">
         <ul id="areas">
-            <li><a href="#area-0" data-labelID="lblAllArea">All</a></li>
+            @if(Model.ListArea.Count > 1)
+            {
+                <li><a href="#area-0" data-labelID="lblAllArea">All</a></li>
+            }
             @foreach (var area in Model.ListArea)
             {
                 <li><a href="#area-@area.ID">@area.Name</a></li>
@@ -286,7 +289,10 @@
 
         </ul>
         <div id="tables">
-            <div id="area-0"></div>
+            @if(Model.ListArea.Count > 1)
+            {
+                <div id="area-0"></div>
+            }
             @foreach (var areaDto in Model.ListArea)
             {
                 <div id="area-@areaDto.ID"></div>
