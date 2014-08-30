@@ -245,7 +245,6 @@ $.fn.searchTable = function (searchColumn) {
 
 $(document).on("keypress", '.popup-table-header th input.text-search', (function (e) {
     if (e.which == 13) {
-        $(".ajax-loader-mask").show();
         var id = $(this).attr('search-index').split('-')[0];
         var index = [];
         var keyword = [];
@@ -259,7 +258,6 @@ $(document).on("keypress", '.popup-table-header th input.text-search', (function
 
         $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Searching(index, keyword));
         $('#' + id + ' .popup-content form tbody').rebuildTable();
-        $(".ajax-loader-mask").hide();
     }
 }));
 
