@@ -45,8 +45,8 @@ namespace SMS.Business.Impl
             Repository.Add(order);
             Repository.SaveAllChanges();
 
-            var text = "00000" + order.ID;
-            order.OrderNumber = "ODR-" +  DateTime.Now.ToString("yyMMdd") + text.PadRight(5);
+            var text = "0000000000" + order.ID;
+            order.OrderNumber = "INV-" + text.Substring(text.Length-10, 10);
             Repository.Update(order);
             Repository.SaveAllChanges();
 
@@ -98,7 +98,7 @@ namespace SMS.Business.Impl
 
             var invoice = new Invoice
                               {
-                                  InvoiceNumber = "INV-" + DateTime.Now.ToString("yyyyMMdd"),
+                                  InvoiceNumber = order.OrderNumber,
                                   InvoiceDate = DateTime.Now,
                                   Branch = new Data.Entities.Branch { ID = order.Branch.ID },
                                   CustomerID = order.Customer.ID,
@@ -237,6 +237,12 @@ namespace SMS.Business.Impl
             }
             Repository.Update(order);
             return ServiceResult.CreateSuccessResult();
+        }
+
+        public ServiceResult<TDto> GetOrderBasic<TDto>(long orderID)
+        {
+            var result = Repository.Get(orderID);
+            return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
     }
 }

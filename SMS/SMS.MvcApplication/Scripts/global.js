@@ -80,14 +80,14 @@ String.prototype.formatAsDateTime = function () {
     if (this == '' || this == null)
         return '';
     var d = new Date(this);
-    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1), pad(d.getSeconds() + 1)].join(':');
+    return [pad(d.getMonth() + 1), pad(d.getDate()), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes() + 1), pad(d.getSeconds() + 1)].join(':');
 };
 
 String.prototype.formatAsDate = function () {
     if (this == '' || this == null)
         return '';
     var d = new Date(this);
-    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+    return [pad(d.getMonth() + 1), pad(d.getDate()), d.getFullYear()].join('/');
 };
 
 Number.prototype.formatAsMoney = function () {
@@ -152,7 +152,7 @@ $(document).on("click", '.popup-table-header th.sorting_asc', (function () {
     $(this).removeClass('sorting_asc');
     $(this).addClass('sorting_desc');
     $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'desc'));
-    $('#' + id + ' .popup-content form tbody').rebuildSorting();
+    $('#' + id + ' .popup-content form tbody').rebuildTable();
 }));
 
 $(document).on("click", '.popup-table-header th.sorting_desc', (function () {
@@ -162,7 +162,7 @@ $(document).on("click", '.popup-table-header th.sorting_desc', (function () {
     $(this).removeClass('sorting_desc');
     $(this).addClass('sorting_asc');
     $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'asc'));
-    $('#' + id + ' .popup-content form tbody').rebuildSorting();
+    $('#' + id + ' .popup-content form tbody').rebuildTable();
 }));
 
 function removeSortIcon(id) {
@@ -211,11 +211,16 @@ $.fn.Sorting = function (index, sortType) {
 };
 
 $.fn.rebuildTable = function () {
-    this.find('tr').each(function(idx, e) {
-        if(idx%2) {
-            $(e).addClass('alt');
-        } else {
-            $(e).removeClass('alt');
+    var index = 0;
+    this.find('tr').each(function (idx, e) {
+        if (!$(e).hasClass('hide')) {
+            $(e).find('td:first-child').text(index + 1);
+            if (index % 2) {
+                $(e).addClass('alt');
+            } else {
+                $(e).removeClass('alt');
+            }
+            index++;
         }
     });
     return this;
@@ -240,31 +245,36 @@ $.fn.searchTable = function (searchColumn) {
 
 $(document).on("keypress", '.popup-table-header th input.text-search', (function (e) {
     if (e.which == 13) {
+        $(".ajax-loader-mask").show();
         var id = $(this).attr('search-index').split('-')[0];
-        var index = $(this).attr('search-index').split('-')[1];
-        var keyword = $(this).val();
+        var index = [];
+        var keyword = [];
+
+        $('.popup-table-header th input').each(function(idx, elem) {
+            if (id == $(elem).attr('search-index').split('-')[0]) {
+                index[index.length] = parseInt($(this).attr('search-index').split('-')[1]);
+                keyword[keyword.length] = $(this).val().trim();
+            }
+        });
 
         $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Searching(index, keyword));
         $('#' + id + ' .popup-content form tbody').rebuildTable();
+        $(".ajax-loader-mask").hide();
     }
 }));
 
 $.fn.Searching = function (index, keyword) {
-    var data = new Array();
-    var result = new Array();
     this.each(function (idx, element) {
+        $(element).removeClass('hide');
         $(element).find('td').each(function (i, e) {
-            if (i == index) {
+            if ($.inArray(i, index) >= 0) {
                 var str = $(e).text().toUpperCase();
-                if (str.search(keyword.toUpperCase()) > 0)
+
+                if (str.search(keyword[$.inArray(i, index)].toUpperCase()) < 0) {
                     $(element).addClass('hide');
-                else
-                    $(element).removeClass('hide');
+                }
             }
         });
     });
-    for (var z = 0; z < data.length; z++) {
-        result[z] = data[z].Data;
-    }
     return this;
 };

@@ -1,16 +1,14 @@
 ﻿table{
     margin: 0;
 }
-input[type="text"], input[type="password"], select {
+input[type="text"], input[type="password"] {
     width: 100%;
     padding: 1px 3px;
     border: 1px solid #ddd;
-    border-radius: 2px;
 }
 
 input{
     border: 1px solid #ddd;
-    border-radius: 2px;
     margin: 0;
 }
 
@@ -698,15 +696,15 @@ label.ui-state-error {
 }
 
 .product-search-popup .col1 {
-    width: 100px;
+    width: 70px;
 }
 
 .product-search-popup .col2 {
-    width: 200px;
+    width: 100px;
 }
 
 .product-search-popup .col3 {
-    width: 120px;
+    width: 200px;
 }
 
 .product-search-popup .col4 {
@@ -714,6 +712,10 @@ label.ui-state-error {
 }
 
 .product-search-popup .col5 {
+    width: 120px;
+}
+
+.product-search-popup .col6 {
     width: 80px;
 }
 
@@ -734,23 +736,15 @@ label.ui-state-error {
 }
 
 .move-table-popup .col1 {
-    width: 50px;
+    width: 80px;
 }
 
 .move-table-popup .col2 {
-    width: 190px;
+    width: 220px;
 }
 
 .move-table-popup .col3 {
-    width: 190px;
-}
-
-.move-table-popup .col4 {
-    width: auto;
-}
-
-.move-table-popup select {
-    width: 200px;
+    width: 220px;
 }
 
 /* end table column width */
@@ -782,15 +776,18 @@ button.ui-button.small span {
     padding-top: 3px;
     padding-bottom: 3px;
 }
-#loginform .ui-selectmenu-button {
-    display: table-cell;
-}
+
 .ui-selectmenu-button span.ui-selectmenu-text {
     padding: 2px 30px 2px 5px;
 }
 ul#menu, ul#user {
-    border-color: #fcfdfd;
+    border: none;
 }
+
+.ui-widget-content {
+    background: white;
+}
+
 .ui-widget-content li {
     font-weight: normal;
     color: #222222;
@@ -798,6 +795,13 @@ ul#menu, ul#user {
 .ui-state-active .ui-widget-content, .ui-state-active .ui-widget-content a {
     color: #1d5987;
 }
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background: white;
+}
+
 #menu a {
     display: block;
     padding: 3px 15px 3px 5px;
@@ -810,25 +814,25 @@ ul#menu, ul#user {
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-	border-top-left-radius: 2px;
+	border-top-left-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-right,
 .ui-corner-tr {
-	border-top-right-radius: 2px;
+	border-top-right-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
-	border-bottom-left-radius: 2px;
+	border-bottom-left-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-right,
 .ui-corner-br {
-	border-bottom-right-radius: 2px;
+	border-bottom-right-radius: 0px;
 }
 /* end fix themes */
 
@@ -913,7 +917,7 @@ table thead{
 }
 
 #loginform {
-    width: 350px;
+    width: 366px;
     margin: 100px auto;
     padding: 20px 10px 20px 20px;
 }
@@ -926,7 +930,7 @@ table thead{
 #loginform label {
     margin: 0;
 }
-#loginform select {
+#loginform select, #loginform input {
     width: 250px;
 }
 #loginButton {
@@ -1028,7 +1032,7 @@ table thead{
 }
 
 .customer-popup .col1 {
-    width: 40px;
+    width: 70px;
 }
 
 .customer-popup .col2 {

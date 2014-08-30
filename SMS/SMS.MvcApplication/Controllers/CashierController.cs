@@ -271,5 +271,15 @@ namespace SMS.MvcApplication.Controllers
 
             return Json(JsonModel.Create(result));
         }
+
+        [HttpPost]
+        public JsonResult GetOrderBasic(long orderID)
+        {
+            if (orderID <= 0) return Json(JsonModel.Create(false));
+
+            var order = OrderService.GetOrderBasic<OrderBasicDto>(orderID);
+
+            return Json(JsonModel.Create(order));
+        }
     }
 }

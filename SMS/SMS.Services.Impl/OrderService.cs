@@ -55,5 +55,10 @@ namespace SMS.Services.Impl
         {
             return Management.ChangeCustomer(orderID, customerID, customerName, address, cellPhone, dob);
         }
+
+        public ServiceResult<TDto> GetOrderBasic<TDto>(long orderID)
+        {
+            return Management.GetOrderBasic<TDto>(orderID);
+        }
     }
 }
