@@ -388,6 +388,8 @@
 </div>
 
 <script type="text/javascript">
+    var productPopup = null;
+    
     $(document).ready(function () {
         $(document).tooltip();
         $('div.split-pane').splitPane();
@@ -417,7 +419,8 @@
             }
             return false;
         });
-        
+        productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+
         $('#button-payment').hide();
         $('#order-header').hide();
 
@@ -439,8 +442,7 @@
     }));
     
     $(document).on("click", 'a[id^="addProduct-"]', (function(e){
-        var product = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
-        product.OpenPopup();
+        productPopup.OpenPopup();
         $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
         return false;
     }));

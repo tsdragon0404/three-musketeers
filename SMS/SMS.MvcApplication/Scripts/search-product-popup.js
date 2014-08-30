@@ -51,7 +51,6 @@
     });
 
     this.OpenPopup = function () {
-        root.renderProducts(root.productData);
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };
@@ -142,4 +141,6 @@
         if (root.selectCallback)
             root.selectCallback(pdtId, qty);
     };
+    
+    root.renderProducts(root.productData);
 }
