@@ -16,6 +16,8 @@ namespace SMS.Common.Session
 
         public long DefaultAreaID { get; set; }
 
+        public string Theme { get; set; }
+
         /// <summary>
         /// Contain height value for List table section in Cashier page (in percent)
         /// </summary>

@@ -9,7 +9,9 @@ namespace SMS.Data.Dtos
         public virtual long BranchID { get; set; }
         public virtual long DefaultAreaID { get; set; }
         public virtual int ListTableHeight { get; set; }
+        public virtual int PageSize { get; set; }
         public virtual bool IsSuspended { get; set; }
+        public virtual string Theme { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

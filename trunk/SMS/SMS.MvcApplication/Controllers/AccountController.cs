@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -21,6 +22,7 @@ namespace SMS.MvcApplication.Controllers
         public IUserService UserService { get; set; }
         public IBranchService BranchService { get; set; }
         public IErrorMessageService ErrorMessageService { get; set; }
+        public IUserConfigService UserConfigService { get; set; }
 
         private List<Error> errors;
 
@@ -117,7 +119,7 @@ namespace SMS.MvcApplication.Controllers
         private bool SetSessionData(UserDto user, long branchID)
         {
             SetClientData();
-            if (!SetUserData(user))
+            if (!SetUserData(user, branchID))
                 return false;
 
             var pageIds = new List<long>();
@@ -138,7 +140,7 @@ namespace SMS.MvcApplication.Controllers
                                        };
         }
 
-        private bool SetUserData(UserDto user)
+        private bool SetUserData(UserDto user, long branchID)
         {
             UserInformation.UserName = user.Username;
 
@@ -156,11 +158,14 @@ namespace SMS.MvcApplication.Controllers
             else
                 allowBranches = user.Branches.Select(x => new Branch(x.ID, x.VNName, x.ENName)).ToList();
 
+            var userConfig = UserConfigService.GetUserConfig(user.ID, branchID);
+
             var userContext = new UserContext
                               {
-                                  DefaultAreaID = 0,
-                                  ListTableHeight = 65,
-                                  PageSize = 3,
+                                  DefaultAreaID = userConfig.DefaultAreaID,
+                                  ListTableHeight = userConfig.ListTableHeight == 0 ? 65 : userConfig.ListTableHeight,
+                                  PageSize = userConfig.PageSize <= 0 ? 5 : userConfig.PageSize,
+                                  Theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigurationManager.AppSettings["theme"] : userConfig.Theme,
                                   UserID = user.ID,
                                   UserName = user.Username,
                                   IsSystemAdmin = user.IsSystemAdmin,

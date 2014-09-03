@@ -13,7 +13,11 @@ namespace SMS.Data.Entities
 
         public virtual int ListTableHeight { get; set; }
 
+        public virtual int PageSize { get; set; }
+
         public virtual bool IsSuspended { get; set; }
+
+        public virtual string Theme { get; set; }
 
         #region Implementation of IAuditableEntity
 

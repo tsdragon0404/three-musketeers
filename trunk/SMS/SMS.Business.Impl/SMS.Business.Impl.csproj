@@ -49,6 +49,7 @@
     <Compile Include="AreaManagement.cs" />
     <Compile Include="BaseManagement.cs" />
     <Compile Include="BranchManagement.cs" />
+    <Compile Include="UserConfigManagement.cs" />
     <Compile Include="CustomerManagement.cs" />
     <Compile Include="TaxManagement.cs" />
     <Compile Include="CurrencyManagement.cs" />
