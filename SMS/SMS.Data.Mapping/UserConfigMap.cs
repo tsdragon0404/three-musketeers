@@ -6,12 +6,14 @@ namespace SMS.Data.Mapping
     {
         public UserConfigMap()
         {
-            Table("UserBranch");
+            Table("UserConfig");
             Map(x => x.BranchID);
             Map(x => x.UserID);
             Map(x => x.IsSuspended);
             Map(x => x.ListTableHeight);
+            Map(x => x.PageSize);
             Map(x => x.DefaultAreaID);
+            Map(x => x.Theme);
         }
     }
 }
