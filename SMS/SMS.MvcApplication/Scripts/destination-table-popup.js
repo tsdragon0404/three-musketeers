@@ -5,6 +5,8 @@
     this.listArea = listArea;
     this.getDataUrl = getDataUrl;
     this.selectCallback = selectCallback;
+    var $dialogContainer;
+    var $detachedChildren;
 
     $('#' + root.id).dialog({
         dialogClass: "no-close",
@@ -13,7 +15,10 @@
         width: 700,
         height: 500,
         modal: true,
-        resizable: false
+        resizable: false,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
     
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
@@ -68,6 +73,8 @@
                 $(e.currentTarget).find('button[id^="select-"]').trigger('click');
             });
             
+            $dialogContainer = $('#' + root.id);
+            $detachedChildren = $dialogContainer.children().detach();
             $('#' + root.id).dialog("open");
             SetHeightPopupContent('#' + root.id);
         });

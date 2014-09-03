@@ -12,6 +12,9 @@
     this.useTax = useTax;
     this.popupId = '#' + id;
     this.Data = null;
+    
+    var $dialogContainer;
+    var $detachedChildren;
 
     $(root.popupId).dialog({
         autoOpen: false,
@@ -19,7 +22,10 @@
         width: "100%",
         height: root.height,
         modal: true,
-        close: refreshCallback
+        close: refreshCallback,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
 
     $(root.popupId + ' #print').unbind('click');
@@ -56,6 +62,8 @@
 
     this.OpenPopup = function () {
         renderData();
+        $dialogContainer = $(root.popupId);
+        $detachedChildren = $dialogContainer.children().detach();
         $(root.popupId).dialog("open");
         
         $(root.popupId + ' #popupchkUseServiceFee').show();
