@@ -5,6 +5,9 @@
     this.getDataUrl = getDataUrl;
     this.functionCallback = functionCallback;
     this.popupId = '#' + id;
+    
+    var $dialogContainer;
+    var $detachedChildren;
 
     $('#' + root.id).dialog({
         dialogClass: "no-close",
@@ -13,7 +16,10 @@
         width: 950,
         height: 600,
         modal: true,
-        resizable: false
+        resizable: false,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
 
     $(root.popupId + ' .popup-table-header').table();
@@ -100,6 +106,8 @@
                         
                         bindEvent();
 
+                        $dialogContainer = $(root.popupId);
+                        $detachedChildren = $dialogContainer.children().detach();
                         $(root.popupId).dialog("open");
                         SetHeightPopupContent(root.popupId);
                     } else {

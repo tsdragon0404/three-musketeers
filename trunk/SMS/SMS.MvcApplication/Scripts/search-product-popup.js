@@ -4,6 +4,8 @@
     this.productData = productData;
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
+    var $dialogContainer;
+    var $detachedChildren;
 
     $('#' + root.id).dialog({
         autoOpen: false,
@@ -11,7 +13,10 @@
         width: 870,
         height: 500,
         modal: true,
-        resizable: false
+        resizable: false,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
 
     $('#' + root.id + ' .popup-table-header').table();
@@ -51,6 +56,8 @@
     });
 
     this.OpenPopup = function () {
+        $dialogContainer = $('#' + root.id);
+        $detachedChildren = $dialogContainer.children().detach();
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };
