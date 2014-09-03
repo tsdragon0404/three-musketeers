@@ -233,19 +233,20 @@ $.fn.rebuildTable = function () {
 
 $.fn.searchTable = function (searchColumn) {
     var popupId = this.attr('id');
-    this.find(' .popup-table-header thead .search-popup').remove();
+    if ($('#' + popupId + ' .popup-table-header thead .search-popup').length <= 0) {
 
-    var HTMLElement = '<tr class="search-popup">';
-    this.find(' .popup-table-header thead th').each(function (idx) {
-        HTMLElement = HTMLElement + '<th>';
-        if ($.inArray(idx, searchColumn) >= 0)
-            HTMLElement = HTMLElement + '<input type="text" search-index="' + popupId + '-' + idx +'" class="text-search" />';
-        
-        HTMLElement = HTMLElement + '</th>';
-    });
-    HTMLElement = HTMLElement + '</tr>';
+        var HTMLElement = '<tr class="search-popup">';
+        this.find('#' + popupId + ' .popup-table-header thead th').each(function (idx) {
+            HTMLElement = HTMLElement + '<th>';
+            if ($.inArray(idx, searchColumn) >= 0)
+                HTMLElement = HTMLElement + '<input type="text" search-index="' + popupId + '-' + idx + '" class="text-search" />';
 
-    this.find(' .popup-table-header thead').append(HTMLElement);
+            HTMLElement = HTMLElement + '</th>';
+        });
+        HTMLElement = HTMLElement + '</tr>';
+
+        this.find('#' + popupId + ' .popup-table-header thead').append(HTMLElement);
+    }
 };
 
 $(document).on("keypress", '.popup-table-header th input.text-search', (function (e) {
