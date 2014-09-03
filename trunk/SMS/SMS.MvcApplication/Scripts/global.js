@@ -178,17 +178,11 @@ function removeSortIcon(id) {
 Array.prototype.sortByProp = function(value, type) {
     if (type == 'desc') {
         return this.sort(function (a, b) {
-            if ($.isNumeric(a[value].formatAsMoney()) && $.isNumeric(b[value].formatAsMoney()))
-                return (parseFloat(a[value].formatAsMoney()) < parseFloat(b[value].formatAsMoney())) ? 1 : (parseFloat(a[value].formatAsMoney()) > parseFloat(b[value].formatAsMoney())) ? -1 : 0;
-            else
-                return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
+            return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
         });
     } else {
         return this.sort(function(a, b) {
-            if ($.isNumeric(a[value].formatAsMoney()) && $.isNumeric(b[value].formatAsMoney()))
-                return (parseFloat(a[value].formatAsMoney()) > parseFloat(b[value].formatAsMoney())) ? 1 : (parseFloat(a[value].formatAsMoney()) < parseFloat(b[value].formatAsMoney())) ? -1 : 0;
-            else
-                return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
+            return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
         });
     }
 };
@@ -196,13 +190,24 @@ Array.prototype.sortByProp = function(value, type) {
 $.fn.Sorting = function (index, sortType) {
     var data = new Array();
     var result = new Array();
+    var flag = true;
     this.each(function (idx, element) {
         $(element).find('td').each(function (i, e) {
             if (i == index) {
+                if (!$.isNumeric($(e).text().formatAsMoney())) {
+                    flag = false;
+                }
                 data[data.length] = { Index: idx, Value: $(e).text(), Data: element };
             }
         });
     });
+    
+    if (flag) {
+        for (var j = 0; j < data.length; j++) {
+            data[j].Value = parseFloat(data[j].Value.formatAsMoney());
+        }
+    }
+
     data.sortByProp('Value', sortType);
     for (var z = 0; z < data.length; z++) {
         result[z] = data[z].Data;
