@@ -46,19 +46,19 @@ namespace SMS.MvcApplication.Base
                     {
                         var labelDictionary = pageLabelResult.Data.ToDictionary(x => x.LabelID, x => x.Text);
 
-                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageLabelKey, labelDictionary);
-                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageIDKey, attribute.PageID);
+                        viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageLabel, labelDictionary);
+                        viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageID, attribute.PageID);
                     }
                 }
 
                 var allowPagesResult = PageService.GetAccessiblePagesForUser<LanguagePageDto>();
                 if (allowPagesResult.Success && allowPagesResult.Data != null)
                 {
-                    viewResult.ViewData.Add(Common.Constant.ConstConfig.AccessiblePagesForUserKey, allowPagesResult.Data);
+                    viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_AccessiblePagesForUser, allowPagesResult.Data);
 
                     var pageMenusResult = PageMenuService.GetMenuByPageIds(allowPagesResult.Data.Select(x => x.ID).ToList());
                     if (pageMenusResult.Success && pageMenusResult.Data != null)
-                        viewResult.ViewData.Add(Common.Constant.ConstConfig.PageMenuKey, pageMenusResult.Data);
+                        viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageMenu, pageMenusResult.Data);
                 }
             }
             base.OnActionExecuted(filterContext);

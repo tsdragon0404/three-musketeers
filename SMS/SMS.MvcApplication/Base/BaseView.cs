@@ -17,22 +17,22 @@ namespace SMS.MvcApplication.Base
 
         protected Dictionary<string, string> LabelDictionary
         {
-            get { return ViewData[Common.Constant.ConstConfig.PageLabelKey] as Dictionary<string, string>; }
+            get { return ViewData[Common.Constant.ConstKey.ViewData_PageLabel] as Dictionary<string, string>; }
         }
 
         protected long? PageID
         {
-            get { return (long?)ViewData[Common.Constant.ConstConfig.PageIDKey]; }
+            get { return (long?)ViewData[Common.Constant.ConstKey.ViewData_PageID]; }
         }
 
         protected IList<LanguagePageDto> AccessiblePagesForUser
         {
-            get { return ViewData[Common.Constant.ConstConfig.AccessiblePagesForUserKey] as IList<LanguagePageDto>; }
+            get { return ViewData[Common.Constant.ConstKey.ViewData_AccessiblePagesForUser] as IList<LanguagePageDto>; }
         }
 
         protected IList<PageMenuDto> PageMenus
         {
-            get { return ViewData[Common.Constant.ConstConfig.PageMenuKey] as IList<PageMenuDto>; }
+            get { return ViewData[Common.Constant.ConstKey.ViewData_PageMenu] as IList<PageMenuDto>; }
         }
 
         protected string BuildMenuList(string groupName, BuildMenuOption option = null)
