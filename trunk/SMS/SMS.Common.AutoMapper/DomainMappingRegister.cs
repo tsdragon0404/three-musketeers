@@ -42,6 +42,7 @@ namespace SMS.Common.AutoMapper
             Map<ReportDatasourceParameter, ReportDatasourceParameterDto>();
             Map<Report, ReportDto>();
             Map<Role, RoleDto>();
+            Map<SystemInfomation, SystemInfomationDto>();
             Map<Table, TableDto>();
             Map<Tax, TaxDto>();
             Map<Unit, UnitDto>();

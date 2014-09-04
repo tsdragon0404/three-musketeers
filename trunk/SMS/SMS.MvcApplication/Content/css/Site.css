@@ -1081,3 +1081,12 @@ table thead{
 .inputCalendar {
     width: 80px !important;
 }
+
+.system-infomation fieldset {
+    border: 2px groove threedface;
+}
+
+.system-infomation fieldset legend {
+    margin-left: 20px;
+    padding-bottom: 8px;
+}

@@ -50,6 +50,7 @@
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchTaxMap.cs" />
     <Compile Include="BranchInfoMap.cs" />
+    <Compile Include="SystemInfomationMap.cs" />
     <Compile Include="UserConfigMap.cs" />
     <Compile Include="InvoiceDiscountMap.cs" />
     <Compile Include="UserBranchMap.cs" />
