@@ -446,6 +446,8 @@ BEGIN
 		[IsSuspended] [bit] NOT NULL,
 		[DefaultAreaID] [bigint] NOT NULL,
 		[ListTableHeight] [int] NULL,
+		[PageSize] [int] NULL,
+		[Theme] [nvarchar](50) NULL,
 		[CreatedDate] [datetime] NULL,
 		[CreatedUser] [varchar](50) NULL,
 		[ModifiedDate] [datetime] NULL,
