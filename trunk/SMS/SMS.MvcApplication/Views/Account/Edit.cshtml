@@ -1,0 +1,81 @@
+﻿@using SMS.MvcApplication.Models
+@model UserProfileModel
+@{
+    ViewBag.Title = "Edit profile";
+}
+<script type="text/javascript">
+    var user = @Html.Raw(JsonEncode(Model.UserBasic));
+    var userConfig = @Html.Raw(JsonEncode(Model.UserConfig));
+</script>
+
+<div id="content" class="row">
+    <div class="row float-left" id="edit-profile">
+        <fieldset>
+            <legend>User infomation</legend>
+            <table class="no-border">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>User name</td>
+                        <td>@Model.UserBasic.Username</td>
+                        <td rowspan="6" id="image-profile">
+                            <div>image profile</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>First name</td>
+                        <td><input type="text" value="@Model.UserBasic.FirstName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Last name</td>
+                        <td><input type="text" value="@Model.UserBasic.LastName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Cell phone</td>
+                        <td><input type="text" value="@Model.UserBasic.CellPhone"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="text" value="@Model.UserBasic.Email"/></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><input type="text" value="@Model.UserBasic.Address"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Theme</td>
+                        <td>
+                            <select id="theme">
+                                <option value="ui-lightness">ui-lightness</option>
+                                <option value="redmond">redmond</option>
+                                <option value="blitzer">blitzer</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="center">
+                             <button id="update" data-labelID="lblUpdate">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var theme = userConfig.Theme;
+        $('#theme').val(theme);
+        $('#update').button({
+            icons: {
+                primary: "ui-icon-disk"
+            }
+        });
+    });
+</script>

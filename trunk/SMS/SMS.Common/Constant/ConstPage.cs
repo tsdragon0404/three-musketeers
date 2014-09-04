@@ -12,6 +12,7 @@ namespace SMS.Common.Constant
         public const long AccessDenied = 5;
         public const long Error = 6;
         public const long NotFoundError = 7;
+        public const long EditProfile = 8;
                      
         public const long Branch_GlobalLabel = 21;
         public const long Branch_Role = 22;

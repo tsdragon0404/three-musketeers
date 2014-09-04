@@ -20,6 +20,7 @@ namespace SMS.MvcApplication.Controllers
         public virtual IOrderDetailService OrderDetailService { get; set; }
         public virtual IOrderService OrderService { get; set; }
         public virtual ICustomerService CustomerService { get; set; }
+        public virtual IUserConfigService UserConfigService { get; set; }
 
         #endregion
 
@@ -235,7 +236,8 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult SaveCashierInfo(CashierInfoModel info)
         {
-            return Json(JsonModel.Create(true));
+            var result = UserConfigService.SaveCashierInfo(info.DefaultAreaID, info.ListTableHeight);
+            return Json(JsonModel.Create(result));
         }
 
         [HttpPost]

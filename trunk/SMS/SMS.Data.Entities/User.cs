@@ -18,6 +18,10 @@ namespace SMS.Data.Entities
 
         public virtual string CellPhone { get; set; }
 
+        public virtual string Email { get; set; }
+
+        public virtual string Address { get; set; }
+
         public virtual DateTime? LastLoginDate { get; set; }
 
         public virtual bool IsSystemAdmin { get; set; }

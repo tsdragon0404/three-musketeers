@@ -3,6 +3,6 @@
     public class CashierInfoModel
     {
         public long DefaultAreaID { get; set; }
-        public long ListTableHeight { get; set; }
+        public decimal ListTableHeight { get; set; }
     }
 }
