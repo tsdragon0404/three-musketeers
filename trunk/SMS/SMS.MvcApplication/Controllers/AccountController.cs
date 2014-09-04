@@ -33,7 +33,13 @@ namespace SMS.MvcApplication.Controllers
                 return RedirectToAction("Index", "Home");
             
             var branches = GetBranchList();
-            return branches == null ? ErrorPage(errors) : View(new LoginModel { Username = "system", Password = "123", ListBranch = branches });
+            return branches == null ? ErrorPage(errors) : View(new LoginModel
+                                                                   {
+                                                                       Username = "system", 
+                                                                       Password = "123", 
+                                                                       ListBranch = branches, 
+                                                                       SelectedBranch = SmsSystem.PreviousSelectedBranch
+                                                                   });
         }
 
         [HttpPost]
@@ -94,6 +100,7 @@ namespace SMS.MvcApplication.Controllers
                 }
 
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
+                SmsSystem.PreviousSelectedBranch = branch.ID;
 
                 var errorMessagesResult = ErrorMessageService.GetAllByBranch<Message>(SmsSystem.SelectedBranchID);
                 if(!errorMessagesResult.Success|| errorMessagesResult.Data == null)
@@ -214,6 +221,7 @@ namespace SMS.MvcApplication.Controllers
                 return Json(JsonModel.Create(false));
 
             SmsSystem.SelectedBranchID = branchID;
+            SmsSystem.PreviousSelectedBranch = branchID;
 
             return Json(JsonModel.Create(true));
         }
