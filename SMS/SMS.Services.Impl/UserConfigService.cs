@@ -1,4 +1,5 @@
-﻿using SMS.Business;
+﻿using Core.Common.Validation;
+using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -12,6 +13,12 @@ namespace SMS.Services.Impl
         public UserConfigDto GetUserConfig(long userID, long branchID)
         {
             return Management.GetUserConfig(userID, branchID);
+        }
+
+        public ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
+        {
+            return Management.SaveCashierInfo(defaultAreaID, listTableHeight);
+            ;
         }
     }
 }

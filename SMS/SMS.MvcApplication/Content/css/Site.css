@@ -449,6 +449,10 @@ label.ui-state-error {
     float: right;
 }
 
+.float-left {
+    float: left;
+}
+
 .div-header {
     padding-top: 4px
 }
@@ -1060,10 +1064,6 @@ table thead{
     padding: 0px !important;
 }
 
-.customer-popup fieldset {
-    border: 2px groove threedface;
-}
-
 .customer-popup fieldset legend {
     margin-left: 20px;
     padding-bottom: 8px;
@@ -1081,11 +1081,35 @@ table thead{
     width: 80px !important;
 }
 
-.system-infomation fieldset {
-    border: 2px groove threedface;
+fieldset {
+    border: 1px solid threedface;
 }
 
 .system-infomation fieldset legend {
     margin-left: 20px;
     padding-bottom: 8px;
+}
+
+#edit-profile fieldset legend {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: green;
+}
+
+#edit-profile fieldset {
+    width: 700px;
+    padding: 10px;
+}
+
+#edit-profile .col1{
+    width: 100px;
+}
+
+#edit-profile .col2{
+    width: 350px;
+}
+
+#image-profile {
+    vertical-align: top;
 }

@@ -246,32 +246,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns push_one">
-                        <select id="originalUsers-${ID}" multiple="multiple" size="4">
-                            @foreach (UserBasicDto user in ViewBag.ListUser)
-                            {
-                                <text>
-                                    <option value="@user.ID">@user.Username</option>
-                                </text>
-                            }
-                        </select>
-                    </div>
-                    <div class="three columns center">
-                        <button id="addUsers-${ID}" class="assignButton">></button>
-                        <button id="addAllUsers-${ID}" class="assignButton">>></button>
-                        <button id="removeAllUsers-${ID}" class="assignButton"><<</button>
-                        <button id="removeUsers-${ID}" class="assignButton"><</button>
-                    </div>
-                    <div class="three columns">
-                        <select name="assignedUsers" id="assignedUsers-${ID}" multiple="multiple" size="4">
-                            {{each Users}}
-                            <option value="${ID}">${Username}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    {{html buildScriptForAssignListBox(ID)}}
-                </div>
-                <div class="row">
                     <div class="eleven columns center">
                         <button id="save-${ID}" data-labelID="lblSave">Save</button>
                         <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
@@ -403,8 +377,7 @@
                         Info10: $('#info10-' + recordId).val()
                     },
                     Enable: $('#enable-' + recordId).prop('checked'),
-                    SEQ: $('#seq-' + recordId).val(),
-                    Users: users
+                    SEQ: $('#seq-' + recordId).val()
                 };
                 return data;
             }

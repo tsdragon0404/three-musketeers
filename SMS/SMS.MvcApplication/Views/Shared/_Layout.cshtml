@@ -147,11 +147,11 @@
                                 tabId = selectedTab.attr('href').split('-')[1];
                             }
                             var height = -1;
-                            var divider = $('#cashier #tableorder');
+                            var divider = $('#tableorder');
                             if (divider.length > 0) {
                                 var heightInPx = divider.height();
                                 var parentHeightInPx = divider.offsetParent().height();
-                                height = Math.round(100 * heightInPx / parentHeightInPx);
+                                height = (100 * heightInPx / parentHeightInPx).toFixed(2);
                             }
 
                             if (tabId == -1 || height == -1)
@@ -165,7 +165,8 @@
                                     ListTableHeight: height
                                 }
                             }).done(function (result) {
-                            
+                                console.log(result);
+                                return false;
                             });
                             return false;
                         });

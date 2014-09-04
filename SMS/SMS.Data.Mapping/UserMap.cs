@@ -12,6 +12,8 @@ namespace SMS.Data.Mapping
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.CellPhone);
+            Map(x => x.Email);
+            Map(x => x.Address);
             Map(x => x.LastLoginDate);
             Map(x => x.IsSystemAdmin);
             Map(x => x.UseSystemConfig);

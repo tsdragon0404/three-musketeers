@@ -230,6 +230,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Models\CashierInfoModel.cs" />
+    <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\SelectBranchModel.cs" />
     <Compile Include="Models\KitchenModel.cs" />
     <Compile Include="Models\JsonModel.cs" />
@@ -923,6 +924,7 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Shared\CustomerPopup.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

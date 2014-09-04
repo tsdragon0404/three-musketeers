@@ -11,7 +11,7 @@ namespace SMS.Data.Entities
 
         public virtual long DefaultAreaID { get; set; }
 
-        public virtual int ListTableHeight { get; set; }
+        public virtual decimal ListTableHeight { get; set; }
 
         public virtual int PageSize { get; set; }
 

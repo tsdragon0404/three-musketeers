@@ -28,5 +28,7 @@ namespace SMS.Data.Dtos
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string CellPhone { get; set; }
+        public virtual string Email { get; set; }
+        public virtual string Address { get; set; }
     }
 }

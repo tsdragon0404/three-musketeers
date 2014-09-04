@@ -41,6 +41,9 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Login)]
         public ActionResult Login(LoginModel model)
         {
+            if (SmsSystem.UserContext.UserID != 0)
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 var response = UserService.Get<UserDto>(model.Username, model.Password);
@@ -185,6 +188,18 @@ namespace SMS.MvcApplication.Controllers
             UserInformation.UserName = string.Empty;
             SystemMessages.Clear();
             return RedirectToAction("Login", "Account");
+        }
+
+        [SmsAuthorize(ConstPage.EditProfile)]
+        [PageID(ConstPage.EditProfile)]
+        public ActionResult Edit()
+        {
+            var user = UserService.GetByID<UserBasicDto>(SmsSystem.UserContext.UserID);
+            var userConfig = UserConfigService.GetUserConfig(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
+
+            var userProfile = new UserProfileModel {UserBasic = user.Data, UserConfig = userConfig};
+
+            return View(userProfile);
         }
 
         [HttpPost]
