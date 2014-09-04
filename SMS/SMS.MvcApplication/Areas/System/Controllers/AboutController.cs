@@ -8,7 +8,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 {
     [SmsAuthorize(ConstPage.System_About)]
     [PageID(ConstPage.System_About)]
-    public class AboutController : AdminBaseController<CurrencyDto, long, ICurrencyService>
+    public class AboutController : AdminBaseController<SystemInfomationDto, long, ISystemInfomationService>
     {
         #region Fields
 

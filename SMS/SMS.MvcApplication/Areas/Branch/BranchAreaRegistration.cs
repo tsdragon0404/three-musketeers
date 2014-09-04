@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.Branch
             context.MapRoute(
                 "Branch_default",
                 "Branch/{controller}/{action}/{id}",
-                new { controller = "BranchHome", action = "Index", id = UrlParameter.Optional }
+                new { controller = "GlobalLabel", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
