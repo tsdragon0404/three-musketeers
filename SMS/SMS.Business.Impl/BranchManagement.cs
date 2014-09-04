@@ -18,6 +18,7 @@ namespace SMS.Business.Impl
 
         public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
         public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
+        public virtual ICurrencyRepository CurrencyRepository { get; set; }
 
         #endregion
 
@@ -84,7 +85,7 @@ namespace SMS.Business.Impl
                                                                UseServiceFee = branchToSave.UseServiceFee,
                                                                UseKitchenFunction = branchToSave.UseKitchenFunction,
                                                                UseDiscountOnProduct = branchToSave.UseDiscountOnProduct,
-                                                               Taxs = branchToSave.Taxs != null 
+                                                               Taxs = branchToSave.Taxs != null
                                                                       ? branchToSave.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
                                                                       : new Dictionary<string, decimal>()
                                                            });
@@ -97,7 +98,7 @@ namespace SMS.Business.Impl
         {
             destination.CreatedDate = source.CreatedDate;
             destination.CreatedUser = source.CreatedUser;
-            destination.Currency = Mapper.Map<Currency>(source.Currency);
+            destination.Currency = CurrencyRepository.Get(source.Currency.ID);
             destination.ENName = source.ENName;
             destination.Enable = source.Enable;
             destination.ModifiedDate = source.ModifiedDate;
