@@ -7,7 +7,7 @@ WHERE OBJECT_NAME(parent_object_id) IN ('Area', 'Branch', 'BranchInfo', 'BranchT
 										'Invoice', 'InvoiceDetail', 'InvoiceDiscount', 'InvoiceTable', 'Product', 'ProductCategory', 
 										'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
 										'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
-										'UserProfile', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
+										'UserBranch', 'UserConfig', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
 										'Report', 'PageMenu', 'Reject')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
@@ -28,7 +28,7 @@ WHERE type = 'U'
 					'Invoice', 'InvoiceDetail', 'InvoiceDiscount', 'InvoiceTable', 'Product', 'ProductCategory', 
 					'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
 					'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
-					'UserProfile', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
+					'UserBranch', 'UserConfig', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
 					'Report', 'PageMenu', 'Reject')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
