@@ -1,4 +1,6 @@
-﻿IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Area]') AND type in (N'U'))
+﻿SET NOCOUNT ON;
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Area]') AND type in (N'U'))
 BEGIN
 	CREATE TABLE [dbo].[Area](
 		[AreaID] [int] IDENTITY(1,1) NOT NULL,

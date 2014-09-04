@@ -1,4 +1,6 @@
-﻿DECLARE @str VARCHAR(2000) = '';
+﻿SET NOCOUNT ON;
+
+DECLARE @str VARCHAR(2000) = '';
         
 DECLARE cur CURSOR FAST_FORWARD READ_ONLY FOR
 SELECT 'ALTER TABLE [dbo].[' + OBJECT_NAME(parent_object_id) + '] DROP CONSTRAINT [' + OBJECT_NAME(constraint_object_id) + ']'

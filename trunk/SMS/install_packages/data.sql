@@ -1,4 +1,6 @@
-﻿INSERT INTO [User] ( UserName, Password, IsSystemAdmin )
+﻿SET NOCOUNT ON;
+
+INSERT INTO [User] ( UserName, Password, IsSystemAdmin )
 VALUES ( 'system', '123', 1)
 GO
 
