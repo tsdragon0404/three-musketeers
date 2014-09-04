@@ -236,7 +236,7 @@ $.fn.searchTable = function (searchColumn) {
     if ($('#' + popupId + ' .popup-table-header thead .search-popup').length <= 0) {
 
         var HTMLElement = '<tr class="search-popup">';
-        this.find('#' + popupId + ' .popup-table-header thead th').each(function (idx) {
+        this.find(' .popup-table-header thead th').each(function (idx) {
             HTMLElement = HTMLElement + '<th>';
             if ($.inArray(idx, searchColumn) >= 0)
                 HTMLElement = HTMLElement + '<input type="text" search-index="' + popupId + '-' + idx + '" class="text-search" />';
@@ -245,7 +245,7 @@ $.fn.searchTable = function (searchColumn) {
         });
         HTMLElement = HTMLElement + '</tr>';
 
-        this.find('#' + popupId + ' .popup-table-header thead').append(HTMLElement);
+        this.find(' .popup-table-header thead').append(HTMLElement);
     }
 };
 
