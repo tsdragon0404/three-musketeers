@@ -1,9 +1,8 @@
-﻿using Core.Data.NHibernate;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
-    public class RejectRepository : Repository<Reject>, IRejectRepository
+    public class RejectRepository : BaseRepository<Reject>, IRejectRepository
     {
     }
 }

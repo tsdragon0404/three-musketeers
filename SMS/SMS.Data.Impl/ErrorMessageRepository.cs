@@ -1,9 +1,8 @@
-﻿using Core.Data.NHibernate;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
-    public class ErrorMessageRepository : Repository<ErrorMessage>, IErrorMessageRepository
+    public class ErrorMessageRepository : BaseRepository<ErrorMessage>, IErrorMessageRepository
     {
     }
 }

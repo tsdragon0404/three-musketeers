@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common;
 using Core.Common.CustomAttributes;
-using Core.Common.Information;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -67,12 +66,6 @@ namespace Core.Data.NHibernate
         /// <param name="entity">The entity.</param>
         public virtual void Add(TEntity entity)
         {
-            if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
-            {
-                ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
-                ((IAuditableEntity)entity).CreatedUser = UserInformation.UserName;
-            }
-
             Session.Save(entity);
         }
 
@@ -218,12 +211,6 @@ namespace Core.Data.NHibernate
         /// <param name="entity">The entity.</param>
         public virtual void Update(TEntity entity)
         {
-            if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
-            {
-                ((IAuditableEntity)entity).ModifiedDate = DateTime.Now;
-                ((IAuditableEntity)entity).ModifiedUser = UserInformation.UserName;
-            }
-
             Session.Update(entity);
         }
 

@@ -1,9 +1,8 @@
-﻿using Core.Data.NHibernate;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
-    public class PageMenuRepository : Repository<PageMenu>, IPageMenuRepository
+    public class PageMenuRepository : BaseRepository<PageMenu>, IPageMenuRepository
     {
     }
 }
