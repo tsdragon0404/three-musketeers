@@ -1,9 +1,8 @@
-﻿using Core.Data.NHibernate;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
-    public class InvoiceDiscountRepository : Repository<InvoiceDiscount>, IInvoiceDiscountRepository
+    public class InvoiceDiscountRepository : BaseRepository<InvoiceDiscount>, IInvoiceDiscountRepository
     {
     }
 }

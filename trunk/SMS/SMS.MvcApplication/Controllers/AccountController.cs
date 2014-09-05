@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Core.Common.Information;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
@@ -152,8 +151,6 @@ namespace SMS.MvcApplication.Controllers
 
         private bool SetUserData(UserDto user, long branchID)
         {
-            UserInformation.UserName = user.Username;
-
             List<Branch> allowBranches;
             if (user.IsSystemAdmin)
             {
@@ -192,7 +189,6 @@ namespace SMS.MvcApplication.Controllers
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
-            UserInformation.UserName = string.Empty;
             SystemMessages.Clear();
             return RedirectToAction("Login", "Account");
         }
