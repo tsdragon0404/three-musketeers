@@ -407,6 +407,8 @@ BEGIN
 		[FirstName] [nvarchar](255) NULL,
 		[LastName] [nvarchar](255) NULL,
 		[CellPhone] [varchar](50) NULL,
+		[Email] [nvarchar](255) NULL,
+		[Address] [nvarchar](255) NULL,
 		[LastLoginDate] [datetime] NULL,
 		[IsSystemAdmin] [bit] NOT NULL,
 		[UseSystemConfig] [bit] NOT NULL DEFAULT(0),
