@@ -20,6 +20,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             {
                 CurrentPage = page,
                 PageSize = SmsSystem.UserContext.PageSize,
+                TotalItemCount = UserAccessManager.List.Count,
                 FormNameToSubmit = Url.Action("Index")
             };
 
