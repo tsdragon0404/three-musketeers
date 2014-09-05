@@ -9,6 +9,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Message;
 using SMS.Common.Session;
+using SMS.Common.UserAccess;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -137,6 +138,8 @@ namespace SMS.MvcApplication.Controllers
 
             SmsSystem.AllowPageIDs = pageIds;
             SmsSystem.SelectedBranchID = branchID;
+            UserAccessManager.AddCurrentUser();
+
             return true;
         }
 
@@ -170,23 +173,24 @@ namespace SMS.MvcApplication.Controllers
             var userContext = new UserContext
                               {
                                   DefaultAreaID = userConfig.DefaultAreaID,
-                                  ListTableHeight = userConfig.ListTableHeight == 0 ? 65 : userConfig.ListTableHeight,
-                                  PageSize = userConfig.PageSize <= 0 ? 5 : userConfig.PageSize,
+                                  ListTableHeight = userConfig.ListTableHeight == 0 ? ConstConfig.DefaultHeightForListTable : userConfig.ListTableHeight,
+                                  PageSize = userConfig.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.PageSize,
                                   Theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigurationManager.AppSettings["theme"] : userConfig.Theme,
                                   UserID = user.ID,
                                   UserName = user.Username,
                                   IsSystemAdmin = user.IsSystemAdmin,
                                   UseSystemConfig = user.UseSystemConfig,
-                                  RoleNames = user.Roles.Select(x => x.Name).ToList(),
                                   AllowBranches = allowBranches
                               };
 
             SmsSystem.UserContext = userContext;
+
             return true;
         }
 
         public ActionResult LogOff()
         {
+            UserAccessManager.RemoveCurrentUser();
             Session.Abandon();
             FormsAuthentication.SignOut();
             SystemMessages.Clear();
@@ -218,6 +222,7 @@ namespace SMS.MvcApplication.Controllers
 
             SmsSystem.SelectedBranchID = branchID;
             SmsSystem.PreviousSelectedBranch = branchID;
+            UserAccessManager.UpdateCurrentUserBranchId(branchID);
 
             return Json(JsonModel.Create(true));
         }

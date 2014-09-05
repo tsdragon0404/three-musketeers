@@ -8,6 +8,8 @@ namespace SMS.Common.Session
 {
     public class SmsSystem
     {
+        #region Session
+
         public static UserContext UserContext
         {
             get
@@ -20,6 +22,7 @@ namespace SMS.Common.Session
             set
             {
                 HttpContext.Current.Session[ConstKey.Session_UserContext] = value;
+                HttpContext.Current.Session.Timeout = ConstConfig.SessionTimeoutDuration;
             }
         }
 
@@ -35,30 +38,6 @@ namespace SMS.Common.Session
             set
             {
                 HttpContext.Current.Session[ConstKey.Session_ClientInfo] = value;
-            }
-        }
-
-        private static Dictionary<long, BranchConfig> branchConfigs; 
-
-        public static void SetBranchConfig(long branchID, BranchConfig config)
-        {
-            if (branchConfigs == null)
-                branchConfigs = new Dictionary<long, BranchConfig>();
-
-            if (branchConfigs.ContainsKey(branchID))
-                branchConfigs[branchID] = config;
-            else
-                branchConfigs.Add(branchID, config);
-        }
-
-        public static BranchConfig BranchConfig
-        {
-            get
-            {
-                if (branchConfigs == null || !branchConfigs.ContainsKey(SelectedBranchID))
-                    throw new Exception("Branch config is not set");
-
-                return branchConfigs[SelectedBranchID];
             }
         }
 
@@ -95,19 +74,23 @@ namespace SMS.Common.Session
             {
                 HttpContext.Current.Session[ConstKey.Session_SelectedBranchID] = value;
             }
-        }
+        } 
 
+        #endregion
+
+        #region Cookies
+        
         public static Language Language
         {
             get
             {
-                if (HttpContext.Current.Request.Cookies[ConstKey.Cookie_Language] != null 
+                if (HttpContext.Current.Request.Cookies[ConstKey.Cookie_Language] != null
                     && HttpContext.Current.Request.Cookies[ConstKey.Cookie_Language].Value != null)
                 {
                     int value;
                     int.TryParse(HttpContext.Current.Request.Cookies[ConstKey.Cookie_Language].Value, out value);
 
-                    if(value != (int)Language.Vietnamese && value != (int)Language.English)
+                    if (value != (int)Language.Vietnamese && value != (int)Language.English)
                         return Language.Vietnamese;
                     if (value != 0)
                         return (Language)value;
@@ -150,6 +133,40 @@ namespace SMS.Common.Session
                 };
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
+        } 
+
+        #endregion
+
+        #region Others
+
+        #region BranchConfig
+
+        private static Dictionary<long, BranchConfig> branchConfigs;
+
+        public static void SetBranchConfig(long branchID, BranchConfig config)
+        {
+            if (branchConfigs == null)
+                branchConfigs = new Dictionary<long, BranchConfig>();
+
+            if (branchConfigs.ContainsKey(branchID))
+                branchConfigs[branchID] = config;
+            else
+                branchConfigs.Add(branchID, config);
         }
+
+        public static BranchConfig BranchConfig
+        {
+            get
+            {
+                if (branchConfigs == null || !branchConfigs.ContainsKey(SelectedBranchID))
+                    throw new Exception("Branch config is not set");
+
+                return branchConfigs[SelectedBranchID];
+            }
+        } 
+
+        #endregion
+
+        #endregion
     }
 }

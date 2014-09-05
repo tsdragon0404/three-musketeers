@@ -217,6 +217,7 @@
     <Compile Include="Areas\System\Controllers\AboutController.cs" />
     <Compile Include="Areas\SystemData\Controllers\CurrencyController.cs" />
     <Compile Include="Areas\SystemData\Controllers\TaxController.cs" />
+    <Compile Include="Areas\System\Controllers\UserAccessController.cs" />
     <Compile Include="Areas\System\Controllers\UserController.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Base\AdminBaseController.cs" />
@@ -858,6 +859,7 @@
     <Content Include="Areas\System\Views\About\Index.cshtml" />
     <Content Include="Areas\SystemData\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SystemData\Views\Web.config" />
+    <Content Include="Areas\System\Views\UserAccess\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />

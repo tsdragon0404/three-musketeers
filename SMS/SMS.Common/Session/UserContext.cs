@@ -9,13 +9,10 @@ namespace SMS.Common.Session
         public string DisplayName { get; set; }
         public bool IsSystemAdmin { get; set; }
         public bool UseSystemConfig { get; set; }
-        public IList<string> RoleNames { get; set; }
         public IList<Branch> AllowBranches { get; set; }
 
         public int PageSize { get; set; }
-
         public long DefaultAreaID { get; set; }
-
         public string Theme { get; set; }
 
         /// <summary>
@@ -25,7 +22,6 @@ namespace SMS.Common.Session
 
         public UserContext()
         {
-            RoleNames = new List<string>();
             AllowBranches = new List<Branch>();
         }
     }
