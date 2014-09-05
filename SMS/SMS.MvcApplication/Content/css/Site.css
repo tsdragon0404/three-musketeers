@@ -1113,3 +1113,7 @@ fieldset {
 #image-profile {
     vertical-align: top;
 }
+
+#edit-profile #theme {
+    width: 120px;
+}
