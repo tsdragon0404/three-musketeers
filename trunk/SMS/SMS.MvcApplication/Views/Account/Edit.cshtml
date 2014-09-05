@@ -70,8 +70,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#theme').selectmenu();
         var theme = userConfig.Theme;
         $('#theme').val(theme);
+
         $('#update').button({
             icons: {
                 primary: "ui-icon-disk"

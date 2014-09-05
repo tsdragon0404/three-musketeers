@@ -48,6 +48,7 @@
     <Compile Include="AppLock\ApplicationLock.cs" />
     <Compile Include="AppLock\ILockItem.cs" />
     <Compile Include="Constant\ConstKey.cs" />
+    <Compile Include="Constant\Gender.cs" />
     <Compile Include="CustomAttributes\SmsStatusCodeJsonResult.cs" />
     <Compile Include="Exceptions\LockException.cs" />
     <Compile Include="AppLock\LockGroup.cs" />

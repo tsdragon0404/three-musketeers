@@ -3,6 +3,6 @@
     public enum DiscountType
     {
         Number = 0,
-        Percent = 1,
+        Percent = 1
     }
 }
