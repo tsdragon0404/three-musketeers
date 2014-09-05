@@ -1,0 +1,63 @@
+﻿@using SMS.Common.UserAccess
+@model SMS.MvcApplication.Models.AdminModel<UserAccess>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="content">
+    <div class="row">
+        <h4 class="admin-page-title">User access management</h4>
+    </div>
+
+    <div class="row">
+        <table id="record-table" class="no-border">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col style="width: 150px;" />
+                <col style="width: 140px;" />
+                <col style="width: 130px;" />
+                <col />
+                <col style="width: 150px;" />
+                <col style="width: 130px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>User Name</th>
+                    <th>Current Branch</th>
+                    <th>IP Address</th>
+                    <th>User Agent</th>
+                    <th>Login From</th>
+                    <th>Last Access</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="@altClass" data-id="@dto.SessionId">
+                        <td>
+                            <a href="#" class="del-record" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.UserName</td>
+                        <td>@dto.CurrentBranchId</td>
+                        <td>@dto.ClientInfo.IpAddress</td>
+                        <td>@dto.ClientInfo.UserAgent</td>
+                        <td>@dto.LoginDateTime</td>
+                        <td>@(Math.Round(DateTime.Now.Subtract(dto.LastAccess).TotalMinutes)) minute(s) ago</td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $('#record-table').table();
+        </script>
+    </div>
+</div>
