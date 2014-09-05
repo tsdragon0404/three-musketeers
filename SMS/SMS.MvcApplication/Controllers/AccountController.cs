@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -225,6 +226,31 @@ namespace SMS.MvcApplication.Controllers
             UserAccessManager.UpdateCurrentUserBranchId(branchID);
 
             return Json(JsonModel.Create(true));
+        }
+
+        [HttpPost]
+        [SmsAuthorize(ConstPage.EditProfile)]
+        [PageID(ConstPage.EditProfile)]
+        public ActionResult Upload()
+        {
+            var contentType = new[] {"image/jpeg", "image/png"};
+
+            var uploadedFile = Request.Files[0];
+            string error;
+
+            if (uploadedFile != null && uploadedFile.ContentLength > 0 && contentType.Any(uploadedFile.ContentType.Contains))
+            {
+                var fileName = string.Format("{0}{1}", SmsSystem.UserContext.UserID,
+                                             Path.GetExtension(uploadedFile.FileName));
+                var filePath = Path.Combine(Server.MapPath("~/Images/User/Avatar"), fileName);
+                uploadedFile.SaveAs(filePath);
+                error = "~/Images/User/Avatar/" + fileName;
+            }
+            else
+            {
+                error = "Something wrong!!!";
+            }
+            return Json(JsonModel.Create(error));
         }
     }
 }

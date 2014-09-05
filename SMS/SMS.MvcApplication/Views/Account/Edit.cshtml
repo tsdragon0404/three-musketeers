@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Edit profile";
 }
+
+<script src="@Url.Content("~/Scripts/jquery.fileupload.js")"></script>
+
 <script type="text/javascript">
     var user = @Html.Raw(JsonEncode(Model.UserBasic));
     var userConfig = @Html.Raw(JsonEncode(Model.UserConfig));
@@ -23,7 +26,20 @@
                         <td>User name</td>
                         <td>@Model.UserBasic.Username</td>
                         <td rowspan="6" id="image-profile">
-                            <div>image profile</div>
+                            <div>
+                                <img id="user-profile" alt="profile" src="~/Images/User/Avatar/default.jpg"/>
+                            </div>
+                            <div>
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select files...</span>
+                                    <!-- The file input field used as target for the file upload widget -->
+                                    <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
+                                </span>
+                                <div id="progress" class="progress">
+                                    <div class="progress-bar progress-bar-success"></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -77,6 +93,35 @@
         $('#update').button({
             icons: {
                 primary: "ui-icon-disk"
+            }
+        });
+        
+        $('#fileupload').fileupload({
+            type: 'POST',
+            url: '@Url.Action("Upload")',
+            add: function (e, data) {
+                var goUpload = true;
+                var uploadFile = data.files[0];
+                if (!(/(\.jpg|\.jpeg|\.png)$/i).test(uploadFile.name) ) {
+                    alert("Incorrect file format. Please try again.");
+                    goUpload = false;
+                }
+                if (goUpload == true) {
+                    data.submit();
+                }
+            },
+            fileExt: '*.jpg;*.jpeg;*.png',
+            // Handles the server side validation on file type
+            done: function (e, data) {
+                var error = data.response().result.Data;
+                if(error != "") {
+                    $('#user-profile').attr('src', error);
+                }
+            },
+            progressall: function (e, data) {
+                // Handle the progress bar
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .bar').css('width', progress + '%' );
             }
         });
     });
