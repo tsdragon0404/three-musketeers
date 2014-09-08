@@ -62,8 +62,8 @@
             $('#record-table').table();
             $('#record-table a.del-record').click(function () {
                 var id = $(this).attr('data-id');
-                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Warning, "Warning")',
-                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?")',
+                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Warning)',
+                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_DeleteSession)',
                     2,
                     function () {
                         $.ajax({
