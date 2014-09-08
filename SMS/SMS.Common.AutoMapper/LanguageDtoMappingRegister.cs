@@ -21,10 +21,6 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
-            Mapper.CreateMap<OrderStatus, LanguageOrderStatusDto>()
-                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
-
             Mapper.CreateMap<Table, LanguageTableDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));

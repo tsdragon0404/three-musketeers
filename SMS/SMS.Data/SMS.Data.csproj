@@ -51,7 +51,6 @@
     <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IReportRepository.cs" />
-    <Compile Include="IOrderStatusRepository.cs" />
     <Compile Include="IOrderDetailRepository.cs" />
     <Compile Include="IOrderTableRepository.cs" />
     <Compile Include="IOrderRepository.cs" />

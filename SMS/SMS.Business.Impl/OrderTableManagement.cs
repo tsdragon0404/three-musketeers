@@ -19,7 +19,6 @@ namespace SMS.Business.Impl
         public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
         public virtual IOrderRepository OrderRepository { get; set; }
         public virtual IOrderManagement OrderManagement { get; set; }
-        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
 
         public override Func<IEnumerable<OrderTable>, IOrderedEnumerable<OrderTable>> ExecuteOrderFunc
         {
@@ -135,13 +134,13 @@ namespace SMS.Business.Impl
                 OrderDetailRepository.Find(
                     x =>
                     x.OrderTable.ID == orderTableID &&
-                    (x.OrderStatus.ID == ConstOrderStatus.Ordered ||
-                     x.OrderStatus.ID == ConstOrderStatus.KitchenRejected)).ToList();
+                    (x.OrderStatus == OrderStatus.Ordered ||
+                     x.OrderStatus == OrderStatus.KitchenRejected)).ToList();
             if (orderDetailList.Any())
             {
                 foreach (var orderDetail in orderDetailList)
                 {
-                    orderDetail.OrderStatus = OrderStatusRepository.Get(ConstOrderStatus.SentToKitchen);
+                    orderDetail.OrderStatus = OrderStatus.SentToKitchen;
                     OrderDetailRepository.Update(orderDetail);
                     OrderDetailRepository.SaveAllChanges();
                 }

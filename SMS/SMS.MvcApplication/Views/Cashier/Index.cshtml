@@ -1,4 +1,5 @@
 ﻿@using SMS.Common.Session
+@using SMS.Common.Storage.Branding
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
@@ -16,6 +17,23 @@
     var serviceFee = @SmsSystem.BranchConfig.ServiceFee;
     var useServiceFee = "@SmsSystem.BranchConfig.UseServiceFee";
     var currency = "@SmsSystem.BranchConfig.Currency";
+    
+    function GetOrderStatusName(orderStatus) {
+        switch (orderStatus) {
+            case @((int)OrderStatus.Ordered):
+                return '@Html.Raw(BrandingTexts.Get(OrderStatus.Ordered))';
+            case @((int)OrderStatus.SentToKitchen):
+                return '@Html.Raw(BrandingTexts.Get(OrderStatus.SentToKitchen))';
+            case @((int)OrderStatus.KitchenAccepted):
+                return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenAccepted))';
+            case @((int)OrderStatus.KitchenRejected):
+                return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenRejected))';
+            case @((int)OrderStatus.Done):
+                return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
+            default:
+                break;
+        }
+    }
 </script>
 <script id="order-tmpl" type="text/x-jquery-tmpl">
     <form id="form-table-order-${ID}">
@@ -95,7 +113,7 @@
                         @if(SmsSystem.BranchConfig.UseKitchenFunction)
                         {
                             <td class="center icon">
-                                <div class="{{if OrderStatus.ID == @ConstOrderStatus.Ordered}}icon-transfer{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.SentToKitchen}}icon-pending{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenAccepted}}icon-accept{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected}}icon-reject{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.Done}}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected}}:${KitchenComment}{{/if}}"></div>
+                                <div class="{{if OrderStatus == @((int)OrderStatus.Ordered)}}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen)}}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted)}}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done)}}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}:${KitchenComment}{{/if}}"></div>
                             </td>
                         }
                         
@@ -243,7 +261,7 @@
         @if (SmsSystem.BranchConfig.UseKitchenFunction)
         {
             <td class="center icon">
-                <div class="{{if OrderStatus.ID == @ConstOrderStatus.Ordered }}icon-transfer{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.SentToKitchen }}icon-pending{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenAccepted }}icon-accept{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.KitchenRejected }}icon-reject{{/if}}{{if OrderStatus.ID == @ConstOrderStatus.Done }}icon-done{{/if}}" id="status-${ID}-${OrderStatus.ID}" title="${OrderStatus.Name}"></div>
+                <div class="{{if OrderStatus == @((int)OrderStatus.Ordered) }}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen) }}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted) }}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected) }}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done) }}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}"></div>
             </td>
         }
         <td class="center icon">
@@ -690,20 +708,20 @@
         var value = parseInt($(e).attr('id').split('-')[2]);
         
         switch (value) {
-        case @ConstOrderStatus.Ordered:
-            value = @ConstOrderStatus.SentToKitchen;
-            break;
-        case @ConstOrderStatus.SentToKitchen:
-            value = @ConstOrderStatus.KitchenAccepted;
-            break;
-        case @ConstOrderStatus.KitchenAccepted:
-            value = @ConstOrderStatus.Done;
-            break;
-        case @ConstOrderStatus.KitchenRejected:
-            value = @ConstOrderStatus.SentToKitchen;
-            break;
-        case @ConstOrderStatus.Done:
-            return;
+            case @((int)OrderStatus.Ordered):
+                value = @((int)OrderStatus.SentToKitchen);
+                break;
+            case @((int)OrderStatus.SentToKitchen):
+                value = @((int)OrderStatus.KitchenAccepted);
+                break;
+            case @((int)OrderStatus.KitchenAccepted):
+                value = @((int)OrderStatus.Done);
+                break;
+            case @((int)OrderStatus.KitchenRejected):
+                value = @((int)OrderStatus.SentToKitchen);
+                break;
+            case @((int)OrderStatus.Done):
+                return;
         }
         
         $.ajax({
@@ -720,26 +738,27 @@
 
                 popup.OpenPopup();
             } else {
-                $(e).attr('id', 'status-' + result.Data.ID + '-' + result.Data.OrderStatus.ID);
-                $(e).attr('title', result.Data.OrderStatus.Name);
+                $(e).attr('id', 'status-' + result.Data.ID + '-' + result.Data.OrderStatus);
+                $(e).attr('title', GetOrderStatusName(result.Data.OrderStatus));
                 var cssClass;
-                switch (result.Data.OrderStatus.ID) {
-                case @ConstOrderStatus.Ordered:
-                    cssClass = 'transfer';
-                    break;
-                case @ConstOrderStatus.SentToKitchen:
-                    cssClass = 'pending';
-                    break;
-                case @ConstOrderStatus.KitchenAccepted:
-                    cssClass = 'accept';
-                    break;
-                case @ConstOrderStatus.KitchenRejected:
-                    cssClass = 'reject';
-                    break;
-                case @ConstOrderStatus.Done:
-                    cssClass = 'done';
-                    break;
-                default : cssClass = 'done';
+                switch (result.Data.OrderStatus) {
+                    case @((int)OrderStatus.Ordered):
+                        cssClass = 'transfer';
+                        break;
+                    case @((int)OrderStatus.SentToKitchen):
+                        cssClass = 'pending';
+                        break;
+                    case @((int)OrderStatus.KitchenAccepted):
+                        cssClass = 'accept';
+                        break;
+                    case @((int)OrderStatus.KitchenRejected):
+                        cssClass = 'reject';
+                        break;
+                    case @((int)OrderStatus.Done):
+                        cssClass = 'done';
+                        break;
+                    default :
+                        cssClass = 'done';
                 }
                 $(e).attr('class', 'icon-' + cssClass);
             }

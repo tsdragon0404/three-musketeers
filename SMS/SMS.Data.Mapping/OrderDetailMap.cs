@@ -17,7 +17,7 @@ namespace SMS.Data.Mapping
             Map(x => x.DiscountCode);
             Map(x => x.DiscountComment);
             Map(x => x.KitchenComment);
-            References(x => x.OrderStatus).Column("OrderStatusID");
+            Map(x => x.OrderStatus).CustomType<OrderStatus>();
         }
     }
 }

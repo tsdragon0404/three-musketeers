@@ -153,7 +153,7 @@
                         primary: "ui-icon-check"
                     }
                 }).click(function() {
-                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenAccepted);
+                    UpdateOrderedProductStatus(this, @((int)OrderStatus.KitchenAccepted));
                 });
 
                 $('button[id^="btnConfirmedAcceptAndDone"]').button({
@@ -161,7 +161,7 @@
                         primary: "ui-icon-check"
                     }
                 }).click(function() {
-                    UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
+                    UpdateOrderedProductStatus(this, @((int)OrderStatus.Done));
                 });
 
                 $('button[id^="btnRejected"]').button({
@@ -170,7 +170,7 @@
                     }
                 }).click(function() {
                     updateKitchenComments(this, 'kitchencmt-');
-                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
+                    UpdateOrderedProductStatus(this, @((int)OrderStatus.KitchenRejected));
                 });
                 $('#tblOrderedProducts').table();
             });
@@ -186,7 +186,7 @@
                         primary: "ui-icon-check"
                     }
                 }).click(function() {
-                    UpdateOrderedProductStatus(this, @ConstOrderStatus.Done);
+                    UpdateOrderedProductStatus(this, @((int)OrderStatus.Done));
                 });
 
                 $('button[id^="btnConfirmedRejected"]').button({
@@ -194,7 +194,7 @@
                         primary: "ui-icon-arrowreturnthick-1-w"
                     }
                 }).click(function() {
-                    UpdateOrderedProductStatus(this, @ConstOrderStatus.KitchenRejected);
+                    UpdateOrderedProductStatus(this, @((int)OrderStatus.KitchenRejected));
                     updateKitchenComments(this, 'confirmedkitchencmt-');
                 });
                 $('#tblConfirmedProducts').table();

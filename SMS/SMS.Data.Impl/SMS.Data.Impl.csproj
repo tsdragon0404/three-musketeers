@@ -55,7 +55,6 @@
     <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="ReportRepository.cs" />
-    <Compile Include="OrderStatusRepository.cs" />
     <Compile Include="OrderDetailRepository.cs" />
     <Compile Include="OrderTableRepository.cs" />
     <Compile Include="OrderRepository.cs" />

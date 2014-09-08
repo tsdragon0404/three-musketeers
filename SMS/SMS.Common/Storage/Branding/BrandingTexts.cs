@@ -9,11 +9,6 @@ namespace SMS.Common.Storage.Branding
     {
         public static Dictionary<long, List<BrandingItem>> BrandingItems { get; set; }
 
-        public static void Set(List<Tuple<long, BrandingItem>> items)
-        {
-            
-        }
-
         public static string Get(Enum obj)
         {
             if (BrandingItems.ContainsKey(SmsSystem.SelectedBranchID))
