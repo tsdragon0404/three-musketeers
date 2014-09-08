@@ -833,6 +833,7 @@
     <Content Include="Scripts\flot\jquery.flot.threshold.min.js" />
     <Content Include="Scripts\flot\jquery.flot.time.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.min.js" />
     <Content Include="Scripts\payment-popup.js" />
