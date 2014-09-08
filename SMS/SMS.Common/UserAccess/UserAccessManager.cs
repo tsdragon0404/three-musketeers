@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 
 namespace SMS.Common.UserAccess
@@ -11,7 +12,11 @@ namespace SMS.Common.UserAccess
 
         public static List<UserAccess> List
         {
-            get { return userAccesses; }
+            get
+            {
+                RefreshList();
+                return userAccesses;
+            }
         }
 
         public static bool AuthorizeCurrentUser()
@@ -79,6 +84,11 @@ namespace SMS.Common.UserAccess
         public static void UpdateCurrentUserBranchId(long branchId)
         {
             UpdateBranchId(SmsSystem.SessionId, branchId);
+        }
+
+        private static void RefreshList()
+        {
+            userAccesses.RemoveAll(x => x.LastAccess.AddMinutes(ConstConfig.SessionTimeoutDuration) < DateTime.Now);
         }
     }
 }
