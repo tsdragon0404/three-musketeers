@@ -14,9 +14,19 @@ namespace SMS.Common.UserAccess
             get { return userAccesses; }
         }
 
+        public static bool AuthorizeCurrentUser()
+        {
+            return Contains(SmsSystem.SessionId);
+        }
+
+        public static bool Contains(string sessionId)
+        {
+            return userAccesses.Any(x => x.SessionId == sessionId);
+        }
+
         public static void Add(UserAccess userAccess)
         {
-            if (userAccesses.All(x => x.SessionId != userAccess.SessionId))
+            if (!Contains(userAccess.SessionId))
                 userAccesses.Add(userAccess);
         }
 
@@ -34,10 +44,14 @@ namespace SMS.Common.UserAccess
             Add(userAccess);
         }
 
-        public static void Remove(string sessionId)
+        public static bool Remove(string sessionId)
         {
-            if (userAccesses.Any(x => x.SessionId == sessionId))
+            if (Contains(sessionId))
+            {
                 userAccesses.RemoveAll(x => x.SessionId == sessionId);
+                return true;
+            }
+            return false;
         }
 
         public static void RemoveCurrentUser()
@@ -47,7 +61,7 @@ namespace SMS.Common.UserAccess
 
         public static void UpdateLastAccess(string sessionId)
         {
-            if (userAccesses.Any(x => x.SessionId == sessionId))
+            if (Contains(sessionId))
                 userAccesses.First(x => x.SessionId == sessionId).LastAccess = DateTime.Now;
         }
 
@@ -58,7 +72,7 @@ namespace SMS.Common.UserAccess
 
         public static void UpdateBranchId(string sessionId, long branchId)
         {
-            if (userAccesses.Any(x => x.SessionId == sessionId))
+            if (Contains(sessionId))
                 userAccesses.First(x => x.SessionId == sessionId).CurrentBranchId = branchId;
         }
 

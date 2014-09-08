@@ -15,5 +15,8 @@
         public const int Business_DataNotExist = -8;
 
         public const int Forbidden = -9;
+
+        public const int Popup_Title_Warning = -10;
+        public const int Popup_Message_DeleteSession = -11;
     }
 }

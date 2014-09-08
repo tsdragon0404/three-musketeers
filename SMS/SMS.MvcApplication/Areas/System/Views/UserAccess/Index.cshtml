@@ -1,4 +1,6 @@
-﻿@using SMS.Common.UserAccess
+﻿@using SMS.Common.Constant
+@using SMS.Common.Message
+@using SMS.Common.UserAccess
 @model SMS.MvcApplication.Models.AdminModel<UserAccess>
 @{
     ViewBag.Title = "Index";
@@ -58,6 +60,26 @@
 
         <script type="text/javascript">
             $('#record-table').table();
+            $('#record-table a.del-record').click(function () {
+                var id = $(this).attr('data-id');
+                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Warning, "Warning")',
+                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?")',
+                    2,
+                    function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete")',
+                            data: { sessionId: id }
+                        }).done(function (result) {
+                            if (result.Success)
+                                location.reload();
+                        });
+                    });
+
+                popup.OpenPopup();
+
+                return false;
+            });
         </script>
     </div>
 </div>

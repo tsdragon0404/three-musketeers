@@ -9,8 +9,8 @@ using SMS.MvcApplication.Models;
 
 namespace SMS.MvcApplication.Areas.System.Controllers
 {
-    [SmsAuthorize(ConstPage.System_User)]
-    [PageID(ConstPage.System_User)]
+    [SmsAuthorize(ConstPage.System_UserAccess)]
+    [PageID(ConstPage.System_UserAccess)]
     public class UserAccessController : BaseController
     {
         [HttpGet]
@@ -33,6 +33,12 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public virtual JsonResult Delete(string sessionId)
+        {
+            return Json(JsonModel.Create(UserAccessManager.Remove(sessionId)));
         }
     }
 }
