@@ -941,7 +941,6 @@
     <Folder Include="Areas\System\Models\" />
     <Folder Include="Areas\System\Views\Shared\" />
     <Folder Include="Filters\" />
-    <Folder Include="Images\User\Avatar\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
