@@ -7,12 +7,10 @@ namespace Core.Common.CustomAttributes
     public class RequiredAttribute : Attribute, IValidationAttribute
     {
         public int MessageID { get; set; }
-        public string FallbackMessage { get; set; }
 
-        public RequiredAttribute(int messageId, string fallbackMessage)
+        public RequiredAttribute(int messageId)
         {
             MessageID = messageId;
-            FallbackMessage = fallbackMessage;
         }
 
         public object[] MessageArgs

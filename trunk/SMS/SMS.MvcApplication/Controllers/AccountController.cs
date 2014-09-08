@@ -72,7 +72,7 @@ namespace SMS.MvcApplication.Controllers
                     if (branches == null) return ErrorPage(errors);
 
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator.");
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
                     model.ListBranch = branches;
                     return View(model);
                 }
@@ -89,7 +89,7 @@ namespace SMS.MvcApplication.Controllers
                     if (branches == null) return ErrorPage(errors);
 
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable, "Branch not available.");
+                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable);
                     model.ListBranch = branches;
                     return View(model);
                 }

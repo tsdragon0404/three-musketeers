@@ -9,19 +9,17 @@ namespace Core.Common.CustomAttributes
         public int MinLength { get; set; }
         public int MaxLength { get; set; }
         public int MessageID { get; set; }
-        public string FallbackMessage { get; set; }
 
         public object[] MessageArgs
         {
             get { return new object[] { MinLength, MaxLength }; }
         }
 
-        public LengthAttribute(int minLength, int maxLength, int messageId, string fallbackMessage)
+        public LengthAttribute(int minLength, int maxLength, int messageId)
         {
             MinLength = minLength;
             MaxLength = maxLength;
             MessageID = messageId;
-            FallbackMessage = fallbackMessage;
         }
 
         public bool ValidateObject(object obj, PropertyInfo propertyInfo)

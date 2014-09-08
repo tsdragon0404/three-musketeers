@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SMS.Common.Constant;
 using SMS.Common.Session;
 
 namespace SMS.Common.Message
@@ -27,8 +28,10 @@ namespace SMS.Common.Message
                 systemMessages = new List<Message>();
         }
 
-        public static string Get(long id, string fallbackMessage)
+        public static string Get(long id)
         {
+            var fallbackMessage = FallbackMessages.Get(id);
+
             if (id < 0)
                 return systemMessages.Any(x => x.MessageID == id)
                     ? SmsSystem.Language == Language.Vietnamese ? systemMessages.First(x => x.MessageID == id).VNMessage : systemMessages.First(x => x.MessageID == id).ENMessage

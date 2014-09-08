@@ -158,7 +158,7 @@ namespace SMS.Business.Impl
 
             var record = Repository.Get(primaryKey);
             if (record == null || !BelongToCurrentBranch(record))
-                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business));
+                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
         }
@@ -171,7 +171,7 @@ namespace SMS.Business.Impl
             var record = Repository.Get(primaryKey);
             return BelongToCurrentBranch(record) 
                 ? ServiceResult.CreateResult(Repository.Delete(primaryKey))
-                : ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business));
+                : ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
         }
 
         public virtual ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
@@ -183,7 +183,7 @@ namespace SMS.Business.Impl
         {
             var record = Repository.Get(primaryKey);
             return record == null
-                ? ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist, "The requested data does not existed"), ErrorType.Business)) 
+                ? ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business)) 
                 : ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(record));
         }
 
