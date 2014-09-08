@@ -2,9 +2,11 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using SMS.Common.Constant;
 using SMS.Common.Message;
 using SMS.Common.Session;
+using SMS.Common.UserAccess;
 
 namespace SMS.Common.CustomAttributes
 {
@@ -23,6 +25,16 @@ namespace SMS.Common.CustomAttributes
         {
             if (SmsSystem.UserContext.UserID == 0 || SmsSystem.SelectedBranchID == 0)
             {
+                Status = AuthorizeStatus.NotLogin;
+                return false;
+            }
+
+            if(!UserAccessManager.AuthorizeCurrentUser())
+            {
+                HttpContext.Current.Session.Abandon();
+                FormsAuthentication.SignOut();
+                SystemMessages.Clear();
+
                 Status = AuthorizeStatus.NotLogin;
                 return false;
             }

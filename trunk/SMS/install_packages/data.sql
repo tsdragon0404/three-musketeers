@@ -39,7 +39,8 @@ VALUES
 ( 84, N'Thuế', N'Tax', N'Thuế', N'Tax', N'SystemData', N'Tax', N'Index' ),
 ( 85, N'Tiền tệ', N'Currency', N'Loại tiền tệ', N'Setup currency', N'SystemData', N'Currency', N'Index' ),
 ( 86, N'Cài đặt', N'Setting', N'Cài đặt hệ thống', N'Setting', N'System', N'Configuration', N'Index' ),
-( 87, N'Thông tin sử dụng', N'About', N'Thông tin sử dụng', N'About', N'System', N'About', N'Index' )
+( 87, N'Thông tin sử dụng', N'About', N'Thông tin sử dụng', N'About', N'System', N'About', N'Index' ),
+( 88, N'Quản lý truy cập', N'User Access', N'Quản lý truy cập', N'User Access', N'System', N'UserAccess', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -67,6 +68,7 @@ VALUES
 ( 20, N'MainMenu', 18, 85, 10 ),
 ( 21, N'MainMenu', 9, 86, 40 ),
 ( 22, N'MainMenu', 9, 87, 50 ),
+( 23, N'MainMenu', 9, 88, 60 ),
 
 ( 50, N'SystemDataTabMenu', 0, 84, 10 ),
 ( 51, N'SystemDataTabMenu', 0, 85, 20 ),
@@ -99,6 +101,8 @@ VALUES
 ( -6, -6, 0, N'Branch not available.', N'Chi nhánh này không tồn tại.' ),
 ( -7, -7, 0, N'{0} is not valid.', N'{0} không hợp lệ.' ),
 ( -8, -8, 0, N'The requested data does not existed.', N'Dữ liệu không tồn tại.' ),
-( -9, -9, 0, N'Forbidden.', N'Không được phép.' )
+( -9, -9, 0, N'Forbidden.', N'Không được phép.' ),
+( -10, -10, 0, N'Warning', N'Cảnh báo' ),
+( -11, -11, 0, N'Are you sure you want to delete this session?', N'Bạn muốn xóa phiên truy cập này?' )
 
 GO
