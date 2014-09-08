@@ -18,6 +18,9 @@ sqlcmd -S %SQLSERVER% -U %USER% -P %PASSWORD% -d %DATABASE% -i "%SCRIPT_PATH%\da
 echo executing data-sample.sql
 sqlcmd -S %SQLSERVER% -U %USER% -P %PASSWORD% -d %DATABASE% -i "%SCRIPT_PATH%\data-sample.sql"
 
+echo executing branding.sql
+sqlcmd -S %SQLSERVER% -U %USER% -P %PASSWORD% -d %DATABASE% -i "%SCRIPT_PATH%\branding.sql"
+
 if errorlevel 1 goto pauseError
 
 echo Install database successfull!
