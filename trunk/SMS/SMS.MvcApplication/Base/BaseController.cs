@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Castle.Core.Internal;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Session;
-using SMS.Common.UserAccess;
+using SMS.Common.Storage.UserAccess;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;

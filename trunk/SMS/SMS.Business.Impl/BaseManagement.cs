@@ -5,9 +5,9 @@ using Core.Common.Validation;
 using Core.Data;
 using AutoMapper;
 using SMS.Common.Constant;
-using SMS.Common.Message;
 using SMS.Common.Paging;
 using SMS.Common.Session;
+using SMS.Common.Storage.Message;
 using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Business.Impl

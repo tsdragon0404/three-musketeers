@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SMS.Common.Storage.Message;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 
@@ -23,7 +24,7 @@ namespace SMS.Common.AutoMapper
             Map<Currency, CurrencyDto>();
             Map<Customer, CustomerDto>();
             Map<ErrorMessage, ErrorMessageDto>();
-            Map<ErrorMessage, Message.Message>();
+            Map<ErrorMessage, Message>();
             Map<InvoiceDetail, InvoiceDetailDto>();
             Map<Invoice, InvoiceDto>();
             Map<InvoiceDiscount, InvoiceDiscountDto>();

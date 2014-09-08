@@ -4,7 +4,7 @@ using System.Linq;
 using SMS.Common.Constant;
 using SMS.Common.Session;
 
-namespace SMS.Common.UserAccess
+namespace SMS.Common.Storage.UserAccess
 {
     public class UserAccessManager
     {

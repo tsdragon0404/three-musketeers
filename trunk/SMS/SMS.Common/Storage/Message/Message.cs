@@ -1,4 +1,4 @@
-﻿namespace SMS.Common.Message
+﻿namespace SMS.Common.Storage.Message
 {
     public class Message
     {

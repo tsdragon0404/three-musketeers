@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SET SCRIPT_PATH=D:\Projects\TM\SMS\install_packages
+SET SCRIPT_PATH=E:\Work\TM\SMS\install_packages
 SET SQLSERVER=.
 SET USER=sms
 SET PASSWORD=sms

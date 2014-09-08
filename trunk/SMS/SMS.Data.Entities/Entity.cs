@@ -5,7 +5,8 @@ using Core.Common.CustomAttributes;
 using Core.Common.Validation;
 using Core.Data;
 using SMS.Common.Constant;
-using SMS.Common.Message;
+using SMS.Common.Storage.Message;
+
 namespace SMS.Data.Entities
 {
     public abstract class Entity : EntityWithTypedId<long>

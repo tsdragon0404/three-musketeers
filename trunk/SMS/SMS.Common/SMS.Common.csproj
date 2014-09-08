@@ -45,16 +45,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppLock\ApplicationLock.cs" />
-    <Compile Include="AppLock\ILockItem.cs" />
+    <Compile Include="Storage\AppLock\ApplicationLock.cs" />
+    <Compile Include="Storage\AppLock\ILockItem.cs" />
     <Compile Include="Constant\ConstKey.cs" />
     <Compile Include="Constant\Gender.cs" />
     <Compile Include="Constant\OrderStatus.cs" />
     <Compile Include="CustomAttributes\SmsStatusCodeJsonResult.cs" />
     <Compile Include="Exceptions\LockException.cs" />
-    <Compile Include="AppLock\LockGroup.cs" />
-    <Compile Include="AppLock\LockStatus.cs" />
-    <Compile Include="AppLock\Payment.cs" />
+    <Compile Include="Storage\AppLock\LockGroup.cs" />
+    <Compile Include="Storage\AppLock\LockStatus.cs" />
+    <Compile Include="Storage\AppLock\Payment.cs" />
     <Compile Include="Session\BranchConfig.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
@@ -67,8 +67,8 @@
     <Compile Include="Constant\DiscountType.cs" />
     <Compile Include="Constant\ConstOrderStatus.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
-    <Compile Include="Message\Message.cs" />
-    <Compile Include="Message\SystemMessages.cs" />
+    <Compile Include="Storage\Message\Message.cs" />
+    <Compile Include="Storage\Message\SystemMessages.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
     <Compile Include="Paging\PagedList.cs" />
@@ -82,12 +82,12 @@
     <Compile Include="Session\ClientInfo.cs" />
     <Compile Include="Storage\Branding\BrandingItem.cs" />
     <Compile Include="Storage\Branding\BrandingTexts.cs" />
-    <Compile Include="UserAccess\UserAccessManager.cs" />
+    <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
     <Compile Include="Session\SmsSystem.cs" />
     <Compile Include="Session\UserContext.cs" />
-    <Compile Include="UserAccess\UserAccess.cs" />
+    <Compile Include="Storage\UserAccess\UserAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

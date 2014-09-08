@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using SMS.Common.Constant;
-using SMS.Common.Message;
 using SMS.Common.Session;
-using SMS.Common.UserAccess;
+using SMS.Common.Storage.Message;
+using SMS.Common.Storage.UserAccess;
 
 namespace SMS.Common.CustomAttributes
 {

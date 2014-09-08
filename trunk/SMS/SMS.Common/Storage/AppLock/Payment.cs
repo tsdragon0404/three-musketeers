@@ -1,7 +1,7 @@
 ﻿using System;
 using SMS.Common.Constant;
 
-namespace SMS.Common.AppLock
+namespace SMS.Common.Storage.AppLock
 {
     public class Payment : ILockItem
     {

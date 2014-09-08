@@ -3,7 +3,7 @@ using System.Linq;
 using SMS.Common.Constant;
 using SMS.Common.Session;
 
-namespace SMS.Common.Message
+namespace SMS.Common.Storage.Message
 {
     public class SystemMessages
     {
