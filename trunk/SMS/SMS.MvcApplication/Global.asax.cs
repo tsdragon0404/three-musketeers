@@ -119,7 +119,6 @@ namespace SMS.MvcApplication
             var brandingDictionary = new Dictionary<long, List<BrandingItem>>();
             foreach (var brandingTextDto in brandingTexts)
             {
-
                 if (!brandingDictionary.ContainsKey(brandingTextDto.Branch.ID))
                     brandingDictionary.Add(brandingTextDto.Branch.ID, new List<BrandingItem>());
 
@@ -129,7 +128,6 @@ namespace SMS.MvcApplication
                     ENValue = brandingTextDto.ENValue,
                     VNValue = brandingTextDto.VNValue
                 });
-
             }
             BrandingTexts.BrandingItems = brandingDictionary;
         }

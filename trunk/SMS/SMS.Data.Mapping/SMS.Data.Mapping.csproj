@@ -68,7 +68,6 @@
     <Compile Include="OrderDetailMap.cs" />
     <Compile Include="OrderDiscountMap.cs" />
     <Compile Include="OrderMap.cs" />
-    <Compile Include="OrderStatusMap.cs" />
     <Compile Include="OrderTableMap.cs" />
     <Compile Include="ErrorMessageMap.cs" />
     <Compile Include="PageLabelMap.cs" />

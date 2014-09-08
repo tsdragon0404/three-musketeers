@@ -17,7 +17,6 @@ namespace SMS.Business.Impl
         #region Fields
 
         public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
-        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
         public virtual ICurrencyRepository CurrencyRepository { get; set; }
 
         #endregion
@@ -68,11 +67,11 @@ namespace SMS.Business.Impl
 
                 if (!branchToSave.UseKitchenFunction)
                 {
-                    var ordersInKitchen = OrderDetailRepository.Find(x => (x.OrderStatus.ID == ConstOrderStatus.SentToKitchen || x.OrderStatus.ID == ConstOrderStatus.Ordered || x.OrderStatus.ID == ConstOrderStatus.KitchenAccepted) 
+                    var ordersInKitchen = OrderDetailRepository.Find(x => (x.OrderStatus == OrderStatus.SentToKitchen || x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenAccepted) 
                                                                         && x.OrderTable.Order.Branch.ID == branchToSave.ID);
                     foreach (var order in ordersInKitchen)
                     {
-                        order.OrderStatus = OrderStatusRepository.Get(ConstOrderStatus.Done);
+                        order.OrderStatus = OrderStatus.Done;
                         OrderDetailRepository.Update(order);
                     }
                 }

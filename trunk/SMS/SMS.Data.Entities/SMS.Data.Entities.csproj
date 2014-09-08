@@ -54,7 +54,6 @@
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderDiscount.cs" />
-    <Compile Include="OrderStatus.cs" />
     <Compile Include="OrderTable.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="PageLabel.cs" />

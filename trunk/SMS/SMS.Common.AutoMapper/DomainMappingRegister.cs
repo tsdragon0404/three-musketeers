@@ -32,7 +32,6 @@ namespace SMS.Common.AutoMapper
             Map<OrderDetail, OrderDetailDto>();
             Map<OrderDiscount, OrderDiscountDto>();
             Map<Order, OrderDto>();
-            Map<OrderStatus, OrderStatusDto>();
             Map<OrderTable, OrderTableDto>();
             Map<Page, PageDto>();
             Map<PageLabel, PageLabelDto>();

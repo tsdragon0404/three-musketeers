@@ -65,7 +65,6 @@
     <Compile Include="Constant\ConstPageMenuGroupName.cs" />
     <Compile Include="Constant\ReportDatasourceParameterType.cs" />
     <Compile Include="Constant\DiscountType.cs" />
-    <Compile Include="Constant\ConstOrderStatus.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
     <Compile Include="Storage\Message\Message.cs" />
     <Compile Include="Storage\Message\SystemMessages.cs" />

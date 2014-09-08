@@ -50,7 +50,6 @@
     <Compile Include="OrderDetailDto.cs" />
     <Compile Include="OrderDiscountDto.cs" />
     <Compile Include="OrderDto.cs" />
-    <Compile Include="OrderStatusDto.cs" />
     <Compile Include="OrderTableDto.cs" />
     <Compile Include="PageLabelDto.cs" />
     <Compile Include="CurrencyDto.cs" />

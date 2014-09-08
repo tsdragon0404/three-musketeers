@@ -18,7 +18,6 @@ namespace SMS.Business.Impl
         public virtual IProductRepository ProductRepository { get; set; }
         public virtual IOrderTableRepository OrderTableRepository { get; set; }
         public virtual IOrderTableManagement OrderTableManagement { get; set; }
-        public virtual IOrderStatusRepository OrderStatusRepository { get; set; }
         public virtual IRejectRepository RejectRepository { get; set; }
 
         #endregion
@@ -48,7 +47,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = OrderStatusRepository.Get(SmsSystem.BranchConfig.UseKitchenFunction ? ConstOrderStatus.Ordered : ConstOrderStatus.Done)
+                                      OrderStatus = SmsSystem.BranchConfig.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
                                   };
             Repository.Add(orderDetail);
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)));
@@ -90,10 +89,10 @@ namespace SMS.Business.Impl
             var orderDetail = Repository.Get(orderDetailID);
             if (orderDetail == null)
                 return ServiceResult<TDto>.CreateFailResult();
-            orderDetail.OrderStatus = OrderStatusRepository.Get(value);
+            orderDetail.OrderStatus = (OrderStatus)value;
             Repository.Update(orderDetail);
 
-            if(orderDetail.OrderStatus.ID == ConstOrderStatus.KitchenRejected)
+            if(orderDetail.OrderStatus == OrderStatus.KitchenRejected)
             {
                 RejectRepository.Add(new Reject
                                          {
@@ -116,22 +115,13 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
         {
-            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.SentToKitchen && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
-        }
-
-        public ServiceResult<IList<TDto>> GetOrderedProductByStatuses<TDto>(IList<long> statuses = null)
-        {
-            if(statuses == null)
-                return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetAll()));
-
-            var orderProducts = Repository.Find(x => statuses.Contains(x.OrderStatus.ID)).ToList();
+            var orderProducts = Repository.Find(x => x.OrderStatus == OrderStatus.SentToKitchen && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderProducts));
         }
 
         public ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>()
         {
-            var orderProducts = Repository.Find(x => x.OrderStatus.ID == ConstOrderStatus.KitchenAccepted && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
+            var orderProducts = Repository.Find(x => x.OrderStatus == OrderStatus.KitchenAccepted && x.OrderTable.Order.Branch.ID == SmsSystem.SelectedBranchID).ToList();
             return new ServiceResult<IList<TDto>> { Data = Mapper.Map<IList<TDto>>(orderProducts) };
         }
     }
