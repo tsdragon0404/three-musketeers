@@ -27,10 +27,13 @@
                         <td>@Model.UserBasic.Username</td>
                         <td rowspan="6" id="image-profile">
                             <div id="profileImage">
-                                <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
-                                <div id="change-profileImage">
-                                    <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
-                                </div>
+                                <span>
+                                    <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
+                                    <span class="fileinput-button" title="upload photo">
+                                        <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
+                                        <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
+                                    </span>
+                                </span>
                             </div>
                         </td>
                     </tr>
@@ -74,27 +77,6 @@
             </table>
         </fieldset>
     </div>
-    <div class="menu" id="imageProfileMenu">
-        <ul>
-            <li>
-                <a id="takephoto">
-                    <span class="vertical-middle menu-item">
-                        <img class="vertical-middle imgProfile" src="~/Images/IconControls/takephoto-icon.png" alt="take photo"/>
-                        Take photo
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span class="vertical-middle fileinput-button menu-item">
-                        <img class="vertical-middle imgProfile" src="~/Images/IconControls/uploadphoto-icon.png"alt="upload photo"/>
-                        Upload photo
-                        <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </div>
 </div>
 
 <script type="text/javascript">
@@ -137,36 +119,5 @@
                 $('#progress .bar').css('width', progress + '%' );
             }
         });
-
-        $('#takephoto').click(function() {
-            
-        });
-
-        $(document).click(function(e) {
-            if($(e.target).attr('id') != 'capture')
-                $('#imageProfileMenu').hide();
-            else {
-                displayCustomMenu('#imageProfileMenu', e);    
-            }
-        });
     });
-    
-
-    function displayCustomMenu(menuName, event) {
-        var $menu = $(menuName);
-        var $wMenu = $menu.outerWidth();
-        var $hMenu = $menu.outerHeight();
-        var $leftM = event.clientX, $topM = event.clientY;
-        var $rightM = $(window).width() - $leftM;
-
-        var $bottomM = $(window).height() - $topM;
-        if ($rightM < $wMenu) {
-            $leftM -= $wMenu;
-        }
-        if ($bottomM < $hMenu) {
-            $topM -= $hMenu;
-        }
-        $menu.css({ left: $leftM, top: $topM, display: 'block' });
-        event.preventDefault();
-    }
 </script>
