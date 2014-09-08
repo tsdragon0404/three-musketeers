@@ -82,15 +82,6 @@ VALUES
 ( 100, N'SystemTabMenu', 0, 81, 10 ),
 ( 101, N'SystemTabMenu', 0, 82, 20 )
 
-INSERT INTO dbo.OrderStatus ( [OrderStatusID], [VNName], [ENName] )
-VALUES 
-(1, N'Chưa chuyển bếp', N'Chưa chuyển bếp'),
-(2, N'Đã chuyển bếp', N'Đã chuyển bếp'),
-(3, N'Bếp nhận', N'Bếp nhận'),
-(4, N'Bếp trả lại', N'Bếp trả lại'),
-(5, N'Giao khách', N'Giao khách')
-GO
-
 INSERT INTO dbo.ErrorMessage ( ErrorMessageID, MessageID, BranchID, ENMessage, VNMessage )
 VALUES 
 ( -1, -1, 0, N'Incorrect username or password.', N'Tên đăng nhập hoặc mật khẩu không chính xác.' ),
