@@ -1154,6 +1154,7 @@ fieldset {
 
 .fileinput-button:hover {
     opacity: 1;
+    cursor: pointer;
 }
 
 .fileinput-button input {
