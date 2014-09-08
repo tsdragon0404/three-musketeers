@@ -26,18 +26,10 @@
                         <td>User name</td>
                         <td>@Model.UserBasic.Username</td>
                         <td rowspan="6" id="image-profile">
-                            <div>
-                                <img id="user-profile" alt="profile" src="~/Images/User/Avatar/default.jpg"/>
-                            </div>
-                            <div>
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Select files...</span>
-                                    <!-- The file input field used as target for the file upload widget -->
-                                    <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
-                                </span>
-                                <div id="progress" class="progress">
-                                    <div class="progress-bar progress-bar-success"></div>
+                            <div id="profileImage">
+                                <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
+                                <div id="change-profileImage">
+                                    <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
                                 </div>
                             </div>
                         </td>
@@ -75,12 +67,33 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="center">
-                             <button id="update" data-labelID="lblUpdate">Update</button>
+                            <button id="update" data-labelID="lblUpdate">Update</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </fieldset>
+    </div>
+    <div class="menu" id="imageProfileMenu">
+        <ul>
+            <li>
+                <a id="takephoto">
+                    <span class="vertical-middle menu-item">
+                        <img class="vertical-middle imgProfile" src="~/Images/IconControls/takephoto-icon.png" alt="take photo"/>
+                        Take photo
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <span class="vertical-middle fileinput-button menu-item">
+                        <img class="vertical-middle imgProfile" src="~/Images/IconControls/uploadphoto-icon.png"alt="upload photo"/>
+                        Upload photo
+                        <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
+                    </span>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -124,5 +137,36 @@
                 $('#progress .bar').css('width', progress + '%' );
             }
         });
+
+        $('#takephoto').click(function() {
+            
+        });
+
+        $(document).click(function(e) {
+            if($(e.target).attr('id') != 'capture')
+                $('#imageProfileMenu').hide();
+            else {
+                displayCustomMenu('#imageProfileMenu', e);    
+            }
+        });
     });
+    
+
+    function displayCustomMenu(menuName, event) {
+        var $menu = $(menuName);
+        var $wMenu = $menu.outerWidth();
+        var $hMenu = $menu.outerHeight();
+        var $leftM = event.clientX, $topM = event.clientY;
+        var $rightM = $(window).width() - $leftM;
+
+        var $bottomM = $(window).height() - $topM;
+        if ($rightM < $wMenu) {
+            $leftM -= $wMenu;
+        }
+        if ($bottomM < $hMenu) {
+            $topM -= $hMenu;
+        }
+        $menu.css({ left: $leftM, top: $topM, display: 'block' });
+        event.preventDefault();
+    }
 </script>
