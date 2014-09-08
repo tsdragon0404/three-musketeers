@@ -737,6 +737,22 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrandingText]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[BrandingText](
+		[BrandingTextID] [int] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
+		[Key] [varchar](100) NULL,
+		[VNValue] [nvarchar](1000) NULL,
+		[ENValue] [nvarchar](1000) NULL,
+	 CONSTRAINT [PK_BrandingText] PRIMARY KEY CLUSTERED 
+	(
+		[BrandingTextID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
@@ -1045,6 +1061,15 @@ BEGIN
 	REFERENCES [dbo].[Page] ([PageID])
 
 	ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK_RolePermission_User]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_BrandingText_Branch]') AND type in (N'F'))
+BEGIN
+	ALTER TABLE [dbo].[BrandingText] WITH CHECK ADD CONSTRAINT [FK_BrandingText_Branch] FOREIGN KEY([BranchID])
+	REFERENCES [dbo].[Branch] ([BranchID])
+
+	ALTER TABLE [dbo].[BrandingText] CHECK CONSTRAINT [FK_BrandingText_Branch]
 END
 GO
 
