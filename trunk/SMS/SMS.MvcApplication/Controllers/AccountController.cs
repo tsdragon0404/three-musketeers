@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Common.Validation;
+using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Message;
@@ -176,7 +177,7 @@ namespace SMS.MvcApplication.Controllers
                                   DefaultAreaID = userConfig.DefaultAreaID,
                                   ListTableHeight = userConfig.ListTableHeight == 0 ? ConstConfig.DefaultHeightForListTable : userConfig.ListTableHeight,
                                   PageSize = userConfig.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.PageSize,
-                                  Theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigurationManager.AppSettings["theme"] : userConfig.Theme,
+                                  Theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigReader.CurrentTheme : userConfig.Theme,
                                   UserID = user.ID,
                                   UserName = user.Username,
                                   IsSystemAdmin = user.IsSystemAdmin,
@@ -236,21 +237,31 @@ namespace SMS.MvcApplication.Controllers
             var contentType = new[] {"image/jpeg", "image/png"};
 
             var uploadedFile = Request.Files[0];
-            string error;
+            string error = "";
 
             if (uploadedFile != null && uploadedFile.ContentLength > 0 && contentType.Any(uploadedFile.ContentType.Contains))
             {
                 var fileName = string.Format("{0}{1}", SmsSystem.UserContext.UserID,
                                              Path.GetExtension(uploadedFile.FileName));
-                var filePath = Path.Combine(Server.MapPath("~/Images/User/Avatar"), fileName);
+                var filePath = Path.Combine("C:/Program Files (x86)/SOLA Solutions/SMS/imageProfile", fileName);
                 uploadedFile.SaveAs(filePath);
-                error = "~/Images/User/Avatar/" + fileName;
             }
             else
             {
                 error = "Something wrong!!!";
             }
             return Json(JsonModel.Create(error));
+        }
+
+
+        public JsonResult getProfileImage()
+        {
+            var path = "C:/Program Files (x86)/SOLA Solutions/SMS/imageProfile" + "/" + SmsSystem.UserContext.UserID + ".jpg";
+            var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var data = new byte[(int)fileStream.Length];
+            fileStream.Read(data, 0, data.Length);
+
+            return Json(new { base64imgage = Convert.ToBase64String(data) } , JsonRequestBehavior.AllowGet);
         }
     }
 }

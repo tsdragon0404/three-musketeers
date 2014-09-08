@@ -80,6 +80,7 @@
 </div>
 
 <script type="text/javascript">
+    var imgs = null;
     $(document).ready(function() {
         $('#theme').selectmenu();
         var theme = userConfig.Theme;
@@ -109,8 +110,30 @@
             // Handles the server side validation on file type
             done: function (e, data) {
                 var error = data.response().result.Data;
-                if(error != "") {
-                    $('#user-profile').attr('src', error);
+                if(error == "") {
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: '@Url.Action("getProfileImage")',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        success: function (result) {
+                            imgs = result;
+                            displayImage(imgs.base64imgage);
+                        },
+                        error: function (xhr) {
+                            alert("Error occurred while loading the image. "
+                                + xhr.responseText);
+                        }
+                    });
+                   @* $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("getProfileImage")',
+                        datatype:"image/jpg",
+                    }).done(function(result) {
+                        $('#user-profile').attr('src', result);    
+                    });*@
+                    
                 }
             },
             progressall: function (e, data) {
@@ -119,5 +142,13 @@
                 $('#progress .bar').css('width', progress + '%' );
             }
         });
+        
+        var displayImage = function (base64Data) {
+            var imag = "<img "
+                     + "src='" + "data:image/jpg;base64,"
+                     + base64Data + "'/>";
+
+            $(this).append(imag);
+        };
     });
 </script>

@@ -10,8 +10,16 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/themes/base/css")
-    <link href="~/Content/themes/@ConfigReader.CurrentTheme/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/themes/@ConfigReader.CurrentTheme/theme.css" rel="stylesheet" />
+    @if (SmsSystem.UserContext.UserID != 0)
+    {
+        <link href="~/Content/themes/@SmsSystem.UserContext.Theme/jquery-ui.css" rel="stylesheet" />
+        <link href="~/Content/themes/@SmsSystem.UserContext.Theme/theme.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="~/Content/themes/@ConfigReader.CurrentTheme/jquery-ui.css" rel="stylesheet" />
+        <link href="~/Content/themes/@ConfigReader.CurrentTheme/theme.css" rel="stylesheet" />
+    }
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -43,7 +51,7 @@
     <body>
         @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
         {
-            @Html.Partial("EditLabelPopup", new PopupModel {PopupID = "editLabelPopup", PopupTitle = "Edit Labels"})
+            @Html.Partial("EditLabelPopup", new PopupModel { PopupID = "editLabelPopup", PopupTitle = "Edit Labels" })
         }
 
         <div class="ui-helper-clearfix">
@@ -55,11 +63,11 @@
                     <ul id="menu">
                         @{
                             var option = new BuildMenuOption
-                                             {
-                                                 SelectedListItemClass = "menu-selected",
-                                                 CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                 SubListClass = "submenu"
-                                             };
+                            {
+                                SelectedListItemClass = "menu-selected",
+                                CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                SubListClass = "submenu"
+                            };
                         }
                         @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
                         <li>-</li>
@@ -68,7 +76,7 @@
                             <li>
                                 <a>@SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name</a>
                                 <ul class="submenu">
-                                    @foreach(var branch in SmsSystem.UserContext.AllowBranches)
+                                    @foreach (var branch in SmsSystem.UserContext.AllowBranches)
                                     {
                                         <li><a href="#" data-branchId="@branch.ID" id="changeBranch-@branch.ID">@branch.Name</a></li>
                                     }
@@ -197,14 +205,14 @@
                     <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                             @{
-                                var adminOption = new BuildMenuOption
-                                                      {
-                                                          SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
-                                                          CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                          SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                                          HyperLinkClass = "ui-tabs-anchor",
-                                                          ListItemClass = "ui-state-default ui-corner-top"
-                                                      };
+                    var adminOption = new BuildMenuOption
+                    {
+                        SubListClass = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all",
+                        CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                        SelectedListItemClass = "ui-tabs-active ui-state-active",
+                        HyperLinkClass = "ui-tabs-anchor",
+                        ListItemClass = "ui-state-default ui-corner-top"
+                    };
                             }
                             @Html.Raw(BuildMenuList(ConstPageMenuGroupName.BranchDataTabMenu, adminOption))
                         </ul>
@@ -215,13 +223,13 @@
                     <div id="tabs-menu" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                             @{
-                                var adminOption = new BuildMenuOption
-                                                      {
-                                                          CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                                          SelectedListItemClass = "ui-tabs-active ui-state-active",
-                                                          HyperLinkClass = "ui-tabs-anchor",
-                                                          ListItemClass = "ui-state-default ui-corner-top"
-                                                      };
+                    var adminOption = new BuildMenuOption
+                    {
+                        CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                        SelectedListItemClass = "ui-tabs-active ui-state-active",
+                        HyperLinkClass = "ui-tabs-anchor",
+                        ListItemClass = "ui-state-default ui-corner-top"
+                    };
                             }
                             @Html.Raw(BuildMenuList(ConstPageMenuGroupName.SystemDataTabMenu, adminOption)) 
                         </ul>

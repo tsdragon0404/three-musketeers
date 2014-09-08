@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using SMS.Common.Session;
 
 namespace SMS.Common
 {
@@ -7,7 +6,7 @@ namespace SMS.Common
     {
         public static string CurrentTheme
         {
-            get { return SmsSystem.UserContext.Theme ?? ConfigurationManager.AppSettings["theme"]; }
+            get { return ConfigurationManager.AppSettings["theme"]; }
         }
     }
 }
