@@ -19,7 +19,9 @@
         modal: true
     });
 
-    $('#popup').dialog('option', 'title', root.title);
+    // cannot use this method because the title can be unicode string
+    //$('#popup').dialog('option', 'title', unescape(root.title));
+    $('#popup').siblings('.ui-dialog-titlebar').find('.ui-dialog-title').html(root.title);
     $('#popup-message').html(root.message);
 
     //unbind click event for buttons
