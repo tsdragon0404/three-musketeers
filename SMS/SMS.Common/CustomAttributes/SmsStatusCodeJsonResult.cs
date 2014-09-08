@@ -16,6 +16,7 @@ namespace SMS.Common.CustomAttributes
 
         public override void ExecuteResult(ControllerContext context)
         {
+            context.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
             context.HttpContext.Response.StatusCode = (int)StatusCode;
             context.HttpContext.Response.Write(ErrorDescription);
             context.HttpContext.Response.End();
