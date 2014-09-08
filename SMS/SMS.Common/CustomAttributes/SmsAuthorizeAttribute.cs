@@ -53,9 +53,9 @@ namespace SMS.Common.CustomAttributes
             if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
                 if(Status == AuthorizeStatus.DontHaveAccessRight)
-                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."));
+                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission));
                 if (Status == AuthorizeStatus.NotLogin)
-                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired, "Login required."));
+                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired));
                 return;
             }
 
