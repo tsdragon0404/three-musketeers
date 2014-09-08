@@ -49,6 +49,7 @@
     <Compile Include="AppLock\ILockItem.cs" />
     <Compile Include="Constant\ConstKey.cs" />
     <Compile Include="Constant\Gender.cs" />
+    <Compile Include="Constant\OrderStatus.cs" />
     <Compile Include="CustomAttributes\SmsStatusCodeJsonResult.cs" />
     <Compile Include="Exceptions\LockException.cs" />
     <Compile Include="AppLock\LockGroup.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Session\Branch.cs" />
     <Compile Include="Session\ClientInfo.cs" />
+    <Compile Include="Storage\Branding\BrandingItem.cs" />
+    <Compile Include="Storage\Branding\BrandingTexts.cs" />
     <Compile Include="UserAccess\UserAccessManager.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
