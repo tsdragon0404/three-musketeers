@@ -24,25 +24,20 @@ namespace SMS.Common.Constant
 
     public class FallbackMessages
     {
-        private static Dictionary<long, string> fallbackMessages;
-
-        public FallbackMessages()
+        private static readonly Dictionary<long, string> fallbackMessages = new Dictionary<long, string>
         {
-            fallbackMessages = new Dictionary<long, string>
-                               {
-                                   {ConstMessageIds.Login_UsernamePasswordInvalid, "Username or password invalid"},
-                                   {ConstMessageIds.Login_UserLocked, "This user is temporary locked. Please contact Administrator."},
-                                   {ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator."},
-                                   {ConstMessageIds.Login_BranchNotAvailable, "Branch not available."},
-                                   {ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."},
-                                   {ConstMessageIds.UnAuthorize_LoginRequired, "Login required."},
-                                   {ConstMessageIds.Validate_NotValid, "{0} is not valid"},
-                                   {ConstMessageIds.Business_DataNotExist, "The requested data does not existed"},
-                                   {ConstMessageIds.Forbidden, "Forbidden"},
-                                   {ConstMessageIds.Popup_Title_Warning, "Warning"},
-                                   {ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?"},
-                               };
-        }
+            {ConstMessageIds.Login_UsernamePasswordInvalid, "Username or password invalid"},
+            {ConstMessageIds.Login_UserLocked, "This user is temporary locked. Please contact Administrator."},
+            {ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator."},
+            {ConstMessageIds.Login_BranchNotAvailable, "Branch not available."},
+            {ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."},
+            {ConstMessageIds.UnAuthorize_LoginRequired, "Login required."},
+            {ConstMessageIds.Validate_NotValid, "{0} is not valid"},
+            {ConstMessageIds.Business_DataNotExist, "The requested data does not existed"},
+            {ConstMessageIds.Forbidden, "Forbidden"},
+            {ConstMessageIds.Popup_Title_Warning, "Warning"},
+            {ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?"},
+        };
 
         public static string Get(long messageId)
         {
