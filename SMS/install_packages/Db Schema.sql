@@ -556,7 +556,7 @@ BEGIN
 		[DiscountCode] [nvarchar](50) NULL,
 		[DiscountComment] [nvarchar](255) NULL,
 		[KitchenComment] [nvarchar] (255) NULL,
-		[OrderStatusID] [tinyint] NULL,
+		[OrderStatus] [tinyint] NULL,
 	 CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
 	(
 		[OrderDetailID] ASC
@@ -577,20 +577,6 @@ BEGIN
 	 CONSTRAINT [PK_OrderDiscount] PRIMARY KEY CLUSTERED 
 	(
 		[OrderDiscountID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderStatus]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[OrderStatus](
-		[OrderStatusID] [tinyint] NOT NULL,
-		[VNName] [nvarchar](255) NULL,
-		[ENName] [nvarchar](255) NULL,
-	 CONSTRAINT [PK_OrderStatus] PRIMARY KEY CLUSTERED 
-	(
-		[OrderStatusID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
