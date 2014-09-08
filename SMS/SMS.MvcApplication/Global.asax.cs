@@ -21,6 +21,7 @@ using SMS.Common.Session;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
 using SMS.Common.Message;
+using SMS.Common.Storage.Branding;
 using SMS.Services;
 using SMS.Data.Dtos;
 
@@ -59,22 +60,8 @@ namespace SMS.MvcApplication
 
             MappingRegister();
 
-            var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
-            SystemMessages.SetSystemMessages(errorMessageService.GetSystemMessages<Message>().Data);
-
-            var branchService = ServiceLocator.Resolve<IBranchService>();
-            var branches = branchService.GetAll();
-            SetBranchConfigs(branches.Data);
+            GetStaticResources();
         }
-
-        //protected void Application_BeginRequest(object sender, EventArgs e)
-        //{
-        //}
-
-        //protected void Application_EndRequest(object sender, EventArgs e)
-        //{
-
-        //}
 
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -112,6 +99,40 @@ namespace SMS.MvcApplication
         #endregion
 
         #region Methods
+
+        private void GetStaticResources()
+        {
+            var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
+            SystemMessages.SetSystemMessages(errorMessageService.GetSystemMessages<Message>().Data);
+
+            var branchService = ServiceLocator.Resolve<IBranchService>();
+            var branches = branchService.GetAll();
+            SetBranchConfigs(branches.Data);
+
+            var brandingTextService = ServiceLocator.Resolve<IBrandingTextService>();
+            var brandingTexts = brandingTextService.GetAll().Data;
+            SetBrandingTexts(brandingTexts);
+        }
+
+        private void SetBrandingTexts(IEnumerable<BrandingTextDto> brandingTexts)
+        {
+            var brandingDictionary = new Dictionary<long, List<BrandingItem>>();
+            foreach (var brandingTextDto in brandingTexts)
+            {
+
+                if (!brandingDictionary.ContainsKey(brandingTextDto.Branch.ID))
+                    brandingDictionary.Add(brandingTextDto.Branch.ID, new List<BrandingItem>());
+
+                brandingDictionary[brandingTextDto.Branch.ID].Add(new BrandingItem
+                {
+                    Key = brandingTextDto.Key,
+                    ENValue = brandingTextDto.ENValue,
+                    VNValue = brandingTextDto.VNValue
+                });
+
+            }
+            BrandingTexts.BrandingItems = brandingDictionary;
+        }
 
         private void SetBranchConfigs(IEnumerable<BranchDto> branches)
         {
@@ -193,6 +214,7 @@ namespace SMS.MvcApplication
             writer.Write(errorString);
             writer.Close();
         }
+
         #endregion
     }
 }
