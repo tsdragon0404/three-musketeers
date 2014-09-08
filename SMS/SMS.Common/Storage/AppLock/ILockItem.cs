@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SMS.Common.AppLock
+namespace SMS.Common.Storage.AppLock
 {
     public interface ILockItem
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using SMS.Common.Exceptions;
 using SMS.Common.Session;
 
-namespace SMS.Common.AppLock
+namespace SMS.Common.Storage.AppLock
 {
     public class LockGroup<T> : List<T> where T: ILockItem, new()
     {

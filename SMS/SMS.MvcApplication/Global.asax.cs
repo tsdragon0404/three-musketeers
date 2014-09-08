@@ -20,8 +20,8 @@ using SMS.Common;
 using SMS.Common.Session;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
-using SMS.Common.Message;
 using SMS.Common.Storage.Branding;
+using SMS.Common.Storage.Message;
 using SMS.Services;
 using SMS.Data.Dtos;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using SMS.Common.Session;
 
-namespace SMS.Common.UserAccess
+namespace SMS.Common.Storage.UserAccess
 {
     public class UserAccess
     {

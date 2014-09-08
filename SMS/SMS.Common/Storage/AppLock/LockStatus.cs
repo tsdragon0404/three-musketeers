@@ -1,4 +1,4 @@
-﻿namespace SMS.Common.AppLock
+﻿namespace SMS.Common.Storage.AppLock
 {
     public enum LockStatus
     {

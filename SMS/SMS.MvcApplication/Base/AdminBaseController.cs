@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using SMS.Common.Constant;
-using SMS.Common.Message;
 using SMS.Common.Paging;
+using SMS.Common.Storage.Message;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 

@@ -3,7 +3,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Common.UserAccess;
+using SMS.Common.Storage.UserAccess;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 
