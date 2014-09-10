@@ -110,6 +110,7 @@ VALUES
 ( -8, -8, 0, N'The requested data does not existed.', N'Dữ liệu không tồn tại.' ),
 ( -9, -9, 0, N'Forbidden.', N'Không được phép.' ),
 ( -10, -10, 0, N'Warning', N'Cảnh báo' ),
-( -11, -11, 0, N'Are you sure you want to delete this session?', N'Bạn muốn xóa phiên truy cập này?' )
+( -11, -11, 0, N'Are you sure you want to delete this session?', N'Bạn muốn xóa phiên truy cập này?' ),
+( -12, -12, 0, N'Error', N'Lỗi' )
 
 GO

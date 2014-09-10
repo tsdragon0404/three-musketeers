@@ -99,7 +99,7 @@ namespace SMS.MvcApplication.Base
 
         protected JsonResult ErrorAjax(string errorString)
         {
-            return new SmsStatusCodeJsonResult(HttpStatusCode.InternalServerError, errorString);
+            return ErrorAjax(HttpStatusCode.InternalServerError, errorString);
         }
 
         protected JsonResult ErrorAjax(HttpStatusCode statusCode, string errorString)
