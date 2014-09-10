@@ -47,7 +47,7 @@
                             <a href="#" class="@deleteCssClass" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@(dto.SessionId != SmsSystem.SessionId ? dto.UserName : "me")</td>
+                        <td>@dto.UserName @(dto.SessionId == SmsSystem.SessionId ? "(me)" : "")</td>
                         <td>@dto.CurrentBranchId</td>
                         <td>@dto.ClientInfo.IpAddress</td>
                         <td>@dto.ClientInfo.UserAgent</td>
