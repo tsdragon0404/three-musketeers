@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Models;
 
 namespace SMS.MvcApplication.Areas.Branch.Controllers
 {
@@ -11,7 +13,15 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var globalLabel = PageLabelService.GetByPageID<PageLabelDto>(ConstPage.Global);
+            var result = new GlobalLabelModel { PageLabels = globalLabel.Data };
+            return View(result);
+        }
+
+        [HttpPost]
+        public JsonResult Save()
+        {
+            return new JsonResult();
         }
     }
 }

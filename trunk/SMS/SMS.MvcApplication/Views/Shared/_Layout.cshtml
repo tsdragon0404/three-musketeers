@@ -89,16 +89,16 @@
                         }
                         @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
                         {
-                            <li><a href="#" id="page-label-multi-edit">Edit Label</a></li>
+                            <li><a href="#" id="page-label-multi-edit" data-globalLabelID="lblEditLabel">Edit Label</a></li>
                         }
                         @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
                         {
-                            <li><a>User</a>
+                            <li><a data-globalLabelID="lblUser">User</a>
                                 <ul class="submenu">
                                     <li>@Html.ActionLink("Edit profile", "Edit", "Account", new { area = "" }, null)</li>
                                     @if (Request.RequestContext.RouteData.Values["controller"] != null && Request.RequestContext.RouteData.Values["controller"].ToString() == "Cashier")
                                     {
-                                        <li><a id="saveCashierInfo" href="#">Save cashier info</a></li>
+                                        <li><a id="saveCashierInfo" href="#" data-globalLabelID="lblSaveCashierInfo">Save cashier info</a></li>
                                     }
                                 </ul>
                             </li>
@@ -120,8 +120,8 @@
                             }
                         }
                     
-                        <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguageVN">Vietnamese</span></a></li>
-                        <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguageEN">English</span></a></li>
+                        <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Vietnamese</span></a></li>
+                        <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Tiếng Anh</span></a></li>
                     </ul> 
 
                     <script type="text/javascript">
