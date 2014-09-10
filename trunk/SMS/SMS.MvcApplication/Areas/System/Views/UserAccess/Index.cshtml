@@ -1,4 +1,5 @@
 ﻿@using SMS.Common.Constant
+@using SMS.Common.Session
 @using SMS.Common.Storage.Message
 @using SMS.Common.Storage.UserAccess
 @model SMS.MvcApplication.Models.AdminModel<UserAccess>
@@ -38,13 +39,15 @@
             <tbody>
                 @foreach (var dto in Model.ListRecord)
                 {
+                    var deleteCssClass = dto.SessionId != SmsSystem.SessionId ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    
                     <tr class="@altClass" data-id="@dto.SessionId">
                         <td>
-                            <a href="#" class="del-record" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="@deleteCssClass" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.UserName</td>
+                        <td>@(dto.SessionId != SmsSystem.SessionId ? dto.UserName : "me")</td>
                         <td>@dto.CurrentBranchId</td>
                         <td>@dto.ClientInfo.IpAddress</td>
                         <td>@dto.ClientInfo.UserAgent</td>
