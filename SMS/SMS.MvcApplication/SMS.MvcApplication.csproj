@@ -225,6 +225,7 @@
     <Compile Include="Areas\BranchData\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\BranchData\Controllers\TableController.cs" />
     <Compile Include="Base\AdminBranchBaseController.cs" />
+    <Compile Include="Base\Utility.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Areas\BranchData\DataAreaRegistration.cs" />

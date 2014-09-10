@@ -19,8 +19,11 @@ namespace SMS.Common.Constant
         public const long Forbidden = -9;
 
         public const long Popup_Title_Warning = -10;
-        public const long Popup_Message_DeleteSession = -11;
+        public const long Popup_Message_DeleteSessionConfirm = -11;
         public const long Popup_Title_Error = -12;
+        public const long Popup_Title_Success = -13;
+        public const long Popup_Message_Error = -14;
+        public const long Popup_Message_ResetSystemDataSuccess = -15;
     }
 
     public class FallbackMessages
@@ -37,8 +40,11 @@ namespace SMS.Common.Constant
             {ConstMessageIds.Business_DataNotExist, "The requested data does not existed"},
             {ConstMessageIds.Forbidden, "Forbidden"},
             {ConstMessageIds.Popup_Title_Warning, "Warning"},
-            {ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?"},
+            {ConstMessageIds.Popup_Message_DeleteSessionConfirm, "Are you sure you want to delete this session?"},
             {ConstMessageIds.Popup_Title_Error, "Error"},
+            {ConstMessageIds.Popup_Title_Success, "Success"},
+            {ConstMessageIds.Popup_Message_Error, "Error occurs. Please contact administrator."},
+            {ConstMessageIds.Popup_Message_ResetSystemDataSuccess, "System data have been reseted."},
         };
 
         public static string Get(long messageId)

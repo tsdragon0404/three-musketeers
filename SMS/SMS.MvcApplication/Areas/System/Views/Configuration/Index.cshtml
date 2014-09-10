@@ -1,4 +1,5 @@
 ﻿@using SMS.Common.Constant
+@using SMS.Common.Storage.Message
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<CurrencyDto>
 @{
@@ -53,9 +54,11 @@
 
 <div id="content">
     <div class="row">
-        <h4 class="admin-page-title">Maintain Currency</h4>
+        <h4 class="admin-page-title">System configuration</h4>
     </div>
-
+    <div>
+        <a href="#" id="resetData">Reset data</a>
+    </div>
     @Html.Partial("Search", Model.PagingInfo)
 
     <div class="row">
@@ -132,6 +135,34 @@
                 };
                 return data;
             }
+
+            $('#resetData').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ResetSystemData")'
+                }).done(function (result) {
+                    var title = '';
+                    var message = '';
+                    var messageType = 0;
+                    
+                    if (result.Success) {
+                        title = '@SystemMessages.Get(ConstMessageIds.Popup_Title_Success)';
+                        message = '@SystemMessages.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess)';
+                        messageType = 1;
+                    }
+                    else {
+                        title = '@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)';
+                        message = '@SystemMessages.Get(ConstMessageIds.Popup_Message_Error)';
+                        messageType = 4;
+                    }
+                    
+                    var popup = new MessagePopup(title, message, messageType);
+
+                    popup.OpenPopup();
+                });
+                
+                return false;
+            });
         </script>
     </div>
 </div>

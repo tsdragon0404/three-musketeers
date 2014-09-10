@@ -10,8 +10,7 @@ namespace SMS.Data.Mapping
             Map(x => x.Key).Column("[Key]").ReadOnly();
             Map(x => x.VNValue).ReadOnly();
             Map(x => x.ENValue).ReadOnly();
-            References(x => x.Branch).Column("BranchID")
-                .Cascade.None().ReadOnly();
+            Map(x => x.BranchID).ReadOnly();
         }
     }
 }

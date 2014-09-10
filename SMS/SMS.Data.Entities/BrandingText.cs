@@ -1,8 +1,6 @@
-﻿using SMS.Data.Entities.Interfaces;
-
-namespace SMS.Data.Entities
+﻿namespace SMS.Data.Entities
 {
-    public class BrandingText : Entity, IBranchEntity
+    public class BrandingText : Entity
     {
         public virtual string Key { get; set; }
 
@@ -10,10 +8,6 @@ namespace SMS.Data.Entities
 
         public virtual string ENValue { get; set; }
 
-        #region Implementation of IBranchEntity
-
-        public virtual Branch Branch { get; set; }
-
-        #endregion
+        public virtual long BranchID { get; set; }
     }
 }
