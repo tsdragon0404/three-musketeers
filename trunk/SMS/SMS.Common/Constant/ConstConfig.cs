@@ -2,6 +2,8 @@
 {
     public class ConstConfig
     {
+        public static int NoBranchID = 0;
+
         /// <summary>
         /// Payment lock duration in second(s)
         /// </summary>

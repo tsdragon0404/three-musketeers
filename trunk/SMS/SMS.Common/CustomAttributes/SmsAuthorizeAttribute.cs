@@ -33,7 +33,6 @@ namespace SMS.Common.CustomAttributes
             {
                 HttpContext.Current.Session.Abandon();
                 FormsAuthentication.SignOut();
-                SystemMessages.Clear();
 
                 Status = AuthorizeStatus.NotLogin;
                 return false;
