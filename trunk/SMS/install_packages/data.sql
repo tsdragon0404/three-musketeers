@@ -111,6 +111,9 @@ VALUES
 ( -9, -9, 0, N'Forbidden.', N'Không được phép.' ),
 ( -10, -10, 0, N'Warning', N'Cảnh báo' ),
 ( -11, -11, 0, N'Are you sure you want to delete this session?', N'Bạn muốn xóa phiên truy cập này?' ),
-( -12, -12, 0, N'Error', N'Lỗi' )
+( -12, -12, 0, N'Error', N'Lỗi' ),
+( -13, -13, 0, N'Success', N'Thành công' ),
+( -14, -14, 0, N'Error occurs. Please contact administrator.', N'Có lỗi xảy ra. Vui lòng liên hệ quản trị viên' ),
+( -15, -15, 0, N'System data have been reseted.', N'Đã hoàn thành làm mới dữ liệu hệ thống.' )
 
 GO
