@@ -925,7 +925,7 @@ table thead{
 }
 
 #loginform {
-    width: 366px;
+    width: 400px;
     margin: 100px auto;
     padding: 20px 10px 20px 20px;
 }
@@ -937,6 +937,7 @@ table thead{
 }
 #loginform label {
     margin: 0;
+    cursor: default;
 }
 #loginform select, #loginform input {
     width: 250px;
