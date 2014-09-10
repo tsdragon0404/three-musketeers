@@ -54,6 +54,7 @@ namespace SMS.Business.Impl
                     pageLabel.ENText = listLabels.First(x => x.LabelID == pageLabel.LabelID).ENText;
 
                     Repository.Update(pageLabel);
+                    Repository.SaveAllChanges();
                 }
             }
 
@@ -70,6 +71,7 @@ namespace SMS.Business.Impl
                                            VNText = listLabels.First(x => x.LabelID == labelID).VNText,
                                            ENText = listLabels.First(x => x.LabelID == labelID).ENText
                                        });
+                    Repository.SaveAllChanges();
                 }
             }
 
