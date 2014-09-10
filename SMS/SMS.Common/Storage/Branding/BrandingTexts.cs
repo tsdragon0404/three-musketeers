@@ -7,7 +7,7 @@ namespace SMS.Common.Storage.Branding
 {
     public class BrandingTexts
     {
-        public static Dictionary<long, List<BrandingItem>> BrandingItems { get; set; }
+        internal static IDictionary<long, IList<BrandingItem>> BrandingItems { get; set; }
 
         public static string Get(Enum obj)
         {
@@ -19,7 +19,7 @@ namespace SMS.Common.Storage.Branding
                 if(brandingItem == null)
                     return obj.ToString();
 
-                return SmsSystem.Language == Language.English ? brandingItem.ENValue : brandingItem.VNValue;
+                return brandingItem.Value;
             }
 
             return obj.ToString();

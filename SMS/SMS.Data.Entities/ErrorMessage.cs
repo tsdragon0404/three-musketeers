@@ -1,8 +1,6 @@
-﻿using SMS.Data.Entities.Interfaces;
-
-namespace SMS.Data.Entities
+﻿namespace SMS.Data.Entities
 {
-    public class ErrorMessage : Entity, IBranchEntity
+    public class ErrorMessage : Entity
     {
         public virtual long MessageID { get; set; }
 
@@ -10,10 +8,6 @@ namespace SMS.Data.Entities
 
         public virtual string ENMessage { get; set; }
 
-        #region Implementation of IBranchEntity
-
-        public virtual Branch Branch { get; set; }
-
-        #endregion
+        public virtual long BranchID { get; set; }
     }
 }

@@ -20,6 +20,7 @@ using SMS.Common;
 using SMS.Common.Session;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
+using SMS.Common.Storage;
 using SMS.Common.Storage.Branding;
 using SMS.Common.Storage.Message;
 using SMS.Services;
@@ -60,7 +61,7 @@ namespace SMS.MvcApplication
 
             MappingRegister();
 
-            GetStaticResources();
+            StoreStaticData();
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -100,36 +101,43 @@ namespace SMS.MvcApplication
 
         #region Methods
 
-        private void GetStaticResources()
+        private void StoreStaticData()
         {
+            #region Error messages
+
             var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
-            SystemMessages.SetSystemMessages(errorMessageService.GetSystemMessages<Message>().Data);
+            var messages = errorMessageService.GetAll().Data;
+            var messageData = new Dictionary<long, IList<Message>>();
+            foreach (var message in messages)
+            {
+                if (!messageData.ContainsKey(message.BranchID))
+                    messageData.Add(message.BranchID, new List<Message>());
+
+                messageData[message.BranchID].Add(new Message(message.MessageID, message.VNMessage, message.ENMessage));
+            } 
+
+            #endregion
+
+            #region Branding texts
+
+            var brandingTextService = ServiceLocator.Resolve<IBrandingTextService>();
+            var brandingTexts = brandingTextService.GetAll().Data;
+            var brandingData = new Dictionary<long, IList<BrandingItem>>();
+            foreach (var brand in brandingTexts)
+            {
+                if (!brandingData.ContainsKey(brand.Branch.ID))
+                    brandingData.Add(brand.Branch.ID, new List<BrandingItem>());
+
+                brandingData[brand.Branch.ID].Add(new BrandingItem(brand.Key, brand.ENValue, brand.VNValue));
+            } 
+
+            #endregion
+
+            StorageHelper.SetStorageData(messageData, brandingData);
 
             var branchService = ServiceLocator.Resolve<IBranchService>();
             var branches = branchService.GetAll();
             SetBranchConfigs(branches.Data);
-
-            var brandingTextService = ServiceLocator.Resolve<IBrandingTextService>();
-            var brandingTexts = brandingTextService.GetAll().Data;
-            SetBrandingTexts(brandingTexts);
-        }
-
-        private void SetBrandingTexts(IEnumerable<BrandingTextDto> brandingTexts)
-        {
-            var brandingDictionary = new Dictionary<long, List<BrandingItem>>();
-            foreach (var brandingTextDto in brandingTexts)
-            {
-                if (!brandingDictionary.ContainsKey(brandingTextDto.Branch.ID))
-                    brandingDictionary.Add(brandingTextDto.Branch.ID, new List<BrandingItem>());
-
-                brandingDictionary[brandingTextDto.Branch.ID].Add(new BrandingItem
-                {
-                    Key = brandingTextDto.Key,
-                    ENValue = brandingTextDto.ENValue,
-                    VNValue = brandingTextDto.VNValue
-                });
-            }
-            BrandingTexts.BrandingItems = brandingDictionary;
         }
 
         private void SetBranchConfigs(IEnumerable<BranchDto> branches)

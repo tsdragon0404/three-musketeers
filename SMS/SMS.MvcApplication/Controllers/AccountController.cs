@@ -104,12 +104,6 @@ namespace SMS.MvcApplication.Controllers
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
                 SmsSystem.PreviousSelectedBranch = branch.ID;
 
-                var errorMessagesResult = ErrorMessageService.GetAllByBranch<Message>(SmsSystem.SelectedBranchID);
-                if(!errorMessagesResult.Success|| errorMessagesResult.Data == null)
-                    return ErrorPage(errorMessagesResult.Errors);
-
-                SystemMessages.SetMessages(errorMessagesResult.Data);
-
                 return RedirectToAction("Index", "Home");
             }
 
@@ -195,7 +189,6 @@ namespace SMS.MvcApplication.Controllers
             UserAccessManager.RemoveCurrentUser();
             Session.Abandon();
             FormsAuthentication.SignOut();
-            SystemMessages.Clear();
             return RedirectToAction("Login", "Account");
         }
 

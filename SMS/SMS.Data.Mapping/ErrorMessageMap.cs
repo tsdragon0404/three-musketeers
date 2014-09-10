@@ -10,8 +10,7 @@ namespace SMS.Data.Mapping
             Table("ErrorMessage");
             Id(x => x.ID).Column("ErrorMessageID");
             Map(x => x.MessageID);
-            References(x => x.Branch).Column("BranchID")
-                .Cascade.None();
+            Map(x => x.BranchID);
             Map(x => x.VNMessage);
             Map(x => x.ENMessage);
         }
