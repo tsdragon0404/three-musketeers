@@ -136,37 +136,5 @@ namespace SMS.Common.Session
         } 
 
         #endregion
-
-        #region Others
-
-        #region BranchConfig
-
-        private static Dictionary<long, BranchConfig> branchConfigs;
-
-        public static void SetBranchConfig(long branchID, BranchConfig config)
-        {
-            if (branchConfigs == null)
-                branchConfigs = new Dictionary<long, BranchConfig>();
-
-            if (branchConfigs.ContainsKey(branchID))
-                branchConfigs[branchID] = config;
-            else
-                branchConfigs.Add(branchID, config);
-        }
-
-        public static BranchConfig BranchConfig
-        {
-            get
-            {
-                if (branchConfigs == null || !branchConfigs.ContainsKey(SelectedBranchID))
-                    throw new Exception("Branch config is not set");
-
-                return branchConfigs[SelectedBranchID];
-            }
-        } 
-
-        #endregion
-
-        #endregion
     }
 }

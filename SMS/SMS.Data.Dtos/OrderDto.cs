@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SMS.Common.Constant;
-using SMS.Common.Session;
+using SMS.Common.Storage.BranchConfig;
 
 namespace SMS.Data.Dtos
 {
@@ -30,7 +30,7 @@ namespace SMS.Data.Dtos
                     if (orderDiscount.DiscountType == DiscountType.Number)
                         result += orderDiscount.Discount;
                     if (orderDiscount.DiscountType == DiscountType.Percent)
-                        result += (SubTotal + OtherFee + (SmsSystem.BranchConfig.UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0))*orderDiscount.Discount/100;
+                        result += (SubTotal + OtherFee + (BranchConfigs.Current.UseServiceFee ? BranchConfigs.Current.ServiceFee : 0)) * orderDiscount.Discount / 100;
                 }
                 return result;
             }
@@ -38,7 +38,7 @@ namespace SMS.Data.Dtos
 
         public virtual decimal Total
         {
-            get { return SubTotal + OtherFee + (SmsSystem.BranchConfig.UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0) - DiscountValue; }
+            get { return SubTotal + OtherFee + (BranchConfigs.Current.UseServiceFee ? BranchConfigs.Current.ServiceFee : 0) - DiscountValue; }
         }
     }
 

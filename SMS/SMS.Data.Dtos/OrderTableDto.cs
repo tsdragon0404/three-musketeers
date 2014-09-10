@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SMS.Common.Constant;
-using SMS.Common.Session;
+using SMS.Common.Storage.BranchConfig;
 
 namespace SMS.Data.Dtos
 {
@@ -21,7 +21,7 @@ namespace SMS.Data.Dtos
         {
             get
             {
-                var serviceFee = SmsSystem.BranchConfig.UseServiceFee ? (UseServiceFee ? SmsSystem.BranchConfig.ServiceFee : 0) : 0;
+                var serviceFee = BranchConfigs.Current.UseServiceFee ? (UseServiceFee ? BranchConfigs.Current.ServiceFee : 0) : 0;
                 var detailAmount = !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount);
                 return detailAmount + serviceFee + OtherFee - Discount;
             }

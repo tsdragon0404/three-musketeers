@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SMS.Common;
-using SMS.Common.Session;
 using SMS.Common.Storage;
+using SMS.Common.Storage.BranchConfig;
 using SMS.Common.Storage.Branding;
 using SMS.Common.Storage.Message;
-using SMS.Data.Dtos;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Base
@@ -14,6 +13,24 @@ namespace SMS.MvcApplication.Base
     {
         public static void SetStorageData()
         {
+            #region Branch configs
+
+            var branchService = ServiceLocator.Resolve<IBranchService>();
+            var configData = branchService.GetAll().Data.ToDictionary(x => x.ID,
+                                                                    y => new BranchConfig
+                                                                    {
+                                                                        Currency = y.Currency.Name,
+                                                                        ServiceFee = y.ServiceFee,
+                                                                        UseServiceFee = y.UseServiceFee,
+                                                                        UseKitchenFunction = y.UseKitchenFunction,
+                                                                        UseDiscountOnProduct = y.UseDiscountOnProduct,
+                                                                        Taxs = y.Taxs != null 
+                                                                               ? y.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                                               : new Dictionary<string, decimal>()
+                                                                    });
+            
+            #endregion
+
             #region Error messages
 
             var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
@@ -44,29 +61,8 @@ namespace SMS.MvcApplication.Base
 
             #endregion
 
-            StorageHelper.SetStorageData(messageData, brandingData);
+            StorageHelper.SetStorageData(configData, messageData, brandingData);
 
-            var branchService = ServiceLocator.Resolve<IBranchService>();
-            var branches = branchService.GetAll();
-            SetBranchConfigs(branches.Data);
-        }
-
-        private static void SetBranchConfigs(IEnumerable<BranchDto> branches)
-        {
-            foreach (var branch in branches)
-            {
-                SmsSystem.SetBranchConfig(branch.ID, new BranchConfig
-                {
-                    Currency = branch.Currency.Name,
-                    ServiceFee = branch.ServiceFee,
-                    UseServiceFee = branch.UseServiceFee,
-                    UseKitchenFunction = branch.UseKitchenFunction,
-                    UseDiscountOnProduct = branch.UseDiscountOnProduct,
-                    Taxs = branch.Taxs != null
-                           ? branch.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
-                           : new Dictionary<string, decimal>()
-                });
-            }
         }
     }
 }

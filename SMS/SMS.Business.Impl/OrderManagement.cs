@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Session;
+using SMS.Common.Storage.BranchConfig;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -102,7 +103,7 @@ namespace SMS.Business.Impl
                                   InvoiceDate = DateTime.Now,
                                   Branch = new Data.Entities.Branch { ID = order.Branch.ID },
                                   CustomerID = order.Customer.ID,
-                                  Currency = SmsSystem.BranchConfig.Currency,
+                                  Currency = BranchConfigs.Current.Currency,
                                   UserID = SmsSystem.UserContext.UserID,
                                   Tax = tax,
                                   Comment = order.Comment ?? "",

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SMS.Common.Session
+namespace SMS.Common.Storage.BranchConfig
 {
     public class BranchConfig
     {

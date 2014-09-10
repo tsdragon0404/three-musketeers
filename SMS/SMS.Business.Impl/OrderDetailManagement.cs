@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Session;
+using SMS.Common.Storage.BranchConfig;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -47,7 +48,7 @@ namespace SMS.Business.Impl
                                       OrderTable = new OrderTable {ID = orderTableID},
                                       Quantity = quantity,
                                       Product = product,
-                                      OrderStatus = SmsSystem.BranchConfig.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
+                                      OrderStatus = BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
                                   };
             Repository.Add(orderDetail);
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(OrderTableRepository.Get(orderTableID)));
