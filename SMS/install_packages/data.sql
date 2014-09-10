@@ -82,6 +82,22 @@ VALUES
 ( 100, N'SystemTabMenu', 0, 81, 10 ),
 ( 101, N'SystemTabMenu', 0, 82, 20 )
 
+GO
+
+SET IDENTITY_INSERT [dbo].[PageLabel] ON 
+GO
+INSERT [dbo].[PageLabel] ([PageLabelID], [LabelID], [BranchID], [PageID], [VNText], [ENText]) 
+VALUES 
+(1, N'lblLanguage', 0, 0, N'Tiếng Anh', N'Vietnamese'),
+(2, N'lblUsername', 0, 0, N'Tên đăng nhập', N'User name'),
+(3, N'lblPassword', 0, 0, N'Mật khẩu', N'Password'),
+(4, N'lblBranch', 0, 0, N'Chi nhánh', N'Branch'),
+(5, N'lblLogin', 0, 0, N'Đăng nhập', N'Login')
+
+GO
+SET IDENTITY_INSERT [dbo].[PageLabel] OFF
+GO
+
 INSERT INTO dbo.ErrorMessage ( ErrorMessageID, MessageID, BranchID, ENMessage, VNMessage )
 VALUES 
 ( -1, -1, 0, N'Incorrect username or password.', N'Tên đăng nhập hoặc mật khẩu không chính xác.' ),
