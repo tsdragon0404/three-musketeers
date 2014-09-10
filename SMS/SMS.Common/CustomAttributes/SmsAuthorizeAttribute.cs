@@ -51,10 +51,15 @@ namespace SMS.Common.CustomAttributes
         {
             if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
-                if(Status == AuthorizeStatus.DontHaveAccessRight)
-                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission));
+                var message = "";
+                if (Status == AuthorizeStatus.DontHaveAccessRight)
+                    message = SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission);
                 if (Status == AuthorizeStatus.NotLogin)
-                    filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired));
+                    message = SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired);
+
+                var responseMessage = string.Format("{0}{1}{2}", SystemMessages.Get(ConstMessageIds.Popup_Title_Error), ConstConfig.HttpResponseSeparator, message);
+
+                filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, responseMessage);
                 return;
             }
 

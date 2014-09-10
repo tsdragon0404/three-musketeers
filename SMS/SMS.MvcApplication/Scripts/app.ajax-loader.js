@@ -1,4 +1,6 @@
-﻿$(document).ajaxStart(function () {
+﻿var HTTP_RESPONSE_SEPARATOR = '{{|}}';
+
+$(document).ajaxStart(function () {
     $(".ajax-loader-mask").show();
 });
 
@@ -16,7 +18,13 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
         
     }
     if (jqXHR.status == 401 || jqXHR.status == 999 || jqXHR.status == 500) {
-        message = jqXHR.responseText;
+        var strs = jqXHR.responseText.split(HTTP_RESPONSE_SEPARATOR);
+        if (strs.length > 1) {
+            title = strs[0];
+            message = strs[1];
+        }
+        else
+            message = strs[0];
     }
     
     var popup = new MessagePopup(title, message, 4, function () {
@@ -25,3 +33,4 @@ $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
     popup.OpenPopup();
     return;
 });
+

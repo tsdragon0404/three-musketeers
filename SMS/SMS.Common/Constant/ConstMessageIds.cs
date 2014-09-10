@@ -20,6 +20,7 @@ namespace SMS.Common.Constant
 
         public const long Popup_Title_Warning = -10;
         public const long Popup_Message_DeleteSession = -11;
+        public const long Popup_Title_Error = -12;
     }
 
     public class FallbackMessages
@@ -37,6 +38,7 @@ namespace SMS.Common.Constant
             {ConstMessageIds.Forbidden, "Forbidden"},
             {ConstMessageIds.Popup_Title_Warning, "Warning"},
             {ConstMessageIds.Popup_Message_DeleteSession, "Are you sure you want to delete this session?"},
+            {ConstMessageIds.Popup_Title_Error, "Error"},
         };
 
         public static string Get(long messageId)
