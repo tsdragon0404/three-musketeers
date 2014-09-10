@@ -31,7 +31,7 @@
             case @((int)OrderStatus.Done):
                 return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
             default:
-                break;
+                return '';
         }
     }
 </script>
@@ -406,8 +406,6 @@
 </div>
 
 <script type="text/javascript">
-    var productPopup = null;
-    
     $(document).ready(function () {
         $('div.split-pane').splitPane();
         var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
@@ -436,7 +434,6 @@
             }
             return false;
         });
-        productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
 
         $('#button-payment').hide();
         $('#order-header').hide();
@@ -459,6 +456,7 @@
     }));
     
     $(document).on("click", 'a[id^="addProduct-"]', (function(e){
+        var productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
         productPopup.OpenPopup();
         $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
         return false;
