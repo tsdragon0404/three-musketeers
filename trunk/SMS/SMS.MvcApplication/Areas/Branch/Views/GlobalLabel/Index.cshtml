@@ -8,7 +8,7 @@
         <h4 class="admin-page-title">Change text for all common controls</h4>
     </div>
     <div class="row">
-        <table id="record-table" class="no-border">
+        <table id="globalLabel" class="no-border">
             <colgroup>
                 <col style="width: 60px;" />
                 <col style="width: 150px;" />
@@ -27,11 +27,11 @@
                 @foreach (var dto in Model.PageLabels)
                 {
                     var altClass = Model.PageLabels.IndexOf(dto) % 2 != 0 ? "alt" : "";
-                    <tr class="@altClass" data-id="@dto.ID">
+                    <tr class="@altClass record-data" data-id="@dto.ID">
                         <td>@Html.Raw(Model.PageLabels.IndexOf(dto) + 1)</td>
-                        <td>@dto.LabelID</td>
-                        <td><input type="text" value="@dto.VNText" id="vnText-@dto.ID"/></td>
-                        <td><input type="text" value="@dto.ENText" id="enText-@dto.ID"/></td>
+                        <td id="labelID">@dto.LabelID</td>
+                        <td><input type="text" value="@dto.VNText" id="vnText"/></td>
+                        <td><input type="text" value="@dto.ENText" id="enText"/></td>
                     </tr>
                 }
             </tbody>
@@ -45,15 +45,33 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#record-table').table();
-        
+        $('#globalLabel').table();
+
         $('#save').button({
             icons: {
                 primary: "ui-icon-disk"
             }
-        }).
-            click(function() {
-                return false;
+        }).click(function() {
+            var data = [];
+            $('#globalLabel .record-data').each(function () {
+                var lblId = $(this).find('#labelID').text();
+                var vnText = $(this).find('#vnText').val();
+                var enText = $(this).find('#enText').val();
+
+                data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText };
             });
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Save")',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ listLabels: data })
+            }).done(function (result) {
+                if (result.Success)
+                    location.reload();
+            });
+            return false;
+        });
     });
 </script>

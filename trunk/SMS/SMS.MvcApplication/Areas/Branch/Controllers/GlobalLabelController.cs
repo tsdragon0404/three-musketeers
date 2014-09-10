@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
@@ -19,9 +20,9 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         }
 
         [HttpPost]
-        public JsonResult Save()
+        public JsonResult Save(PageLabelDto[] listLabels)
         {
-            return new JsonResult();
+            return Json(JsonModel.Create(PageLabelService.Save(ConstPage.Global, listLabels.ToList())));
         }
     }
 }
