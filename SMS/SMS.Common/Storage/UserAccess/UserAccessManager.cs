@@ -51,12 +51,11 @@ namespace SMS.Common.Storage.UserAccess
 
         public static bool Remove(string sessionId)
         {
-            if (Contains(sessionId))
-            {
-                userAccesses.RemoveAll(x => x.SessionId == sessionId);
-                return true;
-            }
-            return false;
+            if (sessionId == SmsSystem.SessionId || !Contains(sessionId))
+                return false;
+
+            userAccesses.RemoveAll(x => x.SessionId == sessionId);
+            return true;
         }
 
         public static void RemoveCurrentUser()
