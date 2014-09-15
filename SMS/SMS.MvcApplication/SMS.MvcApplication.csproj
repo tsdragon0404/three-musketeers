@@ -918,6 +918,7 @@
       <DependentUpon>SMSDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="ScriptX\ScriptX.msi" />
+    <Content Include="SMS.config" />
     <None Include="SMSDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SMSDataSet.Designer.cs</LastGenOutput>
