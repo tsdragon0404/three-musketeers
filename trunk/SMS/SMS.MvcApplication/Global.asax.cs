@@ -125,8 +125,7 @@ namespace SMS.MvcApplication
         private ISessionFactory BuildSessionFactory()
         {
             return Fluently.Configure()
-                           .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
-                               c => c.FromConnectionStringWithKey("SmsDb")))
+                           .Database(MsSqlConfiguration.MsSql2008.ConnectionString(ConfigReader.ConnectionString))
                            .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("SMS.Data.Mapping")))
                            .BuildSessionFactory();
         }
