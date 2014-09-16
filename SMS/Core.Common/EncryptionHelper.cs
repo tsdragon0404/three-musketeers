@@ -11,7 +11,7 @@ namespace Core.Common
         // This constant string is used as a "salt" value for the PasswordDeriveBytes function calls.
         // This size of the IV (in bytes) must = (keysize / 8).  Default keysize is 256, so the IV must be
         // 32 bytes long.  Using a 16 character string here gives us 32 bytes when converted to a byte array.
-        private static readonly byte[] initVectorBytes = Encoding.ASCII.GetBytes("!5hopManag3m3nt!");
+        private static readonly byte[] initVectorBytes = Encoding.ASCII.GetBytes("!5h0pM@n@g3m3nt!");
 
         private const string passPhrase = "encryptionKey";
 
