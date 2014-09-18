@@ -59,12 +59,6 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
             return Json(JsonModel.Create(new {User = user.Data, UserConfig = userConfig}));
         }
 
-        [HttpPost]
-        public JsonResult GetUserForAdd()
-        {
-            return Json(JsonModel.Create(new { User = new UserInfoDto(), UserConfig = new UserConfigDto() }));
-        }
-
         public JsonResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
         {
             var result = UserService.UpdateUserBranch(user, userConfig);
