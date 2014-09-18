@@ -132,9 +132,9 @@
         var param = '"originalRoles-' + id + '", "' + 'assignedRoles-' + id + '", "' + 'addRoles-' + id + '", "' + 'removeRoles-' + id + '", "' + 'addAllRoles-' + id + '", "' + 'removeAllRoles-' + id + '"';
 
         return '<sc' + 'ript type="text/javascript">'
-             + 'var listBox = new AssignListBox(' + param + ');'
-             + 'listBox.bindEvents();'
-             + '</sc' + 'ript>';
+            + 'var listBox = new AssignListBox(' + param + ');'
+            + 'listBox.bindEvents();'
+            + '</sc' + 'ript>';
     }
 </script>
 
@@ -175,16 +175,17 @@
                         <td>@dto.Username</td>
                         <td>@dto.FirstName</td>
                         <td>@dto.LastName</td>
-                        <td>@Model.UserConfigs.Single(x => x.UserID == dto.ID).IsSuspended</td>
+                        @if(Model.UserConfigs.SingleOrDefault(x => x.UserID == dto.ID) ==null)
+                        {
+                            <td>@false</td>
+                        }
+                        else
+                        {
+                            <td>@Model.UserConfigs.Single(x => x.UserID == dto.ID).IsSuspended</td>
+                        }
                     </tr>
                 }
             </tbody>
-            <tfoot>
-                <tr>
-                    <td><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="5"></td>
-                </tr>
-            </tfoot>
         </table>
         @Html.Partial("Paging", Model.PagingInfo)
     </div>
@@ -230,50 +231,6 @@
                     return false;
                 });
                 $('#cancel-' + result.Data.User.ID).button({
-                    icons: {
-                        primary: "ui-icon-close"
-                    }
-                }).click(function () {
-                    cancelRecord();
-                    return false;
-                });
-                $('.admin-record-detail .detail').slideToggle(500);
-            });
-
-            return false;
-        });
-
-        $('#record-table a.add-record').click(function () {
-            var record = $(this).parent().parent();
-            if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
-                cancelRecord();
-                return false;
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetUserForAdd")',
-            }).done(function (result) {
-                if (!result.Success) {
-                    return;
-                }
-                cancelRecord();
-
-                var place = $('#record-table a.add-record').parent().parent();
-                place.addClass('ui-state-active');
-
-                $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                place.next().addClass('ui-widget-content');
-
-                $("#save-0").button({
-                    icons: {
-                        primary: "ui-icon-disk"
-                    }
-                }).click(function () {
-                    saveRecord(0);
-                    return false;
-                });
-                $('#cancel-0').button({
                     icons: {
                         primary: "ui-icon-close"
                     }

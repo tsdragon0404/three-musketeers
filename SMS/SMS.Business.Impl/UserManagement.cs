@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
@@ -36,7 +37,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TModel> Get<TModel>(string username, string password)
         {
-            var user = Repository.FindOne(x => x.Username == username && x.Password == password);
+            var user = Repository.FindOne(x => x.Username == username && x.Password == EncryptionHelper.SHA256Hash(password));
             if (user == null)
                 return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
 
@@ -73,6 +74,12 @@ namespace SMS.Business.Impl
             var userConfigEntity = Mapper.Map<UserConfig>(userConfig);
 
             var userBranch = Repository.Get(userEntity.ID);
+
+            if(!string.IsNullOrEmpty(userEntity.Password))
+            {
+                userBranch.Password = EncryptionHelper.SHA256Hash(userEntity.Password);
+            }
+
             userBranch.FirstName = userEntity.FirstName;
             userBranch.LastName = userEntity.LastName;
             userBranch.CellPhone = userEntity.CellPhone;
@@ -83,10 +90,16 @@ namespace SMS.Business.Impl
             Repository.SaveAllChanges();
 
             var userConfigBranch =
-                UserConfigRepository.Find(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID).
-                    Single();
-            userConfigBranch.IsSuspended = userConfigEntity.IsSuspended;
-            UserConfigRepository.Update(userConfigBranch);
+                UserConfigRepository.FindOne(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID);
+            if (userConfigBranch == null)
+            {
+                UserConfigRepository.Add(new UserConfig { UserID = userBranch.ID, BranchID = SmsSystem.SelectedBranchID, IsSuspended = userConfigEntity.IsSuspended});
+            }
+            else
+            {
+                userConfigBranch.IsSuspended = userConfigEntity.IsSuspended;
+                UserConfigRepository.Update(userConfigBranch);   
+            }
             UserConfigRepository.SaveAllChanges();
 
             return ServiceResult.CreateSuccessResult();
