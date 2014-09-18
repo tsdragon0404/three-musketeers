@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace SMS.Data.Dtos
 {
-    public class UserDto : UserBasicDto
+    public class UserDto : UserInfoDto
+    {
+        public virtual IList<BranchDto> Branches { get; set; }
+    }
+
+    public class UserInfoDto : UserBasicDto
     {
         public virtual string Password { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
@@ -13,7 +18,6 @@ namespace SMS.Data.Dtos
         public virtual DateTime? LastLockedOutDate { get; set; }
         public virtual int FailedPasswordAttemptCount { get; set; }
         public virtual IList<RoleDto> Roles { get; set; }
-        public virtual IList<BranchDto> Branches { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

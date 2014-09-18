@@ -20,5 +20,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetUserForBranchAssignment<TModel>();
         }
+
+        public ServiceResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
+        {
+            return Management.UpdateUserBranch(user, userConfig);
+        }
     }
 }
