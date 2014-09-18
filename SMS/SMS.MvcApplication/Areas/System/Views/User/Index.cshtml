@@ -4,134 +4,109 @@
 @{
     ViewBag.Title = "Index";
 }
-@{
-    var numberOfColumns = 5;
-    if (SmsSystem.UserContext.IsSystemAdmin)
-    {
-        numberOfColumns = 7;
-    }
-}
 
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="@numberOfColumns">
+        <td colspan="6">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblUserName">
                         Username
                     </div>
-                    <div class="three columns">
-                        {{if ID == 0 }}
-                        <input type="text" name="username" value="${Username}" id="username-${ID}" />
-                        {{else}}
-                        <input type="text" name="username" disabled value="${Username}" id="username-${ID}" />
-                        {{/if}}
-                    </div>
-                    <div class="three columns right">
-                        Password
-                    </div>
-                    <div class="three columns">
-                        <input type="password" name="password" value="${Password}" id="password-${ID}"/>
+                    <div class="four columns">
+                        ${Username}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right">
+                    <div class="three columns right" data-labelID="lblPassword">
+                        Password
+                    </div>
+                    <div class="five columns">
+                        <input type="password" name="password" value="" id="password-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblFirstName">
+                        First name
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="firstName" value="${FirstName}" id="firstName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblLastName">
+                        Last name
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="lastName" value="${LastName}" id="lastName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblCellPhone">
+                        Cell phone
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="cellPhone" value="${CellPhone}" id="cellPhone-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblEmail">
+                        Email
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="email" value="${Email}" id="email-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblAddress">
+                        Address
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="address" value="${Address}" id="address-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblLocked">
                         Locked
                     </div>
-                    <div class="three columns">
-                        {{if IsLockedOut }}
+                    <div class="four columns">
+                        {{if IsLockedOut}}
                         <input type="checkbox" name="locked" checked id="locked-${ID}"/>
                         {{else}}
                         <input type="checkbox" name="locked" id="locked-${ID}"/>
                         {{/if}}
                     </div>
                 </div>
-                @if (SmsSystem.UserContext.IsSystemAdmin)
-                {
-                    <div class="row">
-                        <div class="three columns right">
-                            Is system admin
-                        </div>
-                        <div class="three columns">
-                            {{if IsSystemAdmin}}
-                            <input type="checkbox" name="systemAdmin" checked id="systemAdmin-${ID}"/>
-                            {{else}}
-                            <input type="checkbox" name="systemAdmin" id="systemAdmin-${ID}"/>
-                            {{/if}}
-                        </div>
-                        <div class="three columns right">
-                            Use system config
-                        </div>
-                        <div class="three columns">
-                            {{if UseSystemConfig }}
-                            <input type="checkbox" name="useSystemConfig" checked id="useSystemConfig-${ID}"/>
-                            {{else}}
-                            <input type="checkbox" name="useSystemConfig" id="useSystemConfig-${ID}"/>
-                            {{/if}}
-                        </div>
-                    </div>
-                }
                 <div class="row">
-                    <div class="three columns right">
-                        Branches
+                    <div class="three columns right" data-labelID="lblUseSystemConfig">
+                        Use system config
                     </div>
-                    <div class="three columns">
-                    </div>
-                    <div class="three columns right">
-                        Assigned Branches
+                    <div class="four columns">
+                        {{if UseSystemConfig}}
+                        <input type="checkbox" name="useSystemConfig" checked id="useSystemConfig-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="useSystemConfig" id="useSystemConfig-${ID}"/>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns push_three">
-                        <select id="originalBranches-${ID}" multiple="multiple" size="4">
-                            @foreach (BranchDto branch in ViewBag.ListBranch)
-                            {
-                                <text>
-                                    <option value="@branch.ID">@branch.VNName/@branch.ENName</option>
-                                </text>
-                            }
-                        </select>
+                    <div class="eleven columns center">
+
                     </div>
-                    <div class="three columns center">
-                        <button id="addBranches-${ID}" class="assignButton">></button>
-                        <button id="addAllBranches-${ID}" class="assignButton">>></button>
-                        <button id="removeAllBranches-${ID}" class="assignButton"><<</button>
-                        <button id="removeBranches-${ID}" class="assignButton"><</button>
-                    </div>
-                    <div class="three columns">
-                        <select name="assignedBranches" id="assignedBranches-${ID}" multiple="multiple" size="4">
-                            {{each Branches}}
-                            <option value="${ID}">${VNName}/${ENName}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    {{html buildScriptForAssignListBox(ID)}}
                 </div>
                 <div class="row">
-                    <div class="eleven columns right">
-                        <input type="button" id="save-${ID}" value="Save" />
-                        <input type="button" id="cancel-${ID}" value="Cancel" />
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </div>
                 </div>
             </div>
         </td>
     </tr>
 </script>
-<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
-<script type="text/javascript">
-    function buildScriptForAssignListBox(id) {
-        var param = '"originalBranches-' + id + '", "' + 'assignedBranches-' + id + '", "' + 'addBranches-' + id + '", "' + 'removeBranches-' + id + '", "' + 'addAllBranches-' + id + '", "' + 'removeAllBranches-' + id + '"';
-
-        return '<sc' + 'ript type="text/javascript">'
-             + 'var listBox = new AssignListBox(' + param + ');'
-             + 'listBox.bindEvents();'
-             + '</sc' + 'ript>';
-    }
-</script>
-
 <div id="content">
     <div class="row">
-        <h4 class="admin-page-title">Maintain Role</h4>
+        <h4 class="admin-page-title">Maintain User</h4>
     </div>
 
     @Html.Partial("Search", Model.PagingInfo)
@@ -141,12 +116,9 @@
             <colgroup>
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
+                <col style="width: 150px;" />
                 <col />
-                @if (SmsSystem.UserContext.IsSystemAdmin)
-                {
-                    <col style="width: 110px;" />
-                    <col style="width: 150px;" />
-                }
+                <col />
                 <col style="width: 75px;" />
             </colgroup>
             <thead>
@@ -154,11 +126,8 @@
                     <th></th>
                     <th>No</th>
                     <th>User name</th>
-                    @if (SmsSystem.UserContext.IsSystemAdmin)
-                    {
-                        <th>System admin</th>
-                        <th>Use system config</th>
-                    }
+                    <th>First name</th>
+                    <th>Last name</th>
                     <th>Locked</th>
                 </tr>
             </thead>
@@ -173,11 +142,8 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.Username</td>
-                        @if (SmsSystem.UserContext.IsSystemAdmin)
-                        {
-                            <td>@dto.IsSystemAdmin</td>
-                            <td>@dto.UseSystemConfig</td>
-                        }
+                        <td>@dto.FirstName</td>
+                        <td>@dto.LastName</td>
                         <td>@dto.IsLockedOut</td>
                     </tr>
                 }
@@ -186,7 +152,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="@(numberOfColumns - 1)"></td>
+                    <td colspan="5"></td>
                 </tr>
             </tfoot>
         </table>
