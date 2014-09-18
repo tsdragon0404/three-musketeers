@@ -1,8 +1,10 @@
 ﻿using System.Web.Mvc;
+using Core.Common;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.System.Controllers
@@ -15,6 +17,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         public virtual IBranchService BranchService { get; set; }
         public virtual IRoleService RoleService { get; set; }
+        public virtual IUserService UserService { get; set; }
 
         #endregion
 
@@ -24,10 +27,11 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             return base.Index(textSearch, page);
         }
 
-        public override JsonResult SaveData(UserDto data)
+        public override JsonResult SaveData(UserDto user)
         {
-            data.Roles = RoleService.GetByUserID(data.ID).Data;
-            return base.SaveData(data);
+            user.Roles = RoleService.GetByUserID(user.ID).Data;
+            var result = UserService.UpdateUserSystem(user);
+            return Json(JsonModel.Create(result));
         }
     }
 }

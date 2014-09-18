@@ -67,14 +67,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="three columns right" data-labelID="lblSuppended">
-                        Suppened
+                    <div class="three columns right" data-labelID="lblSuspended">
+                        Suspended
                     </div>
                     <div class="four columns">
                         {{if UserConfig.IsSuspended}}
-                        <input type="checkbox" name="suppended" checked id="suppended-${User.ID}"/>
+                        <input type="checkbox" name="suspended" checked id="suspended-${User.ID}"/>
                         {{else}}
-                        <input type="checkbox" name="suppended" id="suppended-${User.ID}"/>
+                        <input type="checkbox" name="suspended" id="suspended-${User.ID}"/>
                         {{/if}}
                     </div>
                 </div>
@@ -156,11 +156,11 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>No</th>
-                    <th>User name</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Suppended</th>
+                    <th data-labelID="lblNo">No</th>
+                    <th data-labelID="lblUserName">User name</th>
+                    <th data-labelID="lblFirstName">First name</th>
+                    <th data-labelID="lblLastName">Last name</th>
+                    <th data-labelID="lblSuspended">Suspended</th>
                 </tr>
             </thead>
             <tbody>
@@ -266,7 +266,7 @@
             UserConfig: {
                 UserID: recordID,
                 BranchID: @SmsSystem.SelectedBranchID,
-                IsSuspended: $('#suppended-' + recordID).prop('checked')
+                IsSuspended: $('#suspended-' + recordID).prop('checked')
             }
         };
 
