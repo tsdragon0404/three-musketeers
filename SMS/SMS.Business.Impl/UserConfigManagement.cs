@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Session;
@@ -13,6 +14,14 @@ namespace SMS.Business.Impl
         #region Fields
 
         #endregion
+
+        public override Func<UserConfig, long, bool> BelongToBranch
+        {
+            get
+            {
+                return (x, y) => x.BranchID == y;
+            }
+        }
 
         public UserConfigDto GetUserConfig(long userID, long branchID)
         {

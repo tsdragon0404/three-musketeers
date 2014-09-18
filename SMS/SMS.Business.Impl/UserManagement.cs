@@ -18,6 +18,8 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
+        public virtual IUserConfigRepository UserConfigRepository { get; set; }
+
         #endregion
 
         #region Func
@@ -63,6 +65,31 @@ namespace SMS.Business.Impl
             var result = Repository.Find(x => !x.UseSystemConfig && !x.IsSystemAdmin).ToList();
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+        }
+
+        public ServiceResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
+        {
+            var userEntity = Mapper.Map<User>(user);
+            var userConfigEntity = Mapper.Map<UserConfig>(userConfig);
+
+            var userBranch = Repository.Get(userEntity.ID);
+            userBranch.FirstName = userEntity.FirstName;
+            userBranch.LastName = userEntity.LastName;
+            userBranch.CellPhone = userEntity.CellPhone;
+            userBranch.Email = userEntity.Email;
+            userBranch.Address = userEntity.Address;
+            userBranch.Roles = userEntity.Roles;
+            Repository.Update(userBranch);
+            Repository.SaveAllChanges();
+
+            var userConfigBranch =
+                UserConfigRepository.Find(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID).
+                    Single();
+            userConfigBranch.IsSuspended = userConfigEntity.IsSuspended;
+            UserConfigRepository.Update(userConfigBranch);
+            UserConfigRepository.SaveAllChanges();
+
+            return ServiceResult.CreateSuccessResult();
         }
     }
 }

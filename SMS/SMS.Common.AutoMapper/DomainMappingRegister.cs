@@ -51,6 +51,7 @@ namespace SMS.Common.AutoMapper
             Map<User, UserDto>();
             Map<UserConfig, UserConfigDto>();
             Map<User, UserBasicDto>();
+            Map<User, UserInfoDto>();
             Map<OrderDto, OrderDataDto>();
         }
     }

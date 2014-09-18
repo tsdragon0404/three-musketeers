@@ -8,5 +8,6 @@ namespace SMS.Services
     {
         ServiceResult<TModel> Get<TModel>(string username, string password);
         ServiceResult<IList<TModel>> GetUserForBranchAssignment<TModel>();
+        ServiceResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig);
     }
 }

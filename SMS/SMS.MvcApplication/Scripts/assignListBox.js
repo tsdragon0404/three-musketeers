@@ -14,6 +14,18 @@
             $('#' + root.originalListBoxId + ' > option[value="' + id + '"]').remove();
         });
 
+        $('#' + root.originalListBoxId).dblclick(function () {
+            $('#' + root.originalListBoxId + ' > option:selected').each(function () {
+                $(this).remove().appendTo('#' + root.assignedListBoxId);
+            });
+        });
+        
+        $('#' + root.assignedListBoxId).dblclick(function () {
+            $('#' + root.assignedListBoxId + ' > option:selected').each(function () {
+                $(this).remove().appendTo('#' + root.originalListBoxId);
+            });
+        });
+
         $('#' + root.addButtonId).button().click(function() {
             $('#' + root.originalListBoxId + ' > option:selected').each(function() {
                 $(this).remove().appendTo('#' + root.assignedListBoxId);
