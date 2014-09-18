@@ -11,10 +11,10 @@
             <div class="detail" style="display: none;">
                 <div class="row">
                     <div class="three columns right" data-labelID="lblUserName">
-                        Username
+                        User name
                     </div>
-                    <div class="four columns">
-                        ${Username}
+                    <div class="five columns">
+                        {{if Username == null}}<input type="text" name="userName" value="" id="userName-${ID}"/>{{else}}${Username}{{/if}}
                     </div>
                 </div>
                 <div class="row">
@@ -90,9 +90,54 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="eleven columns center">
-
+                    <div class="four columns right">
+                        Branches
                     </div>
+                    <div class="three columns">
+                    </div>
+                    <div class="four columns left">
+                        Assigned Branches
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        <select id="originalBranches-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            @foreach (BranchDto branch in ViewBag.ListBranch)
+                            {
+                                <text>
+                                    @if(SmsSystem.Language==Language.Vietnamese)
+                                    {
+                                        <option value="@branch.ID">@branch.VNName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@branch.ID">@branch.ENName</option>
+                                    }
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addBranches-${ID}" class="assignButton">></button>
+                        <button id="addAllBranches-${ID}" class="assignButton">>></button>
+                        <button id="removeAllBranches-${ID}" class="assignButton"><<</button>
+                        <button id="removeBranches-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="four columns">
+                        <select name="assignedBranches" id="assignedBranches-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            {{each Branches}}
+                            @if(SmsSystem.Language==Language.Vietnamese)
+                            {
+                                <option value="${ID}">${VNName}</option>
+                            }
+                            else
+                            {
+                                <option value="${ID}">${ENName}</option>
+                            }
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
                 </div>
                 <div class="row">
                     <div class="eleven columns center">
@@ -104,6 +149,18 @@
         </td>
     </tr>
 </script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalBranches-' + id + '", "' + 'assignedBranches-' + id + '", "' + 'addBranches-' + id + '", "' + 'removeBranches-' + id + '", "' + 'addAllBranches-' + id + '", "' + 'removeAllBranches-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+            + 'var listBox = new AssignListBox(' + param + ');'
+            + 'listBox.bindEvents();'
+            + '</sc' + 'ript>';
+    }
+</script>
+
 <div id="content">
     <div class="row">
         <h4 class="admin-page-title">Maintain User</h4>
@@ -171,6 +228,10 @@
             });
 
             function getDataForSave(recordID) {
+                if ($('#userName-' + recordID).val() == "") {
+                    return false;
+                }
+
                 var branches = Array();
 
                 $('#assignedBranches-' + recordID + ' option').each(function (idx, e) {
@@ -179,15 +240,14 @@
 
                 var data = {
                     ID: recordID,
-                    Username: $('#username-' + recordID).val(),
+                    Username: $('#userName-' + recordID).val(),
                     Password: $('#password-' + recordID).val(),
-                    @if (SmsSystem.UserContext.IsSystemAdmin)
-                    {
-                        <text>
-                    IsSystemAdmin: $('#systemAdmin-' + recordID).prop('checked'),
+                    FirstName: $('#firstName-' + recordID).val(),
+                    LastName: $('#lastName-' + recordID).val(),
+                    CellPhone: $('#cellPhone-' + recordID).val(),
+                    Email: $('#email-' + recordID).val(),
+                    Address: $('#address-' + recordID).val(),
                     UseSystemConfig: $('#useSystemConfig-' + recordID).prop('checked'),
-                        </text>
-                    }
                     IsLockedOut: $('#locked-' + recordID).prop('checked'),
                     Branches: branches
                 };

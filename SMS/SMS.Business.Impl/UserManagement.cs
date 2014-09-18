@@ -104,5 +104,49 @@ namespace SMS.Business.Impl
 
             return ServiceResult.CreateSuccessResult();
         }
+
+        public ServiceResult UpdateUserSystem(UserDto user)
+        {
+            var userEntity = Mapper.Map<User>(user);
+
+            var userSystem = Repository.Get(userEntity.ID);
+            if (userSystem != null)
+            {
+                if (!string.IsNullOrEmpty(userEntity.Password))
+                {
+                    userSystem.Password = EncryptionHelper.SHA256Hash(userEntity.Password);
+                }
+
+                userSystem.FirstName = userEntity.FirstName;
+                userSystem.LastName = userEntity.LastName;
+                userSystem.CellPhone = userEntity.CellPhone;
+                userSystem.Email = userEntity.Email;
+                userSystem.Address = userEntity.Address;
+                userSystem.IsLockedOut = userEntity.IsLockedOut;
+                userSystem.UseSystemConfig = userEntity.UseSystemConfig;
+                userSystem.Roles = userEntity.Roles;
+                userSystem.Branches = userEntity.Branches;
+                Repository.Update(userSystem);
+            }
+            else
+            {
+                Repository.Add(new User
+                                   {
+                                       Username = userEntity.Username,
+                                       Password = EncryptionHelper.SHA256Hash(userEntity.Password),
+                                       FirstName = userEntity.FirstName,
+                                       LastName = userEntity.LastName,
+                                       CellPhone = userEntity.CellPhone,
+                                       Email = userEntity.Email,
+                                       Address = userEntity.Address,
+                                       IsLockedOut = userEntity.IsLockedOut,
+                                       UseSystemConfig = userEntity.UseSystemConfig,
+                                       Roles = userEntity.Roles,
+                                       Branches = userEntity.Branches
+                                   });
+            }
+            Repository.SaveAllChanges();
+            return ServiceResult.CreateSuccessResult();
+        }
     }
 }

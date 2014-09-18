@@ -25,5 +25,10 @@ namespace SMS.Services.Impl
         {
             return Management.UpdateUserBranch(user, userConfig);
         }
+
+        public ServiceResult UpdateUserSystem(UserDto user)
+        {
+            return Management.UpdateUserSystem(user);
+        }
     }
 }
