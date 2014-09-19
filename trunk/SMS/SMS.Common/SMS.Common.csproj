@@ -47,11 +47,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PageType.cs" />
     <Compile Include="Storage\AppLock\ApplicationLock.cs" />
     <Compile Include="Storage\AppLock\ILockItem.cs" />
     <Compile Include="Constant\ConstKey.cs" />
-    <Compile Include="Constant\Gender.cs" />
-    <Compile Include="Constant\OrderStatus.cs" />
+    <Compile Include="Enums\Gender.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="CustomAttributes\SmsStatusCodeJsonResult.cs" />
     <Compile Include="Exceptions\LockException.cs" />
     <Compile Include="Storage\AppLock\LockGroup.cs" />
@@ -65,8 +66,8 @@
     <Compile Include="Constant\ConstConfig.cs" />
     <Compile Include="Constant\ConstReport.cs" />
     <Compile Include="Constant\ConstPageMenuGroupName.cs" />
-    <Compile Include="Constant\ReportDatasourceParameterType.cs" />
-    <Compile Include="Constant\DiscountType.cs" />
+    <Compile Include="Enums\ReportDatasourceParameterType.cs" />
+    <Compile Include="Enums\DiscountType.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
     <Compile Include="Storage\BranchConfig\BranchConfigs.cs" />
     <Compile Include="Storage\Message\Message.cs" />

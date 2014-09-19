@@ -46,13 +46,16 @@ namespace SMS.MvcApplication.Base
                     if(pageLabelResult.Success && pageLabelResult.Data != null)
                     {
                         var labelDictionary = pageLabelResult.Data.ToDictionary(x => x.LabelID, x => x.Text);
-
+                        
                         viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageLabel, labelDictionary);
                         viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageID, attribute.PageID);
                     }
                 }
 
-                var allowPagesResult = PageService.GetAccessiblePagesForUser<LanguagePageDto>();
+                var allowPagesResult = SmsSystem.UserContext.UserID == 0
+                                           ? PageService.GetPublicPages<LanguagePageDto>()
+                                           : PageService.GetPagesByIds<LanguagePageDto>(SmsSystem.AllowPageIDs);
+
                 if (allowPagesResult.Success && allowPagesResult.Data != null)
                 {
                     viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_AccessiblePagesForUser, allowPagesResult.Data);
@@ -60,6 +63,12 @@ namespace SMS.MvcApplication.Base
                     var pageMenusResult = PageMenuService.GetMenuByPageIds(allowPagesResult.Data.Select(x => x.ID).ToList());
                     if (pageMenusResult.Success && pageMenusResult.Data != null)
                         viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageMenu, pageMenusResult.Data);
+
+                    if (attribute != null && allowPagesResult.Data.Any(x => x.ID == attribute.PageID))
+                    {
+                        ViewBag.Title = allowPagesResult.Data.First(x => x.ID == attribute.PageID).Title;
+                        ViewBag.Description = allowPagesResult.Data.First(x => x.ID == attribute.PageID).Description;
+                    }
                 }
             }
 

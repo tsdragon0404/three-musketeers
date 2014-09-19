@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Common.Storage.BranchConfig;
 using SMS.Data;
@@ -19,6 +20,15 @@ namespace SMS.Business.Impl
 
         #endregion
 
+        private ServiceResult<IList<TModel>> GetPagesByTypes<TModel>(params PageType[] types)
+        {
+            if(types == null || !types.Any())
+                return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(new List<Page>()));
+
+            var result = Repository.Find(x => types.Contains(x.Type)).ToList();
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+        }
+
         public ServiceResult<IList<PageDto>> GetProtectedPages()
         {
             return GetProtectedPages<PageDto>();
@@ -26,8 +36,17 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
         {
-            var result = Repository.Find(x => !ConstPage.PublicPages.Contains(x.ID) && !ExcludedPages.Contains(x.ID)).ToList();
-            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+            return GetPagesByTypes<TModel>(PageType.Protected);
+        }
+
+        public ServiceResult<IList<PageDto>> GetPublicPages()
+        {
+            return GetPublicPages<PageDto>();
+        }
+
+        public ServiceResult<IList<TModel>> GetPublicPages<TModel>()
+        {
+            return GetPagesByTypes<TModel>(PageType.Public);
         }
 
         public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
@@ -38,19 +57,34 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
         {
             if (SmsSystem.UserContext.UserID == 0)
-                return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(new List<Page>()));
+                return GetPagesByTypes<TModel>(PageType.Public);
 
             if (SmsSystem.UserContext.IsSystemAdmin)
-                return GetProtectedPages<TModel>();
+                return GetPagesByTypes<TModel>(PageType.Public, PageType.Protected, PageType.System);
 
             var user = UserRepository.Get(SmsSystem.UserContext.UserID);
-            var accessiblePageIds = new List<long>();
 
+            var accessiblePageIds = new List<long>();
             foreach (var role in user.Roles)
-                accessiblePageIds.AddRange(role.Pages.Where(x => !ConstPage.PublicPages.Contains(x.ID) && !ExcludedPages.Contains(x.ID)).Select(x => x.ID));
+                accessiblePageIds.AddRange(role.Pages.Where(x => !ExcludedPages.Contains(x.ID)).Select(x => x.ID));
+
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
-            var result = Repository.Find(x => accessiblePageIds.Contains(x.ID)).ToList();
+            var result = Repository.Find(x => accessiblePageIds.Contains(x.ID) 
+                                           || x.Type == PageType.Public 
+                                           || (SmsSystem.UserContext.UseSystemConfig && x.Type == PageType.System)).ToList();
+
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
+        }
+
+        public ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids)
+        {
+            return GetPagesByIds<PageDto>(ids);
+        }
+
+        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids)
+        {
+            var result = Repository.Find(x => ids.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 

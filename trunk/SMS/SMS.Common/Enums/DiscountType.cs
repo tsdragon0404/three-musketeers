@@ -1,4 +1,4 @@
-﻿namespace SMS.Common.Constant
+﻿namespace SMS.Common.Enums
 {
     public enum DiscountType
     {

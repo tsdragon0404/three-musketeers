@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using SMS.Common.Enums;
 using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
@@ -13,6 +14,7 @@ namespace SMS.Data.Mapping
             Map(x => x.ENTitle);
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
+            Map(x => x.Type).CustomType<PageType>();
             Map(x => x.Area);
             Map(x => x.Controller);
             Map(x => x.Action);
