@@ -1,4 +1,5 @@
 ﻿using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping

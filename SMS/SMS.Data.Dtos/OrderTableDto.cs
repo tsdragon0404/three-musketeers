@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Common.Storage.BranchConfig;
 
 namespace SMS.Data.Dtos

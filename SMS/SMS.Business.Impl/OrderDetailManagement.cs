@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Common.Storage.BranchConfig;
 using SMS.Data;

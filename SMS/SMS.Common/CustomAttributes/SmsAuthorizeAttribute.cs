@@ -39,7 +39,6 @@ namespace SMS.Common.CustomAttributes
             }
 
             var authorized = SmsSystem.UserContext.IsSystemAdmin
-                             || ConstPage.PublicPages.Contains(pageID)
                              || SmsSystem.AllowPageIDs.Contains(pageID);
 
             Status = !authorized ? AuthorizeStatus.DontHaveAccessRight : AuthorizeStatus.HasAccessRight;

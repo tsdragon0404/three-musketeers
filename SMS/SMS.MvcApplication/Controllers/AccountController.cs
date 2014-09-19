@@ -128,12 +128,13 @@ namespace SMS.MvcApplication.Controllers
             if (!SetUserData(user, branchID))
                 return false;
 
-            var pageIds = new List<long>();
-            foreach (var roleDto in user.Roles)
-                pageIds.AddRange(roleDto.Pages.Select(x => x.ID));
-
-            SmsSystem.AllowPageIDs = pageIds;
             SmsSystem.SelectedBranchID = branchID;
+
+            var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>();
+            if (!pages.Success || pages.Data == null)
+                return false;
+
+            SmsSystem.AllowPageIDs = pages.Data.Select(x => x.ID).ToList();
             UserAccessManager.AddCurrentUser();
 
             return true;

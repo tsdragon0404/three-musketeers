@@ -1,4 +1,4 @@
-﻿using SMS.Common.Constant;
+﻿using SMS.Common.Enums;
 
 namespace SMS.Data.Dtos
 {

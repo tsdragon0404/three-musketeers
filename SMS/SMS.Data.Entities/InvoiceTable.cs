@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Data;
-using SMS.Common.Constant;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {

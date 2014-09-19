@@ -21,6 +21,15 @@ namespace SMS.Services.Impl
             return Management.GetProtectedPages<TModel>();
         }
 
+        public ServiceResult<IList<PageDto>> GetPublicPages()
+        {
+            return Management.GetPublicPages();
+        }
+
+        public ServiceResult<IList<TModel>> GetPublicPages<TModel>()
+        {
+            return Management.GetPublicPages<TModel>();
+        }
         public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
         {
             return Management.GetAccessiblePagesForUser();
@@ -29,6 +38,16 @@ namespace SMS.Services.Impl
         public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
         {
             return Management.GetAccessiblePagesForUser<TModel>();
+        }
+
+        public ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids)
+        {
+            return Management.GetPagesByIds(ids);
+        }
+
+        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids)
+        {
+            return Management.GetPagesByIds<TModel>(ids);
         }
     }
 }
