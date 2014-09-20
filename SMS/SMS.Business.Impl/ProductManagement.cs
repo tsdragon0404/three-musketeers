@@ -14,8 +14,6 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
-        public virtual IInvoiceTableRepository InvoiceTableRepository { get; set; }
-
         #endregion
 
         #region Func

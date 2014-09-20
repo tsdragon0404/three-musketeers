@@ -70,82 +70,77 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
         {
-            var userEntity = Mapper.Map<User>(user);
-            var userConfigEntity = Mapper.Map<UserConfig>(userConfig);
+            var userBranch = Repository.Get(user.ID);
 
-            var userBranch = Repository.Get(userEntity.ID);
-
-            if(!string.IsNullOrEmpty(userEntity.Password))
+            if(!string.IsNullOrEmpty(user.Password))
             {
-                userBranch.Password = EncryptionHelper.SHA256Hash(userEntity.Password);
+                userBranch.Password = EncryptionHelper.SHA256Hash(user.Password);
             }
 
-            userBranch.FirstName = userEntity.FirstName;
-            userBranch.LastName = userEntity.LastName;
-            userBranch.CellPhone = userEntity.CellPhone;
-            userBranch.Email = userEntity.Email;
-            userBranch.Address = userEntity.Address;
-            userBranch.Roles = userEntity.Roles;
+            userBranch.FirstName = user.FirstName;
+            userBranch.LastName = user.LastName;
+            userBranch.CellPhone = user.CellPhone;
+            userBranch.Email = user.Email;
+            userBranch.Address = user.Address;
+            userBranch.Roles = Mapper.Map<IList<Role>>(user.Roles);
             Repository.Update(userBranch);
-            Repository.SaveAllChanges();
 
-            var userConfigBranch =
-                UserConfigRepository.FindOne(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID);
+            var userConfigBranch = UserConfigRepository.FindOne(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID);
             if (userConfigBranch == null)
-            {
-                UserConfigRepository.Add(new UserConfig { UserID = userBranch.ID, BranchID = SmsSystem.SelectedBranchID, IsSuspended = userConfigEntity.IsSuspended});
-            }
+                UserConfigRepository.Add(new UserConfig
+                                             {
+                                                 UserID = userBranch.ID, 
+                                                 BranchID = SmsSystem.SelectedBranchID, 
+                                                 IsSuspended = userConfig.IsSuspended
+                                             });
             else
             {
-                userConfigBranch.IsSuspended = userConfigEntity.IsSuspended;
+                userConfigBranch.IsSuspended = userConfig.IsSuspended;
                 UserConfigRepository.Update(userConfigBranch);   
             }
-            UserConfigRepository.SaveAllChanges();
 
             return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult UpdateUserSystem(UserDto user)
         {
-            var userEntity = Mapper.Map<User>(user);
-
-            var userSystem = Repository.Get(userEntity.ID);
+            var userSystem = Repository.Get(user.ID);
             if (userSystem != null)
             {
-                if (!string.IsNullOrEmpty(userEntity.Password))
+                if (!string.IsNullOrEmpty(user.Password))
                 {
-                    userSystem.Password = EncryptionHelper.SHA256Hash(userEntity.Password);
+                    userSystem.Password = EncryptionHelper.SHA256Hash(user.Password);
                 }
 
-                userSystem.FirstName = userEntity.FirstName;
-                userSystem.LastName = userEntity.LastName;
-                userSystem.CellPhone = userEntity.CellPhone;
-                userSystem.Email = userEntity.Email;
-                userSystem.Address = userEntity.Address;
-                userSystem.IsLockedOut = userEntity.IsLockedOut;
-                userSystem.UseSystemConfig = userEntity.UseSystemConfig;
-                userSystem.Roles = userEntity.Roles;
-                userSystem.Branches = userEntity.Branches;
+                userSystem.FirstName = user.FirstName;
+                userSystem.LastName = user.LastName;
+                userSystem.CellPhone = user.CellPhone;
+                userSystem.Email = user.Email;
+                userSystem.Address = user.Address;
+                userSystem.IsLockedOut = user.IsLockedOut;
+                userSystem.UseSystemConfig = user.UseSystemConfig;
+                userSystem.Roles = Mapper.Map<IList<Role>>(user.Roles);
+                userSystem.Branches = Mapper.Map<IList<Data.Entities.Branch>>(user.Branches);
                 Repository.Update(userSystem);
             }
             else
             {
                 Repository.Add(new User
                                    {
-                                       Username = userEntity.Username,
-                                       Password = EncryptionHelper.SHA256Hash(userEntity.Password),
-                                       FirstName = userEntity.FirstName,
-                                       LastName = userEntity.LastName,
-                                       CellPhone = userEntity.CellPhone,
-                                       Email = userEntity.Email,
-                                       Address = userEntity.Address,
-                                       IsLockedOut = userEntity.IsLockedOut,
-                                       UseSystemConfig = userEntity.UseSystemConfig,
-                                       Roles = userEntity.Roles,
-                                       Branches = userEntity.Branches
+                                       Username = user.Username,
+                                       Password = EncryptionHelper.SHA256Hash(user.Password),
+                                       FirstName = user.FirstName,
+                                       LastName = user.LastName,
+                                       CellPhone = user.CellPhone,
+                                       Email = user.Email,
+                                       Address = user.Address,
+                                       IsLockedOut = user.IsLockedOut,
+                                       UseSystemConfig = user.UseSystemConfig,
+                                       Roles = Mapper.Map<IList<Role>>(user.Roles),
+                                       Branches = Mapper.Map<IList<Data.Entities.Branch>>(user.Branches)
                                    });
             }
-            Repository.SaveAllChanges();
+            
             return ServiceResult.CreateSuccessResult();
         }
     }

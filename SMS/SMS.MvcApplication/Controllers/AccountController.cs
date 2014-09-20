@@ -166,13 +166,15 @@ namespace SMS.MvcApplication.Controllers
                 allowBranches = user.Branches.Select(x => new Branch(x.ID, x.VNName, x.ENName)).ToList();
 
             var userConfig = UserConfigService.GetUserConfig(user.ID, branchID);
+            if (!userConfig.Success || userConfig.Data == null)
+                return false;
 
             var userContext = new UserContext
                               {
-                                  DefaultAreaID = userConfig.DefaultAreaID,
-                                  ListTableHeight = userConfig.ListTableHeight == 0 ? ConstConfig.DefaultHeightForListTable : userConfig.ListTableHeight,
-                                  PageSize = userConfig.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.PageSize,
-                                  Theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigReader.CurrentTheme : userConfig.Theme,
+                                  DefaultAreaID = userConfig.Data.DefaultAreaID,
+                                  ListTableHeight = userConfig.Data.ListTableHeight == 0 ? ConstConfig.DefaultHeightForListTable : userConfig.Data.ListTableHeight,
+                                  PageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize,
+                                  Theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme,
                                   UserID = user.ID,
                                   UserName = user.Username,
                                   IsSystemAdmin = user.IsSystemAdmin,
@@ -198,9 +200,14 @@ namespace SMS.MvcApplication.Controllers
         public ActionResult Edit()
         {
             var user = UserService.GetByID<UserBasicDto>(SmsSystem.UserContext.UserID);
-            var userConfig = UserConfigService.GetUserConfig(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
+            if (!user.Success || user.Data == null)
+                return ErrorPage(user.Errors);
 
-            var userProfile = new UserProfileModel {UserBasic = user.Data, UserConfig = userConfig};
+            var userConfig = UserConfigService.GetUserConfig(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
+            if (!userConfig.Success || userConfig.Data == null)
+                return ErrorPage(userConfig.Errors);
+
+            var userProfile = new UserProfileModel { UserBasic = user.Data, UserConfig = userConfig.Data };
 
             return View(userProfile);
         }

@@ -54,9 +54,14 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
             if (userID <= 0 ) return Json(JsonModel.Create(false));
 
             var user = UserService.GetByID<UserInfoDto>(userID);
-            var userConfig = UserConfigService.GetUserConfig(userID, SmsSystem.SelectedBranchID);
+            if (!user.Success || user.Data == null)
+                return ErrorAjax("loi~ roai`");
 
-            return Json(JsonModel.Create(new {User = user.Data, UserConfig = userConfig}));
+            var userConfig = UserConfigService.GetUserConfig(userID, SmsSystem.SelectedBranchID);
+            if (!userConfig.Success || userConfig.Data == null)
+                return ErrorAjax("loi~ roai`");
+
+            return Json(JsonModel.Create(new { User = user.Data, UserConfig = userConfig.Data }));
         }
 
         public JsonResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
