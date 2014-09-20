@@ -10,7 +10,7 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public UserConfigDto GetUserConfig(long userID, long branchID)
+        public ServiceResult<UserConfigDto> GetUserConfig(long userID, long branchID)
         {
             return Management.GetUserConfig(userID, branchID);
         }
