@@ -61,8 +61,14 @@ namespace SMS.MvcApplication.Base
 
             #endregion
 
-            StorageHelper.SetStorageData(configData, messageData, brandingData);
+            #region System informations
 
+            var systemInformationService = ServiceLocator.Resolve<ISystemInfomationService>();
+            var systemData = systemInformationService.GetAll().Data.ToDictionary(x => x.Name, y => y.Value);
+
+            #endregion
+
+            StorageHelper.SetStorageData(configData, messageData, brandingData, systemData);
         }
     }
 }

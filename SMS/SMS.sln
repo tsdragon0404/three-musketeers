@@ -50,6 +50,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Common", "SMS.Common\SM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.MvcApplication", "SMS.MvcApplication\SMS.MvcApplication.csproj", "{ABEE4847-3841-4C7C-948F-F705CA98578C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7.Scripts", "7.Scripts", "{ECF2FF99-ED27-4758-9DC0-75842B86D8EE}"
+	ProjectSection(SolutionItems) = preProject
+		install_packages\branding.sql = install_packages\branding.sql
+		install_packages\data-sample.sql = install_packages\data-sample.sql
+		install_packages\data.sql = install_packages\data.sql
+		install_packages\Db Schema.sql = install_packages\Db Schema.sql
+		install_packages\Drop schema.sql = install_packages\Drop schema.sql
+		install_packages\install.bat = install_packages\install.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

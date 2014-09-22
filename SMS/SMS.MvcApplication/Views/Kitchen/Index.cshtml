@@ -364,15 +364,15 @@
             dragOnTop : false
         });
 
-        anchor.on('dragmove', function() {			
+        anchor.on('dragmove', function() {            
             update(this);
             layer.draw();
         });
-        anchor.on('mousedown touchstart', function() {			
+        anchor.on('mousedown touchstart', function() {            
             group.draggable(false);
             this.moveToTop();
         });
-        anchor.on('dragend', function() {	
+        anchor.on('dragend', function() {    
             group.draggable(true);
             layer.draw();
         });
