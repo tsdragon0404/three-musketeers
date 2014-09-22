@@ -6,7 +6,8 @@ namespace SMS.Common.Storage
     {
         public static void SetStorageData(IDictionary<long, BranchConfig.BranchConfig> configData = null,
                                           IDictionary<long, IList<Message.Message>> messageData = null,
-                                          IDictionary<long, IList<Branding.BrandingItem>> brandingData = null)
+                                          IDictionary<long, IList<Branding.BrandingItem>> brandingData = null,
+                                          IDictionary<string, string> systemData = null)
         {
             if (configData != null)
                 BranchConfig.BranchConfigs.Configs = configData;
@@ -16,6 +17,9 @@ namespace SMS.Common.Storage
 
             if (brandingData != null)
                 Branding.BrandingTexts.BrandingItems = brandingData;
+
+            if (systemData != null)
+                SystemInformation.SystemInfos.Data = systemData;
         }
 
         public static void UpdateBranchConfig(long branchID, BranchConfig.BranchConfig config)

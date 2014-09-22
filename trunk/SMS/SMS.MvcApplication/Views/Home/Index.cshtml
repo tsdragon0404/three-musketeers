@@ -55,12 +55,19 @@
             //}).done(function (result) {
             //    alert("aaa");
             //});
-            $.ajax({
+            @*$.ajax({
                 type: 'POST',
                 url: '@Url.Action("OrderProduct", "Cashier", new {area=""})',
                 data: { orderTableID: 1, productID: 1, quantity: 1 }
             }).done(function (result) {
                 alert('post success');
+            });*@
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("TestSendMail", "Home", new {area=""})',
+                
+            }).done(function (result) {
+                alert(result.Success);
             });
         });
     </script>

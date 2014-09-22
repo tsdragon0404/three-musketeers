@@ -10,8 +10,8 @@
         font: 13px Arial, Helvetica,"Lucida Grande", serif; 
         color: #000;
     }
-	
-	body > * { display: none; }
+    
+    body > * { display: none; }
 
     div[aria-describedby="pdtPayment"] {
         display: block !important;
@@ -21,9 +21,9 @@
         overflow: hidden !important;
     }
 
-	div[aria-describedby="pdtPayment"] .ui-dialog-titlebar, #print {
-	    display: none;
-	}
+    div[aria-describedby="pdtPayment"] .ui-dialog-titlebar, #print {
+        display: none;
+    }
 
     #pdtPayment .payment-config {
         display: none;

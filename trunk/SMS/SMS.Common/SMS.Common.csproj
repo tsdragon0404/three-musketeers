@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PageType.cs" />
+    <Compile Include="Mail\SmtpMail.cs" />
     <Compile Include="Storage\AppLock\ApplicationLock.cs" />
     <Compile Include="Storage\AppLock\ILockItem.cs" />
     <Compile Include="Constant\ConstKey.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Storage\Branding\BrandingItem.cs" />
     <Compile Include="Storage\Branding\BrandingTexts.cs" />
     <Compile Include="Storage\StorageHelper.cs" />
+    <Compile Include="Storage\SystemInformation\SystemInfos.cs" />
     <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />

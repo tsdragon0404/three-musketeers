@@ -14,5 +14,10 @@
         public static string ViewData_PageID = "PageID";
         public static string ViewData_AccessiblePagesForUser = "AccessiblePagesForUser";
         public static string ViewData_PageMenu = "PageMenu";
+
+        public static string SystemInfo_SmtpHost = "SmtpHost";
+        public static string SystemInfo_SmtpPort = "SmtpPort";
+        public static string SystemInfo_SmtpUser = "SmtpUser";
+        public static string SystemInfo_SmtpPass = "SmtpPass";
     }
 }
