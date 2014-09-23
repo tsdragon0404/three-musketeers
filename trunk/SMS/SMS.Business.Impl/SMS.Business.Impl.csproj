@@ -50,6 +50,7 @@
     <Compile Include="BaseManagement.cs" />
     <Compile Include="BranchManagement.cs" />
     <Compile Include="BrandingTextManagement.cs" />
+    <Compile Include="UploadedFileManagement.cs" />
     <Compile Include="SystemInfomationManagement.cs" />
     <Compile Include="UserConfigManagement.cs" />
     <Compile Include="CustomerManagement.cs" />

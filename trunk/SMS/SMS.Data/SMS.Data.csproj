@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUploadedFileRepository.cs" />
     <Compile Include="IBrandingTextRepository.cs" />
     <Compile Include="ISystemInfomationRepository.cs" />
     <Compile Include="IUserConfigRepository.cs" />

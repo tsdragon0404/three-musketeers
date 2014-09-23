@@ -47,6 +47,7 @@ namespace SMS.Common.AutoMapper
             Map<Table, TableDto>();
             Map<Tax, TaxDto>();
             Map<Unit, UnitDto>();
+            Map<UploadedFile, UploadedFileDto>();
             Map<UserBranch, UserBranchDto>();
             Map<User, UserDto>();
             Map<UserConfig, UserConfigDto>();
