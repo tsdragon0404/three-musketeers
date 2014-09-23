@@ -5,11 +5,9 @@ namespace SMS.Data.Entities
 {
     public class UploadedFile : Entity
     {
-        public virtual UploadedFileType Type { get; set; }
+        public virtual UploadedFileCategory Category { get; set; }
 
-        public virtual string Name { get; set; }
-
-        public virtual string Extension { get; set; }
+        public virtual string PhysicalPath { get; set; }
 
         public virtual DateTime UploadedDateTime { get; set; }
 

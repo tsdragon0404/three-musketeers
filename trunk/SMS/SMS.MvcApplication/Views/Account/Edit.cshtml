@@ -1,4 +1,6 @@
-﻿@using SMS.MvcApplication.Models
+﻿@using SMS.Common.Constant
+@using SMS.Common.Storage.Message
+@using SMS.MvcApplication.Models
 @model UserProfileModel
 
 <script src="@Url.Content("~/Scripts/jquery.fileupload.js")"></script>
@@ -12,66 +14,68 @@
     <div class="row float-left" id="edit-profile">
         <fieldset>
             <legend>User infomation</legend>
-            <table class="no-border">
-                <colgroup>
-                    <col class="col1" />
-                    <col class="col2" />
-                    <col class="col3" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td>User name</td>
-                        <td>@Model.UserBasic.Username</td>
-                        <td rowspan="6" id="image-profile">
-                            <div id="profileImage">
-                                <span>
-                                    <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
+            <form method="POST" enctype="multipart/form-data">
+                <table class="no-border">
+                    <colgroup>
+                        <col class="col1" />
+                        <col class="col2" />
+                        <col class="col3" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>User name</td>
+                            <td>@Model.UserBasic.Username</td>
+                            <td rowspan="6" id="image-profile">
+                                <div id="profileImage">
+                                    <div id="image-preview">
+                                        <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
+                                    </div>
                                     <span class="fileinput-button" title="upload photo">
                                         <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
                                         <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
                                     </span>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>First name</td>
-                        <td><input type="text" value="@Model.UserBasic.FirstName"/></td>
-                    </tr>
-                    <tr>
-                        <td>Last name</td>
-                        <td><input type="text" value="@Model.UserBasic.LastName"/></td>
-                    </tr>
-                    <tr>
-                        <td>Cell phone</td>
-                        <td><input type="text" value="@Model.UserBasic.CellPhone"/></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td><input type="text" value="@Model.UserBasic.Email"/></td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td><input type="text" value="@Model.UserBasic.Address"/></td>
-                    </tr>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>First name</td>
+                            <td><input type="text" value="@Model.UserBasic.FirstName"/></td>
+                        </tr>
+                        <tr>
+                            <td>Last name</td>
+                            <td><input type="text" value="@Model.UserBasic.LastName"/></td>
+                        </tr>
+                        <tr>
+                            <td>Cell phone</td>
+                            <td><input type="text" value="@Model.UserBasic.CellPhone"/></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type="text" value="@Model.UserBasic.Email"/></td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td><input type="text" value="@Model.UserBasic.Address"/></td>
+                        </tr>
                     
-                    <tr>
-                        <td>Theme</td>
-                        <td>
-                            <select id="theme">
-                                <option value="ui-lightness">ui-lightness</option>
-                                <option value="redmond">redmond</option>
-                                <option value="blitzer">blitzer</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="center">
-                            <button id="update" data-labelID="lblUpdate">Update</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr>
+                            <td>Theme</td>
+                            <td>
+                                <select id="theme">
+                                    <option value="ui-lightness">ui-lightness</option>
+                                    <option value="redmond">redmond</option>
+                                    <option value="blitzer">blitzer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="center">
+                                <button id="update" data-labelID="lblUpdate">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </fieldset>
     </div>
 </div>
@@ -87,21 +91,37 @@
             icons: {
                 primary: "ui-icon-disk"
             }
+        }).click(function () {
+            $(this).form.submit();
         });
-        
-        $('#fileupload').fileupload({
+
+        $('#fileupload').change(function() {
+            if (!(/(\.jpg|\.jpeg|\.png)$/i).test($(this).val().toLowerCase())) {
+                alert("Incorrect file format. Please try again.");
+                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
+                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat)',
+                    4);
+
+                popup.OpenPopup();
+            } else
+                previewImage($(this)[0].files[0]);
+        });
+
+        @*$('#fileupload').fileupload({
             type: 'POST',
             url: '@Url.Action("Upload")',
             add: function (e, data) {
-                var goUpload = true;
                 var uploadFile = data.files[0];
                 if (!(/(\.jpg|\.jpeg|\.png)$/i).test(uploadFile.name) ) {
                     alert("Incorrect file format. Please try again.");
-                    goUpload = false;
+                    var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
+                        '@SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat)',
+                        4);
+
+                    popup.OpenPopup();
                 }
-                if (goUpload == true) {
-                    data.submit();
-                }
+                else
+                    previewImage(uploadFile);
             },
             fileExt: '*.jpg;*.jpeg;*.png',
             // Handles the server side validation on file type
@@ -123,14 +143,6 @@
                                 + xhr.responseText);
                         }
                     });
-                   @* $.ajax({
-                        type: 'GET',
-                        url: '@Url.Action("getProfileImage")',
-                        datatype:"image/jpg",
-                    }).done(function(result) {
-                        $('#user-profile').attr('src', result);    
-                    });*@
-                    
                 }
             },
             progressall: function (e, data) {
@@ -146,6 +158,25 @@
                      + base64Data + "'/>";
 
             $(this).append(imag);
-        };
+        };*@
+        
+        function previewImage(uploadFile) {
+            $('#image-preview').html('');
+            if (typeof (FileReader) != 'undefined') {
+                $('#image-preview').show();
+                $('#image-preview').append('<img id="user-profile" />');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#image-preview img#user-profile').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(uploadFile);
+            } else {
+                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
+                '@SystemMessages.Get(ConstMessageIds.Popup_Message_FileReaderNotSupported)',
+                4);
+
+                popup.OpenPopup();
+            }
+        }
     });
 </script>

@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PageType.cs" />
-    <Compile Include="Enums\UploadedFileType.cs" />
+    <Compile Include="Enums\UploadedFileCategory.cs" />
+    <Compile Include="FileUploadHelper.cs" />
     <Compile Include="Mail\SmtpMail.cs" />
     <Compile Include="Storage\AppLock\ApplicationLock.cs" />
     <Compile Include="Storage\AppLock\ILockItem.cs" />

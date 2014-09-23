@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Common.Validation;
 using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Common.Storage.Message;
 using SMS.Common.Storage.UserAccess;
@@ -210,6 +212,16 @@ namespace SMS.MvcApplication.Controllers
             var userProfile = new UserProfileModel { UserBasic = user.Data, UserConfig = userConfig.Data };
 
             return View(userProfile);
+        }
+
+        [HttpPost]
+        [SmsAuthorize(ConstPage.EditProfile)]
+        [PageID(ConstPage.EditProfile)]
+        public ActionResult Edit(HttpPostedFileBase uploadedFile)
+        {
+            var temp = 0;
+            Utility.UploadFile(uploadedFile, UploadedFileCategory.ProfileImage);
+            return RedirectToAction("Edit");
         }
 
         [HttpPost]

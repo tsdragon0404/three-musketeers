@@ -114,7 +114,9 @@ VALUES
 ( -12, -12, 0, N'Error', N'Lỗi' ),
 ( -13, -13, 0, N'Success', N'Thành công' ),
 ( -14, -14, 0, N'Error occurs. Please contact administrator.', N'Có lỗi xảy ra. Vui lòng liên hệ quản trị viên' ),
-( -15, -15, 0, N'System data have been reseted.', N'Đã hoàn thành làm mới dữ liệu hệ thống.' )
+( -15, -15, 0, N'System data have been reseted.', N'Đã hoàn thành làm mới dữ liệu hệ thống.' ),
+( -16, -16, 0, N'This browser does not support FileReader. Please contact administrator.', N'Trình duyệt không hỗ trợ FileReader. Vui lòng liên hệ quản trị viên.' ),
+( -17, -17, 0, N'Incorrect file format. Please try again.', N'Không hỗ trợ định dạng này. Vui lòng thử lại' )
 
 GO
 
@@ -124,4 +126,4 @@ VALUES
 ( N'SmtpPort', N'587' ),
 ( N'SmtpUser', N'smstest987' ),
 ( N'SmtpPass', N'testingemail' ),
-( N'FileUploadPath', N'C:\\Program Files (x86)\\SOLA Solutions\\SMS\\FileUpload\\' )
+( N'FileUploadPath', N'C:\Program Files (x86)\SOLA Solutions\SMS\FileUpload\' )

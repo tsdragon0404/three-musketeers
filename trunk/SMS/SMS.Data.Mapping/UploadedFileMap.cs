@@ -8,9 +8,8 @@ namespace SMS.Data.Mapping
         public UploadedFileMap()
         {
             Table("UploadedFile");
-            Map(x => x.Type).CustomType<UploadedFileType>();
-            Map(x => x.Name);
-            Map(x => x.Extension);
+            Map(x => x.Category).CustomType<UploadedFileCategory>();
+            Map(x => x.PhysicalPath);
             Map(x => x.UploadedDateTime);
             Map(x => x.UploadedBy);
         }

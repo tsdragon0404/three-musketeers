@@ -1,6 +1,6 @@
 ﻿namespace SMS.Common.Enums
 {
-    public enum UploadedFileType
+    public enum UploadedFileCategory
     {
         ProfileImage = 1,
     }

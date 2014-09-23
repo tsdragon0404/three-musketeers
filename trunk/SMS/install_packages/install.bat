@@ -1,5 +1,15 @@
 @ECHO OFF
 
+SET SOLUTIONFOLDER=C:\Program Files (x86)\SOLA Solutions
+
+echo setup directory
+IF NOT EXIST "%SOLUTIONFOLDER%" MKDIR "%SOLUTIONFOLDER%"
+
+echo grant permission for iis users. MUST BE RUN AS ADMINISTRATOR!!!!
+icacls "%SOLUTIONFOLDER%" /grant IIS_IUSRS:(OI)(CI)F
+
+echo complete setting up directory
+
 SET SCRIPT_PATH=E:\Work\TM\SMS\install_packages
 SET SQLSERVER=.
 SET USER=sms
