@@ -740,6 +740,23 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UploadedFile]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [dbo].[UploadedFile](
+        [UploadedFileID] [int] IDENTITY(1,1) NOT NULL,
+        [Type] [tinyint] NULL,
+        [Name] [varchar](100) NULL,
+        [Extension] [varchar](10) NULL,
+		[UploadedDateTime] [datetime] NULL,
+		[UploadedBy] [varchar](50) NULL,
+     CONSTRAINT [PK_UploadedFile] PRIMARY KEY CLUSTERED 
+    (
+        [UploadedFileID] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+    ) ON [PRIMARY]
+END
+GO
+
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/

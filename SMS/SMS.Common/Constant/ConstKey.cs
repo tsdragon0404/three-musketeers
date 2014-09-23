@@ -19,5 +19,6 @@
         public static string SystemInfo_SmtpPort = "SmtpPort";
         public static string SystemInfo_SmtpUser = "SmtpUser";
         public static string SystemInfo_SmtpPass = "SmtpPass";
+        public static string SystemInfo_FileUploadPath = "FileUploadPath";
     }
 }

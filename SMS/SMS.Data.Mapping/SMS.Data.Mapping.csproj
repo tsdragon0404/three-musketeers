@@ -51,6 +51,7 @@
     <Compile Include="BranchTaxMap.cs" />
     <Compile Include="BranchInfoMap.cs" />
     <Compile Include="BrandingTextMap.cs" />
+    <Compile Include="UploadedFileMap.cs" />
     <Compile Include="SystemInfomationMap.cs" />
     <Compile Include="UserConfigMap.cs" />
     <Compile Include="InvoiceDiscountMap.cs" />

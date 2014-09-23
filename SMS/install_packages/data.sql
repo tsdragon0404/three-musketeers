@@ -123,4 +123,5 @@ VALUES
 ( N'SmtpHost', N'smtp.gmail.com' ),
 ( N'SmtpPort', N'587' ),
 ( N'SmtpUser', N'smstest987' ),
-( N'SmtpPass', N'testingemail' )
+( N'SmtpPass', N'testingemail' ),
+( N'FileUploadPath', N'C:\\Program Files (x86)\\SOLA Solutions\\SMS\\FileUpload\\' )
