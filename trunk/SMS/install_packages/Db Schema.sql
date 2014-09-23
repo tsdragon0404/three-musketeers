@@ -744,11 +744,10 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[UploadedFile](
         [UploadedFileID] [int] IDENTITY(1,1) NOT NULL,
-        [Type] [tinyint] NULL,
-        [Name] [varchar](100) NULL,
-        [Extension] [varchar](10) NULL,
-		[UploadedDateTime] [datetime] NULL,
-		[UploadedBy] [varchar](50) NULL,
+        [Category] [tinyint] NULL,
+        [PhysicalPath] [varchar](100) NULL,
+        [UploadedDateTime] [datetime] NULL,
+        [UploadedBy] [varchar](50) NULL,
      CONSTRAINT [PK_UploadedFile] PRIMARY KEY CLUSTERED 
     (
         [UploadedFileID] ASC
