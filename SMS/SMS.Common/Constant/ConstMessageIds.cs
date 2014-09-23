@@ -24,6 +24,8 @@ namespace SMS.Common.Constant
         public const long Popup_Title_Success = -13;
         public const long Popup_Message_Error = -14;
         public const long Popup_Message_ResetSystemDataSuccess = -15;
+        public const long Popup_Message_FileReaderNotSupported = -16;
+        public const long Popup_Message_IncorrectFileFormat = -17;
     }
 
     public class FallbackMessages

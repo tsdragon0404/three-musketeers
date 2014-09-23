@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using SMS.Common;
+using SMS.Common.Enums;
+using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Common.Storage.BranchConfig;
 using SMS.Common.Storage.Branding;
 using SMS.Common.Storage.Message;
+using SMS.Data.Dtos;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Base
@@ -69,6 +74,34 @@ namespace SMS.MvcApplication.Base
             #endregion
 
             StorageHelper.SetStorageData(configData, messageData, brandingData, systemData);
+        }
+
+        public static long UploadFile(HttpPostedFileBase uploadedFile, UploadedFileCategory category)
+        {
+            var result = FileUploadHelper.Upload(uploadedFile, category);
+            if (!result.Success)
+                return 0;
+
+            var uploadedFileService = ServiceLocator.Resolve<IUploadedFileService>();
+            var existingFile = uploadedFileService.GetByPhysicalPath(result.ActualPath);
+
+            var dtoToSave = new UploadedFileDto
+                                {
+                                    PhysicalPath = result.ActualPath,
+                                    Category = category,
+                                    UploadedBy = SmsSystem.UserContext.UserName,
+                                    UploadedDateTime = DateTime.Now
+                                };
+
+            if(existingFile.Success && existingFile.Data != null)
+                dtoToSave.UploadedFileID = existingFile.Data.UploadedFileID;
+
+            var saveResult = uploadedFileService.Save(dtoToSave);
+
+            if (!saveResult.Success || saveResult.Data == null)
+                return 0;
+
+            return saveResult.Data.UploadedFileID;
         }
     }
 }
