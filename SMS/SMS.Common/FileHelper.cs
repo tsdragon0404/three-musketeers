@@ -5,7 +5,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common
 {
-    public class FileUploadHelper
+    public class FileHelper
     {
         public static FileUploadReturn Upload(HttpPostedFileBase uploadedFile, UploadedFileCategory category, bool overwrite = true)
         {
@@ -19,9 +19,10 @@ namespace SMS.Common
                 {
                     var extension = fileName.Remove(0, fileName.LastIndexOf('.'));
                     fileName = SmsSystem.UserContext.UserID + extension;
+                    DeleteOldProfileImages();
                 }
 
-                var path = BuildFilePath(category, fileName);
+                var path = GetFilePath(category, fileName);
                 if (File.Exists(path))
                 {
                     if (overwrite)
@@ -35,9 +36,29 @@ namespace SMS.Common
                 return new FileUploadReturn { Success = true, ActualPath = path };
             }
             return new FileUploadReturn { Success = false };
-        } 
+        }
 
-        private static string BuildFilePath(UploadedFileCategory category, string filename)
+        public static byte[] GetProfileImageAsStream(long userID)
+        {
+            var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
+            var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
+            if (listfiles.Length > 0)
+            {
+                var fileStream = new FileStream(listfiles[0].FullName, FileMode.Open, FileAccess.Read);
+                var data = new byte[(int)fileStream.Length];
+                fileStream.Read(data, 0, data.Length);
+                return data;
+            }
+
+            return null;
+        }
+
+        private static string GetFilePath(UploadedFileCategory category, string filename)
+        {
+            return Path.Combine(GetFolderPath(category), filename);
+        }
+
+        private static string GetFolderPath(UploadedFileCategory category)
         {
             var dir = Path.Combine(
                 Storage.SystemInformation.SystemInfos.Data[Constant.ConstKey.SystemInfo_FileUploadPath],
@@ -45,8 +66,15 @@ namespace SMS.Common
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            return dir;
+        }
 
-            return Path.Combine(dir, filename);
+        private static void DeleteOldProfileImages()
+        {
+            var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
+            var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
+            foreach (var file in listfiles)
+                File.Delete(file.FullName);
         }
     }
 
