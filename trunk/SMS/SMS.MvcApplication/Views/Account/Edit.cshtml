@@ -1,5 +1,6 @@
 ﻿@using SMS.Common.Constant
 @using SMS.Common.Storage.Message
+@using SMS.MvcApplication.Base
 @using SMS.MvcApplication.Models
 @model UserProfileModel
 
@@ -28,7 +29,7 @@
                             <td rowspan="6" id="image-profile">
                                 <div id="profileImage">
                                     <div id="image-preview">
-                                        <img id="user-profile" alt="profile" src="~/Images/default.jpg"/>
+                                        <img id="user-profile" alt="profile" src="data:image/jpg;base64,@Utility.GetCurrentUserProfileImage()"/>
                                     </div>
                                     <span class="fileinput-button" title="upload photo">
                                         <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>

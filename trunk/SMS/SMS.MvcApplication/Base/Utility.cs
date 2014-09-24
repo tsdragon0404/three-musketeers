@@ -78,7 +78,7 @@ namespace SMS.MvcApplication.Base
 
         public static long UploadFile(HttpPostedFileBase uploadedFile, UploadedFileCategory category)
         {
-            var result = FileUploadHelper.Upload(uploadedFile, category);
+            var result = FileHelper.Upload(uploadedFile, category);
             if (!result.Success)
                 return 0;
 
@@ -102,6 +102,13 @@ namespace SMS.MvcApplication.Base
                 return 0;
 
             return saveResult.Data.UploadedFileID;
+        }
+
+        public static string GetCurrentUserProfileImage()
+        {
+            var imageData = FileHelper.GetProfileImageAsStream(SmsSystem.UserContext.UserID);
+            if (imageData == null) return string.Empty;
+            return Convert.ToBase64String(imageData);
         }
     }
 }
