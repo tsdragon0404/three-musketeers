@@ -40,14 +40,24 @@ namespace SMS.Common
 
         public static byte[] GetProfileImageAsStream(long userID)
         {
-            var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
-            var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
-            if (listfiles.Length > 0)
+            FileStream fileStream = null;
+            try
             {
-                var fileStream = new FileStream(listfiles[0].FullName, FileMode.Open, FileAccess.Read);
-                var data = new byte[(int)fileStream.Length];
-                fileStream.Read(data, 0, data.Length);
-                return data;
+                
+                var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
+                var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
+                if (listfiles.Length > 0)
+                {
+                    fileStream = new FileStream(listfiles[0].FullName, FileMode.Open, FileAccess.Read);
+                    var data = new byte[(int)fileStream.Length];
+                    fileStream.Read(data, 0, data.Length);
+
+                    return data;
+                }
+            }
+            finally
+            {
+                if (fileStream != null) fileStream.Close();
             }
 
             return null;
