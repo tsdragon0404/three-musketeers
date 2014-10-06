@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="BrandingTextService.cs" />
     <Compile Include="IUploadedFileService.cs" />
-    <Compile Include="ISystemInfomationService.cs" />
+    <Compile Include="ISystemInformationService.cs" />
     <Compile Include="IUserConfigService.cs" />
     <Compile Include="ICustomerService.cs" />
     <Compile Include="ITaxService.cs" />

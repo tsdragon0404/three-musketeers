@@ -321,15 +321,16 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SystemInfomation]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SystemInformation]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE [dbo].[SystemInfomation](
-        [SystemInfomationID] [int] IDENTITY(1,1) NOT NULL,
+    CREATE TABLE [dbo].[SystemInformation](
+        [SystemInformationID] [int] IDENTITY(1,1) NOT NULL,
         [Name] [varchar](255) NOT NULL,
-        [Value] [varchar](255) NULL,
-     CONSTRAINT [PK_SystemInfomation] PRIMARY KEY CLUSTERED 
+        [Value] [varchar](510) NULL,
+		[Type] [tinyint] NULL,
+     CONSTRAINT [PK_SystemInformation] PRIMARY KEY CLUSTERED 
     (
-        [SystemInfomationID] ASC
+        [SystemInformationID] ASC
     )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
     ) ON [PRIMARY]
 END

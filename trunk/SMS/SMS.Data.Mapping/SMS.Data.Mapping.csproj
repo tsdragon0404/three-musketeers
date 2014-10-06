@@ -52,7 +52,7 @@
     <Compile Include="BranchInfoMap.cs" />
     <Compile Include="BrandingTextMap.cs" />
     <Compile Include="UploadedFileMap.cs" />
-    <Compile Include="SystemInfomationMap.cs" />
+    <Compile Include="SystemInformationMap.cs" />
     <Compile Include="UserConfigMap.cs" />
     <Compile Include="InvoiceDiscountMap.cs" />
     <Compile Include="UserBranchMap.cs" />

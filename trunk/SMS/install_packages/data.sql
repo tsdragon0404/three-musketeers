@@ -119,11 +119,3 @@ VALUES
 ( -17, -17, 0, N'Incorrect file format. Please try again.', N'Không hỗ trợ định dạng này. Vui lòng thử lại' )
 
 GO
-
-INSERT INTO dbo.SystemInfomation ( Name, [Value] )
-VALUES
-( N'SmtpHost', N'smtp.gmail.com' ),
-( N'SmtpPort', N'587' ),
-( N'SmtpUser', N'smstest987' ),
-( N'SmtpPass', N'testingemail' ),
-( N'FileUploadPath', N'C:\Program Files (x86)\SOLA Solutions\SMS\FileUpload\' )

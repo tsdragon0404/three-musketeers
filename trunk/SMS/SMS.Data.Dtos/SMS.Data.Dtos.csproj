@@ -39,7 +39,7 @@
     <Compile Include="BranchTaxDto.cs" />
     <Compile Include="BranchInfoDto.cs" />
     <Compile Include="BrandingTextDto.cs" />
-    <Compile Include="SystemInfomationDto.cs" />
+    <Compile Include="SystemInformationDto.cs" />
     <Compile Include="UploadedFileDto.cs" />
     <Compile Include="UserConfigDto.cs" />
     <Compile Include="InvoiceDiscountDto.cs" />

@@ -3,7 +3,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface ISystemInfomationRepository : IRepository<SystemInfomation>
+    public interface ISystemInformationRepository : IRepository<SystemInformation>
     {
          
     }

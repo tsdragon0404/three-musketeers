@@ -40,7 +40,7 @@
     <Compile Include="BranchInfo.cs" />
     <Compile Include="BrandingText.cs" />
     <Compile Include="UploadedFile.cs" />
-    <Compile Include="SystemInfomation.cs" />
+    <Compile Include="SystemInformation.cs" />
     <Compile Include="Interfaces\IBranchEntity.cs" />
     <Compile Include="UserConfig.cs" />
     <Compile Include="InvoiceDiscount.cs" />

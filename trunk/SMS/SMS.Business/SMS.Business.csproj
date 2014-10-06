@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="BrandingTextManagement.cs" />
     <Compile Include="IUploadedFileManagement.cs" />
-    <Compile Include="ISystemInfomationManagement.cs" />
+    <Compile Include="ISystemInformationManagement.cs" />
     <Compile Include="IUserConfigManagement.cs" />
     <Compile Include="ICustomerManagement.cs" />
     <Compile Include="ITaxManagement.cs" />

@@ -51,7 +51,7 @@
     <Compile Include="BranchManagement.cs" />
     <Compile Include="BrandingTextManagement.cs" />
     <Compile Include="UploadedFileManagement.cs" />
-    <Compile Include="SystemInfomationManagement.cs" />
+    <Compile Include="SystemInformationManagement.cs" />
     <Compile Include="UserConfigManagement.cs" />
     <Compile Include="CustomerManagement.cs" />
     <Compile Include="TaxManagement.cs" />
