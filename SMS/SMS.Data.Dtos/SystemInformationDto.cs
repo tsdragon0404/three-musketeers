@@ -1,9 +1,12 @@
-﻿namespace SMS.Data.Dtos
+﻿using SMS.Common.Enums;
+
+namespace SMS.Data.Dtos
 {
-    public class SystemInfomationDto
+    public class SystemInformationDto
     {
         public virtual long ID { get; set; }
         public virtual string Name { get; set; }
         public virtual string Value { get; set; }
+        public virtual SystemInformationType Type { get; set; }
     }
 }
