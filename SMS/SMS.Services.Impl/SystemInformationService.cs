@@ -1,4 +1,7 @@
-﻿using SMS.Business;
+﻿using System.Collections.Generic;
+using Core.Common.Validation;
+using SMS.Business;
+using SMS.Common.Enums;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -8,5 +11,10 @@ namespace SMS.Services.Impl
         #region Fields
 
         #endregion
+
+        public ServiceResult<IList<SystemInformationDto>> GetByType(SystemInformationType type)
+        {
+            return Management.GetByType(type);
+        }
     }
 }
