@@ -68,7 +68,7 @@ namespace SMS.MvcApplication.Base
 
             #region System informations
 
-            var systemInformationService = ServiceLocator.Resolve<ISystemInfomationService>();
+            var systemInformationService = ServiceLocator.Resolve<ISystemInformationService>();
             var systemData = systemInformationService.GetAll().Data.ToDictionary(x => x.Name, y => y.Value);
 
             #endregion
