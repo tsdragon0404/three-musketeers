@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 
@@ -7,24 +6,24 @@ namespace SMS.MvcApplication.Controllers
 {
     public class ErrorController : Controller
     {
+        [SmsAuthorize(ConstPage.NotFoundError)]
         [PageID(ConstPage.Error)]
         public ActionResult Index()
         {
-            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return View();
         }
 
+        [SmsAuthorize(ConstPage.NotFoundError)]
         [PageID(ConstPage.NotFoundError)]
         public ActionResult NotFound()
         {
-            Response.StatusCode = (int)HttpStatusCode.NotFound;
             return View();
         }
 
+        [SmsAuthorize(ConstPage.AccessDenied)]
         [PageID(ConstPage.AccessDenied)]
         public ActionResult AccessDenied()
         {
-            Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             return View();
         }
     }
