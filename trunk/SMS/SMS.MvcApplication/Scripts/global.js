@@ -11,10 +11,7 @@ $(document).ready(function () {
         SetHeightBodySection();
         $(window).resize(SetHeightBodySection);
 
-        if ($('#area-table').length != 0) {
-            
-            globalTimer = setInterval(SetHeightCashierContent, 250);
-        }
+        globalTimer = setInterval(GlobalTimerExecute, 250);
     }
 });
 
@@ -51,6 +48,12 @@ function SetHeightBodySection() {
     
     // set position for expander
     $('#leftmenuExpander').css("left", $('#leftmenu').outerWidth() + "px");
+}
+
+function GlobalTimerExecute() {
+    if ($('#area-table').length != 0) {
+        SetHeightCashierContent();
+    }
 }
 
 function SetHeightCashierContent() {

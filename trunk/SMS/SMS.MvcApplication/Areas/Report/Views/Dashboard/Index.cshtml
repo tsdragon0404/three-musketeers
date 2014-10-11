@@ -2,17 +2,14 @@
     <!--[if lt IE 9]><script type="text/javascript" src="~/Scripts/flot/excanvas.min.js"></script><![endif]-->
     <script type="text/javascript" src="~/Scripts/flot/jquery.flot.min.js"></script>
     
-    Welcome to report dashboard page
     <div class="row">
-        <div class="two columns"></div>
-        <div class="eight columns" id="line-chart-div" style="height: 500px;"></div>
-        <div class="two columns"></div>
+        <div class="twelve columns" id="line-chart-div" style="height: 350px;"></div>
     </div>
     
     <script type="text/javascript">
 
         var d1 = [];
-        for (var i = 0; i < 14; i += 0.5) {
+        for (var i = 0; i < 26; i += 0.5) {
             d1.push([i, Math.sin(i)]);
         }
 
