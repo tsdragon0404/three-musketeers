@@ -1177,3 +1177,8 @@ fieldset {
         height: 100%;
     }
 }
+
+/* Dashboard */
+#statistic {
+    margin-top: 20px;
+}
