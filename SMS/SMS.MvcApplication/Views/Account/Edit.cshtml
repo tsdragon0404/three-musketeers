@@ -40,23 +40,23 @@
                         </tr>
                         <tr>
                             <td>First name</td>
-                            <td><input type="text" value="@Model.UserBasic.FirstName"/></td>
+                            <td><input type="text" id="firstName" value="@Model.UserBasic.FirstName"/></td>
                         </tr>
                         <tr>
                             <td>Last name</td>
-                            <td><input type="text" value="@Model.UserBasic.LastName"/></td>
+                            <td><input type="text" id="lastName" value="@Model.UserBasic.LastName"/></td>
                         </tr>
                         <tr>
                             <td>Cell phone</td>
-                            <td><input type="text" value="@Model.UserBasic.CellPhone"/></td>
+                            <td><input type="text" id="cellPhone" value="@Model.UserBasic.CellPhone"/></td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td><input type="text" value="@Model.UserBasic.Email"/></td>
+                            <td><input type="text" id="email" value="@Model.UserBasic.Email"/></td>
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td><input type="text" value="@Model.UserBasic.Address"/></td>
+                            <td><input type="text" id="address" value="@Model.UserBasic.Address"/></td>
                         </tr>
                     
                         <tr>
@@ -84,16 +84,30 @@
 <script type="text/javascript">
     var imgs = null;
     $(document).ready(function() {
+        $('#theme').val(userConfig.Theme);
         $('#theme').selectmenu();
-        var theme = userConfig.Theme;
-        $('#theme').val(theme);
 
         $('#update').button({
             icons: {
                 primary: "ui-icon-disk"
             }
         }).click(function () {
-            $(this).form.submit();
+            var firstName = $('#firstName').val();
+            var lastName = $('#lastName').val();
+            var cellPhone = $('#cellPhone').val();
+            var email = $('#email').val();
+            var address = $('#address').val();
+            var theme = $('#theme').val();
+            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateUserProfile")',
+                data: { firtName: firstName, lastName: lastName, cellPhone: cellPhone, email: email, address: address, theme: theme }
+            }).done(function (result) {
+                if (result.Success) {
+                    $(this).form.submit();
+                }
+            });
         });
 
         $('#fileupload').change(function() {
@@ -107,59 +121,6 @@
             } else
                 previewImage($(this)[0].files[0]);
         });
-
-        @*$('#fileupload').fileupload({
-            type: 'POST',
-            url: '@Url.Action("Upload")',
-            add: function (e, data) {
-                var uploadFile = data.files[0];
-                if (!(/(\.jpg|\.jpeg|\.png)$/i).test(uploadFile.name) ) {
-                    alert("Incorrect file format. Please try again.");
-                    var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
-                        '@SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat)',
-                        4);
-
-                    popup.OpenPopup();
-                }
-                else
-                    previewImage(uploadFile);
-            },
-            fileExt: '*.jpg;*.jpeg;*.png',
-            // Handles the server side validation on file type
-            done: function (e, data) {
-                var error = data.response().result.Data;
-                if(error == "") {
-                    $.ajax({
-                        cache: false,
-                        type: "GET",
-                        url: '@Url.Action("getProfileImage")',
-                        contentType: 'application/json',
-                        dataType: "json",
-                        success: function (result) {
-                            imgs = result;
-                            displayImage(imgs.base64imgage);
-                        },
-                        error: function (xhr) {
-                            alert("Error occurred while loading the image. "
-                                + xhr.responseText);
-                        }
-                    });
-                }
-            },
-            progressall: function (e, data) {
-                // Handle the progress bar
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .bar').css('width', progress + '%' );
-            }
-        });
-        
-        var displayImage = function (base64Data) {
-            var imag = "<img "
-                     + "src='" + "data:image/jpg;base64,"
-                     + base64Data + "'/>";
-
-            $(this).append(imag);
-        };*@
         
         function previewImage(uploadFile) {
             $('#image-preview').html('');

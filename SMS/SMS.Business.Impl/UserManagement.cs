@@ -143,5 +143,35 @@ namespace SMS.Business.Impl
             
             return ServiceResult.CreateSuccessResult();
         }
+
+        public ServiceResult UpdateUserProfile(string firtName, string lastName, string cellPhone, string email, string address, string theme)
+        {
+            var user = Repository.Get(SmsSystem.UserContext.UserID);
+            user.FirstName = firtName;
+            user.LastName = lastName;
+            user.CellPhone = cellPhone;
+            user.Email = email;
+            user.Address = address;
+            Repository.Update(user);
+
+            var userConfig = UserConfigRepository.FindOne(x => x.UserID == SmsSystem.UserContext.UserID && x.BranchID == SmsSystem.SelectedBranchID);
+
+            if(user.IsSystemAdmin && userConfig == null)
+            {
+                UserConfigRepository.Add(new UserConfig
+                                             {
+                                                 BranchID = SmsSystem.SelectedBranchID,
+                                                 UserID = SmsSystem.UserContext.UserID,
+                                                 Theme = theme
+                                             });
+            }
+            else
+            {
+                userConfig.Theme = theme;
+                UserConfigRepository.Update(userConfig);   
+            }
+
+            return ServiceResult.CreateSuccessResult();
+        }
     }
 }

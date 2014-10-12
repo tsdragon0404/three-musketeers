@@ -1092,7 +1092,22 @@ fieldset {
 
 .system-infomation fieldset legend {
     margin-left: 20px;
-    padding-bottom: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    color: green;
+}
+
+.system-infomation fieldset {
+    padding: 20px 0px 20px 20px;
+    width: 500px;
+}
+
+.system-infomation fieldset table{
+    width: auto;
+}
+
+.system-infomation fieldset table input{
+    width: 500px;
 }
 
 #edit-profile fieldset legend {

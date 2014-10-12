@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -219,8 +217,8 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.EditProfile)]
         public ActionResult Edit(HttpPostedFileBase uploadedFile)
         {
-            var temp = 0;
-            Utility.UploadFile(uploadedFile, UploadedFileCategory.ProfileImage);
+            if(uploadedFile != null)
+                Utility.UploadFile(uploadedFile, UploadedFileCategory.ProfileImage);
             return RedirectToAction("Edit");
         }
 
@@ -243,38 +241,10 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        [SmsAuthorize(ConstPage.EditProfile)]
-        [PageID(ConstPage.EditProfile)]
-        public ActionResult Upload()
+        public JsonResult UpdateUserProfile(string firtName, string lastName, string cellPhone, string email, string address, string theme)
         {
-            var contentType = new[] {"image/jpeg", "image/png"};
-
-            var uploadedFile = Request.Files[0];
-            string error = "";
-
-            if (uploadedFile != null && uploadedFile.ContentLength > 0 && contentType.Any(uploadedFile.ContentType.Contains))
-            {
-                var fileName = string.Format("{0}{1}", SmsSystem.UserContext.UserID,
-                                             Path.GetExtension(uploadedFile.FileName));
-                var filePath = Path.Combine("C:/Program Files (x86)/SOLA Solutions/SMS/imageProfile", fileName);
-                uploadedFile.SaveAs(filePath);
-            }
-            else
-            {
-                error = "Something wrong!!!";
-            }
-            return Json(JsonModel.Create(error));
-        }
-
-
-        public JsonResult getProfileImage()
-        {
-            var path = "C:/Program Files (x86)/SOLA Solutions/SMS/imageProfile" + "/" + SmsSystem.UserContext.UserID + ".jpg";
-            var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var data = new byte[(int)fileStream.Length];
-            fileStream.Read(data, 0, data.Length);
-
-            return Json(new { base64imgage = Convert.ToBase64String(data) } , JsonRequestBehavior.AllowGet);
+            var result = UserService.UpdateUserProfile(firtName, lastName, cellPhone, email, address, theme);
+            return Json(JsonModel.Create(result));
         }
     }
 }
