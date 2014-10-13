@@ -16,7 +16,10 @@
         closeOnEscape: false,
         resizable: false,
         width: 500,
-        modal: true
+        modal: true,
+        position: { my: "center", at: "center", of: window },
+        show: null,
+        hide: null
     });
 
     // cannot use this method because the title can be unicode string
@@ -31,20 +34,34 @@
     $('#popup-icon').removeClass('confirm-icon');
     $('#popup-icon').removeClass('warning-icon');
     $('#popup-icon').removeClass('error-icon');
+    $('#popup-message').removeClass('red');
     
     if (popupType == 1) {
         $('#popup-icon').addClass('info-icon');
-        $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').button({
-            icons: {
-                primary: "ui-icon-check"
+        $('#popup-button').html('');
+        $('#popup').dialog({
+            dialogClass: "no-close",
+            width: 300,
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "clip",
+                duration: 1000
+            },
+            position: {
+                my: "right bottom",
+                at: "right bottom",
+                of: window
             }
-        }).click(function () {
-            $('#popup').dialog('close');
-            if (root.firstButtonCallback)
-                firstButtonCallback();
-            return false;
         });
+        setTimeout(
+            function () {
+                $('#popup').dialog('close');
+                if (root.firstButtonCallback)
+                    root.firstButtonCallback();
+            }, 2000);
     }
     else if (popupType == 2) {
         $('#popup-icon').addClass('confirm-icon');
@@ -96,17 +113,31 @@
     }
     else if (popupType == 4) {
         $('#popup-icon').addClass('error-icon');
-        $('#popup-button').html(root.okButton);
-        $('#popup-button .okButton').button({
-            icons: {
-                primary: "ui-icon-check"
+        $('#popup-button').html('');
+        $('#popup-message').addClass('red');
+        $('#popup').dialog({
+            dialogClass: "no-close",
+            width: 300,
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "clip",
+                duration: 1000
+            },
+            position: {
+                my: "right bottom",
+                at: "right bottom",
+                of: window
             }
-        }).click(function () {
-            $('#popup').dialog('close');
-            if (root.firstButtonCallback)
-                firstButtonCallback();
-            return false;
         });
+        setTimeout(
+            function() {
+                $('#popup').dialog('close');
+                if (root.firstButtonCallback)
+                    root.firstButtonCallback();
+            }, 2000);
     }
 
     this.OpenPopup = function () {

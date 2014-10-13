@@ -1188,6 +1188,14 @@ fieldset {
     cursor: pointer;
 }
 
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
+.red {
+    color: red;
+}
+
 /* Fixes for IE < 8 */
 @media screen\9 {
     .fileinput-button input {
