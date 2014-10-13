@@ -150,10 +150,10 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult UpdateUserProfile(string firtName, string lastName, string cellPhone, string email, string address, string theme)
+        public ServiceResult UpdateUserProfile(string firstName, string lastName, string cellPhone, string email, string address, string theme)
         {
             var user = Repository.Get(SmsSystem.UserContext.UserID);
-            user.FirstName = firtName;
+            user.FirstName = firstName;
             user.LastName = lastName;
             user.CellPhone = cellPhone;
             user.Email = email;

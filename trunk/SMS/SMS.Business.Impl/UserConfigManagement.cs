@@ -25,8 +25,13 @@ namespace SMS.Business.Impl
 
         public ServiceResult<UserConfigDto> GetUserConfig(long userID, long branchID)
         {
+            return GetUserConfig<UserConfigDto>(userID, branchID);
+        }
+
+        public ServiceResult<TModel> GetUserConfig<TModel>(long userID, long branchID)
+        {
             var result = Repository.FindOne(x => x.UserID == userID && x.BranchID == branchID);
-            return ServiceResult<UserConfigDto>.CreateSuccessResult(Mapper.Map<UserConfigDto>(result ?? new UserConfig()));
+            return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new UserConfig()));
         }
 
         public ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
