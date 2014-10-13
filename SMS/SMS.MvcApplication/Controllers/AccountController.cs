@@ -21,10 +21,10 @@ namespace SMS.MvcApplication.Controllers
 {
     public class AccountController : BaseController
     {
-        public IUserService UserService { get; set; }
-        public IBranchService BranchService { get; set; }
-        public IErrorMessageService ErrorMessageService { get; set; }
-        public IUserConfigService UserConfigService { get; set; }
+        public virtual IUserService UserService { get; set; }
+        public virtual IBranchService BranchService { get; set; }
+        public virtual IErrorMessageService ErrorMessageService { get; set; }
+        public virtual IUserConfigService UserConfigService { get; set; }
 
         private List<Error> errors;
 
@@ -203,23 +203,13 @@ namespace SMS.MvcApplication.Controllers
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
-            var userConfig = UserConfigService.GetUserConfig(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigService.GetUserConfig<UserProfileConfigDto>(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
             if (!userConfig.Success || userConfig.Data == null)
                 return ErrorPage(userConfig.Errors);
 
             var userProfile = new UserProfileModel { UserBasic = user.Data, UserConfig = userConfig.Data };
 
             return View(userProfile);
-        }
-
-        [HttpPost]
-        [SmsAuthorize(ConstPage.EditProfile)]
-        [PageID(ConstPage.EditProfile)]
-        public ActionResult Edit(HttpPostedFileBase uploadedFile)
-        {
-            if(uploadedFile != null)
-                Utility.UploadFile(uploadedFile, UploadedFileCategory.ProfileImage);
-            return RedirectToAction("Edit");
         }
 
         [HttpPost]
@@ -241,10 +231,22 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateUserProfile(string firtName, string lastName, string cellPhone, string email, string address, string theme)
+        [SmsAuthorize(ConstPage.EditProfile)]
+        public JsonResult UpdateUserProfile(string firstName, string lastName, string cellPhone, string email, string address, string theme, HttpPostedFileBase profileImg)
         {
-            var result = UserService.UpdateUserProfile(firtName, lastName, cellPhone, email, address, theme);
+            if (profileImg != null)
+                Utility.UploadFile(profileImg, UploadedFileCategory.ProfileImage);
+
+            var result = UserService.UpdateUserProfile(firstName, lastName, cellPhone, email, address, theme);
             return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
+        [SmsAuthorize(ConstPage.EditProfile)]
+        public JsonResult test(HttpPostedFileBase profileImg)
+        {
+            var temp = 0;
+            return Json(JsonModel.Create(true));
         }
     }
 }

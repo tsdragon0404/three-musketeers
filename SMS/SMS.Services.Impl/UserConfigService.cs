@@ -15,6 +15,11 @@ namespace SMS.Services.Impl
             return Management.GetUserConfig(userID, branchID);
         }
 
+        public ServiceResult<TModel> GetUserConfig<TModel>(long userID, long branchID)
+        {
+            return Management.GetUserConfig<TModel>(userID, branchID);
+        }
+
         public ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
             return Management.SaveCashierInfo(defaultAreaID, listTableHeight);
