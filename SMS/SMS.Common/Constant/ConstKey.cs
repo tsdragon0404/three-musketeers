@@ -1,6 +1,6 @@
 ﻿namespace SMS.Common.Constant
 {
-    public class ConstKey
+    public static class ConstKey
     {
         public static string Session_UserContext = "UserContext";
         public static string Session_ClientInfo = "ClientInfo";

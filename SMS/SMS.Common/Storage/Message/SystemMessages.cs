@@ -5,7 +5,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common.Storage.Message
 {
-    public class SystemMessages
+    public static class SystemMessages
     {
         internal static IDictionary<long, IList<Message>> Messages { get; set; }
 

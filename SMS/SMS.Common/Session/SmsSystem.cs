@@ -6,7 +6,7 @@ using SMS.Common.Constant;
 
 namespace SMS.Common.Session
 {
-    public class SmsSystem
+    public static class SmsSystem
     {
         #region Session
 

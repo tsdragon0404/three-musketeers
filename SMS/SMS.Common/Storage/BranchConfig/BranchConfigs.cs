@@ -4,7 +4,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common.Storage.BranchConfig
 {
-    public class BranchConfigs
+    public static class BranchConfigs
     {
         internal static IDictionary<long, BranchConfig> Configs { get; set; }
 

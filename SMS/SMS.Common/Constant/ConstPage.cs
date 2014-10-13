@@ -1,6 +1,6 @@
 ﻿namespace SMS.Common.Constant
 {
-    public class ConstPage
+    public static class ConstPage
     {
         public const long Global = 0;
         public const long HomePage = 1;
