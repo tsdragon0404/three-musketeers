@@ -4,8 +4,6 @@
 @using SMS.MvcApplication.Models
 @model UserProfileModel
 
-<script src="@Url.Content("~/Scripts/jquery.fileupload.js")"></script>
-
 <script type="text/javascript">
     var user = @Html.Raw(JsonEncode(Model.UserBasic));
     var userConfig = @Html.Raw(JsonEncode(Model.UserConfig));
@@ -15,7 +13,7 @@
     <div class="row float-left" id="edit-profile">
         <fieldset>
             <legend>User infomation</legend>
-            <form method="POST" enctype="multipart/form-data">
+            
                 <table class="no-border">
                     <colgroup>
                         <col class="col1" />
@@ -28,13 +26,16 @@
                             <td>@Model.UserBasic.Username</td>
                             <td rowspan="6" id="image-profile">
                                 <div id="profileImage">
+                                    
                                     <div id="image-preview">
                                         <img id="user-profile" alt="profile" src="data:image/jpg;base64,@Utility.GetCurrentUserProfileImage()"/>
                                     </div>
+                                    <form method="POST" enctype="multipart/form-data">
                                     <span class="fileinput-button" title="upload photo">
                                         <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
                                         <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
                                     </span>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -76,7 +77,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </form>
+            
         </fieldset>
     </div>
 </div>
@@ -105,14 +106,7 @@
                 data: { firtName: firstName, lastName: lastName, cellPhone: cellPhone, email: email, address: address, theme: theme }
             }).done(function (result) {
                 if (result.Success) {
-                    $('#fileupload').fileupload({
-                        dataType: 'json',
-                        autoUpload: false,
-                        Default:true,
-                        success: function (msg) {
-                            alert(msg);
-                        }
-                    });
+                    $('form').submit();
                 }
             });
         });
