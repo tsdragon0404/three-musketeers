@@ -1118,7 +1118,7 @@ fieldset {
 }
 
 #edit-profile fieldset {
-    width: 700px;
+    float: left;
     padding: 10px;
 }
 
@@ -1139,8 +1139,12 @@ fieldset {
 }
 
 #user-profile {
+    height: 100%;   
+}
+
+#image-preview {
     vertical-align: bottom;
-    height: 180px
+    height: 180px;
 }
 
 #capture {
