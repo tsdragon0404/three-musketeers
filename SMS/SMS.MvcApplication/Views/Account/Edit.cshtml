@@ -105,14 +105,20 @@
                 data: { firtName: firstName, lastName: lastName, cellPhone: cellPhone, email: email, address: address, theme: theme }
             }).done(function (result) {
                 if (result.Success) {
-                    $(this).form.submit();
+                    $('#fileupload').fileupload({
+                        dataType: 'json',
+                        autoUpload: false,
+                        Default:true,
+                        success: function (msg) {
+                            alert(msg);
+                        }
+                    });
                 }
             });
         });
 
         $('#fileupload').change(function() {
             if (!(/(\.jpg|\.jpeg|\.png)$/i).test($(this).val().toLowerCase())) {
-                alert("Incorrect file format. Please try again.");
                 var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
                     '@SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat)',
                     4);
