@@ -1,12 +1,12 @@
-﻿@using SMS.Data.Dtos
-@model SMS.MvcApplication.Models.AdminModel<SystemInformationDto>
+﻿@using SMS.MvcApplication.Models
+@model SystemInformationModel
 
 <div id="content">
     <div class="row system-infomation">
         <fieldset class="fieldset-boder">
         <legend>System infomation</legend>    
             <table class="no-border">
-                @foreach (var dto in Model.ListRecord)
+                @foreach (var dto in Model.SystemInformationDtos)
                 {
                     <tr>
                         <td>@dto.Name</td>

@@ -1,13 +1,14 @@
 ﻿@using SMS.Common.Constant
 @using SMS.Common.Storage.Message
-@model SMS.MvcApplication.Models.AdminModel<SMS.Data.Dtos.SystemInformationDto>
+@using SMS.MvcApplication.Models
+@model SystemInformationModel
 
 <div id="content">
     <div class="row system-infomation">
         <fieldset class="fieldset-boder">
             <legend>System configuration</legend>    
             <table class="no-border">
-                @foreach (var dto in Model.ListRecord)
+                @foreach (var dto in Model.SystemInformationDtos)
                 {
                     <tr>
                         <td>@dto.Name</td>
@@ -25,29 +26,13 @@
     </div>
 </div>
 <script type="text/javascript">
-    var imgs = null;
     $(document).ready(function () {
         $('#update').button({
             icons: {
                 primary: "ui-icon-disk"
             }
         }).click(function () {
-            var firstName = $('#firstName').val();
-            var lastName = $('#lastName').val();
-            var cellPhone = $('#cellPhone').val();
-            var email = $('#email').val();
-            var address = $('#address').val();
-            var theme = $('#theme').val();
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("UpdateUserProfile")',
-                data: { firtName: firstName, lastName: lastName, cellPhone: cellPhone, email: email, address: address, theme: theme }
-            }).done(function (result) {
-                if (result.Success) {
-                    $(this).form.submit();
-                }
-            });
+            
         });
 
         $('#resetData').button({
@@ -64,13 +49,13 @@
                     var messageType;
 
                     if (result.Success) {
-                        title = '@SystemMessages.Get(ConstMessageIds.Popup_Title_Success)';
-                        message = '@SystemMessages.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess)';
+                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Success))';
+                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess))';
                         messageType = 1;
                     }
                     else {
-                        title = '@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)';
-                        message = '@SystemMessages.Get(ConstMessageIds.Popup_Message_Error)';
+                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))';
+                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_Error))';
                         messageType = 4;
                     }
 
