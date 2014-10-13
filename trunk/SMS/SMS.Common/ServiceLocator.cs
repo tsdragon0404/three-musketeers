@@ -2,7 +2,7 @@
 
 namespace SMS.Common
 {
-    public class ServiceLocator
+    public static class ServiceLocator
     {
         private static IContainer Container { get; set; }
 

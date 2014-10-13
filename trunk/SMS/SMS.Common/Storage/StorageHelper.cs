@@ -2,7 +2,7 @@
 
 namespace SMS.Common.Storage
 {
-    public class StorageHelper
+    public static class StorageHelper
     {
         public static void SetStorageData(IDictionary<long, BranchConfig.BranchConfig> configData = null,
                                           IDictionary<long, IList<Message.Message>> messageData = null,

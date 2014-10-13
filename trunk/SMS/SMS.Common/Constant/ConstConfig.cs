@@ -1,6 +1,6 @@
 ﻿namespace SMS.Common.Constant
 {
-    public class ConstConfig
+    public static class ConstConfig
     {
         public static int NoBranchID = 0;
 

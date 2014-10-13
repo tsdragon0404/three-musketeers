@@ -6,7 +6,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common.Storage.UserAccess
 {
-    public class UserAccessManager
+    public static class UserAccessManager
     {
         private static readonly List<UserAccess> userAccesses = new List<UserAccess>();
 

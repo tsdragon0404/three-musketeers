@@ -5,7 +5,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common.Storage.Branding
 {
-    public class BrandingTexts
+    public static class BrandingTexts
     {
         internal static IDictionary<long, IList<BrandingItem>> BrandingItems { get; set; }
 

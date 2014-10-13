@@ -5,7 +5,7 @@ using SMS.Common.Session;
 
 namespace SMS.Common
 {
-    public class FileHelper
+    public static class FileHelper
     {
         public static FileUploadReturn Upload(HttpPostedFileBase uploadedFile, UploadedFileCategory category, bool overwrite = true)
         {

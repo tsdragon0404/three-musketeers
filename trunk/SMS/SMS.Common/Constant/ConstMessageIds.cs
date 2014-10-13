@@ -2,7 +2,7 @@
 
 namespace SMS.Common.Constant
 {
-    public class ConstMessageIds
+    public static class ConstMessageIds
     {
         public const long Login_UsernamePasswordInvalid = -1;
         public const long Login_UserLocked = -2;
@@ -28,7 +28,7 @@ namespace SMS.Common.Constant
         public const long Popup_Message_IncorrectFileFormat = -17;
     }
 
-    public class FallbackMessages
+    public static class FallbackMessages
     {
         private static readonly Dictionary<long, string> fallbackMessages = new Dictionary<long, string>
         {
