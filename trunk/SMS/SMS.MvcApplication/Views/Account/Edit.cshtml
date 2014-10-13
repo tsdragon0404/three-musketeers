@@ -119,8 +119,8 @@
 
         $('#fileupload').change(function() {
             if (!(/(\.jpg|\.jpeg|\.png)$/i).test($(this).val().toLowerCase())) {
-                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
-                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat)',
+                var popup = new MessagePopup('@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))',
+                    '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat))',
                     4);
 
                 popup.OpenPopup();
@@ -139,8 +139,8 @@
                 };
                 reader.readAsDataURL(uploadFile);
             } else {
-                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Error)',
-                '@SystemMessages.Get(ConstMessageIds.Popup_Message_FileReaderNotSupported)',
+                var popup = new MessagePopup('@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))',
+                '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_FileReaderNotSupported))',
                 4);
 
                 popup.OpenPopup();
