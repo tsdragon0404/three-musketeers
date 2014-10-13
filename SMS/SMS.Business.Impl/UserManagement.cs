@@ -104,6 +104,12 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateUserSystem(UserDto user)
         {
+            var temp = Repository.Find(x => x.Username == user.Username).ToList();
+            if (temp.Count > 0)
+            {
+                return ServiceResult.CreateFailResult();
+            }
+
             var userSystem = Repository.Get(user.ID);
             if (userSystem != null)
             {
