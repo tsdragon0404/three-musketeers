@@ -123,3 +123,12 @@ VALUES
 ( -21, -21, 0, N'Cancel', N'Hủy bỏ' ),
 ( -22, -22, 0, N'Something went wrong.</br><a class="{0}">Click here</a> for more detail.', N'Có lỗi xảy ra.</br><a class="{0}">Nhấn vào đây</a> để xem chi tiết.' )
 GO
+
+INSERT INTO SystemInformation(Name, Value, Type)
+VALUES
+('Product name', 'SMS - Shop management system', 1),
+('Product version', '1.0.0', 1),
+('Server application', 'Internet Information Services (IIS) 8.0', 1),
+('Database application', RTRIM(LEFT(CAST(@@VERSION AS VARCHAR(500)), CHARINDEX(CHAR(9), CAST(@@VERSION AS VARCHAR(500)), 0) - 2)), 1),
+('Developed by', 'SOLA Solutions', 1)
+GO

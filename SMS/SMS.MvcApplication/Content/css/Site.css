@@ -1099,7 +1099,7 @@ fieldset {
 
 .system-infomation fieldset {
     padding: 20px 0px 20px 20px;
-    width: 500px;
+    float: left;
 }
 
 .system-infomation fieldset table{

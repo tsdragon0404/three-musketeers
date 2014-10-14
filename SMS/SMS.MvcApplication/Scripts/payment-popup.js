@@ -17,8 +17,9 @@
     var $detachedChildren;
 
     $(root.popupId).dialog({
+        dialogClass: "no-close",
+        closeOnEscape: false,
         autoOpen: false,
-        closeOnEscape: true,
         width: "100%",
         height: root.height,
         modal: true,
@@ -26,6 +27,16 @@
         open: function () {
             $detachedChildren.appendTo($dialogContainer);
         }
+    });
+    
+    $(root.popupId + ' .popupClose').unbind('click');
+    $(root.popupId + ' .popupClose').button({
+        icons: {
+            primary: "ui-icon-close"
+        }
+    }).click(function () {
+        $(root.popupId).dialog('close');
+        return false;
     });
 
     $(root.popupId + ' #print').unbind('click');
