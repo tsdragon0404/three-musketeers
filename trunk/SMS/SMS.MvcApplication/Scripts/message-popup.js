@@ -25,7 +25,19 @@
     // cannot use this method because the title can be unicode string
     //$('#popup').dialog('option', 'title', unescape(root.title));
     $('#popup').siblings('.ui-dialog-titlebar').find('.ui-dialog-title').html(root.title);
-    $('#popup-message').html(root.message);
+    if (root.message.length <= 1000)
+        $('#popup-message').html(root.message);
+    else {
+        $('#popup-message').html('Somethings wrong.</br><a class="showMessageDetail">Click here</a> read more detail.');
+
+        $('.showMessageDetail').click(function(event) {
+            var strWindowFeatures = ["width=800, height=800, scrollbars=yes, resizable=yes"];
+            var windowCustom = window.open("", root.title, strWindowFeatures);
+            $(windowCustom.document.body).html(root.message);
+
+            event.preventDefault();
+        });
+    }
 
     //unbind click event for buttons
     $('#popup-button input[type="button"]').unbind('click');
@@ -43,11 +55,11 @@
             width: 300,
             show: {
                 effect: "clip",
-                duration: 1000
+                duration: 2000
             },
             hide: {
                 effect: "clip",
-                duration: 1000
+                duration: 2000
             },
             position: {
                 my: "right bottom",
@@ -55,12 +67,17 @@
                 of: window
             }
         });
-        setTimeout(
-            function () {
-                $('#popup').dialog('close');
-                if (root.firstButtonCallback)
-                    root.firstButtonCallback();
-            }, 2000);
+        
+        $('#popup').mouseover(function () {
+            clearTimeout(timer);
+        }).mouseout(function () {
+            timer = setTimeout(
+                function () {
+                    $('#popup').dialog('close');
+                    if (root.firstButtonCallback)
+                        root.firstButtonCallback();
+                }, 1000);
+        });
     }
     else if (popupType == 2) {
         $('#popup-icon').addClass('confirm-icon');
@@ -114,6 +131,7 @@
         $('#popup-icon').addClass('error-icon');
         $('#popup-button').html('');
         $('#popup-message').addClass('red');
+        
         $('#popup').dialog({
             width: 300,
             show: {
@@ -130,12 +148,17 @@
                 of: window
             }
         });
-        setTimeout(
-            function() {
-                $('#popup').dialog('close');
-                if (root.firstButtonCallback)
-                    root.firstButtonCallback();
-            }, 2000);
+        var timer;
+        $('#popup').mouseover(function() {
+            clearTimeout(timer);
+        }).mouseout(function () {
+            timer = setTimeout(
+                function () {
+                    $('#popup').dialog('close');
+                    if (root.firstButtonCallback)
+                        root.firstButtonCallback();
+                }, 1000);
+        });
     }
 
     this.OpenPopup = function () {

@@ -1196,6 +1196,12 @@ fieldset {
     display: none;
 }
 
+.showMessageDetail {
+    text-decoration: underline;
+    color: darkgreen;
+    cursor: pointer;
+}
+
 .red {
     color: red;
 }
