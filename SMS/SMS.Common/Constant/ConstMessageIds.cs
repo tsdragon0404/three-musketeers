@@ -26,6 +26,12 @@ namespace SMS.Common.Constant
         public const long Popup_Message_ResetSystemDataSuccess = -15;
         public const long Popup_Message_FileReaderNotSupported = -16;
         public const long Popup_Message_IncorrectFileFormat = -17;
+        public const long Popup_Message_ShortErrorMessage = -22;
+
+        public const long Button_Yes = -18;
+        public const long Button_No = -19;
+        public const long Button_Ok = -20;
+        public const long Button_Cancel = -21;
     }
 
     public static class FallbackMessages
@@ -47,6 +53,13 @@ namespace SMS.Common.Constant
             {ConstMessageIds.Popup_Title_Success, "Success"},
             {ConstMessageIds.Popup_Message_Error, "Error occurs. Please contact administrator."},
             {ConstMessageIds.Popup_Message_ResetSystemDataSuccess, "System data have been reseted."},
+            {ConstMessageIds.Popup_Message_FileReaderNotSupported, "This browser does not support FileReader. Please contact administrator."},
+            {ConstMessageIds.Popup_Message_IncorrectFileFormat, "Incorrect file format. Please try again."},
+            {ConstMessageIds.Button_Yes, "Yes"},
+            {ConstMessageIds.Button_No, "No"},
+            {ConstMessageIds.Button_Ok, "Ok"},
+            {ConstMessageIds.Button_Cancel, "Cancel"},
+            {ConstMessageIds.Popup_Message_ShortErrorMessage, "Something went wrong.</br><a class=\"{0}\">Click here</a> for more detail."},
         };
 
         public static string Get(long messageId)
