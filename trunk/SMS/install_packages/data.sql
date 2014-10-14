@@ -116,6 +116,10 @@ VALUES
 ( -14, -14, 0, N'Error occurs. Please contact administrator.', N'Có lỗi xảy ra. Vui lòng liên hệ quản trị viên' ),
 ( -15, -15, 0, N'System data have been reseted.', N'Đã hoàn thành làm mới dữ liệu hệ thống.' ),
 ( -16, -16, 0, N'This browser does not support FileReader. Please contact administrator.', N'Trình duyệt không hỗ trợ FileReader. Vui lòng liên hệ quản trị viên.' ),
-( -17, -17, 0, N'Incorrect file format. Please try again.', N'Không hỗ trợ định dạng này. Vui lòng thử lại' )
-
+( -17, -17, 0, N'Incorrect file format. Please try again.', N'Không hỗ trợ định dạng này. Vui lòng thử lại' ),
+( -18, -18, 0, N'Yes', N'Có' ),
+( -19, -19, 0, N'No', N'Không' ),
+( -20, -20, 0, N'Ok', N'Chấp nhận' ),
+( -21, -21, 0, N'Cancel', N'Hủy bỏ' ),
+( -22, -22, 0, N'Something went wrong.</br><a class="{0}">Click here</a> for more detail.', N'Có lỗi xảy ra.</br><a class="{0}">Nhấn vào đây</a> để xem chi tiết.' )
 GO

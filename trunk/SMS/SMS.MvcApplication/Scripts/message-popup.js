@@ -1,4 +1,6 @@
 ﻿function MessagePopup(title, message, popupType, firstButtonCallback, secondButtonCallback) {
+    var messageMaxLength = 1000;
+
     var root = this;
     this.title = title;
     this.message = message;
@@ -6,10 +8,10 @@
     this.firstButtonCallback = firstButtonCallback;
     this.secondButtonCallback = secondButtonCallback;
 
-    this.okButton = '<button class="okButton">Ok</button>';
-    this.cancelButton = '<button class="cancelButton">Cancel</button>';
-    this.yesButton = '<button class="yesButton">Yes</button>';
-    this.noButton = '<button class="noButton">No</button>';
+    this.okButton = '<button class="okButton">' + CONST_BUTTON_OK_TEXT + '</button>';
+    this.cancelButton = '<button class="cancelButton">' + CONST_BUTTON_CANCEL_TEXT + '</button>';
+    this.yesButton = '<button class="yesButton">' + CONST_BUTTON_YES_TEXT + '</button>';
+    this.noButton = '<button class="noButton">' + CONST_BUTTON_NO_TEXT + '</button>';
 
     var timer;
 
@@ -27,9 +29,10 @@
     // cannot use this method because the title can be unicode string
     //$('#popup').dialog('option', 'title', unescape(root.title));
     $('#popup').siblings('.ui-dialog-titlebar').find('.ui-dialog-title').html(root.title);
-    if (root.message.length <= 1000)
+    if (root.message.length <= messageMaxLength)
         $('#popup-message').html(root.message);
     else {
+        var msg = CONST_MESSAGE_SHORT_ERROR_MESSAGE.replace('{0}', 'showMessageDetail');
         $('#popup-message').html('Somethings wrong.</br><a class="showMessageDetail">Click here</a> read more detail.');
 
         $('.showMessageDetail').click(function(event) {
