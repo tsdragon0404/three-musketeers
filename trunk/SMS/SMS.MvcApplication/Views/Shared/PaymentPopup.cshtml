@@ -26,30 +26,30 @@
                     <tbody>
                         <tr>
                             <td></td>
-                            <td data-labelID="lblSumTotal">Sum Amount: </td>
+                            <td data-labelID="lblSumTotal" class="label-custom-label">Sum Amount: </td>
                             <td class="right"><span class="subTotal">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td data-labelID="lblSumTotal">Other fee: </td>
-                            <td class="right"><span class="otherFee">0</span> @BranchConfigs.Current.Currency</td>
+                            <td data-labelID="lblOther fee" class="label-custom-label">Other fee: </td>
+                            <td class="right"><span class="otherFee label-custom-label">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                         @if (BranchConfigs.Current.UseServiceFee)
                         {
                             <tr id="ServiceFree">
                                 <td class="right"><input type="checkbox" class="margin-top-control" id="popupchkUseServiceFee" checked="@BranchConfigs.Current.UseServiceFee" /></td>
-                                <td data-labelID="lblServiceFee">Service Fee:</td>
+                                <td data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</td>
                                 <td class="right"><span class="fee">@BranchConfigs.Current.ServiceFee</span> @BranchConfigs.Current.Currency</td>
                             </tr>
                         }
                         <tr>
                             <td></td>
-                            <td data-labelID="lblDiscountValue">Discount Amount: </td>
+                            <td data-labelID="lblDiscountValue" class="label-custom-label">Discount Amount: </td>
                             <td class="right"><span class="discount">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr class="border-top">
                             <td></td>
-                            <td data-labelID="lblTotal">Total: </td>
+                            <td data-labelID="lblTotal" class="label-custom-label">Total: </td>
                             <td class="right"><span class="total">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                         @foreach (var tax in BranchConfigs.Current.Taxs)
@@ -62,17 +62,17 @@
                         }
                         <tr class="border-top">
                             <td></td>
-                            <td data-labelID="lblTotalAmount">Total Amount: </td>
+                            <td data-labelID="lblTotalAmount" class="label-custom-label">Total Amount: </td>
                             <td class="right"><span class="totalAmount">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td data-labelID="lblCash">Tiền khách đưa: </td>
+                            <td data-labelID="lblCash" class="label-custom-label">Tiền khách đưa: </td>
                             <td class="right"><input type="text" class="right" id="txtcash" style="width: 100px"/> @BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td data-labelID="lblReturn">Tiền trả lại: </td>
+                            <td data-labelID="lblReturn" class="label-custom-label">Tiền trả lại: </td>
                             <td class="right"><span class="return">0</span> @BranchConfigs.Current.Currency</td>
                         </tr>
                     </tbody>
@@ -80,7 +80,8 @@
                         <tr>
                             <td colspan="3" class="right">
                                 <button id="payment" data-labelID="lblPayment">Hoàn tất thanh toán</button>
-                                <button id="print" data-labelID="lblPrint">In hóa đơn</button>            
+                                <button id="print" data-labelID="lblPrint">In hóa đơn</button>   
+                                <button class="popupClose" data-labelID="lblClose">Close</button>            
                             </td>
                         </tr>
                     </tfoot>

@@ -230,12 +230,12 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateUserProfile(string firstName, string lastName, string cellPhone, string email, string address, string theme, HttpPostedFileBase profileImg)
+        public JsonResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme, HttpPostedFileBase profileImg)
         {
             if (profileImg != null)
                 Utility.UploadFile(profileImg, UploadedFileCategory.ProfileImage);
 
-            var result = UserService.UpdateUserProfile(firstName, lastName, cellPhone, email, address, theme);
+            var result = UserService.UpdateUserProfile(password, firstName, lastName, cellPhone, email, address, theme);
             return Json(JsonModel.Create(result));
         }
     }
