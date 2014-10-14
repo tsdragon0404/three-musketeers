@@ -100,7 +100,7 @@
                         {
                             <li><a href="#" id="page-label-multi-edit" data-globalLabelID="lblEditLabel">Edit Label</a></li>
                         }
-                        @if (Request.IsAuthenticated && SmsSystem.UserContext.UserID != 0)
+                        @if (SmsSystem.UserContext.UserID != 0)
                         {
                             <li><a data-globalLabelID="lblUser">User</a>
                                 <ul class="submenu">
