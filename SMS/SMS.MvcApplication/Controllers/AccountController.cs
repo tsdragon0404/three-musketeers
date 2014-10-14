@@ -195,7 +195,6 @@ namespace SMS.MvcApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        [SmsAuthorize(ConstPage.EditProfile)]
         [PageID(ConstPage.EditProfile)]
         public ActionResult Edit()
         {
@@ -231,7 +230,6 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        [SmsAuthorize(ConstPage.EditProfile)]
         public JsonResult UpdateUserProfile(string firstName, string lastName, string cellPhone, string email, string address, string theme, HttpPostedFileBase profileImg)
         {
             if (profileImg != null)
@@ -239,14 +237,6 @@ namespace SMS.MvcApplication.Controllers
 
             var result = UserService.UpdateUserProfile(firstName, lastName, cellPhone, email, address, theme);
             return Json(JsonModel.Create(result));
-        }
-
-        [HttpPost]
-        [SmsAuthorize(ConstPage.EditProfile)]
-        public JsonResult test(HttpPostedFileBase profileImg)
-        {
-            var temp = 0;
-            return Json(JsonModel.Create(true));
         }
     }
 }

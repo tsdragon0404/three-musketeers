@@ -40,7 +40,6 @@
         $('#popup-icon').addClass('info-icon');
         $('#popup-button').html('');
         $('#popup').dialog({
-            dialogClass: "no-close",
             width: 300,
             show: {
                 effect: "clip",
@@ -116,7 +115,6 @@
         $('#popup-button').html('');
         $('#popup-message').addClass('red');
         $('#popup').dialog({
-            dialogClass: "no-close",
             width: 300,
             show: {
                 effect: "clip",

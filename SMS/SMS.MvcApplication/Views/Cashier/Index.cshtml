@@ -773,7 +773,7 @@
                 if (result.Success) {
                     var popup = new MessagePopup('Thông báo',
                         'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
-                        1,
+                        4,
                         function() {
                             refreshTableArea();
                         });
@@ -826,7 +826,7 @@
             if (result.Data.ID == 0 || !result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
-                    1,
+                    4,
                     function() {
                         refreshTableArea();
                         clearDisplayTableDetail(orderId);
@@ -1172,7 +1172,7 @@
             if (data.length > 1) {
                 popup = new MessagePopup('Thông báo',
                     'Thao tác không chính xác.<br />Xin vui lòng chọn một bàn để xem chi tiết.',
-                    1,
+                    4,
                     function() {
                         refreshTableArea();
                     });
@@ -1194,7 +1194,7 @@
                 if (!valid) {
                     popup = new MessagePopup('Thông báo',
                         'Thao tác không chính xác.<br />Xin vui lòng thử lại.',
-                        1,
+                        4,
                         function() {
                             refreshTableArea();
                         });
@@ -1246,7 +1246,7 @@
             if (!valid) {
                 popup = new MessagePopup('Thông báo',
                     'Thao tác không chính xác.<br />Xin vui lòng thử lại.',
-                    1,
+                    4,
                     function() {
                         refreshTableArea();
                     });
