@@ -162,7 +162,7 @@ namespace SMS.Business.Impl
 
             var userConfig = UserConfigRepository.FindOne(x => x.UserID == SmsSystem.UserContext.UserID && x.BranchID == SmsSystem.SelectedBranchID);
 
-            if(user.IsSystemAdmin && userConfig == null)
+            if(userConfig == null)
             {
                 UserConfigRepository.Add(new UserConfig
                                              {
