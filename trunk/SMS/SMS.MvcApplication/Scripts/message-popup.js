@@ -11,6 +11,8 @@
     this.yesButton = '<button class="yesButton">Yes</button>';
     this.noButton = '<button class="noButton">No</button>';
 
+    var timer;
+
     $('#popup').dialog({
         autoOpen: false,
         closeOnEscape: false,
@@ -68,6 +70,13 @@
             }
         });
         
+        timer = setTimeout(
+            function () {
+                $('#popup').dialog('close');
+                if (root.firstButtonCallback)
+                    root.firstButtonCallback();
+            }, 2000);
+
         $('#popup').mouseover(function () {
             clearTimeout(timer);
         }).mouseout(function () {
@@ -148,7 +157,14 @@
                 of: window
             }
         });
-        var timer;
+
+        timer = setTimeout(
+            function() {
+                $('#popup').dialog('close');
+                if (root.firstButtonCallback)
+                    root.firstButtonCallback();
+            }, 2000);
+
         $('#popup').mouseover(function() {
             clearTimeout(timer);
         }).mouseout(function () {
