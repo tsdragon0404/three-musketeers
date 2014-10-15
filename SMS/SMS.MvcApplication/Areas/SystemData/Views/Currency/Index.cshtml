@@ -11,7 +11,12 @@
                         Name
                     </div>
                     <div class="three columns">
-                        <input type="text" name="Name" value="${Name}" id="name-${ID}" />
+                        <select id="name-${ID}">
+                            <option value="₫">VND(₫) - Viet Nam Dong</option>
+                            <option value="$">USD($) - United States Dollar</option>
+                            <option value="¥">JPT(¥) - Japan Yen</option>
+                            <option value="₩">KRW(₩) - Korea Won</option>
+                        </select>
                     </div>
                     <div class="two columns right" data-labelID="lblExchange">
                         Exchange

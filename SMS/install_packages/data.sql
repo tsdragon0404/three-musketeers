@@ -130,5 +130,11 @@ VALUES
 ('Product version', '1.0.0', 1),
 ('Server application', 'Internet Information Services (IIS) 8.0', 1),
 ('Database application', RTRIM(LEFT(CAST(@@VERSION AS VARCHAR(500)), CHARINDEX(CHAR(9), CAST(@@VERSION AS VARCHAR(500)), 0) - 2)), 1),
-('Developed by', 'SOLA Solutions', 1)
+('Developed by', 'SOLA Solutions', 1),
+
+( N'SmtpHost', N'smtp.gmail.com', 2 ),
+( N'SmtpPort', N'587', 2 ),
+( N'SmtpUser', N'smstest987', 2 ),
+( N'SmtpPass', N'testingemail', 2 ),
+( N'FileUploadPath', N'C:\Program Files (x86)\SOLA Solutions\SMS\FileUpload\', 2 )
 GO
