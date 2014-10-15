@@ -14,7 +14,7 @@ VALUES
 ( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', 0, NULL, N'Error', N'AccessDenied' ),
 ( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', 0, NULL, N'Error', N'Unknown' ),
 ( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound' ),
-( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 1, NULL, N'Account', N'Edit' ),
+( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit' ),
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', 1, NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
