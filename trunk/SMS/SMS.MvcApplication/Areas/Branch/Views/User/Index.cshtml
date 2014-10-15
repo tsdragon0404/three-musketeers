@@ -161,18 +161,25 @@
                 </tr>
             </thead>
             <tbody>
+                @if (!Model.Users.Any())
+                {
+                    <tr>
+                        <td colspan="6"><span data-globalLabelID="lblNoRecords">No records found.</span></td>
+                    </tr>
+                }
+
                 @foreach (var dto in Model.Users)
                 {
                     var altClass = Model.Users.IndexOf(dto) % 2 != 0 ? "alt" : "";
                     <tr class="@altClass" data-id="@dto.ID">
-                        <td>
+                        <td class="center">
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.Users.IndexOf(dto) + 1)</td>
                         <td>@dto.Username</td>
                         <td>@dto.FirstName</td>
                         <td>@dto.LastName</td>
-                        @if(Model.UserConfigs.SingleOrDefault(x => x.UserID == dto.ID) ==null)
+                        @if (Model.UserConfigs.SingleOrDefault(x => x.UserID == dto.ID) == null)
                         {
                             <td>@false</td>
                         }

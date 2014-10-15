@@ -107,7 +107,7 @@
 <script type="text/javascript">
     var imgs = null;
     $(document).ready(function() {
-        var theme = userConfig.Theme == null || userConfig.Theme == '' ? '@ConfigReader.CurrentTheme' : userConfig.Theme;
+        var theme = (userConfig.Theme == '' || userConfig.Theme == null) ? '@ConfigReader.CurrentTheme' : userConfig.Theme;
         $('#theme').val(theme);
         $('#theme').selectmenu().selectmenu( "menuWidget" ).addClass( "overflow" );;
 

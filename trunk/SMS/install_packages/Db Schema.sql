@@ -97,7 +97,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[Currency](
         [CurrencyID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [varchar](10) NOT NULL,
+        [Name] [nvarchar](10) NOT NULL,
         [Exchange] [numeric](12, 2) NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
