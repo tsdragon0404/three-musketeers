@@ -195,6 +195,7 @@ namespace SMS.MvcApplication.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [SmsAuthorize(ConstPage.EditProfile)]
         [PageID(ConstPage.EditProfile)]
         public ActionResult Edit()
         {
