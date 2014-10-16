@@ -84,18 +84,13 @@ VALUES
 
 GO
 
-SET IDENTITY_INSERT [dbo].[PageLabel] ON 
-GO
-INSERT [dbo].[PageLabel] ([PageLabelID], [LabelID], [BranchID], [PageID], [VNText], [ENText]) 
+INSERT [dbo].[PageLabel] ([LabelID], [BranchID], [PageID], [VNText], [ENText]) 
 VALUES 
-(1, N'lblLanguage', 0, 0, N'Tiếng Anh', N'Vietnamese'),
-(2, N'lblUsername', 0, 0, N'Tên đăng nhập', N'User name'),
-(3, N'lblPassword', 0, 0, N'Mật khẩu', N'Password'),
-(4, N'lblBranch', 0, 0, N'Chi nhánh', N'Branch'),
-(5, N'lblLogin', 0, 0, N'Đăng nhập', N'Login')
-
-GO
-SET IDENTITY_INSERT [dbo].[PageLabel] OFF
+(N'lblLanguage', 0, 0, N'Tiếng Anh', N'Vietnamese'),
+(N'lblUsername', 0, 0, N'Tên đăng nhập', N'User name'),
+(N'lblPassword', 0, 0, N'Mật khẩu', N'Password'),
+(N'lblBranch', 0, 0, N'Chi nhánh', N'Branch'),
+(N'lblLogin', 0, 0, N'Đăng nhập', N'Login')
 GO
 
 INSERT INTO dbo.ErrorMessage ( ErrorMessageID, MessageID, BranchID, ENMessage, VNMessage )
@@ -122,6 +117,18 @@ VALUES
 ( -20, -20, 0, N'Ok', N'Chấp nhận' ),
 ( -21, -21, 0, N'Cancel', N'Hủy bỏ' ),
 ( -22, -22, 0, N'Something went wrong.</br><a class="{0}">Click here</a> for more detail.', N'Có lỗi xảy ra.</br><a class="{0}">Nhấn vào đây</a> để xem chi tiết.' )
+GO
+
+INSERT INTO [dbo].[Currency] ([Name], [Description], [Exchange], [Enable], [SEQ], [CreatedDate], [CreatedUser]) 
+VALUES
+(N'₫', N'VND(₫) - Viet Nam Dong', 1, 1, 1, GETDATE(), N'system'),
+(N'$', N'USD($) - United States Dollar', 1, 1, 2, GETDATE(), N'system'),
+(N'¥', N'JPT(¥) - Japan Yen', 1, 1, 3, GETDATE(), N'system'),
+(N'₩', N'KRW(₩) - Korea Won', 1, 1, 4, GETDATE(), N'system')
+GO
+
+INSERT INTO [dbo].[Tax] ([Name], [Description], [Value], [Enable], [SEQ], [CreatedDate], [CreatedUser])
+VALUES (N'VAT', N'Value-added tax', 10, 1, 1, GETDATE(), N'system')
 GO
 
 INSERT INTO SystemInformation(Name, Value, Type)

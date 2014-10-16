@@ -3,6 +3,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
+using SMS.MvcApplication.Models;
 using SMS.Services;
 
 namespace SMS.MvcApplication.Areas.System.Controllers
@@ -14,15 +15,22 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         #region Fields
 
         public virtual ICurrencyService CurrencyService { get; set; }
-        public virtual IUserService UserService { get; set; }
+        public virtual ITaxService TaxService { get; set; }
+        public virtual IBranchService BranchService { get; set; }
 
         #endregion
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
             ViewBag.ListCurrency = CurrencyService.GetAll().Data;
-            ViewBag.ListUser = UserService.GetUserForBranchAssignment<UserBasicDto>().Data;
+            ViewBag.ListTax = TaxService.GetAll().Data;
             return base.Index(textSearch, page);
+        }
+
+        public override JsonResult SaveData(BranchDto branchDto)
+        {
+            var result = BranchService.Save(branchDto);
+            return Json(JsonModel.Create(result));
         }
     }
 }

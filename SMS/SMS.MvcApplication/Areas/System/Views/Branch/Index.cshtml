@@ -243,6 +243,49 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="four columns right">
+                        Taxs
+                    </div>
+                    <div class="three columns">
+                    </div>
+                    <div class="four columns left">
+                        Assigned Taxs
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        <select id="originalTaxs-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            @foreach (TaxDto tax in ViewBag.ListTax)
+                            {
+                                <text>
+                                    @if(SmsSystem.Language==Language.Vietnamese)
+                                    {
+                                        <option value="@tax.ID">@tax.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@tax.ID">@tax.Name</option>
+                                    }
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addTaxs-${ID}" class="assignButton">></button>
+                        <button id="addAllTaxs-${ID}" class="assignButton">>></button>
+                        <button id="removeAllTaxs-${ID}" class="assignButton"><<</button>
+                        <button id="removeTaxs-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="four columns">
+                        <select name="assignedTaxs" id="assignedTaxs-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            {{each Taxs}}
+                                <option value="${ID}">${Tax.Name}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
+                </div>
+                <div class="row">
                     <div class="eleven columns center">
                         <button id="save-${ID}" data-labelID="lblSave">Save</button>
                         <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
@@ -255,7 +298,7 @@
 <script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
 <script type="text/javascript">
     function buildScriptForAssignListBox(id) {
-        var param = '"originalUsers-' + id + '", "' + 'assignedUsers-' + id + '", "' + 'addUsers-' + id + '", "' + 'removeUsers-' + id + '", "' + 'addAllUsers-' + id + '", "' + 'removeAllUsers-' + id + '"';
+        var param = '"originalTaxs-' + id + '", "' + 'assignedTaxs-' + id + '", "' + 'addTaxs-' + id + '", "' + 'removeTaxs-' + id + '", "' + 'addAllTaxs-' + id + '", "' + 'removeAllTaxs-' + id + '"';
 
         return '<sc' + 'ript type="text/javascript">'
             + 'var listBox = new AssignListBox(' + param + ');'
@@ -336,11 +379,12 @@
             });
 
             function getDataForSave(recordId) {
-                var users = Array();
+                var taxs = Array();
 
-                $('#assignedUsers-' + recordId + ' option').each(function (idx, e) {
-                    users.push({ ID: $(e).val() });
+                $('#assignedTaxs-' + recordId + ' option').each(function (idx, e) {
+                    taxs.push({ ID: $(e).val() });
                 });
+
                 
                 var data = {
                     ID: recordId,
@@ -373,7 +417,8 @@
                         Info10: $('#info10-' + recordId).val()
                     },
                     Enable: $('#enable-' + recordId).prop('checked'),
-                    SEQ: $('#seq-' + recordId).val()
+                    SEQ: $('#seq-' + recordId).val(),
+                    Taxs: taxs
                 };
                 return data;
             }
