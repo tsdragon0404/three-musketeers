@@ -49,6 +49,7 @@ namespace SMS.Business.Impl
                                               };
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Add(branchToSave);
+                Repository.SaveAllChanges();
             }
             else
             {
@@ -56,6 +57,7 @@ namespace SMS.Business.Impl
                 AssignBranchValues(dto, branchToSave);
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Update(branchToSave);
+                Repository.SaveAllChanges();
 
                 if (!branchToSave.UseKitchenFunction)
                 {
