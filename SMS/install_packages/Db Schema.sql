@@ -10,9 +10,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Area] PRIMARY KEY CLUSTERED 
     (
         [AreaID] ASC
@@ -35,9 +35,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Branch] PRIMARY KEY CLUSTERED 
     (
         [BranchID] ASC
@@ -82,9 +82,9 @@ BEGIN
         [BranchID] [int] NULL,
         [TaxID] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_BranchTax] PRIMARY KEY CLUSTERED 
     (
         [BranchTaxID] ASC
@@ -103,9 +103,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Currency] PRIMARY KEY CLUSTERED 
     (
         [CurrencyID] ASC
@@ -118,7 +118,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[Customer](
         [CustomerID] [int] IDENTITY(1,1) NOT NULL,
-        [CustomerCode] [varchar](50) NOT NULL,
+        [CustomerCode] [nvarchar](50) NOT NULL,
         [CustomerName] [nvarchar](255) NULL,
         [CellPhone] [nvarchar](50) NULL,
         [Address] [nvarchar](510) NULL,
@@ -127,9 +127,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
     (
         [CustomerID] ASC
@@ -172,12 +172,12 @@ BEGIN
         [ServiceFee] [numeric](12, 2) NULL,
         [OtherFee] [numeric](12, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
-        [Currency] [varchar](10) NULL,
+        [Currency] [nvarchar](50) NULL,
         [UseVisa] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
     (
         [InvoiceID] ASC
@@ -191,7 +191,7 @@ BEGIN
     CREATE TABLE [dbo].[InvoiceDetail](
         [InvoiceDetailID] [bigint] IDENTITY(1,1) NOT NULL,
         [InvoiceTableID] [bigint] NULL,
-        [ProductCode] [varchar](50) NULL,
+        [ProductCode] [nvarchar](50) NULL,
         [ProductVNName] [nvarchar](1000) NULL,
         [ProductENName] [nvarchar](1000) NULL,
         [Quantity] [numeric](10, 2) NULL,
@@ -244,9 +244,9 @@ BEGIN
         [OtherFee] [numeric](12, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_InvoiceTable] PRIMARY KEY CLUSTERED 
     (
         [InvoiceTableID] ASC
@@ -270,9 +270,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
     (
         [ProductID] ASC
@@ -294,9 +294,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED 
     (
         [ProductCategoryID] ASC
@@ -313,7 +313,7 @@ BEGIN
         [OldPrice] [numeric](12, 2) NULL,
         [NewPrice] [numeric](12, 2) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_ProductPriceHistory] PRIMARY KEY CLUSTERED 
     (
         [ProductPriceHistoryID] ASC
@@ -326,8 +326,8 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[SystemInformation](
         [SystemInformationID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [varchar](255) NOT NULL,
-        [Value] [varchar](510) NULL,
+        [Name] [nvarchar](255) NOT NULL,
+        [Value] [nvarchar](510) NULL,
 		[Type] [tinyint] NULL,
      CONSTRAINT [PK_SystemInformation] PRIMARY KEY CLUSTERED 
     (
@@ -347,9 +347,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED 
     (
         [TableID] ASC
@@ -362,15 +362,15 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[Tax](
         [TaxID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [varchar](10) NOT NULL,
+        [Name] [nvarchar](10) NOT NULL,
         [Description] [nvarchar](255) NULL,
         [Value] [numeric](5, 2) NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Tax] PRIMARY KEY CLUSTERED 
     (
         [TaxID] ASC
@@ -389,9 +389,9 @@ BEGIN
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Unit] PRIMARY KEY CLUSTERED 
     (
         [UnitID] ASC
@@ -404,11 +404,11 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[User](
         [UserID] [int] IDENTITY(1,1) NOT NULL,
-        [Username] [varchar](255) NOT NULL,
-        [Password] [varchar](1000) NOT NULL,
+        [Username] [nvarchar](255) NOT NULL,
+        [Password] [nvarchar](1000) NOT NULL,
         [FirstName] [nvarchar](255) NULL,
         [LastName] [nvarchar](255) NULL,
-        [CellPhone] [varchar](50) NULL,
+        [CellPhone] [nvarchar](50) NULL,
         [Email] [nvarchar](255) NULL,
         [Address] [nvarchar](255) NULL,
         [LastLoginDate] [datetime] NULL,
@@ -418,9 +418,9 @@ BEGIN
         [LastLockedOutDate] [datetime] NULL,
         [FailedPasswordAttemptCount] [int] NOT NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
     (
         [UserID] ASC
@@ -455,9 +455,9 @@ BEGIN
         [PageSize] [int] NULL,
         [Theme] [nvarchar](50) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_UserConfig] PRIMARY KEY CLUSTERED 
     (
         [UserConfigID] ASC
@@ -473,9 +473,9 @@ BEGIN
         [UserID] [int] NOT NULL,
         [RoleID] [int] NOT NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_UsersInRole] PRIMARY KEY CLUSTERED 
     (
         [UsersInRoleID] ASC
@@ -492,9 +492,9 @@ BEGIN
         [VNDescription] [nvarchar](500) NULL,
         [ENDescription] [nvarchar](500) NULL,
         [Type] [tinyint] NULL,
-         [Area] [varchar](50) NULL,
-        [Controller] [varchar](50) NULL,
-        [Action] [varchar](50) NULL,
+         [Area] [nvarchar](50) NULL,
+        [Controller] [nvarchar](50) NULL,
+        [Action] [nvarchar](50) NULL,
     CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
     (
         [PageID] ASC
@@ -507,7 +507,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[PageLabel](
         [PageLabelID] [bigint] IDENTITY(1,1) NOT NULL,
-        [LabelID] [varchar](50) NULL,
+        [LabelID] [nvarchar](50) NULL,
         [BranchID] [int] NULL,
         [PageID] [int] NULL,
         [VNText] [nvarchar](500) NULL,
@@ -525,7 +525,7 @@ BEGIN
     CREATE TABLE [dbo].[Order](
         [OrderID] [bigint] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
-        [OrderNumber] [varchar](50) NULL,
+        [OrderNumber] [nvarchar](50) NULL,
         [Comment] [nvarchar](255) NULL,
         [CustomerID] [int] NULL,
         [CustomerName] [nvarchar](255) NULL,
@@ -535,9 +535,9 @@ BEGIN
         [OtherFee] [numeric](12, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
     (
         [OrderID] ASC
@@ -599,9 +599,9 @@ BEGIN
         [OtherFee] [numeric](12, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
     CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
     (
         [OrderTableID] ASC
@@ -630,7 +630,7 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
     CREATE TABLE [dbo].[Role](
         [RoleID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [varchar](64) NOT NULL,
+        [Name] [nvarchar](64) NOT NULL,
         [BranchID] [int] NULL,
         [Enable] [bit] NULL,
      CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
@@ -648,9 +648,9 @@ BEGIN
         [RoleID] [int] NOT NULL,
         [PageID] [int] NOT NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [varchar](50) NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_RolePermission] PRIMARY KEY CLUSTERED 
     (
         [RolePermissionID] ASC
@@ -708,7 +708,7 @@ BEGIN
     CREATE TABLE [dbo].[Reject](
         [RejectID] [bigint] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
-        [ProductCode] [varchar](50) NULL,
+        [ProductCode] [nvarchar](50) NULL,
         [ProductVNName] [nvarchar](1000) NULL,
         [ProductENName] [nvarchar](1000) NULL,
         [Quantity] [numeric](10, 2) NULL,
@@ -717,7 +717,7 @@ BEGIN
         [OrderComment] [nvarchar](255) NULL,
         [KitchenComment] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
-        [CreatedUser] [varchar](50) NULL,
+        [CreatedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_Reject] PRIMARY KEY CLUSTERED 
     (
         [RejectID] ASC
@@ -731,7 +731,7 @@ BEGIN
     CREATE TABLE [dbo].[BrandingText](
         [BrandingTextID] [int] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
-        [Key] [varchar](100) NULL,
+        [Key] [nvarchar](100) NULL,
         [VNValue] [nvarchar](1000) NULL,
         [ENValue] [nvarchar](1000) NULL,
      CONSTRAINT [PK_BrandingText] PRIMARY KEY CLUSTERED 
@@ -747,9 +747,9 @@ BEGIN
     CREATE TABLE [dbo].[UploadedFile](
         [UploadedFileID] [int] IDENTITY(1,1) NOT NULL,
         [Category] [tinyint] NULL,
-        [PhysicalPath] [varchar](100) NULL,
+        [PhysicalPath] [nvarchar](100) NULL,
         [UploadedDateTime] [datetime] NULL,
-        [UploadedBy] [varchar](50) NULL,
+        [UploadedBy] [nvarchar](50) NULL,
      CONSTRAINT [PK_UploadedFile] PRIMARY KEY CLUSTERED 
     (
         [UploadedFileID] ASC
