@@ -32,9 +32,9 @@
                             {
                                 <text>
                                     {{if Currency != null && Currency.ID == @currency.ID}}
-                                    <option value="@currency.ID" selected>@currency.Name</option>
+                                    <option value="@currency.ID" selected>@currency.Description</option>
                                     {{else}}
-                                    <option value="@currency.ID">@currency.Name</option>
+                                    <option value="@currency.ID">@currency.Description</option>
                                     {{/if}}
                                 </text>
                             }
