@@ -18,6 +18,7 @@ namespace SMS.Business.Impl
 
         public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
         public virtual ICurrencyRepository CurrencyRepository { get; set; }
+        public virtual ITaxRepository TaxRepository { get; set; }
 
         #endregion
 
@@ -68,6 +69,8 @@ namespace SMS.Business.Impl
                 }
             }
 
+            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.GetByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
+            
             StorageHelper.UpdateBranchConfig(branchToSave.ID, new BranchConfig
                                                                   {
                                                                       Currency = branchToSave.Currency.Name,
@@ -75,9 +78,7 @@ namespace SMS.Business.Impl
                                                                       UseServiceFee = branchToSave.UseServiceFee,
                                                                       UseKitchenFunction = branchToSave.UseKitchenFunction,
                                                                       UseDiscountOnProduct = branchToSave.UseDiscountOnProduct,
-                                                                      Taxs = branchToSave.Taxs != null
-                                                                             ? branchToSave.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
-                                                                             : new Dictionary<string, decimal>()
+                                                                      Taxs = newBranchTaxs.ToDictionary(tax => tax.Name, tax => tax.Value)
                                                                   });
 
             result.Data = Mapper.Map<BranchDto>(branchToSave);
