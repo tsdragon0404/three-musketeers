@@ -1,7 +1,12 @@
 ﻿<div id="content">
     <!--[if lt IE 9]><script type="text/javascript" src="~/Scripts/flot/excanvas.min.js"></script><![endif]-->
     <script type="text/javascript" src="~/Scripts/flot/jquery.flot.min.js"></script>
-    
+    <div class="row" style="padding-top: 10px;">
+        <label for="from">From</label>
+        <input type="text" id="from" name="from" style="width: 100px">
+        <label for="to">to</label>
+        <input type="text" id="to" name="to" style="width: 100px">
+    </div>
     <div class="row">
         <div class="twelve columns" id="line-chart-div" style="height: 350px;"></div>
     </div>
@@ -100,9 +105,28 @@
             </table>
         </div>
     </div>
-    <script type="text/javascript">
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+            
         $('#statistic table').table();
-        
+
         var d1 = [];
         for (var i = 0; i < 26; i += 0.5) {
             d1.push([i, Math.sin(i)]);
@@ -115,6 +139,5 @@
         var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
 
         $.plot("#line-chart-div", [d1, d2, d3]);
-
-    </script>
-</div>
+    });
+</script>
