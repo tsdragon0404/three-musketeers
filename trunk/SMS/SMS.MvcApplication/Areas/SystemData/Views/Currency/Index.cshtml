@@ -4,21 +4,26 @@
 
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail">
-        <td colspan="6">
+        <td colspan="7">
             <div class="detail" style="display: none;">
                 <div class="row">
-                    <div class="two columns right" data-labelID="lblName">
+                    <div class="four columns right" data-labelID="lblName">
                         Name
                     </div>
                     <div class="three columns">
-                        <select id="name-${ID}">
-                            <option value="₫">VND(₫) - Viet Nam Dong</option>
-                            <option value="$">USD($) - United States Dollar</option>
-                            <option value="¥">JPT(¥) - Japan Yen</option>
-                            <option value="₩">KRW(₩) - Korea Won</option>
-                        </select>
+                        <input type="text" name="name" value="${Name}" id="name-${ID}" />
                     </div>
-                    <div class="two columns right" data-labelID="lblExchange">
+                </div>
+                <div class="row">
+                    <div class="four columns right" data-labelID="lblDescription">
+                        Description
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="description" value="${Description}" id="description-${ID}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right" data-labelID="lblExchange">
                         Exchange
                     </div>
                     <div class="three columns">
@@ -26,13 +31,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="two columns right" data-labelID="lblSEQ">
+                    <div class="four columns right" data-labelID="lblSEQ">
                         SEQ
                     </div>
                     <div class="three columns">
                         <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
                     </div>
-                    <div class="two columns right" data-labelID="lblSEQ">
+                </div>
+                <div class="row">
+                    <div class="four columns right" data-labelID="lblSEQ">
                         Enable
                     </div>
                     <div class="three columns">
@@ -72,6 +79,7 @@
                 <col style="width: 75px;" />
                 <col style="width: 60px;" />
                 <col />
+                <col />
                 <col style="width: 60px;" />
                 <col style="width: 60px;" />
                 <col style="width: 75px;" />
@@ -81,6 +89,7 @@
                     <th></th>
                     <th data-labelID="lblNo">No</th>
                     <th data-labelID="lblName">Name</th>
+                    <th data-labelID="lblDescription">Description</th>
                     <th data-labelID="lblExchange">Exchange</th>
                     <th data-labelID="lblSEQ">SEQ</th>
                     <th data-labelID="lblEnable">Enabled</th>
@@ -97,6 +106,7 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.Name</td>
+                        <td>@dto.Description</td>
                         <td>@dto.Exchange</td>
                         <td>@dto.SEQ</td>
                         <td>@dto.Enable</td>
@@ -107,7 +117,7 @@
             <tfoot>
                 <tr>
                     <td class="center"><a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="5"></td>
+                    <td colspan="6"></td>
                 </tr>
             </tfoot>
         </table>
@@ -129,6 +139,7 @@
                 var data = {
                     ID: recordID,
                     Name: $('#name-' + recordID).val(),
+                    Description: $('#description-' + recordID).val(),
                     Exchange: $('#exchange-' + recordID).val(),
                     Enable: $('#enable-' + recordID).prop('checked'),
                     SEQ: $('#seq-' + recordID).val()

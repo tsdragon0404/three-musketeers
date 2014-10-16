@@ -6,6 +6,7 @@ namespace SMS.Data.Dtos
     {
         public virtual long ID { get; set; }
         public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
         public virtual decimal Exchange { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }

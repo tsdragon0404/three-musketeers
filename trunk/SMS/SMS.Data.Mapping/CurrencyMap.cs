@@ -8,6 +8,7 @@ namespace SMS.Data.Mapping
         {
             Table("Currency");
             Map(x => x.Name);
+            Map(x => x.Description);
             Map(x => x.Exchange);
         }
     }
