@@ -98,7 +98,7 @@ namespace SMS.Business.Impl
             destination.ModifiedUser = source.ModifiedUser;
             destination.SEQ = source.SEQ;
             destination.ServiceFee = source.ServiceFee;
-            destination.Taxs = Mapper.Map<IList<BranchTax>>(source.Taxs);
+            destination.Taxs = Mapper.Map<IList<Tax>>(source.Taxs);
             destination.UseDiscountOnProduct = source.UseDiscountOnProduct;
             destination.UseKitchenFunction = source.UseKitchenFunction;
             destination.UseServiceFee = source.UseServiceFee;

@@ -48,7 +48,6 @@
     <Compile Include="BaseMap.cs" />
     <Compile Include="AreaMap.cs" />
     <Compile Include="BranchMap.cs" />
-    <Compile Include="BranchTaxMap.cs" />
     <Compile Include="BranchInfoMap.cs" />
     <Compile Include="BrandingTextMap.cs" />
     <Compile Include="UploadedFileMap.cs" />

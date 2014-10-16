@@ -13,7 +13,7 @@ namespace SMS.Data.Dtos
         public virtual decimal ServiceFee { get; set; }
         public virtual bool UseDiscountOnProduct { get; set; }
         public virtual bool UseKitchenFunction { get; set; }
-        public virtual IList<BranchTaxDto> Taxs { get; set; }
+        public virtual IList<TaxDto> Taxs { get; set; }
         public virtual BranchInfoDto BranchInfo { get; set; }
         public virtual IList<UserDto> Users { get; set; }
 

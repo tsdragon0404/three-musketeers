@@ -30,7 +30,7 @@ namespace SMS.MvcApplication.Base
                                                                         UseKitchenFunction = y.UseKitchenFunction,
                                                                         UseDiscountOnProduct = y.UseDiscountOnProduct,
                                                                         Taxs = y.Taxs != null 
-                                                                               ? y.Taxs.ToDictionary(tax => tax.Tax.Name, tax => tax.Tax.Value)
+                                                                               ? y.Taxs.ToDictionary(tax => tax.Name, tax => tax.Value)
                                                                                : new Dictionary<string, decimal>()
                                                                     });
             
