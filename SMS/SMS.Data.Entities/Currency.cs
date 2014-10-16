@@ -10,6 +10,8 @@ namespace SMS.Data.Entities
         [AllowSearch]
         public virtual string Name { get; set; }
 
+        public virtual string Description { get; set; }
+
         public virtual decimal Exchange { get; set; }
 
         public virtual IList<Branch> Branches { get; set; }
