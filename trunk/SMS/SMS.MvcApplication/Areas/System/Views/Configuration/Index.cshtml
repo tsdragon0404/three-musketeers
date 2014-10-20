@@ -10,8 +10,8 @@
             <table class="no-border">
                 @foreach (var dto in Model.SystemInformationDtos)
                 {
-                    <tr>
-                        <td>@dto.Name</td>
+                    <tr id="@dto.Name" class="key">
+                        <td class="label-custom-label">@dto.Description</td>
                         <td><input value="@dto.Value"/></td>
                     </tr>
                 }
@@ -32,7 +32,24 @@
                 primary: "ui-icon-disk"
             }
         }).click(function () {
-            
+            var systemInformations = [];
+            $('.system-infomation .fieldset-boder .key').each(function (idx, element) {
+                var name = $(element).attr('id');
+                var value = $(element).find('td input').val();
+                systemInformations[systemInformations.length] = { Name: name, Value: value };
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateSystemConfig")',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ systemInformations: systemInformations })
+            }).done(function (result) {
+                if (result.Success) {
+                    location.reload();
+                }
+            });
         });
 
         $('#resetData').button({

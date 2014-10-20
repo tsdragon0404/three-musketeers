@@ -39,5 +39,12 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             Utility.SetStorageData();
             return Json(JsonModel.Create(true));
         }
+
+        [HttpPost]
+        public JsonResult UpdateSystemConfig(SystemInformationDto[] systemInformations)
+        {
+            var result = SystemInformationService.UpdateSystemConfig(systemInformations);
+            return Json(JsonModel.Create(result));
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace SMS.Data.Mapping
         {
             Table("SystemInformation");
             Map(x => x.Name);
+            Map(x => x.Description);
             Map(x => x.Value);
             Map(x => x.Type).CustomType<SystemInformationType>();
         }

@@ -19,5 +19,20 @@ namespace SMS.Business.Impl
             var result = Repository.Find(x => x.Type == type);
             return ServiceResult<IList<SystemInformationDto>>.CreateSuccessResult(Mapper.Map<IList<SystemInformationDto>>(result));
         }
+
+        public ServiceResult UpdateSystemConfig(SystemInformationDto[] systemInformations)
+        {
+            foreach (var systemInformation in systemInformations)
+            {
+                SystemInformationDto information = systemInformation;
+                var result = Mapper.Map<SystemInformation>(Repository.FindOne(x => x.Name == information.Name && x.Type == SystemInformationType.Config));
+                if (result != null)
+                {
+                    result.Value = systemInformation.Value;
+                    Repository.Update(result);
+                }
+            }
+            return ServiceResult.CreateSuccessResult();
+        }
     }
 }

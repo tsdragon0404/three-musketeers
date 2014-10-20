@@ -8,5 +8,6 @@ namespace SMS.Business
     public interface ISystemInformationManagement : IBaseManagement<SystemInformationDto, long>
     {
         ServiceResult<IList<SystemInformationDto>> GetByType(SystemInformationType type);
+        ServiceResult UpdateSystemConfig(SystemInformationDto[] systemInformations);
     }
 }
