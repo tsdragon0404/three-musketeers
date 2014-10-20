@@ -16,5 +16,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetByType(type);
         }
+
+        public ServiceResult UpdateSystemConfig(SystemInformationDto[] systemInformations)
+        {
+            return Management.UpdateSystemConfig(systemInformations);
+        }
     }
 }
