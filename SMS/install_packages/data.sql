@@ -131,17 +131,17 @@ INSERT INTO [dbo].[Tax] ([Name], [Description], [Value], [Enable], [SEQ], [Creat
 VALUES (N'VAT', N'Value-added tax', 10, 1, 1, GETDATE(), N'system')
 GO
 
-INSERT INTO SystemInformation(Name, Value, Type)
+INSERT INTO SystemInformation(Name, Description, Value, Type)
 VALUES
-('Product name', 'SMS - Shop management system', 1),
-('Product version', '1.0.0', 1),
-('Server application', 'Internet Information Services (IIS) 8.0', 1),
-('Database application', RTRIM(LEFT(CAST(@@VERSION AS VARCHAR(500)), CHARINDEX(CHAR(9), CAST(@@VERSION AS VARCHAR(500)), 0) - 2)), 1),
-('Developed by', 'SOLA Solutions', 1),
+('ProductName', 'Product name', 'SMS - Shop management system', 1),
+('ProductVersion', 'Product version', '1.0.0', 1),
+('ServerApplication', 'Server application', 'Internet Information Services (IIS) 8.0', 1),
+('DatabaseApplication', 'Database application', RTRIM(LEFT(CAST(@@VERSION AS VARCHAR(500)), CHARINDEX(CHAR(9), CAST(@@VERSION AS VARCHAR(500)), 0) - 2)), 1),
+('DevelopedBy', 'Developed by', 'SOLA Solutions', 1),
 
-( N'SmtpHost', N'smtp.gmail.com', 2 ),
-( N'SmtpPort', N'587', 2 ),
-( N'SmtpUser', N'smstest987', 2 ),
-( N'SmtpPass', N'testingemail', 2 ),
-( N'FileUploadPath', N'C:\Program Files (x86)\SOLA Solutions\SMS\FileUpload\', 2 )
+( N'SmtpHost', 'Host', N'smtp.gmail.com', 2 ),
+( N'SmtpPort', 'Port number', N'587', 2 ),
+( N'SmtpUser', 'User name', N'smstest987', 2 ),
+( N'SmtpPass', 'Password', N'testingemail', 2 ),
+( N'FileUploadPath', 'Physical path', N'C:\Program Files (x86)\SOLA Solutions\SMS\FileUpload\', 2 )
 GO
