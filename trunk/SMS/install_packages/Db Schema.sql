@@ -327,6 +327,7 @@ BEGIN
     CREATE TABLE [dbo].[SystemInformation](
         [SystemInformationID] [int] IDENTITY(1,1) NOT NULL,
         [Name] [nvarchar](255) NOT NULL,
+		[Description] [nvarchar](255) NOT NULL,
         [Value] [nvarchar](510) NULL,
 		[Type] [tinyint] NULL,
      CONSTRAINT [PK_SystemInformation] PRIMARY KEY CLUSTERED 
