@@ -406,6 +406,8 @@
 </div>
 
 <script type="text/javascript">
+    var productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+    
     $(document).ready(function () {
         $('div.split-pane').splitPane();
         var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
@@ -453,10 +455,10 @@
     
     $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
         GetTablesByAreaID($(e.target).attr('href').split('-')[1]);
+        return false;
     }));
     
     $(document).on("click", 'a[id^="addProduct-"]', (function(e){
-        var productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
         productPopup.OpenPopup();
         $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
         return false;
