@@ -81,10 +81,6 @@ BEGIN
         [BranchTaxID] [int] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
         [TaxID] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_BranchTax] PRIMARY KEY CLUSTERED 
     (
         [BranchTaxID] ASC
@@ -98,7 +94,7 @@ BEGIN
     CREATE TABLE [dbo].[Currency](
         [CurrencyID] [int] IDENTITY(1,1) NOT NULL,
         [Name] [nvarchar](50) NOT NULL,
-		[Description] [nvarchar](255) NOT NULL,
+        [Description] [nvarchar](255) NOT NULL,
         [Exchange] [numeric](12, 2) NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,

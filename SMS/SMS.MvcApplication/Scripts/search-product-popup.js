@@ -4,8 +4,6 @@
     this.productData = productData;
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
-    var $dialogContainer;
-    var $detachedChildren;
 
     $('#' + root.id).dialog({
         autoOpen: false,
@@ -13,16 +11,10 @@
         width: 870,
         height: 500,
         modal: true,
-        resizable: false,
-        open: function () {
-            $detachedChildren.appendTo($dialogContainer);
-        }
+        resizable: false
     });
 
-    $('#' + root.id + ' .popup-table-header').table();
     
-    $('#' + root.id).sortingTable([1, 2, 3, 4]);
-    $('#' + root.id).searchTable([1, 2, 3, 4]);
     
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
@@ -56,8 +48,6 @@
     });
 
     this.OpenPopup = function () {
-        $dialogContainer = $('#' + root.id);
-        $detachedChildren = $dialogContainer.children().detach();
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
     };
@@ -68,22 +58,24 @@
     }
 
     this.renderProducts = function (data) {
-        $('#total').html(data.length);
-        if (data.length > 0) {
-            $('#' + root.id + ' .totalRecords').removeClass('hide');
-            $('#' + root.id + ' .listLookupEmpty').addClass('hide');
-            $('#' + root.id + ' #searchProduct').removeClass('hide');
-        } else {
-            $('#' + root.id + ' .totalRecords').addClass('hide');
-            $('#' + root.id + ' .listLookupEmpty').removeClass('hide');
-            $('#' + root.id + ' #searchProduct').addClass('hide');
-        }
 
         $.each(data, function (idx) {
             data[idx].tabIdx = idx * 2 + 2;
         });
         
         $('#' + root.id + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
+
+        $('#' + root.id + ' #searchProduct').DataTable({
+            "columns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "orderable": false },
+                { "orderable": false }
+            ]
+        });
         
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,

@@ -26,6 +26,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript" src="~/Scripts/labelController.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+    <link href="~/Content/themes/base/jquery.dataTables.css" rel="stylesheet" />
     @{
         var pageLabelEdit = "";
         if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)

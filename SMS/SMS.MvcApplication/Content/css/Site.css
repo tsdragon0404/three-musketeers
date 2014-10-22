@@ -618,7 +618,7 @@ label.ui-state-error {
     background-color: #F3F3F3;
 }
 
-.popup-content table tr:hover {
+.popup-content table tbody tr:hover {
     background-color: #fff2cc;
 }
 
@@ -844,10 +844,12 @@ ul#menu, ul#user {
 }
 /* end fix themes */
 
-/* fix gumby */
-table thead{
-    background-color: #ddd;
-    color: #0073ea;
+/* fix dataTable */
+table.dataTable thead th{
+    border-top: none;
+}
+table.dataTable{
+    border: none;
 }
 /* end fix gumby */
 

@@ -1656,8 +1656,8 @@ table caption { text-align: center; font-size: 30px; padding: .75em; }
 table thead th, table tbody td, table tr td { display: table-cell; padding: 2px 15px 2px 5px; vertical-align: middle; text-align: left; border-top: 1px solid #e5e5e5; }
 table tr td, table tbody tr td { font-size: 13px; }
 table tr td:first-child {  }
-table thead { background-color: #3085d6; color: #fff; }
-table thead tr th { font-size: 13px; font-weight: bold; vertical-align: bottom; }
+/*table thead { background-color: #3085d6; color: #fff; }
+table thead tr th { font-size: 13px; font-weight: bold; vertical-align: bottom; }*/
 table.striped tr:nth-of-type(even), table table tr.stripe, table table tr.striped { background-color: #e5e5e5; }
 table.rounded { border-radius: 4px; border-collapse: separate; }
 table.rounded caption + thead tr:first-child th:first-child, table.rounded caption + tr td:first-child, table.rounded > thead tr:first-child th:first-child, table.rounded > thead tr:first-child td:first-child, table.rounded > tr:first-child td:first-child { border-top-left-radius: 4px; }
