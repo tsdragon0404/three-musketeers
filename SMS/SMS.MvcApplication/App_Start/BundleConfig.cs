@@ -7,14 +7,14 @@ namespace SMS.MvcApplication
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/corejs").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/global.js",
+                        "~/Scripts/jquery-ui.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquerytmpl").Include(
                         "~/Scripts/jquery.tmpl.js",
                         "~/Scripts/jquery.tmplPlus.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -27,7 +27,9 @@ namespace SMS.MvcApplication
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/css/gumby.css",
-                        "~/Content/css/site.css"));
+                        "~/Content/css/site.css",
+                        "~/Content/themes/base/jquery.ui.structure.css",
+                        "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.structure.css",

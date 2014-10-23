@@ -10,7 +10,6 @@
     <title>@ViewBag.Title - Shop management system</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/themes/base/css")
     @if (SmsSystem.UserContext.UserID != 0)
     {
         <link href="~/Content/themes/@SmsSystem.UserContext.Theme/jquery-ui.css" rel="stylesheet" />
@@ -22,11 +21,10 @@
         <link href="~/Content/themes/@ConfigReader.CurrentTheme/theme.css" rel="stylesheet" />
     }
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/corejs")
+    @Scripts.Render("~/bundles/jquerytmpl")
     <script type="text/javascript" src="~/Scripts/labelController.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.dataTables.js"></script>
     <link href="~/Content/themes/base/jquery.dataTables.css" rel="stylesheet" />
     @{
         var pageLabelEdit = "";

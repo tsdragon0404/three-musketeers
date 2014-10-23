@@ -1,33 +1,6 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide product-search-popup">
-    <input type="hidden" class="lastTextSearch" name="lastTextSearch" />
-    <div class="popup-buttons hide">
-        <input type="text" name="textSearch" class="textSearch" tabindex="1" />
-        <button class="popupSearch">Search</button>
-    </div>
-    @*<table class="popup-table-header">
-        <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-            <col class="col5" />
-            <col class="col6" />
-            <col/>
-        </colgroup>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>QTY</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>*@
     <div class="popup-content">
         <form>
             <table id="searchProduct">
@@ -37,8 +10,8 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
-                    <col class="col6" />
-                    <col/>
+                    <col style="width: 110px" />
+                    <col style="width: 110px" />
                 </colgroup>
                 <thead>
                     <tr>

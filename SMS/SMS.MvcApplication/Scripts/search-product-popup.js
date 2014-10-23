@@ -5,6 +5,8 @@
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
 
+    var table;
+
     $('#' + root.id).dialog({
         autoOpen: false,
         closeOnEscape: true,
@@ -50,11 +52,23 @@
     this.OpenPopup = function () {
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
+        SetHeightTableContent();
     };
 
+    function SetHeightTableContent() {
+        var contentHeight = $('#' + root.id + ' .popup-content').height();
+        var height1 = $('#searchProduct_length').outerHeight() > $('#searchProduct_filter').outerHeight() ? $('#searchProduct_length').outerHeight() : $('#searchProduct_filter').outerHeight();
+        var height2 = $('#searchProduct_info').outerHeight() > $('#searchProduct_paginate').outerHeight() ? $('#searchProduct_info').outerHeight() : $('#searchProduct_paginate').outerHeight();
+        var height3 = $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+
+        var targetHeight = contentHeight - height1 - height2 - height3 - 2; // subtract 2 more px due to the border
+        $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+    }
+    
     function reloadProduct(newProductData) {
         root.productData = newProductData;
         root.renderProducts(newProductData);
+        SetHeightTableContent();
     }
 
     this.renderProducts = function (data) {
@@ -63,20 +77,12 @@
             data[idx].tabIdx = idx * 2 + 2;
         });
         
+        if ($.fn.DataTable.isDataTable('#' + root.id + ' #searchProduct')) {
+            table.destroy();
+        }
+        
         $('#' + root.id + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
 
-        $('#' + root.id + ' #searchProduct').DataTable({
-            "columns": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                { "orderable": false },
-                { "orderable": false }
-            ]
-        });
-        
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
             numberFormat: "n",
@@ -87,28 +93,28 @@
             icons: {
                 primary: "ui-icon-circle-check"
             }
-        }).click(function(e) {
+        }).click(function (e) {
             var pdtid = e.currentTarget.id.split('-')[1];
             if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);
             return false;
         });
-            
+
         $('#' + root.id + ' .popupSelect').keypress(function (e) {
             if (e.which == 13) {
                 $(e.target).trigger('click');
             }
         });
-            
+        
         $('#' + root.id + ' .tbContentLookup tr').dblclick(function (e) {
             $(e.currentTarget).find('button.popupSelect').trigger('click');
         });
-        
+
         // stop Propagation on spinner element (double click on spinner will not trigger row double click)
         $('.tbContentLookup .ui-spinner').dblclick(function (e) {
             e.stopPropagation();
         });
-        
+
         $('#' + root.id + ' .inputQty').keypress(function (e) {
             if (e.which == 13) {
                 var pdtid = e.target.id.split('-')[1];
@@ -116,8 +122,37 @@
                 return;
             }
         });
+        
+        $('#' + root.id + ' #searchProduct').off('draw.dt');
+        $('#' + root.id + ' #searchProduct').on('draw.dt', function () {
+            fixTableHeader();
+        });
+        
+        table = $('#' + root.id + ' #searchProduct').DataTable({
+            scrollY: "200px",
+            columns: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "orderable": false },
+                { "orderable": false }
+            ]
+        });
     };
 
+    function fixTableHeader() {
+        $('#' + root.id + ' .dataTables_scrollHeadInner, #' + root.id + ' .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+
+        var headerColumns = $('#' + root.id + ' .dataTables_scrollHead table > thead > tr:first-child th');
+        var columns = $('#' + root.id + ' #searchProduct > tbody > tr:first-child td');
+
+        for (var i = 0; i < columns.length; i++) {
+            $(headerColumns[i]).css('width', $(columns[i]).width());
+        }
+    }
+    
     this.search = function () {
         var text = $('#' + root.id + ' .textSearch').val().toLowerCase();
         var tempData = new Array();
