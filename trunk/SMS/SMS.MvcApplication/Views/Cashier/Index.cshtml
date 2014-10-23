@@ -12,7 +12,14 @@
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
-    var listProduct = @Html.Raw(JsonEncode(Model.ListProduct));
+    @{
+        var temp = Model.ListProduct.ToList();
+        for (var i = 0; i < 3; i++)
+        {
+            temp.AddRange(temp);
+        }
+    }
+    var listProduct = @Html.Raw(JsonEncode(temp));
     var listArea = @Html.Raw(JsonEncode(Model.ListArea));
     var serviceFee = @BranchConfigs.Current.ServiceFee;
     var useServiceFee = "@BranchConfigs.Current.UseServiceFee";
@@ -20,18 +27,18 @@
     
     function GetOrderStatusName(orderStatus) {
         switch (orderStatus) {
-            case @((int)OrderStatus.Ordered):
-                return '@Html.Raw(BrandingTexts.Get(OrderStatus.Ordered))';
-            case @((int)OrderStatus.SentToKitchen):
-                return '@Html.Raw(BrandingTexts.Get(OrderStatus.SentToKitchen))';
-            case @((int)OrderStatus.KitchenAccepted):
-                return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenAccepted))';
-            case @((int)OrderStatus.KitchenRejected):
-                return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenRejected))';
-            case @((int)OrderStatus.Done):
-                return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
-            default:
-                return '';
+        case @((int)OrderStatus.Ordered):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Ordered))';
+        case @((int)OrderStatus.SentToKitchen):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.SentToKitchen))';
+        case @((int)OrderStatus.KitchenAccepted):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenAccepted))';
+        case @((int)OrderStatus.KitchenRejected):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenRejected))';
+        case @((int)OrderStatus.Done):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
+        default:
+            return '';
         }
     }
 </script>
@@ -708,20 +715,20 @@
         var value = parseInt($(e).attr('id').split('-')[2]);
         
         switch (value) {
-            case @((int)OrderStatus.Ordered):
-                value = @((int)OrderStatus.SentToKitchen);
-                break;
-            case @((int)OrderStatus.SentToKitchen):
-                value = @((int)OrderStatus.KitchenAccepted);
-                break;
-            case @((int)OrderStatus.KitchenAccepted):
-                value = @((int)OrderStatus.Done);
-                break;
-            case @((int)OrderStatus.KitchenRejected):
-                value = @((int)OrderStatus.SentToKitchen);
-                break;
-            case @((int)OrderStatus.Done):
-                return;
+        case @((int)OrderStatus.Ordered):
+            value = @((int)OrderStatus.SentToKitchen);
+            break;
+        case @((int)OrderStatus.SentToKitchen):
+            value = @((int)OrderStatus.KitchenAccepted);
+            break;
+        case @((int)OrderStatus.KitchenAccepted):
+            value = @((int)OrderStatus.Done);
+            break;
+        case @((int)OrderStatus.KitchenRejected):
+            value = @((int)OrderStatus.SentToKitchen);
+            break;
+        case @((int)OrderStatus.Done):
+            return;
         }
         
         $.ajax({
@@ -742,23 +749,23 @@
                 $(e).attr('title', GetOrderStatusName(result.Data.OrderStatus));
                 var cssClass;
                 switch (result.Data.OrderStatus) {
-                    case @((int)OrderStatus.Ordered):
-                        cssClass = 'transfer';
-                        break;
-                    case @((int)OrderStatus.SentToKitchen):
-                        cssClass = 'pending';
-                        break;
-                    case @((int)OrderStatus.KitchenAccepted):
-                        cssClass = 'accept';
-                        break;
-                    case @((int)OrderStatus.KitchenRejected):
-                        cssClass = 'reject';
-                        break;
-                    case @((int)OrderStatus.Done):
-                        cssClass = 'done';
-                        break;
-                    default :
-                        cssClass = 'done';
+                case @((int)OrderStatus.Ordered):
+                    cssClass = 'transfer';
+                    break;
+                case @((int)OrderStatus.SentToKitchen):
+                    cssClass = 'pending';
+                    break;
+                case @((int)OrderStatus.KitchenAccepted):
+                    cssClass = 'accept';
+                    break;
+                case @((int)OrderStatus.KitchenRejected):
+                    cssClass = 'reject';
+                    break;
+                case @((int)OrderStatus.Done):
+                    cssClass = 'done';
+                    break;
+                default :
+                    cssClass = 'done';
                 }
                 $(e).attr('class', 'icon-' + cssClass);
             }
@@ -875,12 +882,12 @@
             type: 'POST',
             url: '@Url.Action("GetAllProductsForSearch")',
         }).done(function (result) {
-            if(result.Success)
+            if(result.Success) {
                 listProduct = result.Data;
+                if(reloadCallback)
+                    reloadCallback(listProduct);
+            }
         });
-            
-        if(reloadCallback)
-            reloadCallback(listProduct);
     }
 
     function onSelectProduct(pdtId, qty) {
@@ -1035,17 +1042,17 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetOrderDiscount")',
-                        data: { orderID: orderId }
-                 }).done(function(result) {
-                     if (result.Success) {
-                         $('#order-discount').html($('#discount-tmpl').tmpl(result));
+                    data: { orderID: orderId }
+                }).done(function(result) {
+                    if (result.Success) {
+                        $('#order-discount').html($('#discount-tmpl').tmpl(result));
                          
-                         $('input[name="number"]').unbind('change');
-                         $('input[name="number"]').change(function() {
-                             $(this).val($(this).val().formatAsMoney());
-                         });
-                     }
-                 });
+                        $('input[name="number"]').unbind('change');
+                        $('input[name="number"]').change(function() {
+                            $(this).val($(this).val().formatAsMoney());
+                        });
+                    }
+                });
             } else {
                 
                 var discountType = $('#discount-type').val();
@@ -1064,9 +1071,9 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("SaveOrderDiscount")',
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify({ orderID: orderId, discountTypes: arrdiscountType, discountCodes: arrdiscountCode, discountComments: arrdiscountComment, discounts: arrdiscount })
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ orderID: orderId, discountTypes: arrdiscountType, discountCodes: arrdiscountCode, discountComments: arrdiscountComment, discounts: arrdiscount })
                 }).done(function(result) {
                     if (result.Success) {
                         refreshOrderArea();

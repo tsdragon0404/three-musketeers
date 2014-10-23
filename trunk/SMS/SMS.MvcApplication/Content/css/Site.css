@@ -626,6 +626,10 @@ label.ui-state-error {
     word-break: break-all;
 }
 
+.popup-content table tr td button {
+    word-break: normal;
+}
+
 .textSearch {
     width: 200px !important;
 }
@@ -842,6 +846,7 @@ ul#menu, ul#user {
 .ui-corner-br {
     border-bottom-right-radius: 0px;
 }
+
 /* end fix themes */
 
 /* fix dataTable */
@@ -851,7 +856,7 @@ table.dataTable thead th{
 table.dataTable{
     border: none;
 }
-/* end fix gumby */
+/* end fix dataTable */
 
 .popup-table-header thead .sort_both {
     background: url(../../Images/IconControls/sort_both.png) no-repeat center left;

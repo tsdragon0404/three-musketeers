@@ -85,9 +85,10 @@
                 },
 
                 domManip: function( args, table, callback, options ) {
-                        // This appears to be a bug in the appendTo, etc. implementation
-                        // it should be doing .call() instead of .apply(). See #6227
-                    if (args.length >0 && args[0].nodeType ) {
+                    // This appears to be a bug in the appendTo, etc. implementation
+                    // it should be doing .call() instead of .apply(). See #6227
+                    // LamVu: added condition args[0] != null
+                    if (args.length > 0 && args[0] != null && args[0].nodeType) {
                                 var dmArgs = jQuery.makeArray( arguments ), argsLength = args.length, i = 0, tmplItem;
                                 while ( i < argsLength && !(tmplItem = jQuery.data( args[i++], "tmplItem" ))) {};
                                 if ( argsLength > 1 ) {
