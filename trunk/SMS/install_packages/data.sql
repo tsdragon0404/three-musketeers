@@ -116,7 +116,19 @@ VALUES
 ( -19, -19, 0, N'No', N'Không' ),
 ( -20, -20, 0, N'Ok', N'Chấp nhận' ),
 ( -21, -21, 0, N'Cancel', N'Hủy bỏ' ),
-( -22, -22, 0, N'Something went wrong.</br><a class="{0}">Click here</a> for more detail.', N'Có lỗi xảy ra.</br><a class="{0}">Nhấn vào đây</a> để xem chi tiết.' )
+( -22, -22, 0, N'Something went wrong.</br><a class="{0}">Click here</a> for more detail.', N'Có lỗi xảy ra.</br><a class="{0}">Nhấn vào đây</a> để xem chi tiết.' ),
+
+( -23, -23, 0, N'First', N'Đầu' ),
+( -24, -24, 0, N'Last', N'Cuối' ),
+( -25, -25, 0, N'Next', N'Tiếp' ),
+( -26, -26, 0, N'Previous', N'Trước' ),
+( -27, -27, 0, N'No data available', N'Không có dữ liệu' ),
+( -28, -28, 0, N'Showing _START_ to _END_ of _TOTAL_ entries', N'Dòng _START_ đến _END_ trên tổng số _TOTAL_ dòng' ),
+( -29, -29, 0, N'No entries', N'Không có dòng nào' ),
+( -30, -30, 0, N'(filtered from _MAX_ total entries)', N'(lọc trong tổng _MAX_ dòng)' ),
+( -31, -31, 0, N'Show _MENU_ entries', N'Hiển thị _MENU_ dòng' ),
+( -32, -32, 0, N'Search:', N'Tìm kiếm' ),
+( -33, -33, 0, N'No matching records found', N'Không có dữ liệu phù hợp' )
 GO
 
 INSERT INTO [dbo].[Currency] ([Name], [Description], [Exchange], [Enable], [SEQ], [CreatedDate], [CreatedUser]) 
