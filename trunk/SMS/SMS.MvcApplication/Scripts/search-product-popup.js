@@ -16,8 +16,6 @@
         resizable: false
     });
 
-    
-    
     //unbind click event for buttons
     $('#' + root.id + ' button[id^="select-"]').unbind('click');
 
@@ -58,11 +56,10 @@
 
     function SetHeightTableContent() {
         var contentHeight = $('#' + root.id + ' .popup-content').height();
-        var height1 = $('#searchProduct_length').outerHeight() > $('#searchProduct_filter').outerHeight() ? $('#searchProduct_length').outerHeight() : $('#searchProduct_filter').outerHeight();
-        var height2 = $('#searchProduct_info').outerHeight() > $('#searchProduct_paginate').outerHeight() ? $('#searchProduct_info').outerHeight() : $('#searchProduct_paginate').outerHeight();
-        var height3 = $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+        var height1 = $('#searchProduct_wrapper > .ui-widget-header').outerHeight();
+        var height2 = $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
 
-        var targetHeight = contentHeight - height1 - height2 - height3 - 2; // subtract 2 more px due to the border
+        var targetHeight = contentHeight - height1*2 - height2 - 7; // subtract 2 more px due to the border and padding bottom
         $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
     }
     
@@ -131,6 +128,7 @@
         
         table = $('#' + root.id + ' #searchProduct').DataTable({
             scrollY: "200px",
+            renderer: "bootstrap",
             columns: [
                 null,
                 null,
