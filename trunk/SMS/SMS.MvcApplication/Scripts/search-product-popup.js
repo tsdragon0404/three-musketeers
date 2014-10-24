@@ -53,6 +53,7 @@
         $('#' + root.id).dialog("open");
         SetHeightPopupContent('#' + root.id);
         SetHeightTableContent();
+        fixTableHeader();
     };
 
     function SetHeightTableContent() {
