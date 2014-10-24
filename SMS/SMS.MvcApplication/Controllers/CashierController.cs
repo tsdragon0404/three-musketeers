@@ -31,7 +31,7 @@ namespace SMS.MvcApplication.Controllers
             if (!areaListResult.Success || areaListResult.Data == null)
                 return ErrorPage(areaListResult.Errors);
 
-            var productListResult = ProductService.GetAllByBranch<LanguageProductDto>(SmsSystem.SelectedBranchID);
+            var productListResult = ProductService.GetAllByBranch<SearchProductDto>(SmsSystem.SelectedBranchID);
             if (!productListResult.Success || productListResult.Data == null)
                 return ErrorPage(productListResult.Errors);
 
@@ -191,7 +191,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(JsonModel.Create(ProductService.ReloadProductList()));
+            return Json(JsonModel.Create(ProductService.ReloadSearchProductList()));
         }
 
         [HttpPost]

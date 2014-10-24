@@ -32,4 +32,13 @@ namespace SMS.Data.Dtos
         public virtual string ProductCode { get; set; }
         public virtual decimal Price { get; set; }
     }
+
+    public class SearchProductDto
+    {
+        public virtual long ID { get; set; }
+        public virtual string Code { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string CategoryName { get; set; }
+        public virtual decimal Price { get; set; }
+    }
 }

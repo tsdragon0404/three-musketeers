@@ -11,9 +11,9 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<IList<LanguageProductDto>> ReloadProductList()
+        public ServiceResult<IList<SearchProductDto>> ReloadSearchProductList()
         {
-            return Management.ReloadProductList();
+            return Management.ReloadSearchProductList();
         }
     }
 }

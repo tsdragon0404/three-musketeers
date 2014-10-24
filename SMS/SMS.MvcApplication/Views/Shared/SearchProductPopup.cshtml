@@ -40,9 +40,9 @@
     {{each(idx) ListProduct}}
     <tr>
         <td>${idx+1}</td>
-        <td>${ProductCode}</td>
+        <td>${Code}</td>
         <td>${Name}</td>
-        <td>${ProductCategory.Name}</td>
+        <td>${CategoryName}</td>
         <td class="right">${Price.formatAsMoney()}</td>
         <td class="right">
             <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>

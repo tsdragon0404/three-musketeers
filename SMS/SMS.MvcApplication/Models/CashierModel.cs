@@ -7,6 +7,6 @@ namespace SMS.MvcApplication.Models
     {
         public IList<LanguageAreaDto> ListArea { get; set; }
 
-        public IList<LanguageProductDto> ListProduct { get; set; }
+        public IList<SearchProductDto> ListProduct { get; set; }
     }
 }

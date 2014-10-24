@@ -6,6 +6,6 @@ namespace SMS.Business
 {
     public interface IProductManagement : IBaseManagement<ProductDto, long>
     {
-        ServiceResult<IList<LanguageProductDto>> ReloadProductList();
+        ServiceResult<IList<SearchProductDto>> ReloadSearchProductList();
     }
 }
