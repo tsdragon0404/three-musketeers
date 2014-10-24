@@ -1213,6 +1213,14 @@ fieldset {
     color: red;
 }
 
+.dataTables_scroll table thead tr th {
+    outline: 0;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    border-bottom: none !important;
+}
+
 /* Fixes for IE < 8 */
 @media screen\9 {
     .fileinput-button input {
