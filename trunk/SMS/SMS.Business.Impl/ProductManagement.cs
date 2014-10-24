@@ -38,17 +38,17 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        public ServiceResult<IList<LanguageProductDto>> ReloadProductList()
+        public ServiceResult<IList<SearchProductDto>> ReloadSearchProductList()
         {
             if (BelongToBranch == null)
-                return ServiceResult<IList<LanguageProductDto>>.CreateFailResult(new Error("BelongToBranch function is not defined", ErrorType.CodeImplementation));
+                return ServiceResult<IList<SearchProductDto>>.CreateFailResult(new Error("BelongToBranch function is not defined", ErrorType.CodeImplementation));
 
             var result = Repository.Find(x => x.Enable, true).Where(x => BelongToBranch(x, SmsSystem.SelectedBranchID));
 
             if (ExecuteOrderFunc != null)
                 result = ExecuteOrderFunc(result);
 
-            return ServiceResult<IList<LanguageProductDto>>.CreateSuccessResult(Mapper.Map<IList<LanguageProductDto>>(result));
+            return ServiceResult<IList<SearchProductDto>>.CreateSuccessResult(Mapper.Map<IList<SearchProductDto>>(result));
         }
     }
 }

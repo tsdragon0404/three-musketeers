@@ -28,7 +28,7 @@ namespace SMS.Common.AutoMapper
             Mapper.CreateMap<Product, LanguageProductDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName))
-                    .ForMember(x => x.Description, y => y.ResolveUsing(z =>
+                .ForMember(x => x.Description, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
 
             Mapper.CreateMap<ProductCategory, LanguageProductCategoryDto>()
@@ -57,6 +57,14 @@ namespace SMS.Common.AutoMapper
             Mapper.CreateMap<Report, LanguageReportDto>()
                 .ForMember(x => x.Title, y => y.ResolveUsing(z =>
                     SmsSystem.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
+
+            Mapper.CreateMap<Product, SearchProductDto>()
+                .ForMember(x => x.Code, y => y.MapFrom(z => z.ProductCode))
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                .ForMember(x => x.CategoryName, y => y.ResolveUsing(z =>
+                    SmsSystem.Language == Language.Vietnamese ? z.ProductCategory.VNName : z.ProductCategory.ENName))
+                .ForMember(x => x.Price, y => y.MapFrom(z => z.Price));
         }
     }
 }
