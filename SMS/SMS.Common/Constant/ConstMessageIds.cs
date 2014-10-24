@@ -32,6 +32,19 @@ namespace SMS.Common.Constant
         public const long Button_No = -19;
         public const long Button_Ok = -20;
         public const long Button_Cancel = -21;
+
+        public const long DataTable_First = -23;
+        public const long DataTable_Last = -24;
+        public const long DataTable_Next = -25;
+        public const long DataTable_Previous = -26;
+        public const long DataTable_NoData = -27;
+        public const long DataTable_ShowingRecords = -28;
+        public const long DataTable_NoEntries = -29;
+        public const long DataTable_Filter = -30;
+        public const long DataTable_ShowEntries = -31;
+        public const long DataTable_Search = -32;
+        public const long DataTable_NoMatchingData = -33;
+
     }
 
     public static class FallbackMessages

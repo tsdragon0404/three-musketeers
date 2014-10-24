@@ -2,6 +2,7 @@
 @using SMS.Common.Session
 @using SMS.Common.Storage.BranchConfig
 @using SMS.Common.Storage.Branding
+@using SMS.Common.Storage.Message
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
@@ -18,6 +19,20 @@
     var useServiceFee = "@BranchConfigs.Current.UseServiceFee";
     var currency = "@BranchConfigs.Current.Currency";
     
+    /* Const initialization begin */
+    var CONST_DATATABLE_FIRST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_First))';
+    var CONST_DATATABLE_LAST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Last))';
+    var CONST_DATATABLE_NEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Next))';
+    var CONST_DATATABLE_PREVIOUS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Previous))';
+    var CONST_DATATABLE_NODATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoData))';
+    var CONST_DATATABLE_SHOWINGRECORDS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowingRecords))';
+    var CONST_DATATABLE_NOENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoEntries))';
+    var CONST_DATATABLE_FILTER = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Filter))';
+    var CONST_DATATABLE_SHOWENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowEntries))';
+    var CONST_DATATABLE_SEARCH = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Search))';
+    var CONST_DATATABLE_NOMATCHINGDATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoMatchingData))';
+    /* Const initialization end */
+
     function GetOrderStatusName(orderStatus) {
         switch (orderStatus) {
         case @((int)OrderStatus.Ordered):

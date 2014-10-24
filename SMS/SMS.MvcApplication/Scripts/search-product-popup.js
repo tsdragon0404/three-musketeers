@@ -137,7 +137,22 @@
                 null,
                 { "orderable": false },
                 { "orderable": false }
-            ]
+            ],
+            language: {
+                "emptyTable": CONST_DATATABLE_NODATA,
+                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                "infoFiltered": CONST_DATATABLE_FILTER,
+                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                "search": CONST_DATATABLE_SEARCH,
+                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                "paginate": {
+                    "first": CONST_DATATABLE_FIRST,
+                    "last": CONST_DATATABLE_LAST,
+                    "next": CONST_DATATABLE_NEXT,
+                    "previous": CONST_DATATABLE_PREVIOUS
+                }
+            }
         });
     };
 
