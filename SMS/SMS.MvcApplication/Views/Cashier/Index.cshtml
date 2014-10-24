@@ -12,14 +12,7 @@
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
 <script type="text/javascript">
-    @{
-        var temp = Model.ListProduct.ToList();
-        for (var i = 0; i < 3; i++)
-        {
-            temp.AddRange(temp);
-        }
-    }
-    var listProduct = @Html.Raw(JsonEncode(temp));
+    var listProduct = @Html.Raw(JsonEncode(Model.ListProduct));
     var listArea = @Html.Raw(JsonEncode(Model.ListArea));
     var serviceFee = @BranchConfigs.Current.ServiceFee;
     var useServiceFee = "@BranchConfigs.Current.UseServiceFee";
