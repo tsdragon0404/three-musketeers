@@ -150,7 +150,7 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme)
+        public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme, int pageSize)
         {
             var user = Repository.Get(SmsSystem.UserContext.UserID);
             if (!string.IsNullOrEmpty(password))
@@ -172,7 +172,8 @@ namespace SMS.Business.Impl
                                              {
                                                  BranchID = SmsSystem.SelectedBranchID,
                                                  UserID = SmsSystem.UserContext.UserID,
-                                                 Theme = theme
+                                                 Theme = theme,
+                                                 PageSize = pageSize
                                              });
             }
             else

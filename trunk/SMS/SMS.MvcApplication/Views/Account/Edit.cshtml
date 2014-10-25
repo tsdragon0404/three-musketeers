@@ -94,6 +94,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Page size</td>
+                        <td><input type="text" id="pageSize" value="@Model.UserConfig.PageSize" class="right"/></td>
+                    </tr>
+                    <tr>
                         <td colspan="2" class="center">
                             <button id="update" data-labelID="lblUpdate">Update</button>
                         </td>
@@ -116,6 +120,11 @@
                 primary: "ui-icon-disk"
             }
         }).click(function () {
+            if($('#pageSize').val() <= 0) {
+                $('#pageSize').val('');
+                return;   
+            }
+
             var fd = new FormData();
             fd.append('password', $('#password').val());
             fd.append('firstName', $('#firstName').val());
@@ -124,6 +133,7 @@
             fd.append('email', $('#email').val());
             fd.append('address', $('#address').val());
             fd.append('theme', $('#theme').val());
+            fd.append('pageSize', $('#pageSize').val());
             fd.append('profileImg', $('#fileupload')[0].files[0]);
             
             $.ajax({
