@@ -1142,7 +1142,11 @@ fieldset {
 }
 
 #edit-profile #theme {
-    width: 200px;
+    width: 150px;
+}
+
+#edit-profile #pageSize {
+    width: 50px;
 }
 
 #user-profile {

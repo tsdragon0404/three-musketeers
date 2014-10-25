@@ -31,9 +31,9 @@ namespace SMS.Services.Impl
             return Management.UpdateUserSystem(user);
         }
 
-        public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme)
+        public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme, int pageSize)
         {
-            return Management.UpdateUserProfile(password, firstName, lastName, cellPhone, email, address, theme);
+            return Management.UpdateUserProfile(password, firstName, lastName, cellPhone, email, address, theme, pageSize);
         }
     }
 }
