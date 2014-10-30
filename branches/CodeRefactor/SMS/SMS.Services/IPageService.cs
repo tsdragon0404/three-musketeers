@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IPageService : IBaseService<PageDto, long>
+    public interface IPageService : IBaseService<PageDto>
     {
         ServiceResult<IList<PageDto>> GetProtectedPages();
         ServiceResult<IList<TModel>> GetProtectedPages<TModel>();

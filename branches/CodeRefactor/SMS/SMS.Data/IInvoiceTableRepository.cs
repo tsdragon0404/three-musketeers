@@ -1,9 +1,8 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IInvoiceTableRepository : IRepository<InvoiceTable>
+    public interface IInvoiceTableRepository : IBaseRepository<InvoiceTable>
     {
          
     }

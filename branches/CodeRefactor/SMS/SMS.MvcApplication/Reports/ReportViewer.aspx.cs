@@ -29,13 +29,13 @@ namespace SMS.MvcApplication.Reports
                     .Where(x => x.Contains(Common.Constant.ConstReport.DatasourceParamPrefix))
                     .ToDictionary(x => x.Replace(Common.Constant.ConstReport.DatasourceParamPrefix, ""), y => Request.QueryString[y]);
 
-                var reportDatasources = reportService.LoadReportDatasources(reportName, queryString);
+                //var reportDatasources = reportService.LoadReportDatasources(reportName, queryString);
 
-                if(!reportDatasources.Success)
-                {
-                    // handle errors
-                    return;
-                }
+                //if(!reportDatasources.Success)
+                //{
+                //    // handle errors
+                //    return;
+                //}
 
                 SsrsViewer.Visible = true;
                 SsrsViewer.ProcessingMode = ProcessingMode.Local;
@@ -49,8 +49,8 @@ namespace SMS.MvcApplication.Reports
 
                 SsrsViewer.LocalReport.DataSources.Clear();
 
-                foreach (DataTable table in reportDatasources.Data.Tables)
-                    SsrsViewer.LocalReport.DataSources.Add(new ReportDataSource(table.TableName, table));
+                //foreach (DataTable table in reportDatasources.Data.Tables)
+                //    SsrsViewer.LocalReport.DataSources.Add(new ReportDataSource(table.TableName, table));
 
                 SsrsViewer.LocalReport.Refresh();
             }

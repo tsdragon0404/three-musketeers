@@ -3,7 +3,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class TableService : BaseService<TableDto, long, ITableManagement>, ITableService
+    public class TableService : BaseService<TableDto, ITableManagement>, ITableService
     {
         #region Fields
 

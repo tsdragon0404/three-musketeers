@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class BrandingTextManagement : BaseManagement<BrandingTextDto, BrandingText, long, IBrandingTextRepository>, IBrandingTextManagement
+    public class BrandingTextManagement : BaseManagement<BrandingTextDto, BrandingText, IBrandingTextRepository>, IBrandingTextManagement
     {
         #region Fields
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Session;
 using SMS.Data;
@@ -9,19 +7,11 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class UserConfigManagement : BaseManagement<UserConfigDto, UserConfig, long, IUserConfigRepository>, IUserConfigManagement
+    public class UserConfigManagement : BaseManagement<UserConfigDto, UserConfig, IUserConfigRepository>, IUserConfigManagement
     {
         #region Fields
 
         #endregion
-
-        public override Func<UserConfig, long, bool> BelongToBranch
-        {
-            get
-            {
-                return (x, y) => x.BranchID == y;
-            }
-        }
 
         public ServiceResult<UserConfigDto> GetUserConfig(long userID, long branchID)
         {
@@ -30,25 +20,19 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TModel> GetUserConfig<TModel>(long userID, long branchID)
         {
-            var result = Repository.FindOne(x => x.UserID == userID && x.BranchID == branchID);
+            var result = Repository.Get(x => x.UserID == userID && x.BranchID == branchID);
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new UserConfig()));
         }
 
-        public ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
+        public ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
-            var userConfig =
-                Repository.Find(
-                    x => x.UserID == SmsSystem.UserContext.UserID && x.BranchID == SmsSystem.SelectedBranchID).
-                    FirstOrDefault();
-            if (userConfig != null)
-            {
-                userConfig.DefaultAreaID = defaultAreaID;
-                userConfig.ListTableHeight = listTableHeight;
-                Repository.Update(userConfig);
-            }
+            var result = Repository.SaveCashierInfo(defaultAreaID, listTableHeight);
+
+            //TODO: UserContext must be assigned after this method return.
             SmsSystem.UserContext.DefaultAreaID = defaultAreaID;
             SmsSystem.UserContext.ListTableHeight = listTableHeight;
-            return ServiceResult.CreateSuccessResult();
+
+            return ServiceResult<UserConfigDto>.CreateSuccessResult(Mapper.Map<UserConfigDto>(result));
         }
     }
 }

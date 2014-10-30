@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class UserService : BaseService<UserDto, long, IUserManagement>, IUserService
+    public class UserService : BaseService<UserDto, IUserManagement>, IUserService
     {
         #region Fields
 

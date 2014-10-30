@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IOrderTableManagement : IBaseManagement<OrderTableDto, long>
+    public interface IOrderTableManagement : IBaseManagement<OrderTableDto>
     {
         ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID);
         ServiceResult<long> CreateOrderTable(long tableID);

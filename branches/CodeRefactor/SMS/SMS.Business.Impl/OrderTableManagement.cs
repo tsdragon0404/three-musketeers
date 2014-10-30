@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
 using SMS.Common.Enums;
@@ -11,7 +10,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class OrderTableManagement : BaseManagement<OrderTableDto, OrderTable, long, IOrderTableRepository>, IOrderTableManagement
+    public class OrderTableManagement : BaseManagement<OrderTableDto, OrderTable, IOrderTableRepository>, IOrderTableManagement
     {
         #region Fields
 
@@ -20,35 +19,13 @@ namespace SMS.Business.Impl
         public virtual IOrderRepository OrderRepository { get; set; }
         public virtual IOrderManagement OrderManagement { get; set; }
 
-        public override Func<IEnumerable<OrderTable>, IOrderedEnumerable<OrderTable>> ExecuteOrderFunc
-        {
-            get
-            {
-                return x => x.OrderBy(y => y.Table.Area.SEQ).ThenBy(y => y.Table.ID);
-            }
-        }
-
-        #endregion
-
-        #region Func
-
-        public override Func<OrderTable, long, bool> BelongToBranch
-        {
-            get
-            {
-                return (x, y) => x.Order != null
-                                 && x.Order.Branch != null
-                                 && x.Order.Branch.ID == y;
-            }
-        }
-
         #endregion
 
         public ServiceResult<IList<TDto>> GetTablesByAreaID<TDto>(long areaID)
         {
-            var usedTables = Repository.Find(x => (x.Table.Area.ID == areaID || areaID == 0) && x.Order.Branch.ID == SmsSystem.SelectedBranchID && x.Table.Enable).ToList();
+            var usedTables = Repository.List(x => (x.Table.Area.ID == areaID || areaID == 0) && x.Order.Branch.ID == SmsSystem.SelectedBranchID && x.Table.Enable).ToList();
 
-            var availableTables = TableRepository.Find(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsSystem.SelectedBranchID && !x.OrderTables.Any());
+            var availableTables = TableRepository.List(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsSystem.SelectedBranchID && !x.OrderTables.Any());
 
             usedTables.AddRange(availableTables.Select(table => new OrderTable
                                                                     {
@@ -65,15 +42,15 @@ namespace SMS.Business.Impl
             var orderId = OrderManagement.CreateOrder();
 
             var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tableID}};
-            Repository.Add(orderTable);
+            Repository.Save(orderTable);
 
             return ServiceResult<long>.CreateSuccessResult(orderTable.ID);
         }
 
         public ServiceResult CheckTableStatus(long tableID)
         {
-            var result = Repository.Find(x => x.Table.ID == tableID);
-            return ServiceResult.CreateResult(result.Any());
+            var result = Repository.Exists(x => x.Table.ID == tableID);
+            return ServiceResult.CreateResult(result);
         }
 
         public ServiceResult<long> CreateMultiOrderTable(long[] tableID)
@@ -82,21 +59,22 @@ namespace SMS.Business.Impl
             foreach (var tblID in tableID)
             {
                 var orderTable = new OrderTable {Order = new Order {ID = orderId}, Table = new Table {ID = tblID}};
-                Repository.Add(orderTable);
+                Repository.Save(orderTable);
             }
             return ServiceResult<long>.CreateSuccessResult(orderId);
         }
 
         public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
         {
-            var orderTable = Repository.Get(orderTableID);
+            var orderTable = Repository.GetByID(orderTableID);
             orderTable.Table = new Table {ID = tableID};
-            Repository.Update(orderTable);
+            Repository.Save(orderTable);
 
-            var result = OrderRepository.Get(orderTableID);
+            var result = OrderRepository.GetByID(orderTableID);
             return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result)); 
         }
 
+        //TODO: test SaveAllChanges
         public ServiceResult PoolingTable(long[] orderTable)
         {
             var orderTableFirst = new OrderTable {ID = 0};
@@ -104,23 +82,23 @@ namespace SMS.Business.Impl
             foreach (var id in orderTable)
             {
                 if (orderTableFirst.ID == 0)
-                    orderTableFirst = Repository.Get(id) ?? orderTableFirst;
+                    orderTableFirst = Repository.GetByID(id) ?? orderTableFirst;
                 else
                 {
                     var orderTableID = id;
-                    var orderDetailList = OrderDetailRepository.Find(x => x.OrderTable.ID == orderTableID).ToList();
+                    var orderDetailList = OrderDetailRepository.List(x => x.OrderTable.ID == orderTableID).ToList();
                     if (orderDetailList.Any())
                     {
                         foreach (var orderDetail in orderDetailList)
                         {
                             orderDetail.OrderTable = orderTableFirst;
-                            OrderDetailRepository.Update(orderDetail);
-                            OrderDetailRepository.SaveAllChanges();
+                            OrderDetailRepository.Save(orderDetail);
+                            //OrderDetailRepository.SaveAllChanges();
                         }
                     }
-                    var orderID = Repository.Get(orderTableID).Order.ID;
+                    var orderID = Repository.GetByID(orderTableID).Order.ID;
                     Repository.Delete(orderTableID);
-                    Repository.SaveAllChanges();
+                    //Repository.SaveAllChanges();
                     if (!Repository.Exists(x => x.Order.ID == orderID))
                         OrderRepository.Delete(orderID);
                 }
@@ -128,10 +106,11 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
+        //TODO: test SaveAllChanges
         public ServiceResult SendToKitchen(long orderTableID)
         {
             var orderDetailList =
-                OrderDetailRepository.Find(
+                OrderDetailRepository.List(
                     x =>
                     x.OrderTable.ID == orderTableID &&
                     (x.OrderStatus == OrderStatus.Ordered ||
@@ -141,8 +120,8 @@ namespace SMS.Business.Impl
                 foreach (var orderDetail in orderDetailList)
                 {
                     orderDetail.OrderStatus = OrderStatus.SentToKitchen;
-                    OrderDetailRepository.Update(orderDetail);
-                    OrderDetailRepository.SaveAllChanges();
+                    OrderDetailRepository.Save(orderDetail);
+                    //OrderDetailRepository.SaveAllChanges();
                 }
             }
             return ServiceResult.CreateSuccessResult();

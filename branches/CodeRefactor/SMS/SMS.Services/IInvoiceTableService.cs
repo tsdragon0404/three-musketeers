@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IInvoiceTableService : IBaseService<InvoiceTableDto, long>
+    public interface IInvoiceTableService : IBaseService<InvoiceTableDto>
     {
     }
 }

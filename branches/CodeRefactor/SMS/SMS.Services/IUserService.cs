@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IUserService : IBaseService<UserDto, long>
+    public interface IUserService : IBaseService<UserDto>
     {
         ServiceResult<TModel> Get<TModel>(string username, string password);
         ServiceResult<IList<TModel>> GetUserForBranchAssignment<TModel>();

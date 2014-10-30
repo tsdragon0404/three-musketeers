@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IUnitService : IBaseService<UnitDto, long>
+    public interface IUnitService : IBaseService<UnitDto>
     {
     }
 }

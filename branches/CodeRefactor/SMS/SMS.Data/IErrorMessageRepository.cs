@@ -1,9 +1,8 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IErrorMessageRepository : IRepository<ErrorMessage>
+    public interface IErrorMessageRepository : IBaseRepository<ErrorMessage>
     {
          
     }

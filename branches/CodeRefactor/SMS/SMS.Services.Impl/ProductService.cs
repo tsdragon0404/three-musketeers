@@ -1,19 +1,12 @@
-﻿using System.Collections.Generic;
-using Core.Common.Validation;
-using SMS.Business;
+﻿using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class ProductService : BaseService<ProductDto, long, IProductManagement>, IProductService
+    public class ProductService : BaseService<ProductDto, IProductManagement>, IProductService
     {
         #region Fields
 
         #endregion
-
-        public ServiceResult<IList<SearchProductDto>> ReloadSearchProductList()
-        {
-            return Management.ReloadSearchProductList();
-        }
     }
 }

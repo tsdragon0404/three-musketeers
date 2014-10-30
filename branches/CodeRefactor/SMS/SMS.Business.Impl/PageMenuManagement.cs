@@ -8,7 +8,7 @@ using AutoMapper;
 
 namespace SMS.Business.Impl
 {
-    public class PageMenuManagement : BaseManagement<PageMenuDto, PageMenu, long, IPageMenuRepository>, IPageMenuManagement
+    public class PageMenuManagement : BaseManagement<PageMenuDto, PageMenu, IPageMenuRepository>, IPageMenuManagement
     {
         #region Fields
 
@@ -18,7 +18,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<PageMenuDto>> GetMenuByPageIds(IList<long> pageList)
         {
-            var result = Repository.Find(x => pageList.Contains(x.PageID)).ToList();
+            var result = Repository.List(x => pageList.Contains(x.PageID)).ToList();
             return ServiceResult<IList<PageMenuDto>>.CreateSuccessResult(Mapper.Map<IList<PageMenuDto>>(result));
         }
     }

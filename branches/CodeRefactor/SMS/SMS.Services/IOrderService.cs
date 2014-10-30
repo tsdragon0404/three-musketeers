@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IOrderService : IBaseService<OrderDto, long>
+    public interface IOrderService : IBaseService<OrderDto>
     {
         ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID);
         ServiceResult DeleteByOrderTableID(long orderTableID);

@@ -7,15 +7,15 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class ReportService : BaseService<ReportDto, long, IReportManagement>, IReportService
+    public class ReportService : BaseService<ReportDto, IReportManagement>, IReportService
     {
         #region Fields
 
         #endregion
 
-        public ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString)
-        {
-            return Management.LoadReportDatasources(reportName, queryString);
-        }
+        //public ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString)
+        //{
+        //    return Management.LoadReportDatasources(reportName, queryString);
+        //}
     }
 }

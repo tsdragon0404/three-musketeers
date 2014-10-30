@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class TaxManagement : BaseManagement<TaxDto, Tax, long, ITaxRepository>, ITaxManagement
+    public class TaxManagement : BaseManagement<TaxDto, Tax, ITaxRepository>, ITaxManagement
     {
         #region Fields
 

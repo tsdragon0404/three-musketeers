@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface ITableService : IBaseService<TableDto, long>
+    public interface ITableService : IBaseService<TableDto>
     {
     }
 }

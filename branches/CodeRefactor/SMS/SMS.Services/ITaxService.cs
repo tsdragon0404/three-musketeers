@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface ITaxService : IBaseService<TaxDto, long>
+    public interface ITaxService : IBaseService<TaxDto>
     {
     }
 }

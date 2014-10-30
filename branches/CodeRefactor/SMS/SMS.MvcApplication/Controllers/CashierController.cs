@@ -27,11 +27,11 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Cashier)]
         public ActionResult Index()
         {
-            var areaListResult = AreaService.GetAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
             if (!areaListResult.Success || areaListResult.Data == null)
                 return ErrorPage(areaListResult.Errors);
 
-            var productListResult = ProductService.GetAllByBranch<SearchProductDto>(SmsSystem.SelectedBranchID);
+            var productListResult = ProductService.ListAllByBranch<SearchProductDto>(SmsSystem.SelectedBranchID);
             if (!productListResult.Success || productListResult.Data == null)
                 return ErrorPage(productListResult.Errors);
 
@@ -191,7 +191,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetAllProductsForSearch()
         {
-            return Json(JsonModel.Create(ProductService.ReloadSearchProductList()));
+            return Json(JsonModel.Create(ProductService.ListAll<SearchProductDto>()));
         }
 
         [HttpPost]
@@ -261,7 +261,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetCustomer()
         {
-            var result = CustomerService.GetAll<CustomerDto>();
+            var result = CustomerService.ListAll<CustomerDto>();
 
             return Json(JsonModel.Create(result));
         }

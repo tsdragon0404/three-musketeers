@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class PageLabelService : BaseService<PageLabelDto, long, IPageLabelManagement>, IPageLabelService
+    public class PageLabelService : BaseService<PageLabelDto, IPageLabelManagement>, IPageLabelService
     {
         #region Fields
 
@@ -19,11 +19,6 @@ namespace SMS.Services.Impl
         public ServiceResult Save(long pageID, List<PageLabelDto> listLabels)
         {
             return Management.Save(pageID, listLabels);
-        }
-
-        public ServiceResult Copy(long fromBranchID, long toBranchID)
-        {
-            return Management.Copy(fromBranchID, toBranchID);
         }
     }
 }

@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IOrderDetailManagement : IBaseManagement<OrderDetailDto, long>
+    public interface IOrderDetailManagement : IBaseManagement<OrderDetailDto>
     {
         ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
         ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);

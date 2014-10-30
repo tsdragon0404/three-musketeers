@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace SMS.Business.Impl
 {
-    public class UploadedFileManagement : BaseManagement<UploadedFileDto, UploadedFile, long, IUploadedFileRepository>, IUploadedFileManagement
+    public class UploadedFileManagement : BaseManagement<UploadedFileDto, UploadedFile, IUploadedFileRepository>, IUploadedFileManagement
     {
         #region Fields
 
@@ -14,7 +14,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<UploadedFileDto> GetByPhysicalPath(string physicalPath)
         {
-            var result = Repository.FindOne(x => x.PhysicalPath.ToLower() == physicalPath.ToLower());
+            var result = Repository.Get(x => x.PhysicalPath.ToLower() == physicalPath.ToLower());
             return result == null 
                 ? ServiceResult<UploadedFileDto>.CreateFailResult() 
                 : ServiceResult<UploadedFileDto>.CreateSuccessResult(Mapper.Map<UploadedFileDto>(result));

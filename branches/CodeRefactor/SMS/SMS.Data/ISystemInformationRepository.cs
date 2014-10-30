@@ -1,10 +1,9 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface ISystemInformationRepository : IRepository<SystemInformation>
+    public interface ISystemInformationRepository : IBaseRepository<SystemInformation>
     {
-         
+        void UpdateSystemConfig(SystemInformation[] systemInformations);
     }
 }
