@@ -1,0 +1,171 @@
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
+@model SMS.MvcApplication.Models.AdminModel<RoleDto>
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="4">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="two columns right">
+                        Name
+                    </div>
+                    <div class="three columns">
+                        <input type="text" name="name" value="${Name}" id="name-${ID}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="two columns right">
+                        Enable
+                    </div>
+                    <div class="three columns">
+                        {{if Enable}}
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        Pages
+                    </div>
+                    <div class="three columns">
+                    </div>
+                    <div class="four columns left">
+                        Assigned pages
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        <select id="originalPages-${ID}" multiple="multiple" size="10" style="width: 80%">
+                            @foreach (PageDto page in ViewBag.ListPage)
+                            {
+                                <text>
+                                    <option value="@page.ID">@(SmsSystem.Language == Language.Vietnamese ? @page.VNTitle : @page.ENTitle)</option>
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addPages-${ID}" class="assignButton">></button>
+                        <button id="addAllPages-${ID}" class="assignButton">>></button>
+                        <button id="removeAllPages-${ID}" class="assignButton"><<</button>
+                        <button id="removePages-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="four columns left">
+                        <select name="assignedPages" id="assignedPages-${ID}" multiple="multiple" size="10" style="width: 80%">
+                            {{each Pages}}
+                                @if (SmsSystem.Language == Language.Vietnamese)
+                                {
+                                    <option value="${ID}">${VNTitle}</option>
+                                }else
+                                {
+                                    <option value="${ID}">${ENTitle}</option>
+                                }
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
+                </div>
+                <div class="row">
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalPages-' + id + '", "' + 'assignedPages-' + id + '", "' + 'addPages-' + id + '", "' + 'removePages-' + id + '", "' + 'addAllPages-' + id + '", "' + 'removeAllPages-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+             + 'var listBox = new AssignListBox(' + param + ');'
+             + 'listBox.bindEvents();'
+             + '</sc' + 'ript>';
+    }
+</script>
+
+<div id="content">
+    <div class="row">
+        <h4 class="admin-page-title">Maintain Role</h4>
+    </div>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
+    <div class="row">
+        <table id="record-table" class="no-border">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col />
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Enabled</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="@altClass" data-id="@dto.ID">
+                        <td>
+                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.Name</td>
+                        <td>@dto.Enable</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="3"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
+                
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
+                adminfunc.bind();
+            });
+
+            function getDataForSave(recordID) {
+                var pages = Array();
+
+                $('#assignedPages-' + recordID + ' option').each(function (idx, e) {
+                    pages.push({ ID: $(e).val() });
+                });
+
+                var data = {
+                    ID: recordID,
+                    Name: $('#name-' + recordID).val(),
+                    BranchID: $('#branchID-' + recordID).val(),
+                    Enable: $('#enable-' + recordID).prop('checked'),
+                    Pages: pages
+                };
+                return data;
+            }
+        </script>
+    </div>
+</div>

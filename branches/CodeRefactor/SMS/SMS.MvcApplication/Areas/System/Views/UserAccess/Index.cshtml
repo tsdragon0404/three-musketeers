@@ -1,0 +1,85 @@
+﻿@using SMS.Common.Constant
+@using SMS.Common.Session
+@using SMS.Common.Storage.Message
+@using SMS.Common.Storage.UserAccess
+@model SMS.MvcApplication.Models.AdminModel<UserAccess>
+
+<div id="content">
+    <div class="row">
+        <h4 class="admin-page-title">User access management</h4>
+    </div>
+
+    <div class="row">
+        <table id="record-table" class="no-border">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col style="width: 150px;" />
+                <col style="width: 140px;" />
+                <col style="width: 130px;" />
+                <col />
+                <col style="width: 150px;" />
+                <col style="width: 130px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>User Name</th>
+                    <th>Current Branch</th>
+                    <th>IP Address</th>
+                    <th>User Agent</th>
+                    <th>Login From</th>
+                    <th>Last Access</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var deleteCssClass = dto.SessionId != SmsSystem.SessionId ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    
+                    <tr class="@altClass" data-id="@dto.SessionId">
+                        <td>
+                            <a href="#" class="@deleteCssClass" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.UserName @(dto.SessionId == SmsSystem.SessionId ? "(me)" : "")</td>
+                        <td>@dto.CurrentBranchId</td>
+                        <td>@dto.ClientInfo.IpAddress</td>
+                        <td>@dto.ClientInfo.UserAgent</td>
+                        <td>@dto.LoginDateTime</td>
+                        <td>@(Math.Round(DateTime.Now.Subtract(dto.LastAccess).TotalMinutes)) minute(s) ago</td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $('#record-table').table();
+            $('#record-table a.del-record').click(function () {
+                var id = $(this).attr('data-id');
+                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Warning)',
+                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_DeleteSessionConfirm)',
+                    2,
+                    function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete")',
+                            data: { sessionId: id }
+                        }).done(function (result) {
+                            if (result.Success)
+                                location.reload();
+                        });
+                    });
+
+                popup.OpenPopup();
+
+                return false;
+            });
+        </script>
+    </div>
+</div>
