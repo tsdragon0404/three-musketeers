@@ -12,7 +12,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class OrderManagement : BaseManagement<OrderDto, Order, long, IOrderRepository>, IOrderManagement
+    public class OrderManagement : BaseManagement<OrderDto, Order, IOrderRepository>, IOrderManagement
     {
         #region Fields
 
@@ -27,7 +27,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID)
         {
-            var result = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
+            var result = Repository.Get(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
             return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
 
@@ -38,25 +38,26 @@ namespace SMS.Business.Impl
         /// <returns></returns>
         public long CreateOrder()
         {
+            //TODO: test SaveAllChanges
             var order = new Order
                             {
                                 Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID },
                                 Customer = new Customer { ID = 1 }
                             };
-            Repository.Add(order);
-            Repository.SaveAllChanges();
+            Repository.Save(order);
+            //Repository.SaveAllChanges();
 
             var text = "0000000000" + order.ID;
             order.OrderNumber = "INV-" + text.Substring(text.Length-10, 10);
-            Repository.Update(order);
-            Repository.SaveAllChanges();
+            Repository.Save(order);
+            //Repository.SaveAllChanges();
 
             return order.ID;
         }
 
         public ServiceResult DeleteByOrderTableID(long orderTableID)
         {
-            var order = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
+            var order = Repository.Get(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
             var orderID = order == null ? 0 : order.ID;
 
             return ServiceResult.CreateResult(Repository.Delete(orderID));
@@ -64,11 +65,11 @@ namespace SMS.Business.Impl
 
         public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
         {
-            var orderTable = OrderTableRepository.FindOne(x => x.Order.ID == orderID);
+            var orderTable = OrderTableRepository.Get(x => x.Order.ID == orderID);
             if (orderTable == null)
                 Repository.Delete(orderID);
 
-            var result = Repository.Get(orderID);
+            var result = Repository.GetByID(orderID);
             return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
 
@@ -83,16 +84,17 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
         {
-            var order = Repository.Get(orderID);
+            var order = Repository.GetByID(orderID);
             order.OtherFee = otherFee;
             order.OtherFeeDescription = otherFee == 0 ? "" : otherFeeDescription;
-            Repository.Update(order);
+            Repository.Save(order);
             return ServiceResult.CreateSuccessResult();
         }
 
+        //TODO: test SaveAllChanges
         public ServiceResult Payment(long orderID, decimal tax, decimal serviceFee)
         {
-            var order = Repository.Get(orderID);
+            var order = Repository.GetByID(orderID);
 
             if (order == null)
                 return ServiceResult.CreateFailResult();
@@ -111,8 +113,8 @@ namespace SMS.Business.Impl
                                   OtherFee = order.OtherFee,
                                   OtherFeeDescription = order.OtherFeeDescription ?? ""
                               };
-            InvoiceRepository.Add(invoice);
-            InvoiceRepository.SaveAllChanges();
+            InvoiceRepository.Save(invoice);
+            //InvoiceRepository.SaveAllChanges();
 
             foreach (var orderTable in order.OrderTables)
             {
@@ -130,8 +132,8 @@ namespace SMS.Business.Impl
                                            OtherFeeDescription = orderTable.OtherFeeDescription ?? ""
                                            
                                        };
-                InvoiceTableRepository.Add(invoiceTable);
-                InvoiceTableRepository.SaveAllChanges();
+                InvoiceTableRepository.Save(invoiceTable);
+                //InvoiceTableRepository.SaveAllChanges();
 
                 foreach (var orderDetail in orderTable.OrderDetails)
                 {
@@ -150,14 +152,14 @@ namespace SMS.Business.Impl
                                                 DiscountType = orderDetail.DiscountType,
                                                 DiscountComment = orderDetail.DiscountComment ?? ""
                                             };
-                    InvoiceDetailRepository.Add(invoiceDetail);
-                    InvoiceDetailRepository.SaveAllChanges();
+                    InvoiceDetailRepository.Save(invoiceDetail);
+                    //InvoiceDetailRepository.SaveAllChanges();
                 }
             }
 
             foreach (var orderDiscount in order.OrderDiscounts)
             {
-                InvoiceDiscountRepository.Add(new InvoiceDiscount
+                InvoiceDiscountRepository.Save(new InvoiceDiscount
                                                   {
                                                       InvoiceID = invoice.ID,
                                                       DiscountType = orderDiscount.DiscountType,
@@ -165,7 +167,7 @@ namespace SMS.Business.Impl
                                                       DiscountComment = orderDiscount.DiscountComment ?? "",
                                                       Discount = orderDiscount.Discount
                                                   });
-                InvoiceDiscountRepository.SaveAllChanges();
+                //InvoiceDiscountRepository.SaveAllChanges();
             }
 
             Repository.Delete(orderID);
@@ -175,17 +177,18 @@ namespace SMS.Business.Impl
 
         public ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID)
         {
-            var result = OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
+            var result = OrderDiscountRepository.List(x => x.OrderID == orderID).ToList();
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(result));
         }
 
+        //TODO: test SaveAllChanges
         public ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
         {
-            var orderDiscounts = OrderDiscountRepository.Find(x => x.OrderID == orderID).ToList();
+            var orderDiscounts = OrderDiscountRepository.List(x => x.OrderID == orderID).ToList();
             foreach(var orderDiscount in orderDiscounts)
             {
                 OrderDiscountRepository.Delete(orderDiscount.ID);
-                OrderDiscountRepository.SaveAllChanges();
+                //OrderDiscountRepository.SaveAllChanges();
             }
 
             for (int i = 0; i < discountTypes.Length; i++)
@@ -204,15 +207,15 @@ namespace SMS.Business.Impl
                                             DiscountCode = discountCode,
                                             DiscountComment = discountComment
                                         };
-                OrderDiscountRepository.Add(orderDiscount);
-                OrderDiscountRepository.SaveAllChanges();
+                OrderDiscountRepository.Save(orderDiscount);
+                //OrderDiscountRepository.SaveAllChanges();
             }
             return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob)
         {
-            var order = Repository.Get(orderID);
+            var order = Repository.GetByID(orderID);
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
@@ -236,13 +239,13 @@ namespace SMS.Business.Impl
                 else
                     order.DOB = null;
             }
-            Repository.Update(order);
+            Repository.Save(order);
             return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult<TDto> GetOrderBasic<TDto>(long orderID)
         {
-            var result = Repository.Get(orderID);
+            var result = Repository.GetByID(orderID);
             return ServiceResult<TDto>.CreateSuccessResult(result == null ? Mapper.Map<TDto>(new Order()) : Mapper.Map<TDto>(result));
         }
     }

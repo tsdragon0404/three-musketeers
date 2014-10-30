@@ -5,8 +5,8 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IReportService : IBaseService<ReportDto, long>
+    public interface IReportService : IBaseService<ReportDto>
     {
-        ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString);
+        //ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString);
     }
 }

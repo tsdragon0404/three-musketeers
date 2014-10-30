@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface ITaxManagement : IBaseManagement<TaxDto, long>
+    public interface ITaxManagement : IBaseManagement<TaxDto>
     {
     }
 }

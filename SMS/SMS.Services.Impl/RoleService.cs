@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class RoleService : BaseService<RoleDto, long, IRoleManagement>, IRoleService
+    public class RoleService : BaseService<RoleDto, IRoleManagement>, IRoleService
     {
         #region Fields
 

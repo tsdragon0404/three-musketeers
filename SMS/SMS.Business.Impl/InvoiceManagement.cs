@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class InvoiceManagement : BaseManagement<InvoiceDto, Invoice, long, IInvoiceRepository>, IInvoiceManagement
+    public class InvoiceManagement : BaseManagement<InvoiceDto, Invoice, IInvoiceRepository>, IInvoiceManagement
     {
         #region Fields
 

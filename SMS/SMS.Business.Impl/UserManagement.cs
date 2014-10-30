@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using AutoMapper;
 using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
-using SMS.Common.Paging;
 using SMS.Common.Session;
 using SMS.Common.Storage.Message;
 using SMS.Data;
@@ -15,7 +12,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class UserManagement : BaseManagement<UserDto, User, long, IUserRepository>, IUserManagement
+    public class UserManagement : BaseManagement<UserDto, User, IUserRepository>, IUserManagement
     {
         #region Fields
 
@@ -23,21 +20,9 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        #region Func
-
-        public override Func<User, long, bool> BelongToBranch
-        {
-            get
-            {
-                return (x, y) => x.Branches.Any(b => b.ID == y);
-            }
-        }
-
-        #endregion
-
         public ServiceResult<TModel> Get<TModel>(string username, string password)
         {
-            var user = Repository.FindOne(x => x.Username == username && x.Password == EncryptionHelper.SHA256Hash(password));
+            var user = Repository.Get(x => x.Username == username && x.Password == EncryptionHelper.SHA256Hash(password));
             if (user == null)
                 return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
 
@@ -47,30 +32,31 @@ namespace SMS.Business.Impl
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }
 
-        public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
-        {
-            Expression<Func<User, bool>> predicate = x => !x.IsSystemAdmin && x.UseSystemConfig;
-            if (SmsSystem.UserContext.IsSystemAdmin)
-                predicate = null;
+        //TODO: implement this
+        //public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
+        //{
+        //    Expression<Func<User, bool>> predicate = x => !x.IsSystemAdmin && x.UseSystemConfig;
+        //    if (SmsSystem.UserContext.IsSystemAdmin)
+        //        predicate = null;
 
-            var filteredRecords = Mapper.Map<IList<UserDto>>(Repository.FindByString(textSearch, predicate));
+        //    var filteredRecords = Mapper.Map<IList<UserDto>>(Repository.FindByString(textSearch, predicate));
 
-            pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
+        //    pagingInfo.TotalItemCount = filteredRecords.Count();
+        //    pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
 
-            return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
-        }
+        //    return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
+        //}
 
         public ServiceResult<IList<TModel>> GetUserForBranchAssignment<TModel>()
         {
-            var result = Repository.Find(x => !x.UseSystemConfig && !x.IsSystemAdmin).ToList();
+            var result = Repository.List(x => !x.UseSystemConfig && !x.IsSystemAdmin).ToList();
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
         public ServiceResult UpdateUserBranch(UserInfoDto user, UserConfigDto userConfig)
         {
-            var userBranch = Repository.Get(user.ID);
+            var userBranch = Repository.GetByID(user.ID);
 
             if(!string.IsNullOrEmpty(user.Password))
             {
@@ -83,11 +69,11 @@ namespace SMS.Business.Impl
             userBranch.Email = user.Email;
             userBranch.Address = user.Address;
             userBranch.Roles = Mapper.Map<IList<Role>>(user.Roles);
-            Repository.Update(userBranch);
+            Repository.Save(userBranch);
 
-            var userConfigBranch = UserConfigRepository.FindOne(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID);
+            var userConfigBranch = UserConfigRepository.Get(x => x.UserID == userConfig.UserID && x.BranchID == userConfig.BranchID);
             if (userConfigBranch == null)
-                UserConfigRepository.Add(new UserConfig
+                UserConfigRepository.Save(new UserConfig
                                              {
                                                  UserID = userBranch.ID, 
                                                  BranchID = SmsSystem.SelectedBranchID, 
@@ -96,7 +82,7 @@ namespace SMS.Business.Impl
             else
             {
                 userConfigBranch.IsSuspended = userConfig.IsSuspended;
-                UserConfigRepository.Update(userConfigBranch);   
+                UserConfigRepository.Save(userConfigBranch);   
             }
 
             return ServiceResult.CreateSuccessResult();
@@ -104,13 +90,13 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateUserSystem(UserDto user)
         {
-            var temp = Repository.Find(x => x.Username == user.Username).ToList();
+            var temp = Repository.List(x => x.Username == user.Username).ToList();
             if (temp.Count > 0)
             {
                 return ServiceResult.CreateFailResult();
             }
 
-            var userSystem = Repository.Get(user.ID);
+            var userSystem = Repository.GetByID(user.ID);
             if (userSystem != null)
             {
                 if (!string.IsNullOrEmpty(user.Password))
@@ -127,11 +113,11 @@ namespace SMS.Business.Impl
                 userSystem.UseSystemConfig = user.UseSystemConfig;
                 userSystem.Roles = Mapper.Map<IList<Role>>(user.Roles);
                 userSystem.Branches = Mapper.Map<IList<Data.Entities.Branch>>(user.Branches);
-                Repository.Update(userSystem);
+                Repository.Save(userSystem);
             }
             else
             {
-                Repository.Add(new User
+                Repository.Save(new User
                                    {
                                        Username = user.Username,
                                        Password = EncryptionHelper.SHA256Hash(user.Password),
@@ -152,7 +138,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme, int pageSize)
         {
-            var user = Repository.Get(SmsSystem.UserContext.UserID);
+            var user = Repository.GetByID(SmsSystem.UserContext.UserID);
             if (!string.IsNullOrEmpty(password))
             {
                 user.Password = EncryptionHelper.SHA256Hash(password);
@@ -162,13 +148,13 @@ namespace SMS.Business.Impl
             user.CellPhone = cellPhone;
             user.Email = email;
             user.Address = address;
-            Repository.Update(user);
+            Repository.Save(user);
 
-            var userConfig = UserConfigRepository.FindOne(x => x.UserID == SmsSystem.UserContext.UserID && x.BranchID == SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigRepository.Get(x => x.UserID == SmsSystem.UserContext.UserID && x.BranchID == SmsSystem.SelectedBranchID);
 
             if(userConfig == null)
             {
-                UserConfigRepository.Add(new UserConfig
+                UserConfigRepository.Save(new UserConfig
                                              {
                                                  BranchID = SmsSystem.SelectedBranchID,
                                                  UserID = SmsSystem.UserContext.UserID,
@@ -179,7 +165,7 @@ namespace SMS.Business.Impl
             else
             {
                 userConfig.Theme = theme;
-                UserConfigRepository.Update(userConfig);   
+                UserConfigRepository.Save(userConfig);   
             }
 
             return ServiceResult.CreateSuccessResult();

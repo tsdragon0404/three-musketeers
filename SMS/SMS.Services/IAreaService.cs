@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IAreaService : IBaseService<AreaDto, long>
+    public interface IAreaService : IBaseService<AreaDto>
     {
     }
 }

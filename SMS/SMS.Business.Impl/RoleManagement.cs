@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
-using SMS.Common.Session;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -9,7 +8,7 @@ using AutoMapper;
 
 namespace SMS.Business.Impl
 {
-    public class RoleManagement : BaseManagement<RoleDto, Role, long, IRoleRepository>, IRoleManagement
+    public class RoleManagement : BaseManagement<RoleDto, Role, IRoleRepository>, IRoleManagement
     {
         #region Fields
 
@@ -22,7 +21,7 @@ namespace SMS.Business.Impl
             if (userID == 0)
                 return ServiceResult<IList<RoleDto>>.CreateSuccessResult(new List<RoleDto>());
 
-            var result = Repository.Find(x => x.UsersInRole.Select(y => y.ID).Contains(userID)).ToList();
+            var result = Repository.List(x => x.UsersInRole.Select(y => y.ID).Contains(userID)).ToList();
             return ServiceResult<IList<RoleDto>>.CreateSuccessResult(Mapper.Map<IList<RoleDto>>(result));
         }
 
@@ -30,23 +29,15 @@ namespace SMS.Business.Impl
         {
             // keep users in this role
             if(dto.ID != 0)
-                dto.UsersInRole = Mapper.Map<IList<UserDto>>(Repository.Get(dto.ID).UsersInRole);
+                dto.UsersInRole = Mapper.Map<IList<UserDto>>(Repository.GetByID(dto.ID).UsersInRole);
+            return base.Save(dto);
 
-            var result = new ServiceResult<RoleDto>();
+            //TODO: test base.Save
 
-            var entity = Mapper.Map<Role>(dto);
-            entity.Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID };
+            //var entity = Mapper.Map<Role>(dto);
+            //Repository.Save(entity);
 
-            if (entity.ID == 0)
-                Repository.Add(entity);
-            else
-            {
-                var mergeEntity = Repository.Merge(entity);
-                Repository.Update(mergeEntity);
-                entity = mergeEntity;
-            }
-            result.Data = Mapper.Map<RoleDto>(entity);
-            return result;
+            //return ServiceResult<RoleDto>.CreateSuccessResult(Mapper.Map<RoleDto>(entity));
         }
     }
 }

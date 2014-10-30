@@ -112,7 +112,7 @@ namespace SMS.MvcApplication.Controllers
 
         private IList<SelectListItem> GetBranchList()
         {
-            var branchListResult = BranchService.GetAll<LanguageBranchDto>();
+            var branchListResult = BranchService.ListAll<LanguageBranchDto>();
             if (!branchListResult.Success || branchListResult.Data == null)
             {
                 errors = branchListResult.Errors;
@@ -154,7 +154,7 @@ namespace SMS.MvcApplication.Controllers
             List<Branch> allowBranches;
             if (user.IsSystemAdmin)
             {
-                var branchListResult = BranchService.GetAll<Branch>();
+                var branchListResult = BranchService.ListAll<Branch>();
                 if(!branchListResult.Success || branchListResult.Data == null)
                 {
                     errors = branchListResult.Errors;

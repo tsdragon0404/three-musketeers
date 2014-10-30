@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IPageMenuManagement : IBaseManagement<PageMenuDto, long>
+    public interface IPageMenuManagement : IBaseManagement<PageMenuDto>
     {
         ServiceResult<IList<PageMenuDto>> GetMenuByPageIds(IList<long> pageList);
     }

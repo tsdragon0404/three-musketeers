@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface IBranchManagement : IBaseManagement<BranchDto, long>
+    public interface IBranchManagement : IBaseManagement<BranchDto>
     {
     }
 }

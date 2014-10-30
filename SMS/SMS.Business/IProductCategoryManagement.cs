@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface IProductCategoryManagement : IBaseManagement<ProductCategoryDto, long>
+    public interface IProductCategoryManagement : IBaseManagement<ProductCategoryDto>
     {
     }
 }

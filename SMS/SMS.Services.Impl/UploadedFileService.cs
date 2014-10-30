@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class UploadedFileService : BaseService<UploadedFileDto, long, IUploadedFileManagement>, IUploadedFileService
+    public class UploadedFileService : BaseService<UploadedFileDto, IUploadedFileManagement>, IUploadedFileService
     {
         #region Fields
 

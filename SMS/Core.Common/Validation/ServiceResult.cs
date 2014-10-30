@@ -5,12 +5,9 @@ namespace Core.Common.Validation
 {
     public class ServiceResult
     {
-        private bool success = true;
-        public bool Success
-        {
-            get { return success; }
-            set { success = value; }
-        }
+        internal ServiceResult() { }
+
+        public bool Success { get; set; }
 
         public List<Error> Errors { get; set; }
 
@@ -52,6 +49,8 @@ namespace Core.Common.Validation
             return new ServiceResult<T>
                    {
                        Data = data,
+                       Success = true,
+                       Errors = new List<Error>()
                    };
         }
     }

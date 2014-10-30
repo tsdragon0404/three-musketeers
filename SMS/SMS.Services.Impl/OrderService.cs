@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class OrderService : BaseService<OrderDto, long, IOrderManagement>, IOrderService
+    public class OrderService : BaseService<OrderDto, IOrderManagement>, IOrderService
     {
         #region Fields
 

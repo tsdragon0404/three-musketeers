@@ -1,10 +1,9 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IUserConfigRepository : IRepository<UserConfig>
+    public interface IUserConfigRepository : IBaseRepository<UserConfig>
     {
-         
+        UserConfig SaveCashierInfo(long defaultAreaID, decimal listTableHeight);
     }
 }

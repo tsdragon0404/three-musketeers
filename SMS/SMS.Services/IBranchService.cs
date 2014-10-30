@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IBranchService : IBaseService<BranchDto, long>
+    public interface IBranchService : IBaseService<BranchDto>
     {
     }
 }

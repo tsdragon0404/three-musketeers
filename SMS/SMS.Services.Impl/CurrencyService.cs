@@ -3,7 +3,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class CurrencyService : BaseService<CurrencyDto, long, ICurrencyManagement>, ICurrencyService
+    public class CurrencyService : BaseService<CurrencyDto, ICurrencyManagement>, ICurrencyService
     {
         #region Fields
 

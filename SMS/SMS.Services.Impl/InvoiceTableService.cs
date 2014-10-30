@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class InvoiceTableService : BaseService<InvoiceTableDto, long, IInvoiceTableManagement>, IInvoiceTableService
+    public class InvoiceTableService : BaseService<InvoiceTableDto, IInvoiceTableManagement>, IInvoiceTableService
     {
         #region Fields
 

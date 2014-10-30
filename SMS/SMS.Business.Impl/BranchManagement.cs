@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Validation;
 using SMS.Common.Enums;
@@ -12,7 +11,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class BranchManagement : BaseManagement<BranchDto, Branch, long, IBranchRepository>, IBranchManagement
+    public class BranchManagement : BaseManagement<BranchDto, Branch, IBranchRepository>, IBranchManagement
     {
         #region Fields
 
@@ -22,18 +21,7 @@ namespace SMS.Business.Impl
 
         #endregion
 
-        #region Func
-
-        public override Func<Branch, long, bool> BelongToBranch
-        {
-            get
-            {
-                return (x, y) => x.ID == y;
-            }
-        }
-
-        #endregion
-
+        //TODO: test SaveAllChanges
         public override ServiceResult<BranchDto> Save(BranchDto dto)
         {
             var result = new ServiceResult<BranchDto>();
@@ -48,30 +36,30 @@ namespace SMS.Business.Impl
                                                   Branch = branchToSave
                                               };
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
-                Repository.Add(branchToSave);
-                Repository.SaveAllChanges();
+                Repository.Save(branchToSave);
+                //Repository.SaveAllChanges();
             }
             else
             {
-                branchToSave = Repository.Get(dto.ID);
+                branchToSave = Repository.GetByID(dto.ID);
                 AssignBranchValues(dto, branchToSave);
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
-                Repository.Update(branchToSave);
-                Repository.SaveAllChanges();
+                Repository.Save(branchToSave);
+                //Repository.SaveAllChanges();
 
                 if (!branchToSave.UseKitchenFunction)
                 {
-                    var ordersInKitchen = OrderDetailRepository.Find(x => (x.OrderStatus == OrderStatus.SentToKitchen || x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenAccepted) 
+                    var ordersInKitchen = OrderDetailRepository.List(x => (x.OrderStatus == OrderStatus.SentToKitchen || x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenAccepted) 
                                                                         && x.OrderTable.Order.Branch.ID == branchToSave.ID);
                     foreach (var order in ordersInKitchen)
                     {
                         order.OrderStatus = OrderStatus.Done;
-                        OrderDetailRepository.Update(order);
+                        OrderDetailRepository.Save(order);
                     }
                 }
             }
 
-            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.GetByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
+            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.ListByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
             
             StorageHelper.UpdateBranchConfig(branchToSave.ID, new BranchConfig
                                                                   {
@@ -91,7 +79,7 @@ namespace SMS.Business.Impl
         {
             destination.CreatedDate = source.CreatedDate;
             destination.CreatedUser = source.CreatedUser;
-            destination.Currency = CurrencyRepository.Get(source.Currency.ID);
+            destination.Currency = CurrencyRepository.GetByID(source.Currency.ID);
             destination.ENName = source.ENName;
             destination.Enable = source.Enable;
             destination.ModifiedDate = source.ModifiedDate;
