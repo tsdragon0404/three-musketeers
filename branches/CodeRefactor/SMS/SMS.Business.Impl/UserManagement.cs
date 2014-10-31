@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using AutoMapper;
 using Core.Common;
 using Core.Common.Validation;
@@ -35,7 +33,7 @@ namespace SMS.Business.Impl
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }
 
-        public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
+        public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
             if (SmsSystem.UserContext.IsSystemAdmin)
                 return base.Search(textSearch, pagingInfo, includeDisable);
