@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Data;
 using Core.Data.NHibernate;
-using SMS.Common.Paging;
 using SMS.Common.Session;
 using SMS.Data.Entities;
 using SMS.Data.Entities.Interfaces;
@@ -161,12 +160,11 @@ namespace SMS.Data.Impl
 
         public virtual void Save(TEntity entity)
         {
+            if (entity is IBranchEntity)
+                (entity as IBranchEntity).Branch = new Entities.Branch { ID = SmsSystem.SelectedBranchID };
+
             if (entity.ID == 0)
-            {
-                if (entity is IBranchEntity)
-                    (entity as IBranchEntity).Branch = new Entities.Branch { ID = SmsSystem.SelectedBranchID };
                 Add(entity);
-            }
             else
             {
                 var mergeEntity = Merge(entity);

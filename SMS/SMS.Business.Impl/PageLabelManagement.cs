@@ -29,49 +29,20 @@ namespace SMS.Business.Impl
 
         public ServiceResult Save(long pageID, List<PageLabelDto> pageLabels)
         {
-            foreach (var pageLabel in pageLabels)
-            {
-                var entity = Mapper.Map<PageLabel>(pageLabel);
-                entity.Page = new Page { ID = pageID };
-                Repository.Save(entity);
+            var labelIds = pageLabels.ConvertAll(x => x.LabelID);
+            var labels = Repository.List(
+                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsSystem.SelectedBranchID).ToList();
 
-                //or
-                //Save(pageLabel) => test this.
-            }
-
-            //TODO: test new implementation to decide is it good to remove old code
-            //var labelIds = listLabels.Select(x => x.LabelID);
-            //var pageLabels = Repository.List(
-            //    x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsSystem.SelectedBranchID).ToList();
-
-            //if (pageLabels.Any())
-            //{
-            //    foreach (var pageLabel in pageLabels)
-            //    {
-            //        pageLabel.VNText = listLabels.First(x => x.LabelID == pageLabel.LabelID).VNText;
-            //        pageLabel.ENText = listLabels.First(x => x.LabelID == pageLabel.LabelID).ENText;
-
-            //        Repository.Update(pageLabel);
-            //        Repository.SaveAllChanges();
-            //    }
-            //}
-
-            //var insertItems = labelIds.Except(pageLabels.Select(x => x.LabelID)).ToList();
-            //if (insertItems.Any())
-            //{
-            //    foreach (var labelID in insertItems)
-            //    {
-            //        Repository.Add(new PageLabel
-            //                           {
-            //                               BranchID = SmsSystem.SelectedBranchID,
-            //                               LabelID = labelID,
-            //                               Page = new Page {ID = pageID},
-            //                               VNText = listLabels.First(x => x.LabelID == labelID).VNText,
-            //                               ENText = listLabels.First(x => x.LabelID == labelID).ENText
-            //                           });
-            //        Repository.SaveAllChanges();
-            //    }
-            //}
+            pageLabels.Each(x =>
+                                {
+                                    foreach (var label in labels.Where(label => x.LabelID == label.LabelID))
+                                    {
+                                        x.ID = label.ID;
+                                        break;
+                                    }
+                                    x.BranchID = SmsSystem.SelectedBranchID;
+                                    Save(x);
+                                });
 
             return ServiceResult.CreateSuccessResult();
         }

@@ -237,6 +237,11 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult SaveCashierInfo(CashierInfoModel info)
         {
             var result = UserConfigService.SaveCashierInfo(info.DefaultAreaID, info.ListTableHeight);
+            if(result.Success)
+            {
+                SmsSystem.UserContext.DefaultAreaID = result.Data.DefaultAreaID;
+                SmsSystem.UserContext.ListTableHeight = result.Data.ListTableHeight;
+            }
             return Json(JsonModel.Create(result));
         }
 

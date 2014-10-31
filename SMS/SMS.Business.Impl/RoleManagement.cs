@@ -31,13 +31,6 @@ namespace SMS.Business.Impl
             if(dto.ID != 0)
                 dto.UsersInRole = Mapper.Map<IList<UserDto>>(Repository.GetByID(dto.ID).UsersInRole);
             return base.Save(dto);
-
-            //TODO: test base.Save
-
-            //var entity = Mapper.Map<Role>(dto);
-            //Repository.Save(entity);
-
-            //return ServiceResult<RoleDto>.CreateSuccessResult(Mapper.Map<RoleDto>(entity));
         }
     }
 }

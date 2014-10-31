@@ -26,12 +26,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
-            var result = Repository.SaveCashierInfo(defaultAreaID, listTableHeight);
-
-            //TODO: UserContext must be assigned after this method return.
-            SmsSystem.UserContext.DefaultAreaID = defaultAreaID;
-            SmsSystem.UserContext.ListTableHeight = listTableHeight;
-
+            var result = Repository.SaveUserProfile(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID, defaultAreaID, listTableHeight);
             return ServiceResult<UserConfigDto>.CreateSuccessResult(Mapper.Map<UserConfigDto>(result));
         }
     }
