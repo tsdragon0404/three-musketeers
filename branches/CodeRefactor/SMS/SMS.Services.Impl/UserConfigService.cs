@@ -20,10 +20,9 @@ namespace SMS.Services.Impl
             return Management.GetUserConfig<TModel>(userID, branchID);
         }
 
-        public ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
+        public ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
             return Management.SaveCashierInfo(defaultAreaID, listTableHeight);
-            ;
         }
     }
 }

@@ -7,6 +7,6 @@ namespace SMS.Services
     {
         ServiceResult<TModel> GetUserConfig<TModel>(long userID, long branchID);
         ServiceResult<UserConfigDto> GetUserConfig(long userID, long branchID);
-        ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight);
+        ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight);
     }
 }
