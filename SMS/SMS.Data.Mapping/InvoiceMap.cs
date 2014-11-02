@@ -7,8 +7,7 @@ namespace SMS.Data.Mapping
         public InvoiceMap()
         {
             Table("Invoice");
-            References(x => x.Branch).Column("BranchID")
-                .Cascade.None();
+            References(x => x.Branch).Column("BranchID").Cascade.None();
             Map(x => x.InvoiceNumber);
             Map(x => x.InvoiceDate);
             Map(x => x.Comment);
@@ -23,6 +22,8 @@ namespace SMS.Data.Mapping
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
             Map(x => x.Currency);
+            HasMany(x => x.InvoiceDiscounts).KeyColumn("InvoiceID").Cascade.AllDeleteOrphan();
+            HasMany(x => x.InvoiceTables).KeyColumn("InvoiceID").Cascade.AllDeleteOrphan();
         }
     }
 }

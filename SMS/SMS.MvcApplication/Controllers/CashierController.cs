@@ -16,8 +16,6 @@ namespace SMS.MvcApplication.Controllers
 
         public virtual IAreaService AreaService { get; set; }
         public virtual IProductService ProductService { get; set; }
-        public virtual IOrderTableService OrderTableService { get; set; }
-        public virtual IOrderDetailService OrderDetailService { get; set; }
         public virtual IOrderService OrderService { get; set; }
         public virtual ICustomerService CustomerService { get; set; }
         public virtual IUserConfigService UserConfigService { get; set; }
@@ -49,7 +47,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (productID <= 0 || quantity <= 0 || orderTableID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderDetailService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
+            var result = OrderService.AddProductToOrderTable<OrderTableDto>(orderTableID, productID, quantity);
 
             return Json(JsonModel.Create(result));
         }
@@ -59,7 +57,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetail<OrderDataDto>(orderTableID);
+            var order = OrderService.GetByOrderTableID<OrderDataDto>(orderTableID);
 
             return Json(JsonModel.Create(order));
         }
@@ -69,7 +67,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0 || tableID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderTableService.MoveTable<OrderDataDto>(orderTableID, tableID);
+            var order = OrderService.MoveTable<OrderDataDto>(orderTableID, tableID);
 
             return Json(JsonModel.Create(order));
         }
@@ -79,7 +77,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetailByOrderID<OrderDataDto>(orderID);
+            var order = OrderService.GetByID<OrderDataDto>(orderID);
 
             return Json(JsonModel.Create(order));
         }
@@ -99,7 +97,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
-            var flag = OrderTableService.Delete(orderTableID);
+            var flag = OrderService.Delete(orderTableID);
 
             return Json(JsonModel.Create(flag));
         }
@@ -119,7 +117,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (tableID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderTableService.CheckTableStatus(tableID);
+            var result = OrderService.CheckTableStatus(tableID);
 
             return Json(JsonModel.Create(result));
         }
@@ -129,7 +127,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
+            var result = OrderService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
             return Json(JsonModel.Create(result));
         }
@@ -139,7 +137,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
+            var orderDetail = OrderService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
             return Json(JsonModel.Create(orderDetail));
         }
@@ -149,7 +147,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderDetailService.Delete(orderDetailID);
+            var result = OrderService.Delete(orderDetailID);
 
             return Json(JsonModel.Create(result));
         }
@@ -159,7 +157,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (tableID <= 0) return Json(JsonModel.Create(false));
 
-            var orderTableID = OrderTableService.CreateOrderTable(tableID);
+            var orderTableID = OrderService.CreateOrderTable(tableID);
 
             return Json(JsonModel.Create(orderTableID));
         }
@@ -167,7 +165,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CreateMultiOrderTable(long[] table)
         {
-            var orderID = OrderTableService.CreateMultiOrderTable(table);
+            var orderID = OrderService.CreateMultiOrderTable(table);
 
             return Json(JsonModel.Create(orderID));
         }
@@ -175,7 +173,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult RemoveMultiOrder(long[] order)
         {
-            var result = OrderService.RemoveMultiOrder(order);
+            var result = OrderService.DeleteMultiOrder(order);
 
             return Json(JsonModel.Create(result));
         }
@@ -183,7 +181,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult PoolingTable(long[] orderTable)
         {
-            var result = OrderTableService.PoolingTable(orderTable);
+            var result = OrderService.PoolingTable(orderTable);
 
             return Json(JsonModel.Create(result));
         }
@@ -198,7 +196,7 @@ namespace SMS.MvcApplication.Controllers
         public JsonResult GetTablesByAreaID(long areaID)
         {
             if (areaID < 0) return Json(JsonModel.Create(false));
-            var listTable = OrderTableService.GetTablesByAreaID<SimpleOrderTableDto>(areaID);
+            var listTable = OrderService.GetOrderTablesByAreaID<SimpleOrderTableDto>(areaID);
 
             return Json(JsonModel.Create(listTable));
         }
@@ -208,7 +206,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderDetailByOrderID<OrderDto>(orderID);
+            var order = OrderService.GetByID<OrderDto>(orderID);
 
             return Json(JsonModel.Create(order));
         }
@@ -228,7 +226,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderTableService.SendToKitchen(orderTableID);
+            var result = OrderService.SendToKitchen(orderTableID);
 
             return Json(JsonModel.Create(result));
         }
@@ -256,9 +254,9 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
+        public JsonResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts)
         {
-            var result = OrderService.SaveOrderDiscount(orderID, discountTypes, discountCodes, discountComments, discounts);
+            var result = OrderService.SaveOrderDiscount(orderID, orderDiscounts);
 
             return Json(JsonModel.Create(result));
         }
@@ -284,7 +282,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetOrderBasic<OrderBasicDto>(orderID);
+            var order = OrderService.GetByID<OrderBasicDto>(orderID);
 
             return Json(JsonModel.Create(order));
         }

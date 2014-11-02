@@ -41,11 +41,13 @@
     <Compile Include="CustomAttributes\RequiredAttribute.cs" />
     <Compile Include="CustomAttributes\LengthAttribute.cs" />
     <Compile Include="EncryptionHelper.cs" />
-    <Compile Include="Exceptions\DataAccessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\ErrorType.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
     <Compile Include="Validation\Error.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

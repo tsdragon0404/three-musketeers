@@ -60,14 +60,10 @@
     <Compile Include="RoleManagement.cs" />
     <Compile Include="UserManagement.cs" />
     <Compile Include="ReportManagement.cs" />
-    <Compile Include="OrderDetailManagement.cs" />
-    <Compile Include="OrderTableManagement.cs" />
     <Compile Include="OrderManagement.cs" />
     <Compile Include="ErrorMessageManagement.cs" />
     <Compile Include="PageLabelManagement.cs" />
     <Compile Include="PageManagement.cs" />
-    <Compile Include="InvoiceDetailManagement.cs" />
-    <Compile Include="InvoiceTableManagement.cs" />
     <Compile Include="InvoiceManagement.cs" />
     <Compile Include="UnitManagement.cs" />
     <Compile Include="ProductCategoryManagement.cs" />

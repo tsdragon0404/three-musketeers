@@ -45,8 +45,6 @@
     <Compile Include="IUserConfigRepository.cs" />
     <Compile Include="ICustomerRepository.cs" />
     <Compile Include="ITaxRepository.cs" />
-    <Compile Include="IInvoiceDiscountRepository.cs" />
-    <Compile Include="IOrderDiscountRepository.cs" />
     <Compile Include="IUserBranchRepository.cs" />
     <Compile Include="ICurrencyRepository.cs" />
     <Compile Include="IRejectRepository.cs" />
@@ -57,15 +55,11 @@
     <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IReportRepository.cs" />
-    <Compile Include="IOrderDetailRepository.cs" />
-    <Compile Include="IOrderTableRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IErrorMessageRepository.cs" />
     <Compile Include="IPageLabelRepository.cs" />
     <Compile Include="IPageRepository.cs" />
     <Compile Include="IAreaRepository.cs" />
-    <Compile Include="IInvoiceDetailRepository.cs" />
-    <Compile Include="IInvoiceTableRepository.cs" />
     <Compile Include="IInvoiceRepository.cs" />
     <Compile Include="IUnitRepository.cs" />
     <Compile Include="IProductCategoryRepository.cs" />

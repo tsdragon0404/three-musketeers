@@ -11,9 +11,9 @@ namespace SMS.Services.Impl
 
         #endregion
 
-        public ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID)
+        public ServiceResult<TDto> GetByOrderTableID<TDto>(long orderTableID)
         {
-            return Management.GetOrderDetail<TDto>(orderTableID);
+            return Management.GetByOrderTableID<TDto>(orderTableID);
         }
 
         public ServiceResult DeleteByOrderTableID(long orderTableID)
@@ -21,14 +21,9 @@ namespace SMS.Services.Impl
             return Management.DeleteByOrderTableID(orderTableID);
         }
 
-        public ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID)
+        public ServiceResult DeleteMultiOrder(long[] order)
         {
-            return Management.GetOrderDetailByOrderID<TDto>(orderID);
-        }
-
-        public ServiceResult RemoveMultiOrder(long[] order)
-        {
-            return Management.RemoveMultiOrder(order);
+            return Management.DeleteMultiOrder(order);
         }
 
         public ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription)
@@ -46,9 +41,9 @@ namespace SMS.Services.Impl
             return Management.GetOrderDiscount<TDto>(orderID);
         }
 
-        public ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts)
+        public ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts)
         {
-            return Management.SaveOrderDiscount(orderID, discountTypes, discountCodes, discountComments, discounts);
+            return Management.SaveOrderDiscount(orderID, orderDiscounts);
         }
 
         public ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob)
@@ -56,9 +51,64 @@ namespace SMS.Services.Impl
             return Management.ChangeCustomer(orderID, customerID, customerName, address, cellPhone, dob);
         }
 
-        public ServiceResult<TDto> GetOrderBasic<TDto>(long orderID)
+        public ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID)
         {
-            return Management.GetOrderBasic<TDto>(orderID);
+            return Management.GetOrderTablesByAreaID<TDto>(areaID);
+        }
+
+        public ServiceResult<long> CreateOrderTable(long tableID)
+        {
+            return Management.CreateOrderTable(tableID);
+        }
+
+        public ServiceResult CheckTableStatus(long tableID)
+        {
+            return Management.CheckTableStatus(tableID);
+        }
+
+        public ServiceResult<long> CreateMultiOrderTable(long[] table)
+        {
+            return Management.CreateMultiOrderTable(table);
+        }
+
+        public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
+        {
+            return Management.MoveTable<TDto>(orderTableID, tableID);
+        }
+
+        public ServiceResult PoolingTable(long[] orderTable)
+        {
+            return Management.PoolingTable(orderTable);
+        }
+
+        public ServiceResult SendToKitchen(long orderTableID)
+        {
+            return Management.SendToKitchen(orderTableID);
+        }
+
+        public ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity)
+        {
+            return Management.AddProductToOrderTable<TDto>(orderTableID, productID, quantity);
+        }
+
+        public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
+        {
+            return Management.UpdateProductToOrderTable(orderDetailID, columnName, value);
+        }
+
+        public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
+        {
+            return Management.UpdateOrderedProductStatus<TDto>(orderDetailID, value);
+        }
+
+        public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
+        {
+            return Management.GetOrderedProductForKitchen<TDto>();
+        }
+
+        public ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>()
+        {
+            return Management.GetAcceptedProductForKitchen<TDto>();
         }
     }
 }
