@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Enums;
 using SMS.Common.Storage;
@@ -15,13 +17,12 @@ namespace SMS.Business.Impl
     {
         #region Fields
 
-        public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
+        public virtual IOrderRepository OrderRepository { get; set; }
         public virtual ICurrencyRepository CurrencyRepository { get; set; }
         public virtual ITaxRepository TaxRepository { get; set; }
 
         #endregion
 
-        //TODO: test SaveAllChanges
         public override ServiceResult<BranchDto> Save(BranchDto dto)
         {
             var result = new ServiceResult<BranchDto>();
@@ -37,7 +38,6 @@ namespace SMS.Business.Impl
                                               };
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Save(branchToSave);
-                //Repository.SaveAllChanges();
             }
             else
             {
@@ -45,16 +45,17 @@ namespace SMS.Business.Impl
                 AssignBranchValues(dto, branchToSave);
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
                 Repository.Save(branchToSave);
-                //Repository.SaveAllChanges();
 
                 if (!branchToSave.UseKitchenFunction)
                 {
-                    var ordersInKitchen = OrderDetailRepository.List(x => (x.OrderStatus == OrderStatus.SentToKitchen || x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenAccepted) 
-                                                                        && x.OrderTable.Order.Branch.ID == branchToSave.ID);
+                    var statuses = new List<OrderStatus> { OrderStatus.SentToKitchen, OrderStatus.Ordered, OrderStatus.KitchenAccepted };
+                    Func<Order, bool> predicate = x => x.OrderTables.Any(y => y.OrderDetails.Any(z => statuses.Contains(z.OrderStatus))) && x.Branch.ID == branchToSave.ID;
+
+                    var ordersInKitchen = OrderRepository.List(x => predicate(x));
                     foreach (var order in ordersInKitchen)
                     {
-                        order.OrderStatus = OrderStatus.Done;
-                        OrderDetailRepository.Save(order);
+                        order.OrderTables.Apply(x => x.OrderDetails.Apply(y => y.OrderStatus = OrderStatus.Done));
+                        OrderRepository.Save(order);
                     }
                 }
             }

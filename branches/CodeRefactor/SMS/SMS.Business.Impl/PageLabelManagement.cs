@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Session;
@@ -33,7 +34,7 @@ namespace SMS.Business.Impl
             var labels = Repository.List(
                 x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsSystem.SelectedBranchID).ToList();
 
-            pageLabels.Each(x =>
+            pageLabels.Apply(x =>
                                 {
                                     foreach (var label in labels.Where(label => x.LabelID == label.LabelID))
                                     {

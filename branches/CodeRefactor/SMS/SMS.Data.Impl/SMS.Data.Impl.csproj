@@ -49,8 +49,6 @@
     <Compile Include="UserConfigRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="TaxRepository.cs" />
-    <Compile Include="InvoiceDiscountRepository.cs" />
-    <Compile Include="OrderDiscountRepository.cs" />
     <Compile Include="UserBranchRepository.cs" />
     <Compile Include="CurrencyRepository.cs" />
     <Compile Include="RejectRepository.cs" />
@@ -60,14 +58,10 @@
     <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="ReportRepository.cs" />
-    <Compile Include="OrderDetailRepository.cs" />
-    <Compile Include="OrderTableRepository.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="ErrorMessageRepository.cs" />
     <Compile Include="PageLabelRepository.cs" />
     <Compile Include="PageRepository.cs" />
-    <Compile Include="InvoiceDetailRepository.cs" />
-    <Compile Include="InvoiceTableRepository.cs" />
     <Compile Include="InvoiceRepository.cs" />
     <Compile Include="UnitRepository.cs" />
     <Compile Include="ProductCategoryRepository.cs" />
