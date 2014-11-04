@@ -58,7 +58,8 @@ namespace SMS.Services.Impl
 
         public ServiceResult<long> CreateOrderTable(long tableID)
         {
-            return Management.CreateOrderTable(tableID);
+            var orderID = Management.CreateEmptyOrder();
+            return Management.CreateOrderTable(orderID, tableID);
         }
 
         public ServiceResult CheckTableStatus(long tableID)
@@ -68,7 +69,8 @@ namespace SMS.Services.Impl
 
         public ServiceResult<long> CreateMultiOrderTable(long[] table)
         {
-            return Management.CreateMultiOrderTable(table);
+            var orderID = Management.CreateEmptyOrder();
+            return Management.CreateMultiOrderTable(orderID, table);
         }
 
         public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
