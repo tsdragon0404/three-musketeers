@@ -36,28 +36,11 @@ namespace SMS.Business.Impl
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(result ?? new Order()));
         }
 
-        /// <summary>
-        /// create new Order
-        /// OrderNumber va Custumer: cho phep khach hang custom
-        /// </summary>
-        /// <returns></returns>
-        public long CreateOrder()
+        public long CreateEmptyOrder()
         {
-            throw new NotImplementedException();
-            //var order = new Order
-            //                {
-            //                    Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID },
-            //                    Customer = new Customer { ID = 1 }
-            //                };
-            //Repository.Save(order);
-            ////Repository.SaveAllChanges();
-
-            //var text = "0000000000" + order.ID;
-            //order.OrderNumber = "INV-" + text.Substring(text.Length-10, 10);
-            //Repository.Save(order);
-            ////Repository.SaveAllChanges();
-
-            //return order.ID;
+            var order = new Order();
+            Repository.Save(order);
+            return order.ID;
         }
 
         public ServiceResult DeleteByOrderTableID(long orderTableID)
@@ -166,21 +149,22 @@ namespace SMS.Business.Impl
                        Mapper.Map<IList<TDto>>(usedTables.OrderBy(x => x.Table.Area.SEQ).ThenBy(x => x.Table.ID).ToList()));
         }
 
-        public ServiceResult<long> CreateOrderTable(long tableID)
+        private string BuildOrderNumber(long orderID)
         {
-            var order = new Order
-                            {
-                                Branch = new Data.Entities.Branch { ID = SmsSystem.SelectedBranchID },
-                                Customer = new Customer { ID = 1 },
-                                OrderTables = new List<OrderTable>
-                                                  {
-                                                      new OrderTable { Table = new Table { ID = tableID } }
-                                                  }
-                            };
+            var text = "0000000000" + orderID;
+            return "INV-" + text.Substring(text.Length - 10, 10);
+        }
 
-            //TODO: find way to implement this => trigger?
-            var text = "0000000000" + order.ID;
-            order.OrderNumber = "INV-" + text.Substring(text.Length - 10, 10);
+        public ServiceResult<long> CreateOrderTable(long orderID, long tableID)
+        {
+            var order = Repository.GetByID(orderID);
+            order.Customer = new Customer {ID = 1};
+            order.OrderTables = new List<OrderTable>
+                                    {
+                                        new OrderTable {Table = new Table {ID = tableID}}
+                                    };
+                
+            order.OrderNumber = BuildOrderNumber(orderID);
             Repository.Save(order);
 
             return ServiceResult<long>.CreateSuccessResult(order.OrderTables[0].ID);
@@ -192,18 +176,13 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateResult(result);
         }
 
-        public ServiceResult<long> CreateMultiOrderTable(long[] tableID)
+        public ServiceResult<long> CreateMultiOrderTable(long orderID, long[] tableID)
         {
-            var order = new Order
-                            {
-                                Branch = new Data.Entities.Branch {ID = SmsSystem.SelectedBranchID},
-                                Customer = new Customer {ID = 1},
-                                OrderTables = tableID.Select(x => new OrderTable { Table = new Table { ID = x } }).ToList()
-                            };
-            
-            //TODO: find way to implement this => trigger?
-            var text = "0000000000" + order.ID;
-            order.OrderNumber = "INV-" + text.Substring(text.Length - 10, 10);
+            var order = Repository.GetByID(orderID);
+            order.Customer = new Customer { ID = 1 };
+            order.OrderTables = tableID.Select(x => new OrderTable { Table = new Table { ID = x } }).ToList();
+
+            order.OrderNumber = BuildOrderNumber(orderID);
             Repository.Save(order);
 
             return ServiceResult<long>.CreateSuccessResult(order.ID);

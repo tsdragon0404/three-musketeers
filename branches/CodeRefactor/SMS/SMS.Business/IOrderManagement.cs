@@ -7,7 +7,7 @@ namespace SMS.Business
     public interface IOrderManagement : IBaseManagement<OrderDto>
     {
         ServiceResult<TDto> GetByOrderTableID<TDto>(long orderTableID);
-        long CreateOrder();
+        long CreateEmptyOrder();
         ServiceResult DeleteByOrderTableID(long orderTableID);
         ServiceResult DeleteMultiOrder(long[] order);
         ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
@@ -17,9 +17,9 @@ namespace SMS.Business
         ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob);
 
         ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID);
-        ServiceResult<long> CreateOrderTable(long tableID);
+        ServiceResult<long> CreateOrderTable(long orderID, long tableID);
         ServiceResult CheckTableStatus(long tableID);
-        ServiceResult<long> CreateMultiOrderTable(long[] table);
+        ServiceResult<long> CreateMultiOrderTable(long orderID, long[] table);
         ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
         ServiceResult PoolingTable(long[] orderTable);
         ServiceResult SendToKitchen(long orderTableID);
