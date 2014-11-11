@@ -11,5 +11,7 @@ namespace SMS.Common.Storage.UserAccess
         public ClientInfo ClientInfo { get; set; }
         public DateTime LoginDateTime { get; set; }
         public DateTime LastAccess { get; set; }
+
+        public Guid TokenID { get; set; }
     }
 }
