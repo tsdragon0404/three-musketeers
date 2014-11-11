@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Enums;
 using SMS.Common.Storage;
@@ -12,25 +13,13 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class BranchManagement : BaseManagement<BranchDto, Branch, long, IBranchRepository>, IBranchManagement
+    public class BranchManagement : BaseManagement<BranchDto, Branch, IBranchRepository>, IBranchManagement
     {
         #region Fields
 
-        public virtual IOrderDetailRepository OrderDetailRepository { get; set; }
+        public virtual IOrderRepository OrderRepository { get; set; }
         public virtual ICurrencyRepository CurrencyRepository { get; set; }
         public virtual ITaxRepository TaxRepository { get; set; }
-
-        #endregion
-
-        #region Func
-
-        public override Func<Branch, long, bool> BelongToBranch
-        {
-            get
-            {
-                return (x, y) => x.ID == y;
-            }
-        }
 
         #endregion
 
@@ -48,30 +37,30 @@ namespace SMS.Business.Impl
                                                   Branch = branchToSave
                                               };
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
-                Repository.Add(branchToSave);
-                Repository.SaveAllChanges();
+                Repository.Save(branchToSave);
             }
             else
             {
-                branchToSave = Repository.Get(dto.ID);
+                branchToSave = Repository.GetByID(dto.ID);
                 AssignBranchValues(dto, branchToSave);
                 AssignBranchInfoValues(dto.BranchInfo, branchToSave.BranchInfo);
-                Repository.Update(branchToSave);
-                Repository.SaveAllChanges();
+                Repository.Save(branchToSave);
 
                 if (!branchToSave.UseKitchenFunction)
                 {
-                    var ordersInKitchen = OrderDetailRepository.Find(x => (x.OrderStatus == OrderStatus.SentToKitchen || x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenAccepted) 
-                                                                        && x.OrderTable.Order.Branch.ID == branchToSave.ID);
+                    var statuses = new List<OrderStatus> { OrderStatus.SentToKitchen, OrderStatus.Ordered, OrderStatus.KitchenAccepted };
+                    Func<Order, bool> predicate = x => x.OrderTables.Any(y => y.OrderDetails.Any(z => statuses.Contains(z.OrderStatus))) && x.Branch.ID == branchToSave.ID;
+
+                    var ordersInKitchen = OrderRepository.List(x => predicate(x));
                     foreach (var order in ordersInKitchen)
                     {
-                        order.OrderStatus = OrderStatus.Done;
-                        OrderDetailRepository.Update(order);
+                        order.OrderTables.Apply(x => x.OrderDetails.Apply(y => y.OrderStatus = OrderStatus.Done));
+                        OrderRepository.Save(order);
                     }
                 }
             }
 
-            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.GetByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
+            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.ListByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
             
             StorageHelper.UpdateBranchConfig(branchToSave.ID, new BranchConfig
                                                                   {
@@ -91,7 +80,7 @@ namespace SMS.Business.Impl
         {
             destination.CreatedDate = source.CreatedDate;
             destination.CreatedUser = source.CreatedUser;
-            destination.Currency = CurrencyRepository.Get(source.Currency.ID);
+            destination.Currency = CurrencyRepository.GetByID(source.Currency.ID);
             destination.ENName = source.ENName;
             destination.Enable = source.Enable;
             destination.ModifiedDate = source.ModifiedDate;

@@ -10,7 +10,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 {
     [SmsAuthorize(ConstPage.System_Branch)]
     [PageID(ConstPage.System_Branch)]
-    public class BranchController : AdminBaseController<BranchDto, long, IBranchService>
+    public class BranchController : AdminBaseController<BranchDto, IBranchService>
     {
         #region Fields
 
@@ -22,8 +22,8 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            ViewBag.ListCurrency = CurrencyService.GetAll().Data;
-            ViewBag.ListTax = TaxService.GetAll().Data;
+            ViewBag.ListCurrency = CurrencyService.ListAll().Data;
+            ViewBag.ListTax = TaxService.ListAll().Data;
             return base.Index(textSearch, page);
         }
 

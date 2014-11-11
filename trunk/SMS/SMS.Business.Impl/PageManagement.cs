@@ -12,7 +12,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class PageManagement : BaseManagement<PageDto, Page, long, IPageRepository>, IPageManagement
+    public class PageManagement : BaseManagement<PageDto, Page, IPageRepository>, IPageManagement
     {
         #region Fields
 
@@ -25,7 +25,7 @@ namespace SMS.Business.Impl
             if(types == null || !types.Any())
                 return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(new List<Page>()));
 
-            var result = Repository.Find(x => types.Contains(x.Type)).ToList();
+            var result = Repository.List(x => types.Contains(x.Type)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
@@ -62,7 +62,7 @@ namespace SMS.Business.Impl
             if (SmsSystem.UserContext.IsSystemAdmin)
                 return GetPagesByTypes<TModel>(PageType.Public, PageType.Protected, PageType.System);
 
-            var user = UserRepository.Get(SmsSystem.UserContext.UserID);
+            var user = UserRepository.GetByID(SmsSystem.UserContext.UserID);
 
             var accessiblePageIds = new List<long>();
             foreach (var role in user.Roles)
@@ -70,7 +70,7 @@ namespace SMS.Business.Impl
 
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
-            var result = Repository.Find(x => accessiblePageIds.Contains(x.ID) 
+            var result = Repository.List(x => accessiblePageIds.Contains(x.ID) 
                                            || x.Type == PageType.Public 
                                            || (SmsSystem.UserContext.UseSystemConfig && x.Type == PageType.System)).ToList();
 
@@ -84,7 +84,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids)
         {
-            var result = Repository.Find(x => ids.Contains(x.ID)).ToList();
+            var result = Repository.List(x => ids.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 

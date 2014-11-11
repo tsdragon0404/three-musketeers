@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IProductCategoryService : IBaseService<ProductCategoryDto, long>
+    public interface IProductCategoryService : IBaseService<ProductCategoryDto>
     {
     }
 }

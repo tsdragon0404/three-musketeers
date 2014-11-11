@@ -6,7 +6,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class SystemInformationService : BaseService<SystemInformationDto, long, ISystemInformationManagement>, ISystemInformationService
+    public class SystemInformationService : BaseService<SystemInformationDto, ISystemInformationManagement>, ISystemInformationService
     {
         #region Fields
 

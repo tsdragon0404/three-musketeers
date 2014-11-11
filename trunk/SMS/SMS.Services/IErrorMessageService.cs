@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface IErrorMessageService : IBaseService<ErrorMessageDto, long>
+    public interface IErrorMessageService : IBaseService<ErrorMessageDto>
     {
     }
 }

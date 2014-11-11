@@ -4,17 +4,29 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IOrderService : IBaseService<OrderDto, long>
+    public interface IOrderService : IBaseService<OrderDto>
     {
-        ServiceResult<TDto> GetOrderDetail<TDto>(long orderTableID);
+        ServiceResult<TDto> GetByOrderTableID<TDto>(long orderTableID);
         ServiceResult DeleteByOrderTableID(long orderTableID);
-        ServiceResult<TDto> GetOrderDetailByOrderID<TDto>(long orderID);
-        ServiceResult RemoveMultiOrder(long[] order);
+        ServiceResult DeleteMultiOrder(long[] order);
         ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
         ServiceResult Payment(long orderID, decimal tax, decimal serviceFee);
         ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID);
-        ServiceResult SaveOrderDiscount(long orderID, string[] discountTypes, string[] discountCodes, string[] discountComments, string[] discounts);
+        ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts);
         ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob);
-        ServiceResult<TDto> GetOrderBasic<TDto>(long orderID);
+
+        ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID);
+        ServiceResult<long> CreateOrderTable(long tableID);
+        ServiceResult CheckTableStatus(long tableID);
+        ServiceResult<long> CreateMultiOrderTable(long[] table);
+        ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
+        ServiceResult PoolingTable(long[] orderTable);
+        ServiceResult SendToKitchen(long orderTableID);
+
+        ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
+        ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);
+        ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value);
+        ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
+        ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
     }
 }

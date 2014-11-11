@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class CustomerManagement : BaseManagement<CustomerDto, Customer, long, ICustomerRepository>, ICustomerManagement
+    public class CustomerManagement : BaseManagement<CustomerDto, Customer, ICustomerRepository>, ICustomerManagement
     {
         #region Fields
 

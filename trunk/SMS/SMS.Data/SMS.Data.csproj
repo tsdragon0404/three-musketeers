@@ -30,18 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SMS.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SMS.MvcApplication\bin\SMS.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBaseRepository.cs" />
     <Compile Include="IUploadedFileRepository.cs" />
     <Compile Include="IBrandingTextRepository.cs" />
     <Compile Include="ISystemInformationRepository.cs" />
     <Compile Include="IUserConfigRepository.cs" />
     <Compile Include="ICustomerRepository.cs" />
     <Compile Include="ITaxRepository.cs" />
-    <Compile Include="IInvoiceDiscountRepository.cs" />
-    <Compile Include="IOrderDiscountRepository.cs" />
     <Compile Include="IUserBranchRepository.cs" />
     <Compile Include="ICurrencyRepository.cs" />
     <Compile Include="IRejectRepository.cs" />
@@ -52,15 +55,11 @@
     <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IReportRepository.cs" />
-    <Compile Include="IOrderDetailRepository.cs" />
-    <Compile Include="IOrderTableRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IErrorMessageRepository.cs" />
     <Compile Include="IPageLabelRepository.cs" />
     <Compile Include="IPageRepository.cs" />
     <Compile Include="IAreaRepository.cs" />
-    <Compile Include="IInvoiceDetailRepository.cs" />
-    <Compile Include="IInvoiceTableRepository.cs" />
     <Compile Include="IInvoiceRepository.cs" />
     <Compile Include="IUnitRepository.cs" />
     <Compile Include="IProductCategoryRepository.cs" />

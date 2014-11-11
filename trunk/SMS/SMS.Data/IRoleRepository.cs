@@ -1,9 +1,8 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IRoleRepository : IRepository<Role>
+    public interface IRoleRepository : IBaseRepository<Role>
     {
          
     }

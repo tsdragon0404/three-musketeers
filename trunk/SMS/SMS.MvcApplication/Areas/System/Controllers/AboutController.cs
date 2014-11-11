@@ -11,7 +11,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 {
     [SmsAuthorize(ConstPage.System_About)]
     [PageID(ConstPage.System_About)]
-    public class AboutController : AdminBaseController<SystemInformationDto, long, ISystemInformationService>
+    public class AboutController : AdminBaseController<SystemInformationDto, ISystemInformationService>
     {
         #region Fields
 

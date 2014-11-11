@@ -13,7 +13,7 @@ namespace SMS.MvcApplication.Controllers
     {
         #region Fields
 
-        public virtual IOrderDetailService OrderDetailService { get; set; }
+        public virtual IOrderService OrderService { get; set; }
 
         #endregion
 
@@ -25,14 +25,14 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult GetOrderedProducts()
         {
-            var products = OrderDetailService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
+            var products = OrderService.GetOrderedProductForKitchen<LanguageOrderDetailDto>();
             return Json(JsonModel.Create(products));
         }
 
         [HttpPost]
         public JsonResult GetAcceptedProducts()
         {
-            var acceptedProducts = OrderDetailService.GetAcceptedProductForKitchen<LanguageOrderDetailDto>();
+            var acceptedProducts = OrderService.GetAcceptedProductForKitchen<LanguageOrderDetailDto>();
             return Json(JsonModel.Create((acceptedProducts)));
         }
         [HttpPost]
@@ -40,7 +40,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var orderDetail = OrderDetailService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
+            var orderDetail = OrderService.UpdateOrderedProductStatus<LanguageOrderDetailDto>(orderDetailID, value);
 
             return Json(JsonModel.Create(orderDetail));
         }
@@ -49,7 +49,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderDetailService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
+            var result = OrderService.UpdateProductToOrderTable(orderDetailID, columnName, columnValue);
 
             return Json(JsonModel.Create(result));
         }

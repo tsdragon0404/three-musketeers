@@ -21,7 +21,7 @@ namespace SMS.MvcApplication.Base
             #region Branch configs
 
             var branchService = ServiceLocator.Resolve<IBranchService>();
-            var configData = branchService.GetAll().Data.ToDictionary(x => x.ID,
+            var configData = branchService.ListAll().Data.ToDictionary(x => x.ID,
                                                                     y => new BranchConfig
                                                                     {
                                                                         Currency = y.Currency.Name,
@@ -39,7 +39,7 @@ namespace SMS.MvcApplication.Base
             #region Error messages
 
             var errorMessageService = ServiceLocator.Resolve<IErrorMessageService>();
-            var messages = errorMessageService.GetAll().Data;
+            var messages = errorMessageService.ListAll().Data;
             var messageData = new Dictionary<long, IList<Message>>();
             foreach (var message in messages)
             {
@@ -54,7 +54,7 @@ namespace SMS.MvcApplication.Base
             #region Branding texts
 
             var brandingTextService = ServiceLocator.Resolve<IBrandingTextService>();
-            var brandingTexts = brandingTextService.GetAll().Data;
+            var brandingTexts = brandingTextService.ListAll().Data;
             var brandingData = new Dictionary<long, IList<BrandingItem>>();
             foreach (var brand in brandingTexts)
             {

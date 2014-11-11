@@ -5,18 +5,28 @@ using SMS.Common.Paging;
 
 namespace SMS.Services.Impl
 {
-    public class BaseService<TDto, TPrimaryKey, TIManagement> : IBaseService<TDto, TPrimaryKey> where TIManagement : IBaseManagement<TDto, TPrimaryKey>
+    public class BaseService<TDto, TIManagement> : IBaseService<TDto> where TIManagement : IBaseManagement<TDto>
     {
         public virtual TIManagement Management { get; set; }
 
-        public ServiceResult<IList<TDto>> GetAll(bool includeDisable = false)
+        public ServiceResult<IList<TDto>> ListAll(bool includeDisable = false)
         {
-            return Management.GetAll(includeDisable);
+            return Management.ListAll(includeDisable);
         }
 
-        public ServiceResult<IList<TModel>> GetAll<TModel>(bool includeDisable = false)
+        public ServiceResult<IList<TModel>> ListAll<TModel>(bool includeDisable = false)
         {
-            return Management.GetAll<TModel>(includeDisable);
+            return Management.ListAll<TModel>(includeDisable);
+        }
+
+        public ServiceResult<IList<TDto>> ListAllByBranch(long branchID, bool includeDisable = false)
+        {
+            return Management.ListAllByBranch(branchID, includeDisable);
+        }
+
+        public ServiceResult<IList<TModel>> ListAllByBranch<TModel>(long branchID, bool includeDisable = false)
+        {
+            return Management.ListAllByBranch<TModel>(branchID, includeDisable);
         }
 
         public ServiceResult<IPagedList<TDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
@@ -29,59 +39,49 @@ namespace SMS.Services.Impl
             return Management.Search<TModel>(textSearch, pagingInfo, includeDisable);
         }
 
-        public ServiceResult<IList<TDto>> GetAllByBranch(long branchID, bool includeDisable = false)
+        public ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
         {
-            return Management.GetAllByBranch(branchID, includeDisable);
+            return Management.SearchInBranch(textSearch, pagingInfo, branchID, includeDisable);
         }
 
-        public ServiceResult<IList<TModel>> GetAllByBranch<TModel>(long branchID, bool includeDisable = false)
+        public ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
         {
-            return Management.GetAllByBranch<TModel>(branchID, includeDisable);
+            return Management.SearchInBranch<TModel>(textSearch, pagingInfo, branchID, includeDisable);
         }
 
-        public ServiceResult<IPagedList<TDto>> SearchByBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchByBranch(textSearch, pagingInfo, branchID, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TModel>> SearchByBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchByBranch<TModel>(textSearch, pagingInfo, branchID, includeDisable);
-        }
-
-        public ServiceResult<TDto> GetByIDForCurrentBranch(TPrimaryKey primaryKey)
-        {
-            return Management.GetByIDForCurrentBranch(primaryKey);
-        }
-
-        public ServiceResult<TModel> GetByIDForCurrentBranch<TModel>(TPrimaryKey primaryKey)
-        {
-            return Management.GetByIDForCurrentBranch<TModel>(primaryKey);
-        }
-
-        public ServiceResult DeleteInCurrentBranch(TPrimaryKey primaryKey)
-        {
-            return Management.DeleteInCurrentBranch(primaryKey);
-        }
-
-        public ServiceResult<TDto> GetByID(TPrimaryKey primaryKey)
+        public ServiceResult<TDto> GetByID(long primaryKey)
         {
             return Management.GetByID(primaryKey);
         }
 
-        public ServiceResult<TModel> GetByID<TModel>(TPrimaryKey primaryKey)
+        public ServiceResult<TModel> GetByID<TModel>(long primaryKey)
         {
             return Management.GetByID<TModel>(primaryKey);
+        }
+
+        public ServiceResult<TDto> GetByIDInCurrentBranch(long primaryKey)
+        {
+            return Management.GetByIDInCurrentBranch(primaryKey);
+        }
+
+        public ServiceResult<TModel> GetByIDInCurrentBranch<TModel>(long primaryKey)
+        {
+            return Management.GetByIDInCurrentBranch<TModel>(primaryKey);
+        }
+
+        public ServiceResult Delete(long primaryKey)
+        {
+            return Management.Delete(primaryKey);
+        }
+
+        public ServiceResult DeleteInCurrentBranch(long primaryKey)
+        {
+            return Management.DeleteInCurrentBranch(primaryKey);
         }
 
         public ServiceResult<TDto> Save(TDto dto)
         {
             return Management.Save(dto);
-        }
-
-        public ServiceResult Delete(TPrimaryKey primaryKey)
-        {
-            return Management.Delete(primaryKey);
         }
     }
 }

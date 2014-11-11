@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface ICustomerService : IBaseService<CustomerDto, long>
+    public interface ICustomerService : IBaseService<CustomerDto>
     {
     }
 }

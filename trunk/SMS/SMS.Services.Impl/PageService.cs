@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class PageService : BaseService<PageDto, long, IPageManagement>, IPageService
+    public class PageService : BaseService<PageDto, IPageManagement>, IPageService
     {
         #region Fields
 

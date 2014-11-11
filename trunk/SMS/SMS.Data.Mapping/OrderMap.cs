@@ -17,8 +17,12 @@ namespace SMS.Data.Mapping
             Map(x => x.DOB);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
-            HasMany(x => x.OrderDiscounts).KeyColumn("OrderID").Inverse().Cascade.AllDeleteOrphan();
-            HasMany(x => x.OrderTables).KeyColumn("OrderID").Inverse().Cascade.AllDeleteOrphan();
+            HasMany(x => x.OrderDiscounts)
+                .KeyColumn("OrderID")
+                .Cascade.AllDeleteOrphan();
+            HasMany(x => x.OrderTables)
+                .KeyColumn("OrderID")
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

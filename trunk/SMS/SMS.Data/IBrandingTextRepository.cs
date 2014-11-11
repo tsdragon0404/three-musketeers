@@ -1,9 +1,8 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IBrandingTextRepository : IRepository<BrandingText>
+    public interface IBrandingTextRepository : IBaseRepository<BrandingText>
     {
          
     }

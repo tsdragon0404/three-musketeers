@@ -3,10 +3,10 @@ using SMS.Data.Dtos;
 
 namespace SMS.Services
 {
-    public interface IUserConfigService : IBaseService<UserConfigDto, long>
+    public interface IUserConfigService : IBaseService<UserConfigDto>
     {
         ServiceResult<TModel> GetUserConfig<TModel>(long userID, long branchID);
         ServiceResult<UserConfigDto> GetUserConfig(long userID, long branchID);
-        ServiceResult SaveCashierInfo(long defaultAreaID, decimal listTableHeight);
+        ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight);
     }
 }

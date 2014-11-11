@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Data;
 using SMS.Data.Entities.Interfaces;
 
@@ -35,6 +36,10 @@ namespace SMS.Data.Entities
         public virtual string Currency { get; set; }
 
         public virtual int UseVisa { get; set; }
+
+        public virtual IList<InvoiceDiscount> InvoiceDiscounts { get; set; }
+
+        public virtual IList<InvoiceTable> InvoiceTables { get; set; }
 
         #region Implementation of IBranchEntity
 
