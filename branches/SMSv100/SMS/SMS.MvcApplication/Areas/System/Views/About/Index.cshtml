@@ -1,0 +1,19 @@
+﻿@using SMS.MvcApplication.Models
+@model SystemInformationModel
+
+<div id="content">
+    <div class="row system-infomation">
+        <fieldset class="fieldset-boder">
+        <legend>System infomation</legend>    
+            <table class="no-border">
+                @foreach (var dto in Model.SystemInformationDtos)
+                {
+                    <tr>
+                        <td class="label-custom-label">@dto.Description</td>
+                        <td>@dto.Value</td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </div>
+</div>

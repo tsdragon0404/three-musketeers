@@ -1,0 +1,45 @@
+﻿@model SMS.MvcApplication.Models.LoginModel
+@{
+    var errorClass = "hide";
+    if (Model.ShowError) { errorClass = ""; }
+}
+
+<div id="content" class="row">
+    <div id="loginform" class="border-all ui-corner-all">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div id="errorMessage" class="@errorClass">@Model.ErrorMessage</div>
+            <table class="no-border">
+                <tr>
+                    <td><label for="Username" data-globalLabelID="lblUsername">Username</label></td>
+                    <td class="right">@Html.TextBoxFor(x => x.Username)</td>
+                </tr>
+                <tr>
+                    <td><label for="Password" data-globalLabelID="lblPassword">Password</label></td>
+                    <td class="right">@Html.PasswordFor(x => x.Password)</td>
+                </tr>
+                <tr>
+                    <td><label for="SelectedBranch" data-globalLabelID="lblBranch">Branch</label></td>
+                    <td class="right">@Html.DropDownListFor(x => x.SelectedBranch, Model.ListBranch)</td>
+                </tr>
+            </table>
+            <div class="right">
+                <button id="loginButton" data-globalLabelID="lblLogin">Login</button>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#loginButton').button({
+                        icons: {
+                            primary: "ui-icon-person"
+                        }
+                    }).click(function() {
+                        $(this).closest('form').submit();
+                    });
+
+                    $('#SelectedBranch').selectmenu();
+                });
+            </script>
+        }
+    </div>
+</div>

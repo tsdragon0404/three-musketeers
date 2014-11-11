@@ -1,0 +1,1415 @@
+﻿@using SMS.Common.Enums
+@using SMS.Common.Session
+@using SMS.Common.Storage.BranchConfig
+@using SMS.Common.Storage.Branding
+@using SMS.Common.Storage.Message
+@using SMS.MvcApplication.Models
+@using SMS.Common.Constant
+@model CashierModel
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
+<link rel="stylesheet" type="text/css" media="print" href="~/Content/css/print.css" />
+<script type="text/javascript" src="~/Scripts/split-pane.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript" src="~/Scripts/custom-validate.js"></script>
+<script type="text/javascript">
+    var listProduct = @Html.Raw(JsonEncode(Model.ListProduct));
+    var listArea = @Html.Raw(JsonEncode(Model.ListArea));
+    var serviceFee = @BranchConfigs.Current.ServiceFee;
+    var useServiceFee = "@BranchConfigs.Current.UseServiceFee";
+    var currency = "@BranchConfigs.Current.Currency";
+    
+    /* Const initialization begin */
+    var CONST_DATATABLE_FIRST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_First))';
+    var CONST_DATATABLE_LAST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Last))';
+    var CONST_DATATABLE_NEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Next))';
+    var CONST_DATATABLE_PREVIOUS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Previous))';
+    var CONST_DATATABLE_NODATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoData))';
+    var CONST_DATATABLE_SHOWINGRECORDS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowingRecords))';
+    var CONST_DATATABLE_NOENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoEntries))';
+    var CONST_DATATABLE_FILTER = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Filter))';
+    var CONST_DATATABLE_SHOWENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowEntries))';
+    var CONST_DATATABLE_SEARCH = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Search))';
+    var CONST_DATATABLE_NOMATCHINGDATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoMatchingData))';
+    /* Const initialization end */
+
+    function GetOrderStatusName(orderStatus) {
+        switch (orderStatus) {
+        case @((int)OrderStatus.Ordered):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Ordered))';
+        case @((int)OrderStatus.SentToKitchen):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.SentToKitchen))';
+        case @((int)OrderStatus.KitchenAccepted):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenAccepted))';
+        case @((int)OrderStatus.KitchenRejected):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenRejected))';
+        case @((int)OrderStatus.Done):
+            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
+        default:
+            return '';
+        }
+    }
+</script>
+<script id="order-tmpl" type="text/x-jquery-tmpl">
+    <form id="form-table-order-${ID}">
+        {{each(idx) OrderTables}}
+        <div class="row" id="orderTable-${ID}">
+            <div class="row div-header">
+                <div class="eleven columns">
+                    <span id="lblTableName" data-id="${ID}" data-labelID="lblTableName" class="link-label label-custom-label">Table name:</span><span class="label-custom-data"> ${Table.Name}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblOrderBy" class="label-custom-label">Order by:</span><span class="label-custom-data"> ${CreatedUser}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblOrderDate" class="label-custom-label">Order date:</span><span class="label-custom-data"> ${CreatedDate==null ? '' : CreatedDate.formatAsDateTime()}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblLastAccessBy" class="label-custom-label">Last access by:</span><span class="label-custom-data"> ${ModifiedUser}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span data-labelID="lblLastAccessDate" class="label-custom-label">Last access date:</span><span class="label-custom-data"> ${ModifiedDate==null ? '' : ModifiedDate.formatAsDateTime()}</span>
+                </div>
+                <div class="one columns right"><a href="#" id="removeTable-${ID}"><span class="ui-icon ui-icon-closethick float-right"></span></a></div>
+            </div>
+            <table id="order-${ID}" class="table-order">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                    @if(BranchConfigs.Current.UseDiscountOnProduct)
+                    {
+                        <col class="col6" />
+                    }
+                    <col class="col7" />
+                    <col class="col8" />
+                    @if(BranchConfigs.Current.UseKitchenFunction)
+                    {
+                        <col class="col9" />
+                    }
+                    <col class="col10" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th data-labelID="lblNo">No</th>
+                        <th data-labelID="lblProductName">Product Name</th>
+                        <th data-labelID="lblQuantity">Quantity</th>
+                        <th data-labelID="lblUnit">Unit</th>
+                        <th data-labelID="lblPrice">Price</th>
+                        @if(BranchConfigs.Current.UseDiscountOnProduct)
+                        {
+                            <th data-labelID="lblDiscount">Discount</th>
+                        }
+                        <th data-labelID="lblAmount">Amount</th>
+                        <th data-labelID="lblRemarks">Remarks</th>
+                        @if(BranchConfigs.Current.UseKitchenFunction)
+                        {
+                            <th class="icon"><div id="sendToKitchen-${ID}" class="icon-transfer" title="Send all to kitchen" /></th>
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="table-detail-${ID}">
+                    {{each(idx) OrderDetails}}
+                    <tr id="${ID}">
+                        <td class="sequence">${idx + 1}</td>
+                        <td>${Product.Name} - ${Product.ProductCode}</td>
+                        <td><input type="text" id="qty-${ID}" value="${Quantity.formatAsMoney()}" name="qty" class="required center" /></td>
+                        <td>${Product.Unit.Name}</td>
+                        <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+
+                        @if(BranchConfigs.Current.UseDiscountOnProduct)
+                        {
+                            <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
+                        }
+                        
+                        <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
+                        <td>
+                            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+                        
+                        @if(BranchConfigs.Current.UseKitchenFunction)
+                        {
+                            <td class="center icon">
+                                <div class="{{if OrderStatus == @((int)OrderStatus.Ordered)}}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen)}}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted)}}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done)}}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}:${KitchenComment}{{/if}}"></div>
+                            </td>
+                        }
+                        
+                        <td class="center icon">
+                            <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="vertical-top">
+                            <a href="#" id="addProduct-${ID}"><img src="Images/IconControls/add-icon.png" alt="add record" /></a>
+                        </td>
+                        @{
+                            var colspan = 8;
+                            if (!BranchConfigs.Current.UseDiscountOnProduct)
+                            {
+                                colspan -= 1;
+                            }
+                            if(!BranchConfigs.Current.UseKitchenFunction)
+                            {
+                                colspan -= 1;
+                            }
+                        }
+                        <td colspan="@colspan">
+                            <div class="row">
+                                <div class="two columns push_eight right"><span data-labelID="lblSubtotal">Sub total:</span></div>
+                                <div class="two columns right"><span class="sub-total">0</span> @BranchConfigs.Current.Currency</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {{/each}}
+        <div class="row" id="totalSection">
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2"><span class="sum_amount">${SubTotal.formatAsMoney()}</span> @BranchConfigs.Current.Currency</div>
+                <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            @if (BranchConfigs.Current.UseServiceFee)
+            {
+                <div class="row" id="ServiceFree">
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2"><span class="fee">@BranchConfigs.Current.ServiceFee</span> @BranchConfigs.Current.Currency</div>
+                    <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
+                    <div class="center col4"><input type="checkbox" class="margin-top-control" id="chkUseServiceFee" checked="@BranchConfigs.Current.UseServiceFee" /></div>
+                </div>
+            }
+            <div class="row" id="OtherFree">
+                <div class="center col1">
+                    <div class="icon-edit-info" id="edit-other-fee" data="${OtherFeeDescription}" title="${OtherFeeDescription}"></div>
+                    <div class="icon-cancel-info" id="cancel-other-fee" title="Cancel"></div>
+                </div>
+                <div class="right col2">
+                    <input type="text" id="txtOtherFee" class="required right hide" name="number" value="${OtherFee.formatAsMoney()}" title="Other fee" />
+                    <input type="text" id="txtOtherFeeDescription" class="left hide" value="${OtherFeeDescription}" title="Other fee description" />
+                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @BranchConfigs.Current.Currency</span>
+                </div>
+                <div class="left col3"><span data-labelID="lblOtherFee" class="label-custom-label">Other Fee:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="center col1">
+                    <div class="icon-edit-info" id="edit-discount" title="Edit"></div>
+                    <div class="icon-cancel-info" id="cancel-discount" title="Cancel"></div>
+                </div>
+                <div class="right col2">
+                    <div id="order-discount"></div>
+                    <span class="discountAmount">-${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @BranchConfigs.Current.Currency</span>
+                </div>
+                <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2 border-top"><span class="total">${Total.formatAsMoney()}</span> @BranchConfigs.Current.Currency</div>
+                <div class="left col3 border-top"><span data-labelID="lblTotal" class="label-custom-label">Total:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+            @foreach (var tax in BranchConfigs.Current.Taxs)
+            {
+                <div class="row" id="tax-@tax.Key">
+                    <div class="center col1">&nbsp;</div>
+                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfigs.Current.Currency</div>
+                    <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
+                    <div class="center col4"><input type="checkbox" class="margin-top-control" id="chkUseTax-@tax.Key" checked="checked" /></div>
+                </div>
+            }
+            <div class="row">
+                <div class="center col1">&nbsp;</div>
+                <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfigs.Current.Currency</div>
+                <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
+                <div class="center col4">&nbsp;</div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script id="discount-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <select id="discount-type" name="discount-type">
+        {{if DiscountType == @((int)DiscountType.Number)}}
+        <option value="@((int)DiscountType.Number)" selected>@DiscountType.Number</option>
+        {{else}}
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        {{/if}}
+        {{if DiscountType == @((int)DiscountType.Percent)}}
+        <option value="@((int)DiscountType.Percent)" selected>@DiscountType.Percent</option>
+        {{else}}
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+        {{/if}}
+    </select>
+    <input type="text" title="Discount" id="discount" value="${Discount.formatAsMoney()}" class="required right" name="number" />
+    {{/each}}
+    {{if Data.length < 1}}
+    <select id="discount-type" name="discount-type">
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+    </select>
+    <input type="text" title="Discount" id="discount" class="required right" name="number"/>
+    {{/if}}
+</script>
+
+<script id="ordertable-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) OrderDetails}}
+    <tr id="${ID}">
+        <td class="sequence">${idx + 1}</td>
+        <td>${Product.Name} - ${Product.ProductCode}</td>
+        <td>
+            <input type="text" id="qty-${ID}" value="${Quantity.formatAsMoney()}" name="qty" class="required center" />
+        </td>
+        <td>${Product.Unit.Name}</td>
+        <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+        @if (BranchConfigs.Current.UseDiscountOnProduct)
+        {
+            <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
+        }
+        <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
+        <td>
+            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+        @if (BranchConfigs.Current.UseKitchenFunction)
+        {
+            <td class="center icon">
+                <div class="{{if OrderStatus == @((int)OrderStatus.Ordered) }}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen) }}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted) }}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected) }}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done) }}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}"></div>
+            </td>
+        }
+        <td class="center icon">
+            <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
+        </td>
+    </tr>
+    {{/each}}    
+</script>
+
+<script id="table-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    {{if idx % @ConstStyle.GridNumber == 0}}
+    <div class='row' style="padding-top: 10px;">
+        {{/if}}
+        <div class="one column">
+            <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}: ${Order.OrderNumber}{{/if}}">
+                <tr>
+                    <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
+                </tr>
+                <tr>
+                    <td>${Table.Name}</td>
+                </tr>
+            </table>
+        </div>
+            
+        {{if idx == $data.Data.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
+    </div>
+    {{/if}}
+    {{/each}}
+</script>
+
+<div id="content" class="split-pane horizontal-percent cashier">
+    <div id="area-table" class="split-pane-component">
+        <ul id="areas">
+            @if(Model.ListArea.Count > 1)
+            {
+                <li><a href="#area-0" data-labelID="lblAllArea">All</a></li>
+            }
+            @foreach (var area in Model.ListArea)
+            {
+                <li><a href="#area-@area.ID">@area.Name</a></li>
+            }
+
+        </ul>
+        <div id="tables">
+            @if(Model.ListArea.Count > 1)
+            {
+                <div id="area-0"></div>
+            }
+            @foreach (var areaDto in Model.ListArea)
+            {
+                <div id="area-@areaDto.ID"></div>
+            }
+        </div>
+    </div>
+
+    <div class="split-pane-divider"></div>
+    
+    <div id="tableorder" class="split-pane-component">
+        <input type="hidden" id="curOrderID" value="-1" />
+        <input type="hidden" id="curOrderTableID" value="-1" />
+        <div class="row border-bottom div-header" id="order-header">
+            <div class="four columns">
+                <span data-labelID="lblOrderNumber" class="label-custom-label">Order Number:</span> <span id="curOrderNumber" class="label-custom-data"></span>
+            </div>
+            <div class="eight columns">
+                <span data-labelID="lblCustomerName" id="lblCustomerName" class="link-label label-custom-label">Customer name:</span>&nbsp;
+                <span id="curCustomerName" class="label-custom-data"></span>
+            </div>
+        </div>
+        <div id="order-detail">
+            <div class="row" id="tblContent"></div>
+            <div class="row" id="button-payment">
+                <div class="four columns right border-top payment">
+                    <button id="payment" data-labelID="lblPayment">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <table class="Rmenu" id="right-menu">
+        <tr id="rmenu-detail">
+            <td>
+                <div class="rmenu-detail"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblDetail">Chi tiết</td>
+        </tr>
+        <tr id="rmenu-useTable">
+            <td>
+                <div class="rmenu-add"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblUseNow">Sử dụng ngay</td>
+        </tr>
+        <tr id="rmenu-move">
+            <td>
+                <div class="rmenu-move"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblMoveTable">Chuyển bàn</td>
+        </tr>
+        <tr id="rmenu-pooling">
+            <td>
+                <div class="rmenu-pooling"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblPoolingTable">Nhập bàn</td>
+        </tr>
+        <tr id="rmenu-del">
+            <td>
+                <div class="rmenu-delete"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblDelete">Xóa thông tin</td>
+        </tr>
+    </table>
+    <table class="Rmenu" id="changeCustomer">
+        <tr>
+            <td>
+                <div class="menu-customer"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblChangeCustomer">Change Customer</td>
+        </tr>
+    </table>
+    <table class="Rmenu" id="changeTable">
+        <tr>
+            <td>
+                <div class="rmenu-move"></div>
+            </td>
+            <td class="RmenuItem" data-labelID="lblMoveTable">Chuyển bàn</td>
+        </tr>
+    </table>
+    <table class="Rmenu" id="mainRightMenu">
+        <tr>
+            <td>
+                <div class="menu-reload"></div>
+            </td>
+            <td class="RmenuItem">Refresh</td>
+        </tr>
+    </table>
+
+    @Html.Partial("SearchProductPopup", new PopupModel { PopupID = "pdtPopup", PopupTitle = "Search Product" })
+    @Html.Partial("PaymentPopup", new PopupModel { PopupID = "pdtPayment", PopupTitle = "Payment" })
+    @Html.Partial("DestinationTablePopup", new PopupModel { PopupID = "destinationTablePopup", PopupTitle = "Select destination table" })
+    @Html.Partial("CustomerPopup", new PopupModel { PopupID = "pdtCustomer", PopupTitle = "Customer" })
+</div>
+
+<script type="text/javascript">
+    var productPopup = new SearchProductPopup("pdtPopup", listProduct, onRefreshProduct, onSelectProduct);
+    
+    $(document).ready(function () {
+        $('div.split-pane').splitPane();
+        var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
+        $('#area-table, .split-pane-divider').css('bottom', paneheight);
+        $('#tableorder').css('height', paneheight);
+        
+        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@SmsSystem.UserContext.DefaultAreaID"]'));
+        if (tabindex < 0)
+            tabindex = 0;
+        $('#area-table').tabs({ active: tabindex });
+        $("#payment").button({
+            icons: {
+                primary: "ui-icon-check"
+            }
+        }).click(function() {
+            var orderId = $('#curOrderID').val();
+            var useServiceFee = $("#chkUseServiceFee").is(':checked');
+            var useTax = [];
+            $('input[id^="chkUseTax-"]').each(function(idx, e) {
+                useTax[idx] = $(e).is(':checked');
+            });
+            if(orderId > 0) {
+                var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment', 'print-tax-pdtPayment', '@Url.Action("Payment")', onRefresh, useServiceFee, useTax);
+                payment.OpenPopup();
+                return false;
+            }
+            return false;
+        });
+
+        $('#button-payment').hide();
+        $('#order-header').hide();
+
+        refreshTableArea();
+            
+        setInterval(function() {
+            refreshTableArea();
+        }, 60000);
+        
+        setInterval(function() {
+            refreshOrderArea();
+        }, 120000);
+
+        CalculateTotal();
+    });
+    
+    $(document).on("click", '#areas li a[href*="area-"]', (function(e) {
+        GetTablesByAreaID($(e.target).attr('href').split('-')[1]);
+        return false;
+    }));
+    
+    $(document).on("click", 'a[id^="addProduct-"]', (function(e){
+        productPopup.OpenPopup();
+        $('#curOrderTableID').val($(e.currentTarget).attr('id').split('-')[1]);
+        return false;
+    }));
+    
+    $(document).on("click", 'tr[id^="rmenu-"]', (function(){
+        onSelectedItem(this);
+    }));
+
+    $(document).on("dblclick", ".tbls", (function(e) {
+        $(".tbls").removeClass('selected');
+        $(e.target).parents('.tbls').addClass('selected');
+        var id = $(e.target).parents('.tbls').attr('id');
+        var orderTableId = id.split('-')[0];
+        var tblId = id.split('-')[1];
+        var orderId = id.split('-')[2];
+        if(orderTableId == 0) {
+            var popup = new MessagePopup('Thông báo',
+                'Bàn này hiện đang trống.<br />Sử dụng ngay?',
+                3,
+                function () {
+                    onCheckTableStatus(orderTableId, tblId);
+                });
+            
+            popup.OpenPopup();
+        } else {
+            onSelectOrderTable(orderTableId, orderId);
+        }
+    }));
+        
+    $(document).on("contextmenu", ".cashier", function(e) {
+        if($(e.target).parents('.tbls').length <= 0) {
+            $("#right-menu").hide();
+            //displayCustomMenu('#mainRightMenu', e);
+        } else {
+            $('#mainRightMenu').hide();
+            if (!$(e.target).parents('.tbls').hasClass('selected')) {
+                $(".tbls").removeClass('selected');
+                $(e.target).parents('.tbls').addClass('selected');
+            }
+
+            displayCustomMenu('#right-menu', e);
+        }
+    });
+        
+    $(document).click(function(e) {
+        $("#right-menu").hide();
+        $('#mainRightMenu').hide();
+        
+        if(!$(e.target).parents('table').hasClass('tbls')) {
+            if ($(e.target).parents('#area-table').length > 0 || $(e.target).attr('id') == 'area-table')
+                $(".tbls").removeClass('selected');
+        }
+
+        if(!$(e.target).hasClass('link-label') || $(e.target).attr('id') == null) {
+            $("#changeCustomer").hide();
+            $("#changeTable").hide();
+        }
+    });
+    
+    $(document).on("click", ".tbls", (function(e){
+        if(e.ctrlKey) {
+            if ($(e.target).parents('.tbls').hasClass('selected')) {
+                $(e.target).parents('.tbls').removeClass('selected');
+            } else {
+                $(e.target).parents('.tbls').addClass('selected');
+            }
+        } else {
+            $(".tbls").removeClass('selected');
+            $(e.target).parents('.tbls').addClass('selected');
+        }
+    }));
+
+    $(document).on("click", ".link-label", (function(e){
+        $("#changeCustomer").hide();
+        $("#changeTable").hide();
+        if($(e.currentTarget).attr('id') == 'lblCustomerName')
+            displayCustomMenu('#changeCustomer', e);
+        else if ($(e.currentTarget).attr('id') == 'lblTableName') {
+            $('#changeTable').attr('data-id', $(e.currentTarget).attr('data-id'));
+            displayCustomMenu('#changeTable', e);
+        }
+    }));
+    
+    $(document).on("click", "#changeTable", (function(e){
+        var orderTableId = $(e.currentTarget).attr('data-id');
+        if (orderTableId > 0) {
+            var popup = new DestinationTablePopup("destinationTablePopup", orderTableId, listArea, '@Url.Action("GetTablesByAreaID")', onMoveOrderTable);
+            popup.OpenPopup();
+        }
+    }));
+    
+    $(document).on("click", "#changeCustomer", (function(){
+        var orderId = $('#curOrderID').val();
+        if (orderId > 0) {
+            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("")', changeCustomer);
+            popup.OpenPopup();
+        }
+    }));
+    
+    $(document).on("click", "#mainRightMenu", (function(){
+        refreshTableArea();
+        refreshOrderArea();
+    }));
+    
+    function onRefresh() {
+        refreshTableArea();
+        refreshOrderArea();
+    }
+    
+    function refreshOrderArea() {
+        var orderId = $('#curOrderID').val();
+        if(orderId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetOrder")',
+                data: { orderID: orderId }
+            }).done(function (result) {
+                if (result.Data.ID == 0 || !result.Success) {
+                    clearDisplayTableDetail(orderId);
+                }
+                else {
+                    $('#curOrderID').val(result.Data.ID);
+                    $('#curOrderNumber').text(result.Data.OrderNumber);
+                    $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
+                    $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
+
+                    bindEventForControl();
+
+                    $('#button-payment').show();
+                    $('#order-header').show();
+                }
+            });
+        }
+    }
+
+    function getCurrentOrderId() {
+        return $('#curOrderID').val();
+    }
+
+    function refreshTableArea() {
+        var area = $('#areas li.ui-tabs-active a[href*="area-"]').attr('href');
+        var id = area.split('-')[1];
+        GetTablesByAreaID(id);
+    }
+        
+    function clearDisplayTableDetail(orderId) {
+        if ($('#curOrderID').val() == orderId) {
+            $('#tblContent').html('');
+            $('#curOrderID').val(-1);
+            $('#curOrderNumber').text('');
+            $('#curCustomerName').text('');
+            $("#addProduct").hide();
+            $('#button-payment').hide();
+            $('#order-header').hide();
+            CalculateTotal();
+        }
+    }
+    
+    function changeCustomer(orderId, customerId, customerName, address, cellPhone, dob) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCustomer")',
+            data: { orderID: orderId, customerID: customerId, customerName: customerName, address: address, cellPhone: cellPhone, dob: dob }
+        }).done(function () {
+            refreshOrderArea();
+        });
+    }
+
+    function updateOrderedProduct(e) {
+        var colName = $(e).attr('id').split('-')[0]; 
+        if(colName == 'qty' || colName == 'discount') {
+            if(!$(e).valid())
+                return;
+        }
+
+        var orderDetailId = $(e).attr('id').split('-')[1];
+        var value = $(e).val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProduct")',
+            data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
+        }).done(function (result) {
+            if(!result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                CalculateTotal();
+            }
+        });
+    }
+    
+    function onRemoveOrderTable(orderTableId, orderId) {
+        if (orderTableId <= 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CancelOrder")',
+            data: { orderTableID: orderTableId }
+        }).done(function(result) {
+            if (result.Success) {
+                clearDisplayTableDetail(orderId);
+            } else {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            }
+
+            refreshTableArea();
+        });
+    }
+
+    function onMoveOrderTable(orderTableId, tableId) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("MoveTable")',
+            data: { orderTableID: orderTableId, tableID: tableId }
+        }).done(function (result) {
+            if(!result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                refreshTableArea();
+                refreshOrderArea();
+            }
+        });
+    }
+    
+    function UpdateOrderedProductStatus(e) {
+        var orderDetailId = $(e).attr('id').split('-')[1];
+        var value = parseInt($(e).attr('id').split('-')[2]);
+        
+        switch (value) {
+        case @((int)OrderStatus.Ordered):
+            value = @((int)OrderStatus.SentToKitchen);
+            break;
+        case @((int)OrderStatus.SentToKitchen):
+            value = @((int)OrderStatus.KitchenAccepted);
+            break;
+        case @((int)OrderStatus.KitchenAccepted):
+            value = @((int)OrderStatus.Done);
+            break;
+        case @((int)OrderStatus.KitchenRejected):
+            value = @((int)OrderStatus.SentToKitchen);
+            break;
+        case @((int)OrderStatus.Done):
+            return;
+        }
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateOrderedProductStatus")',
+            data: { orderDetailID: orderDetailId, value: value }
+        }).done(function (result) {
+            if(!result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                    4,
+                    function() {
+                    });
+
+                popup.OpenPopup();
+            } else {
+                $(e).attr('id', 'status-' + result.Data.ID + '-' + result.Data.OrderStatus);
+                $(e).attr('title', GetOrderStatusName(result.Data.OrderStatus));
+                var cssClass;
+                switch (result.Data.OrderStatus) {
+                case @((int)OrderStatus.Ordered):
+                    cssClass = 'transfer';
+                    break;
+                case @((int)OrderStatus.SentToKitchen):
+                    cssClass = 'pending';
+                    break;
+                case @((int)OrderStatus.KitchenAccepted):
+                    cssClass = 'accept';
+                    break;
+                case @((int)OrderStatus.KitchenRejected):
+                    cssClass = 'reject';
+                    break;
+                case @((int)OrderStatus.Done):
+                    cssClass = 'done';
+                    break;
+                default :
+                    cssClass = 'done';
+                }
+                $(e).attr('class', 'icon-' + cssClass);
+            }
+        });
+    }
+
+    function onCheckTableStatus(orderTableId, tableId) {
+        if (orderTableId == 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CheckTableStatus")',
+                data: { tableID: tableId }
+            }).done(function(result) {
+                if (result.Success) {
+                    var popup = new MessagePopup('Thông báo',
+                        'Bàn này hiện đang được sử dụng.<br />Xin vui lòng thử lại.',
+                        4,
+                        function() {
+                            refreshTableArea();
+                        });
+
+                    popup.OpenPopup();
+                } else {
+                    onCreateOrderTable(tableId);
+                }
+            });
+        }else {
+            onCreateOrderTable(tableId);
+        }
+    }
+
+    function onDeleteOrderTable(e) {
+        var orderTableId = $(e).attr('id').split('-')[1];
+        if(orderTableId <= 0)
+            return;
+        else {
+            var popup = new MessagePopup('Thông báo',
+                'Bạn đang thực hiện xóa thông tin 1 bàn.<br />Bạn muốn thực hiện?',
+                3,
+                function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CancelTable")',
+                        data: { orderTableID: orderTableId }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            refreshTableArea();
+                            refreshOrderArea();
+                        }
+                    });
+                });
+
+            popup.OpenPopup();
+        }
+    }
+
+    function onSelectOrderTable(orderTableId, orderId) {
+        $("#right-menu").hide();
+        if (orderTableId <= 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SelectTable")',
+            data: { orderTableID: orderTableId }
+        }).done(function (result) {
+            if (result.Data.ID == 0 || !result.Success) {
+                var popup = new MessagePopup('Thông báo',
+                    'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
+                    4,
+                    function() {
+                        refreshTableArea();
+                        clearDisplayTableDetail(orderId);
+                    });
+
+                popup.OpenPopup();
+            }
+            else {
+                $('#curOrderID').val(result.Data.ID);
+                $('#curOrderNumber').text(result.Data.OrderNumber);
+                $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
+                $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
+
+                bindEventForControl();
+
+                $('#button-payment').show();
+                $('#order-header').show();
+                refreshTableArea();
+            }
+        });
+    }
+        
+    function onCreateOrderTable(tblId) {
+        if (tblId <= 0) {
+            return;
+        }
+        var orderTableId = 0;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateOrderTable")',
+            data: { tableID: tblId }
+        }).done(function (result) {
+            if(result.Success) {
+                orderTableId = result.Data;
+                onSelectOrderTable(orderTableId, 0);
+                refreshTableArea();
+            }
+        });
+        return;
+    }
+
+    function onRefreshProduct(reloadCallback) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetAllProductsForSearch")',
+        }).done(function (result) {
+            if(result.Success) {
+                listProduct = result.Data;
+                if(reloadCallback)
+                    reloadCallback(listProduct);
+            }
+        });
+    }
+
+    function onSelectProduct(pdtId, qty) {
+        var orderTableId = $('#curOrderTableID').val();
+        if(orderTableId != '' && orderTableId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("OrderProduct")',
+                data: { orderTableID: orderTableId, productID: pdtId, quantity: qty }
+            }).done(function(result) {
+                if (result.Data.ID > 0 && result.Success) {
+                    onLoadOrderTable(result);
+                }
+            });
+        }
+    }
+    
+    function onLoadOrderTable(result) {
+        $('#table-detail-' + result.Data.ID).html($('#ordertable-tmpl').tmpl(result.Data));
+
+        bindEventForControl();
+    }
+
+    function bindEventForControl() {
+        $('table[id^="order-"]').table();
+
+        $('div[id^="sendToKitchen-"]').unbind('click');
+        $('div[id^="sendToKitchen-"]').click(function() {
+            var orderTableId = $(this).attr('id').split('-')[1];
+            sendToKitchen(orderTableId);
+        });
+
+        $('input[id^="qty"]').spinner({
+            step: 0.5,
+            numberFormat: "n",
+            min: 0.5,
+            change: function() {
+                $(this).val($(this).val().readMoneyAsNumber());
+                updateOrderedProduct(this);
+                $(this).val($(this).val().formatAsMoney());
+            }
+        });
+        
+        $('a[id^="removeTable-"]').click(function () {
+            onDeleteOrderTable(this);
+            return false;
+        });
+        
+        $('input[id^="cmt"]').change(function() {
+            updateOrderedProduct(this);
+        });
+        
+        $('input[id^="discount-"]').change(function() {
+            $(this).val($(this).val().formatAsMoney());
+            updateOrderedProduct(this);
+        });
+
+        $('input[name="number"]').unbind('change');
+        $('input[name="number"]').change(function() {
+            $(this).val($(this).val().formatAsMoney());
+        });
+
+        $('div[id^="del"]').click(function() {
+            var orderDetailId = $(this).attr('id').split('-')[1];
+            onDeleteProductFromOrderDetail(orderDetailId);
+        });
+        
+        $('div[id^="status"]').click(function() {
+            UpdateOrderedProductStatus(this);
+        });
+        
+        $('#cancel-other-fee').hide();
+
+        $('#edit-other-fee').unbind('click');
+        $('#edit-other-fee').click(function() {
+            if($(this).hasClass('icon-edit-info')) {
+                $('#valueOtherFee').hide();
+                $('#txtOtherFee').show();
+                $('#txtOtherFeeDescription').show();
+                $(this).removeClass('icon-edit-info');
+                $(this).addClass('icon-save-info');
+                $('#cancel-other-fee').show();
+            } else {
+                var orderId = $('#curOrderID').val();
+                var otherFee = $('#txtOtherFee').val().readMoneyAsNumber();
+                var otherFeeDescription = $('#txtOtherFeeDescription').val().trim();
+                
+                if(otherFee != $('#valueOtherFee').text().readMoneyAsNumber() || otherFeeDescription != $(this).attr('data')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("UpdateOtherFee")',
+                        data: { orderID: orderId, otherFee: otherFee, otherFeeDescription: otherFeeDescription }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            refreshOrderArea();
+                        }
+                    });
+                }
+
+                $('#valueOtherFee').show();
+                $('#txtOtherFee').hide();
+                $('#txtOtherFeeDescription').hide();
+                $(this).removeClass('icon-save-info');
+                $(this).addClass('icon-edit-info');
+                $('#cancel-other-fee').hide();
+            }
+        });
+
+        $('#cancel-other-fee').unbind('click');
+        $('#cancel-other-fee').click(function() {
+            refreshOrderArea();
+        });
+        
+        $('#chkUseServiceFee').unbind('click');
+        $("#chkUseServiceFee").click( function(){
+            if($(this).is(':checked')) {
+                $('#ServiceFree').removeClass('icon-disable');
+            } else {
+                $('#ServiceFree').addClass('icon-disable');
+            }
+            CalculateTotal();
+        });
+        
+        $('input[id^="chkUseTax-"]').unbind('click');
+        $('input[id^="chkUseTax-"]').click( function(){
+            var type = $(this).attr('id').split('-')[1];
+            if($(this).is(':checked')) {
+                $('#tax-' + type).removeClass('icon-disable');
+            } else {
+                $('#tax-' + type).addClass('icon-disable');
+            }
+            CalculateTotal();
+        });
+        
+        $('#cancel-discount').hide();
+
+        $('#edit-discount').unbind('click');
+        $('#edit-discount').click(function() {
+            var orderId = $('#curOrderID').val();
+            
+            if(orderId < 1)
+                return false;
+            
+            if($(this).hasClass('icon-edit-info')) {
+                $('.discountAmount').hide();
+                $('#discountCurrency').hide();
+
+                $(this).removeClass('icon-edit-info');
+                $(this).addClass('icon-save-info');
+                $('#cancel-discount').show();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetOrderDiscount")',
+                    data: { orderID: orderId }
+                }).done(function(result) {
+                    if (result.Success) {
+                        $('#order-discount').html($('#discount-tmpl').tmpl(result));
+                         
+                        $('input[name="number"]').unbind('change');
+                        $('input[name="number"]').change(function() {
+                            $(this).val($(this).val().formatAsMoney());
+                        });
+                    }
+                });
+            } else {
+                
+                var discountType = $('#discount-type').val();
+                var discount = $('#discount').val().trim();
+
+                var arrdiscountType = [],
+                    arrdiscount = [],
+                    arrdiscountCode = [],
+                    arrdiscountComment = [];
+
+                arrdiscountType[arrdiscountType.length] = discountType;
+                arrdiscount[arrdiscount.length] = discount;
+                arrdiscountCode[arrdiscountCode.length] = "";
+                arrdiscountComment[arrdiscountComment.length] = "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveOrderDiscount")',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ orderID: orderId, discountTypes: arrdiscountType, discountCodes: arrdiscountCode, discountComments: arrdiscountComment, discounts: arrdiscount })
+                }).done(function(result) {
+                    if (result.Success) {
+                        refreshOrderArea();
+                    }
+                });
+            }
+            return false;
+        });
+        
+        $('#cancel-discount').unbind('click');
+        $('#cancel-discount').click(function() {
+            refreshOrderArea();
+        });
+
+        $('form[id^="form-table-order-"]').validate({
+            rules: {
+                qty: {
+                    greaterThanZero: true
+                },
+                discount: {
+                    greaterOrEqualZero: true
+                }
+            }
+        });
+
+        CalculateTotal();
+    }
+
+    function sendToKitchen(orderTableId) {
+        if (orderTableId != '' && orderTableId > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SendToKitchen")',
+                data: { orderTableID: orderTableId }
+            }).done(function(result) {
+                if (result.Success) {
+                    refreshOrderArea();
+                }
+            });
+        }
+    }
+
+    function onDeleteProductFromOrderDetail(orderDetailId) {
+        if (orderDetailId != '' && orderDetailId > 0) {
+            var popup = new MessagePopup('Thông báo',
+                'Xóa thông tin này khỏi hệ thống.<br />Bạn muốn thực hiện?',
+                3,
+                function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("RemoveOrderedProduct")',
+                        data: { orderDetailID: orderDetailId }
+                    }).done(function(result) {
+                        if (result.Success) {
+                            $('tr[id="' + orderDetailId + '"]').remove();
+                            CalculateTotal();
+                        }
+                    });
+                });
+            popup.OpenPopup();
+        }
+    }
+
+    function GetTablesByAreaID(areaId) {
+        if (areaId < 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetTablesByAreaID")',
+            data: { areaID: areaId }
+        }).done(function (result) {
+            if(result.Success) {
+                $('#area-' + areaId).html($('#table-tmpl').tmpl(result));
+                $('#rightMenuArea').html('');
+
+                $('.tbls').each(function(idx, element) {
+                    var orderId = $('#curOrderID').val() == '' ? 0 : $('#curOrderID').val();
+                    if ($(element).attr('id').split('-')[2] > 0 && $(element).attr('id').split('-')[2] == orderId)
+                        $(element).addClass('selected');
+                });
+            }
+        });
+        return;
+    }
+    
+    function onSelectedItem(e) {
+        var action = $(e).attr('id');
+        var data = [],
+            arr = [],
+            popup,
+            valid = true,
+            i;
+        $('.tbls').each(function(idx, element) {
+            if($(element).hasClass('selected')) {
+                var orderTableId = $(element).attr('id').split('-')[0];
+                var tableId = $(element).attr('id').split('-')[1];
+                var orderId = $(element).attr('id').split('-')[2];
+                
+                data[data.length] = { OrderTableID: orderTableId, TableID: tableId, OrderID: orderId };
+            }
+        });
+        
+        if(action == 'rmenu-detail') {
+            if (data.length > 1) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác không chính xác.<br />Xin vui lòng chọn một bàn để xem chi tiết.',
+                    4,
+                    function() {
+                        refreshTableArea();
+                    });
+
+                popup.OpenPopup();
+            } else {
+                if (data[0].OrderTableID > 0)
+                    onSelectOrderTable(data[0].OrderTableID, data[0].OrderID);
+            }
+        } else if(action == 'rmenu-useTable') {
+            if (data.length > 1) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].OrderTableID > 0) {
+                        valid = false;
+                        break;
+                    }
+                    arr[arr.length] = data[i].TableID;
+                }
+                if (!valid) {
+                    popup = new MessagePopup('Thông báo',
+                        'Thao tác không chính xác.<br />Xin vui lòng thử lại.',
+                        4,
+                        function() {
+                            refreshTableArea();
+                        });
+                    popup.OpenPopup();
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CreateMultiOrderTable")',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ table: arr })
+                    }).done(function(result) {
+                        if (result.Success && result.Data > 0) {
+                            $('#curOrderID').val(result.Data);
+                            refreshTableArea();
+                            refreshOrderArea();
+                        }
+                    });
+                    return false;
+                }
+            } else {
+                onCheckTableStatus(data[0].OrderTableID, data[0].TableID);
+                return false;
+            }
+        } else if(action == 'rmenu-move') {
+            if (data.length > 1) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác không chính xác. Chỉ có thể chuyển dữ liệu từng bàn<br />Xin vui lòng thử lại.',
+                    4,
+                    function() {
+                        refreshTableArea();
+                    });
+
+                popup.OpenPopup();
+            } else {
+                if (data[0].OrderTableID > 0) {
+                    popup = new DestinationTablePopup("destinationTablePopup", data[0].OrderTableID, listArea, '@Url.Action("GetTablesByAreaID")', onMoveOrderTable);
+                    popup.OpenPopup();
+                }
+            }
+        } else if(action == 'rmenu-pooling') {
+            for (i = 0; i < data.length; i++) {
+                if (data[i].OrderTableID == 0) {
+                    valid = false;
+                    break;
+                }
+                arr[arr.length] = data[i].OrderTableID;
+            }
+            if (!valid) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác không chính xác.<br />Xin vui lòng thử lại.',
+                    4,
+                    function() {
+                        refreshTableArea();
+                    });
+                popup.OpenPopup();
+            } else {
+                popup = new MessagePopup('Nhập chung bàn',
+                    'Hệ thống sẽ nhập chung dữ liệu về bàn đầu tiên trong danh sách.<br />Bạn muốn thực hiện?',
+                    3,
+                    function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("PoolingTable")',
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ orderTable: arr })
+                        }).done(function(object) {
+                            if (!object.Success) {
+                                popup = new MessagePopup('Thông báo',
+                                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                                    4,
+                                    function() {
+                                    });
+
+                                popup.OpenPopup();
+                            }
+                            refreshTableArea();
+                            refreshOrderArea();
+                        });
+                        return false;
+                    });
+
+                popup.OpenPopup();
+            }
+        } else if(action == 'rmenu-del') {
+            for (i = 0; i < data.length; i++) {
+                if (data[i].OrderID > 0) {
+                    arr[arr.length] = data[i].OrderID;
+                }
+            }
+            if (arr.length > 0) {
+                popup = new MessagePopup('Thông báo',
+                    'Thao tác xóa thông tin các bàn được chọn.<br />Bạn muốn thực hiện?',
+                    3,
+                    function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("RemoveMultiOrder")',
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ order: arr })
+                        }).done(function(result) {
+                            if (!result.Success) {
+                                popup = new MessagePopup('Thông báo',
+                                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
+                                    4,
+                                    function() {
+                                    });
+
+                                popup.OpenPopup();
+                            }
+                            refreshTableArea();
+                            refreshOrderArea();
+                        });
+                        return false;
+                    });
+
+                popup.OpenPopup();
+            }
+        }
+        return false;
+    }
+        
+    function displayCustomMenu(menuName, event) {
+        var $menu = $(menuName);
+        var $wMenu = $menu.outerWidth();
+        var $hMenu = $menu.outerHeight();
+        var $leftM = event.clientX, $topM = event.clientY;
+        var $rightM = $(window).width() - $leftM;
+
+        var $bottomM = $(window).height() - $topM;
+        if ($rightM < $wMenu) {
+            $leftM -= $wMenu;
+        }
+        if ($bottomM < $hMenu) {
+            $topM -= $hMenu;
+        }
+        $menu.css({ left: $leftM, top: $topM, display: 'block' });
+        event.preventDefault();
+    }
+    
+    function CalculateTotal() {
+        var subTotal,
+            sumAmount = 0,
+            totalAmount,
+            fee = 0,
+            otherfee,
+            orderdiscount,
+            tax = 0;
+        
+        $('table[id^="order-"]').each(function(idx, e) {
+            subTotal = 0;
+            $(e).find('tbody[id^="table-detail-"] tr').each(function(index, element) {
+                var qty = $(element).find('td input[id^="qty"]').val().readMoneyAsNumber();
+                var price = $(element).find('td.product-price').text().readMoneyAsNumber();
+                var discount = $(element).find('td input[id^="discount"]').length == 0 ? 0 : $(element).find('td input[id^="discount"]').val().readMoneyAsNumber();
+                var total = qty*price - discount ;
+                subTotal += total;
+                $(element).find('td.sequence').text(index + 1);
+                $(element).find('td.item_subtotal').text(total.formatAsMoney());
+            });
+            
+            sumAmount += subTotal;
+            $(e).find('.sub-total').text(subTotal.formatAsMoney());
+        });
+        
+        $('#totalSection .sum_amount').text(sumAmount.formatAsMoney());
+
+        if($('#totalSection .fee').length > 0) {
+            fee = $('#totalSection .fee').text().readMoneyAsNumber();
+            $('#totalSection .fee').text(fee.formatAsMoney());
+        }
+
+        if(!$('#chkUseServiceFee').is(':checked'))
+            fee = 0;
+
+        otherfee = $('#txtOtherFee').length > 0 ? $('#txtOtherFee').val().readMoneyAsNumber() : 0;
+
+        orderdiscount = $('#totalSection .discountAmount').text().readMoneyAsNumber();
+
+        sumAmount = sumAmount > 0 ? sumAmount + fee + otherfee - orderdiscount : 0;
+        
+        $('#totalSection .total').text(sumAmount.formatAsMoney());
+
+        $('#totalSection div[id^="tax-"]').each(function(index, element) {
+            if($(element).find('input[id^="chkUseTax-"]').is(':checked'))
+            {
+                var value = $(element).find('span[id^="tax-value-"]').text();
+                tax += sumAmount > 0 ? sumAmount * value / 100 : 0;
+                $(element).find('span[id^="tax-amount-"]').text((sumAmount * value / 100).formatAsMoney());
+            } else {
+                $(element).find('span[id^="tax-amount-"]').text('0');
+            }
+        });
+
+        totalAmount = sumAmount + tax;
+
+        $('#totalSection .total_amount').text(totalAmount.formatAsMoney());
+    }
+</script>

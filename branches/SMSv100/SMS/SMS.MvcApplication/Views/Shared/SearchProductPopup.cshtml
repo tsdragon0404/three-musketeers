@@ -1,0 +1,60 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+
+<div title="@Model.PopupTitle" id="@Model.PopupID" class="hide product-search-popup">
+    <div class="popup-content">
+        <form>
+            <table id="searchProduct">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                    <col style="width: 110px" />
+                    <col style="width: 110px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbContentLookup">
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="right">
+        <button class="popupRefresh">Refresh</button>
+        <button class="popupClose">Close</button>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
+<script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
+    {{each(idx) ListProduct}}
+    <tr>
+        <td>${idx+1}</td>
+        <td>${Code}</td>
+        <td>${Name}</td>
+        <td>${CategoryName}</td>
+        <td class="right">${Price.formatAsMoney()}</td>
+        <td class="right">
+            <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
+        <td class="center">
+            <button class="popupSelect" id="select-${ID}" tabindex="${tabIdx + 1}">Select</button></td>
+    </tr>
+    {{/each}}
+</script>
+<script type="text/javascript">
+    $('#@Model.PopupID .textSearch, #@Model.PopupID .popupSearch').keypress(function (e) {
+        if (e.which == 13) {
+            $('#@Model.PopupID .popupSearch').trigger('click');
+        }
+    });
+</script>

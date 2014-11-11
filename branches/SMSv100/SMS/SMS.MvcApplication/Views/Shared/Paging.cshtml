@@ -1,0 +1,45 @@
+﻿@model SMS.Common.Paging.SortingPagingInfo
+<script src="~/Scripts/jquery.twbsPagination.min.js" type="text/javascript"></script>
+@if (Model.TotalItemCount > 0)
+{
+    <form action="@Model.FormNameToSubmit" id="pagingForm" method="GET">
+        <input type="hidden" name="textSearch" value="@Model.TextSearch" id="paging-TextSearch" />            
+        <input type="hidden" name="page" value="@Model.CurrentPage" id="paging-CurrentPage"/>            
+    </form>
+    <div class="row">
+        <div class="eight columns">
+            <ul class="pagination pagination-sm" id="Paginationdiv">
+            
+            </ul>
+        </div>
+        @*<div class="four columns">
+            Total: @Model.TotalItemCount record(s).
+        </div>*@
+    </div>
+}
+<script type="text/javascript">
+    var itemPerSide = 3;
+    var visiblePages = 5;
+    var currentPage = @Model.CurrentPage;
+    var pageCount = @Model.PageCount;
+    if (pageCount != 0) {
+        var firstTime = true;
+
+        $('#Paginationdiv').twbsPagination({
+            totalPages: pageCount,
+            visiblePages: visiblePages,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (firstTime) {
+                    firstTime = false;
+                    return false;
+                }
+
+                $('#pagingForm #paging-CurrentPage').val(page);
+                $('#pagingForm').submit();
+
+                return false;
+            }
+        });
+    }
+</script>

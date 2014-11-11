@@ -1,0 +1,182 @@
+﻿@using SMS.Common
+@using SMS.Common.Constant
+@using SMS.Common.Storage.Message
+@using SMS.MvcApplication.Base
+@using SMS.MvcApplication.Models
+@model UserProfileModel
+
+<script type="text/javascript">
+    var user = @Html.Raw(JsonEncode(Model.UserBasic));
+    var userConfig = @Html.Raw(JsonEncode(Model.UserConfig));
+</script>
+
+<div id="content" class="row">
+    <div class="row float-left" id="edit-profile">
+        <fieldset>
+            <legend>User infomation</legend>
+            <table class="no-border">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>User name</td>
+                        <td>@Model.UserBasic.Username</td>
+                        <td rowspan="7" id="image-profile">
+                            <div id="profileImage">
+                                    
+                                <div id="image-preview">
+                                    <img id="user-profile" alt="profile" src="data:image/jpg;base64,@Utility.GetCurrentUserProfileImage()"/>
+                                </div>
+                                <span class="fileinput-button" title="upload photo">
+                                    <img id="capture" alt="capture" src="~/Images/IconControls/capture-icon.png"/>
+                                    <input type="file" name="uploadedFile" id="fileupload" accept="image/jpg, image/jpeg, image/png" />
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" id="password" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td>First name</td>
+                        <td><input type="text" id="firstName" value="@Model.UserBasic.FirstName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Last name</td>
+                        <td><input type="text" id="lastName" value="@Model.UserBasic.LastName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Cell phone</td>
+                        <td><input type="text" id="cellPhone" value="@Model.UserBasic.CellPhone"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="text" id="email" value="@Model.UserBasic.Email"/></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><input type="text" id="address" value="@Model.UserBasic.Address"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Theme</td>
+                        <td>
+                            <select id="theme">
+                                <option value="black-tie">black-tie</option>
+                                <option value="blitzer">blitzer</option>
+                                <option value="cupertino">cupertino</option>
+                                <option value="dark-hive">dark-hive</option>
+                                <option value="dot-luv">dot-luv</option>
+                                <option value="eggplant">eggplant</option>
+                                <option value="excite-bike">excite-bike</option>
+                                <option value="flick">flick</option>
+                                <option value="hot-sneaks">hot-sneaks</option>
+                                <option value="humanity">humanity</option>
+                                <option value="le-frog">le-frog</option>
+                                <option value="mint-choc">mint-choc</option>
+                                <option value="overcast">overcast</option>
+                                <option value="pepper-grinder">pepper-grinder</option>
+                                <option value="redmond">redmond</option>
+                                <option value="smoothness">smoothness</option>
+                                <option value="south-street">south-street</option>
+                                <option value="start">start</option>
+                                <option value="sunny">sunny</option>
+                                <option value="swanky-purse">swanky-purse</option>
+                                <option value="trontastic">trontastic</option>
+                                <option value="ui-darkness">ui-darkness</option>
+                                <option value="ui-lightness">ui-lightness</option>
+                                <option value="vader">vader</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Page size</td>
+                        <td><input type="text" id="pageSize" value="@Model.UserConfig.PageSize" class="right"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="center">
+                            <button id="update" data-labelID="lblUpdate">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var imgs = null;
+    $(document).ready(function() {
+        var theme = (userConfig.Theme == '' || userConfig.Theme == null) ? '@ConfigReader.CurrentTheme' : userConfig.Theme;
+        $('#theme').val(theme);
+        $('#theme').selectmenu().selectmenu( "menuWidget" ).addClass( "overflow" );;
+
+        $('#update').button({
+            icons: {
+                primary: "ui-icon-disk"
+            }
+        }).click(function () {
+            if($('#pageSize').val() <= 0) {
+                $('#pageSize').val('');
+                return;   
+            }
+
+            var fd = new FormData();
+            fd.append('password', $('#password').val());
+            fd.append('firstName', $('#firstName').val());
+            fd.append('lastName',  $('#lastName').val());
+            fd.append('cellPhone', $('#cellPhone').val());
+            fd.append('email', $('#email').val());
+            fd.append('address', $('#address').val());
+            fd.append('theme', $('#theme').val());
+            fd.append('pageSize', $('#pageSize').val());
+            fd.append('profileImg', $('#fileupload')[0].files[0]);
+            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateUserProfile")',
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+                if (result.Success) {
+                    $('#password').val('');
+                }
+            });
+        });
+
+        $('#fileupload').change(function() {
+            if (!(/(\.jpg|\.jpeg|\.png)$/i).test($(this).val().toLowerCase())) {
+                var popup = new MessagePopup('@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))',
+                    '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_IncorrectFileFormat))',
+                    4);
+
+                popup.OpenPopup();
+            } else
+                previewImage($(this)[0].files[0]);
+        });
+        
+        function previewImage(uploadFile) {
+            $('#image-preview').html('');
+            if (typeof (FileReader) != 'undefined') {
+                $('#image-preview').show();
+                $('#image-preview').append('<img id="user-profile" />');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#image-preview img#user-profile').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(uploadFile);
+            } else {
+                var popup = new MessagePopup('@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))',
+                '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_FileReaderNotSupported))',
+                4);
+
+                popup.OpenPopup();
+            }
+        }
+    });
+</script>

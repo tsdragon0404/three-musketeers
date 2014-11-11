@@ -1,0 +1,41 @@
+﻿@model HandleErrorInfo
+
+<div>
+    <span>Error</span>
+</div>
+<div>
+    <div>
+        Errors occurred. Please contact the system administrator.
+    </div>
+    @if(TempData["Error"] != null)
+    {
+        var errors = TempData["Error"] as List<Core.Common.Validation.Error>;
+        if (errors != null && errors.Any())
+        {
+        <div>
+            <ul>
+                @foreach (var error in errors)
+                {
+                    <li>Error type: @error.Type - @error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+        }
+    }
+    
+    @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+    {
+        <div>
+            <p>
+                <b>Exception:</b> @Model.Exception.Message<br />
+                <b>Controller:</b> @Model.ControllerName<br />
+                <b>Action:</b> @Model.ActionName
+            </p>
+            <div style="overflow:scroll">
+                <pre>
+                    @Model.Exception.StackTrace
+                </pre>
+            </div>
+        </div>
+    }
+</div>

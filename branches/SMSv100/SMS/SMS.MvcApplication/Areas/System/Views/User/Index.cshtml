@@ -1,0 +1,254 @@
+﻿@using SMS.Common.Session
+@using SMS.Data.Dtos
+@model SMS.MvcApplication.Models.AdminModel<UserDto>
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail">
+        <td colspan="6">
+            <div class="detail" style="display: none;">
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblUserName">
+                        User name
+                    </div>
+                    <div class="five columns">
+                        {{if Username == null}}<input type="text" name="userName" value="" id="userName-${ID}"/>{{else}}${Username}{{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblPassword">
+                        Password
+                    </div>
+                    <div class="five columns">
+                        <input type="password" name="password" value="" id="password-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblFirstName">
+                        First name
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="firstName" value="${FirstName}" id="firstName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblLastName">
+                        Last name
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="lastName" value="${LastName}" id="lastName-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblCellPhone">
+                        Cell phone
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="cellPhone" value="${CellPhone}" id="cellPhone-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblEmail">
+                        Email
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="email" value="${Email}" id="email-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblAddress">
+                        Address
+                    </div>
+                    <div class="five columns">
+                        <input type="text" name="address" value="${Address}" id="address-${ID}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblLocked">
+                        Locked
+                    </div>
+                    <div class="four columns">
+                        {{if IsLockedOut}}
+                        <input type="checkbox" name="locked" checked id="locked-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="locked" id="locked-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="three columns right" data-labelID="lblUseSystemConfig">
+                        Use system config
+                    </div>
+                    <div class="four columns">
+                        {{if UseSystemConfig}}
+                        <input type="checkbox" name="useSystemConfig" checked id="useSystemConfig-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="useSystemConfig" id="useSystemConfig-${ID}"/>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        Branches
+                    </div>
+                    <div class="three columns">
+                    </div>
+                    <div class="four columns left">
+                        Assigned Branches
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns right">
+                        <select id="originalBranches-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            @foreach (BranchDto branch in ViewBag.ListBranch)
+                            {
+                                <text>
+                                    @if(SmsSystem.Language==Language.Vietnamese)
+                                    {
+                                        <option value="@branch.ID">@branch.VNName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@branch.ID">@branch.ENName</option>
+                                    }
+                                </text>
+                            }
+                        </select>
+                    </div>
+                    <div class="three columns center">
+                        <button id="addBranches-${ID}" class="assignButton">></button>
+                        <button id="addAllBranches-${ID}" class="assignButton">>></button>
+                        <button id="removeAllBranches-${ID}" class="assignButton"><<</button>
+                        <button id="removeBranches-${ID}" class="assignButton"><</button>
+                    </div>
+                    <div class="four columns">
+                        <select name="assignedBranches" id="assignedBranches-${ID}" multiple="multiple" size="4" style="width: 80%">
+                            {{each Branches}}
+                            @if(SmsSystem.Language==Language.Vietnamese)
+                            {
+                                <option value="${ID}">${VNName}</option>
+                            }
+                            else
+                            {
+                                <option value="${ID}">${ENName}</option>
+                            }
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{html buildScriptForAssignListBox(ID)}}
+                </div>
+                <div class="row">
+                    <div class="eleven columns center">
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/javascript" src="~/Scripts/assignListBox.js"></script>
+<script type="text/javascript">
+    function buildScriptForAssignListBox(id) {
+        var param = '"originalBranches-' + id + '", "' + 'assignedBranches-' + id + '", "' + 'addBranches-' + id + '", "' + 'removeBranches-' + id + '", "' + 'addAllBranches-' + id + '", "' + 'removeAllBranches-' + id + '"';
+
+        return '<sc' + 'ript type="text/javascript">'
+            + 'var listBox = new AssignListBox(' + param + ');'
+            + 'listBox.bindEvents();'
+            + '</sc' + 'ript>';
+    }
+</script>
+
+<div id="content">
+    <div class="row">
+        <h4 class="admin-page-title">Maintain User</h4>
+    </div>
+
+    @Html.Partial("Search", Model.PagingInfo)
+
+    <div class="row">
+        <table id="record-table" class="no-border">
+            <colgroup>
+                <col style="width: 75px;" />
+                <col style="width: 60px;" />
+                <col style="width: 150px;" />
+                <col />
+                <col />
+                <col style="width: 75px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No</th>
+                    <th>User name</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Locked</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model.ListRecord)
+                {
+                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                    <tr class="@altClass" data-id="@dto.ID">
+                        <td class="center">
+                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        </td>
+                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                        <td>@dto.Username</td>
+                        <td>@dto.FirstName</td>
+                        <td>@dto.LastName</td>
+                        <td>@dto.IsLockedOut</td>
+                    </tr>
+                }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
+                    <td colspan="5"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        @Html.Partial("Paging", Model.PagingInfo)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var addUrl = '@Url.Action("GetSchemaForAdd")';
+                var editUrl = '@Url.Action("GetDataForEdit")';
+                var saveUrl = '@Url.Action("SaveData")';
+                var deleteUrl = '@Url.Action("DeleteData")';
+                
+                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
+                adminfunc.bind();
+            });
+
+            function getDataForSave(recordID) {
+                if ($('#userName-' + recordID).val() == "") {
+                    return false;
+                }
+
+                var branches = Array();
+
+                $('#assignedBranches-' + recordID + ' option').each(function (idx, e) {
+                    branches.push({ ID: $(e).val() });
+                });
+
+                var data = {
+                    ID: recordID,
+                    Username: $('#userName-' + recordID).val(),
+                    Password: $('#password-' + recordID).val(),
+                    FirstName: $('#firstName-' + recordID).val(),
+                    LastName: $('#lastName-' + recordID).val(),
+                    CellPhone: $('#cellPhone-' + recordID).val(),
+                    Email: $('#email-' + recordID).val(),
+                    Address: $('#address-' + recordID).val(),
+                    UseSystemConfig: $('#useSystemConfig-' + recordID).prop('checked'),
+                    IsLockedOut: $('#locked-' + recordID).prop('checked'),
+                    Branches: branches
+                };
+                return data;
+            }
+        </script>
+    </div>
+</div>

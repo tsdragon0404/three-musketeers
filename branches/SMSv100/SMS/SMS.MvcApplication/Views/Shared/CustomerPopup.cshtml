@@ -1,0 +1,86 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide customer-popup">
+    <div id="customerInfo">
+        <fieldset>
+            <legend>
+                <input type="checkbox" id="useInputCustomer"/>
+                <span data-labelID="lblCustomerInformation">Customer information</span>
+            </legend>
+            <table>
+                <tr>
+                    <td  data-labelID="lblCustomerName">Customer name</td>
+                    <td><input type="text" id="customerName" /></td>
+                    <td data-labelID="lblCellPhone">Cell phone</td>
+                    <td><input type="text" id="cellPhone" /></td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblAddress">Address</td>
+                    <td><input type="text" id="address" /></td>
+                    <td data-labelID="lblDOB">DOB</td>
+                    <td><input type="text" id="DOB" class="inputCalendar" /></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="center"><button id="btnOK" data-labelID="lblOK">Select</button></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <table class="popup-table-header">
+        <colgroup>
+            <col class="col1" />
+            <col class="col2" />
+            <col class="col3" />
+            <col class="col4" />
+            <col class="col5" />
+            <col class="col6" />
+            <col class="col7" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th data-labelID="lblNo">No</th>
+                <th data-labelID="lblCustomerCode">Customer code</th>
+                <th data-labelID="lblCustomerName">Customer name</th>
+                <th data-labelID="lblCellPhone">Cell phone</th>
+                <th data-labelID="lblAddress">Address</th>
+                <th data-labelID="lblDOB">DOB</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <div class="popup-content">
+        <form>
+            <table id="table-detail-@Model.PopupID">
+                <colgroup>
+                    <col class="col1" />
+                    <col class="col2" />
+                    <col class="col3" />
+                    <col class="col4" />
+                    <col class="col5" />
+                    <col class="col6" />
+                    <col class="col7" />
+                </colgroup>
+                <tbody id="customer-table">
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="right popup-buttons">
+        <button class="popupClose" data-labelID="lblClose">Close</button>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/customer-popup.js")"></script>
+<script id="customer-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <tr class="{{if idx%2}}alt{{/if}}">
+        <td>${idx + 1}</td>
+        <td>${CustomerCode}</td>
+        <td>${CustomerName}</td>
+        <td>${CellPhone}</td>
+        <td>${Address}</td>
+        <td>${DOB==null ? '' : DOB.formatAsDate()}</td>
+        <td class="center">
+            <button id="select-${ID}">Select</button>
+        </td>
+    </tr>
+    {{/each}}
+</script>

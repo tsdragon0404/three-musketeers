@@ -1,0 +1,87 @@
+﻿@using SMS.Common.Constant
+@using SMS.Common.Storage.Message
+@using SMS.MvcApplication.Models
+@model SystemInformationModel
+
+<div id="content">
+    <div class="row system-infomation">
+        <fieldset class="fieldset-boder">
+            <legend>System configuration</legend>    
+            <table class="no-border">
+                @foreach (var dto in Model.SystemInformationDtos)
+                {
+                    <tr id="@dto.Name" class="key">
+                        <td class="label-custom-label">@dto.Description</td>
+                        <td><input value="@dto.Value"/></td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2" class="center">
+                        <button id="update" data-labelID="lblUpdate">Update</button>
+                        <button id="resetData" data-labelID="lblUpdate">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#update').button({
+            icons: {
+                primary: "ui-icon-disk"
+            }
+        }).click(function () {
+            var systemInformations = [];
+            $('.system-infomation .fieldset-boder .key').each(function (idx, element) {
+                var name = $(element).attr('id');
+                var value = $(element).find('td input').val();
+                systemInformations[systemInformations.length] = { Name: name, Value: value };
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateSystemConfig")',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ systemInformations: systemInformations })
+            }).done(function (result) {
+                if (result.Success) {
+                    location.reload();
+                }
+            });
+        });
+
+        $('#resetData').button({
+            icons: {
+                primary: "ui-icon-refresh"
+            }
+        }).click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ResetSystemData")'
+                }).done(function (result) {
+                    var title;
+                    var message;
+                    var messageType;
+
+                    if (result.Success) {
+                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Success))';
+                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess))';
+                        messageType = 1;
+                    }
+                    else {
+                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))';
+                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_Error))';
+                        messageType = 4;
+                    }
+
+                    var popup = new MessagePopup(title, message, messageType);
+
+                    popup.OpenPopup();
+                });
+
+		    return false;
+		});
+    });
+</script>
