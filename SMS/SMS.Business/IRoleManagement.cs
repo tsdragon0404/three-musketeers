@@ -4,7 +4,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface IRoleManagement : IBaseManagement<RoleDto, long>
+    public interface IRoleManagement : IBaseManagement<RoleDto>
     {
         ServiceResult<IList<RoleDto>> GetByUserID(long id);
     }

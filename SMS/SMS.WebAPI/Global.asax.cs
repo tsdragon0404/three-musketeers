@@ -7,11 +7,12 @@ using System.Web.Routing;
 
 namespace SMS.WebAPI
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutoMapperConfig.Register();
         }
     }
 }

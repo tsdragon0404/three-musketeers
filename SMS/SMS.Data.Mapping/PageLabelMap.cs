@@ -11,7 +11,7 @@ namespace SMS.Data.Mapping
             Map(x => x.ENText);
             Map(x => x.LabelID);
             Map(x => x.BranchID);
-            References(x => x.Page).Column("PageID").Not.LazyLoad();
+            References(x => x.Page).Column("PageID").Not.LazyLoad().Not.Update();
         }
     }
 }

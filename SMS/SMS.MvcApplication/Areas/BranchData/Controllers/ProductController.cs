@@ -10,7 +10,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 {
     [SmsAuthorize(ConstPage.Data_Product)]
     [PageID(ConstPage.Data_Product)]
-    public class ProductController : AdminBranchBaseController<ProductDto, long, IProductService>
+    public class ProductController : AdminBranchBaseController<ProductDto, IProductService>
     {
         #region Fields
 
@@ -21,11 +21,11 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            var categoryListResult = ProductCategoryService.GetAllByBranch<LanguageProductCategoryDto>(SmsSystem.SelectedBranchID);
+            var categoryListResult = ProductCategoryService.ListAllByBranch<LanguageProductCategoryDto>(SmsSystem.SelectedBranchID);
             if (!categoryListResult.Success || categoryListResult.Data == null)
                 return ErrorPage(categoryListResult.Errors);
 
-            var unitListResult = UnitService.GetAllByBranch<LanguageUnitDto>(SmsSystem.SelectedBranchID);
+            var unitListResult = UnitService.ListAllByBranch<LanguageUnitDto>(SmsSystem.SelectedBranchID);
             if (!unitListResult.Success || unitListResult.Data == null)
                 return ErrorPage(unitListResult.Errors);
 

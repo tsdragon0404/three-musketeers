@@ -8,7 +8,7 @@ namespace SMS.MvcApplication.Areas.SystemData.Controllers
 {
     [SmsAuthorize(ConstPage.System_Tax)]
     [PageID(ConstPage.System_Tax)]
-    public class TaxController : AdminBaseController<TaxDto, long, ITaxService>
+    public class TaxController : AdminBaseController<TaxDto, ITaxService>
     {
         #region Fields
 

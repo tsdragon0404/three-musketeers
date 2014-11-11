@@ -5,7 +5,7 @@ using SMS.Data.Dtos;
 
 namespace SMS.Business
 {
-    public interface ISystemInformationManagement : IBaseManagement<SystemInformationDto, long>
+    public interface ISystemInformationManagement : IBaseManagement<SystemInformationDto>
     {
         ServiceResult<IList<SystemInformationDto>> GetByType(SystemInformationType type);
         ServiceResult UpdateSystemConfig(SystemInformationDto[] systemInformations);

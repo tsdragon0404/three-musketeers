@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface ICustomerManagement : IBaseManagement<CustomerDto, long>
+    public interface ICustomerManagement : IBaseManagement<CustomerDto>
     {
     }
 }

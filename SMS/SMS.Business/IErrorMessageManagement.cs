@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface IErrorMessageManagement : IBaseManagement<ErrorMessageDto, long>
+    public interface IErrorMessageManagement : IBaseManagement<ErrorMessageDto>
     {
     }
 }

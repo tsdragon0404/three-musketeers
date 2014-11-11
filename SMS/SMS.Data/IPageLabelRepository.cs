@@ -1,10 +1,8 @@
-﻿using Core.Data;
-using SMS.Data.Entities;
+﻿using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IPageLabelRepository : IRepository<PageLabel>
+    public interface IPageLabelRepository : IBaseRepository<PageLabel>
     {
-         
     }
 }

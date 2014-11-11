@@ -8,8 +8,8 @@ using SMS.Services;
 
 namespace SMS.MvcApplication.Base
 {
-    public abstract class AdminBaseController<TDto, TPrimaryKey, TIService> : BaseController 
-        where TIService : IBaseService<TDto, TPrimaryKey>
+    public abstract class AdminBaseController<TDto, TIService> : BaseController 
+        where TIService : IBaseService<TDto>
         where TDto : new()
     {
         public virtual TIService Service { get; set; }
@@ -45,7 +45,7 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public virtual JsonResult GetDataForEdit(TPrimaryKey recordID)
+        public virtual JsonResult GetDataForEdit(long recordID)
         {
             return Json(JsonModel.Create(Service.GetByID(recordID)));
         }
@@ -67,7 +67,7 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public virtual JsonResult DeleteData(TPrimaryKey recordID)
+        public virtual JsonResult DeleteData(long recordID)
         {
             if (!CanDelete)
                 return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden));

@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface ICurrencyManagement : IBaseManagement<CurrencyDto, long>
+    public interface ICurrencyManagement : IBaseManagement<CurrencyDto>
     {
     }
 }

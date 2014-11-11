@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface IAreaManagement : IBaseManagement<AreaDto, long>
+    public interface IAreaManagement : IBaseManagement<AreaDto>
     {
     }
 }

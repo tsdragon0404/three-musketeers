@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class ErrorMessageManagement : BaseManagement<ErrorMessageDto, ErrorMessage, long, IErrorMessageRepository>, IErrorMessageManagement
+    public class ErrorMessageManagement : BaseManagement<ErrorMessageDto, ErrorMessage, IErrorMessageRepository>, IErrorMessageManagement
     {
         #region Fields
 

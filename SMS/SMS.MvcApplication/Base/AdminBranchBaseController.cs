@@ -6,8 +6,8 @@ using SMS.Services;
 
 namespace SMS.MvcApplication.Base
 {
-    public abstract class AdminBranchBaseController<TDto, TPrimaryKey, TIService> : AdminBaseController<TDto, TPrimaryKey, TIService>
-        where TIService : IBaseService<TDto, TPrimaryKey>
+    public abstract class AdminBranchBaseController<TDto, TIService> : AdminBaseController<TDto, TIService>
+        where TIService : IBaseService<TDto>
         where TDto : new()
     {
         [HttpGet]
@@ -20,7 +20,7 @@ namespace SMS.MvcApplication.Base
                                  FormNameToSubmit = Url.Action("Index")
                              };
 
-            var recordList = Service.SearchByBranch(textSearch, pagingInfo, SmsSystem.SelectedBranchID, true);
+            var recordList = Service.SearchInBranch(textSearch, pagingInfo, SmsSystem.SelectedBranchID, true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 
@@ -37,13 +37,13 @@ namespace SMS.MvcApplication.Base
         }
 
         [HttpPost]
-        public override JsonResult GetDataForEdit(TPrimaryKey recordID)
+        public override JsonResult GetDataForEdit(long recordID)
         {
-            return Json(JsonModel.Create(Service.GetByIDForCurrentBranch(recordID)));
+            return Json(JsonModel.Create(Service.GetByIDInCurrentBranch(recordID)));
         }
 
         [HttpPost]
-        public override JsonResult DeleteData(TPrimaryKey recordID)
+        public override JsonResult DeleteData(long recordID)
         {
             return Json(JsonModel.Create(Service.DeleteInCurrentBranch(recordID)));
         }

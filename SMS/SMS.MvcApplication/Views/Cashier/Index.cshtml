@@ -592,7 +592,7 @@
                 url: '@Url.Action("GetOrder")',
                 data: { orderID: orderId }
             }).done(function (result) {
-                if (result.Data.ID == 0 || !result.Success) {
+                if (!result.Success || result.Data.ID == 0) {
                     clearDisplayTableDetail(orderId);
                 }
                 else {
@@ -1062,8 +1062,8 @@
                     }
                 });
             } else {
-                
-                var discountType = $('#discount-type').val();
+                //TODO: fix this
+                @*var discountType = $('#discount-type').val();
                 var discount = $('#discount').val().trim();
 
                 var arrdiscountType = [],
@@ -1086,7 +1086,7 @@
                     if (result.Success) {
                         refreshOrderArea();
                     }
-                });
+                });*@
             }
             return false;
         });

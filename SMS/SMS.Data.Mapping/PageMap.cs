@@ -14,10 +14,10 @@ namespace SMS.Data.Mapping
             Map(x => x.ENTitle);
             Map(x => x.VNDescription);
             Map(x => x.ENDescription);
-            Map(x => x.Type).CustomType<PageType>();
-            Map(x => x.Area);
-            Map(x => x.Controller);
-            Map(x => x.Action);
+            Map(x => x.Type).CustomType<PageType>().Not.Update();
+            Map(x => x.Area).Not.Update();
+            Map(x => x.Controller).Not.Update();
+            Map(x => x.Action).Not.Update();
             HasMany(x => x.PageLabels).KeyColumn("PageLabelID").Inverse();
         }
     }

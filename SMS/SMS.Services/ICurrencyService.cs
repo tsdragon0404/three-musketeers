@@ -2,7 +2,7 @@
 
 namespace SMS.Services
 {
-    public interface ICurrencyService : IBaseService<CurrencyDto, long>
+    public interface ICurrencyService : IBaseService<CurrencyDto>
     {
     }
 }

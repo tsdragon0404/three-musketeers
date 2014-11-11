@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Business.Impl
 {
-    public class CurrencyManagement : BaseManagement<CurrencyDto, Currency, long, ICurrencyRepository>, ICurrencyManagement
+    public class CurrencyManagement : BaseManagement<CurrencyDto, Currency, ICurrencyRepository>, ICurrencyManagement
     {
         #region Fields
 

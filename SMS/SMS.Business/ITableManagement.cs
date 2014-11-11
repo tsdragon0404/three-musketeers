@@ -2,7 +2,7 @@
 
 namespace SMS.Business
 {
-    public interface ITableManagement : IBaseManagement<TableDto, long>
+    public interface ITableManagement : IBaseManagement<TableDto>
     {
     }
 }

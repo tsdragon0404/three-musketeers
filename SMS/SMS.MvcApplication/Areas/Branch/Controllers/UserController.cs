@@ -31,13 +31,13 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
                                  TextSearch = textSearch,
                                  FormNameToSubmit = Url.Action("Index")
                              };
-            var user = UserService.SearchByBranch<UserInfoDto>(textSearch, pagingInfo, SmsSystem.SelectedBranchID);
+            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, pagingInfo, SmsSystem.SelectedBranchID);
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
-            var userConfig = UserConfigService.GetAllByBranch<UserConfigDto>(SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsSystem.SelectedBranchID);
 
-            var roles = RoleService.GetAll();
+            var roles = RoleService.ListAll();
             if (!roles.Success || roles.Data == null)
                 return ErrorPage(roles.Errors);
 
