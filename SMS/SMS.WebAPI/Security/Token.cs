@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Net;
 using Core.Common;
 
 namespace SMS.WebAPI.Security
 {
     public class Token
     {
-        public Guid TokenID { get; private set; }
+        public Guid ID { get; private set; }
+
+        public Token()
+        {
+            ID = Guid.NewGuid();
+        }
 
         private Token(string data)
         {
-            TokenID = Guid.Parse(data);
+            ID = Guid.Parse(data);
         }
 
         public string Encrypt()

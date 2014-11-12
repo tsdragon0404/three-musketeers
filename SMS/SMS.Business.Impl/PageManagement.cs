@@ -4,7 +4,6 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Common.Storage.BranchConfig;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -49,20 +48,20 @@ namespace SMS.Business.Impl
             return GetPagesByTypes<TModel>(PageType.Public);
         }
 
-        public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
+        public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser(long userID)
         {
-            return GetAccessiblePagesForUser<PageDto>();
+            return GetAccessiblePagesForUser<PageDto>(userID);
         }
 
-        public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
+        public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>(long userID)
         {
-            if (SmsSystem.UserContext.UserID == 0)
+            if (userID == 0)
                 return GetPagesByTypes<TModel>(PageType.Public);
 
-            if (SmsSystem.UserContext.IsSystemAdmin)
-                return GetPagesByTypes<TModel>(PageType.Public, PageType.Protected, PageType.System);
+            var user = UserRepository.GetByID(userID);
 
-            var user = UserRepository.GetByID(SmsSystem.UserContext.UserID);
+            if (user.IsSystemAdmin)
+                return GetPagesByTypes<TModel>(PageType.Public, PageType.Protected, PageType.System);
 
             var accessiblePageIds = new List<long>();
             foreach (var role in user.Roles)
@@ -71,8 +70,8 @@ namespace SMS.Business.Impl
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
             var result = Repository.List(x => accessiblePageIds.Contains(x.ID) 
-                                           || x.Type == PageType.Public 
-                                           || (SmsSystem.UserContext.UseSystemConfig && x.Type == PageType.System)).ToList();
+                                           || x.Type == PageType.Public
+                                           || (user.UseSystemConfig && x.Type == PageType.System)).ToList();
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }

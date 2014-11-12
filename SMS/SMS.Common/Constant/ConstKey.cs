@@ -20,5 +20,7 @@
         public static string SystemInfo_SmtpUser = "SmtpUser";
         public static string SystemInfo_SmtpPass = "SmtpPass";
         public static string SystemInfo_FileUploadPath = "FileUploadPath";
+
+        public static string Token = "SMS-Token";
     }
 }

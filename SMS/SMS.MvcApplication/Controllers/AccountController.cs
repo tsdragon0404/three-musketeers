@@ -130,7 +130,7 @@ namespace SMS.MvcApplication.Controllers
 
             SmsSystem.SelectedBranchID = branchID;
 
-            var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>();
+            var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>(SmsSystem.UserContext.UserID);
             if (!pages.Success || pages.Data == null)
                 return false;
 

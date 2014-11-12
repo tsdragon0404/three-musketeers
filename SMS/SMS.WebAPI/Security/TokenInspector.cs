@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.ServiceModel.Channels;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
+using SMS.Common.Constant;
+using SMS.Common.Storage;
 
 namespace SMS.WebAPI.Security
 {
@@ -13,14 +13,15 @@ namespace SMS.WebAPI.Security
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            const string TOKEN_NAME = "SMS-Token";
-
-            if (request.Headers.Contains(TOKEN_NAME))
+            if (request.Headers.Contains(ConstKey.Token))
             {
-                var encryptedToken = request.Headers.GetValues(TOKEN_NAME).First();
+                var encryptedToken = request.Headers.GetValues(ConstKey.Token).First();
                 try
                 {
                     var token = Token.Decrypt(encryptedToken);
+                    if (!Storage.UserData.Contains(token.ID))
+                        throw new Exception();
+
                     //validate token in UserAccess
 
                     //bool isExpire = false;
@@ -54,13 +55,13 @@ namespace SMS.WebAPI.Security
             return base.SendAsync(request, cancellationToken);
         }
 
-        private IPAddress GetClientIpAddress(HttpRequestMessage request)
-        {
-            if (request.Properties.ContainsKey("MS_HttpContext"))
-                return IPAddress.Parse(((HttpContextBase) request.Properties["MS_HttpContext"]).Request.UserHostAddress);
-            if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
-                return IPAddress.Parse(((RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessageProperty.Name]).Address);
-            throw new Exception("Client IP Address Not Found in HttpRequest");
-        }
+        //private IPAddress GetClientIpAddress(HttpRequestMessage request)
+        //{
+        //    if (request.Properties.ContainsKey("MS_HttpContext"))
+        //        return IPAddress.Parse(((HttpContextBase) request.Properties["MS_HttpContext"]).Request.UserHostAddress);
+        //    if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
+        //        return IPAddress.Parse(((RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessageProperty.Name]).Address);
+        //    throw new Exception("Client IP Address Not Found in HttpRequest");
+        //}
     }
 }
