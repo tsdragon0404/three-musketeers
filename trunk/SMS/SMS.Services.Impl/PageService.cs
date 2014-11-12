@@ -30,14 +30,14 @@ namespace SMS.Services.Impl
         {
             return Management.GetPublicPages<TModel>();
         }
-        public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser()
+        public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser(long userID)
         {
-            return Management.GetAccessiblePagesForUser();
+            return Management.GetAccessiblePagesForUser(userID);
         }
 
-        public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>()
+        public ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>(long userID)
         {
-            return Management.GetAccessiblePagesForUser<TModel>();
+            return Management.GetAccessiblePagesForUser<TModel>(userID);
         }
 
         public ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids)

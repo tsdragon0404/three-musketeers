@@ -1,8 +1,9 @@
 ﻿using System.Web.Http;
+using SMS.WebAPI.Base;
 
 namespace SMS.WebAPI.Controllers
 {
-    public class HomeController : ApiController
+    public class HomeController : BaseController
     {
         [HttpGet]
         public string Index()
