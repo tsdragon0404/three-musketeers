@@ -16,12 +16,15 @@ namespace SMS.Data.Mapping
             Map(x => x.Address);
             Map(x => x.CellPhone);
             Map(x => x.DOB);
-            Map(x => x.UserID);
-            Map(x => x.Tax);
             Map(x => x.ServiceFee);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
+            Map(x => x.TaxInfo);
             Map(x => x.Currency);
+            Map(x => x.PaymentMethod);
+            Map(x => x.TaxAmount);
+            Map(x => x.DiscountAmount);
+            Map(x => x.InvoiceAmount);
             HasMany(x => x.InvoiceDiscounts).KeyColumn("InvoiceID").Cascade.AllDeleteOrphan();
             HasMany(x => x.InvoiceTables).KeyColumn("InvoiceID").Cascade.AllDeleteOrphan();
         }

@@ -169,9 +169,9 @@ BEGIN
 		[TaxInfo] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
         [Currency] [nvarchar](50) NULL,
         [PaymentMethod] [tinyint] NULL,
-		[TaxAmount] [numeric] (12, 2) NULL,
-		[DiscountAmount] [numeric] (12, 2) NULL,
-		[InvoiceAmount] [numeric] (12, 2) NULL,
+		[TaxAmount] [numeric](19, 2) NULL,
+		[DiscountAmount] [numeric](19, 2) NULL,
+		[InvoiceAmount] [numeric](19, 2) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
@@ -200,8 +200,8 @@ BEGIN
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
-		[DiscountAmount] [numeric] (12, 2) NULL,
-		[Amount] [numeric] (12, 2) NULL
+		[DiscountAmount] [numeric](19, 2) NULL,
+		[Amount] [numeric](19, 2) NULL
      CONSTRAINT [PK_InvoiceDetail] PRIMARY KEY CLUSTERED 
     (
         [InvoiceDetailID] ASC
@@ -242,9 +242,9 @@ BEGIN
         [ServiceFee] [numeric](19, 2) NULL,
         [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
-		[DetailAmount] [numeric] (12, 2) NULL,
-		[DiscountAmount] [numeric] (12, 2) NULL,
-		[Amount] [numeric] (12, 2) NULL,
+		[DetailAmount] [numeric](19, 2) NULL,
+		[DiscountAmount] [numeric](19, 2) NULL,
+		[Amount] [numeric](19, 2) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,

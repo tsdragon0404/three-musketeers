@@ -23,13 +23,17 @@ namespace SMS.Data.Entities
 
         public virtual string DiscountComment { get; set; }
 
-        public virtual decimal Tax { get; set; }
-
         public virtual decimal ServiceFee { get; set; }
 
         public virtual decimal OtherFee { get; set; }
 
         public virtual string OtherFeeDescription { get; set; }
+
+        public virtual decimal DetailAmount { get; set; }
+		
+        public virtual decimal DiscountAmount { get; set; }
+
+        public virtual decimal Amount { get; set; }
 
         public virtual IList<InvoiceDetail> InvoiceDetails { get; set; }
 

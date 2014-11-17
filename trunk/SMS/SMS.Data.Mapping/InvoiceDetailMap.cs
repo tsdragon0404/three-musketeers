@@ -20,6 +20,8 @@ namespace SMS.Data.Mapping
             Map(x => x.DiscountType).CustomType<DiscountType>();
             Map(x => x.DiscountCode);
             Map(x => x.DiscountComment);
+            Map(x => x.DiscountAmount);
+            Map(x => x.Amount);
         }
     }
 }
