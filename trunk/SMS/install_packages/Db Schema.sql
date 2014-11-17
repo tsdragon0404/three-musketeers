@@ -29,7 +29,7 @@ BEGIN
         [ENName] [nvarchar](255) NULL,
         [CurrencyID] [int] NULL,
         [UseServiceFee] [bit] NULL,
-        [ServiceFee] [numeric](12, 2) NULL,
+        [ServiceFee] [numeric](19, 2) NULL,
         [UseDiscountOnProduct] [bit] NULL,
         [UseKitchenFunction] [bit] NULL,
         [Enable] [bit] NULL,
@@ -95,7 +95,7 @@ BEGIN
         [CurrencyID] [int] IDENTITY(1,1) NOT NULL,
         [Name] [nvarchar](50) NOT NULL,
         [Description] [nvarchar](255) NOT NULL,
-        [Exchange] [numeric](12, 2) NULL,
+        [Exchange] [numeric](19, 2) NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
@@ -156,20 +156,22 @@ BEGIN
         [InvoiceID] [bigint] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
         [InvoiceNumber] [nvarchar](50) NULL,
-        [InvoiceDate] [datetime] NULL,
+        [InvoiceDate] [date] NULL,
         [Comment] [nvarchar](255) NULL,
         [CustomerID] [int] NULL,
         [CustomerName] [nvarchar](255) NULL,
         [CellPhone] [nvarchar](50) NULL,
         [Address] [nvarchar](510) NULL,
         [DOB] [datetime] NULL,
-        [UserID] [int] NULL,
-        [Tax] [numeric](12, 2) NULL,
-        [ServiceFee] [numeric](12, 2) NULL,
-        [OtherFee] [numeric](12, 2) NULL,
+        [ServiceFee] [numeric](19, 2) NULL,
+        [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
+		[TaxInfo] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
         [Currency] [nvarchar](50) NULL,
-        [UseVisa] [int] NULL,
+        [PaymentMethod] [tinyint] NULL,
+		[TaxAmount] [numeric] (12, 2) NULL,
+		[DiscountAmount] [numeric] (12, 2) NULL,
+		[InvoiceAmount] [numeric] (12, 2) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
@@ -193,11 +195,13 @@ BEGIN
         [Quantity] [numeric](10, 2) NULL,
         [UnitVNName] [nvarchar](255) NULL,
         [UnitENName] [nvarchar](255) NULL,
-        [Price] [numeric](12, 2) NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Price] [numeric](19, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
+		[DiscountAmount] [numeric] (12, 2) NULL,
+		[Amount] [numeric] (12, 2) NULL
      CONSTRAINT [PK_InvoiceDetail] PRIMARY KEY CLUSTERED 
     (
         [InvoiceDetailID] ASC
@@ -211,7 +215,7 @@ BEGIN
     CREATE TABLE [dbo].[InvoiceDiscount](
         [InvoiceDiscountID] [bigint] IDENTITY(1,1) NOT NULL,
         [InvoiceID] [bigint] NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
@@ -231,14 +235,16 @@ BEGIN
         [TableID] [int] NULL,
         [TableVNName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
         [TableENName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
-        [Tax] [numeric](12, 2) NULL,
-        [ServiceFee] [numeric](12, 2) NULL,
-        [OtherFee] [numeric](12, 2) NULL,
+        [ServiceFee] [numeric](19, 2) NULL,
+        [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
+		[DetailAmount] [numeric] (12, 2) NULL,
+		[DiscountAmount] [numeric] (12, 2) NULL,
+		[Amount] [numeric] (12, 2) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
@@ -262,7 +268,7 @@ BEGIN
         [ENDescription] [nvarchar](1000) NULL,
         [UnitID] [int] NULL,
         [ProductCategoryID] [int] NULL,
-        [Price] [numeric](12, 2) NULL,
+        [Price] [numeric](19, 2) NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
@@ -306,8 +312,8 @@ BEGIN
     CREATE TABLE [dbo].[ProductPriceHistory](
         [ProductPriceHistoryID] [bigint] IDENTITY(1,1) NOT NULL,
         [ProductID] [int] NULL,
-        [OldPrice] [numeric](12, 2) NULL,
-        [NewPrice] [numeric](12, 2) NULL,
+        [OldPrice] [numeric](19, 2) NULL,
+        [NewPrice] [numeric](19, 2) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_ProductPriceHistory] PRIMARY KEY CLUSTERED 
@@ -448,7 +454,7 @@ BEGIN
         [BranchID] [int] NULL,
         [IsSuspended] [bit] NULL,
         [DefaultAreaID] [bigint] NULL,
-        [ListTableHeight] [numeric](12, 2) NULL,
+        [ListTableHeight] [numeric](19, 2) NULL,
         [PageSize] [int] NULL,
         [Theme] [nvarchar](50) NULL,
         [CreatedDate] [datetime] NULL,
@@ -529,7 +535,7 @@ BEGIN
         [CellPhone] [nvarchar](50) NULL,
         [Address] [nvarchar](510) NULL,
         [DOB] [datetime] NULL,
-        [OtherFee] [numeric](12, 2) NULL,
+        [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
@@ -551,7 +557,7 @@ BEGIN
         [ProductID] [int] NULL,
         [Quantity] [numeric](10, 2) NULL,
         [Comment] [nvarchar](255) NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
@@ -570,7 +576,7 @@ BEGIN
     CREATE TABLE [dbo].[OrderDiscount](
         [OrderDiscountID] [bigint] IDENTITY(1,1) NOT NULL,
         [OrderID] [bigint] NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
@@ -588,12 +594,12 @@ BEGIN
         [OrderTableID] [bigint] IDENTITY(1,1) NOT NULL,
         [OrderID] [bigint] NULL,
         [TableID] [int] NULL,
-        [Discount] [numeric](12, 2) NULL,
+        [Discount] [numeric](19, 2) NULL,
         [DiscountType] [tinyint] NULL,
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
         [UseServiceFee] [bit] NULL,
-        [OtherFee] [numeric](12, 2) NULL,
+        [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
@@ -820,15 +826,6 @@ BEGIN
     REFERENCES [dbo].[Branch] ([BranchID])
 
     ALTER TABLE [dbo].[Invoice] CHECK CONSTRAINT [FK_Invoice_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Invoice_User]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Invoice] WITH CHECK ADD CONSTRAINT [FK_Invoice_User] FOREIGN KEY([UserID])
-    REFERENCES [dbo].[User] ([UserID])
-
-    ALTER TABLE [dbo].[Invoice] CHECK CONSTRAINT [FK_Invoice_User]
 END
 GO
 
