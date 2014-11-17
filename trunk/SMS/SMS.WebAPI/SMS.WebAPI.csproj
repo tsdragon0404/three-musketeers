@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\CacheConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

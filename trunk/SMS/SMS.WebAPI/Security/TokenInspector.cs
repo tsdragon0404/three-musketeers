@@ -19,8 +19,8 @@ namespace SMS.WebAPI.Security
                 try
                 {
                     var token = Token.Decrypt(encryptedToken);
-                    if (!Storage.UserData.Contains(token.ID))
-                        throw new Exception();
+                    //if (!SmsCache.UserData.Contains(token.ID))
+                    //    throw new Exception();
 
                     //validate token in UserAccess
 

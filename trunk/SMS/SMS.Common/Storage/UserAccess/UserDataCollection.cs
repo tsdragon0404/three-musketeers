@@ -6,7 +6,7 @@ using SMS.Common.Constant;
 
 namespace SMS.Common.Storage.UserAccess
 {
-    public class UserDataList : List<UserData>
+    public class UserDataCollection : List<UserData>
     {
         public UserData Current
         {
