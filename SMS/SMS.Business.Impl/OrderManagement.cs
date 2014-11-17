@@ -159,10 +159,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.GetByID(orderID);
             order.Customer = new Customer {ID = 1};
-            order.OrderTables = new List<OrderTable>
-                                    {
-                                        new OrderTable {Table = new Table {ID = tableID}}
-                                    };
+            order.OrderTables.Add(new OrderTable {Table = new Table {ID = tableID}});
                 
             order.OrderNumber = BuildOrderNumber(orderID);
             Repository.Save(order);
