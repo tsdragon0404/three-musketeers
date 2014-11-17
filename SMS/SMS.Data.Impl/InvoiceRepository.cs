@@ -15,8 +15,6 @@ namespace SMS.Data.Impl
                                   Branch = new Branch {ID = order.Branch.ID},
                                   CustomerID = order.Customer.ID,
                                   Currency = currency,
-                                  UserID = userID,
-                                  Tax = tax,
                                   Comment = order.Comment,
                                   ServiceFee = serviceFee,
                                   OtherFee = order.OtherFee,

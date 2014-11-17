@@ -23,19 +23,23 @@ namespace SMS.Data.Entities
 
         public virtual DateTime? DOB { get; set; }
 
-        public virtual long UserID { get; set; }
-
-        public virtual decimal Tax { get; set; }
-
         public virtual decimal ServiceFee { get; set; }
 
         public virtual decimal OtherFee { get; set; }
 
         public virtual string OtherFeeDescription { get; set; }
 
+        public virtual string TaxInfo { get; set; }
+
         public virtual string Currency { get; set; }
 
-        public virtual int UseVisa { get; set; }
+        public virtual int PaymentMethod { get; set; }
+
+        public virtual decimal TaxAmount { get; set; }
+
+        public virtual decimal DiscountAmount { get; set; }
+
+        public virtual decimal InvoiceAmount { get; set; }
 
         public virtual IList<InvoiceDiscount> InvoiceDiscounts { get; set; }
 

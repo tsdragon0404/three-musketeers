@@ -17,11 +17,12 @@ namespace SMS.Data.Dtos
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
-        public virtual decimal Tax { get; set; }
         public virtual decimal ServiceFee { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
-        public virtual decimal TableAmount { get; set; }
+        public virtual decimal DetailAmount { get; set; }
+        public virtual decimal DiscountAmount { get; set; }
+        public virtual decimal Amount { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

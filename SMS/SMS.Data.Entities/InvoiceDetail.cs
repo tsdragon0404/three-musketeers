@@ -27,5 +27,9 @@ namespace SMS.Data.Entities
         public virtual string DiscountCode { get; set; }
 
         public virtual string DiscountComment { get; set; }
+
+        public virtual decimal DiscountAmount { get; set; }
+
+        public virtual decimal Amount { get; set; }
     }
 }
