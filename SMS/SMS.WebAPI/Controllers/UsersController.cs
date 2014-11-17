@@ -24,8 +24,8 @@ namespace SMS.WebAPI.Controllers
         [HttpPost]
         public IHttpActionResult Login(string username, string password, long branchID)
         {
-            if (Storage.UserData.Contains(TokenID))
-                return Ok();
+            //if (SmsCache.UserData.Contains(TokenID))
+            //    return Ok();
 
             var response = UserManagement.Get<UserDto>(username, password);
             if (!response.Success)
@@ -97,7 +97,7 @@ namespace SMS.WebAPI.Controllers
                                                    : user.Branches.Select(x => new BranchName(x.ID, x.VNName, x.ENName)).ToList(),
                                AllowPageIDs = pages.Data.Select(x => x.ID).ToList()
                            };
-            Storage.UserData.Add(data);
+            //SmsCache.UserData.Add(data);
             return token.Encrypt();
         }
     }

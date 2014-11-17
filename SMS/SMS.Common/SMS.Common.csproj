@@ -89,8 +89,9 @@
     <Compile Include="Session\ClientInfo.cs" />
     <Compile Include="Storage\Branding\BrandingItem.cs" />
     <Compile Include="Storage\Branding\BrandingTexts.cs" />
-    <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Storage\SmsCache.cs" />
     <Compile Include="Storage\StorageHelper.cs" />
+    <Compile Include="Storage\StorageItem.cs" />
     <Compile Include="Storage\SystemInformation\SystemInfos.cs" />
     <Compile Include="Storage\UserAccess\BranchName.cs" />
     <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Session\UserContext.cs" />
     <Compile Include="Storage\UserAccess\UserAccess.cs" />
     <Compile Include="Storage\UserAccess\UserData.cs" />
-    <Compile Include="Storage\UserAccess\UserDataList.cs" />
+    <Compile Include="Storage\UserAccess\UserDataCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
