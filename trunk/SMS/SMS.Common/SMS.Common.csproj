@@ -62,7 +62,7 @@
     <Compile Include="Storage\AppLock\LockGroup.cs" />
     <Compile Include="Storage\AppLock\LockStatus.cs" />
     <Compile Include="Storage\AppLock\Payment.cs" />
-    <Compile Include="Storage\BranchConfig\BranchConfig.cs" />
+    <Compile Include="Storage\CacheObjects\BranchConfig.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
     <Compile Include="Constant\ConstPage.cs" />
@@ -73,9 +73,8 @@
     <Compile Include="Enums\ReportDatasourceParameterType.cs" />
     <Compile Include="Enums\DiscountType.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
-    <Compile Include="Storage\BranchConfig\BranchConfigs.cs" />
-    <Compile Include="Storage\Message\Message.cs" />
-    <Compile Include="Storage\Message\SystemMessages.cs" />
+    <Compile Include="Storage\CacheData.cs" />
+    <Compile Include="Storage\CacheObjects\Message.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
     <Compile Include="Paging\PagedList.cs" />
@@ -87,25 +86,23 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Session\Branch.cs" />
     <Compile Include="Session\ClientInfo.cs" />
-    <Compile Include="Storage\Branding\BrandingItem.cs" />
-    <Compile Include="Storage\Branding\BrandingTexts.cs" />
+    <Compile Include="Storage\CacheObjects\BrandingItem.cs" />
     <Compile Include="Storage\SmsCache.cs" />
     <Compile Include="Storage\StorageHelper.cs" />
-    <Compile Include="Storage\StorageItem.cs" />
-    <Compile Include="Storage\SystemInformation\SystemInfos.cs" />
-    <Compile Include="Storage\UserAccess\BranchName.cs" />
+    <Compile Include="Storage\CacheObject.cs" />
+    <Compile Include="Storage\CacheObjects\SystemInfos.cs" />
     <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
     <Compile Include="Session\SmsSystem.cs" />
     <Compile Include="Session\UserContext.cs" />
     <Compile Include="Storage\UserAccess\UserAccess.cs" />
-    <Compile Include="Storage\UserAccess\UserData.cs" />
-    <Compile Include="Storage\UserAccess\UserDataCollection.cs" />
+    <Compile Include="Storage\CacheObjects\UserData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

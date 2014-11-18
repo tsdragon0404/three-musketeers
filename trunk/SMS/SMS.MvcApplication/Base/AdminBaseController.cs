@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 

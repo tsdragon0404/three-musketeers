@@ -1,5 +1,5 @@
 ﻿using SMS.Common.Storage;
-using SMS.Common.Storage.UserAccess;
+using SMS.Common.Storage.CacheObjects;
 
 namespace SMS.WebAPI
 {

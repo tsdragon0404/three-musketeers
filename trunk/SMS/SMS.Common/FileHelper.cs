@@ -2,6 +2,7 @@
 using System.Web;
 using SMS.Common.Enums;
 using SMS.Common.Session;
+using SMS.Common.Storage.CacheObjects;
 
 namespace SMS.Common
 {
@@ -71,7 +72,7 @@ namespace SMS.Common
         private static string GetFolderPath(UploadedFileCategory category)
         {
             var dir = Path.Combine(
-                Storage.SystemInformation.SystemInfos.Data[Constant.ConstKey.SystemInfo_FileUploadPath],
+                SystemInfos.Data[Constant.ConstKey.SystemInfo_FileUploadPath],
                 category.ToString());
 
             if (!Directory.Exists(dir))

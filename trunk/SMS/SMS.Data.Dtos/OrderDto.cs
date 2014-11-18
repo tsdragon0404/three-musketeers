@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SMS.Common.Enums;
-using SMS.Common.Storage.BranchConfig;
+using SMS.Common.Storage.CacheObjects;
 
 namespace SMS.Data.Dtos
 {

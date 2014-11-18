@@ -2,7 +2,7 @@
 
 namespace SMS.Common.Storage
 {
-    public class StorageItem<T> where T : class
+    public class CacheObject<T> where T : class
     {
         private T _data;
         public T Data
@@ -13,7 +13,7 @@ namespace SMS.Common.Storage
 
         public Func<T> GetDataCallback { get; set; }
  
-        public StorageItem(Func<T> getDataCallback)
+        public CacheObject(Func<T> getDataCallback)
         {
             GetDataCallback = getDataCallback;
         } 

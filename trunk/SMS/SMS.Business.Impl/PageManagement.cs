@@ -4,7 +4,7 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
-using SMS.Common.Storage.BranchConfig;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;

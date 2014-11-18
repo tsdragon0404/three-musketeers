@@ -10,7 +10,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
 using SMS.Common.Session;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Common.Storage.UserAccess;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
