@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using SMS.Business;
 using SMS.Common;
 using SMS.Common.Constant;
-using SMS.Common.Storage;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Common.Storage.UserAccess;
 using SMS.Data.Dtos;
 using SMS.WebAPI.Base;

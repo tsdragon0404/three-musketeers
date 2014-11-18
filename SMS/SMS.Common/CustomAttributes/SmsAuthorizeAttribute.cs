@@ -5,7 +5,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using SMS.Common.Constant;
 using SMS.Common.Session;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Common.Storage.UserAccess;
 
 namespace SMS.Common.CustomAttributes

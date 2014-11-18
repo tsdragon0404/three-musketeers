@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SMS.Common.Storage.SystemInformation
+namespace SMS.Common.Storage.CacheObjects
 {
     public static class SystemInfos
     {

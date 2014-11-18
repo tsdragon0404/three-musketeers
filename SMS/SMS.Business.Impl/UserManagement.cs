@@ -6,7 +6,7 @@ using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
