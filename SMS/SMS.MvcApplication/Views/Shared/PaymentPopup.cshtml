@@ -1,6 +1,5 @@
 ﻿@using SMS.Common.Session
-@using SMS.Common.Storage.BranchConfig
-@using SMS.Common.Storage.CacheObjects
+@using SMS.Common.Storage
 @model SMS.MvcApplication.Models.PopupModel
 <!-- MeadCo ScriptX -->
 <object classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="@Url.Content("~/ScriptX")/smsx.cab#Version=7,4,0,8" id=factory style="display:none">
@@ -28,53 +27,53 @@
                         <tr>
                             <td></td>
                             <td data-labelID="lblSumTotal" class="label-custom-label">Sum Amount: </td>
-                            <td class="right"><span class="subTotal">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="subTotal">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td data-labelID="lblOther fee" class="label-custom-label">Other fee: </td>
-                            <td class="right"><span class="otherFee">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="otherFee">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
-                        @if (BranchConfigs.Current.UseServiceFee)
+                        @if (SmsCache.BranchConfigs.Current.UseServiceFee)
                         {
                             <tr id="ServiceFree">
-                                <td class="right"><input type="checkbox" class="margin-top-control" id="popupchkUseServiceFee" checked="@BranchConfigs.Current.UseServiceFee" /></td>
+                                <td class="right"><input type="checkbox" class="margin-top-control" id="popupchkUseServiceFee" checked="@SmsCache.BranchConfigs.Current.UseServiceFee" /></td>
                                 <td data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</td>
-                                <td class="right"><span class="fee">@BranchConfigs.Current.ServiceFee</span> @BranchConfigs.Current.Currency</td>
+                                <td class="right"><span class="fee">@SmsCache.BranchConfigs.Current.ServiceFee</span> @SmsCache.BranchConfigs.Current.Currency</td>
                             </tr>
                         }
                         <tr>
                             <td></td>
                             <td data-labelID="lblDiscountValue" class="label-custom-label">Discount Amount: </td>
-                            <td class="right"><span class="discount">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="discount">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr class="border-top">
                             <td></td>
                             <td data-labelID="lblTotal" class="label-custom-label">Total: </td>
-                            <td class="right"><span class="total">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="total">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
-                        @foreach (var tax in BranchConfigs.Current.Taxs)
+                        @foreach (var tax in SmsCache.BranchConfigs.Current.Taxs)
                         {
                             <tr id="tax-@tax.Key">
                                 <td class="right"><input type="checkbox" class="margin-top-control" id="popupChkUseTax-@tax.Key" /></td>
                                 <td><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></td>
-                                <td class="right"><span id="tax-amount-@tax.Key">0</span> @BranchConfigs.Current.Currency</td>
+                                <td class="right"><span id="tax-amount-@tax.Key">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                             </tr>
                         }
                         <tr class="border-top">
                             <td></td>
                             <td data-labelID="lblTotalAmount" class="label-custom-label">Total Amount: </td>
-                            <td class="right"><span class="totalAmount">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="totalAmount">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td data-labelID="lblCash" class="label-custom-label">Tiền khách đưa: </td>
-                            <td class="right"><input type="text" class="right" id="txtcash" style="width: 100px"/> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><input type="text" class="right" id="txtcash" style="width: 100px"/> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td data-labelID="lblReturn" class="label-custom-label">Tiền trả lại: </td>
-                            <td class="right"><span class="return">0</span> @BranchConfigs.Current.Currency</td>
+                            <td class="right"><span class="return">0</span> @SmsCache.BranchConfigs.Current.Currency</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -88,7 +87,7 @@
                     </tfoot>
                 </table>
                 <div class="row left print-tax" style="display: none">
-                    @if (BranchConfigs.Current.Taxs.Count > 0)
+                    @if (SmsCache.BranchConfigs.Current.Taxs.Count > 0)
                     {
                         <input type="checkbox" class="margin-top-control" id="btnTaxInvoice" />
                         <span data-labelID="lblTaxInvoice">In hóa đơn VAT</span>
@@ -146,27 +145,27 @@
             <tr>
                 <td colspan="3"></td>
                 <td>Tổng cộng:</td>
-                <td class="right">${SubTotal.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${SubTotal.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Phí dịch vụ:</td>
-                <td class="right">${ServiceFee.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${ServiceFee.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Dịch vụ khác:</td>
-                <td class="right">${OtherFee.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${OtherFee.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Thuế:</td>
-                <td class="right">${Tax.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${Tax.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Tiền thanh toán:</td>
-                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${TotalAmount.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="5">Ngày lập: ${CreatedDate.formatAsDate()}</td>
@@ -217,17 +216,17 @@
             <tr>
                 <td colspan="2"></td>
                 <td>Tổng cộng:</td>
-                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
                 <td>Thuế:</td>
-                <td class="right">${Tax.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${Tax.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
                 <td>Tiền thanh toán:</td>
-                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+                <td class="right">${TotalAmount.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="4">Ngày lập: ${CreatedDate.formatAsDate()}</td>

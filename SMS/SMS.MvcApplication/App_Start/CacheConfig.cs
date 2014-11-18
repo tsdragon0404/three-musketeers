@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SMS.Business;
+using SMS.Services;
 using SMS.Common;
 using SMS.Common.Enums;
 using SMS.Common.Storage;
 using SMS.Common.Storage.CacheObjects;
 
-namespace SMS.WebAPI
+namespace SMS.MvcApplication
 {
     public static class CacheConfig
     {
@@ -22,7 +22,7 @@ namespace SMS.WebAPI
         private static BranchConfigCollection BranchConfigCallback()
         {
             var result = new BranchConfigCollection();
-            var branchData = ServiceLocator.Resolve<IBranchManagement>().ListAll().Data;
+            var branchData = ServiceLocator.Resolve<IBranchService>().ListAll().Data;
             result.AddRange(branchData.Select(branchDto => new BranchConfig
                                                                {
                                                                    BranchID = branchDto.ID,
@@ -40,7 +40,7 @@ namespace SMS.WebAPI
         private static MessageDictionary MessageCallback()
         {
             var result = new MessageDictionary();
-            var messageData = ServiceLocator.Resolve<IErrorMessageManagement>().ListAll().Data;
+            var messageData = ServiceLocator.Resolve<IErrorMessageService>().ListAll().Data;
             foreach (var message in messageData)
             {
                 if (!result.ContainsKey(message.BranchID))
@@ -55,7 +55,7 @@ namespace SMS.WebAPI
         private static BrandingDictionary BrandingCallback()
         {
             var result = new BrandingDictionary();
-            var brandingData = ServiceLocator.Resolve<IBrandingTextManagement>().ListAll().Data;
+            var brandingData = ServiceLocator.Resolve<IBrandingTextService>().ListAll().Data;
             foreach (var brand in brandingData)
             {
                 if (!result.ContainsKey(brand.BranchID))
@@ -69,7 +69,7 @@ namespace SMS.WebAPI
 
         private static Dictionary<string, string> SystemInformationCallback()
         {
-            var systemData = ServiceLocator.Resolve<ISystemInformationManagement>().GetByType(SystemInformationType.Config).Data;
+            var systemData = ServiceLocator.Resolve<ISystemInformationService>().GetByType(SystemInformationType.Config).Data;
             return systemData.ToDictionary(x => x.Name, y => y.Value);
         }
     }

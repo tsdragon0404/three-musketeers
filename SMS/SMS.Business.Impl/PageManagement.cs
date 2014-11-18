@@ -4,7 +4,7 @@ using AutoMapper;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -92,7 +92,7 @@ namespace SMS.Business.Impl
             get
             {
                 var pages = new List<long>();
-                if (BranchConfigs.Current != null && !BranchConfigs.Current.UseKitchenFunction)
+                if (SmsCache.BranchConfigs.Current != null && !SmsCache.BranchConfigs.Current.UseKitchenFunction)
                     pages.Add(ConstPage.Kitchen);
 
                 return pages;

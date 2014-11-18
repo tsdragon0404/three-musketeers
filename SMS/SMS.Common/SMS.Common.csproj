@@ -62,7 +62,7 @@
     <Compile Include="Storage\AppLock\LockGroup.cs" />
     <Compile Include="Storage\AppLock\LockStatus.cs" />
     <Compile Include="Storage\AppLock\Payment.cs" />
-    <Compile Include="Storage\Cache.cs" />
+    <Compile Include="Storage\SmsCache.cs" />
     <Compile Include="Storage\CacheObjects\BranchConfig.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
@@ -89,15 +89,11 @@
     <Compile Include="Session\Branch.cs" />
     <Compile Include="Session\ClientInfo.cs" />
     <Compile Include="Storage\CacheObjects\BrandingItem.cs" />
-    <Compile Include="Storage\SmsCache.cs" />
-    <Compile Include="Storage\StorageHelper.cs" />
-    <Compile Include="Storage\CacheObjects\SystemInfos.cs" />
-    <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
+    <Compile Include="Storage\ServerCache.cs" />
     <Compile Include="Session\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
     <Compile Include="Session\SmsSystem.cs" />
     <Compile Include="Session\UserContext.cs" />
-    <Compile Include="Storage\UserAccess\UserAccess.cs" />
     <Compile Include="Storage\CacheObjects\UserData.cs" />
   </ItemGroup>
   <ItemGroup>

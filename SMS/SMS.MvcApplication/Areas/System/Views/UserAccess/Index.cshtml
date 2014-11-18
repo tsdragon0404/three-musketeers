@@ -1,9 +1,6 @@
 ﻿@using SMS.Common.Constant
-@using SMS.Common.Session
-@using SMS.Common.Storage.CacheObjects
-@using SMS.Common.Storage.Message
-@using SMS.Common.Storage.UserAccess
-@model SMS.MvcApplication.Models.AdminModel<UserAccess>
+@using SMS.Common.Storage
+@model SMS.MvcApplication.Models.AdminModel<SMS.Common.Storage.CacheObjects.UserData>
 
 <div id="content">
     <div class="row">
@@ -37,18 +34,18 @@
             <tbody>
                 @foreach (var dto in Model.ListRecord)
                 {
-                    var deleteCssClass = dto.SessionId != SmsSystem.SessionId ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+                    var deleteCssClass = dto.TokenID != SmsCache.UserAccesses.Current.TokenID ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
                     var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
                     
-                    <tr class="@altClass" data-id="@dto.SessionId">
+                    <tr class="@altClass" data-id="@dto.TokenID">
                         <td>
-                            <a href="#" class="@deleteCssClass" data-id="@dto.SessionId"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                            <a href="#" class="@deleteCssClass" data-id="@dto.TokenID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.UserName @(dto.SessionId == SmsSystem.SessionId ? "(me)" : "")</td>
+                        <td>@dto.UserName @(dto.TokenID == SmsCache.UserAccesses.Current.TokenID ? "(me)" : "")</td>
                         <td>@dto.CurrentBranchId</td>
-                        <td>@dto.ClientInfo.IpAddress</td>
-                        <td>@dto.ClientInfo.UserAgent</td>
+                        <td>@dto.IpAddress</td>
+                        <td>@dto.UserAgent</td>
                         <td>@dto.LoginDateTime</td>
                         <td>@(Math.Round(DateTime.Now.Subtract(dto.LastAccess).TotalMinutes)) minute(s) ago</td>
                     </tr>
@@ -63,8 +60,8 @@
             $('#record-table').table();
             $('#record-table a.del-record').click(function () {
                 var id = $(this).attr('data-id');
-                var popup = new MessagePopup('@SystemMessages.Get(ConstMessageIds.Popup_Title_Warning)',
-                    '@SystemMessages.Get(ConstMessageIds.Popup_Message_DeleteSessionConfirm)',
+                var popup = new MessagePopup('@SmsCache.Message.Get(ConstMessageIds.Popup_Title_Warning)',
+                    '@SmsCache.Message.Get(ConstMessageIds.Popup_Message_DeleteSessionConfirm)',
                     2,
                     function () {
                         $.ajax({

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Web.Mvc;
 using Castle.Core.Internal;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Session;
-using SMS.Common.Storage.UserAccess;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -71,8 +72,8 @@ namespace SMS.MvcApplication.Base
                     }
                 }
             }
-
-            UserAccessManager.UpdateCurrentUserLastAccess();
+            if (SmsCache.UserAccesses.Any(x => x.SessionID == SmsSystem.SessionId))
+                SmsCache.UserAccesses.First(x => x.SessionID == SmsSystem.SessionId).LastAccess = DateTime.Now;
 
             base.OnActionExecuted(filterContext);
         }

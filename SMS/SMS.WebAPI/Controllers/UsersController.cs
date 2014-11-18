@@ -5,7 +5,6 @@ using SMS.Business;
 using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Common.Storage.CacheObjects;
-using SMS.Common.Storage.UserAccess;
 using SMS.Data.Dtos;
 using SMS.WebAPI.Base;
 using SMS.WebAPI.Security;
@@ -36,7 +35,7 @@ namespace SMS.WebAPI.Controllers
             if (!user.Branches.Select(x => x.ID).Contains(branchID) && !user.IsSystemAdmin)
             {
                 return Unauthorized();
-                //SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch)
+                //SmsCache.Message.Get(ConstMessageIds.Login_NoPermissionOnBranch)
             }
 
             BranchDto branch;
@@ -48,7 +47,7 @@ namespace SMS.WebAPI.Controllers
             if (branch == null)
             {
                 return NotFound();
-                //SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable)
+                //SmsCache.Message.Get(ConstMessageIds.Login_BranchNotAvailable)
             }
 
             var token = SetUserData(user, branchID);

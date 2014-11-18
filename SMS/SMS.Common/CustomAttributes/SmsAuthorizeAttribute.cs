@@ -2,11 +2,9 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Security;
 using SMS.Common.Constant;
 using SMS.Common.Session;
-using SMS.Common.Storage.CacheObjects;
-using SMS.Common.Storage.UserAccess;
+using SMS.Common.Storage;
 
 namespace SMS.Common.CustomAttributes
 {
@@ -29,14 +27,15 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
-            if(!UserAccessManager.AuthorizeCurrentUser())
-            {
-                HttpContext.Current.Session.Abandon();
-                FormsAuthentication.SignOut();
+            //TODO:
+            //if (!UserAccessManager.AuthorizeCurrentUser())
+            //{
+            //    HttpContext.Current.Session.Abandon();
+            //    FormsAuthentication.SignOut();
 
-                Status = AuthorizeStatus.NotLogin;
-                return false;
-            }
+            //    Status = AuthorizeStatus.NotLogin;
+            //    return false;
+            //}
 
             var authorized = SmsSystem.UserContext.IsSystemAdmin
                              || SmsSystem.AllowPageIDs.Contains(pageID);
@@ -52,11 +51,11 @@ namespace SMS.Common.CustomAttributes
             {
                 var message = "";
                 if (Status == AuthorizeStatus.DontHaveAccessRight)
-                    message = SystemMessages.Get(ConstMessageIds.UnAuthorize_NoPermission);
+                    message = SmsCache.Message.Get(ConstMessageIds.UnAuthorize_NoPermission);
                 if (Status == AuthorizeStatus.NotLogin)
-                    message = SystemMessages.Get(ConstMessageIds.UnAuthorize_LoginRequired);
+                    message = SmsCache.Message.Get(ConstMessageIds.UnAuthorize_LoginRequired);
 
-                var responseMessage = string.Format("{0}{1}{2}", SystemMessages.Get(ConstMessageIds.Popup_Title_Error), ConstConfig.HttpResponseSeparator, message);
+                var responseMessage = string.Format("{0}{1}{2}", SmsCache.Message.Get(ConstMessageIds.Popup_Title_Error), ConstConfig.HttpResponseSeparator, message);
 
                 filterContext.Result = new SmsStatusCodeJsonResult(HttpStatusCode.Unauthorized, responseMessage);
                 return;

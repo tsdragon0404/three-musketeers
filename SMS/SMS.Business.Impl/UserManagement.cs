@@ -6,7 +6,7 @@ using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -25,10 +25,10 @@ namespace SMS.Business.Impl
         {
             var user = Repository.Get(x => x.Username == username && x.Password == EncryptionHelper.SHA256Hash(password));
             if (user == null)
-                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
+                return ServiceResult<TModel>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Login_UsernamePasswordInvalid), ErrorType.Business));
 
             if (user.IsLockedOut)
-                return ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Login_UserLocked), ErrorType.Business));
+                return ServiceResult<TModel>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Login_UserLocked), ErrorType.Business));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
         }

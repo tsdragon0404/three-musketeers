@@ -1,9 +1,6 @@
 ﻿@using SMS.Common.Enums
 @using SMS.Common.Session
-@using SMS.Common.Storage.BranchConfig
-@using SMS.Common.Storage.Branding
-@using SMS.Common.Storage.CacheObjects
-@using SMS.Common.Storage.Message
+@using SMS.Common.Storage
 @using SMS.MvcApplication.Models
 @using SMS.Common.Constant
 @model CashierModel
@@ -16,36 +13,36 @@
 <script type="text/javascript">
     var listProduct = @Html.Raw(JsonEncode(Model.ListProduct));
     var listArea = @Html.Raw(JsonEncode(Model.ListArea));
-    var serviceFee = @BranchConfigs.Current.ServiceFee;
-    var useServiceFee = "@BranchConfigs.Current.UseServiceFee";
-    var currency = "@BranchConfigs.Current.Currency";
+    var serviceFee = @SmsCache.BranchConfigs.Current.ServiceFee;
+    var useServiceFee = "@SmsCache.BranchConfigs.Current.UseServiceFee";
+    var currency = "@SmsCache.BranchConfigs.Current.Currency";
     
     /* Const initialization begin */
-    var CONST_DATATABLE_FIRST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_First))';
-    var CONST_DATATABLE_LAST = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Last))';
-    var CONST_DATATABLE_NEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Next))';
-    var CONST_DATATABLE_PREVIOUS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Previous))';
-    var CONST_DATATABLE_NODATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoData))';
-    var CONST_DATATABLE_SHOWINGRECORDS = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowingRecords))';
-    var CONST_DATATABLE_NOENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoEntries))';
-    var CONST_DATATABLE_FILTER = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Filter))';
-    var CONST_DATATABLE_SHOWENTRIES = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_ShowEntries))';
-    var CONST_DATATABLE_SEARCH = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_Search))';
-    var CONST_DATATABLE_NOMATCHINGDATA = '@Html.Raw(SystemMessages.Get(ConstMessageIds.DataTable_NoMatchingData))';
+    var CONST_DATATABLE_FIRST = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_First))';
+    var CONST_DATATABLE_LAST = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Last))';
+    var CONST_DATATABLE_NEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Next))';
+    var CONST_DATATABLE_PREVIOUS = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Previous))';
+    var CONST_DATATABLE_NODATA = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoData))';
+    var CONST_DATATABLE_SHOWINGRECORDS = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_ShowingRecords))';
+    var CONST_DATATABLE_NOENTRIES = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoEntries))';
+    var CONST_DATATABLE_FILTER = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Filter))';
+    var CONST_DATATABLE_SHOWENTRIES = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_ShowEntries))';
+    var CONST_DATATABLE_SEARCH = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Search))';
+    var CONST_DATATABLE_NOMATCHINGDATA = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoMatchingData))';
     /* Const initialization end */
 
     function GetOrderStatusName(orderStatus) {
         switch (orderStatus) {
         case @((int)OrderStatus.Ordered):
-            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Ordered))';
+            return '@Html.Raw(SmsCache.BrandingText.Get(OrderStatus.Ordered))';
         case @((int)OrderStatus.SentToKitchen):
-            return '@Html.Raw(BrandingTexts.Get(OrderStatus.SentToKitchen))';
+            return '@Html.Raw(SmsCache.BrandingText.Get(OrderStatus.SentToKitchen))';
         case @((int)OrderStatus.KitchenAccepted):
-            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenAccepted))';
+            return '@Html.Raw(SmsCache.BrandingText.Get(OrderStatus.KitchenAccepted))';
         case @((int)OrderStatus.KitchenRejected):
-            return '@Html.Raw(BrandingTexts.Get(OrderStatus.KitchenRejected))';
+            return '@Html.Raw(SmsCache.BrandingText.Get(OrderStatus.KitchenRejected))';
         case @((int)OrderStatus.Done):
-            return '@Html.Raw(BrandingTexts.Get(OrderStatus.Done))';
+            return '@Html.Raw(SmsCache.BrandingText.Get(OrderStatus.Done))';
         default:
             return '';
         }
@@ -76,13 +73,13 @@
                     <col class="col3" />
                     <col class="col4" />
                     <col class="col5" />
-                    @if(BranchConfigs.Current.UseDiscountOnProduct)
+                    @if(SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
                     {
                         <col class="col6" />
                     }
                     <col class="col7" />
                     <col class="col8" />
-                    @if(BranchConfigs.Current.UseKitchenFunction)
+                    @if(SmsCache.BranchConfigs.Current.UseKitchenFunction)
                     {
                         <col class="col9" />
                     }
@@ -95,13 +92,13 @@
                         <th data-labelID="lblQuantity">Quantity</th>
                         <th data-labelID="lblUnit">Unit</th>
                         <th data-labelID="lblPrice">Price</th>
-                        @if(BranchConfigs.Current.UseDiscountOnProduct)
+                        @if(SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
                         {
                             <th data-labelID="lblDiscount">Discount</th>
                         }
                         <th data-labelID="lblAmount">Amount</th>
                         <th data-labelID="lblRemarks">Remarks</th>
-                        @if(BranchConfigs.Current.UseKitchenFunction)
+                        @if(SmsCache.BranchConfigs.Current.UseKitchenFunction)
                         {
                             <th class="icon"><div id="sendToKitchen-${ID}" class="icon-transfer" title="Send all to kitchen" /></th>
                         }
@@ -117,7 +114,7 @@
                         <td>${Product.Unit.Name}</td>
                         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
 
-                        @if(BranchConfigs.Current.UseDiscountOnProduct)
+                        @if(SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
                         {
                             <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
                         }
@@ -126,7 +123,7 @@
                         <td>
                             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
                         
-                        @if(BranchConfigs.Current.UseKitchenFunction)
+                        @if(SmsCache.BranchConfigs.Current.UseKitchenFunction)
                         {
                             <td class="center icon">
                                 <div class="{{if OrderStatus == @((int)OrderStatus.Ordered)}}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen)}}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted)}}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done)}}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}{{if OrderStatus == @((int)OrderStatus.KitchenRejected)}}:${KitchenComment}{{/if}}"></div>
@@ -146,11 +143,11 @@
                         </td>
                         @{
                             var colspan = 8;
-                            if (!BranchConfigs.Current.UseDiscountOnProduct)
+                            if (!SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
                             {
                                 colspan -= 1;
                             }
-                            if(!BranchConfigs.Current.UseKitchenFunction)
+                            if(!SmsCache.BranchConfigs.Current.UseKitchenFunction)
                             {
                                 colspan -= 1;
                             }
@@ -158,7 +155,7 @@
                         <td colspan="@colspan">
                             <div class="row">
                                 <div class="two columns push_eight right"><span data-labelID="lblSubtotal">Sub total:</span></div>
-                                <div class="two columns right"><span class="sub-total">0</span> @BranchConfigs.Current.Currency</div>
+                                <div class="two columns right"><span class="sub-total">0</span> @SmsCache.BranchConfigs.Current.Currency</div>
                             </div>
                         </td>
                     </tr>
@@ -169,17 +166,17 @@
         <div class="row" id="totalSection">
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2"><span class="sum_amount">${SubTotal.formatAsMoney()}</span> @BranchConfigs.Current.Currency</div>
+                <div class="right col2"><span class="sum_amount">${SubTotal.formatAsMoney()}</span> @SmsCache.BranchConfigs.Current.Currency</div>
                 <div class="left col3"><span data-labelID="lblSumAmount" class="label-custom-label">Sum Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
-            @if (BranchConfigs.Current.UseServiceFee)
+            @if (SmsCache.BranchConfigs.Current.UseServiceFee)
             {
                 <div class="row" id="ServiceFree">
                     <div class="center col1">&nbsp;</div>
-                    <div class="right col2"><span class="fee">@BranchConfigs.Current.ServiceFee</span> @BranchConfigs.Current.Currency</div>
+                    <div class="right col2"><span class="fee">@SmsCache.BranchConfigs.Current.ServiceFee</span> @SmsCache.BranchConfigs.Current.Currency</div>
                     <div class="left col3"><span data-labelID="lblServiceFee" class="label-custom-label">Service Fee:</span></div>
-                    <div class="center col4"><input type="checkbox" class="margin-top-control" id="chkUseServiceFee" checked="@BranchConfigs.Current.UseServiceFee" /></div>
+                    <div class="center col4"><input type="checkbox" class="margin-top-control" id="chkUseServiceFee" checked="@SmsCache.BranchConfigs.Current.UseServiceFee" /></div>
                 </div>
             }
             <div class="row" id="OtherFree">
@@ -190,7 +187,7 @@
                 <div class="right col2">
                     <input type="text" id="txtOtherFee" class="required right hide" name="number" value="${OtherFee.formatAsMoney()}" title="Other fee" />
                     <input type="text" id="txtOtherFeeDescription" class="left hide" value="${OtherFeeDescription}" title="Other fee description" />
-                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @BranchConfigs.Current.Currency</span>
+                    <span id="valueOtherFee">${OtherFee.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</span>
                 </div>
                 <div class="left col3"><span data-labelID="lblOtherFee" class="label-custom-label">Other Fee:</span></div>
                 <div class="center col4">&nbsp;</div>
@@ -202,29 +199,29 @@
                 </div>
                 <div class="right col2">
                     <div id="order-discount"></div>
-                    <span class="discountAmount">-${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @BranchConfigs.Current.Currency</span>
+                    <span class="discountAmount">-${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @SmsCache.BranchConfigs.Current.Currency</span>
                 </div>
                 <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2 border-top"><span class="total">${Total.formatAsMoney()}</span> @BranchConfigs.Current.Currency</div>
+                <div class="right col2 border-top"><span class="total">${Total.formatAsMoney()}</span> @SmsCache.BranchConfigs.Current.Currency</div>
                 <div class="left col3 border-top"><span data-labelID="lblTotal" class="label-custom-label">Total:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
-            @foreach (var tax in BranchConfigs.Current.Taxs)
+            @foreach (var tax in SmsCache.BranchConfigs.Current.Taxs)
             {
                 <div class="row" id="tax-@tax.Key">
                     <div class="center col1">&nbsp;</div>
-                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @BranchConfigs.Current.Currency</div>
+                    <div class="right col2"><span id="tax-amount-@tax.Key">0</span> @SmsCache.BranchConfigs.Current.Currency</div>
                     <div class="left col3"><span class="label-custom-label">@tax.Key </span><span data-labelID="lblTax" class="label-custom-label" id="tax-value-@tax.Key">@tax.Value</span><span class="label-custom-label">%:</span></div>
                     <div class="center col4"><input type="checkbox" class="margin-top-control" id="chkUseTax-@tax.Key" checked="checked" /></div>
                 </div>
             }
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2 border-top"><span class="total_amount">0</span> @BranchConfigs.Current.Currency</div>
+                <div class="right col2 border-top"><span class="total_amount">0</span> @SmsCache.BranchConfigs.Current.Currency</div>
                 <div class="left col3"><span data-labelID="lblTotalAmount" class="label-custom-label">Total Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
@@ -267,14 +264,14 @@
         </td>
         <td>${Product.Unit.Name}</td>
         <td class="right product-price">${Product.Price.formatAsMoney()}</td>
-        @if (BranchConfigs.Current.UseDiscountOnProduct)
+        @if (SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
         {
             <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
         }
         <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
         <td>
             <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
-        @if (BranchConfigs.Current.UseKitchenFunction)
+        @if (SmsCache.BranchConfigs.Current.UseKitchenFunction)
         {
             <td class="center icon">
                 <div class="{{if OrderStatus == @((int)OrderStatus.Ordered) }}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen) }}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted) }}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected) }}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done) }}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}"></div>

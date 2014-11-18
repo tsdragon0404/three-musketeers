@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 
 namespace SMS.Common.Mail
 {
@@ -27,12 +27,12 @@ namespace SMS.Common.Mail
 
                 var smtp = new SmtpClient
                                {
-                                   Host = SystemInfos.Data[Constant.ConstKey.SystemInfo_SmtpHost],
-                                   Port = Int32.Parse(SystemInfos.Data[Constant.ConstKey.SystemInfo_SmtpPort]),
+                                   Host = SmsCache.SystemInformation[Constant.ConstKey.SystemInfo_SmtpHost],
+                                   Port = Int32.Parse(SmsCache.SystemInformation[Constant.ConstKey.SystemInfo_SmtpPort]),
                                    UseDefaultCredentials = false,
                                    Credentials = new System.Net.NetworkCredential(
-                                       SystemInfos.Data[Constant.ConstKey.SystemInfo_SmtpUser],
-                                       SystemInfos.Data[Constant.ConstKey.SystemInfo_SmtpPass]),
+                                       SmsCache.SystemInformation[Constant.ConstKey.SystemInfo_SmtpUser],
+                                       SmsCache.SystemInformation[Constant.ConstKey.SystemInfo_SmtpPass]),
                                    EnableSsl = true
                                };
                 smtp.Send(mail);
