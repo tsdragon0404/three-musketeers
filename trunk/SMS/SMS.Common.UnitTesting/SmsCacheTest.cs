@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SMS.Common.Storage;
+using SMS.Common.Storage.CacheObjects;
 
 namespace SMS.Common.UnitTesting
 {
@@ -20,12 +22,13 @@ namespace SMS.Common.UnitTesting
         [TestMethod]
         public void TestAdd_Get_Class_Success()
         {
-            SmsCache.Add(key, () => new List<Storage.Message.Message> { new Storage.Message.Message(1, "vn", "en") });
+            var tokenID = Guid.NewGuid();
+            SmsCache.Add(key, () => new UserDataCollection { new UserData { TokenID = tokenID } });
 
-            var result = SmsCache.Get<List<Storage.Message.Message>>(key);
+            var result = SmsCache.Get<UserDataCollection>(key);
 
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(1, result[0].MessageID);
+            Assert.AreEqual(tokenID, result[0].TokenID);
         }
     }
 }

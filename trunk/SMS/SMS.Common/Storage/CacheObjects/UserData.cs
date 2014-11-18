@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using SMS.Common.Constant;
 using SMS.Common.Session;
 
 namespace SMS.Common.Storage.CacheObjects
 {
-    public class UserData
+    public class UserData : ICacheData
     {
         public Guid TokenID { get; set; }
 
@@ -33,29 +32,17 @@ namespace SMS.Common.Storage.CacheObjects
         /// Contain height value for List table section in Cashier page (in percent)
         /// </summary>
         public decimal ListTableHeight { get; set; }
+
+        #region Implementation of ICacheData
+
+        public object Key { get { return TokenID; } }
+        public bool IsCurrent { get { return Guid.Parse(HttpContext.Current.Request.Headers.Get(ConstKey.Token)) == TokenID; } }
+
+        #endregion
     }
 
-    public class UserDataCollection : List<UserData>
+    public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
-        public UserData Current
-        {
-            get { return Get(Guid.Parse(HttpContext.Current.Request.Headers.Get(ConstKey.Token))); }
-        }
-
-        public UserData Get(Guid tokenID)
-        {
-            return this.FirstOrDefault(x => x.TokenID == tokenID);
-        }
-
-        public bool Contains(Guid tokenID)
-        {
-            return this.Any(x => x.TokenID == tokenID);
-        }
-
-        public void Remove(Guid tokenID)
-        {
-            RemoveAll(x => x.TokenID == tokenID);
-        }
     }
 
     public class BranchName

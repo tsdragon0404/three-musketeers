@@ -62,6 +62,7 @@
     <Compile Include="Storage\AppLock\LockGroup.cs" />
     <Compile Include="Storage\AppLock\LockStatus.cs" />
     <Compile Include="Storage\AppLock\Payment.cs" />
+    <Compile Include="Storage\Cache.cs" />
     <Compile Include="Storage\CacheObjects\BranchConfig.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Constant\ConstMessageIds.cs" />
@@ -73,7 +74,8 @@
     <Compile Include="Enums\ReportDatasourceParameterType.cs" />
     <Compile Include="Enums\DiscountType.cs" />
     <Compile Include="CustomAttributes\PageIDAttribute.cs" />
-    <Compile Include="Storage\CacheData.cs" />
+    <Compile Include="Storage\CacheObjects\CacheDataCollection.cs" />
+    <Compile Include="Storage\CacheObjects\ICacheData.cs" />
     <Compile Include="Storage\CacheObjects\Message.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\Page.cs" />
@@ -89,7 +91,6 @@
     <Compile Include="Storage\CacheObjects\BrandingItem.cs" />
     <Compile Include="Storage\SmsCache.cs" />
     <Compile Include="Storage\StorageHelper.cs" />
-    <Compile Include="Storage\CacheObject.cs" />
     <Compile Include="Storage\CacheObjects\SystemInfos.cs" />
     <Compile Include="Storage\UserAccess\UserAccessManager.cs" />
     <Compile Include="Session\Language.cs" />

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SMS.Common.Storage.Message;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 
