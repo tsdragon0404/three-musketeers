@@ -5,7 +5,7 @@ using AutoMapper;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 
 namespace SMS.Business.Impl
 {
@@ -85,7 +85,7 @@ namespace SMS.Business.Impl
         {
             var result = Repository.GetByID(primaryKey);
             return result == null
-                ? ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business))
+                ? ServiceResult<TModel>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business))
                 : ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result));
         }
 
@@ -99,7 +99,7 @@ namespace SMS.Business.Impl
             var result = Repository.GetByIDInCurrentBranch(primaryKey);
 
             return result == null
-               ? ServiceResult<TModel>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business))
+               ? ServiceResult<TModel>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business))
                : ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result));
         }
 
@@ -114,7 +114,7 @@ namespace SMS.Business.Impl
 
             return result
                 ? ServiceResult.CreateSuccessResult()
-                : ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                : ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
         }
 
         public virtual ServiceResult<TDto> Save(TDto dto)

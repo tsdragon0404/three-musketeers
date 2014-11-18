@@ -5,7 +5,6 @@ using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Enums;
 using SMS.Common.Storage;
-using SMS.Common.Storage.CacheObjects;
 using SMS.Data;
 using SMS.Data.Dtos;
 using AutoMapper;
@@ -60,17 +59,7 @@ namespace SMS.Business.Impl
                 }
             }
 
-            var newBranchTaxs = branchToSave.Taxs != null ? TaxRepository.ListByIDs(branchToSave.Taxs.Select(x => x.ID)) : new List<Tax>();
-            
-            StorageHelper.UpdateBranchConfig(branchToSave.ID, new BranchConfig
-                                                                  {
-                                                                      Currency = branchToSave.Currency.Name,
-                                                                      ServiceFee = branchToSave.ServiceFee,
-                                                                      UseServiceFee = branchToSave.UseServiceFee,
-                                                                      UseKitchenFunction = branchToSave.UseKitchenFunction,
-                                                                      UseDiscountOnProduct = branchToSave.UseDiscountOnProduct,
-                                                                      Taxs = newBranchTaxs.ToDictionary(tax => tax.Name, tax => tax.Value)
-                                                                  });
+            SmsCache.Reload(CacheKey.BranchConfig);
 
             result.Data = Mapper.Map<BranchDto>(branchToSave);
             return result;

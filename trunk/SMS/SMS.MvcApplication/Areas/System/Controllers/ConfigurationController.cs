@@ -3,6 +3,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
 using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -36,7 +37,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             if (!SmsSystem.UserContext.IsSystemAdmin)
                 return Json(JsonModel.Create(false));
 
-            Utility.SetStorageData();
+            SmsCache.ClearCache();
             return Json(JsonModel.Create(true));
         }
 

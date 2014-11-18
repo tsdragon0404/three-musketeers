@@ -54,7 +54,8 @@ namespace SMS.MvcApplication
 
             MappingRegister();
 
-            Utility.SetStorageData();
+            CacheConfig.Configure();
+            //Utility.SetStorageData();
         }
 
         protected void Application_Error(object sender, EventArgs e)

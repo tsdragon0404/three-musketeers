@@ -3,7 +3,8 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Paging;
 using SMS.Common.Session;
-using SMS.Common.Storage.UserAccess;
+using SMS.Common.Storage;
+using SMS.Common.Storage.CacheObjects;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 
@@ -20,13 +21,13 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             {
                 CurrentPage = page,
                 PageSize = SmsSystem.UserContext.PageSize,
-                TotalItemCount = UserAccessManager.List.Count,
+                TotalItemCount = SmsCache.UserAccesses.Count,
                 FormNameToSubmit = Url.Action("Index")
             };
 
-            var list = PagedList<UserAccess>.CreatePageList(UserAccessManager.List, pagingInfo);
+            var list = PagedList<UserData>.CreatePageList(SmsCache.UserAccesses, pagingInfo);
 
-            var model = new AdminModel<UserAccess>
+            var model = new AdminModel<UserData>
             {
                 ListRecord = list,
                 PagingInfo = pagingInfo
@@ -35,10 +36,11 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public virtual JsonResult Delete(string sessionId)
-        {
-            return Json(JsonModel.Create(UserAccessManager.Remove(sessionId)));
-        }
+        //TODO:
+        //[HttpPost]
+        //public virtual JsonResult Delete(string sessionId)
+        //{
+        //    return Json(JsonModel.Create(SmsCache.UserAccesses.Remove(sessionId)));
+        //}
     }
 }

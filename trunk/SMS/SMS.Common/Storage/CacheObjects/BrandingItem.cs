@@ -28,32 +28,11 @@ namespace SMS.Common.Storage.CacheObjects
     {
         public string Get(Enum obj)
         {
-            if (ContainsKey(Cache.UserContext.CurrentBranchId))
+            if (ContainsKey(SmsCache.UserContext.CurrentBranchId))
             {
                 var key = string.Format("{0}.{1}", obj.GetType().Name, obj);
 
-                var brandingItem = this[Cache.UserContext.CurrentBranchId].FirstOrDefault(x => x.Key == key);
-                if (brandingItem == null)
-                    return obj.ToString();
-
-                return brandingItem.Value;
-            }
-
-            return obj.ToString();
-        }
-    }
-
-    public static class BrandingTexts
-    {
-        internal static IDictionary<long, IList<BrandingItem>> BrandingItems { get; set; }
-
-        public static string Get(Enum obj)
-        {
-            if (BrandingItems.ContainsKey(SmsSystem.SelectedBranchID))
-            {
-                var key = string.Format("{0}.{1}", obj.GetType().Name, obj);
-
-                var brandingItem = BrandingItems[SmsSystem.SelectedBranchID].FirstOrDefault(x => x.Key == key);
+                var brandingItem = this[SmsCache.UserContext.CurrentBranchId].FirstOrDefault(x => x.Key == key);
                 if (brandingItem == null)
                     return obj.ToString();
 

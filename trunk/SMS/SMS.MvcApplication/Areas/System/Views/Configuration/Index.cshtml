@@ -1,6 +1,5 @@
 ﻿@using SMS.Common.Constant
-@using SMS.Common.Storage.CacheObjects
-@using SMS.Common.Storage.Message
+@using SMS.Common.Storage
 @using SMS.MvcApplication.Models
 @model SystemInformationModel
 
@@ -67,13 +66,13 @@
                     var messageType;
 
                     if (result.Success) {
-                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Success))';
-                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess))';
+                        title = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Popup_Title_Success))';
+                        message = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Popup_Message_ResetSystemDataSuccess))';
                         messageType = 1;
                     }
                     else {
-                        title = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Title_Error))';
-                        message = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_Error))';
+                        title = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Popup_Title_Error))';
+                        message = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Popup_Message_Error))';
                         messageType = 4;
                     }
 

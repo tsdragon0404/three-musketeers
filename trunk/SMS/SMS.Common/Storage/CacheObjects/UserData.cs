@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using SMS.Common.Constant;
 using SMS.Common.Session;
@@ -9,6 +10,9 @@ namespace SMS.Common.Storage.CacheObjects
     public class UserData : ICacheData
     {
         public Guid TokenID { get; set; }
+
+        [Obsolete("Will be removed! Go API")]
+        public string SessionID { get; set; }
 
         public long UserID { get; set; }
         public string UserName { get; set; }
@@ -36,13 +40,37 @@ namespace SMS.Common.Storage.CacheObjects
         #region Implementation of ICacheData
 
         public object Key { get { return TokenID; } }
-        public bool IsCurrent { get { return Guid.Parse(HttpContext.Current.Request.Headers.Get(ConstKey.Token)) == TokenID; } }
+        public bool IsCurrent
+        {
+            get
+            {
+                if (HttpContext.Current.Request.Headers.Get(ConstKey.Token) == null)
+                    return SmsSystem.SessionId == SessionID;
+                return Guid.Parse(HttpContext.Current.Request.Headers.Get(ConstKey.Token)) == TokenID;
+            }
+        }
 
         #endregion
     }
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
+        public void Add(string sessionID, string ipAddress, string userAgent, string userName, long selectedBrandhID)
+        {
+            var userAccess = new UserData
+            {
+                SessionID = sessionID,
+                IpAddress = ipAddress,
+                UserAgent = userAgent,
+                UserName = userName,
+                CurrentBranchId = selectedBrandhID,
+                LoginDateTime = DateTime.Now,
+                LastAccess = DateTime.Now
+            };
+
+            if(!this.Any(x => x.SessionID == sessionID))
+                Add(userAccess);
+        }
     }
 
     public class BranchName

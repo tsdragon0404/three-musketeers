@@ -1,8 +1,7 @@
 ﻿@using SMS.Common.Constant
 @using SMS.Common.Session
 @using SMS.Common
-@using SMS.Common.Storage.CacheObjects
-@using SMS.Common.Storage.Message
+@using SMS.Common.Storage
 @using SMS.MvcApplication.Models
 <!DOCTYPE html>
 <html lang="en">
@@ -38,11 +37,11 @@
     }
     <script type="text/javascript">
         /* Const initialization begin */
-        var CONST_BUTTON_OK_TEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Button_Ok))';
-        var CONST_BUTTON_CANCEL_TEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Button_Cancel))';
-        var CONST_BUTTON_YES_TEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Button_Yes))';
-        var CONST_BUTTON_NO_TEXT = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Button_No))';
-        var CONST_MESSAGE_SHORT_ERROR_MESSAGE = '@Html.Raw(SystemMessages.Get(ConstMessageIds.Popup_Message_ShortErrorMessage))';
+        var CONST_BUTTON_OK_TEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Button_Ok))';
+        var CONST_BUTTON_CANCEL_TEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Button_Cancel))';
+        var CONST_BUTTON_YES_TEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Button_Yes))';
+        var CONST_BUTTON_NO_TEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Button_No))';
+        var CONST_MESSAGE_SHORT_ERROR_MESSAGE = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.Popup_Message_ShortErrorMessage))';
         /* Const initialization end */
 
         var labelDictionary = @Html.Raw(JsonEncode(LabelDictionary));

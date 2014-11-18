@@ -5,7 +5,7 @@ using Core.Common.CustomAttributes;
 using Core.Common.Validation;
 using Core.Data;
 using SMS.Common.Constant;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 
 namespace SMS.Data.Entities
 {
@@ -15,7 +15,7 @@ namespace SMS.Data.Entities
         {
             Errors = new List<Error>();
             if (ID < 0)
-                Errors.Add(new Error(SystemMessages.Get(ConstMessageIds.Validate_NotValid), ErrorType.Validate, "ID"));
+                Errors.Add(new Error(SmsCache.Message.Get(ConstMessageIds.Validate_NotValid), ErrorType.Validate, "ID"));
 
             var propertyInfos = GetType().GetProperties().ToList();
 
@@ -28,7 +28,7 @@ namespace SMS.Data.Entities
                     var parseAttribute = attribute as IValidationAttribute;
                     var isValid = parseAttribute.ValidateObject(this, propertyInfo);
                     if (!isValid)
-                        Errors.Add(new Error(SystemMessages.Get(parseAttribute.MessageID), ErrorType.Validate, propertyInfo.Name, parseAttribute.MessageArgs));
+                        Errors.Add(new Error(SmsCache.Message.Get(parseAttribute.MessageID), ErrorType.Validate, propertyInfo.Name, parseAttribute.MessageArgs));
                 }
             }
 

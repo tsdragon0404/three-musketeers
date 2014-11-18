@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -54,7 +54,7 @@ namespace SMS.MvcApplication.Base
         public virtual JsonResult GetSchemaForAdd()
         {
             if (!CanAdd)
-                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden));
+                return ErrorAjax(HttpStatusCode.Forbidden, SmsCache.Message.Get(ConstMessageIds.Forbidden));
             return Json(JsonModel.Create(new TDto()));
         }
 
@@ -62,7 +62,7 @@ namespace SMS.MvcApplication.Base
         public virtual JsonResult SaveData(TDto data)
         {
             if (!CanAdd && !CanEdit)
-                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden));
+                return ErrorAjax(HttpStatusCode.Forbidden, SmsCache.Message.Get(ConstMessageIds.Forbidden));
             return Json(JsonModel.Create(Service.Save(data)));
         }
 
@@ -70,7 +70,7 @@ namespace SMS.MvcApplication.Base
         public virtual JsonResult DeleteData(long recordID)
         {
             if (!CanDelete)
-                return ErrorAjax(HttpStatusCode.Forbidden, SystemMessages.Get(ConstMessageIds.Forbidden));
+                return ErrorAjax(HttpStatusCode.Forbidden, SmsCache.Message.Get(ConstMessageIds.Forbidden));
             return Json(JsonModel.Create(Service.Delete(recordID)));
         }
     }

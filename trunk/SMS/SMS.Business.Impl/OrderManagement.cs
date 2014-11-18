@@ -7,7 +7,8 @@ using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
 using SMS.Common.Session;
-using SMS.Common.Storage.CacheObjects;
+using SMS.Common.Storage;
+using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -47,7 +48,7 @@ namespace SMS.Business.Impl
             var order = Repository.Get(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
 
             return order == null 
-                ? ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business)) 
+                ? ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business)) 
                 : ServiceResult.CreateResult(Repository.Delete(order.ID));
         }
 
@@ -76,7 +77,7 @@ namespace SMS.Business.Impl
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
-            InvoiceRepository.CreateInvoice(order, SmsSystem.UserContext.UserID, BranchConfigs.Current.Currency, tax, serviceFee);
+            InvoiceRepository.CreateInvoice(order, SmsSystem.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee);
 
             Repository.Delete(orderID);
 
@@ -188,7 +189,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.Get(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
             if (order == null)
-                return ServiceResult<TDto>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             order.OrderTables.First(x => x.ID == orderTableID).Table = new Table { ID = tableID };
             Repository.Save(order);
@@ -235,7 +236,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.Get(x => x.OrderTables.Any(y => y.ID == orderTableID));
             if (order == null)
-                return ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             var orderTable = order.OrderTables.First(y => y.ID == orderTableID);
 
@@ -251,18 +252,18 @@ namespace SMS.Business.Impl
         {
             var product = ProductRepository.GetByID(productID);
             if (product == null)
-                return ServiceResult<TDto>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             var order = Repository.Get(x => x.OrderTables.Any(y => y.ID == orderTableID));
             if (order == null)
-                return ServiceResult<TDto>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             var orderTable = order.OrderTables.First(y => y.ID == orderTableID);
             orderTable.OrderDetails.Add(new OrderDetail
                                             {
                                                 Quantity = quantity,
                                                 Product = product,
-                                                OrderStatus = BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
+                                                OrderStatus = SmsCache.BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
                                             });
             Repository.Save(order);
 
@@ -273,7 +274,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.Get(x => x.OrderTables.Any(y => y.OrderDetails.Any(z => z.ID == orderDetailID)));
             if (order == null)
-                return ServiceResult.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
             var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);
@@ -308,7 +309,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.Get(x => x.OrderTables.Any(y => y.OrderDetails.Any(z => z.ID == orderDetailID)));
             if (order == null)
-                return ServiceResult<TDto>.CreateFailResult(new Error(SystemMessages.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
             var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
             var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);

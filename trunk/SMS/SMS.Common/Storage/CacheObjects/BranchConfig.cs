@@ -22,28 +22,12 @@ namespace SMS.Common.Storage.CacheObjects
         #region Implementation of ICacheData
 
         public object Key { get { return BranchID; } }
-        public bool IsCurrent { get { return BranchID == Cache.UserContext.CurrentBranchId; } }
+        public bool IsCurrent { get { return BranchID == SmsCache.UserContext.CurrentBranchId; } }
 
         #endregion
     }
 
     public class BranchConfigCollection : CacheDataCollection<BranchConfig, long>
     {
-    }
-
-    public static class BranchConfigs
-    {
-        internal static IDictionary<long, BranchConfig> Configs { get; set; }
-
-        public static BranchConfig Current
-        {
-            get
-            {
-                if (Configs == null || !Configs.ContainsKey(SmsSystem.SelectedBranchID))
-                    throw new Exception("Branch config is not set");
-
-                return Configs[SmsSystem.SelectedBranchID];
-            }
-        }
     }
 }

@@ -10,8 +10,7 @@ using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
 using SMS.Common.Session;
-using SMS.Common.Storage.CacheObjects;
-using SMS.Common.Storage.UserAccess;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -73,7 +72,7 @@ namespace SMS.MvcApplication.Controllers
                     if (branches == null) return ErrorPage(errors);
 
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_NoPermissionOnBranch);
+                    model.ErrorMessage = SmsCache.Message.Get(ConstMessageIds.Login_NoPermissionOnBranch);
                     model.ListBranch = branches;
                     return View(model);
                 }
@@ -90,7 +89,7 @@ namespace SMS.MvcApplication.Controllers
                     if (branches == null) return ErrorPage(errors);
 
                     model.ShowError = true;
-                    model.ErrorMessage = SystemMessages.Get(ConstMessageIds.Login_BranchNotAvailable);
+                    model.ErrorMessage = SmsCache.Message.Get(ConstMessageIds.Login_BranchNotAvailable);
                     model.ListBranch = branches;
                     return View(model);
                 }
@@ -135,7 +134,8 @@ namespace SMS.MvcApplication.Controllers
                 return false;
 
             SmsSystem.AllowPageIDs = pages.Data.Select(x => x.ID).ToList();
-            UserAccessManager.AddCurrentUser();
+            
+            SmsCache.UserAccesses.Add(SmsSystem.SessionId, SmsSystem.ClientInfo.IpAddress, SmsSystem.ClientInfo.UserAgent, user.Username, branchID);
 
             return true;
         }
@@ -189,7 +189,7 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult LogOff()
         {
-            UserAccessManager.RemoveCurrentUser();
+            SmsCache.UserAccesses.RemoveAll(x =>x.SessionID == SmsSystem.SessionId);
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
@@ -225,7 +225,7 @@ namespace SMS.MvcApplication.Controllers
 
             SmsSystem.SelectedBranchID = branchID;
             SmsSystem.PreviousSelectedBranch = branchID;
-            UserAccessManager.UpdateCurrentUserBranchId(branchID);
+            SmsCache.UserAccesses.First(x => x.SessionID == SmsSystem.SessionId).CurrentBranchId = branchID;
 
             return Json(JsonModel.Create(true));
         }

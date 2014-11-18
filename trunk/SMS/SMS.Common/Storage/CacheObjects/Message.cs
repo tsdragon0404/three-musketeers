@@ -29,26 +29,10 @@ namespace SMS.Common.Storage.CacheObjects
         public string Get(long messageID)
         {
             var fallbackMessage = FallbackMessages.Get(messageID);
-            var targetBranchID = messageID < 0 ? ConstConfig.NoBranchID : Cache.UserContext.CurrentBranchId;
+            var targetBranchID = messageID < 0 ? ConstConfig.NoBranchID : SmsCache.UserContext.CurrentBranchId;
 
             if (ContainsKey(targetBranchID) && this[targetBranchID].Any(x => x.MessageID == messageID))
                 return this[targetBranchID].First(x => x.MessageID == messageID).Content;
-
-            return string.Format("[{0}]", fallbackMessage);
-        }
-    }
-
-    public static class SystemMessages
-    {
-        internal static IDictionary<long, IList<Message>> Messages { get; set; }
-
-        public static string Get(long id)
-        {
-            var fallbackMessage = FallbackMessages.Get(id);
-            var targetBranchID = id < 0 ? ConstConfig.NoBranchID : SmsSystem.SelectedBranchID;
-
-            if (Messages.ContainsKey(targetBranchID) && Messages[targetBranchID].Any(x => x.MessageID == id))
-                return Messages[targetBranchID].First(x => x.MessageID == id).Content;
 
             return string.Format("[{0}]", fallbackMessage);
         }
