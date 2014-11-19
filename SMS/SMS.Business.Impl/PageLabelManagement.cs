@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -23,7 +23,7 @@ namespace SMS.Business.Impl
             if (includeGlobalLabels)
                 ids.Add(ConstPage.Global);
 
-            var labels = Repository.List(x => ids.Contains(x.Page.ID) && x.BranchID == SmsSystem.SelectedBranchID).ToList();
+            var labels = Repository.List(x => ids.Contains(x.Page.ID) && x.BranchID == (SmsCache.UserContext == null ? ConstConfig.NoBranchID : SmsCache.UserContext.CurrentBranchId)).ToList();
 
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(labels));
         }
@@ -32,7 +32,7 @@ namespace SMS.Business.Impl
         {
             var labelIds = pageLabels.ConvertAll(x => x.LabelID);
             var labels = Repository.List(
-                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsSystem.SelectedBranchID).ToList();
+                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsCache.UserContext.CurrentBranchId).ToList();
 
             pageLabels.Apply(x =>
                                 {
@@ -41,7 +41,7 @@ namespace SMS.Business.Impl
                                         x.ID = label.ID;
                                         break;
                                     }
-                                    x.BranchID = SmsSystem.SelectedBranchID;
+                                    x.BranchID = SmsCache.UserContext.CurrentBranchId;
                                     Save(x);
                                 });
 

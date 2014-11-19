@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Data;
 using Core.Data.NHibernate;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Entities;
 using SMS.Data.Entities.Interfaces;
 
@@ -31,7 +31,7 @@ namespace SMS.Data.Impl
             get
             {
                 if (BelongToBranch != null)
-                    return x => BelongToBranch(x, SmsSystem.SelectedBranchID);
+                    return x => BelongToBranch(x, SmsCache.UserContext.CurrentBranchId);
 
                 return null;
             }
@@ -49,7 +49,7 @@ namespace SMS.Data.Impl
             if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
             {
                 ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
-                ((IAuditableEntity)entity).CreatedUser = SmsSystem.UserContext.UserName;
+                ((IAuditableEntity)entity).CreatedUser = SmsCache.UserContext.UserName;
             }
 
             base.Add(entity);
@@ -60,7 +60,7 @@ namespace SMS.Data.Impl
             if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
             {
                 ((IAuditableEntity)entity).ModifiedDate = DateTime.Now;
-                ((IAuditableEntity)entity).ModifiedUser = SmsSystem.UserContext.UserName;
+                ((IAuditableEntity)entity).ModifiedUser = SmsCache.UserContext.UserName;
             }
 
             base.Update(entity);
@@ -161,7 +161,7 @@ namespace SMS.Data.Impl
         public virtual void Save(TEntity entity)
         {
             if (entity is IBranchEntity)
-                (entity as IBranchEntity).Branch = new Entities.Branch { ID = SmsSystem.SelectedBranchID };
+                (entity as IBranchEntity).Branch = new Entities.Branch { ID = SmsCache.UserContext.CurrentBranchId };
 
             if (entity.ID == 0)
                 Add(entity);

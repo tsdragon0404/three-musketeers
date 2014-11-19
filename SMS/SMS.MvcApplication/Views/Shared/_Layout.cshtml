@@ -1,4 +1,5 @@
 ﻿@using SMS.Common.Constant
+@using SMS.Common.Enums
 @using SMS.Common.Session
 @using SMS.Common
 @using SMS.Common.Storage
@@ -10,10 +11,10 @@
     <title>@ViewBag.Title - Shop management system</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @if (SmsSystem.UserContext.UserID != 0)
+    @if (SmsCache.UserContext != null && SmsCache.UserContext.UserID != 0)
     {
-        <link href="~/Content/themes/@SmsSystem.UserContext.Theme/jquery-ui.css" rel="stylesheet" />
-        <link href="~/Content/themes/@SmsSystem.UserContext.Theme/theme.css" rel="stylesheet" />
+        <link href="~/Content/themes/@SmsCache.UserContext.Theme/jquery-ui.css" rel="stylesheet" />
+        <link href="~/Content/themes/@SmsCache.UserContext.Theme/theme.css" rel="stylesheet" />
     }
     else
     {
@@ -30,7 +31,7 @@
     <link href="~/Content/themes/base/dataTables.jqueryui.css" rel="stylesheet" />
     @{
         var pageLabelEdit = "";
-        if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+        if (SmsCache.UserContext != null && (SmsCache.UserContext.IsSystemAdmin || SmsCache.UserContext.UseSystemConfig))
         {
             pageLabelEdit = "#page-label-multi-edit";
         }
@@ -50,7 +51,7 @@
             var labelController = new LabelController(labelDictionary, '@pageLabelEdit', '#editLabelPopup', 
                 '@Url.Action("GetAllPageLabel", "Home", new { area = "" })', '@Url.Action("MultiEditPageLabel", "Home", new { area = "" })');
             labelController.ScanElements();
-            @if (SmsSystem.UserContext.IsSystemAdmin)
+            @if (SmsCache.UserContext != null && SmsCache.UserContext.IsSystemAdmin)
             {
                 <text>
             labelController.BuildEditControl(@PageID);
@@ -60,7 +61,7 @@
     </script>
 </head>
     <body>
-        @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+        @if (SmsCache.UserContext != null && (SmsCache.UserContext.IsSystemAdmin || SmsCache.UserContext.UseSystemConfig))
         {
             @Html.Partial("EditLabelPopup", new PopupModel { PopupID = "editLabelPopup", PopupTitle = "Edit Labels" })
         }
@@ -82,27 +83,27 @@
                         }
                         @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
                         <li>-</li>
-                        @if (SmsSystem.UserContext.AllowBranches.Count > 1)
+                        @if (SmsCache.UserContext != null && SmsCache.UserContext.AllowBranches.Count > 1)
                         {
                             <li>
-                                <a>@SmsSystem.UserContext.AllowBranches.First(x => x.ID == SmsSystem.SelectedBranchID).Name</a>
+                                <a>@SmsCache.UserContext.AllowBranches.First(x => x.ID == SmsCache.UserContext.CurrentBranchId).Name</a>
                                 <ul class="submenu">
-                                    @foreach (var branch in SmsSystem.UserContext.AllowBranches)
+                                    @foreach (var branch in SmsCache.UserContext.AllowBranches)
                                     {
                                         <li><a href="#" data-branchId="@branch.ID" id="changeBranch-@branch.ID">@branch.Name</a></li>
                                     }
                                 </ul>
                             </li>
                         }
-                        else if (SmsSystem.UserContext.AllowBranches.Count == 1)
+                        else if (SmsCache.UserContext != null && SmsCache.UserContext.AllowBranches.Count == 1)
                         {
-                            <li><a>@SmsSystem.UserContext.AllowBranches[0].Name</a></li>
+                            <li><a>@SmsCache.UserContext.AllowBranches[0].Name</a></li>
                         }
-                        @if (SmsSystem.UserContext.IsSystemAdmin || SmsSystem.UserContext.UseSystemConfig)
+                        @if (SmsCache.UserContext != null && (SmsCache.UserContext.IsSystemAdmin || SmsCache.UserContext.UseSystemConfig))
                         {
                             <li><a href="#" id="page-label-multi-edit" data-globalLabelID="lblEditLabel">Edit Label</a></li>
                         }
-                        @if (SmsSystem.UserContext.UserID != 0)
+                        @if (SmsCache.UserContext != null && SmsCache.UserContext.UserID != 0)
                         {
                             <li><a data-globalLabelID="lblUser">User</a>
                                 <ul class="submenu">

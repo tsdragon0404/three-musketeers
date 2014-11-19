@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 
 namespace SMS.Common.Storage.CacheObjects

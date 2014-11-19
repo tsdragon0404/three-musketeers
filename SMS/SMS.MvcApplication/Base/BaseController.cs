@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using Castle.Core.Internal;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Data.Dtos;
@@ -53,9 +54,9 @@ namespace SMS.MvcApplication.Base
                     }
                 }
 
-                var allowPagesResult = SmsSystem.UserContext.UserID == 0
+                var allowPagesResult = SmsCache.UserContext == null || SmsCache.UserContext.UserID == 0
                                            ? PageService.GetPublicPages<LanguagePageDto>()
-                                           : PageService.GetPagesByIds<LanguagePageDto>(SmsSystem.AllowPageIDs);
+                                           : PageService.GetPagesByIds<LanguagePageDto>(SmsCache.UserContext.AllowPageIDs);
 
                 if (allowPagesResult.Success && allowPagesResult.Data != null)
                 {
@@ -72,8 +73,8 @@ namespace SMS.MvcApplication.Base
                     }
                 }
             }
-            if (SmsCache.UserAccesses.Any(x => x.SessionID == SmsSystem.SessionId))
-                SmsCache.UserAccesses.First(x => x.SessionID == SmsSystem.SessionId).LastAccess = DateTime.Now;
+            if (SmsCache.UserContext != null)
+                SmsCache.UserContext.LastAccess = DateTime.Now;
 
             base.OnActionExecuted(filterContext);
         }
@@ -88,7 +89,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult MultiEditPageLabel(long pageID, PageLabelDto[] listLabels)
         {
-            return Json(!SmsSystem.UserContext.IsSystemAdmin
+            return Json(!SmsCache.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.Save(pageID, listLabels.ToList())));
         }
@@ -96,7 +97,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult GetAllPageLabel(long pageID)
         {
-            return Json(!SmsSystem.UserContext.IsSystemAdmin
+            return Json(!SmsCache.UserContext.IsSystemAdmin
                             ? JsonModel.Create(false)
                             : JsonModel.Create(PageLabelService.GetByPageID<PageLabelDto>(pageID)));
         }

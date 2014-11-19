@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SMS.Common.Constant;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 
 namespace SMS.Common.Storage.CacheObjects
@@ -55,17 +56,29 @@ namespace SMS.Common.Storage.CacheObjects
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
-        public void Add(string sessionID, string ipAddress, string userAgent, string userName, long selectedBrandhID)
+        public void Add(string sessionID, long userID, string userName, string ipAddress, string userAgent, 
+                        long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
+                        decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
+           
             var userAccess = new UserData
             {
                 SessionID = sessionID,
+                UserID = userID,
+                UserName = userName,
                 IpAddress = ipAddress,
                 UserAgent = userAgent,
-                UserName = userName,
-                CurrentBranchId = selectedBrandhID,
+                CurrentBranchId = selectedBranchID,
+                IsSystemAdmin = isSystemAdmin,
+                UseSystemConfig = UseSystemConfig,
+                DefaultAreaID = defaultAreaID,
+                ListTableHeight = listTableHeight,
+                PageSize = pageSize,
+                Theme = theme,
+                AllowBranches = allowBranches,
+                AllowPageIDs = allowPageIDs,
+                LastAccess = DateTime.Now,
                 LoginDateTime = DateTime.Now,
-                LastAccess = DateTime.Now
             };
 
             if(!this.Any(x => x.SessionID == sessionID))

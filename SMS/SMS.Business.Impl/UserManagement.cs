@@ -5,7 +5,6 @@ using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -35,15 +34,15 @@ namespace SMS.Business.Impl
 
         public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
-            if (SmsSystem.UserContext.IsSystemAdmin)
+            if (SmsCache.UserContext.IsSystemAdmin)
                 return base.Search(textSearch, pagingInfo, includeDisable);
 
-            var filteredRecords = Mapper.Map<List<UserDto>>(SmsSystem.UserContext.UseSystemConfig
+            var filteredRecords = Mapper.Map<List<UserDto>>(SmsCache.UserContext.UseSystemConfig
                                                           ? Repository.Search(textSearch, includeDisable).Where(x => !x.IsSystemAdmin).ToList()
                                                           : Repository.Search(textSearch, includeDisable).Where(x => !x.IsSystemAdmin && !x.UseSystemConfig).ToList());
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
+            pagingInfo.PageSize = SmsCache.UserContext.PageSize;
 
             return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
         }
@@ -75,8 +74,8 @@ namespace SMS.Business.Impl
 
         public ServiceResult UpdateUserProfile(string password, string firstName, string lastName, string cellPhone, string email, string address, string theme, int pageSize)
         {
-            Repository.UpdateProfile(SmsSystem.UserContext.UserID, password, firstName, lastName, cellPhone, email, address);
-            UserConfigRepository.SaveThemeAndPageSize(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID, theme, pageSize);
+            Repository.UpdateProfile(SmsCache.UserContext.UserID, password, firstName, lastName, cellPhone, email, address);
+            UserConfigRepository.SaveThemeAndPageSize(SmsCache.UserContext.UserID, SmsCache.UserContext.CurrentBranchId, theme, pageSize);
 
             return ServiceResult.CreateSuccessResult();
         }

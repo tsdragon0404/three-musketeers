@@ -1,4 +1,4 @@
-﻿namespace SMS.Common.Session
+﻿namespace SMS.Common.Enums
 {
     public enum Language
     {

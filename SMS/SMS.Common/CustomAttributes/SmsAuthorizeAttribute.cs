@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using SMS.Common.Constant;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 
 namespace SMS.Common.CustomAttributes
@@ -21,7 +20,7 @@ namespace SMS.Common.CustomAttributes
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (SmsSystem.UserContext.UserID == 0 || SmsSystem.SelectedBranchID == 0)
+            if (SmsCache.UserContext == null || SmsCache.UserContext.UserID == 0 || SmsCache.UserContext.CurrentBranchId == 0)
             {
                 Status = AuthorizeStatus.NotLogin;
                 return false;
@@ -37,8 +36,8 @@ namespace SMS.Common.CustomAttributes
             //    return false;
             //}
 
-            var authorized = SmsSystem.UserContext.IsSystemAdmin
-                             || SmsSystem.AllowPageIDs.Contains(pageID);
+            var authorized = SmsCache.UserContext.IsSystemAdmin
+                             || SmsCache.UserContext.AllowPageIDs.Contains(pageID);
 
             Status = !authorized ? AuthorizeStatus.DontHaveAccessRight : AuthorizeStatus.HasAccessRight;
 

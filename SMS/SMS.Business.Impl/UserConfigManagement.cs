@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Common.Validation;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
@@ -26,7 +26,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
-            var result = Repository.SaveUserProfile(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID, defaultAreaID, listTableHeight);
+            var result = Repository.SaveUserProfile(SmsCache.UserContext.UserID, SmsCache.UserContext.CurrentBranchId, defaultAreaID, listTableHeight);
             return ServiceResult<UserConfigDto>.CreateSuccessResult(Mapper.Map<UserConfigDto>(result));
         }
     }

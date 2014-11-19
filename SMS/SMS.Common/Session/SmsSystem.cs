@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
 using SMS.Common.Constant;
+using SMS.Common.Enums;
 
 namespace SMS.Common.Session
 {
@@ -10,71 +10,10 @@ namespace SMS.Common.Session
     {
         #region Session
 
-        public static UserContext UserContext
-        {
-            get
-            {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstKey.Session_UserContext] != null)
-                    return HttpContext.Current.Session[ConstKey.Session_UserContext] as UserContext;
-
-                return new UserContext();
-            }
-            set
-            {
-                HttpContext.Current.Session[ConstKey.Session_UserContext] = value;
-                HttpContext.Current.Session.Timeout = ConstConfig.SessionTimeoutDuration;
-            }
-        }
-
-        public static ClientInfo ClientInfo
-        {
-            get
-            {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstKey.Session_ClientInfo] != null)
-                    return HttpContext.Current.Session[ConstKey.Session_ClientInfo] as ClientInfo;
-
-                return new ClientInfo();
-            }
-            set
-            {
-                HttpContext.Current.Session[ConstKey.Session_ClientInfo] = value;
-            }
-        }
-
         public static string SessionId
         {
             get { return HttpContext.Current.Session != null ? HttpContext.Current.Session.SessionID : string.Empty; }
         }
-
-        public static List<long> AllowPageIDs
-        {
-            get
-            {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstKey.Session_AllowRoles] != null)
-                    return HttpContext.Current.Session[ConstKey.Session_AllowRoles] as List<long>;
-
-                return new List<long>();
-            }
-            set
-            {
-                HttpContext.Current.Session[ConstKey.Session_AllowRoles] = value;
-            }
-        }
-
-        public static long SelectedBranchID
-        {
-            get
-            {
-                if (HttpContext.Current.Session != null && HttpContext.Current.Session[ConstKey.Session_SelectedBranchID] != null)
-                    return (long)HttpContext.Current.Session[ConstKey.Session_SelectedBranchID];
-
-                return 0;
-            }
-            set
-            {
-                HttpContext.Current.Session[ConstKey.Session_SelectedBranchID] = value;
-            }
-        } 
 
         #endregion
 

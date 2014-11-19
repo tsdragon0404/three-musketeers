@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.Services;
@@ -21,11 +21,11 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            var categoryListResult = ProductCategoryService.ListAllByBranch<LanguageProductCategoryDto>(SmsSystem.SelectedBranchID);
+            var categoryListResult = ProductCategoryService.ListAllByBranch<LanguageProductCategoryDto>(SmsCache.UserContext.CurrentBranchId);
             if (!categoryListResult.Success || categoryListResult.Data == null)
                 return ErrorPage(categoryListResult.Errors);
 
-            var unitListResult = UnitService.ListAllByBranch<LanguageUnitDto>(SmsSystem.SelectedBranchID);
+            var unitListResult = UnitService.ListAllByBranch<LanguageUnitDto>(SmsCache.UserContext.CurrentBranchId);
             if (!unitListResult.Success || unitListResult.Data == null)
                 return ErrorPage(unitListResult.Errors);
 

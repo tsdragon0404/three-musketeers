@@ -2,7 +2,6 @@
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
@@ -34,7 +33,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         [HttpPost]
         public JsonResult ResetSystemData()
         {
-            if (!SmsSystem.UserContext.IsSystemAdmin)
+            if (!SmsCache.UserContext.IsSystemAdmin)
                 return Json(JsonModel.Create(false));
 
             SmsCache.ClearCache();
