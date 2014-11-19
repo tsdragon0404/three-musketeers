@@ -2,7 +2,7 @@
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Paging;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -31,11 +31,11 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
                                  TextSearch = textSearch,
                                  FormNameToSubmit = Url.Action("Index")
                              };
-            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, pagingInfo, SmsSystem.SelectedBranchID);
+            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, pagingInfo, SmsCache.UserContext.CurrentBranchId);
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
-            var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsCache.UserContext.CurrentBranchId);
 
             var roles = RoleService.ListAll();
             if (!roles.Success || roles.Data == null)
@@ -57,7 +57,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
             if (!user.Success || user.Data == null)
                 return ErrorAjax("loi~ roai`");
 
-            var userConfig = UserConfigService.GetUserConfig(userID, SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigService.GetUserConfig(userID, SmsCache.UserContext.CurrentBranchId);
             if (!userConfig.Success || userConfig.Data == null)
                 return ErrorAjax("loi~ roai`");
 

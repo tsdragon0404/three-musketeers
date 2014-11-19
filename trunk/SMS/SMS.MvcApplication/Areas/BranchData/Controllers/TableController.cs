@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.Services;
@@ -21,7 +21,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         public override ActionResult Index(string textSearch, int page = 1)
         {
-            var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsCache.UserContext.CurrentBranchId);
             if(!areaListResult.Success || areaListResult.Data == null)
                 return ErrorPage(areaListResult.Errors);
 

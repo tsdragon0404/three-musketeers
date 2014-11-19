@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Paging;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.MvcApplication.Models;
 using SMS.Services;
 
@@ -20,7 +20,7 @@ namespace SMS.MvcApplication.Base
                                  FormNameToSubmit = Url.Action("Index")
                              };
 
-            var recordList = Service.SearchInBranch(textSearch, pagingInfo, SmsSystem.SelectedBranchID, true);
+            var recordList = Service.SearchInBranch(textSearch, pagingInfo, SmsCache.UserContext.CurrentBranchId, true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 

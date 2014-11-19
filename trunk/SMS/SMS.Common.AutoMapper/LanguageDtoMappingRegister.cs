@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;

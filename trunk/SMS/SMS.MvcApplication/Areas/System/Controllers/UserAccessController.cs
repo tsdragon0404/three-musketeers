@@ -2,7 +2,6 @@
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Paging;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Common.Storage.CacheObjects;
 using SMS.MvcApplication.Base;
@@ -20,7 +19,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
             var pagingInfo = new SortingPagingInfo
             {
                 CurrentPage = page,
-                PageSize = SmsSystem.UserContext.PageSize,
+                PageSize = SmsCache.UserContext.PageSize,
                 TotalItemCount = SmsCache.UserAccesses.Count,
                 FormNameToSubmit = Url.Action("Index")
             };

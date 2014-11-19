@@ -4,7 +4,6 @@ using Core.Common.Validation;
 using AutoMapper;
 using SMS.Common.Constant;
 using SMS.Common.Paging;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 
 namespace SMS.Business.Impl
@@ -50,7 +49,7 @@ namespace SMS.Business.Impl
             var filteredRecords = Repository.Search(textSearch, includeDisable).ToList();
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
+            pagingInfo.PageSize = SmsCache.UserContext.PageSize;
 
             var dtos = Mapper.Map<IList<TModel>>(filteredRecords);
             var result = PagedList<TModel>.CreatePageList(dtos, pagingInfo);
@@ -68,7 +67,7 @@ namespace SMS.Business.Impl
             var filteredRecords = Repository.SearchInBranch(textSearch, branchID, includeDisable).ToList();
 
             pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = SmsSystem.UserContext.PageSize;
+            pagingInfo.PageSize = SmsCache.UserContext.PageSize;
 
             var dtos = Mapper.Map<IList<TModel>>(filteredRecords);
             var result = PagedList<TModel>.CreatePageList(dtos, pagingInfo);

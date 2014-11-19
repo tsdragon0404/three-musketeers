@@ -11,6 +11,7 @@ using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
 using SMS.Common.Session;
 using SMS.Common.Storage;
+using SMS.Common.Storage.CacheObjects;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -30,7 +31,7 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Login)]
         public ActionResult Login()
         {
-            if (SmsSystem.UserContext.UserID != 0)
+            if (SmsCache.UserContext != null && SmsCache.UserContext.UserID != 0)
                 return RedirectToAction("Index", "Home");
             
             var branches = GetBranchList();
@@ -48,7 +49,7 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Login)]
         public ActionResult Login(LoginModel model)
         {
-            if (SmsSystem.UserContext.UserID != 0)
+            if (SmsCache.UserContext != null && SmsCache.UserContext.UserID != 0)
                 return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
@@ -123,38 +124,10 @@ namespace SMS.MvcApplication.Controllers
 
         private bool SetSessionData(UserDto user, long branchID)
         {
-            SetClientData();
-            if (!SetUserData(user, branchID))
-                return false;
-
-            SmsSystem.SelectedBranchID = branchID;
-
-            var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>(SmsSystem.UserContext.UserID);
-            if (!pages.Success || pages.Data == null)
-                return false;
-
-            SmsSystem.AllowPageIDs = pages.Data.Select(x => x.ID).ToList();
-            
-            SmsCache.UserAccesses.Add(SmsSystem.SessionId, SmsSystem.ClientInfo.IpAddress, SmsSystem.ClientInfo.UserAgent, user.Username, branchID);
-
-            return true;
-        }
-
-        private void SetClientData()
-        {
-            SmsSystem.ClientInfo = new ClientInfo
-                                       {
-                                           IpAddress = Request.UserHostAddress,
-                                           UserAgent = Request.UserAgent
-                                       };
-        }
-
-        private bool SetUserData(UserDto user, long branchID)
-        {
-            List<Branch> allowBranches;
+            List<BranchName> allowBranches;
             if (user.IsSystemAdmin)
             {
-                var branchListResult = BranchService.ListAll<Branch>();
+                var branchListResult = BranchService.ListAll<BranchName>();
                 if(!branchListResult.Success || branchListResult.Data == null)
                 {
                     errors = branchListResult.Errors;
@@ -163,26 +136,25 @@ namespace SMS.MvcApplication.Controllers
                 allowBranches = branchListResult.Data.ToList();
             }
             else
-                allowBranches = user.Branches.Select(x => new Branch(x.ID, x.VNName, x.ENName)).ToList();
+                allowBranches = user.Branches.Select(x => new BranchName(x.ID, x.VNName, x.ENName)).ToList();
 
             var userConfig = UserConfigService.GetUserConfig(user.ID, branchID);
             if (!userConfig.Success || userConfig.Data == null)
                 return false;
 
-            var userContext = new UserContext
-                              {
-                                  DefaultAreaID = userConfig.Data.DefaultAreaID,
-                                  ListTableHeight = userConfig.Data.ListTableHeight == 0 ? ConstConfig.DefaultHeightForListTable : userConfig.Data.ListTableHeight,
-                                  PageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize,
-                                  Theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme,
-                                  UserID = user.ID,
-                                  UserName = user.Username,
-                                  IsSystemAdmin = user.IsSystemAdmin,
-                                  UseSystemConfig = user.UseSystemConfig,
-                                  AllowBranches = allowBranches
-                              };
+            var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>(user.ID);
+            if (!pages.Success || pages.Data == null)
+                return false;
 
-            SmsSystem.UserContext = userContext;
+            var listTableHeight = userConfig.Data.ListTableHeight == 0
+                                      ? ConstConfig.DefaultHeightForListTable
+                                      : userConfig.Data.ListTableHeight;
+            var pageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize;
+            var theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme;
+
+            SmsCache.UserAccesses.Add(SmsSystem.SessionId, user.ID, user.Username, Request.UserHostAddress, Request.UserAgent,
+                                      branchID, user.IsSystemAdmin, user.UseSystemConfig, userConfig.Data.DefaultAreaID, listTableHeight,
+                                      pageSize, theme, allowBranches, pages.Data.Select(x => x.ID).ToList());
 
             return true;
         }
@@ -199,11 +171,11 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.EditProfile)]
         public ActionResult Edit()
         {
-            var user = UserService.GetByID<UserBasicDto>(SmsSystem.UserContext.UserID);
+            var user = UserService.GetByID<UserBasicDto>(SmsCache.UserContext.UserID);
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
-            var userConfig = UserConfigService.GetUserConfig<UserProfileConfigDto>(SmsSystem.UserContext.UserID, SmsSystem.SelectedBranchID);
+            var userConfig = UserConfigService.GetUserConfig<UserProfileConfigDto>(SmsCache.UserContext.UserID, SmsCache.UserContext.CurrentBranchId);
             if (!userConfig.Success || userConfig.Data == null)
                 return ErrorPage(userConfig.Errors);
 
@@ -216,14 +188,14 @@ namespace SMS.MvcApplication.Controllers
         [SmsAuthorize(ConstPage.Global)]
         public JsonResult ChangeBranch(long branchID)
         {
-            if (!SmsSystem.UserContext.AllowBranches.Select(x => x.ID).Contains(branchID))
+            if (!SmsCache.UserContext.AllowBranches.Select(x => x.ID).Contains(branchID))
                 return Json(JsonModel.Create(false));
 
             var branch = BranchService.GetByID(branchID);
             if(branch.Data == null || !branch.Success)
                 return Json(JsonModel.Create(false));
 
-            SmsSystem.SelectedBranchID = branchID;
+            SmsCache.UserContext.CurrentBranchId = branchID;
             SmsSystem.PreviousSelectedBranch = branchID;
             SmsCache.UserAccesses.First(x => x.SessionID == SmsSystem.SessionId).CurrentBranchId = branchID;
 

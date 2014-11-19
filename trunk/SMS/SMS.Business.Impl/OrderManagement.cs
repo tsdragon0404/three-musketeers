@@ -6,8 +6,6 @@ using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
-using SMS.Common.Session;
-using SMS.Common.Storage;
 using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -77,7 +75,7 @@ namespace SMS.Business.Impl
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
-            InvoiceRepository.CreateInvoice(order, SmsSystem.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee);
+            InvoiceRepository.CreateInvoice(order, SmsCache.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee);
 
             Repository.Delete(orderID);
 
@@ -131,13 +129,13 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID)
         {
             var orders = Repository
-                .List(x => x.OrderTables.Any(y => y.Table.Area.ID == areaID || areaID == 0) && x.Branch.ID == SmsSystem.SelectedBranchID);
+                .List(x => x.OrderTables.Any(y => y.Table.Area.ID == areaID || areaID == 0) && x.Branch.ID == SmsCache.UserContext.CurrentBranchId);
 
             var usedTables = new List<OrderTable>();
             orders.Apply(x => usedTables.AddRange(x.OrderTables));
 
             var availableTables = TableRepository
-                .List(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsSystem.SelectedBranchID && !x.OrderTables.Any() && x.Enable);
+                .List(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsCache.UserContext.CurrentBranchId && !x.OrderTables.Any() && x.Enable);
 
             usedTables.AddRange(availableTables.Select(table => new OrderTable
                                                                     {
@@ -321,7 +319,7 @@ namespace SMS.Business.Impl
             {
                 RejectRepository.Save(new Reject
                                          {
-                                             BranchID = SmsSystem.SelectedBranchID,
+                                             BranchID = SmsCache.UserContext.CurrentBranchId,
                                              ProductCode = orderDetail.Product.ProductCode,
                                              ProductVNName = orderDetail.Product.VNName,
                                              ProductENName = orderDetail.Product.ENName,
@@ -331,7 +329,7 @@ namespace SMS.Business.Impl
                                              OrderComment = orderDetail.Comment,
                                              KitchenComment = orderDetail.KitchenComment,
                                              CreatedDate = DateTime.Now,
-                                             CreatedUser = SmsSystem.UserContext.UserName
+                                             CreatedUser = SmsCache.UserContext.UserName
                                          });
             }
 
@@ -340,12 +338,12 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>()
         {
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetOrderDetailByStatus(OrderStatus.SentToKitchen, SmsSystem.SelectedBranchID)));
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetOrderDetailByStatus(OrderStatus.SentToKitchen, SmsCache.UserContext.CurrentBranchId)));
         }
 
         public ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>()
         {
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetOrderDetailByStatus(OrderStatus.KitchenAccepted, SmsSystem.SelectedBranchID)));
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(Repository.GetOrderDetailByStatus(OrderStatus.KitchenAccepted, SmsCache.UserContext.CurrentBranchId)));
         }
     }
 }

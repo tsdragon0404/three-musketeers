@@ -423,11 +423,11 @@
     
     $(document).ready(function () {
         $('div.split-pane').splitPane();
-        var paneheight = @SmsSystem.UserContext.ListTableHeight + '%';
+        var paneheight = @SmsCache.UserContext.ListTableHeight + '%';
         $('#area-table, .split-pane-divider').css('bottom', paneheight);
         $('#tableorder').css('height', paneheight);
         
-        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@SmsSystem.UserContext.DefaultAreaID"]'));
+        var tabindex = $('#areas li a').index($('#areas li a[href="#area-@SmsCache.UserContext.DefaultAreaID"]'));
         if (tabindex < 0)
             tabindex = 0;
         $('#area-table').tabs({ active: tabindex });

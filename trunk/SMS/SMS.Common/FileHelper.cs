@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Web;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 
 namespace SMS.Common
@@ -19,7 +18,7 @@ namespace SMS.Common
                 if(category == UploadedFileCategory.ProfileImage)
                 {
                     var extension = fileName.Remove(0, fileName.LastIndexOf('.'));
-                    fileName = SmsSystem.UserContext.UserID + extension;
+                    fileName = SmsCache.UserContext.UserID + extension;
                     DeleteOldProfileImages();
                 }
 
@@ -46,7 +45,7 @@ namespace SMS.Common
             {
                 
                 var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
-                var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
+                var listfiles = folder.GetFiles(string.Format("{0}.*", SmsCache.UserContext.UserID));
                 if (listfiles.Length > 0)
                 {
                     fileStream = new FileStream(listfiles[0].FullName, FileMode.Open, FileAccess.Read);
@@ -83,7 +82,7 @@ namespace SMS.Common
         private static void DeleteOldProfileImages()
         {
             var folder = new DirectoryInfo(GetFolderPath(UploadedFileCategory.ProfileImage));
-            var listfiles = folder.GetFiles(string.Format("{0}.*", SmsSystem.UserContext.UserID));
+            var listfiles = folder.GetFiles(string.Format("{0}.*", SmsCache.UserContext.UserID));
             foreach (var file in listfiles)
                 File.Delete(file.FullName);
         }

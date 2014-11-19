@@ -2,7 +2,7 @@
 using System.Web;
 using SMS.Common;
 using SMS.Common.Enums;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.Services;
 
@@ -23,7 +23,7 @@ namespace SMS.MvcApplication.Base
                                 {
                                     PhysicalPath = result.ActualPath,
                                     Category = category,
-                                    UploadedBy = SmsSystem.UserContext.UserName,
+                                    UploadedBy = SmsCache.UserContext.UserName,
                                     UploadedDateTime = DateTime.Now
                                 };
 
@@ -40,7 +40,7 @@ namespace SMS.MvcApplication.Base
 
         public static string GetCurrentUserProfileImage()
         {
-            var imageData = FileHelper.GetProfileImageAsStream(SmsSystem.UserContext.UserID);
+            var imageData = FileHelper.GetProfileImageAsStream(SmsCache.UserContext.UserID);
             if (imageData == null) return string.Empty;
             return Convert.ToBase64String(imageData);
         }

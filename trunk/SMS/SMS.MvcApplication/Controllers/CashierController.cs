@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
-using SMS.Common.Session;
+using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -25,11 +25,11 @@ namespace SMS.MvcApplication.Controllers
         [PageID(ConstPage.Cashier)]
         public ActionResult Index()
         {
-            var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsSystem.SelectedBranchID);
+            var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsCache.UserContext.CurrentBranchId);
             if (!areaListResult.Success || areaListResult.Data == null)
                 return ErrorPage(areaListResult.Errors);
 
-            var productListResult = ProductService.ListAllByBranch<SearchProductDto>(SmsSystem.SelectedBranchID);
+            var productListResult = ProductService.ListAllByBranch<SearchProductDto>(SmsCache.UserContext.CurrentBranchId);
             if (!productListResult.Success || productListResult.Data == null)
                 return ErrorPage(productListResult.Errors);
 
@@ -237,8 +237,8 @@ namespace SMS.MvcApplication.Controllers
             var result = UserConfigService.SaveCashierInfo(info.DefaultAreaID, info.ListTableHeight);
             if(result.Success)
             {
-                SmsSystem.UserContext.DefaultAreaID = result.Data.DefaultAreaID;
-                SmsSystem.UserContext.ListTableHeight = result.Data.ListTableHeight;
+                SmsCache.UserContext.DefaultAreaID = result.Data.DefaultAreaID;
+                SmsCache.UserContext.ListTableHeight = result.Data.ListTableHeight;
             }
             return Json(JsonModel.Create(result));
         }
