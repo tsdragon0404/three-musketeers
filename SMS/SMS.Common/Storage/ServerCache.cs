@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SMS.Common.Storage
 {
@@ -27,8 +28,8 @@ namespace SMS.Common.Storage
 
         internal static void ClearCache()
         {
-            foreach (var storageItem in cacheData.Values)
-                storageItem.Data = null;
+            foreach (var key in cacheData.Keys.Where(x => x != CacheKey.UserAccess))
+                cacheData[key].Data = null;
         }
 
         internal static void Reload(CacheKey key)

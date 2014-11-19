@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SMS.Common.Session;
+﻿using System.Collections.Generic;
 
 namespace SMS.Common.Storage.CacheObjects
 {
