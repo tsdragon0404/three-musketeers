@@ -22,5 +22,6 @@
         public static string SystemInfo_FileUploadPath = "FileUploadPath";
 
         public static string Token = "SMS-Token";
+        public static string Token_Guid = "SMS-Token-Guid";
     }
 }

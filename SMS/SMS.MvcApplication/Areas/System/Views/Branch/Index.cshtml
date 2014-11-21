@@ -1,5 +1,5 @@
-﻿@using SMS.Common.Enums
-@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Enums
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<BranchDto>
 
@@ -259,7 +259,7 @@
                             @foreach (TaxDto tax in ViewBag.ListTax)
                             {
                                 <text>
-                                    @if(SmsSystem.Language==Language.Vietnamese)
+                                    @if(CommonObjects.Language==Language.Vietnamese)
                                     {
                                         <option value="@tax.ID">@tax.Name</option>
                                     }
@@ -344,7 +344,7 @@
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        @if(@SmsSystem.Language == Language.Vietnamese)
+                        @if(CommonObjects.Language == Language.Vietnamese)
                         {
                             <td>@dto.VNName</td>
                         }else

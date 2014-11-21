@@ -1,5 +1,5 @@
-﻿@using SMS.Common.Enums
-@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Enums
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<UserDto>
 
@@ -103,7 +103,7 @@
                             @foreach (BranchDto branch in ViewBag.ListBranch)
                             {
                                 <text>
-                                    @if(SmsSystem.Language==Language.Vietnamese)
+                                    @if(CommonObjects.Language==Language.Vietnamese)
                                     {
                                         <option value="@branch.ID">@branch.VNName</option>
                                     }
@@ -124,7 +124,7 @@
                     <div class="four columns">
                         <select name="assignedBranches" id="assignedBranches-${ID}" multiple="multiple" size="4" style="width: 80%">
                             {{each Branches}}
-                            @if(SmsSystem.Language==Language.Vietnamese)
+                            @if(CommonObjects.Language==Language.Vietnamese)
                             {
                                 <option value="${ID}">${VNName}</option>
                             }

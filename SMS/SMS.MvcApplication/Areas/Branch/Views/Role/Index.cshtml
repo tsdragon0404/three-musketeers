@@ -1,5 +1,5 @@
-﻿@using SMS.Common.Enums
-@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Enums
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<RoleDto>
 
@@ -43,7 +43,7 @@
                             @foreach (PageDto page in ViewBag.ListPage)
                             {
                                 <text>
-                                    <option value="@page.ID">@(SmsSystem.Language == Language.Vietnamese ? @page.VNTitle : @page.ENTitle)</option>
+                                    <option value="@page.ID">@(CommonObjects.Language == Language.Vietnamese ? @page.VNTitle : @page.ENTitle)</option>
                                 </text>
                             }
                         </select>
@@ -57,7 +57,7 @@
                     <div class="four columns left">
                         <select name="assignedPages" id="assignedPages-${ID}" multiple="multiple" size="10" style="width: 80%">
                             {{each Pages}}
-                                @if (SmsSystem.Language == Language.Vietnamese)
+                                @if (CommonObjects.Language == Language.Vietnamese)
                                 {
                                     <option value="${ID}">${VNTitle}</option>
                                 }else

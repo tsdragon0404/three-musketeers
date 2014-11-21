@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 
 namespace SMS.Common.Storage.CacheObjects
 {
@@ -21,7 +20,7 @@ namespace SMS.Common.Storage.CacheObjects
 
         public string Value
         {
-            get { return SmsSystem.Language == Language.Vietnamese ? VNValue : ENValue; }
+            get { return CommonObjects.Language == Language.Vietnamese ? VNValue : ENValue; }
         }
     }
 

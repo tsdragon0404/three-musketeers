@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using SMS.Common.Exceptions;
-using SMS.Common.Session;
 
 namespace SMS.Common.Storage.AppLock
 {
@@ -26,7 +25,7 @@ namespace SMS.Common.Storage.AppLock
             if (this.Any(x => x.CompareKey(key)))
             {
                 var item = this.First(x => x.CompareKey(key));
-                if (item.SessionId == SmsSystem.SessionId)
+                if (item.SessionId == CommonObjects.SessionId)
                     return LockStatus.LockByCurrentUser;
 
                 return item.ReleaseTime > DateTime.Now ? LockStatus.LockByAnotherUser : LockStatus.Unlock;
@@ -39,25 +38,25 @@ namespace SMS.Common.Storage.AppLock
             if (this.Any(x => x.CompareKey(key)))
             {
                 var existedItem = this.First(x => x.CompareKey(key));
-                existedItem.SessionId = SmsSystem.SessionId;
+                existedItem.SessionId = CommonObjects.SessionId;
                 existedItem.UpdateReleaseTime();
             }
 
-            var item = new T { Key = key, SessionId = SmsSystem.SessionId };
+            var item = new T { Key = key, SessionId = CommonObjects.SessionId };
             item.UpdateReleaseTime();
             Add(item);
         }
 
         private void UpdateLock(object key)
         {
-            var item = this.Where(x => x.CompareKey(key) && x.SessionId == SmsSystem.SessionId).ToList();
+            var item = this.Where(x => x.CompareKey(key) && x.SessionId == CommonObjects.SessionId).ToList();
             if(item.Any())
                 item.First().UpdateReleaseTime();
         }
 
         public void ReleaseLock(object key)
         {
-            RemoveAll(x => x.SessionId == SmsSystem.SessionId && x.CompareKey(key));
+            RemoveAll(x => x.SessionId == CommonObjects.SessionId && x.CompareKey(key));
         }
     }
 }

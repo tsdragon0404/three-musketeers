@@ -5,9 +5,9 @@ using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using Castle.Core.Internal;
+using SMS.Common;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Models;
@@ -82,7 +82,7 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public JsonResult ChangeLanguage(Language language)
         {
-            SmsSystem.Language = language;
+            CommonObjects.Language = language;
             return Json(JsonModel.Create(true));
         }
 

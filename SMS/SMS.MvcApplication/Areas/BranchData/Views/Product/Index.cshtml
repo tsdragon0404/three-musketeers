@@ -1,5 +1,5 @@
-﻿@using SMS.Common.Enums
-@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Enums
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<ProductDto>
 
@@ -156,7 +156,7 @@
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
                         <td>@dto.ProductCode</td>
-                        @if(@SmsSystem.Language == Language.Vietnamese)
+                        @if(CommonObjects.Language == Language.Vietnamese)
                         {
                             <td>@dto.VNName</td>
                             <td>@dto.VNDescription</td>

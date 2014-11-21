@@ -9,7 +9,6 @@ using SMS.Common;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Common.Storage;
 using SMS.Common.Storage.CacheObjects;
 using SMS.Data.Dtos;
@@ -40,7 +39,7 @@ namespace SMS.MvcApplication.Controllers
                                                                        Username = "system", 
                                                                        Password = "123", 
                                                                        ListBranch = branches, 
-                                                                       SelectedBranch = SmsSystem.PreviousSelectedBranch
+                                                                       SelectedBranch = CommonObjects.PreviousSelectedBranch
                                                                    });
         }
 
@@ -102,7 +101,7 @@ namespace SMS.MvcApplication.Controllers
                 }
 
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
-                SmsSystem.PreviousSelectedBranch = branch.ID;
+                CommonObjects.PreviousSelectedBranch = branch.ID;
 
                 return RedirectToAction("Index", "Home");
             }
@@ -152,7 +151,7 @@ namespace SMS.MvcApplication.Controllers
             var pageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize;
             var theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme;
 
-            SmsCache.UserAccesses.Add(SmsSystem.SessionId, user.ID, user.Username, Request.UserHostAddress, Request.UserAgent,
+            SmsCache.UserAccesses.Add(CommonObjects.SessionId, user.ID, user.Username, Request.UserHostAddress, Request.UserAgent,
                                       branchID, user.IsSystemAdmin, user.UseSystemConfig, userConfig.Data.DefaultAreaID, listTableHeight,
                                       pageSize, theme, allowBranches, pages.Data.Select(x => x.ID).ToList());
 
@@ -161,7 +160,7 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult LogOff()
         {
-            SmsCache.UserAccesses.RemoveAll(x =>x.SessionID == SmsSystem.SessionId);
+            SmsCache.UserAccesses.RemoveAll(x =>x.SessionID == CommonObjects.SessionId);
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
@@ -196,8 +195,8 @@ namespace SMS.MvcApplication.Controllers
                 return Json(JsonModel.Create(false));
 
             SmsCache.UserContext.CurrentBranchId = branchID;
-            SmsSystem.PreviousSelectedBranch = branchID;
-            SmsCache.UserAccesses.First(x => x.SessionID == SmsSystem.SessionId).CurrentBranchId = branchID;
+            CommonObjects.PreviousSelectedBranch = branchID;
+            SmsCache.UserAccesses.First(x => x.SessionID == CommonObjects.SessionId).CurrentBranchId = branchID;
 
             return Json(JsonModel.Create(true));
         }
