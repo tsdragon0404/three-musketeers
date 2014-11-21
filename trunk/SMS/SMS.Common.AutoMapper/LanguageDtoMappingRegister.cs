@@ -13,7 +13,7 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
-            Mapper.CreateMap<Data.Entities.Branch, LanguageBranchDto>()
+            Mapper.CreateMap<Branch, LanguageBranchDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
                     CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
