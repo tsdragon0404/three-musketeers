@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 using SMS.Data.Dtos;
 using SMS.Data.Entities;
 
@@ -12,31 +11,31 @@ namespace SMS.Common.AutoMapper
         {
             Mapper.CreateMap<Area, LanguageAreaDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
             Mapper.CreateMap<Data.Entities.Branch, LanguageBranchDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
             Mapper.CreateMap<Unit, LanguageUnitDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
             Mapper.CreateMap<Table, LanguageTableDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName));
 
             Mapper.CreateMap<Product, LanguageProductDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName))
                 .ForMember(x => x.Description, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
 
             Mapper.CreateMap<ProductCategory, LanguageProductCategoryDto>()
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName))
                     .ForMember(x => x.Description, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
 
             Mapper.CreateMap<OrderTable, LanguageOrderTableDto>();
             Mapper.CreateMap<OrderTable, SimpleOrderTableDto>();
@@ -47,24 +46,24 @@ namespace SMS.Common.AutoMapper
 
             Mapper.CreateMap<Page, LanguagePageDto>()
                 .ForMember(x => x.Title, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle))
+                    CommonObjects.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle))
                 .ForMember(x => x.Description, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
 
             Mapper.CreateMap<PageLabel, LanguagePageLabelDto>()
                 .ForMember(x => x.Text, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNText : z.ENText));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNText : z.ENText));
 
             Mapper.CreateMap<Report, LanguageReportDto>()
                 .ForMember(x => x.Title, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
+                    CommonObjects.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
 
             Mapper.CreateMap<Product, SearchProductDto>()
                 .ForMember(x => x.Code, y => y.MapFrom(z => z.ProductCode))
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName))
                 .ForMember(x => x.CategoryName, y => y.ResolveUsing(z =>
-                    SmsSystem.Language == Language.Vietnamese ? z.ProductCategory.VNName : z.ProductCategory.ENName))
+                    CommonObjects.Language == Language.Vietnamese ? z.ProductCategory.VNName : z.ProductCategory.ENName))
                 .ForMember(x => x.Price, y => y.MapFrom(z => z.Price));
         }
     }

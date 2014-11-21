@@ -1,5 +1,5 @@
-﻿@using SMS.Common.Enums
-@using SMS.Common.Session
+﻿@using SMS.Common
+@using SMS.Common.Enums
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<TableDto>
 
@@ -105,10 +105,10 @@
                             <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                         </td>
                         <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@(SmsSystem.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
+                        <td>@(CommonObjects.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
                         <td>@if (dto.Area != null)
                             {
-                                @(SmsSystem.Language == Language.Vietnamese ? dto.Area.VNName : dto.Area.ENName)
+                                @(CommonObjects.Language == Language.Vietnamese ? dto.Area.VNName : dto.Area.ENName)
                             }
                         </td>
                         <td>@dto.SEQ</td>

@@ -4,18 +4,27 @@ using System.Web;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
 
-namespace SMS.Common.Session
+namespace SMS.Common
 {
-    public static class SmsSystem
+    public static class CommonObjects
     {
-        #region Session
-
         public static string SessionId
         {
             get { return HttpContext.Current.Session != null ? HttpContext.Current.Session.SessionID : string.Empty; }
         }
 
-        #endregion
+        public static Guid TokenID
+        {
+            get
+            {
+                var token = HttpContext.Current.Request.Headers.Get(ConstKey.Token_Guid);
+                Guid tokenID;
+                if (token == null || !Guid.TryParse(token, out tokenID))
+                    throw new Exception("Invalid token!");
+
+                return tokenID;
+            }
+        }
 
         #region Cookies
         

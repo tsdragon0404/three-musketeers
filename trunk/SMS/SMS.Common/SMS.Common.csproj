@@ -90,7 +90,7 @@
     <Compile Include="Storage\ServerCache.cs" />
     <Compile Include="Enums\Language.cs" />
     <Compile Include="CustomAttributes\SmsAuthorizeAttribute.cs" />
-    <Compile Include="Session\SmsSystem.cs" />
+    <Compile Include="CommonObjects.cs" />
     <Compile Include="Storage\CacheObjects\UserData.cs" />
   </ItemGroup>
   <ItemGroup>

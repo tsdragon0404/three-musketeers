@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
-using SMS.Common.Session;
 
 namespace SMS.Common.Storage.CacheObjects
 {
@@ -38,6 +37,11 @@ namespace SMS.Common.Storage.CacheObjects
         /// </summary>
         public decimal ListTableHeight { get; set; }
 
+        public bool IsSessionExpired
+        {
+            get { return LastAccess.AddMinutes(ConstConfig.SessionTimeoutDuration) < DateTime.Now; }
+        }
+
         #region Implementation of ICacheData
 
         public object Key { get { return TokenID; } }
@@ -46,8 +50,8 @@ namespace SMS.Common.Storage.CacheObjects
             get
             {
                 if (HttpContext.Current.Request.Headers.Get(ConstKey.Token) == null)
-                    return SmsSystem.SessionId == SessionID;
-                return Guid.Parse(HttpContext.Current.Request.Headers.Get(ConstKey.Token)) == TokenID;
+                    return CommonObjects.SessionId == SessionID;
+                return CommonObjects.TokenID == TokenID;
             }
         }
 
@@ -56,11 +60,12 @@ namespace SMS.Common.Storage.CacheObjects
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
+        [Obsolete("Will be removed! Go API")]
         public void Add(string sessionID, long userID, string userName, string ipAddress, string userAgent, 
                         long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
                         decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
-           
+            RemoveExpiredSessions();
             var userAccess = new UserData
             {
                 SessionID = sessionID,
@@ -81,8 +86,63 @@ namespace SMS.Common.Storage.CacheObjects
                 LoginDateTime = DateTime.Now,
             };
 
-            if(!this.Any(x => x.SessionID == sessionID))
+            if(this.All(x => x.SessionID != sessionID))
                 Add(userAccess);
+        }
+
+        [Obsolete("Will be removed! Go API")]
+        public bool AuthorizeSession()
+        {
+            RemoveExpiredSessions();
+            return this.Any(x => x.SessionID == CommonObjects.SessionId);
+        }
+
+        public new void Add(UserData userData)
+        {
+            RemoveExpiredSessions();
+            if (!Contains(userData.TokenID))
+                Add(userData);
+        }
+
+        public new bool Remove(Guid tokenID)
+        {
+            if (tokenID == CommonObjects.TokenID || !Contains(tokenID))
+                return false;
+
+            return RemoveAll(x => x.TokenID == tokenID) > 0;
+        }
+
+        public void RemoveCurrentUser()
+        {
+            RemoveExpiredSessions();
+            Remove(CommonObjects.TokenID);
+        }
+
+        public void UpdateLastAccess(Guid tokenID)
+        {
+            if (Contains(tokenID))
+                this.First(x => x.TokenID == tokenID).LastAccess = DateTime.Now;
+        }
+
+        public void UpdateCurrentUserLastAccess()
+        {
+            UpdateLastAccess(CommonObjects.TokenID);
+        }
+
+        public void UpdateBranchId(Guid tokenID, long branchId)
+        {
+            if (Contains(tokenID))
+                this.First(x => x.TokenID == tokenID).CurrentBranchId = branchId;
+        }
+
+        public void UpdateCurrentUserBranchId(long branchId)
+        {
+            UpdateBranchId(CommonObjects.TokenID, branchId);
+        }
+
+        private void RemoveExpiredSessions()
+        {
+            RemoveAll(x => x.IsSessionExpired);
         }
     }
 
@@ -93,7 +153,7 @@ namespace SMS.Common.Storage.CacheObjects
         private string ENName { get; set; }
         public string Name
         {
-            get { return SmsSystem.Language == Language.Vietnamese ? VNName : ENName; }
+            get { return CommonObjects.Language == Language.Vietnamese ? VNName : ENName; }
         }
 
         public BranchName(long id, string vnName, string enName)
