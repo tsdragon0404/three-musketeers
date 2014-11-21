@@ -42,19 +42,19 @@ namespace SMS.Data.Impl
 
             if (userConfig == null)
             {
-                var entity = new UserConfig
+                userConfig = new UserConfig
                                  {
                                      BranchID = branchID,
                                      UserID = userID
                                  };
                 if (defaultAreaID.HasValue)
-                    entity.DefaultAreaID = defaultAreaID.Value;
+                    userConfig.DefaultAreaID = defaultAreaID.Value;
                 if (listTableHeight.HasValue)
-                    entity.ListTableHeight = listTableHeight.Value;
+                    userConfig.ListTableHeight = listTableHeight.Value;
                 if (IsSuspended.HasValue)
-                    entity.IsSuspended = IsSuspended.Value;
-                
-                Add(entity);
+                    userConfig.IsSuspended = IsSuspended.Value;
+
+                Add(userConfig);
             }
             else
             {
