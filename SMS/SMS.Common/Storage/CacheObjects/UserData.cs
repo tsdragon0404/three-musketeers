@@ -65,7 +65,6 @@ namespace SMS.Common.Storage.CacheObjects
                         long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
                         decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
-            RemoveExpiredSessions();
             var userAccess = new UserData
             {
                 SessionID = sessionID,
@@ -101,7 +100,7 @@ namespace SMS.Common.Storage.CacheObjects
         {
             RemoveExpiredSessions();
             if (!Contains(userData.TokenID))
-                Add(userData);
+                base.Add(userData);
         }
 
         public new bool Remove(Guid tokenID)
