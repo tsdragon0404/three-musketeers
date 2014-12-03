@@ -100,7 +100,6 @@ namespace SMS.MvcApplication.Controllers
                     return ErrorPage(errors);
                 }
 
-                FormsAuthentication.SetAuthCookie(user.ID.ToString(CultureInfo.InvariantCulture), true);
                 CommonObjects.PreviousSelectedBranch = branch.ID;
 
                 return RedirectToAction("Index", "Home");
