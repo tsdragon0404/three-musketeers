@@ -91,6 +91,12 @@ namespace SMS.MvcApplication
             //}
         }
 
+        protected void Session_Start(Object sender, EventArgs e)
+        {
+            //prevent sessionid be changed on each request
+            Session["init"] = 0;
+        }
+
         #endregion
 
         #region Methods
