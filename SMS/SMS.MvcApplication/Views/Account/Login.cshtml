@@ -1,10 +1,16 @@
-﻿@model SMS.MvcApplication.Models.LoginModel
+﻿@using SMS.Common
+@using SMS.Common.Enums
+@model SMS.MvcApplication.Models.LoginModel
 @{
+    Layout = "~/Views/Shared/_LoginPartial.cshtml";
     var errorClass = "hide";
     if (Model.ShowError) { errorClass = ""; }
 }
 
 <div id="content" class="row">
+    <div id="logo" class="center">
+        <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
+    </div>
     <div id="loginform" class="border-all ui-corner-all">
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
@@ -27,6 +33,23 @@
             <div class="right">
                 <button id="loginButton" data-globalLabelID="lblLogin">Login</button>
             </div>
+            <ul>
+                @{
+                    var classVN = "";
+                    var classEN = "";
+                    if (CommonObjects.Language == Language.English)
+                    {
+                        classEN = "class=\"hide\"";
+                    }
+                    if (CommonObjects.Language == Language.Vietnamese)
+                    {
+                        classVN = "class=\"hide\"";
+                    }
+                }
+                    
+                <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img class="icon-flag" src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Vietnamese</span></a></li>
+                <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img class="icon-flag" src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Tiếng Anh</span></a></li>
+            </ul>
             <script type="text/javascript">
                 $(document).ready(function() {
                     $('#loginButton').button({
@@ -38,6 +61,27 @@
                     });
 
                     $('#SelectedBranch').selectmenu();
+                    
+                    $('#change-language-vn').click(function () {
+                        changeLanguage(@((int)Language.Vietnamese));
+                        return false;
+                    });
+
+                    $('#change-language-en').click(function() {
+                        changeLanguage(@((int)Language.English));
+                        return false;
+                    });
+
+                    function changeLanguage(id) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
+                            data: { language: id }
+                        }).done(function(result) {
+                            if (result.Success)
+                                location.reload();
+                        });
+                    }
                 });
             </script>
         }

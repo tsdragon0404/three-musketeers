@@ -161,7 +161,7 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
     color: #222;
 }
 
-#language li img {
+.icon-flag {
     width: 16px;
     height: 16px;
     margin-bottom: 5px;
@@ -933,7 +933,7 @@ table.dataTable{
 
 #loginform {
     width: 410px;
-    margin: 100px auto;
+    margin: 0 auto;
     padding: 20px 10px 20px 20px;
 }
 #loginform table {
