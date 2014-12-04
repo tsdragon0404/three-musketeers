@@ -1,14 +1,63 @@
-﻿@using Core.Common.Session
-@*@if (Request.IsAuthenticated) {
-    <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+﻿@using SMS.Common
+@using SMS.Common.Storage
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Shop management system</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @if (SmsCache.UserContext != null && SmsCache.UserContext.UserID != 0)
+    {
+        <link href="~/Content/themes/@SmsCache.UserContext.Theme/jquery-ui.css" rel="stylesheet" />
+        <link href="~/Content/themes/@SmsCache.UserContext.Theme/theme.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="~/Content/themes/@ConfigReader.CurrentTheme/jquery-ui.css" rel="stylesheet" />
+        <link href="~/Content/themes/@ConfigReader.CurrentTheme/theme.css" rel="stylesheet" />
+    }
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/corejs")
+    @Scripts.Render("~/bundles/jquerytmpl")
+    <script type="text/javascript" src="~/Scripts/labelController.js"></script>
+    <link href="~/Content/themes/base/dataTables.jqueryui.css" rel="stylesheet" />
+    @{
+        var pageLabelEdit = "";
+        if (SmsCache.UserContext != null && (SmsCache.UserContext.IsSystemAdmin || SmsCache.UserContext.UseSystemConfig))
+        {
+            pageLabelEdit = "#page-label-multi-edit";
         }
-    </text>
-} else {
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    }
+    <script type="text/javascript">
+        var labelDictionary = @Html.Raw(JsonEncode(LabelDictionary));
+        $(document).ready(function() {
+            
+            var labelController = new LabelController(labelDictionary, '@pageLabelEdit', '#editLabelPopup', 
+                '@Url.Action("GetAllPageLabel", "Home", new { area = "" })', '@Url.Action("MultiEditPageLabel", "Home", new { area = "" })');
+            labelController.ScanElements();
+            @if (SmsCache.UserContext != null && SmsCache.UserContext.IsSystemAdmin)
+            {
+                <text>
+            labelController.BuildEditControl(@PageID);
+                </text>
+            }
+        });
+    </script>
+</head>
+    <body>
+        <div class="ui-helper-clearfix">
+            <div>
+                
+                @RenderBody()
+            </div>
+        </div>
 
-}*@
+        @*<footer id="footer">
+        &copy; @DateTime.Now.Year - My ASP.NET MVC Application
+    </footer>*@
+        @Html.Partial("MessagePopup")
+        @Html.Partial("AjaxLoader")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

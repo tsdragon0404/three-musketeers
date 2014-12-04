@@ -1,4 +1,4 @@
-﻿@using SMS.Common
+﻿@using SMS.Common.Storage
 @using SMS.Data.Dtos
 @using SMS.MvcApplication.Models
 @model UserModel
@@ -269,7 +269,7 @@
             },
             UserConfig: {
                 UserID: recordID,
-                BranchID: @CommonObjects.SelectedBranchID,
+                BranchID: @SmsCache.UserContext.CurrentBranchId,
                 IsSuspended: $('#suspended-' + recordID).prop('checked')
             }
         };
