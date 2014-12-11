@@ -11,7 +11,6 @@ namespace SMS.Common.Storage.CacheObjects
     {
         public Guid TokenID { get; set; }
 
-        [Obsolete("Will be removed! Go API")]
         public string SessionID { get; set; }
 
         public long UserID { get; set; }
@@ -60,13 +59,13 @@ namespace SMS.Common.Storage.CacheObjects
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
-        [Obsolete("Will be removed! Go API")]
         public void Add(string sessionID, long userID, string userName, string ipAddress, string userAgent, 
                         long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
                         decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
             var userAccess = new UserData
             {
+                TokenID = Guid.NewGuid(),
                 SessionID = sessionID,
                 UserID = userID,
                 UserName = userName,
@@ -89,7 +88,6 @@ namespace SMS.Common.Storage.CacheObjects
                 Add(userAccess);
         }
 
-        [Obsolete("Will be removed! Go API")]
         public bool AuthorizeSession()
         {
             RemoveExpiredSessions();
