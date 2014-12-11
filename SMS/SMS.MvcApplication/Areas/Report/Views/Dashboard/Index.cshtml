@@ -2,10 +2,22 @@
     <!--[if lt IE 9]><script type="text/javascript" src="~/Scripts/flot/excanvas.min.js"></script><![endif]-->
     <script type="text/javascript" src="~/Scripts/flot/jquery.flot.min.js"></script>
     <div class="row" style="padding-top: 10px;">
-        <label for="from">From</label>
-        <input type="text" id="from" name="from" style="width: 100px">
-        <label for="to">to</label>
-        <input type="text" id="to" name="to" style="width: 100px">
+        <table class="no-border">
+            <tr>
+                <td>Report type</td>
+                <td>
+                    <select id="reportType">
+                        <option>Invoice</option>
+                        <option>Invoice</option>
+                        <option>Invoice</option>
+                    </select>
+                </td>
+                <td>From</td>
+                <td><input type="text" id="from" name="from" style="width: 100px"></td>
+                <td>to</td>
+                <td><input type="text" id="to" name="to" style="width: 100px"></td>
+            </tr>
+        </table>
     </div>
     <div class="row">
         <div class="twelve columns" id="line-chart-div" style="height: 350px;"></div>
@@ -124,6 +136,8 @@
                 $("#from").datepicker("option", "maxDate", selectedDate);
             }
         });
+
+        $('#reportType').multiselect();
             
         $('#statistic table').table();
 
