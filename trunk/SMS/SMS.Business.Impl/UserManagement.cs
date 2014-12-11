@@ -77,6 +77,9 @@ namespace SMS.Business.Impl
             Repository.UpdateProfile(SmsCache.UserContext.UserID, password, firstName, lastName, cellPhone, email, address);
             UserConfigRepository.SaveThemeAndPageSize(SmsCache.UserContext.UserID, SmsCache.UserContext.CurrentBranchId, theme, pageSize);
 
+            SmsCache.UserContext.Theme = theme;
+            SmsCache.UserContext.PageSize = pageSize;
+
             return ServiceResult.CreateSuccessResult();
         }
     }

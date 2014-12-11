@@ -27,6 +27,10 @@ namespace SMS.Business.Impl
         public ServiceResult<UserConfigDto> SaveCashierInfo(long defaultAreaID, decimal listTableHeight)
         {
             var result = Repository.SaveUserProfile(SmsCache.UserContext.UserID, SmsCache.UserContext.CurrentBranchId, defaultAreaID, listTableHeight);
+
+            SmsCache.UserContext.DefaultAreaID = defaultAreaID;
+            SmsCache.UserContext.ListTableHeight = listTableHeight;
+
             return ServiceResult<UserConfigDto>.CreateSuccessResult(Mapper.Map<UserConfigDto>(result));
         }
     }
