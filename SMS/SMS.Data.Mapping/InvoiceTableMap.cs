@@ -22,7 +22,7 @@ namespace SMS.Data.Mapping
             Map(x => x.DetailAmount);
             Map(x => x.DiscountAmount);
             Map(x => x.Amount);
-            HasMany(x => x.InvoiceDetails).KeyColumn("InvoiceTableID").Inverse().Cascade.AllDeleteOrphan();
+            HasMany(x => x.InvoiceDetails).KeyColumn("InvoiceTableID").Cascade.AllDeleteOrphan();
         }
     }
 }
