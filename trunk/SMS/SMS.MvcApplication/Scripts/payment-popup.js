@@ -189,7 +189,8 @@
                     type: 'POST',
                     url: root.getUrlForCallback,
                     data: { orderID: root.orderId, tax: root.Data.Tax, serviceFee: root.Data.ServiceFee }
-                }).done(function(result) {
+                }).done(function (result) {
+                    $(".ajax-loader-mask").hide();
                     if (!result.Success) {
                         popup = new MessagePopup('Thông báo',
                             'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',

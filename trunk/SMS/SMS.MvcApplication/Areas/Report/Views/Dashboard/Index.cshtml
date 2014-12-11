@@ -7,15 +7,16 @@
                 <td>Report type</td>
                 <td>
                     <select id="reportType">
-                        <option>Invoice</option>
-                        <option>Invoice</option>
-                        <option>Invoice</option>
+                        <option>Doanh thu theo ngày</option>
+                        <option>Doanh thu theo tháng</option>
+                        <option>Doanh thu theo quý</option>
                     </select>
                 </td>
                 <td>From</td>
                 <td><input type="text" id="from" name="from" style="width: 100px"></td>
                 <td>to</td>
                 <td><input type="text" id="to" name="to" style="width: 100px"></td>
+                <td><button id="report">Report</button></td>
             </tr>
         </table>
     </div>
@@ -137,7 +138,18 @@
             }
         });
 
-        $('#reportType').multiselect();
+        $('#report').button({
+            icons: {
+                primary: "ui-icon-document"
+            }
+        }).click(function () {
+            
+            return false;
+        });
+
+        $('#reportType').multiselect({
+            selectedText: "# of # selected"
+        });
             
         $('#statistic table').table();
 
