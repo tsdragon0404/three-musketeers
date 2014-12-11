@@ -195,7 +195,7 @@ namespace SMS.MvcApplication.Controllers
 
             SmsCache.UserContext.CurrentBranchId = branchID;
             CommonObjects.PreviousSelectedBranch = branchID;
-            SmsCache.UserAccesses.First(x => x.SessionID == CommonObjects.SessionId).CurrentBranchId = branchID;
+            SmsCache.UserAccesses.Current.CurrentBranchId = branchID;
 
             return Json(JsonModel.Create(true));
         }
