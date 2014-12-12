@@ -1,9 +1,10 @@
-﻿using SMS.Data.Entities;
+﻿using SMS.Common.Enums;
+using SMS.Data.Entities;
 
 namespace SMS.Data
 {
     public interface IInvoiceRepository : IBaseRepository<Invoice>
     {
-        void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee, string taxInfo, int paymentMethod);
+        void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee, string taxInfo, PaymentMethod paymentMethod);
     }
 }

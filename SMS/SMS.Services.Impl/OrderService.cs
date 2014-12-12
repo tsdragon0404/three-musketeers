@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Validation;
 using SMS.Business;
+using SMS.Common.Enums;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -31,7 +32,7 @@ namespace SMS.Services.Impl
             return Management.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
         }
 
-        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
+        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, PaymentMethod paymentMethod)
         {
             return Management.Payment(orderID, taxInfo, tax, serviceFee, paymentMethod);
         }
