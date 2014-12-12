@@ -8,7 +8,7 @@ namespace SMS.Data.Impl
 {
     public class InvoiceRepository : BaseRepository<Invoice>, IInvoiceRepository
     {
-        public void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee, string taxInfo, int paymentMethod)
+        public void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee, string taxInfo, PaymentMethod paymentMethod)
         {
             var invoice = new Invoice
                               {
@@ -30,7 +30,7 @@ namespace SMS.Data.Impl
                                   InvoiceTables = order.OrderTables.Select(GetInvoiceTable).ToList(),
                                   InvoiceDiscounts = order.OrderDiscounts.Select(GetInvoiceDiscount).ToList(),
                                   TaxInfo = taxInfo,
-                                  PaymentMethod = (PaymentMethod)paymentMethod,
+                                  PaymentMethod = paymentMethod,
                                   DiscountAmount = order.DiscountAmount,
                                   InvoiceAmount = order.OrderAmount + serviceFee + tax,
                                   CreatedDate = order.CreatedDate,

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Validation;
+using SMS.Common.Enums;
 using SMS.Data.Dtos;
 
 namespace SMS.Services
@@ -10,7 +11,7 @@ namespace SMS.Services
         ServiceResult DeleteByOrderTableID(long orderTableID);
         ServiceResult DeleteMultiOrder(long[] order);
         ServiceResult UpdateOtherFee(long orderID, decimal otherFee, string otherFeeDescription);
-        ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod);
+        ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, PaymentMethod paymentMethod);
         ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID);
         ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts);
         ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob);

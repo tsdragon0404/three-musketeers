@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Enums;
 using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
@@ -212,7 +213,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
+        public JsonResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, PaymentMethod paymentMethod)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 

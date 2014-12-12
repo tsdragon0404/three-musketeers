@@ -68,7 +68,7 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
+        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, PaymentMethod paymentMethod)
         {
             var order = Repository.GetByID(orderID);
 
