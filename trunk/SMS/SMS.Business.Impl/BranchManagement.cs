@@ -24,7 +24,6 @@ namespace SMS.Business.Impl
 
         public override ServiceResult<BranchDto> Save(BranchDto dto)
         {
-            var result = new ServiceResult<BranchDto>();
             Branch branchToSave;
 
             if(dto.ID == 0)
@@ -61,8 +60,7 @@ namespace SMS.Business.Impl
 
             SmsCache.Reload(CacheKey.BranchConfig);
 
-            result.Data = Mapper.Map<BranchDto>(branchToSave);
-            return result;
+            return ServiceResult<BranchDto>.CreateSuccessResult(Mapper.Map<BranchDto>(branchToSave));
         }
 
         private void AssignBranchValues(BranchDto source, Branch destination)
