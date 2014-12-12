@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using SMS.Common.Enums;
-using SMS.Common.Storage;
 
 namespace SMS.Data.Dtos
 {
@@ -15,31 +12,9 @@ namespace SMS.Data.Dtos
     {
         public virtual IList<LanguageOrderTableDto> OrderTables { get; set; }
 
-        public virtual decimal SubTotal
-        {
-            get { return !OrderTables.Any() ? 0 : OrderTables.Sum(x => x.TableAmount); }
-        }
-
-        public virtual decimal DiscountValue
-        {
-            get
-            {
-                var result = 0M;
-                foreach (var orderDiscount in OrderDiscounts)
-                {
-                    if (orderDiscount.DiscountType == DiscountType.Number)
-                        result += orderDiscount.Discount;
-                    if (orderDiscount.DiscountType == DiscountType.Percent)
-                        result += (SubTotal + OtherFee + (SmsCache.BranchConfigs.Current.UseServiceFee ? SmsCache.BranchConfigs.Current.ServiceFee : 0)) * orderDiscount.Discount / 100;
-                }
-                return result;
-            }
-        }
-
-        public virtual decimal Total
-        {
-            get { return SubTotal + OtherFee + (SmsCache.BranchConfigs.Current.UseServiceFee ? SmsCache.BranchConfigs.Current.ServiceFee : 0) - DiscountValue; }
-        }
+        public virtual decimal SubTotal { get; set; }
+        public virtual decimal DiscountAmount { get; set; }
+        public virtual decimal OrderAmount { get; set; }
     }
 
     public class OrderBasicDto
@@ -53,6 +28,7 @@ namespace SMS.Data.Dtos
         public virtual string Address { get; set; }
         public virtual DateTime? DOB { get; set; }
         public virtual decimal OtherFee { get; set; }
+        public virtual decimal ServiceFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
         public virtual IList<OrderDiscountDto> OrderDiscounts { get; set; }
 

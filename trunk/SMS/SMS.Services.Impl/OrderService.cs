@@ -31,9 +31,9 @@ namespace SMS.Services.Impl
             return Management.UpdateOtherFee(orderID, otherFee, otherFeeDescription);
         }
 
-        public ServiceResult Payment(long orderID, decimal tax, decimal serviceFee)
+        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
         {
-            return Management.Payment(orderID, tax, serviceFee);
+            return Management.Payment(orderID, taxInfo, tax, serviceFee, paymentMethod);
         }
 
         public ServiceResult<IList<TDto>> GetOrderDiscount<TDto>(long orderID)

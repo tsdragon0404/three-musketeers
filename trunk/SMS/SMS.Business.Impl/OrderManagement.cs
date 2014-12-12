@@ -68,14 +68,14 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult Payment(long orderID, decimal tax, decimal serviceFee)
+        public ServiceResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
         {
             var order = Repository.GetByID(orderID);
 
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
-            InvoiceRepository.CreateInvoice(order, SmsCache.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee);
+            InvoiceRepository.CreateInvoice(order, SmsCache.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee, taxInfo, paymentMethod);
 
             Repository.Delete(orderID);
 

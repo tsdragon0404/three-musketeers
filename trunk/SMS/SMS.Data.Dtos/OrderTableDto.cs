@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SMS.Common.Enums;
-using SMS.Common.Storage;
 
 namespace SMS.Data.Dtos
 {
@@ -17,15 +15,10 @@ namespace SMS.Data.Dtos
         public virtual LanguageTableDto Table { get; set; }
         public virtual IList<LanguageOrderDetailDto> OrderDetails { get; set; }
 
-        public virtual decimal TableAmount
-        {
-            get
-            {
-                var serviceFee = SmsCache.BranchConfigs.Current.UseServiceFee ? (UseServiceFee ? SmsCache.BranchConfigs.Current.ServiceFee : 0) : 0;
-                var detailAmount = !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount);
-                return detailAmount + serviceFee + OtherFee - Discount;
-            }
-        }
+        public virtual decimal ServiceFee { get; set; }
+        public virtual decimal DetailAmount { get; set; }
+        public virtual decimal DiscountAmount { get; set; }
+        public virtual decimal Amount { get; set; }
     }
 
     public class SimpleOrderTableDto

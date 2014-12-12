@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Data;
 using SMS.Common.Enums;
+using SMS.Common.Storage;
 
 namespace SMS.Data.Entities
 {
@@ -26,6 +28,26 @@ namespace SMS.Data.Entities
         public virtual string OtherFeeDescription { get; set; }
 
         public virtual IList<OrderDetail> OrderDetails { get; set; }
+
+        public virtual decimal ServiceFee
+        {
+            get { return SmsCache.BranchConfigs.Current.UseServiceFee ? (UseServiceFee ? SmsCache.BranchConfigs.Current.ServiceFee : 0) : 0; }
+        }
+
+        public virtual decimal DetailAmount
+        {
+            get { return !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount); }
+        }
+
+        public virtual decimal DiscountAmount
+        {
+            get { return DiscountType == DiscountType.Number ? Discount : DetailAmount * Discount / 100; }
+        }
+
+        public virtual decimal Amount
+        {
+            get { return DetailAmount + ServiceFee + OtherFee - DiscountAmount; }
+        }
 
         #region Implementation of IAuditableEntity
 

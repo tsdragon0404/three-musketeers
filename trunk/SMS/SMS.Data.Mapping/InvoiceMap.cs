@@ -1,4 +1,5 @@
-﻿using SMS.Data.Entities;
+﻿using SMS.Common.Enums;
+using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
@@ -21,7 +22,7 @@ namespace SMS.Data.Mapping
             Map(x => x.OtherFeeDescription);
             Map(x => x.TaxInfo);
             Map(x => x.Currency);
-            Map(x => x.PaymentMethod);
+            Map(x => x.PaymentMethod).CustomType<PaymentMethod>();
             Map(x => x.TaxAmount);
             Map(x => x.DiscountAmount);
             Map(x => x.InvoiceAmount);

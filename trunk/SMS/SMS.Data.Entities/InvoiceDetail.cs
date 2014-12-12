@@ -1,8 +1,10 @@
-﻿using SMS.Common.Enums;
+﻿using System;
+using Core.Data;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class InvoiceDetail : Entity
+    public class InvoiceDetail : Entity, IAuditableEntity
     {
         public virtual InvoiceTable InvoiceTable { get; set; }
 
@@ -31,5 +33,17 @@ namespace SMS.Data.Entities
         public virtual decimal DiscountAmount { get; set; }
 
         public virtual decimal Amount { get; set; }
+
+        #region Implementation of IAuditableEntity
+
+        public virtual DateTime? CreatedDate { get; set; }
+
+        public virtual string CreatedUser { get; set; }
+
+        public virtual DateTime? ModifiedDate { get; set; }
+
+        public virtual string ModifiedUser { get; set; }
+
+        #endregion
     }
 }

@@ -198,14 +198,14 @@
                 </div>
                 <div class="right col2">
                     <div id="order-discount"></div>
-                    <span class="discountAmount">-${DiscountValue.formatAsMoney()}</span> <span id="discountCurrency">  @SmsCache.BranchConfigs.Current.Currency</span>
+                    <span class="discountAmount">-${DiscountAmount.formatAsMoney()}</span> <span id="discountCurrency">  @SmsCache.BranchConfigs.Current.Currency</span>
                 </div>
                 <div class="left col3"><span data-labelID="lblDicountAmount" class="label-custom-label">Discount Amount:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
             <div class="row">
                 <div class="center col1">&nbsp;</div>
-                <div class="right col2 border-top"><span class="total">${Total.formatAsMoney()}</span> @SmsCache.BranchConfigs.Current.Currency</div>
+                <div class="right col2 border-top"><span class="total">${OrderAmount.formatAsMoney()}</span> @SmsCache.BranchConfigs.Current.Currency</div>
                 <div class="left col3 border-top"><span data-labelID="lblTotal" class="label-custom-label">Total:</span></div>
                 <div class="center col4">&nbsp;</div>
             </div>
@@ -1059,31 +1059,23 @@
                     }
                 });
             } else {
-                //TODO: fix this
-                @*var discountType = $('#discount-type').val();
+                var discountType = $('#discount-type').val();
                 var discount = $('#discount').val().trim();
 
-                var arrdiscountType = [],
-                    arrdiscount = [],
-                    arrdiscountCode = [],
-                    arrdiscountComment = [];
-
-                arrdiscountType[arrdiscountType.length] = discountType;
-                arrdiscount[arrdiscount.length] = discount;
-                arrdiscountCode[arrdiscountCode.length] = "";
-                arrdiscountComment[arrdiscountComment.length] = "";
-
+                var orderDiscounts = new  Array();
+                orderDiscounts[orderDiscounts.length] = {DiscountType : discountType, Discount: discount, DiscountCode: "", DiscountComment: ""};
+                
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("SaveOrderDiscount")',
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ orderID: orderId, discountTypes: arrdiscountType, discountCodes: arrdiscountCode, discountComments: arrdiscountComment, discounts: arrdiscount })
+                    data: JSON.stringify({ orderID: orderId, orderDiscounts: orderDiscounts })
                 }).done(function(result) {
                     if (result.Success) {
                         refreshOrderArea();
                     }
-                });*@
+                });
             }
             return false;
         });
