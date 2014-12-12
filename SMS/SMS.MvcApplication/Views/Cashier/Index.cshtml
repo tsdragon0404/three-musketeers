@@ -455,7 +455,7 @@
 
         $("#saveCashierInfo").button({
             icons: {
-                primary: "ui-icon-locked"
+                primary: "ui-icon-star"
             },
             text: false
         }).click(function() {
@@ -1378,7 +1378,8 @@
         if ($bottomM < $hMenu) {
             $topM -= $hMenu;
         }
-        $menu.css({ left: $leftM, top: $topM, display: 'block' });
+        $menu.css({ left: $leftM, top: $topM });
+        $menu.show({ effect: "fold", duration: 300 });
         event.preventDefault();
     }
     
