@@ -212,11 +212,11 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult Payment(long orderID, decimal tax, decimal serviceFee)
+        public JsonResult Payment(long orderID, string taxInfo, decimal tax, decimal serviceFee, int paymentMethod)
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderService.Payment(orderID, tax, serviceFee);
+            var result = OrderService.Payment(orderID, taxInfo, tax, serviceFee, paymentMethod);
 
             return Json(JsonModel.Create(result));
         }

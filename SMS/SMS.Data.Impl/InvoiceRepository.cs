@@ -1,26 +1,42 @@
 ﻿using System;
 using System.Linq;
+using SMS.Common.Enums;
+using SMS.Common.Storage;
 using SMS.Data.Entities;
 
 namespace SMS.Data.Impl
 {
     public class InvoiceRepository : BaseRepository<Invoice>, IInvoiceRepository
     {
-        public void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee)
+        public void CreateInvoice(Order order, long userID, string currency, decimal tax, decimal serviceFee, string taxInfo, int paymentMethod)
         {
             var invoice = new Invoice
                               {
                                   InvoiceNumber = order.OrderNumber,
                                   InvoiceDate = DateTime.Now,
+                                  InvoiceCreatedBy = SmsCache.UserContext.UserName,
                                   Branch = new Branch {ID = order.Branch.ID},
                                   CustomerID = order.Customer.ID,
+                                  CustomerName = order.CustomerName,
+                                  CellPhone = order.CellPhone,
+                                  Address = order.Address,
+                                  DOB = order.DOB,
                                   Currency = currency,
-                                  Comment = order.Comment,
+                                  Comment = order.Comment ?? "",
                                   ServiceFee = serviceFee,
                                   OtherFee = order.OtherFee,
-                                  OtherFeeDescription = order.OtherFeeDescription,
+                                  OtherFeeDescription = order.OtherFeeDescription ?? "",
+                                  TaxAmount = tax,
                                   InvoiceTables = order.OrderTables.Select(GetInvoiceTable).ToList(),
-                                  InvoiceDiscounts = order.OrderDiscounts.Select(GetInvoiceDiscount).ToList()
+                                  InvoiceDiscounts = order.OrderDiscounts.Select(GetInvoiceDiscount).ToList(),
+                                  TaxInfo = taxInfo,
+                                  PaymentMethod = (PaymentMethod)paymentMethod,
+                                  DiscountAmount = order.DiscountAmount,
+                                  InvoiceAmount = order.OrderAmount + serviceFee + tax,
+                                  CreatedDate = order.CreatedDate,
+                                  CreatedUser = order.CreatedUser,
+                                  ModifiedDate = order.ModifiedDate,
+                                  ModifiedUser = order.ModifiedUser
                               };
             
             Add(invoice);
@@ -45,12 +61,19 @@ namespace SMS.Data.Impl
                            TableVNName = orderTable.Table.VNName,
                            TableENName = orderTable.Table.ENName,
                            Discount = orderTable.Discount,
-                           DiscountCode = orderTable.DiscountCode,
+                           DiscountCode = orderTable.DiscountCode ?? "",
                            DiscountType = orderTable.DiscountType,
-                           DiscountComment = orderTable.DiscountComment,
+                           DiscountComment = orderTable.DiscountComment ?? "",
                            OtherFee = orderTable.OtherFee,
-                           OtherFeeDescription = orderTable.OtherFeeDescription,
-                           InvoiceDetails = orderTable.OrderDetails.Select(GetInvoiceDetail).ToList()
+                           OtherFeeDescription = orderTable.OtherFeeDescription ?? "",
+                           InvoiceDetails = orderTable.OrderDetails.Select(GetInvoiceDetail).ToList(),
+                           DetailAmount = orderTable.DetailAmount,
+                           DiscountAmount = orderTable.DiscountAmount,
+                           Amount = orderTable.Amount,
+                           CreatedDate = orderTable.CreatedDate,
+                           CreatedUser = orderTable.CreatedUser,
+                           ModifiedDate = orderTable.ModifiedDate,
+                           ModifiedUser = orderTable.ModifiedUser
                        };
         }
 
@@ -66,9 +89,15 @@ namespace SMS.Data.Impl
                            Quantity = orderDetail.Quantity,
                            Price = orderDetail.Product.Price,
                            Discount = orderDetail.Discount,
-                           DiscountCode = orderDetail.DiscountCode,
+                           DiscountCode = orderDetail.DiscountCode ?? "",
                            DiscountType = orderDetail.DiscountType,
-                           DiscountComment = orderDetail.DiscountComment
+                           DiscountComment = orderDetail.DiscountComment ?? "",
+                           DiscountAmount = orderDetail.DiscountAmount,
+                           Amount = orderDetail.Amount,
+                           CreatedDate = orderDetail.CreatedDate,
+                           CreatedUser = orderDetail.CreatedUser,
+                           ModifiedDate = orderDetail.ModifiedDate,
+                           ModifiedUser = orderDetail.ModifiedUser
                        };
         }
     }

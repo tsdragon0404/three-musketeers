@@ -7,6 +7,7 @@ namespace SMS.Data.Dtos
         public virtual long ID { get; set; }
         public virtual BranchDto Branch { get; set; }
         public virtual string InvoiceNumber { get; set; }
+        public virtual string InvoiceCreatedBy { get; set; }
         public virtual DateTime InvoiceDate { get; set; }
         public virtual string Comment { get; set; }
         public virtual long CustomerID { get; set; }

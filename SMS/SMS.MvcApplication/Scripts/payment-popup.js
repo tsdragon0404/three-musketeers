@@ -102,7 +102,7 @@
             
             $('.subTotal').text(root.Data.SubTotal.formatAsMoney());
             $('.otherFee').text(root.Data.OtherFee.formatAsMoney());
-            $('.discount').text('-' + root.Data.DiscountValue.formatAsMoney());
+            $('.discount').text('-' + root.Data.DiscountAmount.formatAsMoney());
             $(root.popupId + ' #popupchkUseServiceFee').prop('checked', root.useServiceFee);
             $(root.popupId + ' input[id^="popupChkUseTax-"]').each(function (idx, e) {
                 $(e).prop('checked', root.useTax[idx]);
@@ -157,22 +157,29 @@
         }
 
         root.Data.ServiceFee = serviceFee;
-        root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee - root.Data.DiscountValue;
+        root.Data.SumAmount = root.Data.SubTotal + root.Data.OtherFee + serviceFee - root.Data.DiscountAmount;
 
         var tax = 0;
+        var taxInfo = "";
         $(root.popupId + ' .payment-config table tr[id^="tax-"]').each(function (idx, element) {
             if ($(element).find('input[id^="popupChkUseTax-"]').is(':checked')) {
                 $(element).removeClass('icon-disable');
                 var value = $(element).find('span[id^="tax-value-"]').text();
                 tax += root.Data.SumAmount > 0 ? root.Data.SumAmount * value / 100 : 0;
                 $(element).find('span[id^="tax-amount-"]').text((root.Data.SumAmount * value / 100).formatAsMoney());
+                if(taxInfo == "")
+                    taxInfo = $(element).attr('id').replace('tax-', '') + ":" + value;
+                else
+                    taxInfo += ";" + $(element).attr('id').replace('tax-', '') + ":" + value;
             } else {
                 $(element).addClass('icon-disable');
                 $(element).find('span[id^="tax-amount-"]').text('0');
             }
         });
         root.Data.Tax = tax;
+        root.Data.TaxInfo = taxInfo;
         root.Data.TotalAmount = root.Data.SumAmount + tax;
+        root.Data.PaymentMethod = 1;
         $(root.popupId + ' .total').text(root.Data.SumAmount.formatAsMoney());
         $(root.popupId + ' .totalAmount').text(root.Data.TotalAmount.formatAsMoney());
         $(root.popupId + ' #txtcash').val(root.Data.TotalAmount.formatAsMoney());
@@ -188,7 +195,7 @@
                 $.ajax({
                     type: 'POST',
                     url: root.getUrlForCallback,
-                    data: { orderID: root.orderId, tax: root.Data.Tax, serviceFee: root.Data.ServiceFee }
+                    data: { orderID: root.orderId, taxInfo: root.Data.TaxInfo, tax: root.Data.Tax, serviceFee: root.Data.ServiceFee, paymentMethod: root.Data.PaymentMethod }
                 }).done(function (result) {
                     $(".ajax-loader-mask").hide();
                     if (!result.Success) {

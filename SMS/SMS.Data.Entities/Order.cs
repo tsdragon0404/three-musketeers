@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Data;
+using SMS.Common.Enums;
 using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
@@ -28,6 +30,42 @@ namespace SMS.Data.Entities
         public virtual IList<OrderDiscount> OrderDiscounts { get; set; }
 
         public virtual IList<OrderTable> OrderTables { get; set; }
+
+        public virtual decimal ServiceFee { get; set; }
+
+        public virtual decimal SubTotal
+        {
+            get
+            {
+                if (OrderTables == null)
+                    return 0;
+                return !OrderTables.Any() ? 0 : OrderTables.Sum(x => x.Amount);
+            }
+        }
+
+        public virtual decimal DiscountAmount
+        {
+            get
+            {
+                var result = 0M;
+                if (OrderDiscounts != null)
+                {
+                    foreach (var orderDiscount in OrderDiscounts)
+                    {
+                        if (orderDiscount.DiscountType == DiscountType.Number)
+                            result += orderDiscount.Discount;
+                        if (orderDiscount.DiscountType == DiscountType.Percent)
+                            result += (SubTotal + OtherFee + ServiceFee)*orderDiscount.Discount/100;
+                    }
+                }
+                return result;
+            }
+        }
+
+        public virtual decimal OrderAmount
+        {
+            get { return SubTotal + OtherFee + ServiceFee - DiscountAmount; }
+        }
 
         #region Implementation of IBranchEntity
 

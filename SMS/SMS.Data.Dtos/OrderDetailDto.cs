@@ -1,4 +1,4 @@
-﻿using SMS.Common.Constant;
+﻿using System;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Dtos
@@ -14,11 +14,9 @@ namespace SMS.Data.Dtos
     {
         public virtual LanguageProductDto Product { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
-
-        public virtual decimal Amount
-        {
-            get { return Quantity * Product.Price - Discount; }
-        }
+        public virtual decimal SubTotal { get; set; }
+        public virtual decimal DiscountAmount { get; set; }
+        public virtual decimal Amount { get; set; }
     }
 
     public class OrderDetailBasicDto
@@ -31,5 +29,10 @@ namespace SMS.Data.Dtos
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
         public virtual string KitchenComment { get; set; }
+
+        public virtual DateTime? CreatedDate { get; set; }
+        public virtual string CreatedUser { get; set; }
+        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual string ModifiedUser { get; set; }
     }
 }

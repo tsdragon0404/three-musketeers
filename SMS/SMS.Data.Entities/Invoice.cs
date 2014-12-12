@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Data;
+using SMS.Common.Enums;
 using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Entities
@@ -10,6 +11,8 @@ namespace SMS.Data.Entities
         public virtual string InvoiceNumber { get; set; }
 
         public virtual DateTime InvoiceDate { get; set; }
+
+        public virtual string InvoiceCreatedBy { get; set; }
 
         public virtual string Comment { get; set; }
 
@@ -33,7 +36,7 @@ namespace SMS.Data.Entities
 
         public virtual string Currency { get; set; }
 
-        public virtual int PaymentMethod { get; set; }
+        public virtual PaymentMethod PaymentMethod { get; set; }
 
         public virtual decimal TaxAmount { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using SMS.Common.Enums;
+﻿using System;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Dtos
 {
@@ -19,5 +20,10 @@ namespace SMS.Data.Dtos
         public virtual string DiscountComment { get; set; }
         public virtual decimal DiscountAmount { get; set; }
         public virtual decimal Amount { get; set; }
+
+        public virtual DateTime? CreatedDate { get; set; }
+        public virtual string CreatedUser { get; set; }
+        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual string ModifiedUser { get; set; }
     }
 }
