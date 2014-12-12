@@ -156,7 +156,8 @@ BEGIN
         [InvoiceID] [bigint] IDENTITY(1,1) NOT NULL,
         [BranchID] [int] NULL,
         [InvoiceNumber] [nvarchar](50) NULL,
-        [InvoiceDate] [date] NULL,
+        [InvoiceDate] [datetime] NULL,
+		[InvoiceCreatedBy] [nvarchar](50) NULL,
         [Comment] [nvarchar](255) NULL,
         [CustomerID] [int] NULL,
         [CustomerName] [nvarchar](255) NULL,
@@ -201,7 +202,11 @@ BEGIN
         [DiscountCode] [nvarchar](50) NULL,
         [DiscountComment] [nvarchar](255) NULL,
 		[DiscountAmount] [numeric](19, 2) NULL,
-		[Amount] [numeric](19, 2) NULL
+		[Amount] [numeric](19, 2) NULL,
+		[CreatedDate] [datetime] NULL,
+        [CreatedUser] [nvarchar](50) NULL,
+        [ModifiedDate] [datetime] NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_InvoiceDetail] PRIMARY KEY CLUSTERED 
     (
         [InvoiceDetailID] ASC
@@ -563,6 +568,10 @@ BEGIN
         [DiscountComment] [nvarchar](255) NULL,
         [KitchenComment] [nvarchar] (255) NULL,
         [OrderStatus] [tinyint] NULL,
+		[CreatedDate] [datetime] NULL,
+        [CreatedUser] [nvarchar](50) NULL,
+        [ModifiedDate] [datetime] NULL,
+        [ModifiedUser] [nvarchar](50) NULL,
      CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
     (
         [OrderDetailID] ASC
