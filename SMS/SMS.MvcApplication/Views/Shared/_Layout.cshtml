@@ -109,10 +109,6 @@
                             <li><a data-globalLabelID="lblUser">User</a>
                                 <ul class="submenu">
                                     <li>@Html.ActionLink("Edit profile", "Edit", "Account", new { area = "" }, null)</li>
-                                    @if (Request.RequestContext.RouteData.Values["controller"] != null && Request.RequestContext.RouteData.Values["controller"].ToString() == "Cashier")
-                                    {
-                                        <li><a id="saveCashierInfo" href="#" data-globalLabelID="lblSaveCashierInfo">Save cashier info</a></li>
-                                    }
                                 </ul>
                             </li>
                             <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, new { data_globalLabelID ="lblLogout"})</li>
@@ -161,35 +157,6 @@
                             });
                         }
 
-                        $('#saveCashierInfo').click(function () {
-                            var tabId = -1;
-                            var selectedTab = $('#areas li.ui-state-active a');
-                            if (selectedTab.length > 0) {
-                                tabId = selectedTab.attr('href').split('-')[1];
-                            }
-                            var height = -1;
-                            var divider = $('#tableorder');
-                            if (divider.length > 0) {
-                                var heightInPx = divider.height();
-                                var parentHeightInPx = divider.offsetParent().height();
-                                height = (100 * heightInPx / parentHeightInPx).toFixed(2);
-                            }
-
-                            if (tabId == -1 || height == -1)
-                                return false;
-
-                            $.ajax({
-                                type: 'POST',
-                                url: '@Url.Action("SaveCashierInfo", "Cashier", new { area = "" })',
-                                data: {
-                                    DefaultAreaID: tabId,
-                                    ListTableHeight: height
-                                }
-                            }).done(function () {
-                                location.reload();
-                            });
-                            return false;
-                        });
                         $('a[id^="changeBranch-"]').click(function() {
                             var id = $(this).attr('data-branchId');
                             $.ajax({
