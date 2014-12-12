@@ -92,6 +92,7 @@ namespace SMS.Business.Impl
         public ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts)
         {
             var discounts = Mapper.Map<OrderDiscount[]>(orderDiscounts);
+            discounts.Each(x => x.OrderID = orderID);
             Repository.SaveDiscounts(orderID, discounts);
 
             return ServiceResult.CreateSuccessResult();
