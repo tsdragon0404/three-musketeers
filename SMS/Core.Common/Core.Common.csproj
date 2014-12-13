@@ -42,6 +42,7 @@
     <Compile Include="CustomAttributes\LengthAttribute.cs" />
     <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpParameter.cs" />
     <Compile Include="Validation\ErrorType.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
     <Compile Include="Validation\Error.cs" />

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Common;
 
 namespace Core.Data
 {
@@ -114,7 +116,7 @@ namespace Core.Data
         /// </summary>
         /// <param name="spName">The stored procedure name</param>
         /// <param name="parameters"> </param>
-        object ExecuteStoredProcedure(string spName, Dictionary<string, string> parameters);
+        DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters);
     }
 
     /// <summary>

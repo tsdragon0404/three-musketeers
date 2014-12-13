@@ -29,7 +29,7 @@ namespace SMS.Data.Impl
         {
             var orders = Find(x => x.Branch.ID == branchID
                                            && x.OrderTables.Any(y => y.OrderDetails.Any(z => z.OrderStatus == status))).ToList();
-
+            
             var orderProducts = new List<OrderDetail>();
             orders.Apply(x => x.OrderTables.Apply(y => orderProducts.AddRange(y.OrderDetails)));
             return orderProducts;

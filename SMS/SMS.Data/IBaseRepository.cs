@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
-using SMS.Common.Paging;
+using Core.Common;
 
 namespace SMS.Data
 {
@@ -21,5 +22,6 @@ namespace SMS.Data
         bool Delete(long primaryKey);
         bool DeleteInCurrentBranch(long primaryKey);
         void Save(TEntity entity);
+        DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters);
     }
 }

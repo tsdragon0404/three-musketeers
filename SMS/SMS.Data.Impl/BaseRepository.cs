@@ -137,19 +137,9 @@ namespace SMS.Data.Impl
             return record;
         }
 
-        public new virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
-        {
-            return base.Exists(predicate);
-        }
-
         public virtual bool ExistsInCurrentBranch(Expression<Func<TEntity, bool>> predicate)
         {
             return List(predicate).Any();
-        }
-
-        public new virtual bool Delete(long primaryKey)
-        {
-            return base.Delete(primaryKey);
         }
 
         public virtual bool DeleteInCurrentBranch(long primaryKey)
@@ -161,7 +151,7 @@ namespace SMS.Data.Impl
         public virtual void Save(TEntity entity)
         {
             if (entity is IBranchEntity)
-                (entity as IBranchEntity).Branch = new Entities.Branch { ID = SmsCache.UserContext.CurrentBranchId };
+                (entity as IBranchEntity).Branch = new Branch { ID = SmsCache.UserContext.CurrentBranchId };
 
             if (entity.ID == 0)
                 Add(entity);
