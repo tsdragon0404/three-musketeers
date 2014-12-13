@@ -30,12 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SMS.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SMS.MvcApplication\bin\SMS.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseRepository.cs" />
@@ -72,13 +70,13 @@
       <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
       <Name>Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
-      <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
-      <Name>Core.Data.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">
       <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
       <Name>Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMS.Common\SMS.Common.csproj">
+      <Project>{4ad90788-2d30-4e3f-9bff-20f4568e082f}</Project>
+      <Name>SMS.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SMS.Data.Entities\SMS.Data.Entities.csproj">
       <Project>{4D5C44C9-7B29-47C5-940F-81063CB328E8}</Project>

@@ -1,10 +1,9 @@
 ﻿using Castle.DynamicProxy;
 using NHibernate;
-using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace Core.Data.NHibernate.Interceptors
 {
-    public class BusinessInterceptor : IInterceptor
+    public class BusinessInterceptor : Castle.DynamicProxy.IInterceptor
     {
         private ISessionFactory SessionFactory { get; set; }
 

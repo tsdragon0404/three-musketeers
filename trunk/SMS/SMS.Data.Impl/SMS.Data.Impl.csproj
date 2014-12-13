@@ -32,12 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SMS.MvcApplication\bin\Core.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaRepository.cs" />
@@ -70,6 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{5fb61bb1-1fb0-44ba-bd89-c99c4b5a810f}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
       <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
       <Name>Core.Data.NHibernate</Name>
