@@ -11,6 +11,7 @@ namespace SMS.Data.Mapping
             References(x => x.Branch).Column("BranchID").Cascade.None();
             Map(x => x.InvoiceNumber);
             Map(x => x.InvoiceDate);
+            Map(x => x.InvoiceCreatedBy);
             Map(x => x.Comment);
             Map(x => x.CustomerID);
             Map(x => x.CustomerName);
