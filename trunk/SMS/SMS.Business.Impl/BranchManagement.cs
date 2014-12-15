@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Enums;
@@ -47,9 +48,9 @@ namespace SMS.Business.Impl
                 if (!branchToSave.UseKitchenFunction)
                 {
                     var statuses = new List<OrderStatus> { OrderStatus.SentToKitchen, OrderStatus.Ordered, OrderStatus.KitchenAccepted };
-                    Func<Order, bool> predicate = x => x.OrderTables.Any(y => y.OrderDetails.Any(z => statuses.Contains(z.OrderStatus))) && x.Branch.ID == branchToSave.ID;
+                    Expression<Func<Order, bool>> predicate = x => x.OrderTables.Any(y => y.OrderDetails.Any(z => statuses.Contains(z.OrderStatus))) && x.Branch.ID == branchToSave.ID;
 
-                    var ordersInKitchen = OrderRepository.List(x => predicate(x));
+                    var ordersInKitchen = OrderRepository.List(predicate);
                     foreach (var order in ordersInKitchen)
                     {
                         order.OrderTables.Apply(x => x.OrderDetails.Apply(y => y.OrderStatus = OrderStatus.Done));
