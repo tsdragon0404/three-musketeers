@@ -19,7 +19,8 @@ namespace SMS.Data.Impl
         public void SaveDiscounts(long orderID, OrderDiscount[] discounts)
         {
             var order = Get(orderID);
-            
+            order.OrderDiscounts.Clear();
+
             foreach (var orderDiscount in discounts)
                 order.OrderDiscounts.Add(orderDiscount);
             Update(order);
