@@ -11,7 +11,6 @@
                     <col class="col4" />
                     <col class="col5" />
                     <col style="width: 110px" />
-                    <col style="width: 110px" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -21,7 +20,6 @@
                         <th>Category</th>
                         <th>Price</th>
                         <th>QTY</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="tbContentLookup">
@@ -38,16 +36,14 @@
 <script src="@Url.Content("~/Scripts/search-product-popup.js")"></script>
 <script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
     {{each(idx) ListProduct}}
-    <tr>
+    <tr id="item-${ID}">
         <td>${idx+1}</td>
-        <td>${Code}</td>
+        <td><span id="productCode-${ID}" class="link-label label-custom-label">${Code}</span></td>
         <td>${Name}</td>
         <td>${CategoryName}</td>
         <td class="right">${Price.formatAsMoney()}</td>
         <td class="right">
             <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
-        <td class="center">
-            <button class="popupSelect" id="select-${ID}" tabindex="${tabIdx + 1}">Select</button></td>
     </tr>
     {{/each}}
 </script>
