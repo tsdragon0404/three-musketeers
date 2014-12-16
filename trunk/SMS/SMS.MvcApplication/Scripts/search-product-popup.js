@@ -16,18 +16,7 @@
         resizable: false
     });
 
-    //unbind click event for buttons
-    $('#' + root.id + ' button[id^="select-"]').unbind('click');
-
-    $('#' + root.id + ' .popupSearch').button({
-        icons: {
-            primary: "ui-icon-search"
-        }
-    }).click(function() {
-        root.search();
-        return false;
-    });
-
+    // start main button
     $('#' + root.id + ' .popupClose').button({
         icons: {
             primary: "ui-icon-close"
@@ -46,6 +35,7 @@
             root.refreshCallback(reloadProduct);
         return false;
     });
+    // end main button
 
     this.OpenPopup = function () {
         $('#' + root.id).dialog("open");
@@ -56,10 +46,14 @@
 
     function SetHeightTableContent() {
         var contentHeight = $('#' + root.id + ' .popup-content').height();
-        var height1 = $('#searchProduct_wrapper > .ui-widget-header').outerHeight();
+        var height1 = 0;
+        $('#searchProduct_wrapper > .ui-widget-header').each(function (idx, element) {
+            height1 += $(element).outerHeight();
+        });
+        
         var height2 = $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
 
-        var targetHeight = contentHeight - height1*2 - height2 - 7; // subtract 2 more px due to the border and padding bottom
+        var targetHeight = contentHeight - height1 - height2 - 7; // subtract 2 more px due to the border and padding bottom
         $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
     }
     
@@ -87,38 +81,20 @@
             min: 0.5
         });
 
-        $('#' + root.id + ' .popupSelect').button({
-            icons: {
-                primary: "ui-icon-circle-check"
-            }
-        }).click(function (e) {
+        $('span[id^="productCode-"]').click(function(e) {
             var pdtid = e.currentTarget.id.split('-')[1];
             if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);
             return false;
         });
-
-        $('#' + root.id + ' .popupSelect').keypress(function (e) {
-            if (e.which == 13) {
-                $(e.target).trigger('click');
-            }
-        });
         
         $('#' + root.id + ' .tbContentLookup tr').dblclick(function (e) {
-            $(e.currentTarget).find('button.popupSelect').trigger('click');
+            $(e.currentTarget).find('span[id^="productCode-"]').trigger('click');
         });
 
         // stop Propagation on spinner element (double click on spinner will not trigger row double click)
         $('.tbContentLookup .ui-spinner').dblclick(function (e) {
             e.stopPropagation();
-        });
-
-        $('#' + root.id + ' .inputQty').keypress(function (e) {
-            if (e.which == 13) {
-                var pdtid = e.target.id.split('-')[1];
-                $('#select-' + pdtid).focus();
-                return;
-            }
         });
         
         $('#' + root.id + ' #searchProduct').off('draw.dt');
@@ -128,14 +104,17 @@
         
         table = $('#' + root.id + ' #searchProduct').DataTable({
             scrollY: "200px",
-            renderer: "bootstrap",
+            searching: true,
+            ordering: true,
+            "info": true,
+            "lengthChange": true,
+            "jQueryUI": true,
             columns: [
                 null,
                 null,
                 null,
                 null,
                 null,
-                { "orderable": false },
                 { "orderable": false }
             ],
             language: {
@@ -154,6 +133,22 @@
                 }
             }
         });
+
+        //$('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="custom_filter"></tr>');
+
+        //$('#' + root.id + ' .dataTables_scrollHead table thead th').each(function () {
+        //    var title = $('#searchProduct thead th').eq($(this).index()).text();
+        //    $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
+        //        .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" placeholder="Search ' + title + '" /></th>');
+        //});
+        
+        //table.columns().eq(0).each(function (colIdx) {
+        //    $('input', '#' + root.id + ' .dataTables_scrollHead table thead .custom_filter').on('keyup change', function () {
+        //        console.log(this.value);
+        //        table.column(colIdx).search(this.value).draw();
+        //    });
+        //});
+
     };
 
     function fixTableHeader() {
@@ -166,25 +161,11 @@
             $(headerColumns[i]).css('width', $(columns[i]).width());
         }
     }
-    
-    this.search = function () {
-        var text = $('#' + root.id + ' .textSearch').val().toLowerCase();
-        var tempData = new Array();
-        
-        $(root.productData).each(function(idx, element) {
-            if (element.ProductCode.toLowerCase().indexOf(text) != -1
-                || element.Name.toLowerCase().indexOf(text) != -1) {
-                tempData.push(element);
-            }
-        });
-
-        root.renderProducts(tempData);
-    };
 
     this.select = function (e) {
         $('#' + root.id).dialog('close');
         var pdtId = e.currentTarget.id.split('-')[1];
-        var qty = $(e.currentTarget).parent().prev().find('input[id^="popup-qty"]').val();
+        var qty = $(e.currentTarget).parents('tr').find('input[id^="popup-qty"]').val();
 
         if (root.selectCallback)
             root.selectCallback(pdtId, qty);
