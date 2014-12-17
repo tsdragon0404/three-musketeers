@@ -4,17 +4,8 @@
     <div class="popup-content">
         <form>
             <table id="searchProduct">
-                <colgroup>
-                    <col class="col1" />
-                    <col class="col2" />
-                    <col class="col3" />
-                    <col class="col4" />
-                    <col class="col5" />
-                    <col style="width: 110px" />
-                </colgroup>
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>Code</th>
                         <th>Name</th>
                         <th>Category</th>
@@ -37,7 +28,6 @@
 <script id="popup-content-@Model.PopupID" type="text/x-jquery-tmpl">
     {{each(idx) ListProduct}}
     <tr id="item-${ID}">
-        <td>${idx+1}</td>
         <td><span id="productCode-${ID}" class="link-label label-custom-label">${Code}</span></td>
         <td>${Name}</td>
         <td>${CategoryName}</td>
@@ -46,11 +36,4 @@
             <input type="text" value="1" name="qty-${ID}" id="popup-qty-${ID}" class="inputQty number required" tabindex="${tabIdx}" /></td>
     </tr>
     {{/each}}
-</script>
-<script type="text/javascript">
-    $('#@Model.PopupID .textSearch, #@Model.PopupID .popupSearch').keypress(function (e) {
-        if (e.which == 13) {
-            $('#@Model.PopupID .popupSearch').trigger('click');
-        }
-    });
 </script>

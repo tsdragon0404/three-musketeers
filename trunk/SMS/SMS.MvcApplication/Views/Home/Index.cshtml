@@ -11,17 +11,6 @@
             </tr>
         </thead>
 
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
-
         <tbody>
             <tr>
                 <td>Tiger Nixon</td>
@@ -485,11 +474,7 @@
     <script type="text/javascript" >
 
         $(document).ready(function () {
-            $('#example').DataTable({
-                "scrollY": "200px",
-                "scrollCollapse": true,
-                "paging": false
-            });
+            //$('#example').DataTable();
             
             // Send an AJAX request
             //$.getJSON('http://localhost/SMSWebAPI/api/Home/Index')
@@ -497,6 +482,59 @@
             //        // On success, 'data' contains a list of products.
             //        alert(data);
             //    });
+            
+            
+
+            // DataTable
+            var table = $('#example').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": true,
+                searching: false,
+                ordering: true,
+                columns: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "orderable": false }
+                ],
+            });
+
+           
+
+            $('.dataTables_scrollHead table thead').append('<tr role="row" class="custom_filter"></tr>');
+
+            $('.dataTables_scrollHead table thead th').each(function (idx) {
+                    $('.dataTables_scrollHead table thead .custom_filter')
+                        .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" /></th>');
+                
+            });
+            
+            $(".custom_filter input").keyup(function (e) {
+                var code = e.keyCode || e.which;
+                if (code != '9') {
+                    setTimeout(function () {
+                        var colIdx = $("thead input").index(this);
+                        table
+                            .column(colIdx)
+                            .search(this.value)
+                            .draw();
+                    }, 100);
+                }
+            });
+
+            // Apply the search
+            //table.columns().eq(0).each(function (colIdx) {
+            //    $('input', table.column(colIdx).footer()).on('keyup change', function () {
+            //        table
+            //            .column(colIdx)
+            //            .search(this.value)
+            //            .draw();
+            //    });
+            //});
+
         });
     </script>
 </div>

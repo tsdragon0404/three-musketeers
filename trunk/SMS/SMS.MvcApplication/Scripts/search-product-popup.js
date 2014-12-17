@@ -104,13 +104,13 @@
         
         table = $('#' + root.id + ' #searchProduct').DataTable({
             scrollY: "200px",
-            searching: true,
+            searching: false,
             ordering: true,
-            "info": true,
-            "lengthChange": true,
+            "info": false,
+            "lengthChange": false,
             "jQueryUI": true,
+            paging: false,
             columns: [
-                null,
                 null,
                 null,
                 null,
@@ -134,13 +134,27 @@
             }
         });
 
-        //$('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="custom_filter"></tr>');
+        $('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="custom_filter"></tr>');
 
-        //$('#' + root.id + ' .dataTables_scrollHead table thead th').each(function () {
-        //    var title = $('#searchProduct thead th').eq($(this).index()).text();
-        //    $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
-        //        .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" placeholder="Search ' + title + '" /></th>');
-        //});
+        $('#' + root.id + ' .dataTables_scrollHead table thead th').each(function (idx) {
+            if (idx != 4) {
+                $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
+                    .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" /></th>');
+            } else {
+                $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
+                    .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"></th>');
+            }
+        });
+        
+        // Apply the search
+        table.columns().eq(0).each(function (colIdx) {
+            $('input', table.column(colIdx).footer()).on('keyup change', function () {
+                table
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+            });
+        });
         
         //table.columns().eq(0).each(function (colIdx) {
         //    $('input', '#' + root.id + ' .dataTables_scrollHead table thead .custom_filter').on('keyup change', function () {
@@ -160,6 +174,11 @@
         for (var i = 0; i < columns.length; i++) {
             $(headerColumns[i]).css('width', $(columns[i]).width());
         }
+        
+        // calculate scroll
+        var widthHeader = $('#' + root.id + ' .dataTables_scrollHead').outerWidth();
+        var widthContent = $('#' + root.id + ' #searchProduct').outerWidth();
+        $('#' + root.id + ' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
     }
 
     this.select = function (e) {
