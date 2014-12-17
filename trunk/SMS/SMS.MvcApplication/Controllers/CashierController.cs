@@ -68,9 +68,9 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderTableID <= 0 || tableID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.MoveTable<OrderDataDto>(orderTableID, tableID);
+            var result = OrderService.MoveTable(orderTableID, tableID);
 
-            return Json(JsonModel.Create(order));
+            return Json(JsonModel.Create(result.Success));
         }
 
         [HttpPost]
@@ -134,7 +134,7 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
+        public JsonResult UpdateOrderedProductStatus(long orderDetailID, OrderStatus value)
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
@@ -166,7 +166,7 @@ namespace SMS.MvcApplication.Controllers
         [HttpPost]
         public JsonResult CreateMultiOrderTable(long[] table)
         {
-            var orderID = OrderService.CreateMultiOrderTable(table);
+            var orderID = OrderService.CreateOrderTable(table);
 
             return Json(JsonModel.Create(orderID));
         }

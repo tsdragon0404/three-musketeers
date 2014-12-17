@@ -2,7 +2,6 @@
 using System.Linq;
 using SMS.Common.Enums;
 using SMS.Data.Entities;
-using Core.Common;
 
 namespace SMS.Data.Impl
 {
@@ -29,11 +28,9 @@ namespace SMS.Data.Impl
         public IList<OrderDetail> GetOrderDetailByStatus(OrderStatus status, long branchID)
         {
             var orders = Find(x => x.Branch.ID == branchID
-                                           && x.OrderTables.Any(y => y.OrderDetails.Any(z => z.OrderStatus == status))).ToList();
+                                           && x.OrderTables.Any(y => y.OrderDetails.Any(z => z.OrderStatus == status)));
             
-            var orderProducts = new List<OrderDetail>();
-            orders.Apply(x => x.OrderTables.Apply(y => orderProducts.AddRange(y.OrderDetails)));
-            return orderProducts;
+            return orders.SelectMany(x => x.OrderTables.SelectMany(y => y.OrderDetails)).ToList();
         }
     }
 }

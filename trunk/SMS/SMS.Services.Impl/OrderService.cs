@@ -57,10 +57,10 @@ namespace SMS.Services.Impl
             return Management.GetOrderTablesByAreaID<TDto>(areaID);
         }
 
-        public ServiceResult<long> CreateOrderTable(long tableID)
+        public ServiceResult<long> CreateOrderTable(params long[] tableIDs)
         {
             var orderID = Management.CreateEmptyOrder();
-            return Management.CreateOrderTable(orderID, tableID);
+            return Management.CreateOrderTable(orderID, tableIDs);
         }
 
         public ServiceResult CheckTableStatus(long tableID)
@@ -68,15 +68,9 @@ namespace SMS.Services.Impl
             return Management.CheckTableStatus(tableID);
         }
 
-        public ServiceResult<long> CreateMultiOrderTable(long[] table)
+        public ServiceResult MoveTable(long orderTableID, long tableID)
         {
-            var orderID = Management.CreateEmptyOrder();
-            return Management.CreateMultiOrderTable(orderID, table);
-        }
-
-        public ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID)
-        {
-            return Management.MoveTable<TDto>(orderTableID, tableID);
+            return Management.MoveTable(orderTableID, tableID);
         }
 
         public ServiceResult PoolingTable(long[] orderTable)
@@ -99,7 +93,7 @@ namespace SMS.Services.Impl
             return Management.UpdateProductToOrderTable(orderDetailID, columnName, value);
         }
 
-        public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value)
+        public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value)
         {
             return Management.UpdateOrderedProductStatus<TDto>(orderDetailID, value);
         }

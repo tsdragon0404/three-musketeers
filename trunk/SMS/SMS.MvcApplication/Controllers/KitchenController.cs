@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Common.Enums;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
@@ -36,7 +37,7 @@ namespace SMS.MvcApplication.Controllers
             return Json(JsonModel.Create((acceptedProducts)));
         }
         [HttpPost]
-        public JsonResult UpdateOrderedProductStatus(long orderDetailID, int value)
+        public JsonResult UpdateOrderedProductStatus(long orderDetailID, OrderStatus value)
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
