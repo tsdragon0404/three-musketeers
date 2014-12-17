@@ -200,7 +200,7 @@
                 url: '@Url.Action("UpdateOrderedProductStatus")',
             data: { orderDetailID: orderDetailId, value: value }
         }).done(function (result) {
-            if (result.Data.ID == 0 || !result.Success) {
+            if (!result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
                     4,

@@ -73,20 +73,6 @@ namespace Core.Data.NHibernate
             return entities;
         }
 
-        ///// <summary>
-        ///// Updates the specified entity.
-        ///// </summary>
-        ///// <param name="entity">The entity.</param>
-        //public override void Update(TEntity entity)
-        //{
-        //    //entity = this.Session.Merge(entity) as TEntity;
-        //    this.Session.Update(entity);
-
-        //    //var oldEntity = this.Get(entity.GetValueByPropertyCaseInsensitive<TIdentity>("Id"));
-        //    //this.Copy(entity, oldEntity);
-        //    //this.Session.Update(oldEntity);
-        //}
-
         /// <summary>
         /// Merges the specified entity.
         /// </summary>

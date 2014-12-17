@@ -18,16 +18,15 @@ namespace SMS.Business
         ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob);
 
         ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID);
-        ServiceResult<long> CreateOrderTable(long orderID, long tableID);
         ServiceResult CheckTableStatus(long tableID);
-        ServiceResult<long> CreateMultiOrderTable(long orderID, long[] table);
-        ServiceResult<TDto> MoveTable<TDto>(long orderTableID, long tableID);
+        ServiceResult<long> CreateOrderTable(long orderID, params long[] tableIDs);
+        ServiceResult MoveTable(long orderTableID, long tableID);
         ServiceResult PoolingTable(long[] orderTable);
         ServiceResult SendToKitchen(long orderTableID);
 
         ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
         ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);
-        ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, int value);
+        ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value);
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
         ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
     }

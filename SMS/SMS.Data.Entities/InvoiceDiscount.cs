@@ -4,7 +4,7 @@ namespace SMS.Data.Entities
 {
     public class InvoiceDiscount : Entity
     {
-        public virtual long InvoiceID { get; set; }
+        public virtual Invoice Invoice { get; set; }
 
         public virtual decimal Discount { get; set; }
 

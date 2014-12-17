@@ -112,14 +112,11 @@ namespace Core.Data.NHibernate
         /// Finds entities by the specified predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
-        /// <param name="forceReload">Force to reload from db.</param>
         /// <param name="fetchSelectors">The fetch selectors.</param>
         /// <returns></returns>
         public IEnumerable<TEntity> Find(
-            Expression<Func<TEntity, bool>> predicate, bool forceReload = false, params Expression<Func<TEntity, object>>[] fetchSelectors)
+            Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] fetchSelectors)
         {
-            if(forceReload)
-                Session.Evict(typeof(TEntity));
             var entities = Fetches(GetQuery(predicate), fetchSelectors);
             return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
         }
@@ -260,19 +257,88 @@ namespace Core.Data.NHibernate
             return query;
         }
 
-        private IQueryable<TEntity> GetQuery(
-            Expression<Func<TEntity, bool>> predicate)
+        private IQueryable<TEntity> GetQuery(Expression<Func<TEntity, bool>> predicate)
         {
-            var query = Session.Query<TEntity>();
+            return GetQuery<TEntity>(predicate);
+        }
+
+        private IQueryable<TTargetEntity> GetQuery<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate)
+        {
+            var query = Session.Query<TTargetEntity>();
 
             if (predicate != null)
-            {
                 query = query.Where(predicate);
-            }
 
             return query;
         }
 
         #endregion Methods
+
+        #region CrossTable
+
+        /// <summary>
+        /// Gets the entity from another table by the specified id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public virtual TTargetEntity CrossTableGetByID<TTargetEntity>(object id)
+        {
+            return Session.Get<TTargetEntity>(id);
+        }
+
+        /// <summary>
+        /// Gets the entity from another table by the given predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        public virtual TTargetEntity CrossTableGet<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate)
+        {
+            return GetQuery(predicate).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the entity from another table by the given predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        public virtual IEnumerable<TTargetEntity> CrossTableList<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate)
+        {
+            var entities = GetQuery(predicate);
+            return typeof(ISortableEntity).IsAssignableFrom(typeof(TTargetEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
+        }
+
+        /// <summary>
+        /// Update the entity from another table.
+        /// </summary>
+        /// <param name="item">The id.</param>
+        /// <returns></returns>
+        public virtual void CrossTableUpdate(object item)
+        {
+            Session.Update(item);
+        }
+
+        /// <summary>
+        /// Update the entity from another table.
+        /// </summary>
+        /// <param name="item">The id.</param>
+        /// <returns></returns>
+        public virtual void CrossTableAdd(object item)
+        {
+            Session.Save(item);
+        }
+
+        /// <summary>
+        /// Update the entity from another table.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public virtual void CrossTableDelete<TTargetEntity>(object id)
+        {
+            var entity = Session.Get<TTargetEntity>(id);
+            if (entity != null)
+                Session.Delete(entity);
+        }
+
+        #endregion
     }
 }
