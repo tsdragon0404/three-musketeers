@@ -16,9 +16,9 @@ namespace SMS.Services.Impl
             return Management.GetByPageID<TDto>(pageID, includeGlobalLabels);
         }
 
-        public ServiceResult Save(long pageID, List<PageLabelDto> listLabels)
+        public ServiceResult Save(List<PageLabelDto> listLabels)
         {
-            return Management.Save(pageID, listLabels);
+            return Management.Save(listLabels);
         }
     }
 }

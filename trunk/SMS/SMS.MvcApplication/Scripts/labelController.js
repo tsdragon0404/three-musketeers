@@ -110,7 +110,7 @@
                     var vnText = $(this).find('.page-label-vn').val();
                     var enText = $(this).find('.page-label-en').val();
 
-                    data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText };
+                    data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText, Page: { ID: pageID } };
                 });
                 
                 $.ajax({
@@ -118,7 +118,7 @@
                     url: root.multiEditPageLabelUrl,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ pageID: pageID, listLabels: data })
+                    data: JSON.stringify({ listLabels: data })
                 }).done(function (result) {
                     if(result.Success)
                         location.reload();
