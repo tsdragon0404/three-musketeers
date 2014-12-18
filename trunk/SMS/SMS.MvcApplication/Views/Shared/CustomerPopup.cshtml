@@ -25,40 +25,18 @@
             </table>
         </fieldset>
     </div>
-    <table class="popup-table-header">
-        <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-            <col class="col5" />
-            <col class="col6" />
-            <col class="col7" />
-        </colgroup>
-        <thead>
-            <tr>
-                <th data-labelID="lblNo">No</th>
-                <th data-labelID="lblCustomerCode">Customer code</th>
-                <th data-labelID="lblCustomerName">Customer name</th>
-                <th data-labelID="lblCellPhone">Cell phone</th>
-                <th data-labelID="lblAddress">Address</th>
-                <th data-labelID="lblDOB">DOB</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
     <div class="popup-content">
         <form>
-            <table id="table-detail-@Model.PopupID">
-                <colgroup>
-                    <col class="col1" />
-                    <col class="col2" />
-                    <col class="col3" />
-                    <col class="col4" />
-                    <col class="col5" />
-                    <col class="col6" />
-                    <col class="col7" />
-                </colgroup>
+            <table id="chooseCustomer" class="display">
+                <thead>
+                    <tr>
+                        <th data-labelID="lblCustomerCode">Customer code</th>
+                        <th data-labelID="lblCustomerName">Customer name</th>
+                        <th data-labelID="lblCellPhone">Cell phone</th>
+                        <th data-labelID="lblAddress">Address</th>
+                        <th data-labelID="lblDOB">DOB</th>
+                    </tr>
+                </thead>
                 <tbody id="customer-table">
                 </tbody>
             </table>
@@ -71,16 +49,12 @@
 <script src="@Url.Content("~/Scripts/customer-popup.js")"></script>
 <script id="customer-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <tr class="{{if idx%2}}alt{{/if}}">
-        <td>${idx + 1}</td>
-        <td>${CustomerCode}</td>
+    <tr>
+        <td><span id="customer-${ID}" class="link-label label-custom-label">${CustomerCode}</span></td>
         <td>${CustomerName}</td>
         <td>${CellPhone}</td>
         <td>${Address}</td>
         <td>${DOB==null ? '' : DOB.formatAsDate()}</td>
-        <td class="center">
-            <button id="select-${ID}">Select</button>
-        </td>
     </tr>
     {{/each}}
 </script>

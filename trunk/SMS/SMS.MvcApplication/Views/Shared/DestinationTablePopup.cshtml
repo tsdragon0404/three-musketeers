@@ -1,54 +1,29 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide move-table-popup">
-    <select id="select-area-@Model.PopupID" name="select-area-@Model.PopupID" style="display: none">
-    </select>
-    <table class="popup-table-header">
-        <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-        </colgroup>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Table name</th>
-                <th>Area name</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
     <div class="popup-content">
         <form>
-            <table id="table-detail-@Model.PopupID">
-                <colgroup>
-                    <col class="col1" />
-                    <col class="col2" />
-                    <col class="col3" />
-                    <col class="col4" />
-                </colgroup>
+            <table id="chooseTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Table name</th>
+                        <th>Area name</th>
+                    </tr>
+                </thead>
                 <tbody id="destination-table">
                 </tbody>
             </table>
         </form>
     </div>
-    <div class="right popup-buttons">
+    <div class="right">
         <button class="popupClose">Close</button>
     </div>
 </div>
 <script src="@Url.Content("~/Scripts/destination-table-popup.js")"></script>
-<script id="lis-area-tmpl" type="text/x-jquery-tmpl">
-    <option value="${ID}">${Name}</option>
-</script>
 <script id="destination-table-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <tr class="{{if idx%2}}alt{{/if}}">
-        <td>${idx + 1}</td>
-        <td>${Table.Name}</td>
+    <tr>
+        <td><span id="table-${Table.ID}" class="link-label label-custom-label">${Table.Name}</span></td>
         <td>${Table.Area.Name}</td>
-        <td class="center">
-            <button id="select-${Table.ID}">Select</button>
-        </td>
     </tr>
     {{/each}}
 </script>

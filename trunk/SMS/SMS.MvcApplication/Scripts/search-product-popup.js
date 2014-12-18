@@ -1,32 +1,38 @@
 ﻿function SearchProductPopup(id, productData, refreshCallback, selectCallback) {
     var root = this;
     this.id = id;
+    this.popupId = '#' + id;
     this.productData = productData;
     this.refreshCallback = refreshCallback;
     this.selectCallback = selectCallback;
+    var $dialogContainer;
+    var $detachedChildren;
 
     var table;
 
-    $('#' + root.id).dialog({
+    $(root.popupId).dialog({
         autoOpen: false,
         closeOnEscape: true,
         width: 870,
         height: 500,
         modal: true,
-        resizable: false
+        resizable: false,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
 
     // start main button
-    $('#' + root.id + ' .popupClose').button({
+    $(root.popupId + ' .popupClose').button({
         icons: {
             primary: "ui-icon-close"
         }
     }).click(function() {
-        $('#' + root.id).dialog('close');
+        $(root.popupId).dialog('close');
         return false;
     });
 
-    $('#' + root.id + ' .popupRefresh').button({
+    $(root.popupId + ' .popupRefresh').button({
         icons: {
             primary: "ui-icon-refresh"
         }
@@ -38,29 +44,19 @@
     // end main button
 
     this.OpenPopup = function () {
-        $('#' + root.id).dialog("open");
-        SetHeightPopupContent('#' + root.id);
-        SetHeightTableContent();
-        fixTableHeader();
+        $dialogContainer = $(root.popupId);
+        $detachedChildren = $dialogContainer.children().detach();
+
+        $(root.popupId).dialog("open");
+        fixTableHeader(root.popupId, '#searchProduct');
+        setHeightPopupContent(root.popupId);
+        setHeightTableContent(root.popupId, '#searchProduct');
     };
-
-    function SetHeightTableContent() {
-        var contentHeight = $('#' + root.id + ' .popup-content').height();
-        var height1 = 0;
-        $('#searchProduct_wrapper > .ui-widget-header').each(function (idx, element) {
-            height1 += $(element).outerHeight();
-        });
-        
-        var height2 = $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
-
-        var targetHeight = contentHeight - height1 - height2 - 7; // subtract 2 more px due to the border and padding bottom
-        $('#searchProduct_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
-    }
     
     function reloadProduct(newProductData) {
         root.productData = newProductData;
         root.renderProducts(newProductData);
-        SetHeightTableContent();
+        SetHeightTableContent(root.popupId, '#searchProduct');
     }
 
     this.renderProducts = function (data) {
@@ -69,11 +65,11 @@
             data[idx].tabIdx = idx * 2 + 2;
         });
         
-        if ($.fn.DataTable.isDataTable('#' + root.id + ' #searchProduct')) {
+        if ($.fn.DataTable.isDataTable(root.popupId + ' #searchProduct')) {
             table.destroy();
         }
         
-        $('#' + root.id + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
+        $(root.popupId + ' .tbContentLookup').html($('#popup-content-' + root.id).tmpl({ ListProduct: data }));
 
         $('input[id^="popup-qty"]').spinner({
             step: 0.5,
@@ -81,14 +77,15 @@
             min: 0.5
         });
 
-        $('span[id^="productCode-"]').click(function(e) {
+        $(root.popupId + ' span[id^="productCode-"]').unbind('click');
+        $(root.popupId + ' span[id^="productCode-"]').click(function (e) {
             var pdtid = e.currentTarget.id.split('-')[1];
             if ($('#popup-qty-' + pdtid).valid())
                 root.select(e);
             return false;
         });
         
-        $('#' + root.id + ' .tbContentLookup tr').dblclick(function (e) {
+        $(root.popupId + ' .tbContentLookup tr').dblclick(function (e) {
             $(e.currentTarget).find('span[id^="productCode-"]').trigger('click');
         });
 
@@ -97,7 +94,7 @@
             e.stopPropagation();
         });
         
-        table = $('#' + root.id + ' #searchProduct').DataTable({
+        table = $(root.popupId + ' #searchProduct').DataTable({
             scrollY: "200px",
             searching: true,
             "dom": '<"H"lr>t<"F"ip>',
@@ -130,53 +127,11 @@
             }
         });
 
-        $('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="datatable_filter"></tr>');
-
-        $('#' + root.id + ' .dataTables_scrollHead table thead th').each(function (idx) {
-            if (idx != 4) {
-                $('#' + root.id + ' .dataTables_scrollHead table thead .datatable_filter')
-                    .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" /></th>');
-            } else {
-                $('#' + root.id + ' .dataTables_scrollHead table thead .datatable_filter')
-                    .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"></th>');
-            }
-        });
-        
-        // Apply the search
-        $(".datatable_filter input").keyup(function (e) {
-            var code = e.keyCode || e.which;
-            if (code != '9') {
-                var that = this;
-                setTimeout(function () {
-                    var i = $(".datatable_filter input").index(that);
-                    console.log(i);
-                    table
-                        .column(i)
-                        .search(that.value)
-                        .draw();
-                }, 100);
-            }
-        });
+        applyColumnFilterForDataTable(root.popupId, table, [0, 1, 2, 3]);
     };
 
-    function fixTableHeader() {
-        $('#' + root.id + ' .dataTables_scrollHeadInner, #' + root.id + ' .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
-
-        var headerColumns = $('#' + root.id + ' .dataTables_scrollHead table > thead > tr:first-child th');
-        var columns = $('#' + root.id + ' #searchProduct > tbody > tr:first-child td');
-
-        for (var i = 0; i < columns.length; i++) {
-            $(headerColumns[i]).css('width', $(columns[i]).width());
-        }
-        
-        // calculate scroll
-        var widthHeader = $('#' + root.id + ' .dataTables_scrollHead').outerWidth();
-        var widthContent = $('#' + root.id + ' #searchProduct').outerWidth();
-        $('#' + root.id + ' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
-    }
-
     this.select = function (e) {
-        $('#' + root.id).dialog('close');
+        $(root.popupId).dialog('close');
         var pdtId = e.currentTarget.id.split('-')[1];
         var qty = $(e.currentTarget).parents('tr').find('input[id^="popup-qty"]').val();
 

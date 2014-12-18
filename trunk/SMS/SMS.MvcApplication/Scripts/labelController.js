@@ -5,6 +5,10 @@
     this.popupId = popupId;
     this.getAllPageLabelUrl = getAllPageLabelUrl;
     this.multiEditPageLabelUrl = multiEditPageLabelUrl;
+    var $dialogContainer;
+    var $detachedChildren;
+
+    var table;
 
     this.ScanElements = function () {
         if (root.labelDictionary == null)
@@ -24,9 +28,6 @@
         try {
             $(".ajax-loader-mask").show();
             
-            $(root.popupId + ' .popup-table-header').table();
-            $(root.popupId + ' .popup-table-header').sortingTable([1, 2, 3]);
-
             if (root.multiEditId != '') {
                 $(root.multiEditId).click(function() {
                     $.ajax({
@@ -55,7 +56,42 @@
                                 result.Data[result.Data.length] = { LabelID: id, VNText: value, ENText: value };
                             }
                         });
+                        
+
                         $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
+                        
+                        table = $(root.popupId + ' #editLabel').DataTable({
+                            scrollY: "200px",
+                            searching: true,
+                            "dom": '<"H"lr>t<"F"ip>',
+                            ordering: true,
+                            "info": true,
+                            "lengthChange": false,
+                            "jQueryUI": true,
+                            paging: false,
+                            columns: [
+                                null,
+                                null,
+                                null
+                            ],
+                            language: {
+                                "emptyTable": CONST_DATATABLE_NODATA,
+                                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                                "infoFiltered": CONST_DATATABLE_FILTER,
+                                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                                "search": CONST_DATATABLE_SEARCH,
+                                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                                "paginate": {
+                                    "first": CONST_DATATABLE_FIRST,
+                                    "last": CONST_DATATABLE_LAST,
+                                    "next": CONST_DATATABLE_NEXT,
+                                    "previous": CONST_DATATABLE_PREVIOUS
+                                }
+                            }
+                        });
+
+                        applyColumnFilterForDataTable(root.popupId, table, [0, 1, 2]);
 
                         root.OpenPopup();
                     });
@@ -111,15 +147,23 @@
         resizable: false,
         width: 900,
         height: 600,
-        modal: true
+        modal: true,
+        open: function () {
+            $detachedChildren.appendTo($dialogContainer);
+        }
     });
 
     //unbind click event for buttons
     $(root.popupId + ' .popup-buttons button').unbind('click');
 
     this.OpenPopup = function () {
+        $dialogContainer = $(root.popupId);
+        $detachedChildren = $dialogContainer.children().detach();
+
         $(root.popupId).dialog("open");
-        SetHeightPopupContent(root.popupId);
+        fixTableHeader(root.popupId, '#editLabel');
+        setHeightPopupContent(root.popupId);
+        setHeightTableContent(root.popupId, '#editLabel');
     };
 
     $.fn.scanLabel = function () {

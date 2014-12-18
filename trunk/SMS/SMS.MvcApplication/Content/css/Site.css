@@ -706,58 +706,6 @@ label.ui-state-error {
     width: 2%;
 }
 
-.product-search-popup .col1 {
-    width: 70px;
-}
-
-.product-search-popup .col2 {
-    width: 100px;
-}
-
-.product-search-popup .col3 {
-    width: 200px;
-}
-
-.product-search-popup .col4 {
-    width: 120px;
-}
-
-.product-search-popup .col5 {
-    width: 120px;
-}
-
-.product-search-popup .col6 {
-    width: 80px;
-}
-
-.edit-label-popup .col1 {
-    width: 50px;
-}
-
-.edit-label-popup .col2 {
-    width: 200px;
-}
-
-.edit-label-popup .col3 {
-    width: auto;
-}
-
-.edit-label-popup .col4 {
-    width: auto;
-}
-
-.move-table-popup .col1 {
-    width: 80px;
-}
-
-.move-table-popup .col2 {
-    width: 220px;
-}
-
-.move-table-popup .col3 {
-    width: 220px;
-}
-
 /* end table column width */
 
 /* fix themes */
@@ -1043,30 +991,6 @@ table.dataTable{
 }
 
 .discount-popup .col5 {
-    width: 100px;
-}
-
-.customer-popup .col1 {
-    width: 70px;
-}
-
-.customer-popup .col2 {
-    width: 150px;
-}
-
-.customer-popup .col3 {
-    width: 200px;
-}
-
-.customer-popup .col4 {
-    width: 120px;
-}
-
-.customer-popup .col5 {
-    width: 150px;
-}
-
-.customer-popup .col6 {
     width: 100px;
 }
 

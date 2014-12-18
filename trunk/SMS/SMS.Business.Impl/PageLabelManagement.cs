@@ -41,6 +41,7 @@ namespace SMS.Business.Impl
                                         x.ID = label.ID;
                                         break;
                                     }
+                                    x.Page = new PageDto { ID = pageID };
                                     x.BranchID = SmsCache.UserContext.CurrentBranchId;
                                     Save(x);
                                 });

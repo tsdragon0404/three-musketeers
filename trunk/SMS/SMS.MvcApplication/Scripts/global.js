@@ -66,7 +66,7 @@ function SetHeightCashierContent() {
     $('#order-detail').height(outerDivHeight - siblingsHeight);
 }
 
-function SetHeightPopupContent(popupId) {
+function setHeightPopupContent(popupId) {
     var parentHeight = $(popupId).height();
     var siblings = $(popupId + ' > *:not(.popup-content)');
     var siblingsHeight = 0;
@@ -75,6 +75,64 @@ function SetHeightPopupContent(popupId) {
     });
 
     $(popupId + ' > .popup-content').height(parentHeight - siblingsHeight);
+}
+
+function setHeightTableContent(popupId, tableId) {
+    var contentHeight = $(popupId + ' .popup-content').height();
+    var height1 = 0;
+    $(tableId + '_wrapper > .ui-widget-header').each(function (idx, element) {
+        height1 += $(element).outerHeight();
+    });
+
+    var height2 = $(tableId + '_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+
+    var targetHeight = contentHeight - height1 - height2 - 7; // subtract 2 more px due to the border and padding bottom
+    $(tableId + '_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+}
+
+function fixTableHeader(popupId, tableId) {
+    $(popupId + ' .dataTables_scrollHeadInner, ' + popupId + ' .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+
+    var headerColumns = $(popupId + ' .dataTables_scrollHead table > thead > tr:first-child th');
+    var columns = $(popupId + ' ' + tableId + ' > tbody > tr:first-child td');
+
+    for (var i = 0; i < columns.length; i++) {
+        $(headerColumns[i]).css('width', $(columns[i]).width());
+    }
+
+    // calculate vertical scroll
+    var widthHeader = $(popupId + ' .dataTables_scrollHead').outerWidth();
+    var widthContent = $(popupId + ' ' + tableId).outerWidth();
+    $(popupId + ' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+}
+
+function applyColumnFilterForDataTable(popupId, table, columns) {
+    $(popupId + ' .dataTables_scrollHead table thead').append('<tr role="row" class="datatable_filter"></tr>');
+
+    $(popupId + ' .dataTables_scrollHead table thead th').each(function (idx) {
+        if ($.inArray(idx, columns) >= 0) {
+            $(popupId + ' .dataTables_scrollHead table thead .datatable_filter')
+                .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" /></th>');
+        } else {
+            $(popupId + ' .dataTables_scrollHead table thead .datatable_filter')
+                .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"></th>');
+        }
+    });
+
+    // Apply the search
+    $(popupId + " .datatable_filter input").keyup(function (e) {
+        var code = e.keyCode || e.which;
+        if (code != '9') {
+            var that = this;
+            setTimeout(function () {
+                var idx = $(popupId + " .datatable_filter input").index(that);
+                table
+                    .column(idx)
+                    .search(that.value)
+                    .draw();
+            }, 100);
+        }
+    });
 }
 
 function pad(s) { return (s < 10) ? '0' + s : s; }
@@ -126,162 +184,4 @@ $.fn.table = function () {
         this.find('thead tr').addClass('ui-widget-header');
         this.find('tbody tr, tfoot tr').addClass('ui-helper-reset ui-state-default');
     }
-};
-
-$.fn.sortingTable = function (sortColumn) {
-    var popupId = this.attr('id');
-    this.find(' .popup-table-header thead th').each(function (idx, element) {
-        $(element).attr('sort-index', popupId + '-' + idx);
-        if ($.inArray(idx, sortColumn) >= 0)
-            $(element).addClass('sort_both');
-    });
-};
-
-$(document).on("click", '.popup-table-header th.sort_both', (function () {
-    var id = $(this).attr('sort-index').split('-')[0];
-    var index = $(this).attr('sort-index').split('-')[1];
-    removeSortIcon(id);
-    $(this).removeClass('sort_both');
-    $(this).addClass('sorting_asc');
-    
-    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'asc'));
-    $('#' + id + ' .popup-content form tbody').rebuildTable();
-}));
-
-$(document).on("click", '.popup-table-header th.sorting_asc', (function () {
-    var id = $(this).attr('sort-index').split('-')[0];
-    var index = $(this).attr('sort-index').split('-')[1];
-    removeSortIcon(id);
-    $(this).removeClass('sorting_asc');
-    $(this).addClass('sorting_desc');
-    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'desc'));
-    $('#' + id + ' .popup-content form tbody').rebuildTable();
-}));
-
-$(document).on("click", '.popup-table-header th.sorting_desc', (function () {
-    var id = $(this).attr('sort-index').split('-')[0];
-    var index = $(this).attr('sort-index').split('-')[1];
-    removeSortIcon(id);
-    $(this).removeClass('sorting_desc');
-    $(this).addClass('sorting_asc');
-    $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Sorting(index, 'asc'));
-    $('#' + id + ' .popup-content form tbody').rebuildTable();
-}));
-
-function removeSortIcon(id) {
-    $('#' + id).find('.popup-table-header thead th').each(function (idx, element) {
-        if ($(element).hasClass('sorting_asc') || $(element).hasClass('sorting_desc')) {
-            $(element).removeClass('sorting_desc');
-            $(element).removeClass('sorting_asc');
-            $(element).addClass('sort_both');
-        }
-    });
-}
-
-Array.prototype.sortByProp = function(value, type) {
-    if (type == 'desc') {
-        return this.sort(function (a, b) {
-            return (a[value] < b[value]) ? 1 : (a[value] > b[value]) ? -1 : 0;
-        });
-    } else {
-        return this.sort(function(a, b) {
-            return (a[value] > b[value]) ? 1 : (a[value] < b[value]) ? -1 : 0;
-        });
-    }
-};
-
-$.fn.Sorting = function (index, sortType) {
-    var data = new Array();
-    var result = new Array();
-    var flag = true;
-    this.each(function (idx, element) {
-        $(element).find('td').each(function (i, e) {
-            if (i == index) {
-                if (!$.isNumeric($(e).text().formatAsMoney())) {
-                    flag = false;
-                }
-                data[data.length] = { Index: idx, Value: $(e).text(), Data: element };
-            }
-        });
-    });
-    
-    if (flag) {
-        for (var j = 0; j < data.length; j++) {
-            data[j].Value = parseFloat(data[j].Value.formatAsMoney());
-        }
-    }
-
-    data.sortByProp('Value', sortType);
-    for (var z = 0; z < data.length; z++) {
-        result[z] = data[z].Data;
-    }
-    return $(result);
-};
-
-$.fn.rebuildTable = function () {
-    var index = 0;
-    this.find('tr').each(function (idx, e) {
-        if (!$(e).hasClass('hide')) {
-            $(e).find('td:first-child').text(index + 1);
-            if (index % 2) {
-                $(e).addClass('alt');
-            } else {
-                $(e).removeClass('alt');
-            }
-            index++;
-        }
-    });
-    return this;
-};
-
-$.fn.searchTable = function (searchColumn) {
-    var popupId = this.attr('id');
-    if ($('#' + popupId + ' .popup-table-header thead .search-popup').length <= 0) {
-
-        var HTMLElement = '<tr class="search-popup">';
-        this.find(' .popup-table-header thead th').each(function (idx) {
-            HTMLElement = HTMLElement + '<th>';
-            if ($.inArray(idx, searchColumn) >= 0)
-                HTMLElement = HTMLElement + '<input type="text" search-index="' + popupId + '-' + idx + '" class="text-search" />';
-
-            HTMLElement = HTMLElement + '</th>';
-        });
-        HTMLElement = HTMLElement + '</tr>';
-
-        this.find(' .popup-table-header thead').append(HTMLElement);
-    }
-};
-
-$(document).on("keypress", '.popup-table-header th input.text-search', (function (e) {
-    if (e.which == 13) {
-        var id = $(this).attr('search-index').split('-')[0];
-        var index = [];
-        var keyword = [];
-
-        $('.popup-table-header th input').each(function(idx, elem) {
-            if (id == $(elem).attr('search-index').split('-')[0]) {
-                index[index.length] = parseInt($(this).attr('search-index').split('-')[1]);
-                keyword[keyword.length] = $(this).val().trim();
-            }
-        });
-
-        $('#' + id + ' .popup-content form tbody').append($('#' + id + ' .popup-content form tbody tr').Searching(index, keyword));
-        $('#' + id + ' .popup-content form tbody').rebuildTable();
-    }
-}));
-
-$.fn.Searching = function (index, keyword) {
-    this.each(function (idx, element) {
-        $(element).removeClass('hide');
-        $(element).find('td').each(function (i, e) {
-            if ($.inArray(i, index) >= 0) {
-                var str = $(e).text().toUpperCase();
-
-                if (str.search(keyword[$.inArray(i, index)].toUpperCase()) < 0) {
-                    $(element).addClass('hide');
-                }
-            }
-        });
-    });
-    return this;
 };
