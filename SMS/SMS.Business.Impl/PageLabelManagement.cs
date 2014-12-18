@@ -28,20 +28,24 @@ namespace SMS.Business.Impl
             return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(labels));
         }
 
-        public ServiceResult Save(long pageID, List<PageLabelDto> pageLabels)
+        public ServiceResult Save(List<PageLabelDto> pageLabels)
         {
-            var labelIds = pageLabels.ConvertAll(x => x.LabelID);
-            var labels = Repository.List(
-                x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsCache.UserContext.CurrentBranchId).ToList();
+            if (!pageLabels.Any())
+                return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
-            pageLabels.Apply(x =>
+            var pageID = pageLabels[0].Page.ID;
+            var labelIds = pageLabels.ConvertAll(x => x.LabelID);
+
+            var labels = Repository
+                .List(x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsCache.UserContext.CurrentBranchId)
+                .ToList();
+
+            pageLabels.ForEach(x =>
                                 {
-                                    foreach (var label in labels.Where(label => x.LabelID == label.LabelID))
-                                    {
-                                        x.ID = label.ID;
-                                        break;
-                                    }
-                                    x.Page = new PageDto { ID = pageID };
+                                    var oldLabel = labels.FirstOrDefault(y => y.LabelID == x.LabelID);
+                                    if(oldLabel != null)
+                                        x.ID = oldLabel.ID;
+
                                     x.BranchID = SmsCache.UserContext.CurrentBranchId;
                                     Save(x);
                                 });

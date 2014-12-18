@@ -1,4 +1,5 @@
-﻿@using SMS.MvcApplication.Models
+﻿@using SMS.Common.Constant
+@using SMS.MvcApplication.Models
 @model GlobalLabelModel
 
 <div id="content">
@@ -56,7 +57,7 @@
                 var vnText = $(this).find('#vnText').val();
                 var enText = $(this).find('#enText').val();
 
-                data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText };
+                data[data.length] = { LabelID: lblId, VNText: vnText, ENText: enText, Page: { ID: '@ConstConfig.NoBranchID' } };
             });
 
             $.ajax({

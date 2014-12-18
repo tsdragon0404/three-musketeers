@@ -22,7 +22,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         [HttpPost]
         public JsonResult Save(PageLabelDto[] listLabels)
         {
-            return Json(JsonModel.Create(PageLabelService.Save(ConstPage.Global, listLabels.ToList())));
+            return Json(JsonModel.Create(PageLabelService.Save(listLabels.ToList())));
         }
     }
 }
