@@ -10,7 +10,16 @@
                 <th>Salary</th>
             </tr>
         </thead>
-
+       @* <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>*@
         <tbody>
             <tr>
                 <td>Tiger Nixon</td>
@@ -484,13 +493,21 @@
             //    });
             
             
+            //$('#example tfoot th').each(function () {
+            //    var title = $('#example thead th').eq($(this).index()).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            //});
+
+
 
             // DataTable
             var table = $('#example').DataTable({
                 "scrollY": "200px",
                 "scrollCollapse": true,
                 "paging": true,
-                searching: false,
+                "dom": '<"H"lr>t<"F"ip>',
+                "jQueryUI": true,
+                searching: true,
                 ordering: true,
                 columns: [
                 null,
@@ -515,19 +532,21 @@
             $(".custom_filter input").keyup(function (e) {
                 var code = e.keyCode || e.which;
                 if (code != '9') {
+                    var that = this;
                     setTimeout(function () {
-                        var colIdx = $("thead input").index(this);
+                        var idx = $("thead input").index(that);
                         table
-                            .column(colIdx)
-                            .search(this.value)
+                            .column(idx)
+                            .search(that.value)
                             .draw();
                     }, 100);
                 }
             });
 
-            // Apply the search
+            //// Apply the search
             //table.columns().eq(0).each(function (colIdx) {
             //    $('input', table.column(colIdx).footer()).on('keyup change', function () {
+            //        console.log(colIdx);
             //        table
             //            .column(colIdx)
             //            .search(this.value)
