@@ -97,19 +97,15 @@
             e.stopPropagation();
         });
         
-        $('#' + root.id + ' #searchProduct').off('draw.dt');
-        $('#' + root.id + ' #searchProduct').on('draw.dt', function () {
-            fixTableHeader();
-        });
-        
         table = $('#' + root.id + ' #searchProduct').DataTable({
             scrollY: "200px",
-            searching: false,
+            searching: true,
+            "dom": '<"H"lr>t<"F"ip>',
             ordering: true,
-            "info": false,
+            "info": true,
             "lengthChange": false,
             "jQueryUI": true,
-            paging: false,
+            paging: true,
             columns: [
                 null,
                 null,
@@ -134,35 +130,33 @@
             }
         });
 
-        $('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="custom_filter"></tr>');
+        $('#' + root.id + ' .dataTables_scrollHead table thead').append('<tr role="row" class="datatable_filter"></tr>');
 
         $('#' + root.id + ' .dataTables_scrollHead table thead th').each(function (idx) {
             if (idx != 4) {
-                $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
+                $('#' + root.id + ' .dataTables_scrollHead table thead .datatable_filter')
                     .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"><input type="text" /></th>');
             } else {
-                $('#' + root.id + ' .dataTables_scrollHead table thead .custom_filter')
+                $('#' + root.id + ' .dataTables_scrollHead table thead .datatable_filter')
                     .append('<th class="ui-state-default" style="padding: 1px; border-bottom: 0; border-top: 0"></th>');
             }
         });
         
         // Apply the search
-        table.columns().eq(0).each(function (colIdx) {
-            $('input', table.column(colIdx).footer()).on('keyup change', function () {
-                table
-                    .column(colIdx)
-                    .search(this.value)
-                    .draw();
-            });
+        $(".datatable_filter input").keyup(function (e) {
+            var code = e.keyCode || e.which;
+            if (code != '9') {
+                var that = this;
+                setTimeout(function () {
+                    var i = $(".datatable_filter input").index(that);
+                    console.log(i);
+                    table
+                        .column(i)
+                        .search(that.value)
+                        .draw();
+                }, 100);
+            }
         });
-        
-        //table.columns().eq(0).each(function (colIdx) {
-        //    $('input', '#' + root.id + ' .dataTables_scrollHead table thead .custom_filter').on('keyup change', function () {
-        //        console.log(this.value);
-        //        table.column(colIdx).search(this.value).draw();
-        //    });
-        //});
-
     };
 
     function fixTableHeader() {
