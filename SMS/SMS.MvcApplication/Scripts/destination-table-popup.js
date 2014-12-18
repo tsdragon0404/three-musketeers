@@ -1,15 +1,17 @@
 ﻿function DestinationTablePopup(id, orderTableId, listArea, getDataUrl, selectCallback) {
     var root = this;
     this.id = id;
+    this.popupId = '#' + id;
     this.orderTableId = orderTableId;
     this.listArea = listArea;
     this.getDataUrl = getDataUrl;
     this.selectCallback = selectCallback;
     var $dialogContainer;
     var $detachedChildren;
+    
+    var table;
 
-    $('#' + root.id).dialog({
-        dialogClass: "no-close",
+    $(root.popupId).dialog({
         autoOpen: false,
         closeOnEscape: true,
         width: 700,
@@ -20,15 +22,8 @@
             $detachedChildren.appendTo($dialogContainer);
         }
     });
-    
-    $('#' + root.id + ' button[id^="select-"]').unbind('click');
-    $('#' + root.id + ' .popup-table-header').table();
-    $('#' + root.id).sortingTable([1, 2]);
-    $('#' + root.id).searchTable([1, 2]);
 
     this.OpenPopup = function () {
-        $('#select-area-' + root.id).html($('#lis-area-tmpl').tmpl(root.listArea));
-        //$('#select-area-' + root.id).selectmenu();
         $.ajax({
             type: 'POST',
             url: root.getDataUrl,
@@ -42,46 +37,78 @@
                     result.Data.splice(i, 1);
                 }
             }
+            
+            if ($.fn.DataTable.isDataTable(root.popupId + ' #chooseTable')) {
+                $(root.popupId + ' .datatable_filter').remove();
+                table = $(root.popupId + ' #chooseTable').DataTable();
+                table.destroy();
+            }
 
-            $('#' + root.id + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
+            $(root.popupId + ' #destination-table').html($('#destination-table-tmpl').tmpl(result));
             
-            $('button[id^="select-"]').button({
-                icons: {
-                    primary: "ui-icon-circle-check"
-                }
-            }).click(function (e) {
-                root.select(e);
-                return false;
-            });
-            
-            $('#' + root.id + ' .popupClose').button({
+            $(root.popupId + ' .popupClose').button({
                 icons: {
                     primary: "ui-icon-close"
                 }
             }).click(function () {
-                $('#' + root.id).dialog('close');
+                $(root.popupId).dialog('close');
+                return false;
+            });
+            
+            $(root.popupId + ' span[id^="table-"]').unbind('click');
+            $(root.popupId + ' span[id^="table-"]').click(function (e) {
+                root.select(e);
                 return false;
             });
 
-            $('button[id^="select-"]').keypress(function (e) {
-                if (e.which == 13) {
-                    $(e.target).trigger('click');
+            $(root.popupId + ' #destination-table tr').dblclick(function (e) {
+                $(e.currentTarget).find('span[id^="table-"]').trigger('click');
+            });
+
+            table = $(root.popupId + ' #chooseTable').DataTable({
+                scrollY: "200px",
+                searching: true,
+                "dom": '<"H"lr>t<"F"ip>',
+                ordering: true,
+                "info": true,
+                "lengthChange": false,
+                "jQueryUI": true,
+                paging: true,
+                columns: [
+                    null,
+                    null
+                ],
+                language: {
+                    "emptyTable": CONST_DATATABLE_NODATA,
+                    "info": CONST_DATATABLE_SHOWINGRECORDS,
+                    "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                    "infoFiltered": CONST_DATATABLE_FILTER,
+                    "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                    "search": CONST_DATATABLE_SEARCH,
+                    "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                    "paginate": {
+                        "first": CONST_DATATABLE_FIRST,
+                        "last": CONST_DATATABLE_LAST,
+                        "next": CONST_DATATABLE_NEXT,
+                        "previous": CONST_DATATABLE_PREVIOUS
+                    }
                 }
             });
 
-            $('#' + root.id + ' #destination-table tr').dblclick(function (e) {
-                $(e.currentTarget).find('button[id^="select-"]').trigger('click');
-            });
-            
-            $dialogContainer = $('#' + root.id);
+            applyColumnFilterForDataTable(root.popupId, table, [0, 1]);
+
+            $dialogContainer = $(root.popupId);
             $detachedChildren = $dialogContainer.children().detach();
-            $('#' + root.id).dialog("open");
-            SetHeightPopupContent('#' + root.id);
+
+            $(root.popupId).dialog("open");
+            fixTableHeader(root.popupId, '#chooseTable');
+            setHeightPopupContent(root.popupId);
+            setHeightTableContent(root.popupId, '#chooseTable');
         });
     };
     
     this.select = function (e) {
-        $('#' + root.id).dialog('close');
+        $(root.popupId).dialog('close');
         var tableId = e.currentTarget.id.split('-')[1];
 
         if (root.selectCallback)

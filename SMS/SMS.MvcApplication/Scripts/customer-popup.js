@@ -5,9 +5,10 @@
     this.getDataUrl = getDataUrl;
     this.functionCallback = functionCallback;
     this.popupId = '#' + id;
-    
     var $dialogContainer;
     var $detachedChildren;
+    
+    var table;
 
     $('#' + root.id).dialog({
         dialogClass: "no-close",
@@ -21,10 +22,6 @@
             $detachedChildren.appendTo($dialogContainer);
         }
     });
-
-    $(root.popupId + ' .popup-table-header').table();
-    $(root.popupId).sortingTable([1, 2, 3, 4, 5]);
-    $(root.popupId).searchTable([1, 2, 3, 4, 5]);
     
     $(root.popupId + ' .popupClose').unbind('click');
     $(root.popupId + ' .popupClose').button({
@@ -56,6 +53,8 @@
     });
 
     this.OpenPopup = function () {
+        $("#DOB").datepicker();
+
         $.ajax({
             type: 'POST',
             url: root.getDataUrl + "/GetOrderBasic",
@@ -77,39 +76,59 @@
                     url: root.getDataUrl + "/GetCustomer"
                 }).done(function (data) {
                     if (data.Success) {
-                        $(root.popupId + ' #customer-table').html('');
+                        
+                        if ($.fn.DataTable.isDataTable(root.popupId + ' #chooseCustomer')) {
+                            $(root.popupId + ' .datatable_filter').remove();
+                            table = $(root.popupId + ' #chooseCustomer').DataTable();
+                            table.destroy();
+                        }
+                        
                         $(root.popupId + ' #customer-table').html($('#customer-tmpl').tmpl(data));
 
-                        $("#DOB").datepicker();
-                        
-                        $(root.popupId + ' button[id^="select-"]').unbind('click');
-                        $(root.popupId + ' button[id^="select-"]').button({
-                            icons: {
-                                primary: "ui-icon-circle-check"
-                            }
-                        }).click(function(e) {
-                            root.select(e);
-                            return false;
-                        });
-
-                        $(root.popupId + ' button[id^="select-"]').unbind('keypress');
-                        $(root.popupId + ' button[id^="select-"]').keypress(function(e) {
-                            if (e.which == 13) {
-                                $(e.target).trigger('click');
-                            }
-                        });
-
-                        $(root.popupId + ' #customer-table tr').unbind('dblclick');
-                        $(root.popupId + ' #customer-table tr').dblclick(function(e) {
-                            $(e.currentTarget).find('button[id^="select-"]').trigger('click');
-                        });
-                        
                         bindEvent();
+                        
+                        table = $(root.popupId + ' #chooseCustomer').DataTable({
+                            scrollY: "200px",
+                            searching: true,
+                            "dom": '<"H"lr>t<"F"ip>',
+                            ordering: true,
+                            "info": true,
+                            "lengthChange": false,
+                            "jQueryUI": true,
+                            paging: true,
+                            columns: [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ],
+                            language: {
+                                "emptyTable": CONST_DATATABLE_NODATA,
+                                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                                "infoFiltered": CONST_DATATABLE_FILTER,
+                                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                                "search": CONST_DATATABLE_SEARCH,
+                                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                                "paginate": {
+                                    "first": CONST_DATATABLE_FIRST,
+                                    "last": CONST_DATATABLE_LAST,
+                                    "next": CONST_DATATABLE_NEXT,
+                                    "previous": CONST_DATATABLE_PREVIOUS
+                                }
+                            }
+                        });
+
+                        applyColumnFilterForDataTable(root.popupId, table, [0, 1, 2, 3, 4]);
 
                         $dialogContainer = $(root.popupId);
                         $detachedChildren = $dialogContainer.children().detach();
+                        
                         $(root.popupId).dialog("open");
-                        SetHeightPopupContent(root.popupId);
+                        fixTableHeader(root.popupId, '#chooseCustomer');
+                        setHeightPopupContent(root.popupId);
+                        setHeightTableContent(root.popupId, '#chooseCustomer');
                     } else {
                         $(root.popupId).dialog('close');
                     }
@@ -125,43 +144,27 @@
             $(root.popupId + ' #customerInfo table *').prop("disabled", false);
             $(root.popupId + ' #customerInfo table').removeClass('icon-disable');
 
-            $(root.popupId + ' .popup-table-header *').prop("disabled", true);
-            $(root.popupId + ' .popup-table-header').addClass('icon-disable');
             $(root.popupId + ' .popup-content *').prop("disabled", true);
             $(root.popupId + ' .popup-content').addClass('icon-disable');
 
-            $(root.popupId + ' button[id^="select-"]').unbind('click');
-            $(root.popupId + ' button[id^="select-"]').unbind('keypress');
+            $(root.popupId + ' span[id^="customer-"]').unbind('click');
             $(root.popupId + ' #customer-table tr').unbind('dblclick');
         } else {
             $(root.popupId + ' #customerInfo table *').prop("disabled", true);
             $(root.popupId + ' #customerInfo table').addClass('icon-disable');
 
-            $(root.popupId + ' .popup-table-header *').prop("disabled", false);
-            $(root.popupId + ' .popup-table-header').removeClass('icon-disable');
-            $(root.popupId + ' .popup-conten *').prop("disabled", false);
+            $(root.popupId + ' .popup-content *').prop("disabled", false);
             $(root.popupId + ' .popup-content').removeClass('icon-disable');
             
-            $(root.popupId + ' button[id^="select-"]').unbind('click');
-            $(root.popupId + ' button[id^="select-"]').button({
-                icons: {
-                    primary: "ui-icon-circle-check"
-                }
-            }).click(function (e) {
+            $(root.popupId + ' span[id^="customer-"]').unbind('click');
+            $(root.popupId + ' span[id^="customer-"]').click(function (e) {
                 root.select(e);
                 return false;
             });
 
-            $(root.popupId + ' button[id^="select-"]').unbind('keypress');
-            $(root.popupId + ' button[id^="select-"]').keypress(function (e) {
-                if (e.which == 13) {
-                    $(e.target).trigger('click');
-                }
-            });
-
             $(root.popupId + ' #customer-table tr').unbind('dblclick');
             $(root.popupId + ' #customer-table tr').dblclick(function (e) {
-                $(e.currentTarget).find('button[id^="select-"]').trigger('click');
+                $(e.currentTarget).find('span[id^="customer-"]').trigger('click');
             });
         }
     }

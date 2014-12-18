@@ -1,29 +1,14 @@
 ﻿@model SMS.MvcApplication.Models.PopupModel
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide edit-label-popup">
-    <table class="popup-table-header">
-        <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-        </colgroup>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Label ID</th>
-                <th>VNText</th>
-                <th>ENText</th>
-            </tr>
-        </thead>
-    </table>
     <div class="popup-content">
-        <table id="table-detail-@Model.PopupID">
-            <colgroup>
-                <col class="col1" />
-                <col class="col2" />
-                <col class="col3" />
-                <col class="col4" />
-            </colgroup>
+        <table id="editLabel" class="display">
+            <thead>
+                <tr>
+                    <th>Label ID</th>
+                    <th>Vietnamese</th>
+                    <th>English</th>
+                </tr>
+            </thead>
             <tbody id="label-dictionary">
                 
             </tbody>
@@ -36,8 +21,7 @@
 </div>
 <script id="multi-edit-label-item-tmpl" type="text/x-jquery-tmpl">
     {{each(idx) Data}}
-    <tr class="{{if idx%2}}alt{{/if}}">
-        <td>${idx + 1}</td>
+    <tr>
         <td class="page-label-id">${LabelID}</td>
         <td><input class="page-label-vn" type="text" value="${VNText}"/></td>
         <td><input class="page-label-en" type="text" value="${ENText}"/></td>
