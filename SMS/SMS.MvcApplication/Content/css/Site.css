@@ -1161,3 +1161,7 @@ fieldset {
 #statistic {
     margin-top: 20px;
 }
+
+#line-chart-div table {
+    width: auto;
+}
