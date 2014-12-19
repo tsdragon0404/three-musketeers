@@ -54,10 +54,6 @@ namespace SMS.Common.AutoMapper
                 .ForMember(x => x.Text, y => y.ResolveUsing(z =>
                     CommonObjects.Language == Language.Vietnamese ? z.VNText : z.ENText));
 
-            Mapper.CreateMap<Report, LanguageReportDto>()
-                .ForMember(x => x.Title, y => y.ResolveUsing(z =>
-                    CommonObjects.Language == Language.Vietnamese ? z.VNTitle : z.ENTitle));
-
             Mapper.CreateMap<Product, SearchProductDto>()
                 .ForMember(x => x.Code, y => y.MapFrom(z => z.ProductCode))
                 .ForMember(x => x.Name, y => y.ResolveUsing(z =>

@@ -38,9 +38,6 @@ namespace SMS.Common.AutoMapper
             Map<ProductCategory, ProductCategoryDto>();
             Map<Product, ProductDto>();
             Map<Reject, RejectDto>();
-            Map<ReportDatasource, ReportDatasourceDto>();
-            Map<ReportDatasourceParameter, ReportDatasourceParameterDto>();
-            Map<Report, ReportDto>();
             Map<Role, RoleDto>();
             Map<SystemInformation, SystemInformationDto>();
             Map<Table, TableDto>();

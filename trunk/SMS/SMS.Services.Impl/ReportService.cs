@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Data;
-using Core.Common.Validation;
+using Core.Common;
 using SMS.Business;
-using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
 {
-    public class ReportService : BaseService<ReportDto, IReportManagement>, IReportService
+    public class ReportService : IReportService
     {
         #region Fields
 
+        public virtual IReportManagement Management { get; set; }
+
         #endregion
 
-        //public ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString)
-        //{
-        //    return Management.LoadReportDatasources(reportName, queryString);
-        //}
+        public DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters)
+        {
+            return Management.ExecuteStoredProcedure(spName, parameters);
+        }
     }
 }

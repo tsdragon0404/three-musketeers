@@ -10,8 +10,8 @@ using SMS.Data.Entities.Interfaces;
 
 namespace SMS.Data.Impl
 {
-    public class BaseRepository<TEntity> : Repository<TEntity>,
-                                           IBaseRepository<TEntity> where TEntity : Entity
+    public abstract class BaseRepository<TEntity> : Repository<TEntity>,
+                                                    IBaseRepository<TEntity> where TEntity : Entity
     {
         #region Func
 

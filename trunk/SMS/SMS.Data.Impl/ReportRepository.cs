@@ -1,8 +1,8 @@
-﻿using SMS.Data.Entities;
+﻿using Core.Data.NHibernate;
 
 namespace SMS.Data.Impl
 {
-    public class ReportRepository : BaseRepository<Report>, IReportRepository
+    public class ReportRepository : BaseRepository, IReportRepository
     {
 
     }

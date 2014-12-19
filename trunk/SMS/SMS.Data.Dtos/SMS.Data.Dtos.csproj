@@ -60,9 +60,6 @@
     <Compile Include="InvoiceDetailDto.cs" />
     <Compile Include="InvoiceTableDto.cs" />
     <Compile Include="InvoiceDto.cs" />
-    <Compile Include="ReportDto.cs" />
-    <Compile Include="ReportDatasourceDto.cs" />
-    <Compile Include="ReportDatasourceParameterDto.cs" />
     <Compile Include="TaxDto.cs" />
     <Compile Include="UnitDto.cs" />
     <Compile Include="ProductCategoryDto.cs" />

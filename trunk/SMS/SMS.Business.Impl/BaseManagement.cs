@@ -8,7 +8,7 @@ using SMS.Common.Storage;
 
 namespace SMS.Business.Impl
 {
-    public class BaseManagement<TDto, TEntity, TIRepository> : IBaseManagement<TDto> 
+    public abstract class BaseManagement<TDto, TEntity, TIRepository> : IBaseManagement<TDto> 
         where TIRepository : Data.IBaseRepository<TEntity> 
     {
         public virtual TIRepository Repository { get; set; }
