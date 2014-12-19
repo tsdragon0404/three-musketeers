@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using Core.Common.Validation;
-using SMS.Data.Dtos;
+using Core.Common;
 
 namespace SMS.Services
 {
-    public interface IReportService : IBaseService<ReportDto>
+    public interface IReportService
     {
-        //ServiceResult<DataSet> LoadReportDatasources(string reportName, Dictionary<string, string> queryString);
+        DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters);
     }
 }

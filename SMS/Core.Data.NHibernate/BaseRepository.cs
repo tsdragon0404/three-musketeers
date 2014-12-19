@@ -33,6 +33,20 @@ namespace Core.Data.NHibernate
         protected ISession Session { get { return UnitOfWork.Current.Session; } }
 
         #endregion Properties
+
+        public DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters)
+        {
+            var paramstr = parameters.Aggregate(" ", (current, parameter) => current + string.Format(":{0}, ", parameter.Name));
+
+            if (parameters.Count > 0)
+                paramstr = paramstr.Remove(paramstr.Length - 2);
+
+            var query = Session.CreateSQLQuery(string.Format("exec {0}{1}", spName, paramstr));
+
+            parameters.ForEach(x => query.SetParameter(x.Name, x.Value));
+
+            return query.SetResultTransformer(new DataTableResultTransformer()).List()[0] as DataTable;
+        }
     }
 
     /// <summary>
@@ -220,20 +234,6 @@ namespace Core.Data.NHibernate
         public bool Exists(Expression<Func<TEntity, bool>> predicate)
         {
             return Session.Query<TEntity>().Any(predicate);
-        }
-
-        public DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters)
-        {
-            var paramstr = parameters.Aggregate(" ", (current, parameter) => current + string.Format(":{0}, ", parameter.Name));
-
-            if (parameters.Count > 0)
-                paramstr = paramstr.Remove(paramstr.Length - 2);
-
-            var query = Session.CreateSQLQuery(string.Format("exec {0}{1}", spName, paramstr));
-
-            parameters.ForEach(x => query.SetParameter(x.Name, x.Value));
-
-            return query.SetResultTransformer(new DataTableResultTransformer()).List()[0] as DataTable;
         }
 
         #endregion IBaseRepository<TEntity>

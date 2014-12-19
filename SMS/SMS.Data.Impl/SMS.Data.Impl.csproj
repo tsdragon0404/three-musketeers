@@ -42,6 +42,7 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="BranchRepository.cs" />
     <Compile Include="BrandingTextRepository.cs" />
+    <Compile Include="ReportRepository.cs" />
     <Compile Include="UploadedFileRepository.cs" />
     <Compile Include="SystemInformationRepository.cs" />
     <Compile Include="UserConfigRepository.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="RolePermissionRepository.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />
-    <Compile Include="ReportRepository.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="ErrorMessageRepository.cs" />
     <Compile Include="PageLabelRepository.cs" />

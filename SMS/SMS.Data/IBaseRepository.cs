@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq.Expressions;
-using Core.Common;
 
 namespace SMS.Data
 {
@@ -22,7 +20,6 @@ namespace SMS.Data
         bool Delete(long primaryKey);
         bool DeleteInCurrentBranch(long primaryKey);
         void Save(TEntity entity);
-        DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters);
 
         TTargetEntity CrossTableGetByID<TTargetEntity>(object id);
         TTargetEntity CrossTableGet<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate);

@@ -61,9 +61,6 @@
     <Compile Include="RolePermissionMap.cs" />
     <Compile Include="RoleMap.cs" />
     <Compile Include="UserMap.cs" />
-    <Compile Include="ReportDatasourceParameterMap.cs" />
-    <Compile Include="ReportDatasourceMap.cs" />
-    <Compile Include="ReportMap.cs" />
     <Compile Include="CustomerMap.cs" />
     <Compile Include="OrderDetailMap.cs" />
     <Compile Include="OrderDiscountMap.cs" />

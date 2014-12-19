@@ -5,7 +5,7 @@ using SMS.Common.Paging;
 
 namespace SMS.Services.Impl
 {
-    public class BaseService<TDto, TIManagement> : IBaseService<TDto> where TIManagement : IBaseManagement<TDto>
+    public abstract class BaseService<TDto, TIManagement> : IBaseService<TDto> where TIManagement : IBaseManagement<TDto>
     {
         public virtual TIManagement Management { get; set; }
 

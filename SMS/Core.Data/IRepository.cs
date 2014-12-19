@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using Core.Common;
 
 namespace Core.Data
 {
@@ -109,13 +107,6 @@ namespace Core.Data
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
         bool Exists(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Execute the given stored procedure
-        /// </summary>
-        /// <param name="spName">The stored procedure name</param>
-        /// <param name="parameters"> </param>
-        DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters);
 
         /// <summary>
         /// Gets the entity from another table by the specified id.
