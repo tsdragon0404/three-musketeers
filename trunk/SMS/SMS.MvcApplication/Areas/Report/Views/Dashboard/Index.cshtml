@@ -1,24 +1,27 @@
 ﻿<div id="content">
     <!--[if lt IE 9]><script type="text/javascript" src="~/Scripts/flot/excanvas.min.js"></script><![endif]-->
     <script type="text/javascript" src="~/Scripts/flot/jquery.flot.min.js"></script>
-    <div class="row" style="padding-top: 10px;">
-        <table class="no-border">
-            <tr>
-                <td>Report type</td>
-                <td>
-                    <select id="reportType">
-                        <option>Doanh thu theo ngày</option>
-                        <option>Doanh thu theo tháng</option>
-                        <option>Doanh thu theo quý</option>
-                    </select>
-                </td>
-                <td>From</td>
-                <td><input type="text" id="from" name="from" style="width: 100px"></td>
-                <td>to</td>
-                <td><input type="text" id="to" name="to" style="width: 100px"></td>
-                <td><button id="report">Report</button></td>
-            </tr>
-        </table>
+    <div class="row">
+        <fieldset style="padding: 10px 10px; margin: 10px 0px">
+            <legend></legend>
+            <table class="no-border" style="width: auto">
+                <tr>
+                    <td>Report type</td>
+                    <td>
+                        <select id="reportType">
+                            <option value="usp_s_getInvoice">Doanh thu theo ngày</option>
+                            <option value="usp_s_getInvoice1">Doanh thu theo tháng</option>
+                            <option value="usp_s_getInvoice2">Doanh thu theo quý</option>
+                        </select>
+                    </td>
+                    <td>From</td>
+                    <td><input type="text" id="from" name="from" style="width: 100px"></td>
+                    <td>to</td>
+                    <td><input type="text" id="to" name="to" style="width: 100px"></td>
+                    <td><button id="report">Show chart</button></td>
+                </tr>
+            </table>
+        </fieldset>
     </div>
     <div class="row">
         <div class="twelve columns" id="line-chart-div" style="height: 350px;"></div>
@@ -137,33 +140,72 @@
                 $("#from").datepicker("option", "maxDate", selectedDate);
             }
         });
+        
+        var startdate = new Date();
+        $("#from").datepicker("setDate", startdate);
+        $("#to").datepicker("setDate", startdate);
+
+        $('#reportType').multiselect({
+            selectedText: "# of # selected"
+        });
+        
+        $('#statistic table').table();
+
+        var data = [];
+
+        var options = {
+            lines: {
+                show: true
+            },
+            points: {
+                show: true
+            }
+        };
+
+        $.plot("#line-chart-div", data, options);
+        
+        var alreadyFetched = {};
 
         $('#report').button({
             icons: {
                 primary: "ui-icon-document"
             }
         }).click(function () {
+            var fromDate = $("#from").datepicker("getDate") == "" ? "01-01-1990" : $("#from").datepicker("getDate");
+            var toDate = $("#to").datepicker("getDate") == "" ? new Date() : $("#to").datepicker("getDate");
+
+            var report_selected = $("#reportType").multiselect("getChecked").map(function () {
+                return this;
+            }).get();
+
+            data = [];
+            alreadyFetched = {};
             
-            return false;
+            var rpt;
+            for (var x = 0; x < report_selected.length; x++) {
+                rpt = report_selected[x];
+                $.ajax({
+                    type: 'POST',
+                    async: false,
+                    url: '@Url.Action("GetReportData")',
+                    data: { spName: rpt.value, fromDate: fromDate.toJSON(), toDate: toDate.toJSON() }
+                }).done(function(result) {
+                    if (result.Success) {
+                        var rptLine = [];
+                        
+                        for (var i = 0; i < result.Data.length; i++) {
+                            rptLine.push([parseFloat(result.Data[i].zai), parseFloat(result.Data[i].gai)]);
+                        }
+                        
+                        if (!alreadyFetched[rpt.value]) {
+                            alreadyFetched[rpt.value] = true;
+                            data.push({ label: rpt.title, data: rptLine });
+                        }
+                    }
+                    
+                    $.plot("#line-chart-div", data, options);
+                });
+            }
         });
-
-        $('#reportType').multiselect({
-            selectedText: "# of # selected"
-        });
-            
-        $('#statistic table').table();
-
-        var d1 = [];
-        for (var i = 0; i < 26; i += 0.5) {
-            d1.push([i, Math.sin(i)]);
-        }
-
-        var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
-
-        // A null signifies separate line segments
-
-        var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
-
-        $.plot("#line-chart-div", [d1, d2, d3]);
     });
 </script>
