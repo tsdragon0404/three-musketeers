@@ -25,6 +25,7 @@ namespace SMS.Services
 
         ServiceResult<TDto> AddProductToOrderTable<TDto>(long orderTableID, long productID, decimal quantity);
         ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value);
+        ServiceResult DeleteOrderDetail(long orderDetailID);
         ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value);
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
         ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
