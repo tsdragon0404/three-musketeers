@@ -1,0 +1,23 @@
+﻿@using SMS.Common.Constant
+
+<script id="table-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    {{if idx % @ConstStyle.GridNumber == 0}}
+    <div class='row' style="padding-top: 10px;">
+        {{/if}}
+        <div class="one column">
+            <table class="tbls" id="${ID}-${Table.ID}-{{if Order != null}}${Order.ID}{{else}}0{{/if}}" title="${Table.Name}{{if Order != null}}: ${Order.OrderNumber}{{/if}}">
+                <tr>
+                    <td class="table {{if ID > 0}}available{{else}}not-available{{/if}}"></td>
+                </tr>
+                <tr>
+                    <td>${Table.Name}</td>
+                </tr>
+            </table>
+        </div>
+            
+        {{if idx == $data.Data.length || idx % @ConstStyle.GridNumber == @ConstStyle.GridNumber - 1}}
+    </div>
+    {{/if}}
+    {{/each}}
+</script>
