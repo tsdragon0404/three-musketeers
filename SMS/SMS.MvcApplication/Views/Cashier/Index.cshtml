@@ -540,10 +540,10 @@
     function onLoadOrderTable(result) {
         $('#table-detail-' + result.Data.ID).html($('#ordertable-tmpl').tmpl(result.Data));
 
-        bindEventForControl();
+        SetupOrderTable();
     }
 
-    function bindEventForControl() {
+    function SetupOrderTable() {
         $('table[id^="order-"]').table();
 
         $('input[id^="qty"]').spinner({
@@ -909,7 +909,7 @@
                     $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
                     $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
-                    bindEventForControl();
+                    SetupOrderTable();
 
                     $('#button-payment').show();
                     $('#order-header').show();
@@ -1131,7 +1131,7 @@
                 $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
                 $('#tblContent').html($('#order-tmpl').tmpl(result.Data).scanLabel());
 
-                bindEventForControl();
+                SetupOrderTable();
 
                 $('#button-payment').show();
                 $('#order-header').show();
