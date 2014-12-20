@@ -955,6 +955,10 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Shared\CustomerPopup.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Cashier\Templates\Order.cshtml" />
+    <Content Include="Views\Cashier\Templates\Discount.cshtml" />
+    <Content Include="Views\Cashier\Templates\OrderTable.cshtml" />
+    <Content Include="Views\Cashier\Templates\Table.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

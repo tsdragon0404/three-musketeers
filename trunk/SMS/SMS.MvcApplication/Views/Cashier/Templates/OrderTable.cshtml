@@ -1,0 +1,32 @@
+﻿@using SMS.Common.Enums
+@using SMS.Common.Storage
+
+<script id="ordertable-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) OrderDetails}}
+    <tr id="${ID}">
+        <td class="sequence">${idx + 1}</td>
+        <td>${Product.Name} - ${Product.ProductCode}</td>
+        <td>
+            <input type="text" id="qty-${ID}" value="${Quantity.formatAsMoney()}" name="qty" class="required center" />
+        </td>
+        <td>${Product.Unit.Name}</td>
+        <td class="right product-price">${Product.Price.formatAsMoney()}</td>
+        @if (SmsCache.BranchConfigs.Current.UseDiscountOnProduct)
+        {
+            <td><input type="text" id="discount-${ID}" class="required right" value="${Discount.formatAsMoney()}" /></td>
+        }
+        <td class="right item_subtotal">${(Product.Price * Quantity - Discount).formatAsMoney()}</td>
+        <td>
+            <input type="text" id="cmt-${ID}" class="remarksInput" value="${Comment}" /></td>
+        @if (SmsCache.BranchConfigs.Current.UseKitchenFunction)
+        {
+            <td class="center icon">
+                <div class="{{if OrderStatus == @((int)OrderStatus.Ordered) }}icon-transfer{{/if}}{{if OrderStatus == @((int)OrderStatus.SentToKitchen) }}icon-pending{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenAccepted) }}icon-accept{{/if}}{{if OrderStatus == @((int)OrderStatus.KitchenRejected) }}icon-reject{{/if}}{{if OrderStatus == @((int)OrderStatus.Done) }}icon-done{{/if}}" id="status-${ID}-${OrderStatus}" title="${GetOrderStatusName(OrderStatus)}"></div>
+            </td>
+        }
+        <td class="center icon">
+            <div class="rmenu-delete" id="del-${ID}" title="Delete"></div>
+        </td>
+    </tr>
+    {{/each}}    
+</script>

@@ -1,0 +1,26 @@
+﻿@using SMS.Common.Enums
+
+<script id="discount-tmpl" type="text/x-jquery-tmpl">
+    {{each(idx) Data}}
+    <select id="discount-type" name="discount-type">
+        {{if DiscountType == @((int)DiscountType.Number)}}
+        <option value="@((int)DiscountType.Number)" selected>@DiscountType.Number</option>
+        {{else}}
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        {{/if}}
+        {{if DiscountType == @((int)DiscountType.Percent)}}
+        <option value="@((int)DiscountType.Percent)" selected>@DiscountType.Percent</option>
+        {{else}}
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+        {{/if}}
+    </select>
+    <input type="text" title="Discount" id="discount" value="${Discount.formatAsMoney()}" class="required right" name="number" />
+    {{/each}}
+    {{if Data.length < 1}}
+    <select id="discount-type" name="discount-type">
+        <option value="@((int)DiscountType.Number)">@DiscountType.Number</option>
+        <option value="@((int)DiscountType.Percent)">@DiscountType.Percent</option>
+    </select>
+    <input type="text" title="Discount" id="discount" class="required right" name="number"/>
+    {{/if}}
+</script>
