@@ -92,7 +92,7 @@ namespace SMS.Business.Impl
         public ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts)
         {
             var discounts = Mapper.Map<OrderDiscount[]>(orderDiscounts);
-            discounts.Each(x => x.OrderID = orderID);
+            discounts.Apply(x => x.OrderID = orderID);
             Repository.SaveDiscounts(orderID, discounts);
 
             return ServiceResult.CreateSuccessResult();
@@ -163,7 +163,7 @@ namespace SMS.Business.Impl
         {
             var order = Repository.GetByID(orderID);
             order.Customer = new Customer { ID = 1 };
-            tableIDs.Each(x => order.OrderTables.Add(new OrderTable { Table = new Table { ID = x } }));
+            tableIDs.Apply(x => order.OrderTables.Add(new OrderTable { Table = new Table { ID = x } }));
 
             order.OrderNumber = BuildOrderNumber(orderID);
             Repository.Save(order);
@@ -238,17 +238,15 @@ namespace SMS.Business.Impl
             if (product == null)
                 return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
+            Repository.CrossTableAdd(new OrderDetail
+                                         {
+                                             Quantity = quantity,
+                                             Product = product,
+                                             OrderTable = new OrderTable {ID = orderTableID},
+                                             OrderStatus = SmsCache.BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
+                                         });
+
             var orderTable = Repository.CrossTableGetByID<OrderTable>(orderTableID);
-            if (orderTable == null)
-                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
-            
-            orderTable.OrderDetails.Add(new OrderDetail
-                                            {
-                                                Quantity = quantity,
-                                                Product = product,
-                                                OrderStatus = SmsCache.BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
-                                            });
-            Repository.CrossTableUpdate(orderTable);
 
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(orderTable));
         }
@@ -282,6 +280,12 @@ namespace SMS.Business.Impl
             }
             Repository.CrossTableUpdate(orderDetail);
 
+            return ServiceResult.CreateSuccessResult();
+        }
+
+        public ServiceResult DeleteOrderDetail(long orderDetailID)
+        {
+            Repository.CrossTableDelete<OrderDetail>(orderDetailID);
             return ServiceResult.CreateSuccessResult();
         }
 

@@ -148,7 +148,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));
 
-            var result = OrderService.Delete(orderDetailID);
+            var result = OrderService.DeleteOrderDetail(orderDetailID);
 
             return Json(JsonModel.Create(result));
         }

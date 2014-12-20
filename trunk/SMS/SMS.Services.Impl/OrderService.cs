@@ -93,6 +93,11 @@ namespace SMS.Services.Impl
             return Management.UpdateProductToOrderTable(orderDetailID, columnName, value);
         }
 
+        public ServiceResult DeleteOrderDetail(long orderDetailID)
+        {
+            return Management.DeleteOrderDetail(orderDetailID);
+        }
+
         public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value)
         {
             return Management.UpdateOrderedProductStatus<TDto>(orderDetailID, value);
