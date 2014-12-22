@@ -15,6 +15,8 @@ namespace SMS.Common.Storage.CacheObjects
 
         public long UserID { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public bool IsSystemAdmin { get; set; }
         public bool UseSystemConfig { get; set; }
 
@@ -59,7 +61,7 @@ namespace SMS.Common.Storage.CacheObjects
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
-        public void Add(string sessionID, long userID, string userName, string ipAddress, string userAgent, 
+        public void Add(string sessionID, long userID, string userName, string firstName, string lastName, string ipAddress, string userAgent, 
                         long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
                         decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
@@ -69,6 +71,8 @@ namespace SMS.Common.Storage.CacheObjects
                 SessionID = sessionID,
                 UserID = userID,
                 UserName = userName,
+                FirstName = firstName,
+                LastName = lastName,
                 IpAddress = ipAddress,
                 UserAgent = userAgent,
                 CurrentBranchId = selectedBranchID,

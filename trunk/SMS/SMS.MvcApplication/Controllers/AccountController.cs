@@ -150,7 +150,7 @@ namespace SMS.MvcApplication.Controllers
             var pageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize;
             var theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme;
 
-            SmsCache.UserAccesses.Add(CommonObjects.SessionId, user.ID, user.Username, Request.UserHostAddress, Request.UserAgent,
+            SmsCache.UserAccesses.Add(CommonObjects.SessionId, user.ID, user.Username, user.FirstName, user.LastName, Request.UserHostAddress, Request.UserAgent,
                                       branchID, user.IsSystemAdmin, user.UseSystemConfig, userConfig.Data.DefaultAreaID, listTableHeight,
                                       pageSize, theme, allowBranches, pages.Data.Select(x => x.ID).ToList());
 
