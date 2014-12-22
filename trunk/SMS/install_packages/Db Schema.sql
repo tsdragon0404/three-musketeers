@@ -542,6 +542,7 @@ BEGIN
         [DOB] [datetime] NULL,
         [OtherFee] [numeric](19, 2) NULL,
         [OtherFeeDescription] [nvarchar](255) NULL,
+		[OrderProgressStatus] [tinyint] NULL,
         [CreatedDate] [datetime] NULL,
         [CreatedUser] [nvarchar](50) NULL,
         [ModifiedDate] [datetime] NULL,
