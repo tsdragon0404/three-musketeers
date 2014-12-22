@@ -36,7 +36,7 @@ namespace SMS.Business.Impl
 
         public long CreateEmptyOrder()
         {
-            var order = new Order();
+            var order = new Order {OrderProgressStatus = OrderProgressStatus.Pending};
             Repository.Save(order);
             return order.ID;
         }
@@ -77,7 +77,8 @@ namespace SMS.Business.Impl
 
             InvoiceRepository.CreateInvoice(order, SmsCache.UserContext.UserID, SmsCache.BranchConfigs.Current.Currency, tax, serviceFee, taxInfo, paymentMethod);
 
-            Repository.Delete(orderID);
+            order.OrderProgressStatus = OrderProgressStatus.Done;
+            Repository.Save(order);
 
             return ServiceResult.CreateSuccessResult();
         }
@@ -130,7 +131,9 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID)
         {
             var orders = Repository
-                .List(x => x.OrderTables.Any(y => y.Table.Area.ID == areaID || areaID == 0) && x.Branch.ID == SmsCache.UserContext.CurrentBranchId);
+                .List(x => x.OrderTables.Any(y => y.Table.Area.ID == areaID || areaID == 0) 
+                    && x.Branch.ID == SmsCache.UserContext.CurrentBranchId
+                    && x.OrderProgressStatus == OrderProgressStatus.Pending);
 
             var usedTables = orders.SelectMany(x => x.OrderTables).ToList();
 
@@ -150,7 +153,7 @@ namespace SMS.Business.Impl
         private string BuildOrderNumber(long orderID)
         {
             var text = "0000000000" + orderID;
-            return "INV-" + text.Substring(text.Length - 10, 10);
+            return "#" + text.Substring(text.Length - 10, 10);
         }
 
         public ServiceResult CheckTableStatus(long tableID)

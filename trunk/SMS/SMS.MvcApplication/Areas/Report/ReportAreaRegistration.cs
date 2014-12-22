@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.Report
             context.MapRoute(
                 "Report_default",
                 "Report/{controller}/{action}/{id}",
-                new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional }
             );
         }
     }

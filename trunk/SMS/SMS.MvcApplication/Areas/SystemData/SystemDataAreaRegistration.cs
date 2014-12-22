@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.SystemData
             context.MapRoute(
                 "SystemData_default",
                 "SystemData/{controller}/{action}/{id}",
-                new { controller = "About", action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\OrderProgressStatus.cs" />
     <Compile Include="Enums\PaymentMethod.cs" />
     <Compile Include="Enums\PageType.cs" />
     <Compile Include="Enums\SystemInformationType.cs" />

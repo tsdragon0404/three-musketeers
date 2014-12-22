@@ -67,6 +67,8 @@ namespace SMS.Data.Entities
             get { return SubTotal + OtherFee + ServiceFee - DiscountAmount; }
         }
 
+        public virtual OrderProgressStatus OrderProgressStatus { get; set; }
+
         #region Implementation of IBranchEntity
 
         public virtual Branch Branch { get; set; }
