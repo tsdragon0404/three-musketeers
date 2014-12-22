@@ -1,4 +1,5 @@
-﻿using SMS.Data.Entities;
+﻿using SMS.Common.Enums;
+using SMS.Data.Entities;
 
 namespace SMS.Data.Mapping
 {
@@ -17,6 +18,7 @@ namespace SMS.Data.Mapping
             Map(x => x.DOB);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
+            Map(x => x.OrderProgressStatus).CustomType<OrderProgressStatus>();
             HasMany(x => x.OrderDiscounts)
                 .KeyColumn("OrderID")
                 .Cascade.AllDeleteOrphan();

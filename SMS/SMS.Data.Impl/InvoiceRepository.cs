@@ -32,11 +32,7 @@ namespace SMS.Data.Impl
                                   TaxInfo = taxInfo,
                                   PaymentMethod = paymentMethod,
                                   DiscountAmount = order.DiscountAmount,
-                                  InvoiceAmount = order.OrderAmount + serviceFee + tax,
-                                  CreatedDate = order.CreatedDate,
-                                  CreatedUser = order.CreatedUser,
-                                  ModifiedDate = order.ModifiedDate,
-                                  ModifiedUser = order.ModifiedUser
+                                  InvoiceAmount = order.OrderAmount + serviceFee + tax
                               };
             
             Add(invoice);

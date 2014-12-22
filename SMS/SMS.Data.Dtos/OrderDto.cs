@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Dtos
 {
@@ -31,6 +32,7 @@ namespace SMS.Data.Dtos
         public virtual decimal ServiceFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
         public virtual IList<OrderDiscountDto> OrderDiscounts { get; set; }
+        public virtual OrderProgressStatus OrderProgressStatus { get; set; }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }
