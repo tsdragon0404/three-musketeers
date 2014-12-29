@@ -1,4 +1,5 @@
 ﻿@using SMS.Common.Constant
+@using SMS.Common.Storage
 @using SMS.MvcApplication.Models
 @model GlobalLabelModel
 
@@ -6,45 +7,61 @@
     <div class="row">
         <h4 class="admin-page-title">Change text for all common controls</h4>
     </div>
-    <div class="row">
-        <table id="globalLabel" class="no-border">
-            <colgroup>
-                <col style="width: 60px;" />
-                <col style="width: 150px;" />
-                <col />
-                <col />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th data-labelID="lblNo">No</th>
-                    <th data-labelID="lblLabelID">Label ID</th>
-                    <th data-labelID="lblVNText">VN Text</th>
-                    <th data-labelID="lblENText">EN Text</th>
+    
+    <table id="globalLabel" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblNo">No</th>
+                <th data-labelID="lblLabelID">Label ID</th>
+                <th data-labelID="lblVNText">VN Text</th>
+                <th data-labelID="lblENText">EN Text</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.PageLabels)
+            {
+                <tr class="record-data" data-id="@dto.ID">
+                    <td>@Html.Raw(Model.PageLabels.IndexOf(dto) + 1)</td>
+                    <td id="labelID">@dto.LabelID</td>
+                    <td><input type="text" value="@dto.VNText" id="vnText"/></td>
+                    <td><input type="text" value="@dto.ENText" id="enText"/></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var dto in Model.PageLabels)
-                {
-                    var altClass = Model.PageLabels.IndexOf(dto) % 2 != 0 ? "alt" : "";
-                    <tr class="@altClass record-data" data-id="@dto.ID">
-                        <td>@Html.Raw(Model.PageLabels.IndexOf(dto) + 1)</td>
-                        <td id="labelID">@dto.LabelID</td>
-                        <td><input type="text" value="@dto.VNText" id="vnText"/></td>
-                        <td><input type="text" value="@dto.ENText" id="enText"/></td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td class="center" colspan="4"><button id="save" data-labelID="lblUpdate">Update</button></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="center" colspan="4"><button id="save" data-labelID="lblUpdate">Update</button></td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#globalLabel').table();
+        $('#globalLabel').DataTable({
+            "pageLength": @SmsCache.UserContext.PageSize,
+            scrollY: "350px",
+            searching: true,
+            ordering: true,
+            "info": true,
+            "lengthChange": false,
+            "jQueryUI": true,
+            paging: true,
+            language: {
+                "emptyTable": CONST_DATATABLE_NODATA,
+                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                "infoFiltered": CONST_DATATABLE_FILTER,
+                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                "search": CONST_DATATABLE_SEARCH,
+                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                "paginate": {
+                    "first": CONST_DATATABLE_FIRST,
+                    "last": CONST_DATATABLE_LAST,
+                    "next": CONST_DATATABLE_NEXT,
+                    "previous": CONST_DATATABLE_PREVIOUS
+                }
+            }
+        });
 
         $('#save').button({
             icons: {

@@ -44,6 +44,11 @@ namespace SMS.Business.Impl
             return Search<TDto>(textSearch, pagingInfo, includeDisable);
         }
 
+        public virtual ServiceResult<IPagedList<TDto>> Search(string textSearch, bool includeDisable)
+        {
+            return Search<TDto>(textSearch, includeDisable);
+        }
+
         public virtual ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
         {
             var filteredRecords = Repository.Search(textSearch, includeDisable).ToList();
@@ -57,9 +62,34 @@ namespace SMS.Business.Impl
             return ServiceResult<IPagedList<TModel>>.CreateSuccessResult(result);
         }
 
+        public virtual ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, bool includeDisable)
+        {
+            var filteredRecords = Repository.Search(textSearch, includeDisable).ToList();
+
+            var dtos = Mapper.Map<IList<TModel>>(filteredRecords);
+            var result = PagedList<TModel>.CreatePageList(dtos);
+
+            return ServiceResult<IPagedList<TModel>>.CreateSuccessResult(result);
+        }
+
+        public virtual ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, long branchID, bool includeDisable)
+        {
+            return SearchInBranch<TDto>(textSearch, branchID, includeDisable);
+        }
+
         public virtual ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable)
         {
             return SearchInBranch<TDto>(textSearch, pagingInfo, branchID, includeDisable);
+        }
+
+        public virtual ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, long branchID, bool includeDisable)
+        {
+            var filteredRecords = Repository.SearchInBranch(textSearch, branchID, includeDisable).ToList();
+
+            var dtos = Mapper.Map<IList<TModel>>(filteredRecords);
+            var result = PagedList<TModel>.CreatePageList(dtos);
+
+            return ServiceResult<IPagedList<TModel>>.CreateSuccessResult(result);
         }
 
         public virtual ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable)

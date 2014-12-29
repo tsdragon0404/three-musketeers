@@ -151,6 +151,13 @@ namespace SMS.Common.Paging
 
             return pageList;
         }
+
+        public static PagedList<TB> CreatePageList<TB>(IList<TB> list)
+        {
+            var pageList = new PagedList<TB>(list);
+
+            return pageList;
+        }
         #endregion
     }
 }

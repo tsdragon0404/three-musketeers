@@ -19,23 +19,15 @@ namespace SMS.MvcApplication.Base
         protected virtual bool CanDelete { get { return true; } }
 
         [HttpGet]
-        public virtual ActionResult Index(string textSearch, int page = 1)
+        public virtual ActionResult Index(string textSearch)
         {
-            var pagingInfo = new SortingPagingInfo
-                             {
-                                 CurrentPage = page, 
-                                 TextSearch = textSearch,
-                                 FormNameToSubmit = Url.Action("Index")
-                             };
-
-            var recordList = Service.Search(textSearch, pagingInfo, true);
+            var recordList = Service.Search(textSearch, true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 
             var model = new AdminModel<TDto>
             {
                 ListRecord = recordList.Data,
-                PagingInfo = pagingInfo,
                 CanAdd = CanAdd,
                 CanDelete = CanDelete,
                 CanEdit = CanEdit

@@ -1,4 +1,4 @@
-﻿function AdminFunction(getSchemaForAddUrl, getDataForEditUrl, saveDataUrl, getDataForSaveCallback, deleteDataUrl, deleteWarningTitle, deleteWarningMessage) {
+﻿function AdminFunction(getSchemaForAddUrl, getDataForEditUrl, saveDataUrl, getDataForSaveCallback, deleteDataUrl, deleteWarningTitle, deleteWarningMessage, pageSize) {
     var root = this;
     
     this.getSchemaForAddUrl = getSchemaForAddUrl;
@@ -8,13 +8,59 @@
     this.deleteDataUrl = deleteDataUrl;
     this.deleteWarningTitle = deleteWarningTitle;
     this.deleteWarningMessage = deleteWarningMessage;
-
-    this.activeRowCss = 'ui-state-active';
-    this.detailRowCss = 'ui-widget-content';
+    this.pageSize = pageSize;
+    
+    $('#record-table').DataTable({
+        "pageLength": root.pageSize,
+        scrollY: "200px",
+        searching: true,
+        ordering: true,
+        "info": true,
+        "lengthChange": false,
+        "jQueryUI": true,
+        paging: true,
+        language: {
+            "emptyTable": CONST_DATATABLE_NODATA,
+            "info": CONST_DATATABLE_SHOWINGRECORDS,
+            "infoEmpty": CONST_DATATABLE_NOENTRIES,
+            "infoFiltered": CONST_DATATABLE_FILTER,
+            "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+            "search": CONST_DATATABLE_SEARCH,
+            "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+            "paginate": {
+                "first": CONST_DATATABLE_FIRST,
+                "last": CONST_DATATABLE_LAST,
+                "next": CONST_DATATABLE_NEXT,
+                "previous": CONST_DATATABLE_PREVIOUS
+            }
+        }
+    });
 
     this.bind = function () {
-        $('#record-table').table();
 
+        // set height content datatable
+        var contentHeight = $('#content').height() - $('#content .admin-page-title').height();
+        var height1 = 0;
+        $('#record-table_wrapper > .ui-widget-header').each(function (idx, element) {
+            height1 += $(element).outerHeight();
+        });
+        var height2 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+        var height3 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollFoot').outerHeight();
+        var targetHeight = contentHeight - height1 - height2 - height3 - 10; // subtract 2 more px due to the border and padding bottom
+        $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+
+        // fix column header datatable
+        $(' .dataTables_scrollHeadInner, .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+        var headerColumns = $(' .dataTables_scrollHead table > thead > tr:first-child th');
+        var columns = $('#record-table > tbody > tr:first-child td');
+        for (var i = 0; i < columns.length; i++) {
+            $(headerColumns[i]).css('width', $(columns[i]).width());
+        }
+        var widthHeader = $('.dataTables_scrollHead').outerWidth();
+        var widthContent = $('#record-table').outerWidth();
+        $(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+
+        // set action event
         $('#record-table a.edit-record').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
@@ -37,10 +83,7 @@
                 if (place.length == 0)
                     return;
 
-                place.addClass(root.activeRowCss);
-
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                place.next().addClass(root.detailRowCss);
 
                 $('#save-' + result.Data.ID).button({
                     icons: {
@@ -58,13 +101,14 @@
                     cancelRecord();
                     return false;
                 });
-                $('.admin-record-detail .detail').slideToggle(500);
+                $('.admin-record-detail').slideToggle(100);
+                $('.admin-record-detail input:first-child').focus();
             });
 
             return false;
         });
 
-        $('#record-table a.add-record').click(function () {
+        $('a.add-record').click(function () {
             var record = $(this).parent().parent();
             if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
                 cancelRecord();
@@ -80,11 +124,9 @@
                 }
                 cancelRecord();
 
-                var place = $('#record-table a.add-record').parent().parent();
-                place.addClass(root.activeRowCss);
+                var place = $('a.add-record').parent().parent();
 
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                place.next().addClass(root.detailRowCss);
 
                 $("#save-0").button({
                     icons: {
@@ -102,7 +144,8 @@
                     cancelRecord();
                     return false;
                 });
-                $('.admin-record-detail .detail').slideToggle(500);
+                $('.admin-record-detail').slideToggle(100);
+                $('.admin-record-detail input:first-child').focus();
             });
 
             return false;
@@ -149,9 +192,8 @@
     }
 
     function cancelRecord() {
-        $('.admin-record-detail .detail').slideToggle(500, function () {
-            $(this).parent().parent().prev().removeClass(root.activeRowCss);
-            $(this).parent().parent().remove();
+        $('.admin-record-detail').slideToggle(100, function () {
+            $(this).remove();
         });
     }
 }

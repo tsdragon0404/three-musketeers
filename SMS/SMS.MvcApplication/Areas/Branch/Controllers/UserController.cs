@@ -23,15 +23,10 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         #endregion
 
         [HttpGet]
-        public ActionResult Index(string textSearch, int page = 1)
+        public ActionResult Index(string textSearch)
         {
-            var pagingInfo = new SortingPagingInfo
-                             {
-                                 CurrentPage = page, 
-                                 TextSearch = textSearch,
-                                 FormNameToSubmit = Url.Action("Index")
-                             };
-            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, pagingInfo, SmsCache.UserContext.CurrentBranchId);
+
+            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, SmsCache.UserContext.CurrentBranchId);
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
@@ -41,7 +36,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
             if (!roles.Success || roles.Data == null)
                 return ErrorPage(roles.Errors);
 
-            var users = new UserModel { Users = user.Data, UserConfigs = userConfig.Data, PagingInfo = pagingInfo};
+            var users = new UserModel { Users = user.Data, UserConfigs = userConfig.Data};
 
             ViewBag.ListRole = roles.Data;
 
