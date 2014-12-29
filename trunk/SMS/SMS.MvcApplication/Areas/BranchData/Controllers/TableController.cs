@@ -19,14 +19,14 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         #endregion
 
-        public override ActionResult Index(string textSearch, int page = 1)
+        public override ActionResult Index(string textSearch)
         {
             var areaListResult = AreaService.ListAllByBranch<LanguageAreaDto>(SmsCache.UserContext.CurrentBranchId);
             if(!areaListResult.Success || areaListResult.Data == null)
                 return ErrorPage(areaListResult.Errors);
 
             ViewBag.ListArea = areaListResult.Data;
-            return base.Index(textSearch, page);
+            return base.Index(textSearch);
         }
         
     }

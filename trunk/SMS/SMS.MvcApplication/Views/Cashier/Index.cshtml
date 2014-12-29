@@ -15,20 +15,6 @@
     var serviceFee = @SmsCache.BranchConfigs.Current.ServiceFee;
     var useServiceFee = "@SmsCache.BranchConfigs.Current.UseServiceFee";
     var currency = "@SmsCache.BranchConfigs.Current.Currency";
-    
-    /* Const initialization begin */
-    var CONST_DATATABLE_FIRST = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_First))';
-    var CONST_DATATABLE_LAST = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Last))';
-    var CONST_DATATABLE_NEXT = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Next))';
-    var CONST_DATATABLE_PREVIOUS = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Previous))';
-    var CONST_DATATABLE_NODATA = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoData))';
-    var CONST_DATATABLE_SHOWINGRECORDS = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_ShowingRecords))';
-    var CONST_DATATABLE_NOENTRIES = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoEntries))';
-    var CONST_DATATABLE_FILTER = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Filter))';
-    var CONST_DATATABLE_SHOWENTRIES = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_ShowEntries))';
-    var CONST_DATATABLE_SEARCH = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_Search))';
-    var CONST_DATATABLE_NOMATCHINGDATA = '@Html.Raw(SmsCache.Message.Get(ConstMessageIds.DataTable_NoMatchingData))';
-    /* Const initialization end */
 
     function GetOrderStatusName(orderStatus) {
         switch (orderStatus) {

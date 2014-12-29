@@ -8,6 +8,5 @@ namespace SMS.MvcApplication.Models
     {
         public IPagedList<UserInfoDto> Users { get; set; }
         public IList<UserConfigDto> UserConfigs { get; set; }
-        public SortingPagingInfo PagingInfo { get; set; }
     }
 }

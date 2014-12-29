@@ -4,121 +4,110 @@
 @model UserModel
 
 <script id="record-tmpl" type="text/x-jquery-tmpl">
-    <tr class="admin-record-detail">
+    <tr class="admin-record-detail" style="display: none;">
+        <td class="arrow-detail center">↳</td>
         <td colspan="6">
-            <div class="detail" style="display: none;">
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblUserName">
-                        Username
-                    </div>
-                    <div class="four columns">
+            <table class="no-border width500px">
+                <tr>
+                    <td data-labelID="lblUserName">User name</td>
+                    <td>
                         ${User.Username}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblPassword">
-                        Password
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblPassword">Password</td>
+                    <td>
                         <input type="password" name="password" value="" id="password-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblFirstName">
-                        First name
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblFirstName">First name</td>
+                    <td>
                         <input type="text" name="firstName" value="${User.FirstName}" id="firstName-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblLastName">
-                        Last name
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblLastName">Last name</td>
+                    <td>
                         <input type="text" name="lastName" value="${User.LastName}" id="lastName-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblCellPhone">
-                        Cell phone
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblCellPhone">Cell phone</td>
+                    <td>
                         <input type="text" name="cellPhone" value="${User.CellPhone}" id="cellPhone-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblEmail">
-                        Email
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblEmail">Email</td>
+                    <td>
                         <input type="text" name="email" value="${User.Email}" id="email-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblAddress">
-                        Address
-                    </div>
-                    <div class="five columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblAddress">Address</td>
+                    <td>
                         <input type="text" name="address" value="${User.Address}" id="address-${User.ID}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="three columns right" data-labelID="lblSuspended">
-                        Suspended
-                    </div>
-                    <div class="four columns">
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblSuspended">Suspended</td>
+                    <td>
                         {{if UserConfig.IsSuspended}}
                         <input type="checkbox" name="suspended" checked id="suspended-${User.ID}"/>
                         {{else}}
                         <input type="checkbox" name="suspended" id="suspended-${User.ID}"/>
                         {{/if}}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="four columns right" data-labelID="lblRoles">
-                        Roles
-                    </div>
-                    <div class="three columns">
-                    </div>
-                    <div class="four columns left" data-labelID="lblAssignedRoles">
-                        Assigned roles
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns right">
-                        <select id="originalRoles-${User.ID}" multiple="multiple" size="5" style="width: 80%">
-                            @foreach (RoleDto role in ViewBag.ListRole)
-                            {
-                                <text>
-                                    <option value="@role.ID">@role.Name</option>
-                                </text>
-                            }
-                        </select>
-                    </div>
-                    <div class="three columns center">
-                        <button id="addRoles-${User.ID}" class="assignButton">></button>
-                        <button id="addAllRoles-${User.ID}" class="assignButton">>></button>
-                        <button id="removeAllRoles-${User.ID}" class="assignButton"><<</button>
-                        <button id="removeRoles-${User.ID}" class="assignButton"><</button>
-                    </div>
-                    <div class="four columns">
-                        <select name="assignedRoles" id="assignedRoles-${User.ID}" multiple="multiple" size="5" style="width: 80%">
-                            {{each User.Roles}}
-                            <option value="${ID}">${Name}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    {{html buildScriptForAssignListBox(User.ID)}}
-                </div>
-                <div class="row">
-                    <div class="eleven columns center">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="row">
+                            <div class="four columns right" data-labelID="lblRoles">
+                                Roles
+                            </div>
+                            <div class="three columns">
+                            </div>
+                            <div class="four columns left" data-labelID="lblAssignedRoles">
+                                Assigned roles
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="four columns right">
+                                <select id="originalRoles-${User.ID}" multiple="multiple" size="7" class="full-width">
+                                    @foreach (RoleDto role in ViewBag.ListRole)
+                                    {
+                                        <text>
+                                            <option value="@role.ID">@role.Name</option>
+                                        </text>
+                                    }
+                                </select>
+                            </div>
+                            <div class="three columns center">
+                                <button id="addRoles-${User.ID}" class="assignButton">></button>
+                                <button id="addAllRoles-${User.ID}" class="assignButton">>></button>
+                                <button id="removeAllRoles-${User.ID}" class="assignButton"><<</button>
+                                <button id="removeRoles-${User.ID}" class="assignButton"><</button>
+                            </div>
+                            <div class="four columns">
+                                <select name="assignedRoles" id="assignedRoles-${User.ID}" multiple="multiple" size="7" class="full-width">
+                                    {{each User.Roles}}
+                                    <option value="${ID}">${Name}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            {{html buildScriptForAssignListBox(User.ID)}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
                         <button id="save-${User.ID}" data-labelID="lblSave">Save</button>
                         <button id="cancel-${User.ID}" data-labelID="lblCancel">Cancel</button>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </script>
@@ -136,68 +125,95 @@
 </script>
 
 <div id="content">
-    <div class="row">
-        <h4 class="admin-page-title">Maintain User</h4>
+    <div class="row admin-page-title">
+        <h4>Maintain User</h4>
     </div>
-    @Html.Partial("Search", Model.PagingInfo)
-    <div class="row">
-        <table id="record-table" class="no-border">
-            <colgroup>
-                <col style="width: 50px;" />
-                <col style="width: 60px;" />
-                <col style="width: 150px;" />
-                <col />
-                <col />
-                <col style="width: 75px;" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th data-labelID="lblNo">No</th>
-                    <th data-labelID="lblUserName">User name</th>
-                    <th data-labelID="lblFirstName">First name</th>
-                    <th data-labelID="lblLastName">Last name</th>
-                    <th data-labelID="lblSuspended">Suspended</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (!Model.Users.Any())
-                {
-                    <tr>
-                        <td colspan="6"><span data-globalLabelID="lblNoRecords">No records found.</span></td>
-                    </tr>
-                }
 
-                @foreach (var dto in Model.Users)
-                {
-                    var altClass = Model.Users.IndexOf(dto) % 2 != 0 ? "alt" : "";
-                    <tr class="@altClass" data-id="@dto.ID">
-                        <td class="center">
-                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
-                        </td>
-                        <td>@Html.Raw(Model.Users.IndexOf(dto) + 1)</td>
-                        <td>@dto.Username</td>
-                        <td>@dto.FirstName</td>
-                        <td>@dto.LastName</td>
-                        @if (Model.UserConfigs.SingleOrDefault(x => x.UserID == dto.ID) == null)
-                        {
-                            <td>@false</td>
-                        }
-                        else
-                        {
-                            <td>@Model.UserConfigs.Single(x => x.UserID == dto.ID).IsSuspended</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-        @Html.Partial("Paging", Model.PagingInfo)
-    </div>
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblID">ID</th>
+                <th data-labelID="lblUserName">User name</th>
+                <th data-labelID="lblFirstName">First name</th>
+                <th data-labelID="lblLastName">Last name</th>
+                <th data-labelID="lblSuspended">Suspended</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.Users)
+            {
+                <tr data-id="@dto.ID">
+                    <td>@dto.ID</td>
+                    <td>@dto.Username</td>
+                    <td>@dto.FirstName</td>
+                    <td>@dto.LastName</td>
+                    @if (Model.UserConfigs.SingleOrDefault(x => x.UserID == dto.ID) == null)
+                    {
+                        <td>@false</td>
+                    }
+                    else
+                    {
+                        <td>@Model.UserConfigs.Single(x => x.UserID == dto.ID).IsSuspended</td>
+                    }
+                    <td class="center">
+                        <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#record-table').table();
+        $('#record-table').DataTable({
+            "pageLength": @SmsCache.UserContext.PageSize,
+            scrollY: "200px",
+            searching: true,
+            ordering: true,
+            "info": true,
+            "lengthChange": false,
+            "jQueryUI": true,
+            paging: true,
+            language: {
+                "emptyTable": CONST_DATATABLE_NODATA,
+                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                "infoFiltered": CONST_DATATABLE_FILTER,
+                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                "search": CONST_DATATABLE_SEARCH,
+                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                "paginate": {
+                    "first": CONST_DATATABLE_FIRST,
+                    "last": CONST_DATATABLE_LAST,
+                    "next": CONST_DATATABLE_NEXT,
+                    "previous": CONST_DATATABLE_PREVIOUS
+                }
+            }
+        });
+        
+        // set height content datatable
+        var contentHeight = $('#content').height() - $('#content .admin-page-title').height();
+        var height1 = 0;
+        $('#record-table_wrapper > .ui-widget-header').each(function (idx, element) {
+            height1 += $(element).outerHeight();
+        });
+        var height2 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+        var height3 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollFoot').outerHeight();
+        var targetHeight = contentHeight - height1 - height2 - height3 - 10; // subtract 2 more px due to the border and padding bottom
+        $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+
+        // fix column header datatable
+        //$(' .dataTables_scrollHeadInner, .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+        //var headerColumns = $(' .dataTables_scrollHead table > thead > tr:first-child th');
+        //var columns = $('#record-table > tbody > tr:first-child td');
+        //for (var i = 0; i < columns.length; i++) {
+        //    $(headerColumns[i]).css('width', $(columns[i]).width());
+        //}
+        //var widthHeader = $('.dataTables_scrollHead').outerWidth();
+        //var widthContent = $('#record-table').outerWidth();
+        //$(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
         
         $('#record-table a.edit-record').click(function () {
             var record = $(this).parent().parent();
@@ -221,10 +237,7 @@
                 if (place.length == 0)
                     return;
 
-                place.addClass('ui-state-active');
-
                 $('#record-tmpl').tmpl(result.Data).insertAfter(place);
-                place.next().addClass('ui-widget-content');
 
                 $('#save-' + result.Data.User.ID).button({
                     icons: {
@@ -242,7 +255,9 @@
                     cancelRecord();
                     return false;
                 });
-                $('.admin-record-detail .detail').slideToggle(500);
+                
+                $('.admin-record-detail').slideToggle(100);
+                $('.admin-record-detail input:first-child').focus();
             });
 
             return false;
@@ -287,9 +302,8 @@
     }
 
     function cancelRecord() {
-        $('.admin-record-detail .detail').slideToggle(500, function () {
-            $(this).parent().parent().prev().removeClass('ui-state-active');
-            $(this).parent().parent().remove();
+        $('.admin-record-detail').slideToggle(100, function () {
+            $(this).remove();
         });
     }
 </script>

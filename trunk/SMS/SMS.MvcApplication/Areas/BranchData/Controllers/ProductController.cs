@@ -19,7 +19,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
         #endregion
 
-        public override ActionResult Index(string textSearch, int page = 1)
+        public override ActionResult Index(string textSearch)
         {
             var categoryListResult = ProductCategoryService.ListAllByBranch<LanguageProductCategoryDto>(SmsCache.UserContext.CurrentBranchId);
             if (!categoryListResult.Success || categoryListResult.Data == null)
@@ -31,7 +31,7 @@ namespace SMS.MvcApplication.Areas.BranchData.Controllers
 
             ViewBag.ListCategory = categoryListResult.Data;
             ViewBag.ListUnit = unitListResult.Data;
-            return base.Index(textSearch, page);
+            return base.Index(textSearch);
         }
     }
 }

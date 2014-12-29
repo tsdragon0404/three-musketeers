@@ -461,9 +461,6 @@ label.ui-state-error {
 }
 
 /* Stylesheet for Admin */
-.admin-page-title {
-    margin-bottom: 5px;
-}
 .del-record {
     
 }
@@ -1146,6 +1143,27 @@ fieldset {
 
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
     border-bottom: none !important;
+}
+
+.marginBottom5px {
+    margin-bottom: 5px;
+}
+
+.marginTop5px {
+    margin-top: 5px;
+}
+
+.arrow-detail {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.auto-width {
+    width: auto;
+}
+
+.width500px {
+    width: 500px;
 }
 
 /* Fixes for IE < 8 */

@@ -14,22 +14,13 @@ namespace SMS.MvcApplication.Areas.System.Controllers
     public class UserAccessController : BaseController
     {
         [HttpGet]
-        public virtual ActionResult Index(int page = 1)
+        public virtual ActionResult Index()
         {
-            var pagingInfo = new SortingPagingInfo
-            {
-                CurrentPage = page,
-                PageSize = SmsCache.UserContext.PageSize,
-                TotalItemCount = SmsCache.UserAccesses.Count,
-                FormNameToSubmit = Url.Action("Index")
-            };
-
-            var list = PagedList<UserData>.CreatePageList(SmsCache.UserAccesses, pagingInfo);
+            var list = PagedList<UserData>.CreatePageList(SmsCache.UserAccesses);
 
             var model = new AdminModel<UserData>
             {
-                ListRecord = list,
-                PagingInfo = pagingInfo
+                ListRecord = list
             };
 
             return View(model);

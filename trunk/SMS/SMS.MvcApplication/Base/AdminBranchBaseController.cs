@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using SMS.Common.Paging;
 using SMS.Common.Storage;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -11,23 +10,15 @@ namespace SMS.MvcApplication.Base
         where TDto : new()
     {
         [HttpGet]
-        public override ActionResult Index(string textSearch, int page = 1)
+        public override ActionResult Index(string textSearch)
         {
-            var pagingInfo = new SortingPagingInfo
-                             {
-                                 CurrentPage = page, 
-                                 TextSearch = textSearch,
-                                 FormNameToSubmit = Url.Action("Index")
-                             };
-
-            var recordList = Service.SearchInBranch(textSearch, pagingInfo, SmsCache.UserContext.CurrentBranchId, true);
+            var recordList = Service.SearchInBranch(textSearch, SmsCache.UserContext.CurrentBranchId, true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 
             var model = new AdminModel<TDto>
             {
                 ListRecord = recordList.Data,
-                PagingInfo = pagingInfo,
                 CanAdd = CanAdd,
                 CanDelete = CanDelete,
                 CanEdit = CanEdit

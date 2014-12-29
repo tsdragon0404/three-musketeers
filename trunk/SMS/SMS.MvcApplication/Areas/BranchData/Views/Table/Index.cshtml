@@ -1,9 +1,76 @@
 ﻿@using SMS.Common
+@using SMS.Common.Constant
 @using SMS.Common.Enums
+@using SMS.Common.Storage
 @using SMS.Data.Dtos
 @model SMS.MvcApplication.Models.AdminModel<TableDto>
 
 <script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail" style="display: none;">
+        <td class="arrow-detail center">↳</td>
+        <td colspan="5">
+            <table class="no-border width500px">
+                {{if ID == 0}}
+                <tr>
+                    <td colspan="2" class="label-custom-label">ADD NEW</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td data-labelID="lblVNName">VN Name</td>
+                    <td>
+                        <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblENName">EN Name</td>
+                    <td>
+                        <input type="text" name="ENName" value="${ENName}" id="enName-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblArea">Area</td>
+                    <td>
+                        <select name="areaID" id="areaID-${ID}">
+                            @foreach (LanguageAreaDto area in ViewBag.ListArea)
+                            {
+                                <text>
+                                    {{if Area != null && Area.ID == @area.ID}}
+                                    <option value="@area.ID" selected>@area.Name</option>
+                                    {{else}}
+                                    <option value="@area.ID">@area.Name</option>
+                                    {{/if}}
+                                </text>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblSEQ">SEQ</td>
+                    <td>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 20%;" class="right"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enable</td>
+                    <td>
+                        {{if Enable}}
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
     <tr class="admin-record-detail">
         <td colspan="6">
             <div class="detail" style="display: none;">
@@ -12,7 +79,7 @@
                         VN name
                     </div>
                     <div class="three columns">
-                        <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}" />
+                        
                     </div>
                     <div class="two columns right" data-labelID="lblENName">
                         EN name
@@ -26,18 +93,7 @@
                         Area
                     </div>
                     <div class="three columns">
-                        <select name="areaID" id="areaID-${ID}">
-                            @foreach (LanguageAreaDto area in ViewBag.ListArea)
-                            {
-                                <text>
-                                    {{if Area != null && Area.ID == @area.ID}}
-                                    <option value="@area.ID" selected>@area.Name</option>
-                                    {{else}}
-                                    <option value="@area.ID">@area.Name</option>
-                                    {{/if}}
-                                </text>
-                            }
-                        </select>
+                        
                     </div>
                     <div class="two columns right" data-labelID="lblSEQ">
                         SEQ
@@ -69,88 +125,85 @@
     </tr>
 </script>
 <div id="content">
-    <div class="row">
-        <h4 class="admin-page-title">Maintain Table</h4>
+    @{
+        var deleteCssClass = Model.CanDelete ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+        var editCssClass = Model.CanEdit ? ConstStyle.CssEditRecord : ConstStyle.CssIconDisable;
+        var addCssClass = Model.CanAdd ? ConstStyle.CssAddRecord : ConstStyle.CssIconDisable;
+    }
+    
+    <div class="row admin-page-title">
+        <h4>Maintain Table</h4>
     </div>
 
-    @Html.Partial("Search", Model.PagingInfo)
-
-    <div class="row">
-        <table id="record-table">
-            <colgroup>
-                <col style="width: 75px;" />
-                <col style="width: 60px;" />
-                <col />
-                <col style="width: 300px;" />
-                <col style="width: 60px;" />
-                <col style="width: 75px;" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th data-labelID="lblNo">No</th>
-                    <th data-labelID="lblName">Name</th>
-                    <th data-labelID="lblArea">Area</th>
-                    <th data-labelID="lblSEQ">SEQ</th>
-                    <th data-labelID="lblEnable">Enabled</th>
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblID">ID</th>
+                <th data-labelID="lblName">Name</th>
+                <th data-labelID="lblArea">Area</th>
+                <th data-labelID="lblSEQ">SEQ</th>
+                <th data-labelID="lblEnable">Enabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.ListRecord)
+            {
+                <tr data-id="@dto.ID">
+                    <td>@dto.ID</td>
+                    <td>@(CommonObjects.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
+                    <td>@if (dto.Area != null)
+                        {
+                            @(CommonObjects.Language == Language.Vietnamese ? dto.Area.VNName : dto.Area.ENName)
+                        }
+                    </td>
+                    <td>@dto.SEQ</td>
+                    @if(dto.Enable)
+                    {
+                        <td>✔</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td class="center">
+                        <a href="#" class="@deleteCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var dto in Model.ListRecord)
-                {
-                    var altClass = Model.ListRecord.IndexOf(dto)%2 != 0 ? "alt" : "";
-                    <tr class="@altClass" data-id="@dto.ID">
-                        <td>
-                            <a href="#" class="del-record" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                            <a href="#" class="edit-record" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
-                        </td>
-                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@(CommonObjects.Language == Language.Vietnamese ? dto.VNName : dto.ENName)</td>
-                        <td>@if (dto.Area != null)
-                            {
-                                @(CommonObjects.Language == Language.Vietnamese ? dto.Area.VNName : dto.Area.ENName)
-                            }
-                        </td>
-                        <td>@dto.SEQ</td>
-                        <td>@dto.Enable</td>
-                    </tr>
-                }
-                
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td class="center"><a href="#" class="add-record"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a></td>
-                    <td colspan="5"></td>
-                </tr>
-            </tfoot>
-        </table>
-
-        @Html.Partial("Paging", Model.PagingInfo)
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var addUrl = '@Url.Action("GetSchemaForAdd")';
-                var editUrl = '@Url.Action("GetDataForEdit")';
-                var saveUrl = '@Url.Action("SaveData")';
-                var deleteUrl = '@Url.Action("DeleteData")';
-                
-                var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?');
-                adminfunc.bind();
-            });
-
-            function getDataForSave(recordId) {
-                var data = {
-                    ID: recordId,
-                    VNName: $('#vnName-' + recordId).val(),
-                    ENName: $('#enName-' + recordId).val(),
-                    Area: {
-                         ID: $('#areaID-' + recordId).val()
-                    },
-                    Enable: $('#enable-' + recordId).prop('checked'),
-                    SEQ: $('#seq-' + recordId).val()
-                };
-                return data;
             }
-        </script>
-    </div>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var addUrl = '@Url.Action("GetSchemaForAdd")';
+        var editUrl = '@Url.Action("GetDataForEdit")';
+        var saveUrl = '@Url.Action("SaveData")';
+        var deleteUrl = '@Url.Action("DeleteData")';
+                
+        var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
+        adminfunc.bind();
+    });
+
+    function getDataForSave(recordId) {
+        var data = {
+            ID: recordId,
+            VNName: $('#vnName-' + recordId).val(),
+            ENName: $('#enName-' + recordId).val(),
+            Area: {
+                ID: $('#areaID-' + recordId).val()
+            },
+            Enable: $('#enable-' + recordId).prop('checked'),
+            SEQ: $('#seq-' + recordId).val()
+        };
+        return data;
+    }
+</script>
