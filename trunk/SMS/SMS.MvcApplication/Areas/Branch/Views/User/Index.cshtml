@@ -204,16 +204,18 @@
         var targetHeight = contentHeight - height1 - height2 - height3 - 10; // subtract 2 more px due to the border and padding bottom
         $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
 
+        /********************
         // fix column header datatable
-        //$(' .dataTables_scrollHeadInner, .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
-        //var headerColumns = $(' .dataTables_scrollHead table > thead > tr:first-child th');
-        //var columns = $('#record-table > tbody > tr:first-child td');
-        //for (var i = 0; i < columns.length; i++) {
-        //    $(headerColumns[i]).css('width', $(columns[i]).width());
-        //}
-        //var widthHeader = $('.dataTables_scrollHead').outerWidth();
-        //var widthContent = $('#record-table').outerWidth();
-        //$(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+        $(' .dataTables_scrollHeadInner, .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+        var headerColumns = $(' .dataTables_scrollHead table > thead > tr:first-child th');
+        var columns = $('#record-table > tbody > tr:first-child td');
+        for (var i = 0; i < columns.length; i++) {
+            $(headerColumns[i]).css('width', $(columns[i]).width());
+        }
+        var widthHeader = $('.dataTables_scrollHead').outerWidth();
+        var widthContent = $('#record-table').outerWidth();
+        $(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+        ********************/
         
         $('#record-table a.edit-record').click(function () {
             var record = $(this).parent().parent();
