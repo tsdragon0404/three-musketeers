@@ -50,40 +50,45 @@
                 <li @Html.Raw(classVN)><a href="#" id="change-language-vn"><img class="icon-flag" src="~/Images/flag-vn.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Vietnamese</span></a></li>
                 <li @Html.Raw(classEN)><a href="#" id="change-language-en"><img class="icon-flag" src="~/Images/flag-uk.png" alt="vn"/> <span data-globalLabelID="lblLanguage">Tiếng Anh</span></a></li>
             </ul>
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#loginButton').button({
-                        icons: {
-                            primary: "ui-icon-person"
-                        }
-                    }).click(function() {
-                        $(this).closest('form').submit();
-                    });
-
-                    $('#SelectedBranch').selectmenu();
-                    
-                    $('#change-language-vn').click(function () {
-                        changeLanguage(@((int)Language.Vietnamese));
-                        return false;
-                    });
-
-                    $('#change-language-en').click(function() {
-                        changeLanguage(@((int)Language.English));
-                        return false;
-                    });
-
-                    function changeLanguage(id) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
-                            data: { language: id }
-                        }).done(function(result) {
-                            if (result.Success)
-                                location.reload();
-                        });
-                    }
-                });
-            </script>
         }
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#loginButton').button({
+            icons: {
+                primary: "ui-icon-person"
+            }
+        }).click(function() {
+            $(this).closest('form').submit();
+        });
+
+        $('#SelectedBranch').selectmenu();
+                    
+        $('#change-language-vn').click(function () {
+            changeLanguage(@((int)Language.Vietnamese));
+            return false;
+        });
+
+        $('#change-language-en').click(function() {
+            changeLanguage(@((int)Language.English));
+            return false;
+        });
+        
+        if ($('#Username').val() == "")
+            $('#Username').focus();
+        else
+            $('#Password').focus();
+
+        function changeLanguage(id) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ChangeLanguage", "Home", new { area = "" })',
+                data: { language: id }
+            }).done(function(result) {
+                if (result.Success)
+                    location.reload();
+            });
+        }
+    });
+</script>

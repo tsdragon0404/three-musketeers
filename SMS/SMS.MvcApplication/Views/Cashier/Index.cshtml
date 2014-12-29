@@ -1104,16 +1104,16 @@
             }
         }
 
-        function onSelectOrderTable(orderTableId, orderId) {
-            $("#right-menu").hide();
-            if (orderTableId <= 0) {
-                return;
-            }
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SelectTable")',
+    function onSelectOrderTable(orderTableId, orderId) {
+        $("#right-menu").hide();
+        if (orderTableId <= 0) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SelectTable")',
             data: { orderTableID: orderTableId }
-        }).done(function (result) {
+        }).done(function(result) {
             if (result.Data.ID == 0 || !result.Success) {
                 var popup = new MessagePopup('Thông báo',
                     'Dữ liệu hiện không tồn tại.<br />Xin vui lòng thử lại.',
@@ -1124,8 +1124,7 @@
                     });
 
                 popup.OpenPopup();
-            }
-            else {
+            } else {
                 $('#curOrderID').val(result.Data.ID);
                 $('#curOrderNumber').text(result.Data.OrderNumber);
                 $('#curCustomerName').text(result.Data.Customer == null ? result.Data.CustomerName : result.Data.Customer.CustomerName);
@@ -1139,21 +1138,19 @@
             }
         });
     }
-        
+
     function onCreateOrderTable(tblId) {
         if (tblId <= 0) {
             return;
         }
-        var orderTableId = 0;
         $.ajax({
             type: 'POST',
             url: '@Url.Action("CreateOrderTable")',
             data: { tableID: tblId }
         }).done(function (result) {
             if(result.Success) {
-                orderTableId = result.Data;
-                onSelectOrderTable(orderTableId, 0);
-                refreshTableArea();
+                $('#curOrderID').val(result.Data);
+                refreshPage();
             }
         });
         return;
