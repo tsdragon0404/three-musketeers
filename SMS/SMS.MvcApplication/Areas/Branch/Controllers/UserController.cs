@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
-using SMS.Common.Paging;
 using SMS.Common.Storage;
 using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
@@ -25,12 +24,11 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
         [HttpGet]
         public ActionResult Index(string textSearch)
         {
-
-            var user = UserService.SearchInBranch<UserInfoDto>(textSearch, SmsCache.UserContext.CurrentBranchId);
+            var user = UserService.ListAllByBranch<UserInfoDto>(SmsCache.UserContext.CurrentBranchId, true);
             if (!user.Success || user.Data == null)
                 return ErrorPage(user.Errors);
 
-            var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsCache.UserContext.CurrentBranchId);
+            var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsCache.UserContext.CurrentBranchId, true);
 
             var roles = RoleService.ListAll();
             if (!roles.Success || roles.Data == null)

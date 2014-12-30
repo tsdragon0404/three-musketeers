@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
-using SMS.Common.Paging;
 using SMS.Common.Storage;
 using SMS.Common.Storage.CacheObjects;
 using SMS.MvcApplication.Base;
@@ -16,11 +15,9 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         [HttpGet]
         public virtual ActionResult Index()
         {
-            var list = PagedList<UserData>.CreatePageList(SmsCache.UserAccesses);
-
             var model = new AdminModel<UserData>
             {
-                ListRecord = list
+                ListRecord = SmsCache.UserAccesses
             };
 
             return View(model);

@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using SMS.Common.Constant;
-using SMS.Common.Paging;
 using SMS.Common.Storage;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -19,9 +18,9 @@ namespace SMS.MvcApplication.Base
         protected virtual bool CanDelete { get { return true; } }
 
         [HttpGet]
-        public virtual ActionResult Index(string textSearch)
+        public virtual ActionResult Index()
         {
-            var recordList = Service.Search(textSearch, true);
+            var recordList = Service.ListAll(true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 

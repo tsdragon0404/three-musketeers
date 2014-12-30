@@ -4,7 +4,6 @@ using AutoMapper;
 using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
-using SMS.Common.Paging;
 using SMS.Common.Storage;
 using SMS.Data;
 using SMS.Data.Dtos;
@@ -30,21 +29,6 @@ namespace SMS.Business.Impl
                 return ServiceResult<TModel>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Login_UserLocked), ErrorType.Business));
 
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(user));
-        }
-
-        public override ServiceResult<IPagedList<UserDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable)
-        {
-            if (SmsCache.UserContext.IsSystemAdmin)
-                return base.Search(textSearch, pagingInfo, includeDisable);
-
-            var filteredRecords = Mapper.Map<List<UserDto>>(SmsCache.UserContext.UseSystemConfig
-                                                          ? Repository.Search(textSearch, includeDisable).Where(x => !x.IsSystemAdmin).ToList()
-                                                          : Repository.Search(textSearch, includeDisable).Where(x => !x.IsSystemAdmin && !x.UseSystemConfig).ToList());
-
-            pagingInfo.TotalItemCount = filteredRecords.Count();
-            pagingInfo.PageSize = SmsCache.UserContext.PageSize;
-
-            return ServiceResult<IPagedList<UserDto>>.CreateSuccessResult(PagedList<UserDto>.CreatePageList(filteredRecords, pagingInfo));
         }
 
         public ServiceResult<IList<TModel>> GetUserForBranchAssignment<TModel>()

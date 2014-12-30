@@ -15,14 +15,14 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
         #endregion
 
-        public override ActionResult Index(string textSearch)
+        public override ActionResult Index()
         {
             var pageListResult = PageService.GetProtectedPages();
             if (!pageListResult.Success || pageListResult.Data == null)
                 return ErrorPage(pageListResult.Errors);
 
             ViewBag.ListPage = pageListResult.Data;
-            return base.Index(textSearch);
+            return base.Index();
         }
         
     }
