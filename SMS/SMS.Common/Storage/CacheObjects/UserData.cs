@@ -46,23 +46,15 @@ namespace SMS.Common.Storage.CacheObjects
         #region Implementation of ICacheData
 
         public object Key { get { return TokenID; } }
-        public bool IsCurrent
-        {
-            get
-            {
-                if (HttpContext.Current.Request.Headers.Get(ConstKey.Token) == null)
-                    return CommonObjects.SessionId == SessionID;
-                return CommonObjects.TokenID == TokenID;
-            }
-        }
+        public bool IsCurrent { get { return CommonObjects.TokenID == TokenID; } }
 
         #endregion
     }
 
     public class UserDataCollection : CacheDataCollection<UserData, Guid>
     {
-        public void Add(string sessionID, long userID, string userName, string firstName, string lastName, string ipAddress, string userAgent, 
-                        long selectedBranchID, bool isSystemAdmin, bool UseSystemConfig, long defaultAreaID, 
+        public void Add(string sessionID, long userID, string userName, string firstName, string lastName, string ipAddress, string userAgent,
+                        long selectedBranchID, bool isSystemAdmin, bool useSystemConfig, long defaultAreaID,
                         decimal listTableHeight, int pageSize, string theme, IList<BranchName> allowBranches, List<long> allowPageIDs)
         {
             var userAccess = new UserData
@@ -77,7 +69,7 @@ namespace SMS.Common.Storage.CacheObjects
                 UserAgent = userAgent,
                 CurrentBranchId = selectedBranchID,
                 IsSystemAdmin = isSystemAdmin,
-                UseSystemConfig = UseSystemConfig,
+                UseSystemConfig = useSystemConfig,
                 DefaultAreaID = defaultAreaID,
                 ListTableHeight = listTableHeight,
                 PageSize = pageSize,
@@ -88,14 +80,30 @@ namespace SMS.Common.Storage.CacheObjects
                 LoginDateTime = DateTime.Now,
             };
 
-            if(this.All(x => x.SessionID != sessionID))
+            if (this.All(x => x.SessionID != sessionID))
                 Add(userAccess);
         }
 
+        public UserData Get(string sessionId)
+        {
+            return this.FirstOrDefault(x => x.SessionID == sessionId);
+        }
+
+        public bool Remove(string sessionId)
+        {
+            if (sessionId == CommonObjects.SessionId)
+                return false;
+
+            var userData = Get(sessionId);
+            if(userData != null && Contains(userData.TokenID))
+                return RemoveAll(x => x.TokenID == userData.TokenID) > 0;
+
+            return false;
+        }
         public bool AuthorizeSession()
         {
             RemoveExpiredSessions();
-            return this.Any(x => x.SessionID == CommonObjects.SessionId);
+            return Contains(CommonObjects.TokenID);
         }
 
         public new void Add(UserData userData)

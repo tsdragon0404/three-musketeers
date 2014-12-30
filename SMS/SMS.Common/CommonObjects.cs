@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Web;
 using SMS.Common.Constant;
 using SMS.Common.Enums;
+using SMS.Common.Storage;
 
 namespace SMS.Common
 {
@@ -17,9 +18,13 @@ namespace SMS.Common
         {
             get
             {
-                var token = HttpContext.Current.Request.Headers.Get(ConstKey.Token_Guid);
+                var userData = SmsCache.UserAccesses.Get(SessionId);
+                if (userData != null && SessionId != string.Empty)
+                    return userData.TokenID;
+
+                var tokenStr = HttpContext.Current.Request.Headers.Get(ConstKey.Token_Guid);
                 Guid tokenID;
-                if (token == null || !Guid.TryParse(token, out tokenID))
+                if (tokenStr == null || !Guid.TryParse(tokenStr, out tokenID))
                     throw new Exception("Invalid token!");
 
                 return tokenID;

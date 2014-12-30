@@ -26,15 +26,13 @@ namespace SMS.Common.CustomAttributes
                 return false;
             }
 
-            //TODO:
-            //if (!UserAccessManager.AuthorizeCurrentUser())
-            //{
-            //    HttpContext.Current.Session.Abandon();
-            //    FormsAuthentication.SignOut();
+            if (!SmsCache.UserAccesses.AuthorizeSession())
+            {
+                HttpContext.Current.Session.Abandon();
 
-            //    Status = AuthorizeStatus.NotLogin;
-            //    return false;
-            //}
+                Status = AuthorizeStatus.NotLogin;
+                return false;
+            }
 
             var authorized = SmsCache.UserContext.IsSystemAdmin
                              || SmsCache.UserContext.AllowPageIDs.Contains(pageID);
