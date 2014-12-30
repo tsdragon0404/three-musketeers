@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Paging;
@@ -30,7 +29,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         [HttpPost]
         public virtual JsonResult Delete(string sessionId)
         {
-            return Json(JsonModel.Create(SmsCache.UserAccesses.Remove(Guid.Parse(sessionId))));
+            return Json(JsonModel.Create(SmsCache.UserAccesses.Remove(sessionId)));
         }
     }
 }

@@ -159,9 +159,8 @@ namespace SMS.MvcApplication.Controllers
 
         public ActionResult LogOff()
         {
-            SmsCache.UserAccesses.RemoveAll(x =>x.SessionID == CommonObjects.SessionId);
+            SmsCache.UserAccesses.Remove(CommonObjects.TokenID);
             Session.Abandon();
-            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
 
