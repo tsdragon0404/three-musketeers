@@ -18,9 +18,11 @@ namespace SMS.Common
         {
             get
             {
-                var userData = SmsCache.UserAccesses.Get(SessionId);
-                if (userData != null && SessionId != string.Empty)
-                    return userData.TokenID;
+                if (SessionId != string.Empty)
+                {
+                    var userData = SmsCache.UserAccesses.Get(SessionId);
+                    return userData != null ? userData.TokenID : Guid.NewGuid();
+                }
 
                 var tokenStr = HttpContext.Current.Request.Headers.Get(ConstKey.Token_Guid);
                 Guid tokenID;
