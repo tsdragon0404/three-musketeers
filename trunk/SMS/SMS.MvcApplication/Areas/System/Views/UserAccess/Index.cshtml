@@ -91,7 +91,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("Delete")',
-                        data: { sessionId: id }
+                        data: { tokenId: id }
                     }).done(function(result) {
                         if (result.Success)
                             location.reload();

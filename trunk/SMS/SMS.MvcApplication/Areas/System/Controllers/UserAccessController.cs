@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Common.Storage;
@@ -24,9 +25,13 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         }
 
         [HttpPost]
-        public virtual JsonResult Delete(string sessionId)
+        public virtual JsonResult Delete(string tokenStr)
         {
-            return Json(JsonModel.Create(SmsCache.UserAccesses.Remove(sessionId)));
+            Guid tokenId;
+            if (!Guid.TryParse(tokenStr, out tokenId))
+                return ErrorAjax("loi~");
+
+            return Json(JsonModel.Create(SmsCache.UserAccesses.Remove(tokenId)));
         }
     }
 }
