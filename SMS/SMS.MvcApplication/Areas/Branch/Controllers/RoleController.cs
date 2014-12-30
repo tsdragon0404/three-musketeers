@@ -9,7 +9,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 {
     [SmsAuthorize(ConstPage.Branch_Role)]
     [PageID(ConstPage.Branch_Role)]
-    public class RoleController : AdminBaseController<RoleDto, IRoleService>
+    public class RoleController : AdminBranchBaseController<RoleDto, IRoleService>
     {
         #region Fields
 
