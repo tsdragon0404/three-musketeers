@@ -162,31 +162,5 @@ namespace SMS.Data.Impl
                 entity = mergeEntity;
             }
         }
-
-        #region CrossTable
-
-        public override void CrossTableAdd(object item)
-        {
-            if (item is IAuditableEntity)
-            {
-                ((IAuditableEntity)item).CreatedDate = DateTime.Now;
-                ((IAuditableEntity)item).CreatedUser = SmsCache.UserContext.UserName;
-            }
-
-            base.CrossTableAdd(item);
-        }
-
-        public override void CrossTableUpdate(object item)
-        {
-            if (item is IAuditableEntity)
-            {
-                ((IAuditableEntity)item).ModifiedDate = DateTime.Now;
-                ((IAuditableEntity)item).ModifiedUser = SmsCache.UserContext.UserName;
-            }
-
-            base.CrossTableUpdate(item);
-        }
-
-        #endregion
     }
 }

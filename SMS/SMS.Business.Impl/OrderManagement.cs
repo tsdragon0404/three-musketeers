@@ -85,9 +85,9 @@ namespace SMS.Business.Impl
 
         public ServiceResult <IList<TDto>> GetOrderDiscount<TDto>(long orderID)
         {
-            var orderDiscounts = Repository.CrossTableList<OrderDiscount>(x => x.OrderID == orderID);
+            var order = Repository.Get(x => x.ID == orderID);
 
-            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(orderDiscounts));
+            return ServiceResult<IList<TDto>>.CreateSuccessResult(Mapper.Map<IList<TDto>>(order.OrderDiscounts));
         }
 
         public ServiceResult SaveOrderDiscount(long orderID, OrderDiscountDto[] orderDiscounts)
@@ -176,12 +176,12 @@ namespace SMS.Business.Impl
 
         public ServiceResult MoveTable(long orderTableID, long tableID)
         {
-            var orderTable = Repository.CrossTableGetByID<OrderTable>(orderTableID);
-            if (orderTable == null)
+            var order = Repository.Get(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
+            if (order == null)
                 return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
-            orderTable.Table = new Table { ID = tableID };
-            Repository.CrossTableUpdate(orderTable);
+            order.OrderTables.First(x => x.ID == orderTableID).Table = new Table { ID = tableID };
+            Repository.Save(order);
 
             return ServiceResult.CreateSuccessResult();
         }
@@ -223,14 +223,16 @@ namespace SMS.Business.Impl
 
         public ServiceResult SendToKitchen(long orderTableID)
         {
-            var orderTable = Repository.CrossTableGetByID<OrderTable>(orderTableID);
-            if (orderTable == null)
+            var order = Repository.Get(x => x.OrderTables.Any(y => y.ID == orderTableID));
+            if (order == null)
                 return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+
+            var orderTable = order.OrderTables.First(y => y.ID == orderTableID);
 
             foreach (var orderDetail in orderTable.OrderDetails.Where(x => x.OrderStatus == OrderStatus.Ordered || x.OrderStatus == OrderStatus.KitchenRejected))
                 orderDetail.OrderStatus = OrderStatus.SentToKitchen;
 
-            Repository.CrossTableUpdate(orderTable);
+            Repository.Save(order);
             
             return ServiceResult.CreateSuccessResult();
         }
@@ -241,25 +243,31 @@ namespace SMS.Business.Impl
             if (product == null)
                 return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
-            Repository.CrossTableAdd(new OrderDetail
-                                         {
-                                             Quantity = quantity,
-                                             Product = product,
-                                             OrderTable = new OrderTable {ID = orderTableID},
-                                             OrderStatus = SmsCache.BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
-                                         });
+            var order = Repository.Get(x => x.OrderTables.Any(y => y.ID == orderTableID));
+            if (order == null)
+                return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
-            var orderTable = Repository.CrossTableGetByID<OrderTable>(orderTableID);
+            var orderTable = order.OrderTables.First(y => y.ID == orderTableID);
+            orderTable.OrderDetails.Add(new OrderDetail
+            {
+                Quantity = quantity,
+                Product = product,
+                OrderStatus = SmsCache.BranchConfigs.Current.UseKitchenFunction ? OrderStatus.Ordered : OrderStatus.Done
+            });
+            Repository.Save(order);
 
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(orderTable));
         }
 
         public ServiceResult UpdateProductToOrderTable(long orderDetailID, string columnName, string value)
         {
-            var orderDetail = Repository.CrossTableGetByID<OrderDetail>(orderDetailID);
-            if (orderDetail == null)
+            var order = Repository.Get(x => x.OrderTables.Any(y => y.OrderDetails.Any(z => z.ID == orderDetailID)));
+            if (order == null)
                 return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
-            
+
+            var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
+            var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);
+
             switch (columnName)
             {
                 case "qty":
@@ -281,42 +289,53 @@ namespace SMS.Business.Impl
                     break;
 
             }
-            Repository.CrossTableUpdate(orderDetail);
+            Repository.Save(order);
 
             return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult DeleteOrderDetail(long orderDetailID)
         {
-            Repository.CrossTableDelete<OrderDetail>(orderDetailID);
+            var order = Repository.Get(x => x.OrderTables.Any(y => y.OrderDetails.Any(z => z.ID == orderDetailID)));
+            if (order == null)
+                return ServiceResult.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
+
+            var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
+            var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);
+
+            orderTable.OrderDetails.Remove(orderDetail);
+
             return ServiceResult.CreateSuccessResult();
         }
 
         public ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value)
         {
-            var orderDetail = Repository.CrossTableGetByID<OrderDetail>(orderDetailID);
-            if (orderDetail == null)
+            var order = Repository.Get(x => x.OrderTables.Any(y => y.OrderDetails.Any(z => z.ID == orderDetailID)));
+            if (order == null)
                 return ServiceResult<TDto>.CreateFailResult(new Error(SmsCache.Message.Get(ConstMessageIds.Business_DataNotExist), ErrorType.Business));
 
+            var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
+            var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);
+
             orderDetail.OrderStatus = value;
-            Repository.CrossTableUpdate(orderDetail);
+            Repository.Save(order);
 
             if (orderDetail.OrderStatus == OrderStatus.KitchenRejected)
             {
                 RejectRepository.Save(new Reject
-                                         {
-                                             BranchID = SmsCache.UserContext.CurrentBranchId,
-                                             ProductCode = orderDetail.Product.ProductCode,
-                                             ProductVNName = orderDetail.Product.VNName,
-                                             ProductENName = orderDetail.Product.ENName,
-                                             Quantity = orderDetail.Quantity,
-                                             UnitVNName = orderDetail.Product.Unit.VNName,
-                                             UnitENName = orderDetail.Product.Unit.ENName,
-                                             OrderComment = orderDetail.Comment,
-                                             KitchenComment = orderDetail.KitchenComment,
-                                             CreatedDate = DateTime.Now,
-                                             CreatedUser = SmsCache.UserContext.UserName
-                                         });
+                {
+                    BranchID = SmsCache.UserContext.CurrentBranchId,
+                    ProductCode = orderDetail.Product.ProductCode,
+                    ProductVNName = orderDetail.Product.VNName,
+                    ProductENName = orderDetail.Product.ENName,
+                    Quantity = orderDetail.Quantity,
+                    UnitVNName = orderDetail.Product.Unit.VNName,
+                    UnitENName = orderDetail.Product.Unit.ENName,
+                    OrderComment = orderDetail.Comment,
+                    KitchenComment = orderDetail.KitchenComment,
+                    CreatedDate = DateTime.Now,
+                    CreatedUser = SmsCache.UserContext.UserName
+                });
             }
 
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(orderDetail));

@@ -4,7 +4,7 @@ using SMS.Data.Entities;
 
 namespace SMS.Data
 {
-    public interface IOrderRepository : IBaseRepository<Order>, ICrossTableRepository
+    public interface IOrderRepository : IBaseRepository<Order>
     {
         void UpdateOtherFee(long orderID, decimal fee, string description);
         void SaveDiscounts(long orderID, OrderDiscount[] discounts);
