@@ -35,7 +35,5 @@
         public const long System_Configuration = 86;
         public const long System_About = 87;
         public const long System_UserAccess = 88;
-
-        public const long ReportViewer = 99;
     }
 }
