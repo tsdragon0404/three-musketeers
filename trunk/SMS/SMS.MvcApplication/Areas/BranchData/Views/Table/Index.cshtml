@@ -70,59 +70,6 @@
             </table>
         </td>
     </tr>
-    
-    <tr class="admin-record-detail">
-        <td colspan="6">
-            <div class="detail" style="display: none;">
-                <div class="row">
-                    <div class="two columns right" data-labelID="lblVNName">
-                        VN name
-                    </div>
-                    <div class="three columns">
-                        
-                    </div>
-                    <div class="two columns right" data-labelID="lblENName">
-                        EN name
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="ENName" value="${ENName}" id="enName-${ID}" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="two columns right" data-labelID="lblArea">
-                        Area
-                    </div>
-                    <div class="three columns">
-                        
-                    </div>
-                    <div class="two columns right" data-labelID="lblSEQ">
-                        SEQ
-                    </div>
-                    <div class="three columns">
-                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 20%;" class="right"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="two columns right" data-labelID="lblEnable">
-                        Enable
-                    </div>
-                    <div class="three columns">
-                        {{if Enable}}
-                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
-                        {{else}}
-                        <input type="checkbox" name="enable" id="enable-${ID}"/>
-                        {{/if}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="eleven columns center">
-                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
-                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </td>
-    </tr>
 </script>
 <div id="content">
     @{

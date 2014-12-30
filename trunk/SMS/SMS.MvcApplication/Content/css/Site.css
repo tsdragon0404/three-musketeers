@@ -468,7 +468,8 @@ label.ui-state-error {
     
 }
 .assignButton {
-    width: 50px;
+    margin: auto;
+    display: inherit;
 }
 #record-table .ui-state-active {
     border-bottom: none;
