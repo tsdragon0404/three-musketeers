@@ -15,8 +15,14 @@
         scrollY: "200px",
         searching: true,
         "dom": '<"H"Tf>t<"F"ip>',
-        "tableTools": {
-            "sSwfPath": "../Scripts/datatables/TableTools/swf/copy_csv_xls_pdf.swf"
+        "oTableTools": {
+            "sSwfPath": "../Scripts/datatables/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                "csv",
+                "xls",
+                "pdf",
+                "print"
+            ]
         },
         ordering: true,
         "info": true,

@@ -8,19 +8,23 @@
         <fieldset class="fieldset-boder">
             <legend>System configuration</legend>    
             <table class="no-border">
-                @foreach (var dto in Model.SystemInformationDtos)
-                {
-                    <tr id="@dto.Name" class="key">
-                        <td class="label-custom-label">@dto.Description</td>
-                        <td><input value="@dto.Value"/></td>
+                <tbody>
+                    @foreach (var dto in Model.SystemInformationDtos)
+                    {
+                        <tr id="@dto.Name" class="key">
+                            <td class="label-custom-label">@dto.Description</td>
+                            <td><input value="@dto.Value"/></td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="center">
+                            <button id="update" data-labelID="lblUpdate">Update</button>
+                            <button id="resetData" data-labelID="lblUpdate">Reset</button>
+                        </td>
                     </tr>
-                }
-                <tr>
-                    <td colspan="2" class="center">
-                        <button id="update" data-labelID="lblUpdate">Update</button>
-                        <button id="resetData" data-labelID="lblUpdate">Reset</button>
-                    </td>
-                </tr>
+                </tfoot>
             </table>
         </fieldset>
     </div>

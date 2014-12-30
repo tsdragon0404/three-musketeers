@@ -14,19 +14,25 @@
                 </tr>
                 {{/if}}
                 <tr>
-                    <td>VN Name</td>
-                    <td><input type="text" name="VNName" value="${VNName}" id="vnName-${ID}" /></td>
+                    <td data-labelID="lblVNName">VN Name</td>
+                    <td>
+                        <input type="text" name="VNName" value="${VNName}" id="vnName-${ID}" />
+                    </td>
                 </tr>
                 <tr>
-                    <td>EN Name</td>
-                    <td><input type="text" name="ENName" value="${ENName}" id="enName-${ID}" /></td>
+                    <td data-labelID="lblENName">EN Name</td>
+                    <td>
+                        <input type="text" name="ENName" value="${ENName}" id="enName-${ID}" />
+                    </td>
                 </tr>
                 <tr>
-                    <td>SEQ</td>
-                    <td><input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/></td>
+                    <td data-labelID="lblSEQ">SEQ</td>
+                    <td>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Enable</td>
+                    <td data-labelID="lblEnable">Enable</td>
                     <td>
                         {{if Enable}}
                         <input type="checkbox" name="enable" checked id="enable-${ID}"/>
@@ -45,7 +51,6 @@
             </table>
         </td>
     </tr>
-    
 </script>
 
 <div id="content">

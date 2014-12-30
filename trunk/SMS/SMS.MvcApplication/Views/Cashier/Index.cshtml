@@ -1,7 +1,6 @@
 ﻿@using SMS.Common.Enums
 @using SMS.Common.Storage
 @using SMS.MvcApplication.Models
-@using SMS.Common.Constant
 @model CashierModel
 
 <link rel="stylesheet" type="text/css" href="~/Content/css/split-pane.css" />
@@ -295,8 +294,9 @@
         if (orderTableId > 0) {
             //TODO: create new popup 1 time only
             var popup = new DestinationTablePopup("destinationTablePopup", orderTableId, listArea, '@Url.Action("GetTablesByAreaID")', onMoveOrderTable);
-                popup.OpenPopup();
-            }
+            popup.OpenPopup();
+        }
+        $("#changeTable").hide();
         return false;
     }));
     
@@ -307,6 +307,7 @@
             var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("")', changeCustomer);
             popup.OpenPopup();
         }
+        $("#changeCustomer").hide();
         return false;
     }));
         
