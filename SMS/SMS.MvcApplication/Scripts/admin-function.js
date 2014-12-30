@@ -20,7 +20,7 @@
             "aButtons": [
                 "csv",
                 "xls",
-                "pdf",
+                //"pdf", --> Table Tools does not support UTF-8 characters in PDF exports 
                 "print"
             ]
         },
