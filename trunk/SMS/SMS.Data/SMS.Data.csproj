@@ -36,7 +36,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICrossTableRepository.cs" />
     <Compile Include="IBaseRepository.cs" />
     <Compile Include="IUploadedFileRepository.cs" />
     <Compile Include="IBrandingTextRepository.cs" />

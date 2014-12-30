@@ -107,48 +107,6 @@ namespace Core.Data
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
         bool Exists(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets the entity from another table by the specified id.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
-        TTargetEntity CrossTableGetByID<TTargetEntity>(object id);
-
-        /// <summary>
-        /// Gets the entity from another table by the given predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns></returns>
-        TTargetEntity CrossTableGet<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets the entity from another table by the given predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns></returns>
-        IEnumerable<TTargetEntity> CrossTableList<TTargetEntity>(Expression<Func<TTargetEntity, bool>> predicate);
-
-        /// <summary>
-        /// Update the entity from another table.
-        /// </summary>
-        /// <param name="item">The item to be saved.</param>
-        /// <returns></returns>
-        void CrossTableUpdate(object item);
-
-        /// <summary>
-        /// Update the entity from another table.
-        /// </summary>
-        /// <param name="item">The item to be saved.</param>
-        /// <returns></returns>
-        void CrossTableAdd(object item);
-
-        /// <summary>
-        /// Delete the entity from another table.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
-        void CrossTableDelete<TTargetEntity>(object id);
     }
 
     /// <summary>
