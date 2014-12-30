@@ -21,7 +21,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         #endregion
 
         [HttpGet]
-        public override ActionResult Index(string textSearch)
+        public override ActionResult Index()
         {
             var recordList = SystemInformationService.GetByType(SystemInformationType.Config);
 

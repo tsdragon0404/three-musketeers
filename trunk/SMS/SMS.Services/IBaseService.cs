@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Validation;
-using SMS.Common.Paging;
 
 namespace SMS.Services
 {
@@ -10,12 +9,6 @@ namespace SMS.Services
         ServiceResult<IList<TModel>> ListAll<TModel>(bool includeDisable = false);
         ServiceResult<IList<TDto>> ListAllByBranch(long branchID, bool includeDisable = false);
         ServiceResult<IList<TModel>> ListAllByBranch<TModel>(long branchID, bool includeDisable = false);
-        ServiceResult<IPagedList<TDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false);
-        ServiceResult<IPagedList<TDto>> Search(string textSearch, bool includeDisable = false);
-        ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, long branchID, bool includeDisable = false);
-        ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false);
-        ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false);
-        ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, long branchID, bool includeDisable = false);
         ServiceResult<TDto> GetByID(long primaryKey);
         ServiceResult<TModel> GetByID<TModel>(long primaryKey);
         ServiceResult<TDto> GetByIDInCurrentBranch(long primaryKey);

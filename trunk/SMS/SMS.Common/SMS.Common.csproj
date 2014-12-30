@@ -79,13 +79,6 @@
     <Compile Include="Storage\CacheObjects\CacheDataCollection.cs" />
     <Compile Include="Storage\CacheObjects\ICacheData.cs" />
     <Compile Include="Storage\CacheObjects\Message.cs" />
-    <Compile Include="Paging\IPagedList.cs" />
-    <Compile Include="Paging\Page.cs" />
-    <Compile Include="Paging\PagedList.cs" />
-    <Compile Include="Paging\PagedListBase.cs" />
-    <Compile Include="Paging\PagedListMetaData.cs" />
-    <Compile Include="Paging\PageInfo.cs" />
-    <Compile Include="Paging\SortingPagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Storage\CacheObjects\BrandingItem.cs" />

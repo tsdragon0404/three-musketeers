@@ -20,10 +20,10 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         #endregion
 
-        public override ActionResult Index(string textSearch)
+        public override ActionResult Index()
         {
             ViewBag.ListBranch = BranchService.ListAll().Data;
-            return base.Index(textSearch);
+            return base.Index();
         }
 
         public override JsonResult SaveData(UserDto user)

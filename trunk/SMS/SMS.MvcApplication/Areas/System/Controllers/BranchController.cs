@@ -20,11 +20,11 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         #endregion
 
-        public override ActionResult Index(string textSearch)
+        public override ActionResult Index()
         {
             ViewBag.ListCurrency = CurrencyService.ListAll().Data;
             ViewBag.ListTax = TaxService.ListAll().Data;
-            return base.Index(textSearch);
+            return base.Index();
         }
 
         public override JsonResult SaveData(BranchDto branchDto)

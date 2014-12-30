@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
+using SMS.Common.Constant;
 using SMS.Common.Storage;
 using SMS.MvcApplication.Models;
 using SMS.Services;
@@ -10,9 +12,9 @@ namespace SMS.MvcApplication.Base
         where TDto : new()
     {
         [HttpGet]
-        public override ActionResult Index(string textSearch)
+        public override ActionResult Index()
         {
-            var recordList = Service.SearchInBranch(textSearch, SmsCache.UserContext.CurrentBranchId, true);
+            var recordList = Service.ListAllByBranch(SmsCache.UserContext.CurrentBranchId, true);
             if (!recordList.Success || recordList.Data == null)
                 return ErrorPage(recordList.Errors);
 
@@ -36,6 +38,8 @@ namespace SMS.MvcApplication.Base
         [HttpPost]
         public override JsonResult DeleteData(long recordID)
         {
+            if (!CanDelete)
+                return ErrorAjax(HttpStatusCode.Forbidden, SmsCache.Message.Get(ConstMessageIds.Forbidden));
             return Json(JsonModel.Create(Service.DeleteInCurrentBranch(recordID)));
         }
     }

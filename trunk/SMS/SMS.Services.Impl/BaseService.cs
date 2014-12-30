@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Validation;
 using SMS.Business;
-using SMS.Common.Paging;
 
 namespace SMS.Services.Impl
 {
@@ -27,41 +26,6 @@ namespace SMS.Services.Impl
         public ServiceResult<IList<TModel>> ListAllByBranch<TModel>(long branchID, bool includeDisable = false)
         {
             return Management.ListAllByBranch<TModel>(branchID, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TDto>> Search(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
-        {
-            return Management.Search(textSearch, pagingInfo, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TDto>> Search(string textSearch, bool includeDisable = false)
-        {
-            return Management.Search(textSearch, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TModel>> Search<TModel>(string textSearch, SortingPagingInfo pagingInfo, bool includeDisable = false)
-        {
-            return Management.Search<TModel>(textSearch, pagingInfo, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchInBranch(textSearch, branchID, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TDto>> SearchInBranch(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchInBranch(textSearch, pagingInfo, branchID, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchInBranch<TModel>(textSearch, branchID, includeDisable);
-        }
-
-        public ServiceResult<IPagedList<TModel>> SearchInBranch<TModel>(string textSearch, SortingPagingInfo pagingInfo, long branchID, bool includeDisable = false)
-        {
-            return Management.SearchInBranch<TModel>(textSearch, pagingInfo, branchID, includeDisable);
         }
 
         public ServiceResult<TDto> GetByID(long primaryKey)
