@@ -83,7 +83,7 @@
                 if (place.length == 0)
                     return;
 
-                $('#record-tmpl').tmpl(result.Data).insertAfter(place);
+                $('#record-tmpl').tmpl(result.Data).scanLabel().insertAfter(place);
 
                 $('#save-' + result.Data.ID).button({
                     icons: {

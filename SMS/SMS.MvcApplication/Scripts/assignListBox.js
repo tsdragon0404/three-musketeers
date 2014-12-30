@@ -26,25 +26,45 @@
             });
         });
 
-        $('#' + root.addButtonId).button().click(function() {
+        $('#' + root.addButtonId).button({
+            icons: {
+                primary: "ui-icon-carat-1-e"
+            },
+            text: false
+        }).click(function () {
             $('#' + root.originalListBoxId + ' > option:selected').each(function() {
                 $(this).remove().appendTo('#' + root.assignedListBoxId);
             });
         });
 
-        $('#' + root.removeButtonId).button().click(function () {
+        $('#' + root.removeButtonId).button({
+            icons: {
+                primary: "ui-icon-carat-1-w"
+            },
+            text: false
+        }).click(function () {
             $('#' + root.assignedListBoxId + ' > option:selected').each(function() {
                 $(this).remove().appendTo('#' + root.originalListBoxId);
             });
         });
 
-        $('#' + root.addAllButtonId).button().click(function () {
+        $('#' + root.addAllButtonId).button({
+            icons: {
+                primary: "ui-icon-seek-next"
+            },
+            text: false
+        }).click(function () {
             $('#' + root.originalListBoxId + ' > option').each(function() {
                 $(this).remove().appendTo('#' + root.assignedListBoxId);
             });
         });
 
-        $('#' + root.removeAllButtonId).button().click(function () {
+        $('#' + root.removeAllButtonId).button({
+            icons: {
+                primary: "ui-icon-seek-prev"
+            },
+            text: false
+        }).click(function () {
             $('#' + root.assignedListBoxId + ' > option').each(function() {
                 $(this).remove().appendTo('#' + root.originalListBoxId);
             });

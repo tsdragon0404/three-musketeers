@@ -3,81 +3,104 @@
 @model SMS.MvcApplication.Models.AdminModel<SMS.Common.Storage.CacheObjects.UserData>
 
 <div id="content">
-    <div class="row">
-        <h4 class="admin-page-title">User access management</h4>
+    <div class="row admin-page-title">
+        <h4>User access management</h4>
     </div>
 
-    <div class="row">
-        <table id="record-table" class="no-border">
-            <colgroup>
-                <col style="width: 75px;" />
-                <col style="width: 60px;" />
-                <col style="width: 150px;" />
-                <col style="width: 140px;" />
-                <col style="width: 130px;" />
-                <col />
-                <col style="width: 150px;" />
-                <col style="width: 130px;" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>No</th>
-                    <th>User Name</th>
-                    <th>Current Branch</th>
-                    <th>IP Address</th>
-                    <th>User Agent</th>
-                    <th>Login From</th>
-                    <th>Last Access</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dto in Model.ListRecord)
-                {
-                    var deleteCssClass = dto.TokenID != SmsCache.UserAccesses.Current.TokenID ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
-                    var altClass = Model.ListRecord.IndexOf(dto) % 2 != 0 ? "alt" : "";
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>User Name</th>
+                <th>Current Branch</th>
+                <th>IP Address</th>
+                <th>User Agent</th>
+                <th>Login From</th>
+                <th>Last Access</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.ListRecord)
+            {
+                var deleteCssClass = dto.TokenID != SmsCache.UserAccesses.Current.TokenID ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
                     
-                    <tr class="@altClass" data-id="@dto.TokenID">
-                        <td>
-                            <a href="#" class="@deleteCssClass" data-id="@dto.TokenID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                        </td>
-                        <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
-                        <td>@dto.UserName @(dto.TokenID == SmsCache.UserAccesses.Current.TokenID ? "(me)" : "")</td>
-                        <td>@dto.CurrentBranchId</td>
-                        <td>@dto.IpAddress</td>
-                        <td>@dto.UserAgent</td>
-                        <td>@dto.LoginDateTime</td>
-                        <td>@(Math.Round(DateTime.Now.Subtract(dto.LastAccess).TotalMinutes)) minute(s) ago</td>
-                    </tr>
-                }
+                <tr data-id="@dto.TokenID">
+                    <td>@Html.Raw(Model.ListRecord.IndexOf(dto) + 1)</td>
+                    <td>@dto.UserName @(dto.TokenID == SmsCache.UserAccesses.Current.TokenID ? "(me)" : "")</td>
+                    <td>@dto.CurrentBranchId</td>
+                    <td>@dto.IpAddress</td>
+                    <td>@dto.UserAgent</td>
+                    <td>@dto.LoginDateTime</td>
+                    <td>@(Math.Round(DateTime.Now.Subtract(dto.LastAccess).TotalMinutes)) minute(s) ago</td>
+                    <td class="center">
+                        <a href="#" class="@deleteCssClass" data-id="@dto.TokenID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                    </td>
+                </tr>
+            }
                 
-            </tbody>
-        </table>
-
-        @Html.Partial("Paging", Model.PagingInfo)
-
-        <script type="text/javascript">
-            $('#record-table').table();
-            $('#record-table a.del-record').click(function () {
-                var id = $(this).attr('data-id');
-                var popup = new MessagePopup('@SmsCache.Message.Get(ConstMessageIds.Popup_Title_Warning)',
-                    '@SmsCache.Message.Get(ConstMessageIds.Popup_Message_DeleteSessionConfirm)',
-                    2,
-                    function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("Delete")',
-                            data: { sessionId: id }
-                        }).done(function (result) {
-                            if (result.Success)
-                                location.reload();
-                        });
-                    });
-
-                popup.OpenPopup();
-
-                return false;
-            });
-        </script>
-    </div>
+        </tbody>
+    </table>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#record-table').DataTable({
+            "pageLength": @SmsCache.UserContext.PageSize,
+            scrollY: "200px",
+            searching: true,
+            ordering: true,
+            "info": true,
+            "lengthChange": false,
+            "jQueryUI": true,
+            paging: true,
+            language: {
+                "emptyTable": CONST_DATATABLE_NODATA,
+                "info": CONST_DATATABLE_SHOWINGRECORDS,
+                "infoEmpty": CONST_DATATABLE_NOENTRIES,
+                "infoFiltered": CONST_DATATABLE_FILTER,
+                "lengthMenu": CONST_DATATABLE_SHOWENTRIES,
+                "search": CONST_DATATABLE_SEARCH,
+                "zeroRecords": CONST_DATATABLE_NOMATCHINGDATA,
+                "paginate": {
+                    "first": CONST_DATATABLE_FIRST,
+                    "last": CONST_DATATABLE_LAST,
+                    "next": CONST_DATATABLE_NEXT,
+                    "previous": CONST_DATATABLE_PREVIOUS
+                }
+            }
+        });
+        
+        // set height content datatable
+        var contentHeight = $('#content').height() - $('#content .admin-page-title').height();
+        var height1 = 0;
+        $('#record-table_wrapper > .ui-widget-header').each(function (idx, element) {
+            height1 += $(element).outerHeight();
+        });
+        var height2 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+        var height3 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollFoot').outerHeight();
+        var targetHeight = contentHeight - height1 - height2 - height3 - 10; // subtract 2 more px due to the border and padding bottom
+        $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+        
+
+        $('#record-table a.del-record').click(function() {
+            var id = $(this).attr('data-id');
+            var popup = new MessagePopup('@SmsCache.Message.Get(ConstMessageIds.Popup_Title_Warning)',
+                '@SmsCache.Message.Get(ConstMessageIds.Popup_Message_DeleteSessionConfirm)',
+                2,
+                function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete")',
+                        data: { sessionId: id }
+                    }).done(function(result) {
+                        if (result.Success)
+                            location.reload();
+                    });
+                });
+
+            popup.OpenPopup();
+
+            return false;
+        });
+    });
+</script>

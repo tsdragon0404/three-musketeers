@@ -57,6 +57,11 @@
                             }
                         });
                         
+                        if ($.fn.DataTable.isDataTable(root.popupId + ' #editLabel')) {
+                            table.destroy();
+                        }
+                        
+                        $(root.popupId + ' #editLabel thead .datatable_filter').remove();
 
                         $('#label-dictionary').html($('#multi-edit-label-item-tmpl').tmpl(result));
                         
