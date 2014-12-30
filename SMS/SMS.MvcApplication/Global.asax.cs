@@ -17,7 +17,6 @@ using NHibernate;
 using SMS.Common;
 using SMS.Common.AutoMapper;
 using SMS.Common.Exceptions;
-using SMS.MvcApplication.Base;
 
 namespace SMS.MvcApplication
 {
@@ -55,7 +54,6 @@ namespace SMS.MvcApplication
             MappingRegister();
 
             CacheConfig.Configure();
-            //Utility.SetStorageData();
         }
 
         protected void Application_Error(object sender, EventArgs e)

@@ -16,8 +16,6 @@ VALUES
 ( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound' ),
 ( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit' ),
 
-( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', 1, NULL, NULL, N'/Reports/ReportViewer.aspx' ),
-
 ( 20, N'Chi nhánh', N'Branch', N'Chi nhánh', N'Branch', 1, NULL, NULL, N'#' ),
 ( 21, N'Label', N'Label', N'Label', N'Label', 1, N'Branch', N'GlobalLabel', N'Index' ),
 ( 22, N'Quyền truy cập', N'Role', N'Quyền truy cập', N'Role', 1, N'Branch', N'Role', N'Index' ),
@@ -45,7 +43,6 @@ GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
 VALUES 
-/*( 1, N'MainMenu', 0, 1, 10 ), -- do not show home page on main menu */
 ( 2, N'MainMenu', 0, 2, 20 ),
 ( 3, N'MainMenu', 0, 3, 30 ),
 ( 4, N'MainMenu', 0, 20, 40 ),
