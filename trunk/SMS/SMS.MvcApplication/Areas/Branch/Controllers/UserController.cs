@@ -30,7 +30,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
             var userConfig = UserConfigService.ListAllByBranch<UserConfigDto>(SmsCache.UserContext.CurrentBranchId, true);
 
-            var roles = RoleService.ListAll();
+            var roles = RoleService.ListAllByBranch(SmsCache.UserContext.CurrentBranchId);
             if (!roles.Success || roles.Data == null)
                 return ErrorPage(roles.Errors);
 
