@@ -89,14 +89,25 @@
                     <div id="logo">
                         <a href="@Url.Action("Index", "Home", new { area = "" })"><img src="~/Images/logo.jpg" alt="logo"/></a>
                     </div>
+                    
+                    <div id="userInfo" class="center">
+                        @if(SmsCache.UserContext != null)
+                        {
+                            @(SmsCache.UserContext.FirstName + " " + SmsCache.UserContext.LastName)
+                            <marquee behavior="scroll" scrollamount="2" direction="left">
+                                Login time: @SmsCache.UserContext.LoginDateTime
+                            </marquee>
+                        }
+                    </div>
+
                     <ul id="menu">
                         @{
                             var option = new BuildMenuOption
-                            {
-                                SelectedListItemClass = "menu-selected",
-                                CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
-                                SubListClass = "submenu"
-                            };
+                                             {
+                                                 SelectedListItemClass = "menu-selected",
+                                                 CurrentControllerName = ViewContext.RouteData.Values["controller"].ToString(),
+                                                 SubListClass = "submenu"
+                                             };
                         }
                         @Html.Raw(BuildMenuList(ConstPageMenuGroupName.MainMenu, option))
                         <li>-</li>
@@ -130,6 +141,7 @@
                             <li>@Html.ActionLink("Log out", "Logoff", "Account", new { area = "" }, new { data_globalLabelID ="lblLogout"})</li>
                         }
                     </ul>
+                    
                     <ul id="language">
                     
                         @{
