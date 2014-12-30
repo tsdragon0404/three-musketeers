@@ -20,7 +20,7 @@ namespace SMS.Common.Storage.CacheObjects
         #region Implementation of ICacheData
 
         public object Key { get { return BranchID; } }
-        public bool IsCurrent { get { return BranchID == SmsCache.UserContext.CurrentBranchId; } }
+        public bool IsCurrent { get { return SmsCache.UserContext != null && BranchID == SmsCache.UserContext.CurrentBranchId; } }
 
         #endregion
     }
