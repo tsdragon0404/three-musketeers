@@ -89,17 +89,6 @@ namespace SMS.Common.Storage.CacheObjects
             return this.FirstOrDefault(x => x.SessionID == sessionId);
         }
 
-        public bool Remove(string sessionId)
-        {
-            if (sessionId == CommonObjects.SessionId)
-                return false;
-
-            var userData = Get(sessionId);
-            if(userData != null && Contains(userData.TokenID))
-                return RemoveAll(x => x.TokenID == userData.TokenID) > 0;
-
-            return false;
-        }
         public bool AuthorizeSession()
         {
             RemoveExpiredSessions();
@@ -115,7 +104,7 @@ namespace SMS.Common.Storage.CacheObjects
 
         public new bool Remove(Guid tokenID)
         {
-            if (tokenID == CommonObjects.TokenID || !Contains(tokenID))
+            if (!Contains(tokenID))
                 return false;
 
             return RemoveAll(x => x.TokenID == tokenID) > 0;
