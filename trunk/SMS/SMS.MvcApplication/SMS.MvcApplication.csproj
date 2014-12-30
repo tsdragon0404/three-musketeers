@@ -919,7 +919,6 @@
     <Content Include="Views\Cashier\Index.cshtml" />
     <Content Include="Views\Shared\SearchProductPopup.cshtml" />
     <Content Include="Views\Shared\AjaxLoader.cshtml" />
-    <Content Include="Views\Shared\Search.cshtml" />
     <Content Include="Views\Shared\MessagePopup.cshtml" />
     <Content Include="Views\Shared\EditLabelPopup.cshtml" />
     <Content Include="Views\Kitchen\Index.cshtml" />
