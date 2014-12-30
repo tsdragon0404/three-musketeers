@@ -820,7 +820,11 @@
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\assignListBox.js" />
     <Content Include="Scripts\customer-popup.js" />
-    <Content Include="Scripts\dataTables.jqueryui.js" />
+    <Content Include="Scripts\datatables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\datatables\TableTools\js\dataTables.tableTools.js" />
+    <Content Include="Scripts\datatables\TableTools\js\dataTables.tableTools.min.js" />
+    <Content Include="Scripts\datatables\TableTools\swf\copy_csv_xls.swf" />
+    <Content Include="Scripts\datatables\TableTools\swf\copy_csv_xls_pdf.swf" />
     <Content Include="Scripts\discount-popup.js" />
     <Content Include="Scripts\flot\excanvas.min.js" />
     <Content Include="Scripts\flot\jquery.colorhelpers.min.js" />
@@ -840,8 +844,8 @@
     <Content Include="Scripts\flot\jquery.flot.threshold.min.js" />
     <Content Include="Scripts\flot\jquery.flot.time.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery.dataTables.js" />
-    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatables\jquery.dataTables.js" />
+    <Content Include="Scripts\datatables\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.multiselect.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.js" />

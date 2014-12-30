@@ -505,7 +505,10 @@
                 "scrollY": "200px",
                 "scrollCollapse": true,
                 "paging": true,
-                "dom": '<"H"lr>t<"F"ip>',
+                "dom": '<"H"lrT>t<"F"ip>',
+                "tableTools": {
+                    "sSwfPath": "Scripts/datatables/TableTools/swf/copy_csv_xls_pdf.swf"
+                },
                 "jQueryUI": true,
                 searching: true,
                 ordering: true,
@@ -542,17 +545,6 @@
                     }, 100);
                 }
             });
-
-            //// Apply the search
-            //table.columns().eq(0).each(function (colIdx) {
-            //    $('input', table.column(colIdx).footer()).on('keyup change', function () {
-            //        console.log(colIdx);
-            //        table
-            //            .column(colIdx)
-            //            .search(this.value)
-            //            .draw();
-            //    });
-            //});
 
         });
     </script>

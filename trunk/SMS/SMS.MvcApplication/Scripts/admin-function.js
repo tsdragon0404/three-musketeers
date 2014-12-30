@@ -14,6 +14,10 @@
         "pageLength": root.pageSize,
         scrollY: "200px",
         searching: true,
+        "dom": '<"H"Tf>t<"F"ip>',
+        "tableTools": {
+            "sSwfPath": "../Scripts/datatables/TableTools/swf/copy_csv_xls_pdf.swf"
+        },
         ordering: true,
         "info": true,
         "lengthChange": false,
