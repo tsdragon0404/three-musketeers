@@ -29,5 +29,6 @@ namespace SMS.Services
         ServiceResult<TDto> UpdateOrderedProductStatus<TDto>(long orderDetailID, OrderStatus value);
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
         ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
+        ServiceResult<TDto> GetOrder<TDto>(long orderID);
     }
 }

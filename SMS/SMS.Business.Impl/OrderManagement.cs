@@ -56,10 +56,10 @@ namespace SMS.Business.Impl
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new Order()));
         }
 
-        public ServiceResult<TModel> GetOrder<TModel>(long primaryKey)
+        public ServiceResult<TDto> GetOrder<TDto>(long primaryKey)
         {
             var result = Repository.Get(x=> x.ID == primaryKey && x.OrderProgressStatus == OrderProgressStatus.Pending);
-            return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new Order()));
+            return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(result ?? new Order()));
         }
 
         public ServiceResult DeleteMultiOrder(long[] orderIds)
