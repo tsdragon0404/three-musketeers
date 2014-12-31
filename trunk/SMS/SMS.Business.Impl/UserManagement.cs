@@ -63,6 +63,8 @@ namespace SMS.Business.Impl
 
             SmsCache.UserContext.Theme = theme;
             SmsCache.UserContext.PageSize = pageSize;
+            SmsCache.UserContext.FirstName = firstName;
+            SmsCache.UserContext.LastName = lastName;
 
             return ServiceResult.CreateSuccessResult();
         }

@@ -56,6 +56,12 @@ namespace SMS.Business.Impl
             return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new Order()));
         }
 
+        public ServiceResult<TModel> GetOrder<TModel>(long primaryKey)
+        {
+            var result = Repository.Get(x=> x.ID == primaryKey && x.OrderProgressStatus == OrderProgressStatus.Pending);
+            return ServiceResult<TModel>.CreateSuccessResult(Mapper.Map<TModel>(result ?? new Order()));
+        }
+
         public ServiceResult DeleteMultiOrder(long[] orderIds)
         {
             orderIds.Apply(x => Repository.Delete(x));
@@ -138,7 +144,9 @@ namespace SMS.Business.Impl
             var usedTables = orders.SelectMany(x => x.OrderTables).ToList();
 
             var availableTables = TableRepository
-                .List(x => (x.Area.ID == areaID || areaID == 0) && x.Area.Branch.ID == SmsCache.UserContext.CurrentBranchId && !x.OrderTables.Any() && x.Enable);
+                .List(x => (x.Area.ID == areaID || areaID == 0) 
+                    && x.Area.Branch.ID == SmsCache.UserContext.CurrentBranchId
+                    && x.OrderTables.All(y => y.Order.OrderProgressStatus == OrderProgressStatus.Done) && x.Enable);
 
             usedTables.AddRange(availableTables.Select(table => new OrderTable
                                                                     {
@@ -158,7 +166,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult CheckTableStatus(long tableID)
         {
-            var result = Repository.Exists(x => x.OrderTables.Any(y => y.Table.ID == tableID));
+            var result = Repository.Exists(x => x.OrderProgressStatus != OrderProgressStatus.Done && x.OrderTables.Any(y => y.Table.ID == tableID));
             return ServiceResult.CreateResult(result);
         }
 
