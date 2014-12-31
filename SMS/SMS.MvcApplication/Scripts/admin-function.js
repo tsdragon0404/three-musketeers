@@ -119,8 +119,8 @@
         });
 
         $('a.add-record').click(function () {
-            var record = $(this).parent().parent();
-            if (record.length == 0 || record.next().hasClass('admin-record-detail')) {
+            var record = $('#record-table tbody tr').last();
+            if (record.hasClass('admin-record-detail')) {
                 cancelRecord();
                 return false;
             }
@@ -134,9 +134,7 @@
                 }
                 cancelRecord();
 
-                var place = $('a.add-record').parent().parent();
-
-                $('#record-tmpl').tmpl(result.Data).insertAfter(place);
+                $('#record-tmpl').tmpl(result.Data).insertAfter(record);
 
                 $("#save-0").button({
                     icons: {
