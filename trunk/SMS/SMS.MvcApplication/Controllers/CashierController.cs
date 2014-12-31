@@ -78,7 +78,7 @@ namespace SMS.MvcApplication.Controllers
         {
             if (orderID <= 0) return Json(JsonModel.Create(false));
 
-            var order = OrderService.GetByID<OrderDataDto>(orderID);
+            var order = OrderService.GetOrder<OrderDataDto>(orderID);
 
             return Json(JsonModel.Create(order));
         }

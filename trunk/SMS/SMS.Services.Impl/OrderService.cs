@@ -112,5 +112,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetAcceptedProductForKitchen<TDto>();
         }
+
+        public ServiceResult<TDto> GetOrder<TDto>(long orderID)
+        {
+            return Management.GetOrder<TDto>(orderID);
+        }
     }
 }
