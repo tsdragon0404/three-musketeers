@@ -138,7 +138,7 @@
                     <div class="icon-cancel-info" id="cancel-other-fee" title="Cancel"></div>
                 </div>
                 <div class="right col2">
-                    <input type="text" id="txtOtherFee" class="required right hide" name="number" value="${OtherFee.formatAsMoney()}" title="Other fee" />
+                    <input type="text" id="txtOtherFee" class="autoNumeric required right hide" value="${OtherFee}" title="Other fee" />
                     <input type="text" id="txtOtherFeeDescription" class="left hide" value="${OtherFeeDescription}" title="Other fee description" />
                     <span id="valueOtherFee">${OtherFee.formatAsMoney()} @SmsCache.BranchConfigs.Current.Currency</span>
                 </div>

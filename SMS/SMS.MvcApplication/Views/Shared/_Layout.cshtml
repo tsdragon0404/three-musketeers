@@ -30,6 +30,7 @@
     <script type="text/javascript" src="~/Scripts/datatables/dataTables.jqueryui.js"></script>
     <script type="text/javascript" src="~/Scripts/datatables/TableTools/js/dataTables.tableTools.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="~/Scripts/autoNumeric.js"></script>
 
     <link href="~/Content/themes/base/jquery.dataTables.css" rel="stylesheet" />
     <link href="~/Content/themes/base/dataTables.jqueryui.css" rel="stylesheet" />
@@ -74,6 +75,8 @@
             labelController.BuildEditControl(@PageID);
                 </text>
             }
+            
+            $('.autoNumeric').autoNumeric('init');
         });
     </script>
 </head>

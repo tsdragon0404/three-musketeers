@@ -819,6 +819,7 @@
     <Content Include="Scripts\admin-function.js" />
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\assignListBox.js" />
+    <Content Include="Scripts\autoNumeric.js" />
     <Content Include="Scripts\customer-popup.js" />
     <Content Include="Scripts\datatables\dataTables.jqueryui.js" />
     <Content Include="Scripts\datatables\TableTools\js\dataTables.tableTools.js" />
