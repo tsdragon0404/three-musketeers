@@ -67,8 +67,8 @@
     
     $(root.popupId + ' #txtcash').unbind('keyup');
     $(root.popupId + ' #txtcash').keyup(function () {
-        $(this).val($(this).val().readMoneyAsNumber().formatAsMoney());
-        $('.return').text(($(this).val().readMoneyAsNumber() - root.Data.TotalAmount).formatAsMoney());
+        
+        $('.return').text(($(this).autoNumeric('get') - root.Data.TotalAmount).formatAsMoney());
     });
 
     this.OpenPopup = function () {

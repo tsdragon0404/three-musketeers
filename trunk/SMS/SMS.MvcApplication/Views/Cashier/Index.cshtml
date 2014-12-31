@@ -415,7 +415,7 @@
             getOrderDiscounts(orderId);
         } else {
             var discountType = $('#discount-type').val();
-            var discount = $('#discount').val().trim();
+            var discount = $('#discount').autoNumeric('get');
 
             var orderDiscounts = new  Array();
             orderDiscounts[orderDiscounts.length] = {DiscountType : discountType, Discount: discount, DiscountCode: "", DiscountComment: ""};
@@ -532,6 +532,8 @@
 
     function SetupOrderTable() {
         $('table[id^="order-"]').table();
+
+        $('.autoNumeric').autoNumeric('init');
 
         $('input[id^="qty"]').spinner({
             step: 0.5,
@@ -1191,6 +1193,7 @@
         }).done(function(result) {
             if (result.Success) {
                 $('#order-discount').html($('#discount-tmpl').tmpl(result));
+                $('.autoNumeric').autoNumeric('init');
             }
         });
     }
