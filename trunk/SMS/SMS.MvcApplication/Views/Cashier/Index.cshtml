@@ -449,6 +449,7 @@
     /* End Helper functions */
 
     $(document).on("click", 'tr[id^="rmenu-"]', (function(){
+        $('#right-menu').hide();
         onSelectedItem(this);
         return false;
     }));
