@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common;
 using Core.Common.Validation;
 using SMS.Common.Constant;
 using SMS.Common.Storage;
@@ -14,6 +13,8 @@ namespace SMS.Business.Impl
     public class PageLabelManagement : BaseManagement<PageLabelDto, PageLabel, IPageLabelRepository>, IPageLabelManagement
     {
         #region Fields
+
+        public virtual IPageRepository PageRepository { get; set; }
 
         #endregion
 
@@ -40,15 +41,22 @@ namespace SMS.Business.Impl
                 .List(x => x.Page.ID == pageID && labelIds.Contains(x.LabelID) && x.BranchID == SmsCache.UserContext.CurrentBranchId)
                 .ToList();
 
-            pageLabels.ForEach(x =>
-                                {
-                                    var oldLabel = labels.FirstOrDefault(y => y.LabelID == x.LabelID);
-                                    if(oldLabel != null)
-                                        x.ID = oldLabel.ID;
+            var pages = PageRepository.ListAll();
 
-                                    x.BranchID = SmsCache.UserContext.CurrentBranchId;
-                                    Save(x);
-                                });
+            pageLabels.ForEach(x =>
+                                   {
+                                       var oldLabel = labels.FirstOrDefault(y => y.LabelID == x.LabelID);
+                                       if (oldLabel != null)
+                                           x.ID = oldLabel.ID;
+
+                                       var label = Mapper.Map<PageLabel>(x);
+                                       label.BranchID = SmsCache.UserContext.CurrentBranchId;
+                                       label.Page = pages.FirstOrDefault(p => p.ID == x.Page.ID);
+
+                                       if(label.Page ==  null)
+                                           return;
+                                       Repository.Save(label);
+                                   });
 
             return ServiceResult.CreateSuccessResult();
         }
