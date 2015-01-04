@@ -136,47 +136,6 @@ namespace Core.Data.NHibernate
         }
 
         /// <summary>
-        /// Finds entities by text and AllowSearchAttribute.
-        /// </summary>
-        /// <param name="textSearch">The text to search.</param>
-        /// <param name="predicate">The predicate to search.</param>
-        /// <param name="fetchSelectors">The fetch selectors.</param>
-        /// <returns></returns>
-        public IEnumerable<TEntity> FindByString(string textSearch, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] fetchSelectors)
-        {
-            var entities = Fetches(GetQuery(predicate), fetchSelectors);
-
-            if (textSearch.IsNullOrEmpty())
-                return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? entities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : entities.ToList();
-
-            var filteredEntities = entities.ToList().Where(x => SearchByAttribute(x, textSearch)).ToList();
-
-            return typeof(ISortableEntity).IsAssignableFrom(typeof(TEntity)) ? filteredEntities.OrderBy(e => ((ISortableEntity)e).SEQ).ToList() : filteredEntities.ToList();
-        }
-
-        private bool SearchByAttribute(object entity, object searchCriteria)
-        {
-            var propertyInfos = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<AllowSearchAttribute>() != null).ToList();
-
-            foreach (var propertyInfo in propertyInfos)
-            {
-                if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(long))
-                {
-                    var value = (string)propertyInfo.GetValue(entity);
-                    if (value != null && value.ToLower().Contains(searchCriteria.ToString().ToLower()))
-                        return true;
-                }
-                else if (typeof(IEntity<long>).IsAssignableFrom(propertyInfo.PropertyType))
-                {
-                    var result = SearchByAttribute(propertyInfo.GetValue(entity), searchCriteria);
-                    if (result)
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
         /// Finds the one entity by the specified predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>

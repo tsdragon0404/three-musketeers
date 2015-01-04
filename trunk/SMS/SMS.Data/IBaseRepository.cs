@@ -10,8 +10,6 @@ namespace SMS.Data
         IEnumerable<TEntity> ListAll(bool includeDisable = false);
         IEnumerable<TEntity> ListAllByBranch(long branchID, bool includeDisable = false);
         IEnumerable<TEntity> ListByIDs(IEnumerable<long> ids);
-        IEnumerable<TEntity> Search(string textSearch, bool includeDisable = false);
-        IEnumerable<TEntity> SearchInBranch(string textSearch, long branchID, bool includeDisable = false);
         TEntity Get(Expression<Func<TEntity, bool>> predicate);
         TEntity GetByID(long primaryKey);
         TEntity GetByIDInCurrentBranch(long primaryKey);

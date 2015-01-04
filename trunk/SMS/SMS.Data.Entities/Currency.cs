@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Common.CustomAttributes;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
     public class Currency : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
-        [AllowSearch]
         public virtual string Name { get; set; }
 
         public virtual string Description { get; set; }

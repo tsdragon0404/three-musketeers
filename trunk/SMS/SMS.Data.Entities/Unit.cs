@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Common.CustomAttributes;
 using Core.Data;
 using SMS.Data.Entities.Interfaces;
 
@@ -7,10 +6,8 @@ namespace SMS.Data.Entities
 {
     public class Unit : Entity, IAuditableEntity, ISortableEntity, IEnableEntity, IBranchEntity
     {
-        [AllowSearch]
         public virtual string VNName { get; set; }
 
-        [AllowSearch]
         public virtual string ENName { get; set; }
 
         #region Implementation of IBranchEntity
