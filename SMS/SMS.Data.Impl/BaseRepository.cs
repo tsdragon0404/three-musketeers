@@ -96,28 +96,6 @@ namespace SMS.Data.Impl
             return List(x => ids.Contains(x.ID));
         }
 
-        public virtual IEnumerable<TEntity> Search(string textSearch, bool includeDisable = false)
-        {
-            IEnumerable<TEntity> result;
-
-            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
-                result = FindByString(textSearch, x => (x as IEnableEntity).Enable);
-            else
-                result = FindByString(textSearch, null);
-
-            if (ExecuteOrderFunc != null)
-                result = ExecuteOrderFunc(result);
-
-            return result;
-        }
-
-        public virtual IEnumerable<TEntity> SearchInBranch(string textSearch, long branchID, bool includeDisable = false)
-        {
-            var result = Search(textSearch, includeDisable).Where(x => BelongToBranch(x, branchID)).ToList();
-
-            return result;
-        }
-
         public virtual TEntity Get(Expression<Func<TEntity, bool>> predicate)
         {
             return FindOne(predicate);

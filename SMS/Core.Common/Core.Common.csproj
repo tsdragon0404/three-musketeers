@@ -34,7 +34,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomAttributes\AllowSearchAttribute.cs" />
     <Compile Include="CoreExtension.cs" />
     <Compile Include="CustomAttributes\IValidationAttribute.cs" />
     <Compile Include="CustomAttributes\RangeAttribute.cs" />

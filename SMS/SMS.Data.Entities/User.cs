@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Common.CustomAttributes;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
     public class User : Entity, IAuditableEntity
     {
-        [AllowSearch]
         public virtual string Username { get; set; }
 
         public virtual string Password { get; set; }

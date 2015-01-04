@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Common.CustomAttributes;
 using Core.Data;
 using SMS.Data.Entities.Interfaces;
 
@@ -7,7 +6,6 @@ namespace SMS.Data.Entities
 {
     public class Role : Entity, IEnableEntity, IBranchEntity
     {
-        [AllowSearch]
         public virtual string Name { get; set; }
 
         public virtual bool Enable { get; set; }

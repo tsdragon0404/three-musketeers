@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Common.CustomAttributes;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
     public class Table : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
-        [AllowSearch]
         public virtual string VNName { get; set; }
 
-        [AllowSearch]
         public virtual string ENName { get; set; }
 
-        [AllowSearch]
         public virtual Area Area { get; set; }
 
         public virtual IList<InvoiceTable> InvoiceTables { get; set; }
