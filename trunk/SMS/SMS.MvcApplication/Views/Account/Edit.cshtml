@@ -144,6 +144,7 @@
                 contentType: false
             }).done(function (result) {
                 if (result.Success) {
+                    $.growl.notice({ message: "Save successfull!" });
                     $('#password').val('');
                 }
             });
