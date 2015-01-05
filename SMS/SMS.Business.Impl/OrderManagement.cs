@@ -62,6 +62,12 @@ namespace SMS.Business.Impl
             return ServiceResult<TDto>.CreateSuccessResult(Mapper.Map<TDto>(result ?? new Order()));
         }
 
+        public ServiceResult CheckOrderStatus(long orderID)
+        {
+            var result = Repository.Exists(x => x.OrderProgressStatus == OrderProgressStatus.Pending && x.ID == orderID);
+            return ServiceResult.CreateResult(result);
+        }
+
         public ServiceResult DeleteMultiOrder(long[] orderIds)
         {
             orderIds.Apply(x => Repository.Delete(x));
@@ -137,14 +143,15 @@ namespace SMS.Business.Impl
         public ServiceResult<IList<TDto>> GetOrderTablesByAreaID<TDto>(long areaID)
         {
             var orders = Repository
-                .List(x => x.OrderTables.Any(y => y.Table.Area.ID == areaID || areaID == 0) 
+                .List(x => x.OrderTables.Any(y => y.Table.Area.Enable && (y.Table.Area.ID == areaID || areaID == 0)) 
                     && x.Branch.ID == SmsCache.UserContext.CurrentBranchId
                     && x.OrderProgressStatus == OrderProgressStatus.Pending);
 
             var usedTables = orders.SelectMany(x => x.OrderTables).ToList();
 
             var availableTables = TableRepository
-                .List(x => (x.Area.ID == areaID || areaID == 0) 
+                .List(x => (x.Area.ID == areaID || areaID == 0)
+                    && x.Area.Enable
                     && x.Area.Branch.ID == SmsCache.UserContext.CurrentBranchId
                     && x.OrderTables.All(y => y.Order.OrderProgressStatus == OrderProgressStatus.Done) && x.Enable);
 

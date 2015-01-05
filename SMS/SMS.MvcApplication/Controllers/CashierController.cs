@@ -124,6 +124,16 @@ namespace SMS.MvcApplication.Controllers
         }
 
         [HttpPost]
+        public JsonResult CheckOrderStatus(long orderID)
+        {
+            if (orderID <= 0) return Json(JsonModel.Create(false));
+
+            var result = OrderService.CheckOrderStatus(orderID);
+
+            return Json(JsonModel.Create(result));
+        }
+
+        [HttpPost]
         public JsonResult UpdateOrderedProduct(long orderDetailID, string columnName, string columnValue)
         {
             if (orderDetailID <= 0) return Json(JsonModel.Create(false));

@@ -30,7 +30,7 @@ namespace SMS.Data.Impl
             var orders = Find(x => x.Branch.ID == branchID
                                            && x.OrderTables.Any(y => y.OrderDetails.Any(z => z.OrderStatus == status)));
             
-            return orders.SelectMany(x => x.OrderTables.SelectMany(y => y.OrderDetails)).ToList();
+            return orders.SelectMany(x => x.OrderTables.SelectMany(y => y.OrderDetails.Where(z => z.OrderStatus == status))).ToList();
         }
     }
 }

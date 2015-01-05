@@ -189,7 +189,7 @@
             data: { recordID: id }
         }).done(function (result) {
             if (result.Success) {
-                $.growl.notice({ message: "Delete successfull!" });
+                $.growl.notice({ title: "Error", message: "Delete successfull!" });
                 location.reload();
             }
         });
@@ -205,7 +205,7 @@
             data: JSON.stringify(dataToSave),
         }).done(function (result) {
             if (result.Success) {
-                $.growl.notice({ message: "Save successfull!" });
+                $.growl.notice({ title: "Successfull", message: "Save successfull!" });
                 location.reload();
             }
         });

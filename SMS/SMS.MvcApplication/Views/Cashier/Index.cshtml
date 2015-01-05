@@ -187,9 +187,20 @@
                 useTax[idx] = $(e).is(':checked');
             });
             
-            //TODO: create new popup 1 time only
-            var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment', 'print-tax-pdtPayment', '@Url.Action("Payment")', refreshPage, useServiceFee, useTax);
-            payment.OpenPopup();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CheckOrderStatus")',
+                data: { orderID: getCurrentOrderId }
+            }).done(function(result) {
+                if (result.Success) {
+                    //TODO: create new popup 1 time only
+                    var payment = new PaymentPopup("pdtPayment", 500, '@Url.Action("GetDataForPayment")', getCurrentOrderId , 'payment-detail-pdtPayment', 'print-tax-pdtPayment', '@Url.Action("Payment")', refreshPage, useServiceFee, useTax);
+                    payment.OpenPopup();
+                } else {
+                    $.growl.error({title: "Thong bao", message: "Order in processing..." });
+                    location.reload();
+                }
+            });
             return false;
         });
 
@@ -925,11 +936,7 @@
             data: { orderDetailID: orderDetailId, columnName: colName, columnValue: value }
         }).done(function (result) {
             if(!result.Success) {
-                var popup = new MessagePopup('Thông báo',
-                    'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.',
-                    4,
-                    function() {
-                    });
+                var popup = new MessagePopup('Thông báo', 'Có lỗi xảy ra trong quá trình thực thi.<br />Xin vui lòng thử lại sau.', 4, function() { });
 
                 popup.OpenPopup();
             } else {
