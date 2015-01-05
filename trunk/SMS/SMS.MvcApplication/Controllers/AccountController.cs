@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Core.Common.Validation;
 using SMS.Common;
 using SMS.Common.Constant;
@@ -36,8 +35,8 @@ namespace SMS.MvcApplication.Controllers
             var branches = GetBranchList();
             return branches == null ? ErrorPage(errors) : View(new LoginModel
                                                                    {
-                                                                       Username = "system", 
-                                                                       Password = "123", 
+                                                                       Username = "", 
+                                                                       Password = "", 
                                                                        ListBranch = branches, 
                                                                        SelectedBranch = CommonObjects.PreviousSelectedBranch
                                                                    });
