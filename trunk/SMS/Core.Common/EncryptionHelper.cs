@@ -72,6 +72,9 @@ namespace Core.Common
 
         public static string SHA256Hash(string plainText)
         {
+            if (string.IsNullOrEmpty(plainText))
+                return string.Empty;
+
             var bytes = Encoding.UTF8.GetBytes(plainText);
             var hashString = new SHA256Managed();
 

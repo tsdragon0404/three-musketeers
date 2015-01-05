@@ -125,7 +125,9 @@ VALUES
 ( -30, -30, 0, N'(filtered from _MAX_ total entries)', N'(lọc trong tổng _MAX_ dòng)' ),
 ( -31, -31, 0, N'Show _MENU_ entries', N'Hiển thị _MENU_ dòng' ),
 ( -32, -32, 0, N'Search:', N'Tìm kiếm' ),
-( -33, -33, 0, N'No matching records found', N'Không có dữ liệu phù hợp' )
+( -33, -33, 0, N'No matching records found', N'Không có dữ liệu phù hợp' ),
+( -34, -34, 0, N'Cannot get user config. Please contact administrator.', N'Không thể lấy dữ liệu người dùng. Vui lòng liên hệ quản trị viên.' ),
+( -35, -35, 0, N'This user is suspended at this branch. Please contact administrator.', N'Tài khoản này đã bị khóa tại chi nhánh này. Vui lòng liên hệ quản trị viên.' )
 GO
 
 INSERT INTO [dbo].[Currency] ([Name], [Description], [Exchange], [Enable], [SEQ], [CreatedDate], [CreatedUser]) 

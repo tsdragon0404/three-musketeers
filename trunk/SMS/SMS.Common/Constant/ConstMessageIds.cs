@@ -8,6 +8,8 @@ namespace SMS.Common.Constant
         public const long Login_UserLocked = -2;
         public const long Login_NoPermissionOnBranch = -3;
         public const long Login_BranchNotAvailable = -6;
+        public const long Login_CanNotGetUserConfig = -34;
+        public const long Login_UserSuspended = -35;
 
         public const long UnAuthorize_NoPermission = -4;
         public const long UnAuthorize_LoginRequired = -5;
@@ -55,6 +57,8 @@ namespace SMS.Common.Constant
             {ConstMessageIds.Login_UserLocked, "This user is temporary locked. Please contact Administrator."},
             {ConstMessageIds.Login_NoPermissionOnBranch, "This user cannot log into this branch. Please contact administrator."},
             {ConstMessageIds.Login_BranchNotAvailable, "Branch not available."},
+            {ConstMessageIds.Login_CanNotGetUserConfig, "Cannot get user config. Please contact administrator."},
+            {ConstMessageIds.Login_UserSuspended, "This user is suspended at this branch. Please contact administrator."},
             {ConstMessageIds.UnAuthorize_NoPermission, "You dont have permission to access this function."},
             {ConstMessageIds.UnAuthorize_LoginRequired, "Login required."},
             {ConstMessageIds.Validate_NotValid, "{0} is not valid"},
