@@ -188,8 +188,10 @@
             url: root.deleteDataUrl,
             data: { recordID: id }
         }).done(function (result) {
-            if (result.Success)
+            if (result.Success) {
+                $.growl.notice({ message: "Delete successfull!" });
                 location.reload();
+            }
         });
     }
 
@@ -202,8 +204,10 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(dataToSave),
         }).done(function (result) {
-            if (result.Success)
+            if (result.Success) {
+                $.growl.notice({ message: "Save successfull!" });
                 location.reload();
+            }
         });
     }
 
