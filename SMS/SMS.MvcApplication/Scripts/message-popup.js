@@ -33,7 +33,7 @@
         $('#popup-message').html(root.message);
     else {
         var msg = CONST_MESSAGE_SHORT_ERROR_MESSAGE.replace('{0}', 'showMessageDetail');
-        $('#popup-message').html('Somethings wrong.</br><a class="showMessageDetail">Click here</a> read more detail.');
+        $('#popup-message').html(msg);
 
         $('.showMessageDetail').click(function(event) {
             var strWindowFeatures = ["width=800, height=800, scrollbars=yes, resizable=yes"];
