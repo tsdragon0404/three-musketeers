@@ -95,8 +95,8 @@
             url: root.getDataUrl,
             data: postData
         }).done(function (result) {
-            if (!result.Success)
-                return;
+            if (result.Data.ID == 0)
+                location.reload();
 
             root.Data = result.Data;
             
