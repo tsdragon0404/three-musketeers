@@ -64,7 +64,7 @@ namespace SMS.Business.Impl
                 return GetPagesByTypes<TModel>(PageType.Public, PageType.Protected, PageType.System);
 
             var accessiblePageIds = new List<long>();
-            foreach (var role in user.Roles)
+            foreach (var role in user.Roles.Where(x => x.Enable))
                 accessiblePageIds.AddRange(role.Pages.Where(x => !ExcludedPages.Contains(x.ID)).Select(x => x.ID));
 
             accessiblePageIds = accessiblePageIds.Distinct().ToList();

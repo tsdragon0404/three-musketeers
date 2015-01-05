@@ -92,8 +92,31 @@ namespace SMS.MvcApplication.Controllers
                     model.ListBranch = branches;
                     return View(model);
                 }
+                
+                var userConfig = UserConfigService.GetUserConfig(user.ID, branch.ID);
+                if (!userConfig.Success || userConfig.Data == null)
+                {
+                    var branches = GetBranchList();
+                    if (branches == null) return ErrorPage(errors);
 
-                if (!SetSessionData(user, branch.ID))
+                    model.ShowError = true;
+                    model.ErrorMessage = SmsCache.Message.Get(ConstMessageIds.Login_CanNotGetUserConfig);
+                    model.ListBranch = branches;
+                    return View(model);
+                }
+
+                if (userConfig.Data.IsSuspended)
+                {
+                    var branches = GetBranchList();
+                    if (branches == null) return ErrorPage(errors);
+
+                    model.ShowError = true;
+                    model.ErrorMessage = SmsCache.Message.Get(ConstMessageIds.Login_UserSuspended);
+                    model.ListBranch = branches;
+                    return View(model);
+                }
+
+                if (!SetSessionData(user, userConfig.Data, branch.ID))
                 {
                     Session.Abandon();
                     return ErrorPage(errors);
@@ -105,7 +128,7 @@ namespace SMS.MvcApplication.Controllers
             }
 
             return View(model);
-        }
+        } 
 
         private IList<SelectListItem> GetBranchList()
         {
@@ -119,7 +142,7 @@ namespace SMS.MvcApplication.Controllers
             return branchListResult.Data.Select(x => new SelectListItem { Value = x.ID.ToString(CultureInfo.InvariantCulture), Text = x.Name }).ToList();
         } 
 
-        private bool SetSessionData(UserDto user, long branchID)
+        private bool SetSessionData(UserDto user, UserConfigDto userConfig, long branchID)
         {
             List<BranchName> allowBranches;
             if (user.IsSystemAdmin)
@@ -135,22 +158,18 @@ namespace SMS.MvcApplication.Controllers
             else
                 allowBranches = user.Branches.Select(x => new BranchName(x.ID, x.VNName, x.ENName)).ToList();
 
-            var userConfig = UserConfigService.GetUserConfig(user.ID, branchID);
-            if (!userConfig.Success || userConfig.Data == null)
-                return false;
-
             var pages = PageService.GetAccessiblePagesForUser<LanguagePageDto>(user.ID);
             if (!pages.Success || pages.Data == null)
                 return false;
 
-            var listTableHeight = userConfig.Data.ListTableHeight == 0
+            var listTableHeight = userConfig.ListTableHeight == 0
                                       ? ConstConfig.DefaultHeightForListTable
-                                      : userConfig.Data.ListTableHeight;
-            var pageSize = userConfig.Data.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.Data.PageSize;
-            var theme = string.IsNullOrEmpty(userConfig.Data.Theme) ? ConfigReader.CurrentTheme : userConfig.Data.Theme;
+                                      : userConfig.ListTableHeight;
+            var pageSize = userConfig.PageSize <= 0 ? ConstConfig.DefaultPagesize : userConfig.PageSize;
+            var theme = string.IsNullOrEmpty(userConfig.Theme) ? ConfigReader.CurrentTheme : userConfig.Theme;
 
             SmsCache.UserAccesses.Add(CommonObjects.SessionId, user.ID, user.Username, user.FirstName, user.LastName, Request.UserHostAddress, Request.UserAgent,
-                                      branchID, user.IsSystemAdmin, user.UseSystemConfig, userConfig.Data.DefaultAreaID, listTableHeight,
+                                      branchID, user.IsSystemAdmin, user.UseSystemConfig, userConfig.DefaultAreaID, listTableHeight,
                                       pageSize, theme, allowBranches, pages.Data.Select(x => x.ID).ToList());
 
             return true;
