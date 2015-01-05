@@ -21,9 +21,17 @@ namespace SMS.Data.Dtos
     {
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
-        public virtual decimal Quantity { get; set; }
         public virtual LanguageUnitDto Unit { get; set; }
         public virtual LanguageProductCategoryDto ProductCategory { get; set; }
+    }
+
+    public class ProductForKitchenDto
+    {
+        public virtual long ID { get; set; }
+        public virtual string ProductCode { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string CategoryName { get; set; }
+        public virtual string UnitName { get; set; }
     }
 
     public class ProductBasicDto : EnableSortableDto

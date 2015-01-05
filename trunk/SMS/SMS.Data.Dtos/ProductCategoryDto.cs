@@ -8,6 +8,7 @@ namespace SMS.Data.Dtos
         public virtual string ENName { get; set; }
         public virtual string VNDescription { get; set; }
         public virtual string ENDescription { get; set; }
+        public virtual BranchDto Branch { get; set; }
     }
 
     public class LanguageProductCategoryDto : ProductCategoryBasicDto
@@ -20,7 +21,6 @@ namespace SMS.Data.Dtos
     {
         public virtual long ID { get; set; }
         public virtual string ProductCategoryCode { get; set; }
-        public virtual BranchDto Branch { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }

@@ -117,5 +117,10 @@ namespace SMS.Services.Impl
         {
             return Management.GetOrder<TDto>(orderID);
         }
+
+        public ServiceResult CheckOrderStatus(long orderID)
+        {
+            return Management.CheckOrderStatus(orderID);
+        }
     }
 }

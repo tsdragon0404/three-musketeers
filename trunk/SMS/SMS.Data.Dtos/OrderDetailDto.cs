@@ -19,6 +19,21 @@ namespace SMS.Data.Dtos
         public virtual decimal Amount { get; set; }
     }
 
+    public class OrderDetailForKitchen
+    {
+        public virtual long ID { get; set; }
+        public virtual decimal Quantity { get; set; }
+        public virtual string Comment { get; set; }
+        public virtual string KitchenComment { get; set; }
+        public virtual ProductForKitchenDto Product { get; set; }
+        public virtual OrderTableForKitchenDto OrderTable { get; set; }
+
+        public virtual DateTime? CreatedDate { get; set; }
+        public virtual string CreatedUser { get; set; }
+        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual string ModifiedUser { get; set; }
+    }
+
     public class OrderDetailBasicDto
     {
         public virtual long ID { get; set; }

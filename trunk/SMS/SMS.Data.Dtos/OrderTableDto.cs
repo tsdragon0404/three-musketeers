@@ -28,6 +28,12 @@ namespace SMS.Data.Dtos
         public virtual LanguageTableDto Table { get; set; }
     }
 
+    public class OrderTableForKitchenDto
+    {
+        public virtual long ID { get; set; }
+        public virtual LanguageTableDto Table { get; set; }
+    }
+
     public class OrderTableBasicDto
     {
         public virtual long ID { get; set; }

@@ -31,5 +31,6 @@ namespace SMS.Business
         ServiceResult<IList<TDto>> GetOrderedProductForKitchen<TDto>();
         ServiceResult<IList<TDto>> GetAcceptedProductForKitchen<TDto>();
         ServiceResult<TDto> GetOrder<TDto>(long orderID);
+        ServiceResult CheckOrderStatus(long orderID);
     }
 }
