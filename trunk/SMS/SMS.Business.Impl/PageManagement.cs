@@ -35,7 +35,8 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
         {
-            return GetPagesByTypes<TModel>(PageType.Protected);
+            var result = Repository.List(x => x.Type == PageType.Protected && x.Controller != null && x.Controller.Trim() != string.Empty).ToList();
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
         public ServiceResult<IList<PageDto>> GetPublicPages()
@@ -45,7 +46,8 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetPublicPages<TModel>()
         {
-            return GetPagesByTypes<TModel>(PageType.Public);
+            var result = Repository.List(x => x.Type == PageType.Public && x.Controller != null && x.Controller.Trim() != string.Empty).ToList();
+            return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
         public ServiceResult<IList<PageDto>> GetAccessiblePagesForUser(long userID)
