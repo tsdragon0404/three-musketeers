@@ -283,10 +283,16 @@ namespace SMS.Business.Impl
             var orderTable = order.OrderTables.First(y => y.OrderDetails.Any(z => z.ID == orderDetailID));
             var orderDetail = orderTable.OrderDetails.First(z => z.ID == orderDetailID);
 
+            if (orderDetail == null)
+            {
+                return ServiceResult.CreateFailResult();
+            }
+
             switch (columnName)
             {
                 case "qty":
-                    orderDetail.Quantity = decimal.Parse(value);
+                    if (orderDetail.OrderStatus != OrderStatus.KitchenAccepted)
+                        orderDetail.Quantity = decimal.Parse(value);
                     break;
                 case "cmt":
                     orderDetail.Comment = value;
@@ -302,7 +308,6 @@ namespace SMS.Business.Impl
                 case "kitchenComment":
                     orderDetail.KitchenComment = value;
                     break;
-
             }
             Repository.Save(order);
 
