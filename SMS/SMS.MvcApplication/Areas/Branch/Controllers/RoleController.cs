@@ -17,7 +17,7 @@ namespace SMS.MvcApplication.Areas.Branch.Controllers
 
         public override ActionResult Index()
         {
-            var pageListResult = PageService.GetProtectedPages();
+            var pageListResult = PageService.GetProtectedPages<LanguagePageDto>();
             if (!pageListResult.Success || pageListResult.Data == null)
                 return ErrorPage(pageListResult.Errors);
 
