@@ -1167,6 +1167,10 @@ fieldset {
     width: 500px;
 }
 
+.DTTT_container embed {
+    height: inherit;
+}
+
 /* Fixes for IE < 8 */
 @media screen\9 {
     .fileinput-button input {

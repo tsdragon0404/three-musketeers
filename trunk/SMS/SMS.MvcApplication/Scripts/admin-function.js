@@ -16,7 +16,7 @@
         searching: true,
         "dom": '<"H"Tf>t<"F"ip>',
         "oTableTools": {
-            "sSwfPath": "../Scripts/datatables/TableTools/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "../Scripts/datatables/TableTools/swf/copy_csv_xls.swf",
             "aButtons": [
                 "csv",
                 "xls",
@@ -46,8 +46,7 @@
         }
     });
 
-    this.bind = function () {
-
+    function setDefaultContent() {
         // set height content datatable
         var contentHeight = $('#content').height() - $('#content .admin-page-title').height();
         var height1 = 0;
@@ -69,6 +68,15 @@
         var widthHeader = $('.dataTables_scrollHead').outerWidth();
         var widthContent = $('#record-table').outerWidth();
         $(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+    }
+
+    this.bind = function () {
+        
+        setDefaultContent();
+        
+        $(window).resize(function () {
+            setDefaultContent();
+        });
 
         // set action event
         $('#record-table a.edit-record').click(function () {
