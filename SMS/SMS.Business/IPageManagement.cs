@@ -12,7 +12,7 @@ namespace SMS.Business
         ServiceResult<IList<TModel>> GetPublicPages<TModel>();
         ServiceResult<IList<PageDto>> GetAccessiblePagesForUser(long userID);
         ServiceResult<IList<TModel>> GetAccessiblePagesForUser<TModel>(long userID);
-        ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids);
-        ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids);
+        ServiceResult<IList<PageDto>> GetPagesByIds(IList<long> ids);
+        ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IList<long> ids);
     }
 }

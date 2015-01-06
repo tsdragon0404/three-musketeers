@@ -18,8 +18,20 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<PageMenuDto>> GetMenuByPageIds(IList<long> pageList)
         {
-            var result = Repository.List(x => pageList.Contains(x.PageID)).ToList();
-            return ServiceResult<IList<PageMenuDto>>.CreateSuccessResult(Mapper.Map<IList<PageMenuDto>>(result));
+            var menus = Mapper.Map<IList<PageMenuDto>>(Repository.ListAll());
+            var result = menus.Where(x => pageList.Contains(x.PageID)).ToList();
+
+            for (var i = 0; i < result.Count; i++)
+            {
+                if (result[i].ParentID == 0) continue;
+                if (result.Any(x => x.ID == result[i].ParentID)) continue;
+
+                var menu = menus.FirstOrDefault(x => x.ID == result[i].ParentID);
+                if(menu != null)
+                    result.Add(menu);
+            }
+
+            return ServiceResult<IList<PageMenuDto>>.CreateSuccessResult(result);
         }
     }
 }

@@ -78,12 +78,12 @@ namespace SMS.Business.Impl
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
-        public ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids)
+        public ServiceResult<IList<PageDto>> GetPagesByIds(IList<long> ids)
         {
             return GetPagesByIds<PageDto>(ids);
         }
 
-        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids)
+        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IList<long> ids)
         {
             var result = Repository.List(x => ids.Contains(x.ID)).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
