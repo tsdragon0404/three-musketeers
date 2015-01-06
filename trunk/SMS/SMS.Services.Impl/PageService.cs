@@ -40,12 +40,12 @@ namespace SMS.Services.Impl
             return Management.GetAccessiblePagesForUser<TModel>(userID);
         }
 
-        public ServiceResult<IList<PageDto>> GetPagesByIds(IEnumerable<long> ids)
+        public ServiceResult<IList<PageDto>> GetPagesByIds(IList<long> ids)
         {
             return Management.GetPagesByIds(ids);
         }
 
-        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IEnumerable<long> ids)
+        public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IList<long> ids)
         {
             return Management.GetPagesByIds<TModel>(ids);
         }

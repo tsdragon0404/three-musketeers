@@ -38,7 +38,6 @@ namespace SMS.MvcApplication.Base
             var viewResult = filterContext.Result as ViewResult;
             if (viewResult != null)
             {
-
                 var attribute = filterContext.ActionDescriptor.GetAttribute<PageIDAttribute>() ??
                                 filterContext.ActionDescriptor.ControllerDescriptor.GetAttribute<PageIDAttribute>();
 
@@ -54,23 +53,41 @@ namespace SMS.MvcApplication.Base
                     }
                 }
 
-                var allowPagesResult = SmsCache.UserContext == null || SmsCache.UserContext.UserID == 0
-                                           ? PageService.GetPublicPages<LanguagePageDto>()
-                                           : PageService.GetPagesByIds<LanguagePageDto>(SmsCache.UserContext.AllowPageIDs);
+                var allowPages = new List<LanguagePageDto>();
+                var pageMenus = new List<PageMenuDto>();
 
-                if (allowPagesResult.Success && allowPagesResult.Data != null)
+                if (SmsCache.UserContext == null || SmsCache.UserContext.UserID == 0)
                 {
-                    viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_AccessiblePagesForUser, allowPagesResult.Data);
-
-                    var pageMenusResult = PageMenuService.GetMenuByPageIds(allowPagesResult.Data.Select(x => x.ID).ToList());
-                    if (pageMenusResult.Success && pageMenusResult.Data != null)
-                        viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageMenu, pageMenusResult.Data);
-
-                    if (attribute != null && allowPagesResult.Data.Any(x => x.ID == attribute.PageID))
+                    var allowPagesResult = PageService.GetPublicPages<LanguagePageDto>();
+                    if (allowPagesResult.Success && allowPagesResult.Data != null)
                     {
-                        ViewBag.Title = allowPagesResult.Data.First(x => x.ID == attribute.PageID).Title;
-                        ViewBag.Description = allowPagesResult.Data.First(x => x.ID == attribute.PageID).Description;
+                        allowPages = allowPagesResult.Data.ToList();
+
+                        var pageMenusResult = PageMenuService.GetMenuByPageIds(allowPages.Select(x => x.ID).ToList());
+                        if (pageMenusResult.Success && pageMenusResult.Data != null)
+                            pageMenus = pageMenusResult.Data.ToList();
                     }
+                }
+                else
+                {
+                    var pageMenusResult = PageMenuService.GetMenuByPageIds(SmsCache.UserContext.AllowPageIDs);
+                    if (pageMenusResult.Success && pageMenusResult.Data != null)
+                    {
+                        pageMenus = pageMenusResult.Data.ToList();
+
+                        var allowPagesResult = PageService.GetPagesByIds<LanguagePageDto>(pageMenus.Select(x => x.PageID).ToList());
+                        if (allowPagesResult.Success && allowPagesResult.Data != null)
+                            allowPages = allowPagesResult.Data.ToList();
+                    }
+                }
+
+                viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_AccessiblePagesForUser, allowPages);
+                viewResult.ViewData.Add(Common.Constant.ConstKey.ViewData_PageMenu, pageMenus);
+
+                if (attribute != null && allowPages.Any(x => x.ID == attribute.PageID))
+                {
+                    ViewBag.Title = allowPages.First(x => x.ID == attribute.PageID).Title;
+                    ViewBag.Description = allowPages.First(x => x.ID == attribute.PageID).Description;
                 }
             }
             if (SmsCache.UserContext != null)
