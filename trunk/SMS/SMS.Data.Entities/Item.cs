@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Data;
 
 namespace SMS.Data.Entities
 {
-    public class Branch : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    public class Item : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
     {
+        public virtual string ItemCode { get; set; }
+
         public virtual string VNName { get; set; }
 
         public virtual string ENName { get; set; }
 
-        public virtual Currency Currency { get; set; }
+        public virtual string VNDescription { get; set; }
 
-        public virtual bool UseServiceFee { get; set; }
+        public virtual string ENDescription { get; set; }
 
-        public virtual decimal ServiceFee { get; set; }
+        public virtual Unit Unit { get; set; }
 
-        public virtual bool UseDiscountOnProduct { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
 
-        public virtual bool UseKitchenFunction { get; set; }
+        public virtual bool IsInventory { get; set; }
 
-        public virtual bool UseInventory { get; set; }
+        public virtual decimal MinQuantity { get; set; }
 
-        public virtual Depot Depot { get; set; }
-
-        public virtual IList<Tax> Taxs { get; set; }
-
-        public virtual BranchInfo BranchInfo { get; set; }
-
-        public virtual IList<User> Users { get; set; }
+        public virtual long BranchID { get; set; }
 
         #region Implementation of IEnableEntity
 
@@ -43,7 +38,7 @@ namespace SMS.Data.Entities
         #endregion
 
         #region Implementation of IAuditableEntity
-
+        
         public virtual DateTime? CreatedDate { get; set; }
 
         public virtual string CreatedUser { get; set; }

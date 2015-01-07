@@ -12,6 +12,7 @@
         public const long Cashier = 2;
         public const long Kitchen = 3;
         public const long EditProfile = 8;
+        public const long Inventory = 9;
                      
         public const long Branch_GlobalLabel = 21;
         public const long Branch_Role = 22;
@@ -35,5 +36,6 @@
         public const long System_Configuration = 86;
         public const long System_About = 87;
         public const long System_UserAccess = 88;
+        public const long System_SetupDepot = 89;
     }
 }
