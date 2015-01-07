@@ -10,7 +10,9 @@ WHERE OBJECT_NAME(parent_object_id) IN ('Area', 'Branch', 'BranchInfo', 'BranchT
                                         'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
                                         'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
                                         'UserBranch', 'UserConfig', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
-                                        'Report', 'PageMenu', 'Reject', 'BrandingText', 'SystemInformation', 'UploadedFile')
+                                        'Report', 'PageMenu', 'Reject', 'BrandingText', 'SystemInformation', 'UploadedFile',
+										'Vendor', 'Item', 'Depot', 'DeliveryItem', 'DeliveryNote', 'DeliveryType', 'ReceiptItem', 'ReceiptNote',
+										'Inventory')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
 WHILE @@FETCH_STATUS = 0
@@ -31,7 +33,9 @@ WHERE type = 'U'
                     'ProductPriceHistory', 'SystemInfomation', 'Table', 'Tax', 'Unit', 'User', 'UserBranch', 
                     'Page', 'PageLabel', 'OrderTable', 'Order', 'OrderDetail', 'OrderStatus', 'OrderDiscount',
                     'UserBranch', 'UserConfig', 'UsersInRole', 'RolePermission', 'Role', 'ReportDatasourceParameter', 'ReportDatasource',
-                    'Report', 'PageMenu', 'Reject', 'BrandingText', 'SystemInformation', 'UploadedFile')
+                    'Report', 'PageMenu', 'Reject', 'BrandingText', 'SystemInformation', 'UploadedFile',
+					'Vendor', 'Item', 'Depot', 'DeliveryItem', 'DeliveryNote', 'DeliveryType', 'ReceiptItem', 'ReceiptNote',
+					'Inventory')
 OPEN cur
 FETCH NEXT FROM cur INTO @str
 WHILE @@FETCH_STATUS = 0
