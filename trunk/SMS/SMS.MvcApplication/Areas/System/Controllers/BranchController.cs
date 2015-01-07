@@ -16,6 +16,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
 
         public virtual ICurrencyService CurrencyService { get; set; }
         public virtual ITaxService TaxService { get; set; }
+        public virtual IDepotService DepotService { get; set; }
         public virtual IBranchService BranchService { get; set; }
 
         #endregion
@@ -24,6 +25,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         {
             ViewBag.ListCurrency = CurrencyService.ListAll().Data;
             ViewBag.ListTax = TaxService.ListAll().Data;
+            ViewBag.ListDepot = DepotService.ListAll().Data;
             return base.Index();
         }
 

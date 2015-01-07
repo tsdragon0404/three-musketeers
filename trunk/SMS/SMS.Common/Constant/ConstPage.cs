@@ -25,6 +25,9 @@
         public const long Data_Product = 44;
         public const long Data_Unit = 45;
 
+        public const long Inventory_Receipt = 46;
+        public const long Inventory_Delivery = 47;
+
 
         public const long Report_Dashboard = 60;
 

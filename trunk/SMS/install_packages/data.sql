@@ -29,6 +29,8 @@ VALUES
 ( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', 1, N'BranchData', N'ProductCategory', N'Index' ),
 ( 44, N'Sản phẩm', N'Product', N'Quản lý sản phẩm', N'Maintain product', 1, N'BranchData', N'Product', N'Index' ),
 ( 45, N'Đơn vị tính', N'Unit', N'Quản lý đơn vị tính', N'Maintain unit', 1, N'BranchData', N'Unit', N'Index' ),
+( 46, N'Phiếu nhập hàng', N'Receipt note', N'Phiếu nhập hàng', N'Receipt note', 1, N'Inventory', N'Receipt', N'Index' ),
+( 47, N'Phiếu xuất hàng', N'Delivery note', N'Phiếu xuất hàng', N'Delivery note', 1, N'Inventory', N'Delivery', N'Index' ),
 
 ( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', 1, N'Report', N'Dashboard', N'Index' ),
 
@@ -72,6 +74,9 @@ VALUES
 
 ( 24, N'MainMenu', 0, 9, 40 ),
 ( 25, N'MainMenu', 9, 89, 11 ),
+
+( 26, N'MainMenu', 24, 46, 10 ),
+( 27, N'MainMenu', 24, 47, 20 ),
 
 ( 50, N'SystemDataTabMenu', 0, 84, 10 ),
 ( 51, N'SystemDataTabMenu', 0, 85, 20 ),
