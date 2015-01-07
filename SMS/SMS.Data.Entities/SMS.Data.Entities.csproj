@@ -38,6 +38,9 @@
     <Compile Include="Branch.cs" />
     <Compile Include="BranchInfo.cs" />
     <Compile Include="BrandingText.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Vendor.cs" />
+    <Compile Include="Depot.cs" />
     <Compile Include="UploadedFile.cs" />
     <Compile Include="SystemInformation.cs" />
     <Compile Include="Interfaces\IBranchEntity.cs" />

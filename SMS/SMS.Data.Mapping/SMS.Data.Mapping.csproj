@@ -50,6 +50,9 @@
     <Compile Include="BranchMap.cs" />
     <Compile Include="BranchInfoMap.cs" />
     <Compile Include="BrandingTextMap.cs" />
+    <Compile Include="VendorMap.cs" />
+    <Compile Include="DepotMap.cs" />
+    <Compile Include="ItemMap.cs" />
     <Compile Include="UploadedFileMap.cs" />
     <Compile Include="SystemInformationMap.cs" />
     <Compile Include="UserConfigMap.cs" />
