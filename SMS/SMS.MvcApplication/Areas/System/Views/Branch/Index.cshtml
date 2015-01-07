@@ -54,7 +54,7 @@
                         {{/if}}
                     </td>
                 </tr>
-                <tr>
+                <tr id="inputServiceFee" class="${UseServiceFee == true ? '' : 'hide'}">
                     <td data-labelID="lblServiceFee">Service Fee</td>
                     <td>
                         <input type="text" class="right" name="serviceFee" value="${ServiceFee}" id="serviceFee-${ID}" style="width: 50%"/>
@@ -78,6 +78,34 @@
                         {{else}}
                         <input type="checkbox" name="enable" id="useKitchenFunction-${ID}"/>
                         {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblUseInventory">Use Inventory</td>
+                    <td>
+                        {{if UseInventory }}
+                        <input type="checkbox" name="enable" checked id="useInventory-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="useInventory-${ID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr id="chooseDepot" class="${UseInventory == true ? '' : 'hide'}">
+                    <td data-labelID="lblDepot">Choose depot</td>
+                    <td>
+                        <select name="depot" id="depot-${ID}">
+                            <option>-</option>
+                            @foreach (DepotDto depot in ViewBag.ListDepot)
+                            {
+                                <text>
+                                    {{if Depot != null && Depot.ID == @depot.ID}}
+                                    <option value="@depot.ID" selected>@depot.DepotName</option>
+                                    {{else}}
+                                    <option value="@depot.ID">@depot.DepotName</option>
+                                    {{/if}}
+                                </text>
+                            }
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -337,6 +365,14 @@
 
         var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
         adminfunc.bind();
+
+        $(document).on("click", 'input[id^="useInventory-"]', (function() {
+            $('#chooseDepot').slideToggle();
+        }));
+        
+        $(document).on("click", 'input[id^="useServiceFee-"]', (function() {
+            $('#inputServiceFee').slideToggle();
+        }));
     });
 
     function getDataForSave(recordId) {
@@ -345,7 +381,6 @@
         $('#assignedTaxs-' + recordId + ' option').each(function (idx, e) {
             taxs.push({ ID: $(e).val() });
         });
-
 
         var data = {
             ID: recordId,
@@ -358,6 +393,10 @@
             ServiceFee: $('#serviceFee-' + recordId).val(),
             UseDiscountOnProduct: $('#useDiscountOnProduct-' + recordId).prop('checked'),
             UseKitchenFunction: $('#useKitchenFunction-' + recordId).prop('checked'),
+            UseInventory: $('#useInventory-' + recordId).prop('checked'),
+            Depot: {
+                ID: $('#depot-' + recordId).val()
+            },
             BranchInfo: {
                 CompanyCode: $('#companyCode-' + recordId).val(),
                 CompanyName: $('#companyName-' + recordId).val(),

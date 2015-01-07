@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDepotManagement.cs" />
     <Compile Include="IBrandingTextManagement.cs" />
     <Compile Include="IUploadedFileManagement.cs" />
     <Compile Include="ISystemInformationManagement.cs" />

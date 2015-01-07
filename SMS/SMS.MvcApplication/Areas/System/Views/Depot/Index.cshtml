@@ -1,0 +1,161 @@
+﻿@using SMS.Common.Constant
+@using SMS.Common.Storage
+@using SMS.Data.Dtos
+@model SMS.MvcApplication.Models.AdminModel<DepotDto>
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail" style="display: none;">
+        <td class="arrow-detail center">↳</td>
+        <td colspan="6">
+            <table class="no-border width500px">
+                {{if ID == 0}}
+                <tr>
+                    <td colspan="2" class="label-custom-label">ADD NEW</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td data-labelID="lblDepotCode">Depot Code</td>
+                    <td>
+                        <input type="text" name="depotCode" value="${DepotCode}" id="depotCode-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblDepotName">Depot Name</td>
+                    <td>
+                        <input type="text" name="depotName" value="${DepotName}" id="depotName-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblPhoneNumber">Phone number</td>
+                    <td>
+                        <input type="text" name="phone" value="${Phone}" id="phone-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblFax">Fax</td>
+                    <td>
+                        <input type="text" name="fax" value="${Fax}" id="fax-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblEmail">Email</td>
+                    <td>
+                        <input type="text" name="email" value="${Email}" id="email-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblAddress">Address</td>
+                    <td>
+                        <input type="text" name="address" value="${Address}" id="address-${ID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblSEQ">SEQ</td>
+                    <td>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 20%;" class="right"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblEnable">Enable</td>
+                    <td>
+                        {{if Enable }}
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</script>
+
+<div id="content">
+    @{
+        var deleteCssClass = Model.CanDelete ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+        var editCssClass = Model.CanEdit ? ConstStyle.CssEditRecord : ConstStyle.CssIconDisable;
+        var addCssClass = Model.CanAdd ? ConstStyle.CssAddRecord : ConstStyle.CssIconDisable;
+    }
+    
+    <div class="row admin-page-title">
+        <h4>Maintain Branch</h4>
+    </div>
+
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblID">ID</th>
+                <th data-labelID="lblDepotCode">Depot code</th>
+                <th data-labelID="lblDepotName">Depot name</th>
+                <th data-labelID="lblPhone">Phone</th>
+                <th data-labelID="lblAddress">Address</th>
+                <th data-labelID="lblEnable">Enabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.ListRecord)
+            {
+                <tr data-id="@dto.ID">
+                    <td>@dto.ID</td>
+                    <td>@dto.DepotCode</td>
+                    <td>@dto.DepotName</td>
+                    <td>@dto.Phone</td>
+                    <td>@dto.Address</td>
+                    @if(dto.Enable)
+                    {
+                        <td>✔</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td class="center">
+                        <a href="#" class="@deleteCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var addUrl = '@Url.Action("GetSchemaForAdd")';
+        var editUrl = '@Url.Action("GetDataForEdit")';
+        var saveUrl = '@Url.Action("SaveData")';
+        var deleteUrl = '@Url.Action("DeleteData")';
+
+        var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
+        adminfunc.bind();
+    });
+
+    function getDataForSave(recordId) {
+        var data = {
+            ID: recordId,
+            DepotCode: $('#depotCode-' + recordId).val(),
+            DepotName: $('#depotName-' + recordId).val(),
+            Phone: $('#phone-' + recordId).val(),
+            Fax: $('#fax-' + recordId).val(),
+            Email: $('#email-' + recordId).val(),
+            Address: $('#address-' + recordId).val(),
+            Enable: $('#enable-' + recordId).prop('checked'),
+            SEQ: $('#seq-' + recordId).val()
+        };
+        return data;
+    }
+</script>

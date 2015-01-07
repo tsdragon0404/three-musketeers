@@ -42,6 +42,7 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="BranchRepository.cs" />
     <Compile Include="BrandingTextRepository.cs" />
+    <Compile Include="DepotRepository.cs" />
     <Compile Include="ReportRepository.cs" />
     <Compile Include="UploadedFileRepository.cs" />
     <Compile Include="SystemInformationRepository.cs" />

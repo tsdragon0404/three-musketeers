@@ -20,6 +20,7 @@ namespace SMS.Business.Impl
         public virtual IOrderRepository OrderRepository { get; set; }
         public virtual ICurrencyRepository CurrencyRepository { get; set; }
         public virtual ITaxRepository TaxRepository { get; set; }
+        public virtual IDepotRepository DepotRepository { get; set; }
 
         #endregion
 
@@ -79,6 +80,8 @@ namespace SMS.Business.Impl
             destination.UseDiscountOnProduct = source.UseDiscountOnProduct;
             destination.UseKitchenFunction = source.UseKitchenFunction;
             destination.UseServiceFee = source.UseServiceFee;
+            destination.UseInventory = source.UseInventory;
+            destination.Depot = DepotRepository.GetByID(source.Depot.ID);
             destination.Users = Mapper.Map<IList<User>>(source.Users);
             destination.VNName = source.VNName;
         }
