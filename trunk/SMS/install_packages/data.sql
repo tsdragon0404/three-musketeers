@@ -15,6 +15,8 @@ VALUES
 ( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', 0, NULL, N'Error', N'Unknown' ),
 ( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound' ),
 ( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit' ),
+( 9, N'Kho hàng', N'Inventory', N'Kho hàng', N'Inventory', 1, NULL, N'Inventory', N'Index' ),
+
 
 ( 20, N'Chi nhánh', N'Branch', N'Chi nhánh', N'Branch', 1, NULL, NULL, N'#' ),
 ( 21, N'Label', N'Label', N'Label', N'Label', 1, N'Branch', N'GlobalLabel', N'Index' ),
@@ -38,7 +40,8 @@ VALUES
 ( 85, N'Tiền tệ', N'Currency', N'Loại tiền tệ', N'Setup currency', 2, N'SystemData', N'Currency', N'Index' ),
 ( 86, N'Cài đặt', N'Setting', N'Cài đặt hệ thống', N'Setting', 2, N'System', N'Configuration', N'Index' ),
 ( 87, N'Thông tin sử dụng', N'About', N'Thông tin sử dụng', N'About', 2, N'System', N'About', N'Index' ),
-( 88, N'Quản lý truy cập', N'User Access', N'Quản lý truy cập', N'User Access', 2, N'System', N'UserAccess', N'Index' )
+( 88, N'Quản lý truy cập', N'User Access', N'Quản lý truy cập', N'User Access', 2, N'System', N'UserAccess', N'Index' ),
+( 89, N'Thiết lập kho hàng', N'Setup depot', N'Thiết lập kho hàng', N'Setup depot', 2, N'System', N'Depot', N'Index' )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -66,6 +69,9 @@ VALUES
 ( 21, N'MainMenu', 9, 86, 40 ),
 ( 22, N'MainMenu', 9, 87, 50 ),
 ( 23, N'MainMenu', 9, 88, 60 ),
+
+( 24, N'MainMenu', 0, 9, 40 ),
+( 25, N'MainMenu', 9, 89, 11 ),
 
 ( 50, N'SystemDataTabMenu', 0, 84, 10 ),
 ( 51, N'SystemDataTabMenu', 0, 85, 20 ),

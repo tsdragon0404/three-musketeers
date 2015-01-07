@@ -32,6 +32,8 @@ BEGIN
         [ServiceFee] [numeric](19, 2) NULL,
         [UseDiscountOnProduct] [bit] NULL,
         [UseKitchenFunction] [bit] NULL,
+		[UseInventory] [bit] NULL,
+		[DepotID] [int] NULL,
         [Enable] [bit] NULL,
         [SEQ] [int] NULL,
         [CreatedDate] [datetime] NULL,
@@ -768,6 +770,221 @@ BEGIN
         [UploadedFileID] ASC
     )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
     ) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Depot]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Depot](
+		[DepotID] [int] IDENTITY(1,1) NOT NULL,
+		[DepotCode] [nvarchar](50) NULL,
+		[DepotName] [nvarchar](1000) NULL,
+		[Phone] [nvarchar](50) NULL,
+		[Fax] [nvarchar](50) NULL,
+		[Email] [nvarchar](255) NULL,
+		[Address] [nvarchar](510) NULL,
+		[Enable] [bit] NULL,
+		[SEQ] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_Depot] PRIMARY KEY CLUSTERED 
+	(
+		[DepotID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Item]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Item](
+		[ItemID] [bigint] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
+		[ItemCode] [nvarchar](50) NULL,
+		[VNName] [nvarchar](1000) NULL,
+		[ENName] [nvarchar](1000) NULL,
+		[VNDescription] [nvarchar](1000) NULL,
+		[ENDescription] [nvarchar](1000) NULL,
+		[UnitID] [int] NULL,
+		[ProductCategoryID] [int] NULL,
+		[IsInventory] [bit] NULL,
+		[MinQuantity] [numeric](10, 2) NULL,
+		[Enable] [bit] NULL,
+		[SEQ] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_Item] PRIMARY KEY CLUSTERED 
+	(
+		[ItemID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Vendor]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Vendor](
+		[VendorID] [bigint] IDENTITY(1,1) NOT NULL,
+		[VendorNumber] [nvarchar](50) NULL,
+		[VendorName] [nvarchar](1000) NULL,
+		[Phone] [nvarchar](50) NULL,
+		[Fax] [nvarchar](50) NULL,
+		[Email] [nvarchar](255) NULL,
+		[TaxCode] [nvarchar](50) NULL,
+		[Address] [nvarchar](510) NULL,
+		[Enable] [bit] NULL,
+		[SEQ] [int] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED 
+	(
+		[VendorID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryItem]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[DeliveryItem](
+		[DeliveryItemID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DeliveryNoteID] [bigint] NULL,
+		[ItemID] [bigint] NULL,
+		[Quantity] [numeric](10, 2) NULL,
+		[Price] [numeric](19, 2) NULL,
+		[Amount] [numeric](19, 2) NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DeliveryItem] PRIMARY KEY CLUSTERED 
+	(
+		[DeliveryItemID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryNote]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[DeliveryNote](
+		[DeliveryNoteID] [bigint] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
+		[DeliveryNumber] [nvarchar](50) NULL,
+		[DeliveryDate] [datetime] NULL,
+		[DeliveryTypeID] [tinyint] NULL,
+		[Comment] [nvarchar](255) NULL,
+		[CustomerID] [bigint] NULL,
+		[ToDepotID] [bigint] NULL,
+		[DocumentID] [bigint] NULL,
+		[Recipient] [nvarchar](1000) NULL,
+		[Address] [nvarchar](1000) NULL,
+		[ContactInformation] [nvarchar](1000) NULL,
+		[TotalAmount] [numeric](19, 2) NULL,
+		[Currency] [nvarchar](50) NULL,
+		[DebitAmount] [numeric](19, 2) NULL,
+		[PaymentDate] [datetime] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDare] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DeliveryNote] PRIMARY KEY CLUSTERED 
+	(
+		[DeliveryNoteID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryType]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[DeliveryType](
+		[DeliveryTypeID] [tinyint] IDENTITY(1,1) NOT NULL,
+		[VNName] [nvarchar](255) NULL,
+		[ENName] [nvarchar](255) NULL,
+		[UseImportPrice] [bit] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DeliveryType] PRIMARY KEY CLUSTERED 
+	(
+		[DeliveryTypeID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Inventory]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[Inventory](
+		[InventoryID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DepotID] [int] NULL,
+		[ItemID] [bigint] NULL,
+		[Quantity] [numeric](10, 2) NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_Inventory] PRIMARY KEY CLUSTERED 
+	(
+		[InventoryID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReceiptNote]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[ReceiptNote](
+		[ReceiptNoteID] [bigint] IDENTITY(1,1) NOT NULL,
+		[BranchID] [int] NULL,
+		[ReceiptNumber] [nvarchar](50) NULL,
+		[ReceiptDate] [datetime] NULL,
+		[VendorID] [bigint] NULL,
+		[DepotID] [int] NULL,
+		[Comment] [nvarchar](255) NULL,
+		[DocumentID] [bigint] NULL,
+		[TotalReceipt] [numeric](19, 2) NULL,
+		[Currency] [nvarchar](50) NULL,
+		[DebitAmount] [numeric](19, 2) NULL,
+		[PaymentDate] [datetime] NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_ReceiptNote] PRIMARY KEY CLUSTERED 
+	(
+		[ReceiptNoteID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReceiptItem]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[ReceiptItem](
+		[ReceiptItemID] [bigint] IDENTITY(1,1) NOT NULL,
+		[ReceiptNoteID] [bigint] NULL,
+		[ItemID] [bigint] NULL,
+		[Quantity] [numeric](10, 2) NULL,
+		[Price] [numeric](19, 2) NULL,
+		[Amount] [numeric](19, 2) NULL,
+		[CreatedDate] [datetime] NULL,
+		[CreatedUser] [nvarchar](50) NULL,
+		[ModifiedDate] [datetime] NULL,
+		[ModifiedUser] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_ReceiptItem] PRIMARY KEY CLUSTERED 
+	(
+		[ReceiptItemID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
 END
 GO
 
