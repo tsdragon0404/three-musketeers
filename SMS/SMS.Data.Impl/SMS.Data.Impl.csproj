@@ -43,6 +43,8 @@
     <Compile Include="BranchRepository.cs" />
     <Compile Include="BrandingTextRepository.cs" />
     <Compile Include="DepotRepository.cs" />
+    <Compile Include="Inventory\BaseDA.cs" />
+    <Compile Include="Inventory\ReceiptNoteDA.cs" />
     <Compile Include="ReportRepository.cs" />
     <Compile Include="UploadedFileRepository.cs" />
     <Compile Include="SystemInformationRepository.cs" />
@@ -76,6 +78,10 @@
     <ProjectReference Include="..\Core.Data.NHibernate\Core.Data.NHibernate.csproj">
       <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
       <Name>Core.Data.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data.PetaPoco\Core.Data.PetaPoco.csproj">
+      <Project>{432AF05C-3B75-4FE0-94E9-67D51B3C5EC1}</Project>
+      <Name>Core.Data.PetaPoco</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">
       <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
