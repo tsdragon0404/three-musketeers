@@ -38,6 +38,7 @@
     <Compile Include="Branch.cs" />
     <Compile Include="BranchInfo.cs" />
     <Compile Include="BrandingText.cs" />
+    <Compile Include="Inventory\ReceiptNote.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="Depot.cs" />
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\Core.Common\Core.Common.csproj">
       <Project>{5FB61BB1-1FB0-44BA-BD89-C99C4B5A810F}</Project>
       <Name>Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data.PetaPoco\Core.Data.PetaPoco.csproj">
+      <Project>{432AF05C-3B75-4FE0-94E9-67D51B3C5EC1}</Project>
+      <Name>Core.Data.PetaPoco</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Data\Core.Data.csproj">
       <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
