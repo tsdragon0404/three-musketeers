@@ -32,8 +32,13 @@
         }).click(function () {
             var data = handsonTable.getData();
 
-            
-            
+            var obj = null;
+            for (var i = 0; i < data.length; i++) {
+                obj = data[i];
+                
+            }
+
+
             return false;
         });
 
