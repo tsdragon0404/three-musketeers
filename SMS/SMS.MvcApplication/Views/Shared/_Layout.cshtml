@@ -268,6 +268,7 @@
         &copy; @DateTime.Now.Year - My ASP.NET MVC Application
     </footer>*@
         @Html.Partial("MessagePopup")
+        @Html.Partial("ImportPopup", new PopupModel { PopupID = "importPopup", PopupTitle = "Import Data" })
         @Html.Partial("AjaxLoader")
         @RenderSection("scripts", required: false)
     </body>

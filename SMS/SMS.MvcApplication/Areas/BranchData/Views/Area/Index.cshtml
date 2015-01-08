@@ -102,6 +102,7 @@
             <tr>
                 <th colspan="6">
                     <a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a>
+                    <a href="#" class="import-data"><img src="~/Images/IconControls/database-arrow-up-icon.png" alt="import data" /></a>
                 </th>
             </tr>
         </tfoot>
@@ -118,6 +119,11 @@
         
         var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
         adminfunc.bind();
+
+        $('a.import-data').click(function() {
+            var popup = new ImportPopup("importPopup", '');
+            popup.OpenPopup();
+        });
     });
 
     function getDataForSave(recordID) {
