@@ -268,6 +268,7 @@
   <ItemGroup>
     <Content Include="Content\css\ajax-loader.css" />
     <Content Include="Content\css\gumby.css" />
+    <Content Include="Content\css\handsontable.full.css" />
     <Content Include="Content\css\jquery.growl.css" />
     <Content Include="Content\css\jquery.multiselect.css" />
     <Content Include="Content\css\print.css" />
@@ -825,6 +826,8 @@
     <Content Include="Scripts\app.ajax-loader.js" />
     <Content Include="Scripts\assignListBox.js" />
     <Content Include="Scripts\autoNumeric.js" />
+    <Content Include="Scripts\handsontable.full.js" />
+    <Content Include="Scripts\import-popup.js" />
     <Content Include="Scripts\customer-popup.js" />
     <Content Include="Scripts\datatables\dataTables.jqueryui.js" />
     <Content Include="Scripts\datatables\TableTools\js\dataTables.tableTools.js" />
@@ -860,6 +863,8 @@
     <Content Include="Scripts\payment-popup.js" />
     <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
+    <Content Include="Scripts\shim.js" />
+    <Content Include="Scripts\xls.js" />
     <Content Include="ScriptX\smsx.cab" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Areas\BranchData\Views\_ViewStart.cshtml" />
@@ -949,6 +954,7 @@
     <Content Include="Views\Cashier\Templates\Discount.cshtml" />
     <Content Include="Views\Cashier\Templates\OrderTable.cshtml" />
     <Content Include="Views\Cashier\Templates\Table.cshtml" />
+    <Content Include="Views\Shared\ImportPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

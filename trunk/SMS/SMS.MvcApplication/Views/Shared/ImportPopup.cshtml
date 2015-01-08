@@ -1,0 +1,18 @@
+﻿@model SMS.MvcApplication.Models.PopupModel
+<div id="@Model.PopupID" title="@Model.PopupTitle" class="hide">
+    <div class="popup-content">
+        <div class="marginBottom5px">
+            <input type="file" name="uploadedFile" id="fileupload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <button class="process">Process</button>
+            <button class="popupClose">Close</button>
+        </div>
+        <div id="dataReview" class="handsontable" style="overflow: auto;"></div>
+    </div>
+    
+</div>
+
+<script src="@Url.Content("~/Scripts/import-popup.js")"></script>
+<script src="@Url.Content("~/Scripts/shim.js")"></script>
+<script src="@Url.Content("~/Scripts/xls.js")"></script>
+<script src="@Url.Content("~/Scripts/handsontable.full.js")"></script>
+<link href="~/Content/css/handsontable.full.css" rel="stylesheet" />
