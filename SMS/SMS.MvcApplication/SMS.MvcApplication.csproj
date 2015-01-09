@@ -793,6 +793,7 @@
     <Content Include="Images\IconControls\accept-icon.png" />
     <Content Include="Images\IconControls\add-icon.png" />
     <Content Include="Images\IconControls\capture-icon.png" />
+    <Content Include="Images\IconControls\database-arrow-up-icon.png" />
     <Content Include="Images\IconControls\pooling-icon.png" />
     <Content Include="Images\IconControls\all-icon.png" />
     <Content Include="Images\IconControls\confirm-icon.png" />
