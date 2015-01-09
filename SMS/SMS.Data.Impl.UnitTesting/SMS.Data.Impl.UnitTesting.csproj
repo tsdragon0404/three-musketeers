@@ -59,6 +59,10 @@
       <Project>{432AF05C-3B75-4FE0-94E9-67D51B3C5EC1}</Project>
       <Name>Core.Data.PetaPoco</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Data\Core.Data.csproj">
+      <Project>{8A79B55E-F8FD-4806-A2D4-3B7F138E2662}</Project>
+      <Name>Core.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Data.Entities\SMS.Data.Entities.csproj">
       <Project>{4D5C44C9-7B29-47C5-940F-81063CB328E8}</Project>
       <Name>SMS.Data.Entities</Name>

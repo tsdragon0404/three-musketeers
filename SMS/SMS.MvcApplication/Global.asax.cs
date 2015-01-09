@@ -11,6 +11,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Core.Data.NHibernate.Interceptors;
+using Core.Data.PetaPoco;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -121,6 +122,13 @@ namespace SMS.MvcApplication
             containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Data.Impl")).Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
 
+            var config = new Config();
+
+            containerBuilder.RegisterInstance(config).AsImplementedInterfaces().SingleInstance();
+
+            containerBuilder.RegisterAssemblyTypes(Assembly.Load("SMS.Data.Impl")).Where(t => t.Name.EndsWith("DA"))
+                .AsImplementedInterfaces().SingleInstance();
+
             container = containerBuilder.Build();
             ServiceLocator.Initialize(container);
 
@@ -162,5 +170,17 @@ namespace SMS.MvcApplication
         }
 
         #endregion
+
+        public class Config : IConfig
+        {
+            public string ConnectionString { get; set; }
+            public string DbProvider { get; set; }
+
+            public Config()
+            {
+                ConnectionString = ConfigReader.ConnectionString;
+                DbProvider = ConfigReader.DbProvider;
+            }
+        }
     }
 }

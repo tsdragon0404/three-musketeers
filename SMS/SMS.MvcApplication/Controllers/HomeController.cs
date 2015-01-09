@@ -5,17 +5,20 @@ using SMS.Common.CustomAttributes;
 using SMS.Common.Mail;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
+using SMS.Services.Inventory;
 
 namespace SMS.MvcApplication.Controllers
 {
     public class HomeController : BaseController
     {
+        public virtual IReceiptNoteService ReceiptNoteService { get; set; }
+
         [SmsAuthorize(ConstPage.HomePage)]
         [PageID(ConstPage.HomePage)]
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            //var temp = ReceiptNoteService.ListAll();
             return View();
         }
 

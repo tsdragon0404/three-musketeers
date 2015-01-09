@@ -41,6 +41,8 @@
     <Compile Include="BranchService.cs" />
     <Compile Include="BrandingTextService.cs" />
     <Compile Include="DepotService.cs" />
+    <Compile Include="Inventory\BaseService.cs" />
+    <Compile Include="Inventory\ReceiptNoteService.cs" />
     <Compile Include="UploadedFileService.cs" />
     <Compile Include="SystemInformationService.cs" />
     <Compile Include="UserConfigService.cs" />

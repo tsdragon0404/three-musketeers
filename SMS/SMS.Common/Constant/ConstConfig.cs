@@ -30,5 +30,6 @@
 
         public static string ConfigKey_DefaultTheme = "defaultTheme";
         public static string ConfigKey_ConnectionString = "dbConnection";
+        public static string ConfigKey_DbProvider = "dbProvider";
     }
 }
