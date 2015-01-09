@@ -31,14 +31,65 @@
             }
         }).click(function () {
             var data = handsonTable.getData();
-
+            var cellOption = [];
             var obj = null;
+            var errorColor = 'red';
+            var errorMessage = '';
+            
             for (var i = 0; i < data.length; i++) {
                 obj = data[i];
                 
+                /*
+                $.ajax({
+                    type: 'POST',
+                    async: false,
+                    url: '',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ listLabels: data })
+                }).done(function (result) {
+                    if (result.Success) {
+                        if (result.Data.ErrorMessage != "") {
+                            cellOption[cellOption.length] = {
+                                row: i,
+                                col: 0,
+                                renderer: function(instance, td, row, col, prop, value, cellProperties) {
+                                    Handsontable.renderers.TextRenderer.apply(this, arguments);
+                                    td.style.backgroundColor = errorColor;
+                                    $(td).parent().prop('title', errorMessage);
+                                }
+                            };
+                        }
+                    } else {
+                        errorMessage = "Can't import data right now. Please try again later.";
+
+                        cellOption[cellOption.length] = {
+                            row: i,
+                            col: 0,
+                            renderer: function (instance, td, row, col, prop, value, cellProperties) {
+                                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                                td.style.backgroundColor = errorColor;
+                                $(td).parent().prop('title', errorMessage);
+                            }
+                        };
+                    }
+                });
+                */ 
             }
+            
+            handsonTable.updateSettings({
+                comments: true,
+                cell: cellOption,
+                fixedColumnsLeft: 1
+            });
 
-
+            $('#dataReview').tooltip({
+                show: {
+                    effect: "slideDown",
+                    delay: 250
+                },
+                track: true
+            });
             return false;
         });
 
@@ -188,7 +239,11 @@
         {
             data: result.Data,
             minSpareRows: 0,
+            currentRowClassName: 'currentRow',
+            currentColClassName: 'currentCol',
+            autoWrapRow: true,
             colHeaders: true,
+            rowHeaders: false,
             contextMenu: false
         });
     }
