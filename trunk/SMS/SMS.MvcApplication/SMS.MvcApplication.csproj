@@ -986,6 +986,10 @@
       <Project>{E783C285-666B-4025-9CE5-AF5296AC658B}</Project>
       <Name>Core.Data.NHibernate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Data.PetaPoco\Core.Data.PetaPoco.csproj">
+      <Project>{432AF05C-3B75-4FE0-94E9-67D51B3C5EC1}</Project>
+      <Name>Core.Data.PetaPoco</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMS.Common.AutoMapper\SMS.Common.AutoMapper.csproj">
       <Project>{3b197297-e5e8-4ee5-af48-a70eef1b473d}</Project>
       <Name>SMS.Common.AutoMapper</Name>

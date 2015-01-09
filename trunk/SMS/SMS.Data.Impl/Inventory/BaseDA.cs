@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Core.Common;
+using Core.Data;
 using Core.Data.PetaPoco;
 using SMS.Common.Storage;
-using SMS.Data.Entities.Interfaces;
 using SMS.Data.Inventory;
 
 namespace SMS.Data.Impl.Inventory
@@ -32,58 +31,71 @@ namespace SMS.Data.Impl.Inventory
             }
         }
 
+        private static string PrimaryKeyColumn
+        {
+            get
+            {
+                var primaryKeyAtt = typeof(TEntity).GetAttributes<PrimaryKeyAttribute>(false).FirstOrDefault();
+                return primaryKeyAtt == null ? typeof(TEntity).Name + "ID" : primaryKeyAtt.Value;
+            }
+        }
+
+        private static string SelectQuery
+        {
+            get { return "SELECT * FROM " + TableName; }
+        }
+
         #region Implementation of IBaseDA<TEntity>
 
-        public void ExecuteCommand(string sql)
+        public void ExecuteNonQuery(string sql, params object[] args)
         {
             var db = new Database(config);
-            db.Execute(sql);
+            db.Execute(sql, args);
         }
 
-        public virtual IEnumerable<TEntity> List(Expression<Func<TEntity, bool>> predicate)
+        public virtual IList<TEntity> ListAll(bool includeDisable = false)
         {
             var db = new Database(config);
-            var sql = Sql.Builder
-                .Append("SELECT * FROM " + typeof (TEntity).Name)
-                .Append("WHERE " + DAHelper.TranslateExpression(predicate));
+            if (typeof(IEnableEntity).IsAssignableFrom(typeof(TEntity)) && !includeDisable)
+                return db.Query<TEntity>(SelectQuery + " WHERE Enable = 1").ToList();
 
-            return db.Query<TEntity>(sql);
+            return db.Query<TEntity>(SelectQuery).ToList();
         }
 
-        public virtual IEnumerable<TEntity> ListAll(bool includeDisable = false)
+        public virtual IList<TEntity> ListByIDs(IEnumerable<long> ids)
         {
             var db = new Database(config);
-            return db.Query<TEntity>("SELECT * FROM " + TableName);
-        }
-
-        public virtual IEnumerable<TEntity> ListByIDs(IEnumerable<long> ids)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual TEntity Get(Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            var sql = string.Format("{0} WHERE {1} IN {2}", SelectQuery, PrimaryKeyColumn, ids.ToSqlInClause());
+            return db.Query<TEntity>(sql).ToList();
         }
 
         public virtual TEntity GetByID(long primaryKey)
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            var db = new Database(config);
+            var sql = string.Format("{0} WHERE {1} = {2}", SelectQuery, PrimaryKeyColumn, primaryKey);
+            return db.SingleOrDefault<TEntity>(sql);
         }
 
         public virtual bool Delete(long primaryKey)
         {
-            throw new NotImplementedException();
+            var db = new Database(config);
+            return db.Delete<TEntity>(primaryKey) > 0;
         }
 
         public virtual void Save(TEntity entity)
         {
             var db = new Database(config);
+
+            if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                if (db.IsNew(entity))
+                    ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
+                else
+                    ((IAuditableEntity)entity).ModifiedDate = DateTime.Now;
+
+                ((IAuditableEntity)entity).CreatedUser = SmsCache.UserContext.UserName;
+            }
+
             db.Save(entity);
         }
 

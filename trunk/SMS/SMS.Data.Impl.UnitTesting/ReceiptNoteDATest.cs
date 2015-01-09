@@ -20,7 +20,7 @@ namespace SMS.Data.Impl.UnitTesting
         [TestCleanup]
         public void CleanUp()
         {
-            da.ExecuteCommand("DELETE ReceiptNote");
+            da.ExecuteNonQuery("DELETE ReceiptNote");
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace SMS.Data.Impl.UnitTesting
         }
 
         [TestMethod]
-        public void List_DatabaseHasData_MatchPredicate_ReturnListOfRecord()
+        public void ListByIDs_DatabaseHasData_MatchID_ReturnListOfRecord()
         {
             var receiptNote1 = new ReceiptNote
             {
@@ -68,21 +68,56 @@ namespace SMS.Data.Impl.UnitTesting
                 BranchID = 2,
                 ReceiptNumber = "2"
             };
+            var receiptNote3 = new ReceiptNote
+            {
+                BranchID = 3,
+                ReceiptNumber = "3"
+            };
 
             da.Save(receiptNote1);
             da.Save(receiptNote2);
+            da.Save(receiptNote3);
 
-            var result = da.List(x => x.BranchID == 1).ToList();
+            var allRecords = da.ListAll().ToList();
 
-            Assert.AreEqual(1, result.Count);
+            var result = da.ListByIDs(allRecords.Select(x => x.ReceiptNoteID)).ToList();
 
-            result = da.List(x => x.ReceiptNumber == "2").ToList();
-
-            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(1, result.Count(x => x.BranchID == 1 && x.ReceiptNumber == "1"));
+            Assert.AreEqual(1, result.Count(x => x.BranchID == 2 && x.ReceiptNumber == "2"));
+            Assert.AreEqual(1, result.Count(x => x.BranchID == 3 && x.ReceiptNumber == "3"));
         }
 
         [TestMethod]
-        public void List_DatabaseHasData_DoesNotMatchPredicate_ReturnEmpty()
+        public void ListByIDs_DatabaseHasData_NotMatchID_ReturnEmpty()
+        {
+            var receiptNote1 = new ReceiptNote
+            {
+                BranchID = 1,
+                ReceiptNumber = "1"
+            };
+            var receiptNote2 = new ReceiptNote
+            {
+                BranchID = 2,
+                ReceiptNumber = "2"
+            };
+            var receiptNote3 = new ReceiptNote
+            {
+                BranchID = 3,
+                ReceiptNumber = "3"
+            };
+
+            da.Save(receiptNote1);
+            da.Save(receiptNote2);
+            da.Save(receiptNote3);
+
+            var result = da.ListByIDs(new long[] { 4, 5 }).ToList();
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void GetByID_DatabaseHasData_ReturnRecord()
         {
             var receiptNote1 = new ReceiptNote
             {
@@ -98,13 +133,35 @@ namespace SMS.Data.Impl.UnitTesting
             da.Save(receiptNote1);
             da.Save(receiptNote2);
 
-            var result = da.List(x => x.BranchID == 3).ToList();
+            var firstRecord = da.ListAll().First();
 
-            Assert.AreEqual(0, result.Count);
+            var result = da.GetByID(firstRecord.ReceiptNoteID);
 
-            result = da.List(x => x.ReceiptNumber.Contains("3")).ToList();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(firstRecord.BranchID, result.BranchID);
+            Assert.AreEqual(firstRecord.ReceiptNumber, result.ReceiptNumber);
+        }
 
-            Assert.AreEqual(0, result.Count);
+        [TestMethod]
+        public void GetByID_DatabaseDoesNotHaveData_ReturnNull()
+        {
+            var receiptNote1 = new ReceiptNote
+            {
+                BranchID = 1,
+                ReceiptNumber = "1"
+            };
+            var receiptNote2 = new ReceiptNote
+            {
+                BranchID = 2,
+                ReceiptNumber = "2"
+            };
+
+            da.Save(receiptNote1);
+            da.Save(receiptNote2);
+
+            var result = da.GetByID(-1);
+
+            Assert.IsNull(result);
         }
     }
 }
