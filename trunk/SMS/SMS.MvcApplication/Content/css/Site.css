@@ -1188,3 +1188,16 @@ fieldset {
 #line-chart-div table {
     width: auto;
 }
+
+/* Handsontable */
+.handsontable .currentRow {
+    background-color: #E7E8EF;
+}
+
+.handsontable .currentCol {
+    background-color: #F9F9FB;
+}
+
+.handsontable .handsontableInput {
+    box-sizing: content-box;
+}

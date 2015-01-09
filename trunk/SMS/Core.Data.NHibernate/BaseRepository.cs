@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using Core.Common;
-using Core.Common.CustomAttributes;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -34,18 +33,60 @@ namespace Core.Data.NHibernate
 
         #endregion Properties
 
+        /// <summary>
+        /// execute stored procedure with param in
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="parameters"></param>
+        /// <returns>DataTable</returns>
         public DataTable ExecuteStoredProcedure(string spName, List<SpParameter> parameters)
         {
-            var paramstr = parameters.Aggregate(" ", (current, parameter) => current + string.Format(":{0}, ", parameter.Name));
+            IDbCommand cmd = new SqlCommand();
+            cmd.Connection = Session.Connection;
+            cmd.CommandType = CommandType.StoredProcedure;
 
-            if (parameters.Count > 0)
-                paramstr = paramstr.Remove(paramstr.Length - 2);
+            cmd.CommandText = spName;
+            parameters.ForEach(x => cmd.Parameters.Add(new SqlParameter(x.Name, x.Value)));
 
-            var query = Session.CreateSQLQuery(string.Format("exec {0}{1}", spName, paramstr));
+            Session.Transaction.Enlist(cmd);
 
-            parameters.ForEach(x => query.SetParameter(x.Name, x.Value));
+            var dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
 
-            return query.SetResultTransformer(new DataTableResultTransformer()).List()[0] as DataTable;
+            return dt;
+        }
+
+        /// <summary>
+        /// execute stored procedure with param in-out
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="inParam"></param>
+        /// <param name="outParam"></param>
+        /// <returns>List out params return</returns>
+        public Dictionary<string, string> ExecuteStoredProcedure(string spName, List<SpParameter> inParam, List<SpParameter> outParam)
+        {
+            IDbCommand cmd = new SqlCommand();
+
+            cmd.Connection = Session.Connection;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // set SP name
+            cmd.CommandText = spName;
+
+            // set input params
+            inParam.ForEach(x => cmd.Parameters.Add(new SqlParameter(x.Name, x.Value)));
+
+            // set output params
+            outParam.ForEach(x => cmd.Parameters.Add(new SqlParameter(x.Name, x.Value) { Direction = ParameterDirection.Output }));
+
+            Session.Transaction.Enlist(cmd);
+
+            var dt = new Dictionary<string, string>();
+
+            cmd.ExecuteNonQuery();
+            outParam.ForEach(x => dt.Add(x.Name, ((SqlParameter)cmd.Parameters[x.Name]).Value.ToString().Trim()));
+
+            return dt;
         }
     }
 
