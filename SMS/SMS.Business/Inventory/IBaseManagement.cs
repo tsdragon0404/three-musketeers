@@ -9,7 +9,5 @@ namespace SMS.Business.Inventory
         TDto GetByID(long primaryKey);
         bool Delete(long primaryKey);
         void Save(TDto entity);
-
-        void ExecuteNonQuery(string sql, params object[] args);
     }
 }

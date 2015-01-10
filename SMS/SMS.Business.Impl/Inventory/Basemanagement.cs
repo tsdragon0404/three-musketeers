@@ -5,7 +5,7 @@ using AutoMapper;
 namespace SMS.Business.Impl.Inventory
 {
     public abstract class BaseManagement<TDto, TEntity, TDA> : Business.Inventory.IBaseManagement<TDto>
-        where TDA : IBaseDA<TEntity>
+        where TDA : IEntityDA<TEntity>
     {
         public virtual TDA DA { get; set; }
 
@@ -32,11 +32,6 @@ namespace SMS.Business.Impl.Inventory
         public void Save(TDto entity)
         {
             DA.Save(Mapper.Map<TEntity>(entity));
-        }
-
-        public void ExecuteNonQuery(string sql, params object[] args)
-        {
-            DA.ExecuteNonQuery(sql);
         }
     }
 }

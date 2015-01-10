@@ -10,17 +10,19 @@ namespace SMS.Data.Impl.UnitTesting
     public class ReceiptNoteDATest : BaseDataTest
     {
         private IReceiptNoteDA da;
+        private IDynamicDA dynamicDA;
 
         [TestInitialize]
         public void Initialize()
         {
             da = new ReceiptNoteDA(config);
+            dynamicDA = new DynamicDA(config);
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            da.ExecuteNonQuery("DELETE ReceiptNote");
+            dynamicDA.ExecuteNonQuery("DELETE ReceiptNote");
         }
 
         [TestMethod]

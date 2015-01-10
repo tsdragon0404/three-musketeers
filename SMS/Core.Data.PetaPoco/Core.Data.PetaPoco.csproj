@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDA.cs" />
     <Compile Include="DAHelper.cs" />
     <Compile Include="IConfig.cs" />
     <Compile Include="PetaPoco.cs" />
