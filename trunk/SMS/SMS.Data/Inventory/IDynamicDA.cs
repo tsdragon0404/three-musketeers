@@ -7,5 +7,6 @@ namespace SMS.Data.Inventory
         void ExecuteNonQuery(string sql, params object[] args);
         TModel Get<TModel>(string sql, params object[] args);
         IList<TModel> List<TModel>(string sql, params object[] args);
+        void ExecuteStoreProcedure(string spName, params object[] args);
     }
 }
