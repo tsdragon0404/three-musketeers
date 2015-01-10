@@ -2,7 +2,7 @@
 
 namespace SMS.Data.Inventory
 {
-    public interface IReceiptNoteDA : IBaseDA<ReceiptNote>
+    public interface IReceiptNoteDA : IEntityDA<ReceiptNote>
     {
          
     }

@@ -36,7 +36,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Inventory\IBaseDA.cs" />
+    <Compile Include="Inventory\IDynamicDA.cs" />
+    <Compile Include="Inventory\IEntityDA.cs" />
     <Compile Include="Inventory\IReceiptNoteDA.cs" />
     <Compile Include="IDepotRepository.cs" />
     <Compile Include="IBaseRepository.cs" />
