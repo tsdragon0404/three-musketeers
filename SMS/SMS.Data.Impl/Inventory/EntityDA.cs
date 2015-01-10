@@ -9,18 +9,10 @@ using SMS.Data.Inventory;
 
 namespace SMS.Data.Impl.Inventory
 {
-    public abstract class BaseDA<TEntity> : IBaseDA<TEntity>
+    public abstract class EntityDA<TEntity> : BaseDA, IEntityDA<TEntity>
     {
-        #region Variables
-
-        private readonly IConfig config;
-
-        #endregion
-
-        protected BaseDA(IConfig config)
-        {
-            this.config = config;
-        }
+        protected EntityDA(IConfig config) : base(config)
+        {}
 
         private static string TableName
         {
@@ -46,12 +38,6 @@ namespace SMS.Data.Impl.Inventory
         }
 
         #region Implementation of IBaseDA<TEntity>
-
-        public void ExecuteNonQuery(string sql, params object[] args)
-        {
-            var db = new Database(config);
-            db.Execute(sql, args);
-        }
 
         public virtual IList<TEntity> ListAll(bool includeDisable = false)
         {
