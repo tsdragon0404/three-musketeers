@@ -271,6 +271,7 @@
     <Content Include="Content\css\handsontable.full.css" />
     <Content Include="Content\css\jquery.growl.css" />
     <Content Include="Content\css\jquery.multiselect.css" />
+    <Content Include="Content\css\jquery.switchButton.css" />
     <Content Include="Content\css\print.css" />
     <Content Include="Content\css\split-pane.css" />
     <Content Include="Content\images\ajax-loader.gif" />
@@ -859,6 +860,7 @@
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.growl.js" />
     <Content Include="Scripts\jquery.multiselect.js" />
+    <Content Include="Scripts\jquery.switchButton.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.js" />
     <Content Include="Scripts\meadco-scriptx-1.0.2.min.js" />
     <Content Include="Scripts\payment-popup.js" />

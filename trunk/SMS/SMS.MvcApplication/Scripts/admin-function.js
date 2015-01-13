@@ -77,7 +77,7 @@
         $(window).resize(function () {
             setDefaultContent();
         });
-
+        
         // set action event
         $('#record-table a.edit-record').click(function () {
             var record = $(this).parent().parent();
@@ -102,7 +102,10 @@
                     return;
 
                 $('#record-tmpl').tmpl(result.Data).scanLabel().insertAfter(place);
-
+                
+                $("input[type=checkbox]").switchButton({
+                    labels_placement: "right"
+                });
                 $('#save-' + result.Data.ID).button({
                     icons: {
                         primary: "ui-icon-disk"
@@ -144,6 +147,9 @@
 
                 $('#record-tmpl').tmpl(result.Data).insertAfter(record);
 
+                $("input[type=checkbox]").switchButton({
+                    labels_placement: "right"
+                });
                 $("#save-0").button({
                     icons: {
                         primary: "ui-icon-disk"
