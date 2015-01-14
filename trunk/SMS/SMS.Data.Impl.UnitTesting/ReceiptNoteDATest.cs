@@ -13,7 +13,7 @@ namespace SMS.Data.Impl.UnitTesting
         [TestInitialize]
         public void Initialize()
         {
-            da = new ReceiptNoteDA(config);
+            da = new ReceiptNoteDA(config, new SqlStatementDA(config));
             dynamicDA = new DynamicDA(config);
         }
 
@@ -23,5 +23,11 @@ namespace SMS.Data.Impl.UnitTesting
             dynamicDA.ExecuteNonQuery("DELETE ReceiptNote");
         }
 
+        [TestMethod]
+        public void test()
+        {
+            var all = da.ListAll();
+            var b = 0;
+        }
     }
 }

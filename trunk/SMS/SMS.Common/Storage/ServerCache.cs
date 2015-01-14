@@ -45,6 +45,11 @@ namespace SMS.Common.Storage
                 throw new Exception("Cache does not contain the given key");
             cacheData.Remove(key);
         }
+
+        public static bool Exists(CacheKey key)
+        {
+            return cacheData != null && cacheData.ContainsKey(key);
+        }
     }
 
     public enum CacheKey
@@ -54,6 +59,7 @@ namespace SMS.Common.Storage
         Branding = 3,
         Message = 4,
         SystemInformation = 5,
+        SqlStatement = 6,
     }
 
     public class CacheObject<T> where T : class
