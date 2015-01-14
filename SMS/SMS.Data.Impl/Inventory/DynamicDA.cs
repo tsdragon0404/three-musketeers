@@ -24,7 +24,7 @@ namespace SMS.Data.Impl.Inventory
             return db.SingleOrDefault<TModel>(sql, args);
         }
 
-        public IList<TModel> List<TModel>(string sql, params object[] args)
+        public List<TModel> List<TModel>(string sql, params object[] args)
         {
             var db = new Database(config);
             return db.Query<TModel>(sql, args).ToList();
