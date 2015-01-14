@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace SMS.Services.Inventory
+﻿namespace SMS.Services.Inventory
 {
-    public interface IBaseService<TDto>
+    public interface IBaseService<in TDto>
     {
-        IList<TDto> ListAll(bool includeDisable = false);
-        IList<TDto> ListByIDs(IEnumerable<long> ids);
-        TDto GetByID(long id);
         bool Delete(long id);
         void Save(TDto dto);
     }
