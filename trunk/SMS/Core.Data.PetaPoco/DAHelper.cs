@@ -5,7 +5,7 @@ namespace Core.Data.PetaPoco
 {
     public static class DAHelper
     {
-        public static IList<T> Select<T>(IConfig config, string cmd, params object[] args)
+        public static List<T> Select<T>(IConfig config, string cmd, params object[] args)
         {
             var db = new Database(config);
             return db.Query<T>(cmd, args).ToList();

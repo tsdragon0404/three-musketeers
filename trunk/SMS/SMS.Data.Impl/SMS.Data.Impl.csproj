@@ -43,6 +43,7 @@
     <Compile Include="BranchRepository.cs" />
     <Compile Include="BrandingTextRepository.cs" />
     <Compile Include="DepotRepository.cs" />
+    <Compile Include="Inventory\SqlStatementDA.cs" />
     <Compile Include="Inventory\EntityDA.cs" />
     <Compile Include="Inventory\DynamicDA.cs" />
     <Compile Include="Inventory\ReceiptNoteDA.cs" />
