@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Core.Data;
 using Core.Data.PetaPoco;
+using SMS.Common;
 using SMS.Common.Storage;
 using SMS.Data.Inventory;
 
@@ -8,8 +10,22 @@ namespace SMS.Data.Impl.Inventory
 {
     public abstract class EntityDA<TEntity> : BaseDA, IEntityDA<TEntity>
     {
-        protected EntityDA(IConfig config) : base(config)
-        {}
+        protected SqlStatementDictionary SqlStatement 
+        { 
+            get { return ServerCache.Get<SqlStatementDictionary>(CacheKey.SqlStatement); } 
+        }
+
+        protected EntityDA(IConfig config, ISqlStatementDA sqlStatementDA) : base(config)
+        {
+            if(!ServerCache.Exists(CacheKey.SqlStatement))
+                ServerCache.Add(CacheKey.SqlStatement, () => GetSqlStatementCallback(sqlStatementDA));
+        }
+
+        private SqlStatementDictionary GetSqlStatementCallback(ISqlStatementDA sqlStatementDA)
+        {
+            var statements = sqlStatementDA.ListAll();
+            return new SqlStatementDictionary(statements.ToDictionary(x => x.Name, x => x.QueryString));
+        }
 
         public virtual bool Delete(long primaryKey)
         {
