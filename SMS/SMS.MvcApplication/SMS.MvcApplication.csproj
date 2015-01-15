@@ -271,9 +271,9 @@
     <Content Include="Content\css\handsontable.full.css" />
     <Content Include="Content\css\jquery.growl.css" />
     <Content Include="Content\css\jquery.multiselect.css" />
-    <Content Include="Content\css\jquery.switchButton.css" />
     <Content Include="Content\css\print.css" />
     <Content Include="Content\css\split-pane.css" />
+    <Content Include="Content\css\ui.switchbutton.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\themes\base\dataTables.jqueryui.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />

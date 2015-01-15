@@ -31,16 +31,19 @@
                         <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
                     </td>
                 </tr>
-                <tr>
-                    <td data-labelID="lblEnable">Enable</td>
-                    <td>
-                        {{if Enable}}
-                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
-                        {{else}}
-                        <input type="checkbox" name="enable" id="enable-${ID}"/>
-                        {{/if}}
-                    </td>
-                </tr>
+                @if(@SmsCache.UserContext.IsSystemAdmin)
+                {
+                    <tr>
+                        <td data-labelID="lblEnable">Enable</td>
+                        <td>
+                            {{if Enable}}
+                            <input type="checkbox" name="enable" checked id="enable-${ID}"/>
+                            {{else}}
+                            <input type="checkbox" name="enable" id="enable-${ID}"/>
+                            {{/if}}
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td></td>
                     <td>
