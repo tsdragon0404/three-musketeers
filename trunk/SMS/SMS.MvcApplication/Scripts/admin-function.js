@@ -103,9 +103,8 @@
 
                 $('#record-tmpl').tmpl(result.Data).scanLabel().insertAfter(place);
                 
-                $("input[type=checkbox]").switchButton({
-                    labels_placement: "right"
-                });
+                $("input[type=checkbox]").switchbutton();
+                
                 $('#save-' + result.Data.ID).button({
                     icons: {
                         primary: "ui-icon-disk"
@@ -147,9 +146,8 @@
 
                 $('#record-tmpl').tmpl(result.Data).insertAfter(record);
 
-                $("input[type=checkbox]").switchButton({
-                    labels_placement: "right"
-                });
+                $("input[type=checkbox]").switchbutton();
+
                 $("#save-0").button({
                     icons: {
                         primary: "ui-icon-disk"
