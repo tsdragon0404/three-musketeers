@@ -23,7 +23,7 @@ namespace SMS.Data.Impl.Inventory
 
         private SqlStatementDictionary GetSqlStatementCallback(ISqlStatementDA sqlStatementDA)
         {
-            var statements = sqlStatementDA.ListAll();
+            var statements = sqlStatementDA.GetListStatement();
             return new SqlStatementDictionary(statements.ToDictionary(x => x.Name, x => x.QueryString));
         }
 

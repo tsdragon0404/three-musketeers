@@ -5,6 +5,6 @@ namespace SMS.Data.Inventory
 {
     public interface ISqlStatementDA
     {
-        List<SqlStatement> ListAll();
+        List<SqlStatement> GetListStatement();
     }
 }
