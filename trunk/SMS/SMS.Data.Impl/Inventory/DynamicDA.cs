@@ -30,7 +30,7 @@ namespace SMS.Data.Impl.Inventory
             return db.Query<TModel>(sql, args).ToList();
         }
 
-        public void ExecuteStoreProcedure(string spName, params object[] args)
+        public List<TModel> ExecuteStoreProcedure<TModel>(string spName, params object[] args)
         {
             var sqlStr = string.Format(";EXEC {0}", spName);
 
@@ -50,7 +50,7 @@ namespace SMS.Data.Impl.Inventory
 
             var sql = Sql.Builder.Append(sqlStr, args);
             
-            new Database(config).Execute(sql);
+            return new Database(config).Query<TModel>(sql).ToList();
         }
     }
 }
