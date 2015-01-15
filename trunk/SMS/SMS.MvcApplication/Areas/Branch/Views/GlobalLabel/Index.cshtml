@@ -4,11 +4,11 @@
 @model GlobalLabelModel
 
 <div id="content">
-    <div class="row">
-        <h4 class="admin-page-title">Change text for all common controls</h4>
+    <div class="row admin-page-title">
+        <h4>Change text for all common controls</h4>
     </div>
     
-    <table id="globalLabel" class="display">
+    <table id="record-table" class="display">
         <thead>
             <tr>
                 <th data-labelID="lblNo">No</th>
@@ -37,7 +37,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#globalLabel').DataTable({
+        $('#record-table').DataTable({
             "pageLength": @SmsCache.UserContext.PageSize,
             scrollY: "350px",
             searching: true,
@@ -62,6 +62,36 @@
                 }
             }
         });
+        
+        function setDefaultContent() {
+            // set height content datatable
+            var contentHeight = $('#content').height() - $('#content .admin-page-title').height();
+            var height1 = 0;
+            $('#record-table_wrapper > .ui-widget-header').each(function (idx, element) {
+                height1 += $(element).outerHeight();
+            });
+            var height2 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollHead').outerHeight();
+            var height3 = $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollFoot').outerHeight();
+            var targetHeight = contentHeight - height1 - height2 - height3 - 10; // subtract 2 more px due to the border and padding bottom
+            $('#record-table_wrapper > .dataTables_scroll > .dataTables_scrollBody').css('height', targetHeight + 'px');
+
+            // fix column header datatable
+            $(' .dataTables_scrollHeadInner, .dataTables_scrollHeadInner > table').css('width', '').css('padding-left', '');
+            var headerColumns = $(' .dataTables_scrollHead table > thead > tr:first-child th');
+            var columns = $('#record-table > tbody > tr:first-child td');
+            for (var i = 0; i < columns.length; i++) {
+                $(headerColumns[i]).css('width', $(columns[i]).width());
+            }
+            var widthHeader = $('.dataTables_scrollHead').outerWidth();
+            var widthContent = $('#record-table').outerWidth();
+            $(' .dataTables_scrollHeadInner').css('padding-right', (widthHeader - widthContent) + 'px');
+        }
+        
+        setDefaultContent();
+        
+        $(window).resize(function () {
+            setDefaultContent();
+        });
 
         $('#save').button({
             icons: {
@@ -69,7 +99,7 @@
             }
         }).click(function() {
             var data = [];
-            $('#globalLabel .record-data').each(function () {
+            $('#record-table .record-data').each(function () {
                 var lblId = $(this).find('#labelID').text();
                 var vnText = $(this).find('#vnText').val();
                 var enText = $(this).find('#enText').val();
