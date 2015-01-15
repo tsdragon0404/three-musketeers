@@ -13,7 +13,7 @@ namespace SMS.Data.Impl.Inventory
 
         public List<ReceiptNote> ListAll()
         {
-            return DAHelper.Select<ReceiptNote>(config, SqlStatement.ReceiptNote_ListAll);
+            return DAHelper.Select<ReceiptNote>(config, SqlStatement.RECEIPT_NOTE_LIST_ALL);
         }
     }
 }

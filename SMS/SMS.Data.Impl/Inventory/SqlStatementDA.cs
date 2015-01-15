@@ -12,9 +12,9 @@ namespace SMS.Data.Impl.Inventory
         {
         }
 
-        public List<SqlStatement> ListAll()
+        public List<SqlStatement> GetListStatement()
         {
-            const string sql = "SELECT * FROM SQLSTATEMENT";
+            const string sql = "SELECT NAME, QUERYSTRING FROM SQLSTATEMENT";
             return DAHelper.Select<SqlStatement>(config, sql);
         }
     }
@@ -35,6 +35,6 @@ namespace SMS.Data.Impl.Inventory
             throw new Exception("Cannot find the sql statement.");
         }
 
-        public string ReceiptNote_ListAll { get { return Get("ReceiptNote_ListAll"); } }
+        public string RECEIPT_NOTE_LIST_ALL { get { return Get("ReceiptNote_ListAll"); } }
     }
 }
