@@ -5,7 +5,7 @@ using SMS.Data.Inventory;
 
 namespace SMS.Data.Impl.Inventory
 {
-    public class ReceiptNoteDA : EntityDA<ReceiptNote>, IReceiptNoteDA
+    public class ReceiptNoteDA : EntityDA, IReceiptNoteDA
     {
         public ReceiptNoteDA(IConfig config, ISqlStatementDA sqlStatementDA) : base(config, sqlStatementDA)
         {

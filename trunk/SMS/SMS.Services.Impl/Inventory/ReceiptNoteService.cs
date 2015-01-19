@@ -1,9 +1,8 @@
-﻿using SMS.Business.Inventory;
-using SMS.Data.Dtos.Inventory;
+﻿using SMS.Services.Inventory;
 
 namespace SMS.Services.Impl.Inventory
 {
-    public class ReceiptNoteService : BaseService<ReceiptNoteDto, IReceiptNoteManagement>, Services.Inventory.IReceiptNoteService
+    public class ReceiptNoteService : IReceiptNoteService
     {
         
     }

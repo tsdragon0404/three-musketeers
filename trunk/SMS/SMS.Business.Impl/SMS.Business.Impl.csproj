@@ -51,9 +51,6 @@
     <Compile Include="BranchManagement.cs" />
     <Compile Include="BrandingTextManagement.cs" />
     <Compile Include="DepotManagement.cs" />
-    <Compile Include="Inventory\BaseManagement.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Inventory\ReceiptNoteManagement.cs" />
     <Compile Include="UploadedFileManagement.cs" />
     <Compile Include="SystemInformationManagement.cs" />

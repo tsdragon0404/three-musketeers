@@ -1,14 +1,11 @@
-﻿using System;
-using System.Linq;
-using Core.Data;
+﻿using System.Linq;
 using Core.Data.PetaPoco;
-using SMS.Common;
 using SMS.Common.Storage;
 using SMS.Data.Inventory;
 
 namespace SMS.Data.Impl.Inventory
 {
-    public abstract class EntityDA<TEntity> : BaseDA, IEntityDA<TEntity>
+    public abstract class EntityDA : BaseDA
     {
         protected SqlStatementDictionary SqlStatement 
         { 
@@ -25,28 +22,6 @@ namespace SMS.Data.Impl.Inventory
         {
             var statements = sqlStatementDA.GetListStatement();
             return new SqlStatementDictionary(statements.ToDictionary(x => x.Name, x => x.QueryString));
-        }
-
-        public virtual bool Delete(long primaryKey)
-        {
-            return DAHelper.Delete<TEntity>(config, primaryKey);
-        }
-
-        public virtual void Save(TEntity entity)
-        {
-            var db = new Database(config);
-
-            if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
-            {
-                if (db.IsNew(entity))
-                    ((IAuditableEntity)entity).CreatedDate = DateTime.Now;
-                else
-                    ((IAuditableEntity)entity).ModifiedDate = DateTime.Now;
-
-                ((IAuditableEntity)entity).CreatedUser = SmsCache.UserContext.UserName;
-            }
-
-            db.Save(entity);
         }
     }
 }
