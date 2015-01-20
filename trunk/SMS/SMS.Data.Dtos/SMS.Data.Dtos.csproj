@@ -38,8 +38,8 @@
     <Compile Include="BranchDto.cs" />
     <Compile Include="BranchInfoDto.cs" />
     <Compile Include="BrandingTextDto.cs" />
+    <Compile Include="Inventory\ItemDto.cs" />
     <Compile Include="Inventory\ReceiptNoteDto.cs" />
-    <Compile Include="ItemDto.cs" />
     <Compile Include="DepotDto.cs" />
     <Compile Include="VendorDto.cs" />
     <Compile Include="SystemInformationDto.cs" />
