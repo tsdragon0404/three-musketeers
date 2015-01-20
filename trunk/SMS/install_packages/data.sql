@@ -4,46 +4,46 @@ INSERT INTO [User] ( UserName, Password, IsSystemAdmin )
 VALUES ( 'system', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 1)
 GO
 
-INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, [Type], Area, Controller, [Action] )
+INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, [Type], Area, Controller, [Action], [Enable] )
 VALUES 
-( 0, N'Global', N'Global', N'Global', N'Global', 0, NULL, NULL, NULL ),
-( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', 0, NULL, N'Home', N'Index' ),
-( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', 1, NULL, N'Cashier', N'Index' ),
-( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', 1, NULL, N'Kitchen', N'Index' ),
-( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', 0, NULL, N'Account', N'Login' ),
-( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', 0, NULL, N'Error', N'AccessDenied' ),
-( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', 0, NULL, N'Error', N'Unknown' ),
-( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound' ),
-( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit' ),
-( 9, N'Kho hàng', N'Inventory', N'Kho hàng', N'Inventory', 1, NULL, N'Inventory', N'Index' ),
+( 0, N'Global', N'Global', N'Global', N'Global', 0, NULL, NULL, NULL, 1 ),
+( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', 0, NULL, N'Home', N'Index', 1 ),
+( 2, N'Thanh toán', N'Cashier', N'Thanh toán', N'Cashier', 1, NULL, N'Cashier', N'Index', 0 ),
+( 3, N'Bếp', N'Kitchen', N'Bếp', N'Kitchen', 1, NULL, N'Kitchen', N'Index', 0 ),
+( 4, N'Đăng nhập', N'Login', N'Đăng nhập', N'Login', 0, NULL, N'Account', N'Login', 1 ),
+( 5, N'Không có quyền truy cập', N'Access denied', N'Không có quyền truy cập', N'Access denied', 0, NULL, N'Error', N'AccessDenied', 1 ),
+( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', 0, NULL, N'Error', N'Unknown', 1 ),
+( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound', 1 ),
+( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit', 1 ),
 
+( 20, N'Chi nhánh', N'Branch', N'Chi nhánh', N'Branch', 1, NULL, NULL, N'#', 1 ),
+( 21, N'Label', N'Label', N'Label', N'Label', 1, N'Branch', N'GlobalLabel', N'Index', 1 ),
+( 22, N'Quyền truy cập', N'Role', N'Quyền truy cập', N'Role', 1, N'Branch', N'Role', N'Index', 1 ),
+( 23, N'Người sử dụng', N'User', N'Quản lý người dùng', N'User', 1, N'Branch', N'User', N'Index', 1 ),
 
-( 20, N'Chi nhánh', N'Branch', N'Chi nhánh', N'Branch', 1, NULL, NULL, N'#' ),
-( 21, N'Label', N'Label', N'Label', N'Label', 1, N'Branch', N'GlobalLabel', N'Index' ),
-( 22, N'Quyền truy cập', N'Role', N'Quyền truy cập', N'Role', 1, N'Branch', N'Role', N'Index' ),
-( 23, N'Người sử dụng', N'User', N'Quản lý người dùng', N'User', 1, N'Branch', N'User', N'Index' ),
+( 40, N'Dữ liệu', N'Data', N'Quản lý dữ liệu', N'Data management', 1, NULL, NULL, N'#', 0 ),
+( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', 1, N'BranchData', N'Area', N'Index', 0 ),
+( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', 1, N'BranchData', N'Table', N'Index', 0 ),
+( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', 1, N'BranchData', N'ProductCategory', N'Index', 0 ),
+( 44, N'Sản phẩm', N'Product', N'Quản lý sản phẩm', N'Maintain product', 1, N'BranchData', N'Product', N'Index', 0 ),
+( 45, N'Đơn vị tính', N'Unit', N'Quản lý đơn vị tính', N'Maintain unit', 1, N'BranchData', N'Unit', N'Index', 0 ),
 
-( 40, N'Dữ liệu', N'Data', N'Quản lý dữ liệu', N'Data management', 1, NULL, NULL, N'#' ),
-( 41, N'Khu vực', N'Area', N'Quản lý khu vực', N'Maintain area', 1, N'BranchData', N'Area', N'Index' ),
-( 42, N'Bàn', N'Table', N'Quản lý bàn', N'Maintain table', 1, N'BranchData', N'Table', N'Index' ),
-( 43, N'Nhóm sản phẩm', N'Product Category', N'Quản lý nhóm sản phẩm', N'Maintain product category', 1, N'BranchData', N'ProductCategory', N'Index' ),
-( 44, N'Sản phẩm', N'Product', N'Quản lý sản phẩm', N'Maintain product', 1, N'BranchData', N'Product', N'Index' ),
-( 45, N'Đơn vị tính', N'Unit', N'Quản lý đơn vị tính', N'Maintain unit', 1, N'BranchData', N'Unit', N'Index' ),
-( 46, N'Phiếu nhập hàng', N'Receipt note', N'Phiếu nhập hàng', N'Receipt note', 1, N'Inventory', N'Receipt', N'Index' ),
-( 47, N'Phiếu xuất hàng', N'Delivery note', N'Phiếu xuất hàng', N'Delivery note', 1, N'Inventory', N'Delivery', N'Index' ),
+( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', 1, N'Report', N'Dashboard', N'Index', 1 ),
 
-( 60, N'Dashboard', N'Dashboard', N'Dashboard', N'Dashboard', 1, N'Report', N'Dashboard', N'Index' ),
+( 80, N'Hệ thống', N'System', N'Hệ thống', N'System', 2, NULL, NULL, N'#', 1 ),
+( 81, N'Chi nhánh', N'Branch', N'Quản lý chi nhánh', N'Branch', 2, N'System', N'Branch', N'Index', 1 ),
+( 82, N'Người sử dụng', N'User', N'Quản lý người sử dụng', N'User', 2, N'System', N'User', N'Index', 1 ),
+( 83, N'Dữ liệu', N'Data', N'Thiết lập dữ liệu', N'Data', 2, NULL, NULL, N'#', 1 ),
+( 84, N'Thuế', N'Tax', N'Thuế', N'Tax', 2, N'SystemData', N'Tax', N'Index', 1 ),
+( 85, N'Tiền tệ', N'Currency', N'Loại tiền tệ', N'Setup currency', 2, N'SystemData', N'Currency', N'Index', 1 ),
+( 86, N'Cài đặt', N'Setting', N'Cài đặt hệ thống', N'Setting', 2, N'System', N'Configuration', N'Index', 1 ),
+( 87, N'Thông tin sử dụng', N'About', N'Thông tin sử dụng', N'About', 2, N'System', N'About', N'Index', 1 ),
+( 88, N'Quản lý truy cập', N'User Access', N'Quản lý truy cập', N'User Access', 2, N'System', N'UserAccess', N'Index', 1 ),
+( 89, N'Thiết lập kho hàng', N'Setup depot', N'Thiết lập kho hàng', N'Setup depot', 2, N'System', N'Depot', N'Index', 1 ),
 
-( 80, N'Hệ thống', N'System', N'Hệ thống', N'System', 2, NULL, NULL, N'#' ),
-( 81, N'Chi nhánh', N'Branch', N'Quản lý chi nhánh', N'Branch', 2, N'System', N'Branch', N'Index' ),
-( 82, N'Người sử dụng', N'User', N'Quản lý người sử dụng', N'User', 2, N'System', N'User', N'Index' ),
-( 83, N'Dữ liệu', N'Data', N'Thiết lập dữ liệu', N'Data', 2, NULL, NULL, N'#' ),
-( 84, N'Thuế', N'Tax', N'Thuế', N'Tax', 2, N'SystemData', N'Tax', N'Index' ),
-( 85, N'Tiền tệ', N'Currency', N'Loại tiền tệ', N'Setup currency', 2, N'SystemData', N'Currency', N'Index' ),
-( 86, N'Cài đặt', N'Setting', N'Cài đặt hệ thống', N'Setting', 2, N'System', N'Configuration', N'Index' ),
-( 87, N'Thông tin sử dụng', N'About', N'Thông tin sử dụng', N'About', 2, N'System', N'About', N'Index' ),
-( 88, N'Quản lý truy cập', N'User Access', N'Quản lý truy cập', N'User Access', 2, N'System', N'UserAccess', N'Index' ),
-( 89, N'Thiết lập kho hàng', N'Setup depot', N'Thiết lập kho hàng', N'Setup depot', 2, N'System', N'Depot', N'Index' )
+( 101, N'Kho hàng', N'Inventory', N'Kho hàng', N'Inventory', 1, NULL, NULL, N'Index', 1 ),
+( 102, N'Phiếu nhập hàng', N'Receipt note', N'Phiếu nhập hàng', N'Receipt note', 1, N'Inventory', N'Receipt', N'Index', 1 ),
+( 103, N'Phiếu xuất hàng', N'Delivery note', N'Phiếu xuất hàng', N'Delivery note', 1, N'Inventory', N'Delivery', N'Index', 1 )
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -72,11 +72,11 @@ VALUES
 ( 22, N'MainMenu', 9, 87, 50 ),
 ( 23, N'MainMenu', 9, 88, 60 ),
 
-( 24, N'MainMenu', 0, 9, 40 ),
+( 24, N'MainMenu', 0, 101, 40 ),
 ( 25, N'MainMenu', 9, 89, 11 ),
 
-( 26, N'MainMenu', 24, 46, 10 ),
-( 27, N'MainMenu', 24, 47, 20 ),
+( 26, N'MainMenu', 24, 102, 10 ),
+( 27, N'MainMenu', 24, 103, 20 ),
 
 ( 50, N'SystemDataTabMenu', 0, 84, 10 ),
 ( 51, N'SystemDataTabMenu', 0, 85, 20 ),

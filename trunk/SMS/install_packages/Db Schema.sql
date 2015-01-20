@@ -502,9 +502,10 @@ BEGIN
         [VNDescription] [nvarchar](500) NULL,
         [ENDescription] [nvarchar](500) NULL,
         [Type] [tinyint] NULL,
-         [Area] [nvarchar](50) NULL,
+        [Area] [nvarchar](50) NULL,
         [Controller] [nvarchar](50) NULL,
         [Action] [nvarchar](50) NULL,
+		[Enable] [bit] NULL,
     CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
     (
         [PageID] ASC

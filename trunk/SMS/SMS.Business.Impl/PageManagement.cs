@@ -24,7 +24,7 @@ namespace SMS.Business.Impl
             if(types == null || !types.Any())
                 return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(new List<Page>()));
 
-            var result = Repository.List(x => types.Contains(x.Type)).ToList();
+            var result = Repository.List(x => types.Contains(x.Type) && x.Enable).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
@@ -35,7 +35,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetProtectedPages<TModel>()
         {
-            var result = Repository.List(x => x.Type == PageType.Protected && x.Controller != null && x.Controller.Trim() != string.Empty).ToList();
+            var result = Repository.List(x => x.Type == PageType.Protected && x.Controller != null && x.Controller.Trim() != string.Empty && x.Enable).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
@@ -46,7 +46,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetPublicPages<TModel>()
         {
-            var result = Repository.List(x => x.Type == PageType.Public && x.Controller != null && x.Controller.Trim() != string.Empty).ToList();
+            var result = Repository.List(x => x.Type == PageType.Public && x.Controller != null && x.Controller.Trim() != string.Empty && x.Enable).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 
@@ -71,9 +71,9 @@ namespace SMS.Business.Impl
 
             accessiblePageIds = accessiblePageIds.Distinct().ToList();
 
-            var result = Repository.List(x => accessiblePageIds.Contains(x.ID) 
+            var result = Repository.List(x => x.Enable && (accessiblePageIds.Contains(x.ID) 
                                            || x.Type == PageType.Public
-                                           || (user.UseSystemConfig && x.Type == PageType.System)).ToList();
+                                           || (user.UseSystemConfig && x.Type == PageType.System))).ToList();
 
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
@@ -85,7 +85,7 @@ namespace SMS.Business.Impl
 
         public ServiceResult<IList<TModel>> GetPagesByIds<TModel>(IList<long> ids)
         {
-            var result = Repository.List(x => ids.Contains(x.ID)).ToList();
+            var result = Repository.List(x => ids.Contains(x.ID) && x.Enable).ToList();
             return ServiceResult<IList<TModel>>.CreateSuccessResult(Mapper.Map<IList<TModel>>(result));
         }
 

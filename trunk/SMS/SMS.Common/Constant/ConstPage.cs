@@ -25,10 +25,6 @@
         public const long Data_Product = 44;
         public const long Data_Unit = 45;
 
-        public const long Inventory_Receipt = 46;
-        public const long Inventory_Delivery = 47;
-
-
         public const long Report_Dashboard = 60;
 
         public const long System_Home = 80;
@@ -40,5 +36,8 @@
         public const long System_About = 87;
         public const long System_UserAccess = 88;
         public const long System_SetupDepot = 89;
+
+        public const long Inventory_Receipt = 101;
+        public const long Inventory_Delivery = 102;
     }
 }

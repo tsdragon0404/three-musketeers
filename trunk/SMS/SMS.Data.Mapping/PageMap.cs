@@ -18,6 +18,7 @@ namespace SMS.Data.Mapping
             Map(x => x.Area).Not.Update();
             Map(x => x.Controller).Not.Update();
             Map(x => x.Action).Not.Update();
+            Map(x => x.Enable).Not.Update();
             HasMany(x => x.PageLabels).KeyColumn("PageLabelID").Inverse();
         }
     }
