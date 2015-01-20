@@ -17,6 +17,13 @@ namespace Core.Data.PetaPoco
             return db.SingleOrDefault<T>(cmd, args);
         }
 
+        public static T Save<T>(IConfig config, T obj)
+        {
+            var db = new Database(config);
+            db.Save(obj);
+            return obj;
+        }
+
         public static bool Delete<T>(IConfig config, object primaryKey)
         {
             var db = new Database(config);
@@ -39,6 +46,11 @@ namespace Core.Data.PetaPoco
             result += ")";
 
             return result;
+        }
+
+        public static string ToSqlValue(this bool value)
+        {
+            return value ? "1" : "0";
         }
     }
 }

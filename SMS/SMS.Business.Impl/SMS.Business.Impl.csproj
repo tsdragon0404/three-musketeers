@@ -51,6 +51,7 @@
     <Compile Include="BranchManagement.cs" />
     <Compile Include="BrandingTextManagement.cs" />
     <Compile Include="DepotManagement.cs" />
+    <Compile Include="Inventory\ItemManagement.cs" />
     <Compile Include="Inventory\ReceiptNoteManagement.cs" />
     <Compile Include="UploadedFileManagement.cs" />
     <Compile Include="SystemInformationManagement.cs" />

@@ -97,21 +97,21 @@
                 }
                 cancelRecord();
 
-                var place = $('tr[data-id="' + result.Data.ID + '"]');
+                var place = $('tr[data-id="' + id + '"]');
                 if (place.length == 0)
                     return;
 
                 $('#record-tmpl').tmpl(result.Data).scanLabel().insertAfter(place);
                 
-                $('#save-' + result.Data.ID).button({
+                $('#save-' + id).button({
                     icons: {
                         primary: "ui-icon-disk"
                     }
                 }).click(function() {
-                    saveRecord(result.Data.ID);
+                    saveRecord(id);
                     return false;
                 });
-                $('#cancel-' + result.Data.ID).button({
+                $('#cancel-' + id).button({
                     icons: {
                         primary: "ui-icon-close"
                     }

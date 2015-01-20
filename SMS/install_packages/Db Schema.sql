@@ -802,7 +802,6 @@ IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[db
 BEGIN
 	CREATE TABLE [dbo].[Item](
 		[ItemID] [bigint] IDENTITY(1,1) NOT NULL,
-		[BranchID] [int] NULL,
 		[ItemCode] [nvarchar](50) NULL,
 		[VNName] [nvarchar](1000) NULL,
 		[ENName] [nvarchar](1000) NULL,
