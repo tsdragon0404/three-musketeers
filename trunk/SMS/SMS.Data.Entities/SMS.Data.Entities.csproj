@@ -40,7 +40,7 @@
     <Compile Include="BrandingText.cs" />
     <Compile Include="Inventory\ReceiptNote.cs" />
     <Compile Include="Inventory\SqlStatement.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Inventory\Item.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="Depot.cs" />
     <Compile Include="UploadedFile.cs" />

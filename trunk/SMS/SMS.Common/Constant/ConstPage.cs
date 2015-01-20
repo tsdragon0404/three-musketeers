@@ -39,5 +39,7 @@
 
         public const long Inventory_Receipt = 101;
         public const long Inventory_Delivery = 102;
+
+        public const long InventoryData_Item = 121;
     }
 }

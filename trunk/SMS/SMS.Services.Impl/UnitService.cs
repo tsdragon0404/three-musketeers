@@ -1,4 +1,5 @@
-﻿using SMS.Business;
+﻿using System.Collections.Generic;
+using SMS.Business;
 using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl
@@ -8,5 +9,10 @@ namespace SMS.Services.Impl
         #region Fields
 
         #endregion
+
+        public List<TModel> ListItemUnit<TModel>()
+        {
+            return Management.ListItemUnit<TModel>();
+        }
     }
 }

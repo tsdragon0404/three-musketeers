@@ -1,0 +1,232 @@
+﻿@using SMS.Common
+@using SMS.Common.Constant
+@using SMS.Common.Enums
+@using SMS.Common.Storage
+@model SMS.MvcApplication.Models.AdminModel<SMS.Data.Dtos.Inventory.ItemDto>
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail" style="display: none;">
+        <td class="arrow-detail center">↳</td>
+        <td colspan="7">
+            <table class="no-border width500px">
+                {{if ItemID == 0}}
+                <tr>
+                    <td colspan="2" class="label-custom-label">ADD NEW</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td data-labelID="lblCode">Code</td>
+                    <td>
+                        <input type="text" name="itemCode" value="${ItemCode}" id="itemCode-${ItemID}" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblVNName">VN Name</td>
+                    <td>
+                        <input type="text" name="vnName" value="${VNName}" id="vnName-${ItemID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblENName">EN Name</td>
+                    <td>
+                        <input type="text" name="vnName" value="${ENName}" id="enName-${ItemID}" />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td data-labelID="lblVNDescripton">VN Descripton</td>
+                    <td>
+                        <input type="text" name="enName" value="${VNDescription}" id="vnDesc-${ItemID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblENDescripton">EN Descripton</td>
+                    <td>
+                        <input type="text" name="enName" value="${ENDescription}" id="enDesc-${ItemID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblCategory">Category</td>
+                    <td>
+                        <select name="categoryID" id="categoryID-${ItemID}">
+                            @foreach (KeyValuePair<long, string> keyValue in ViewBag.CategoryDictionary)
+                            {
+                                <text>
+                                    {{if ProductCategoryID == @keyValue.Key}}
+                                    <option value="@keyValue.Key" selected>@keyValue.Value</option>
+                                    {{else}}
+                                    <option value="@keyValue.Key">@keyValue.Value</option>
+                                    {{/if}}
+                                </text>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblUnit">Unit</td>
+                    <td>
+                        <select name="unitID" id="unitID-${ItemID}">
+                            @foreach (KeyValuePair<long, string> keyValue in ViewBag.UnitDictionary)
+                            {
+                                <text>
+                                    {{if UnitID == @keyValue.Key}}
+                                    <option value="@keyValue.Key" selected>@keyValue.Value</option>
+                                    {{else}}
+                                    <option value="@keyValue.Key">@keyValue.Value</option>
+                                    {{/if}}
+                                </text>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblIsInventory">Is Inventory</td>
+                    <td>
+                        {{if IsInventory}}
+                        <input type="checkbox" name="isInventory" checked id="isInventory-${ItemID}"/>
+                        {{else}}
+                        <input type="checkbox" name="isInventory" id="isInventory-${ItemID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblMinQuantity">Min quantity</td>
+                    <td>
+                        <input type="text" name="minQuantity" value="${MinQuantity}" id="minQuantity-${ItemID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblSEQ">SEQ</td>
+                    <td>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ItemID}" style="width: 30%;" class="right"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblEnable">Enable</td>
+                    <td>
+                        {{if Enable}}
+                        <input type="checkbox" name="enable" checked id="enable-${ItemID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ItemID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="save-${ItemID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ItemID}" data-labelID="lblCancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</script>
+
+<div id="content">
+    @{
+        var deleteCssClass = Model.CanDelete ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+        var editCssClass = Model.CanEdit ? ConstStyle.CssEditRecord : ConstStyle.CssIconDisable;
+        var addCssClass = Model.CanAdd ? ConstStyle.CssAddRecord : ConstStyle.CssIconDisable;
+    }
+    <div class="row admin-page-title">
+        <h4>Maintain Item</h4>
+    </div>
+
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblID">ID</th>
+                <th data-labelID="lblCode">Code</th>
+                <th data-labelID="lblName">Name</th>
+                <th data-labelID="lblDescription">Description</th>
+                <th data-labelID="lblCategory">Category</th>
+                <th data-labelID="lblIsInventory">IsInventory</th>
+                <th data-labelID="lblMinQuantity">Min quantity</th>
+                <th data-labelID="lblSEQ">SEQ</th>
+                <th data-labelID="lblEnable">Enabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.ListRecord)
+            {
+                <tr data-id="@dto.ItemID">
+                    <td>@dto.ItemID</td>
+                    <td>@dto.ItemCode</td>
+                    @if(CommonObjects.Language == Language.Vietnamese)
+                    {
+                        <td>@dto.VNName</td>
+                        <td>@dto.VNDescription</td>
+                    }
+                    else
+                    {
+                        <td>@dto.ENName</td>
+                        <td>@dto.ENDescription</td>
+                    }
+                    <td>@ViewBag.CategoryDictionary[dto.ProductCategoryID]</td>
+                    @if(dto.IsInventory)
+                    {
+                        <td>✔</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@dto.MinQuantity</td>
+                    <td>@dto.SEQ</td>
+                    @if(dto.Enable)
+                    {
+                        <td>✔</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td class="center">
+                        <a href="#" class="@deleteCssClass" data-id="@dto.ItemID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.ItemID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                    </td>
+                </tr>
+            }
+                
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="10">
+                    <a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a>
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var addUrl = '@Url.Action("GetSchemaForAdd")';
+        var editUrl = '@Url.Action("GetDataForEdit")';
+        var saveUrl = '@Url.Action("SaveData")';
+        var deleteUrl = '@Url.Action("DeleteData")';
+                
+        var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
+        adminfunc.bind();
+    });
+
+    function getDataForSave(recordId) {
+        var data = {
+            ItemID: recordId,
+            ItemCode: $('#itemCode-' + recordId).val(),
+            VNName: $('#vnName-' + recordId).val(),
+            ENName: $('#enName-' + recordId).val(),
+            VNDescription: $('#vnDesc-' + recordId).val(),
+            ENDescription: $('#enDesc-' + recordId).val(),
+            ProductCategoryID: $('#categoryID-' + recordId).val(),
+            UnitID: $('#unitID-' + recordId).val(),
+            MinQuantity: $('#minQuantity-' + recordId).val(),
+            IsInventory: $('#isInventory-' + recordId).prop('checked'),
+            Enable: $('#enable-' + recordId).prop('checked'),
+            SEQ: $('#seq-' + recordId).val()
+        };
+        return data;
+    }
+</script>
