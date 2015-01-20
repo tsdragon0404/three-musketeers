@@ -26,5 +26,6 @@ namespace SMS.Data.Dtos
         public virtual string Area { get; set; }
         public virtual string Controller { get; set; }
         public virtual string Action { get; set; }
+        public virtual bool Enable { get; set; }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Core.Data;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class Page : Entity
+    public class Page : Entity, IEnableEntity
     {
         public virtual string VNTitle { get; set; }
 
@@ -20,6 +21,8 @@ namespace SMS.Data.Entities
         public virtual string Controller { get; set; }
 
         public virtual string Action { get; set; }
+
+        public virtual bool Enable { get; set; }
 
         public virtual IList<PageLabel> PageLabels { get; set; }
     }
