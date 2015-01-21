@@ -798,53 +798,53 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Item]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ITEM]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[Item](
-		[ItemID] [bigint] IDENTITY(1,1) NOT NULL,
-		[ItemCode] [nvarchar](50) NULL,
-		[VNName] [nvarchar](1000) NULL,
-		[ENName] [nvarchar](1000) NULL,
-		[VNDescription] [nvarchar](1000) NULL,
-		[ENDescription] [nvarchar](1000) NULL,
-		[UnitID] [int] NULL,
-		[ProductCategoryID] [int] NULL,
-		[IsInventory] [bit] NULL,
-		[MinQuantity] [numeric](10, 2) NULL,
-		[Enable] [bit] NULL,
+	CREATE TABLE [dbo].[ITEM](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[ITEMCODE] [nvarchar](50) NULL,
+		[VNNAME] [nvarchar](1000) NULL,
+		[ENNAME] [nvarchar](1000) NULL,
+		[VNDESCRIPTION] [nvarchar](1000) NULL,
+		[ENDESCRIPTION] [nvarchar](1000) NULL,
+		[UNITID] [int] NULL,
+		[PRODUCTCATEGORYID] [int] NULL,
+		[ISINVENTORY] [bit] NULL,
+		[MINQUANTITY] [numeric](10, 2) NULL,
+		[ENABLE] [bit] NULL,
 		[SEQ] [int] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_Item] PRIMARY KEY CLUSTERED 
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_ITEM] PRIMARY KEY CLUSTERED 
 	(
-		[ItemID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Vendor]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VENDOR]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[Vendor](
-		[VendorID] [bigint] IDENTITY(1,1) NOT NULL,
-		[VendorNumber] [nvarchar](50) NULL,
-		[VendorName] [nvarchar](1000) NULL,
-		[Phone] [nvarchar](50) NULL,
-		[Fax] [nvarchar](50) NULL,
-		[Email] [nvarchar](255) NULL,
-		[TaxCode] [nvarchar](50) NULL,
-		[Address] [nvarchar](510) NULL,
-		[Enable] [bit] NULL,
+	CREATE TABLE [dbo].[VENDOR](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[VENDORNUMBER] [nvarchar](50) NULL,
+		[VENDORNAME] [nvarchar](1000) NULL,
+		[PHONE] [nvarchar](50) NULL,
+		[FAX] [nvarchar](50) NULL,
+		[EMAIL] [nvarchar](255) NULL,
+		[TAXCODE] [nvarchar](50) NULL,
+		[ADDRESS] [nvarchar](510) NULL,
+		[ENABLE] [bit] NULL,
 		[SEQ] [int] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED 
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_VENDOR] PRIMARY KEY CLUSTERED 
 	(
-		[VendorID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
@@ -921,20 +921,20 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Inventory]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[INVENTORY]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[Inventory](
-		[InventoryID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DepotID] [int] NULL,
-		[ItemID] [bigint] NULL,
-		[Quantity] [numeric](10, 2) NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_Inventory] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[INVENTORY](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DEPOTID] [int] NULL,
+		[ITEMID] [bigint] NULL,
+		[QUANTITY] [numeric](10, 2) NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_INVENTORY] PRIMARY KEY CLUSTERED 
 	(
-		[InventoryID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
