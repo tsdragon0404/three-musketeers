@@ -152,8 +152,8 @@
         <tbody>
             @foreach (var dto in Model.ListRecord)
             {
-                <tr data-id="@dto.ItemID">
-                    <td>@dto.ItemID</td>
+                <tr data-id="@dto.ID">
+                    <td>@dto.ID</td>
                     <td>@dto.ItemCode</td>
                     @if(CommonObjects.Language == Language.Vietnamese)
                     {
@@ -185,8 +185,8 @@
                         <td></td>
                     }
                     <td class="center">
-                        <a href="#" class="@deleteCssClass" data-id="@dto.ItemID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                        <a href="#" class="@editCssClass" data-id="@dto.ItemID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        <a href="#" class="@deleteCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.ID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                     </td>
                 </tr>
             }
