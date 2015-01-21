@@ -18,19 +18,20 @@ namespace SMS.MvcApplication.Areas.InventoryData.Controllers
         #region Fields
 
         public virtual IItemService Service { get; set; }
-        public virtual IProductCategoryService ProductCategoryService { get; set; }
+        public virtual Services.Inventory.IProductCategoryService ProductCategoryService { get; set; }
         public virtual IUnitService UnitService { get; set; }
 
         #endregion
 
-        public ActionResult Index()
+        [HttpGet]
+        public virtual ActionResult Index()
         {
-            ViewBag.CategoryDictionary = ProductCategoryService.ListItemCategory<LanguageProductCategoryDto>()
+            ViewBag.CategoryDictionary = ProductCategoryService.GetListForInventory<LanguageProductCategoryDto>()
                 .ToDictionary(x => x.ID, x => x.Name);
             ViewBag.UnitDictionary = UnitService.ListItemUnit<LanguageUnitDto>()
                 .ToDictionary(x => x.ID, x => x.Name);
 
-            var recordList = Service.ListItem();
+            var recordList = Service.GetList();
 
             var model = new AdminModel<ItemDto>
             {

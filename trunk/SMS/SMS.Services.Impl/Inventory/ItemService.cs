@@ -9,9 +9,9 @@ namespace SMS.Services.Impl.Inventory
     {
         public virtual IItemManagement Management { get; set; }
 
-        public List<ItemDto> ListItem()
+        public List<ItemDto> GetList()
         {
-            return Management.ListItem();
+            return Management.GetList();
         }
 
         public ItemDto GetByID(long itemID)

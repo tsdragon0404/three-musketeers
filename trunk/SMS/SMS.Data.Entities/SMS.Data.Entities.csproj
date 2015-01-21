@@ -38,6 +38,7 @@
     <Compile Include="Branch.cs" />
     <Compile Include="BranchInfo.cs" />
     <Compile Include="BrandingText.cs" />
+    <Compile Include="Inventory\ProductCategory.cs" />
     <Compile Include="Inventory\Depot.cs" />
     <Compile Include="Inventory\ReceiptNote.cs" />
     <Compile Include="Inventory\SqlStatement.cs" />

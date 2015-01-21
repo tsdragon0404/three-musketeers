@@ -46,7 +46,10 @@ VALUES
 ( 103, N'Phiếu xuất hàng', N'Delivery note', N'Phiếu xuất hàng', N'Delivery note', 1, N'Inventory', N'Delivery', N'Index', 1 ),
 
 ( 120, N'Dữ liệu', N'Data', N'Thiết lập dữ liệu', N'Data', 1, NULL, NULL, N'#', 1 ),
-( 121, N'Mặt hàng kho', N'Inventory item', N'Mặt hàng kho', N'Inventory item', 1, N'InventoryData', N'Item', N'Index', 1 )
+( 121, N'Mặt hàng kho', N'Inventory item', N'Mặt hàng kho', N'Inventory item', 1, N'InventoryData', N'Item', N'Index', 1 ),
+( 122, N'Nhóm mặt hàng kho', N'Inventory item category', N'Nhóm mặt hàng kho', N'Inventory item category', 1, N'InventoryData', N'ItemCategory', N'Index', 1 ),
+( 123, N'Đơn vị tính', N'Unit', N'Đơn vị tính', N'Unit', 1, N'InventoryData', N'Unit', N'Index', 1 )
+
 GO
 
 INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
@@ -83,6 +86,8 @@ VALUES
 ( 28, N'MainMenu', 24, 103, 30 ),
 
 ( 40, N'MainMenu', 26, 121, 10 ),
+( 41, N'MainMenu', 26, 122, 20 ),
+( 42, N'MainMenu', 26, 123, 20 ),
 
 ( 50, N'SystemDataTabMenu', 0, 84, 10 ),
 ( 51, N'SystemDataTabMenu', 0, 85, 20 ),

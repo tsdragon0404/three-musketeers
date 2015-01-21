@@ -210,6 +210,7 @@
     <Compile Include="Areas\Branch\Controllers\GlobalLabelController.cs" />
     <Compile Include="Areas\Branch\Controllers\RoleController.cs" />
     <Compile Include="Areas\Branch\Controllers\UserController.cs" />
+    <Compile Include="Areas\InventoryData\Controllers\ItemCategoryController.cs" />
     <Compile Include="Areas\InventoryData\Controllers\ItemController.cs" />
     <Compile Include="Areas\InventoryData\InventoryDataAreaRegistration.cs" />
     <Compile Include="Areas\Inventory\Controllers\DeliveryController.cs" />
@@ -903,6 +904,7 @@
     <Content Include="Areas\InventoryData\Views\Web.config" />
     <Content Include="Areas\InventoryData\Views\Item\Index.cshtml" />
     <Content Include="Areas\InventoryData\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\InventoryData\Views\ItemCategory\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />

@@ -41,5 +41,7 @@
         public const long Inventory_Delivery = 102;
 
         public const long InventoryData_Item = 121;
+        public const long InventoryData_ItemCategory = 122;
+        public const long InventoryData_Unit = 123;
     }
 }

@@ -5,7 +5,7 @@ namespace SMS.Data.Inventory
 {
     public interface IItemDA
     {
-        List<Item> ListItem(bool isEnable = true);
+        List<Item> GetList(bool isEnable = true);
         Item GetByID(long itemID);
         Item Save(Item item);
         bool Delete(long itemID);

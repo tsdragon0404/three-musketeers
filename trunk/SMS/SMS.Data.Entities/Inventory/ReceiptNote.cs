@@ -1,12 +1,11 @@
 ﻿using System;
-using Core.Data;
 using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities.Inventory
 {
     [TableName("ReceiptNote")]
     [PrimaryKey("ReceiptNoteID")]
-    public class ReceiptNote : IAuditableEntity
+    public class ReceiptNote
     {
         public long ReceiptNoteID { get; set; }
         public long? BranchID { get; set; }

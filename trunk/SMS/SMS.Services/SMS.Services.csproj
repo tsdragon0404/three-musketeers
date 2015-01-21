@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Inventory\IDepotService.cs" />
     <Compile Include="IBrandingTextService.cs" />
+    <Compile Include="Inventory\IProductCategoryService.cs" />
     <Compile Include="Inventory\IItemService.cs" />
     <Compile Include="Inventory\IReceiptNoteService.cs" />
     <Compile Include="IUploadedFileService.cs" />

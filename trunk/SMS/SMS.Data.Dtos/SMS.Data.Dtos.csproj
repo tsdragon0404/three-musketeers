@@ -40,6 +40,7 @@
     <Compile Include="BrandingTextDto.cs" />
     <Compile Include="Inventory\DepotDto.cs" />
     <Compile Include="Inventory\ItemDto.cs" />
+    <Compile Include="Inventory\ProductCategoryDto.cs" />
     <Compile Include="Inventory\ReceiptNoteDto.cs" />
     <Compile Include="VendorDto.cs" />
     <Compile Include="SystemInformationDto.cs" />

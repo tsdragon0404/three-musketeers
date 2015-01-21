@@ -5,7 +5,7 @@ namespace SMS.Services.Inventory
 {
     public interface IItemService
     {
-        List<ItemDto> ListItem();
+        List<ItemDto> GetList();
         ItemDto GetByID(long itemID);
         ItemDto Save(ItemDto item);
         bool Delete(long itemID);

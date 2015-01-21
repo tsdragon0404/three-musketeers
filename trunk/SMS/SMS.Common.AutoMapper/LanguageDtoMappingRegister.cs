@@ -71,6 +71,13 @@ namespace SMS.Common.AutoMapper
                     CommonObjects.Language == Language.Vietnamese ? z.ProductCategory.VNName : z.ProductCategory.ENName))
                 .ForMember(x => x.UnitName, y => y.ResolveUsing(z =>
                     CommonObjects.Language == Language.Vietnamese ? z.Unit.VNName : z.Unit.ENName));
+
+            Mapper.CreateMap<Data.Entities.Inventory.ProductCategory, LanguageProductCategoryDto>()
+                .ForMember(x => x.ID, y => y.MapFrom(z => z.ProductCategoryID))
+                .ForMember(x => x.Name, y => y.ResolveUsing(z =>
+                    CommonObjects.Language == Language.Vietnamese ? z.VNName : z.ENName))
+                .ForMember(x => x.Description, y => y.ResolveUsing(z =>
+                    CommonObjects.Language == Language.Vietnamese ? z.VNDescription : z.ENDescription));
         }
     }
 }

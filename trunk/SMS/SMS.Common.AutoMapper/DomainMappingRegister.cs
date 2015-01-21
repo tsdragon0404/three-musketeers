@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using SMS.Common.Storage.CacheObjects;
 using SMS.Data.Dtos;
-using SMS.Data.Dtos.Inventory;
 using SMS.Data.Entities;
-using SMS.Data.Entities.Inventory;
 
 namespace SMS.Common.AutoMapper
 {
@@ -53,10 +51,11 @@ namespace SMS.Common.AutoMapper
             Map<User, UserBasicDto>();
             Map<User, UserInfoDto>();
             Map<OrderDto, OrderDataDto>();
-            Map<Item, ItemDto>();
             Map<Vendor, VendorDto>();
             Map<Depot, DepotDto>();
-            Map<ReceiptNote, ReceiptNoteDto>();
+            Map<Data.Entities.Inventory.Item, Data.Dtos.Inventory.ItemDto>();
+            Map<Data.Entities.Inventory.ReceiptNote, Data.Dtos.Inventory.ReceiptNoteDto>();
+            Map<Data.Entities.Inventory.ProductCategory, Data.Dtos.Inventory.ProductCategoryDto>();
         }
     }
 }
