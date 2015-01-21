@@ -12,7 +12,7 @@ namespace SMS.Data.Impl.Inventory
         {
         }
 
-        public List<Item> ListItem(bool isEnable = true)
+        public List<Item> GetList(bool isEnable = true)
         {
             return DAHelper.Select<Item>(config, "SELECT * FROM ITEM WHERE ENABLE=@0", isEnable.ToSqlValue());
         }

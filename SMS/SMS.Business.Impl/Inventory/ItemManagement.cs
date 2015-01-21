@@ -13,9 +13,9 @@ namespace SMS.Business.Impl.Inventory
     {
         public virtual IItemDA DA { get; set; }
 
-        public List<ItemDto> ListItem()
+        public List<ItemDto> GetList()
         {
-            return Mapper.Map<List<ItemDto>>(DA.ListItem());
+            return Mapper.Map<List<ItemDto>>(DA.GetList());
         }
 
         public ItemDto GetByID(long itemID)

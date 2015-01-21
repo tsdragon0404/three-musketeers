@@ -1,0 +1,166 @@
+﻿@using SMS.Common
+@using SMS.Common.Constant
+@using SMS.Common.Enums
+@using SMS.Common.Storage
+@model SMS.MvcApplication.Models.AdminModel<SMS.Data.Dtos.Inventory.ProductCategoryDto>
+
+<script id="record-tmpl" type="text/x-jquery-tmpl">
+    <tr class="admin-record-detail" style="display: none;">
+        <td class="arrow-detail center">↳</td>
+        <td colspan="6">
+            <table class="no-border width500px">
+                {{if ProductCategoryID == 0}}
+                <tr>
+                    <td colspan="2" class="label-custom-label">ADD NEW</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td data-labelID="lblCode">Code</td>
+                    <td>
+                        <input type="text" name="catCode" value="${ProductCategoryCode}" id="catCode-${ProductCategoryID}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblVNName">VN Name</td>
+                    <td>
+                        <input type="text" name="VNName" value="${VNName}" id="vnName-${ProductCategoryID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblENName">EN Name</td>
+                    <td>
+                        <input type="text" name="ENName" value="${ENName}" id="enName-${ProductCategoryID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblVNDescription">VN Description</td>
+                    <td>
+                        <input type="text" name="VNDescription" value="${VNDescription}" id="vnDesc-${ProductCategoryID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblENDescription">EN Description</td>
+                    <td>
+                        <input type="text" name="ENDescription" value="${ENDescription}" id="enDesc-${ProductCategoryID}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-labelID="lblSEQ">SEQ</td>
+                    <td>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ProductCategoryID}" style="width: 20%;" class="right"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enable</td>
+                    <td>
+                        {{if Enable}}
+                        <input type="checkbox" name="enable" checked id="enable-${ProductCategoryID}"/>
+                        {{else}}
+                        <input type="checkbox" name="enable" id="enable-${ProductCategoryID}"/>
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="save-${ProductCategoryID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ProductCategoryID}" data-labelID="lblCancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</script>
+
+<div id="content">
+    @{
+        var deleteCssClass = Model.CanDelete ? ConstStyle.CssDeleteRecord : ConstStyle.CssIconDisable;
+        var editCssClass = Model.CanEdit ? ConstStyle.CssEditRecord : ConstStyle.CssIconDisable;
+        var addCssClass = Model.CanAdd ? ConstStyle.CssAddRecord : ConstStyle.CssIconDisable;
+    }
+    
+    <div class="row admin-page-title">
+        <h4>Maintain Category</h4>
+    </div>
+    
+    <table id="record-table" class="display">
+        <thead>
+            <tr>
+                <th data-labelID="lblID">ID</th>
+                <th data-labelID="lblCode">Code</th>
+                <th data-labelID="lblName">Name</th>
+                <th data-labelID="lblDescription">Description</th>
+                <th data-labelID="lblSEQ">SEQ</th>
+                <th data-labelID="lblEnable">Enabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model.ListRecord)
+            {
+                <tr data-id="@dto.ProductCategoryID">       
+                    <td>@dto.ProductCategoryID</td>
+                    <td>@dto.ProductCategoryCode</td>
+                    @if(CommonObjects.Language == Language.Vietnamese)
+                    {
+                        <td>@dto.VNName</td>
+                        <td>@dto.VNDescription</td>
+                    }
+                    else
+                    {
+                        <td>@dto.ENName</td>
+                        <td>@dto.ENDescription</td>
+                    }
+                        
+                    <td>@dto.SEQ</td>
+                    @if(dto.Enable)
+                    {
+                        <td>✔</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td class="center">
+                        <a href="#" class="@deleteCssClass" data-id="@dto.ProductCategoryID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.ProductCategoryID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                    </td>
+                </tr>
+            }
+                
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <a href="#" class="@addCssClass"><img src="~/Images/IconControls/add-icon.png" alt="add record" /></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var addUrl = '@Url.Action("GetSchemaForAdd")';
+        var editUrl = '@Url.Action("GetDataForEdit")';
+        var saveUrl = '@Url.Action("SaveData")';
+        var deleteUrl = '@Url.Action("DeleteData")';
+                
+        var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
+        adminfunc.bind();
+    });
+
+    function getDataForSave(recordId) {
+        var data = {
+            ID: recordId,
+            ProductCategoryCode: $('#catCode-' + recordId).val(),
+            VNName: $('#vnName-' + recordId).val(),
+            ENName: $('#enName-' + recordId).val(),
+            VNDescription: $('#vnDesc-' + recordId).val(),
+            ENDescription: $('#enDesc-' + recordId).val(),
+            BranchID: @SmsCache.UserContext.CurrentBranchId,
+            Enable: $('#enable-' + recordId).prop('checked'),
+            SEQ: $('#seq-' + recordId).val()
+        };
+        return data;
+    }
+</script>

@@ -5,7 +5,7 @@ namespace SMS.Business.Inventory
 {
     public interface IItemManagement
     {
-        List<ItemDto> ListItem();
+        List<ItemDto> GetList();
         ItemDto GetByID(long itemID);
         ItemDto Save(ItemDto item);
         bool Delete(long itemID);
