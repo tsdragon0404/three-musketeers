@@ -24,6 +24,8 @@ namespace SMS.Data.Impl.Inventory
 
         public Depot Save(Depot item)
         {
+            if(item.ID > 0)
+                return DAHelper.Update(config, item, new[] { "DEPOTNAME", "PHONE", "FAX", "EMAIL", "ADDRESS", "SEQ", "MODIFIEDDATE", "MODIFIEDUSER" });
             return DAHelper.Save(config, item);
         }
 

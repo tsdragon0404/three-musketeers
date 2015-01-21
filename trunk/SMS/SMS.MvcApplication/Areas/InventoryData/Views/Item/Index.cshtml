@@ -9,7 +9,7 @@
         <td class="arrow-detail center">↳</td>
         <td colspan="7">
             <table class="no-border width500px">
-                {{if ItemID == 0}}
+                {{if ID == 0}}
                 <tr>
                     <td colspan="2" class="label-custom-label">ADD NEW</td>
                 </tr>
@@ -17,39 +17,39 @@
                 <tr>
                     <td data-labelID="lblCode">Code</td>
                     <td>
-                        <input type="text" name="itemCode" value="${ItemCode}" id="itemCode-${ItemID}" />
+                        <input type="text" name="itemCode" value="${ItemCode}" id="itemCode-${ID}" />
 
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblVNName">VN Name</td>
                     <td>
-                        <input type="text" name="vnName" value="${VNName}" id="vnName-${ItemID}" />
+                        <input type="text" name="vnName" value="${VNName}" id="vnName-${ID}" />
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblENName">EN Name</td>
                     <td>
-                        <input type="text" name="vnName" value="${ENName}" id="enName-${ItemID}" />
+                        <input type="text" name="vnName" value="${ENName}" id="enName-${ID}" />
                     </td>
                 </tr>
                 
                 <tr>
                     <td data-labelID="lblVNDescripton">VN Descripton</td>
                     <td>
-                        <input type="text" name="enName" value="${VNDescription}" id="vnDesc-${ItemID}" />
+                        <input type="text" name="enName" value="${VNDescription}" id="vnDesc-${ID}" />
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblENDescripton">EN Descripton</td>
                     <td>
-                        <input type="text" name="enName" value="${ENDescription}" id="enDesc-${ItemID}" />
+                        <input type="text" name="enName" value="${ENDescription}" id="enDesc-${ID}" />
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblCategory">Category</td>
                     <td>
-                        <select name="categoryID" id="categoryID-${ItemID}">
+                        <select name="categoryID" id="categoryID-${ID}">
                             @foreach (KeyValuePair<long, string> keyValue in ViewBag.CategoryDictionary)
                             {
                                 <text>
@@ -66,7 +66,7 @@
                 <tr>
                     <td data-labelID="lblUnit">Unit</td>
                     <td>
-                        <select name="unitID" id="unitID-${ItemID}">
+                        <select name="unitID" id="unitID-${ID}">
                             @foreach (KeyValuePair<long, string> keyValue in ViewBag.UnitDictionary)
                             {
                                 <text>
@@ -84,39 +84,39 @@
                     <td data-labelID="lblIsInventory">Is Inventory</td>
                     <td>
                         {{if IsInventory}}
-                        <input type="checkbox" name="isInventory" checked id="isInventory-${ItemID}"/>
+                        <input type="checkbox" name="isInventory" checked id="isInventory-${ID}"/>
                         {{else}}
-                        <input type="checkbox" name="isInventory" id="isInventory-${ItemID}"/>
+                        <input type="checkbox" name="isInventory" id="isInventory-${ID}"/>
                         {{/if}}
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblMinQuantity">Min quantity</td>
                     <td>
-                        <input type="text" name="minQuantity" value="${MinQuantity}" id="minQuantity-${ItemID}" />
+                        <input type="text" name="minQuantity" value="${MinQuantity}" id="minQuantity-${ID}" />
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblSEQ">SEQ</td>
                     <td>
-                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ItemID}" style="width: 30%;" class="right"/>
+                        <input type="text" name="seq" value="{{if SEQ != 0}}${SEQ}{{/if}}" id="seq-${ID}" style="width: 30%;" class="right"/>
                     </td>
                 </tr>
                 <tr>
                     <td data-labelID="lblEnable">Enable</td>
                     <td>
                         {{if Enable}}
-                        <input type="checkbox" name="enable" checked id="enable-${ItemID}"/>
+                        <input type="checkbox" name="enable" checked id="enable-${ID}"/>
                         {{else}}
-                        <input type="checkbox" name="enable" id="enable-${ItemID}"/>
+                        <input type="checkbox" name="enable" id="enable-${ID}"/>
                         {{/if}}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <button id="save-${ItemID}" data-labelID="lblSave">Save</button>
-                        <button id="cancel-${ItemID}" data-labelID="lblCancel">Cancel</button>
+                        <button id="save-${ID}" data-labelID="lblSave">Save</button>
+                        <button id="cancel-${ID}" data-labelID="lblCancel">Cancel</button>
                     </td>
                 </tr>
             </table>
@@ -152,7 +152,7 @@
         <tbody>
             @foreach (var dto in Model.ListRecord)
             {
-                <tr data-id="@dto.ID">
+                <tr data-id="@dto.ID" title="Created by/on: @dto.CreatedUser @dto.CreatedDate Modified by/on: @dto.ModifiedUser @dto.ModifiedDate">
                     <td>@dto.ID</td>
                     <td>@dto.ItemCode</td>
                     @if(CommonObjects.Language == Language.Vietnamese)
@@ -214,7 +214,7 @@
 
     function getDataForSave(recordId) {
         var data = {
-            ItemID: recordId,
+            ID: recordId,
             ItemCode: $('#itemCode-' + recordId).val(),
             VNName: $('#vnName-' + recordId).val(),
             ENName: $('#enName-' + recordId).val(),

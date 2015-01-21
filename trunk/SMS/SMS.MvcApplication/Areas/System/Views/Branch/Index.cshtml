@@ -99,7 +99,7 @@
                             @foreach (DepotDto depot in ViewBag.ListDepot)
                             {
                                 <text>
-                                    {{if Depot != null && Depot.ID == @depot.ID}}
+                                    {{if DepotID == @depot.ID}}
                                     <option value="@depot.ID" selected>@depot.DepotName</option>
                                     {{else}}
                                     <option value="@depot.ID">@depot.DepotName</option>
@@ -322,7 +322,7 @@
         <tbody>
             @foreach (var dto in Model.ListRecord)
             {
-                <tr data-id="@dto.ID">
+                <tr data-id="@dto.ID" title="Created by/on: @dto.CreatedUser @dto.CreatedDate Modified by/on: @dto.ModifiedUser @dto.ModifiedDate">
                     <td>@dto.ID</td>
                     @if(CommonObjects.Language == Language.Vietnamese)
                     {
@@ -366,12 +366,20 @@
 
         var adminfunc = new AdminFunction(addUrl, editUrl, saveUrl, getDataForSave, deleteUrl, 'Warning', 'Delete this record?', @SmsCache.UserContext.PageSize);
         adminfunc.bind();
+        
+        $('#record-table').tooltip({
+            show: {
+                effect: "slideDown",
+                delay: 250
+            },
+            track: true
+        });
 
-        $(document).on("click", 'input[id^="useInventory-"]', (function() {
+        $(document).on("change", 'input[id^="useInventory-"]', (function() {
             $('#chooseDepot').slideToggle();
         }));
         
-        $(document).on("click", 'input[id^="useServiceFee-"]', (function() {
+        $(document).on("change", 'input[id^="useServiceFee-"]', (function() {
             $('#inputServiceFee').slideToggle();
         }));
     });
