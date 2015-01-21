@@ -5,6 +5,7 @@ using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;
+using SMS.Services.Inventory;
 
 namespace SMS.MvcApplication.Areas.System.Controllers
 {
@@ -25,7 +26,7 @@ namespace SMS.MvcApplication.Areas.System.Controllers
         {
             ViewBag.ListCurrency = CurrencyService.ListAll().Data;
             ViewBag.ListTax = TaxService.ListAll().Data;
-            ViewBag.ListDepot = DepotService.ListAll().Data;
+            ViewBag.ListDepot = DepotService.ListDepot();
             return base.Index();
         }
 

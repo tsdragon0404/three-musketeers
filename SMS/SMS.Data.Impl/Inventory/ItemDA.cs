@@ -20,7 +20,7 @@ namespace SMS.Data.Impl.Inventory
 
         public Item GetByID(long itemID)
         {
-            return DAHelper.SelectOne<Item>(config, "SELECT * FROM ITEM WHERE ITEMID=@0", itemID);
+            return DAHelper.SelectOne<Item>(config, "SELECT * FROM ITEM WHERE ID=@0", itemID);
         }
 
         public Item Save(Item item)

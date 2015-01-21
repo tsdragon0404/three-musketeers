@@ -15,7 +15,7 @@ namespace SMS.Data.Mapping
             Map(x => x.UseDiscountOnProduct);
             Map(x => x.UseKitchenFunction);
             Map(x => x.UseInventory);
-            References(x => x.Depot).Column("DepotID");
+            Map(x => x.DepotID);
 
             HasOne(x => x.BranchInfo).Cascade.All();
             

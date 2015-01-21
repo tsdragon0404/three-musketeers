@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Data;
+using SMS.Data.Entities.Inventory;
 
 namespace SMS.Data.Entities
 {
@@ -22,7 +23,7 @@ namespace SMS.Data.Entities
 
         public virtual bool UseInventory { get; set; }
 
-        public virtual Depot Depot { get; set; }
+        public virtual int DepotID { get; set; }
 
         public virtual IList<Tax> Taxs { get; set; }
 

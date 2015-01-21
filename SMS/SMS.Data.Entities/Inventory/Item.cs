@@ -3,11 +3,11 @@ using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities.Inventory
 {
-    [TableName("Item")]
-    [PrimaryKey("ItemID")]
+    [TableName("ITEM")]
+    [PrimaryKey("ID")]
     public class Item
     {
-        public long ItemID { get; set; }
+        public long ID { get; set; }
         public string ItemCode { get; set; }
         public string VNName { get; set; }
         public string ENName { get; set; }

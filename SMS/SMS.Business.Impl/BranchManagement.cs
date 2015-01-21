@@ -81,7 +81,7 @@ namespace SMS.Business.Impl
             destination.UseKitchenFunction = source.UseKitchenFunction;
             destination.UseServiceFee = source.UseServiceFee;
             destination.UseInventory = source.UseInventory;
-            destination.Depot = DepotRepository.GetByID(source.Depot.ID);
+            destination.DepotID = source.DepotID;
             destination.Users = Mapper.Map<IList<User>>(source.Users);
             destination.VNName = source.VNName;
         }
