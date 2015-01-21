@@ -24,6 +24,13 @@ namespace Core.Data.PetaPoco
             return obj;
         }
 
+        public static T Update<T>(IConfig config, T obj, string[] columns)
+        {
+            var db = new Database(config);
+            db.Update(obj, columns);
+            return obj;
+        }
+
         public static bool Delete<T>(IConfig config, object primaryKey)
         {
             var db = new Database(config);

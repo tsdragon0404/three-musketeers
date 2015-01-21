@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Data.PetaPoco;
 using SMS.Data.Entities.Inventory;
 using SMS.Data.Inventory;
@@ -25,6 +24,8 @@ namespace SMS.Data.Impl.Inventory
 
         public Item Save(Item item)
         {
+            if (item.ID > 0)
+                return DAHelper.Update(config, item, new[] { "VNNAME", "ENNAME", "VNDESCRIPTION", "ENDESCRIPTION", "UNITID", "PRODUCTCATEGORYID", "ISINVENTORY", "MINQUANTITY", "SEQ", "MODIFIEDDATE", "MODIFIEDUSER" });
             return DAHelper.Save(config, item);
         }
 

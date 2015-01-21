@@ -102,7 +102,7 @@
         <tbody>
             @foreach (var dto in Model.ListRecord)
             {
-                <tr data-id="@dto.ID">
+                <tr data-id="@dto.ID" title="Created by/on: @dto.CreatedUser @dto.CreatedDate Modified by/on: @dto.ModifiedUser @dto.ModifiedDate">
                     <td>@dto.ID</td>
                     <td>@dto.DepotCode</td>
                     <td>@dto.DepotName</td>

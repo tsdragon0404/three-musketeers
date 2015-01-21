@@ -10,6 +10,14 @@
     this.deleteWarningMessage = deleteWarningMessage;
     this.pageSize = pageSize;
     
+    $('#record-table').tooltip({
+        show: {
+            effect: "slideDown",
+            delay: 250
+        },
+        track: true
+    });
+
     $('#record-table').DataTable({
         "pageLength": root.pageSize,
         scrollY: "200px",
