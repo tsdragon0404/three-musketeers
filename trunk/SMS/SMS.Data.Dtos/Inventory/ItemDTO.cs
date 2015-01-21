@@ -4,7 +4,7 @@ namespace SMS.Data.Dtos.Inventory
 {
     public class ItemDto : EnableSortableDto
     {
-        public long ItemID { get; set; }
+        public long ID { get; set; }
         public string ItemCode { get; set; }
         public string VNName { get; set; }
         public string ENName { get; set; }

@@ -9,23 +9,23 @@ using AutoMapper;
 
 namespace SMS.Business.Impl.Inventory
 {
-    public class ItemManagement : IItemManagement
+    public class DepotManagement : IDepotManagement
     {
-        public virtual IItemDA DA { get; set; }
+        public virtual IDepotDA DA { get; set; }
 
-        public List<ItemDto> ListItem()
+        public List<DepotDto> ListDepot()
         {
-            return Mapper.Map<List<ItemDto>>(DA.ListItem());
+            return Mapper.Map<List<DepotDto>>(DA.ListDepot());
         }
 
-        public ItemDto GetByID(long itemID)
+        public DepotDto GetByID(long ID)
         {
-            return Mapper.Map<ItemDto>(DA.GetByID(itemID));
+            return Mapper.Map<DepotDto>(DA.GetByID(ID));
         }
 
-        public ItemDto Save(ItemDto item)
+        public DepotDto Save(DepotDto item)
         {
-            var entity = Mapper.Map<Item>(item);
+            var entity = Mapper.Map<Depot>(item);
             if (entity.ID == 0)
             {
                 entity.CreatedDate = DateTime.Now;
@@ -37,12 +37,12 @@ namespace SMS.Business.Impl.Inventory
                 entity.ModifiedUser = SmsCache.UserContext.UserName;
             }
 
-            return Mapper.Map<ItemDto>(DA.Save(entity));
+            return Mapper.Map<DepotDto>(DA.Save(entity));
         }
 
-        public bool Delete(long itemID)
+        public bool Delete(long ID)
         {
-            return DA.Delete(itemID);
+            return DA.Delete(ID);
         }
     }
 }

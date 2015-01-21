@@ -36,7 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDepotManagement.cs" />
+    <Compile Include="Inventory\IDepotManagement.cs" />
     <Compile Include="IBrandingTextManagement.cs" />
     <Compile Include="Inventory\IItemManagement.cs" />
     <Compile Include="Inventory\IReceiptNoteManagement.cs" />
