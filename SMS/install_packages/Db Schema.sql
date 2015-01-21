@@ -774,25 +774,25 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Depot]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DEPOT]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[Depot](
-		[DepotID] [int] IDENTITY(1,1) NOT NULL,
-		[DepotCode] [nvarchar](50) NULL,
-		[DepotName] [nvarchar](1000) NULL,
-		[Phone] [nvarchar](50) NULL,
-		[Fax] [nvarchar](50) NULL,
-		[Email] [nvarchar](255) NULL,
-		[Address] [nvarchar](510) NULL,
-		[Enable] [bit] NULL,
+	CREATE TABLE [dbo].[DEPOT](
+		[ID] [int] IDENTITY(1,1) NOT NULL,
+		[DEPOTCODE] [nvarchar](50) NULL,
+		[DEPOTNAME] [nvarchar](1000) NULL,
+		[PHONE] [nvarchar](50) NULL,
+		[FAX] [nvarchar](50) NULL,
+		[EMAIL] [nvarchar](255) NULL,
+		[ADDRESS] [nvarchar](510) NULL,
+		[ENABLE] [bit] NULL,
 		[SEQ] [int] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_Depot] PRIMARY KEY CLUSTERED 
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DEPOT] PRIMARY KEY CLUSTERED 
 	(
-		[DepotID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
@@ -850,72 +850,70 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryItem]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYITEM]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[DeliveryItem](
-		[DeliveryItemID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DeliveryNoteID] [bigint] NULL,
-		[ItemID] [bigint] NULL,
-		[Quantity] [numeric](10, 2) NULL,
-		[Price] [numeric](19, 2) NULL,
-		[Amount] [numeric](19, 2) NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DeliveryItem] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[DELIVERYITEM](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DELIVERYNOTEID] [bigint] NULL,
+		[ITEMID] [bigint] NULL,
+		[QUANTITY] [numeric](10, 2) NULL,
+		[UNITPRICE] [numeric](19, 2) NULL,
+		[AMOUNT] [numeric](19, 2) NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DELIVERYITEM] PRIMARY KEY CLUSTERED 
 	(
-		[DeliveryItemID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryNote]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYNOTE]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[DeliveryNote](
-		[DeliveryNoteID] [bigint] IDENTITY(1,1) NOT NULL,
-		[BranchID] [int] NULL,
-		[DeliveryNumber] [nvarchar](50) NULL,
-		[DeliveryDate] [datetime] NULL,
-		[DeliveryTypeID] [tinyint] NULL,
-		[Comment] [nvarchar](255) NULL,
-		[CustomerID] [bigint] NULL,
-		[ToDepotID] [bigint] NULL,
-		[DocumentID] [bigint] NULL,
-		[Recipient] [nvarchar](1000) NULL,
-		[Address] [nvarchar](1000) NULL,
-		[ContactInformation] [nvarchar](1000) NULL,
-		[TotalAmount] [numeric](19, 2) NULL,
-		[Currency] [nvarchar](50) NULL,
-		[DebitAmount] [numeric](19, 2) NULL,
-		[PaymentDate] [datetime] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDare] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DeliveryNote] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[DELIVERYNOTE](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DEPOTID] [int] NULL,
+		[DELIVERYNUMBER] [nvarchar](50) NULL,
+		[DELIVERYDATE] [datetime] NULL,
+		[DELIVERYTYPEID] [tinyint] NULL,
+		[COMMENT] [nvarchar](255) NULL,
+		[CUSTOMERID] [bigint] NULL,
+		[TODEPOTID] [bigint] NULL,
+		[DOCUMENTID] [bigint] NULL,
+		[RECEIVER] [nvarchar](255) NULL,
+		[SHIPADDRESS] [nvarchar](1000) NULL,
+		[SHIPCONTACT] [nvarchar](1000) NULL,
+		[TOTALAMOUNT] [numeric](19, 2) NULL,
+		[CURRENCY] [nvarchar](50) NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DELIVERYNOTE] PRIMARY KEY CLUSTERED 
 	(
-		[DeliveryNoteID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DeliveryType]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYTYPE]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[DeliveryType](
-		[DeliveryTypeID] [tinyint] IDENTITY(1,1) NOT NULL,
-		[VNName] [nvarchar](255) NULL,
-		[ENName] [nvarchar](255) NULL,
-		[UseImportPrice] [bit] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DeliveryType] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[DELIVERYTYPE](
+		[ID] [tinyint] IDENTITY(1,1) NOT NULL,
+		[VNNAME] [nvarchar](255) NULL,
+		[ENNAME] [nvarchar](255) NULL,
+		[USEIMPORTPRICE] [bit] NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_DELIVERYTYPE] PRIMARY KEY CLUSTERED 
 	(
-		[DeliveryTypeID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
@@ -940,49 +938,102 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReceiptNote]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTNOTE]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[ReceiptNote](
-		[ReceiptNoteID] [bigint] IDENTITY(1,1) NOT NULL,
-		[BranchID] [int] NULL,
-		[ReceiptNumber] [nvarchar](50) NULL,
-		[ReceiptDate] [datetime] NULL,
-		[VendorID] [bigint] NULL,
-		[DepotID] [int] NULL,
-		[Comment] [nvarchar](255) NULL,
-		[DocumentID] [bigint] NULL,
-		[TotalReceipt] [numeric](19, 2) NULL,
-		[Currency] [nvarchar](50) NULL,
-		[DebitAmount] [numeric](19, 2) NULL,
-		[PaymentDate] [datetime] NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_ReceiptNote] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[RECEIPTNOTE](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DEPOTID] [int] NULL,
+		[RECEIPTNUMBER] [nvarchar](50) NULL,
+		[RECEIPTDATE] [datetime] NULL,
+		[VENDORID] [bigint] NULL,
+		[FROMDEPOTID] [int] NULL,
+		[SHIPPER] [nvarchar](255) NULL,
+		[COMMENT] [nvarchar](255) NULL,
+		[DOCUMENTID] [bigint] NULL,
+		[TOTALAMOUNT] [numeric](19, 2) NULL,
+		[CURRENCY] [nvarchar](50) NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_RECEIPTNOTE] PRIMARY KEY CLUSTERED 
 	(
-		[ReceiptNoteID] ASC
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReceiptItem]') AND type in (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTITEM]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[ReceiptItem](
-		[ReceiptItemID] [bigint] IDENTITY(1,1) NOT NULL,
-		[ReceiptNoteID] [bigint] NULL,
-		[ItemID] [bigint] NULL,
-		[Quantity] [numeric](10, 2) NULL,
-		[Price] [numeric](19, 2) NULL,
-		[Amount] [numeric](19, 2) NULL,
-		[CreatedDate] [datetime] NULL,
-		[CreatedUser] [nvarchar](50) NULL,
-		[ModifiedDate] [datetime] NULL,
-		[ModifiedUser] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_ReceiptItem] PRIMARY KEY CLUSTERED 
+	CREATE TABLE [dbo].[RECEIPTITEM](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[RECEIPTNOTEID] [bigint] NULL,
+		[ITEMID] [bigint] NULL,
+		[QUANTITY] [numeric](10, 2) NULL,
+		[UNITPRICE] [numeric](19, 2) NULL,
+		[AMOUNT] [numeric](19, 2) NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_RECEIPTITEM] PRIMARY KEY CLUSTERED 
 	(
-		[ReceiptItemID] ASC
+		[ID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PAYMENTVOUCHER]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[PAYMENTVOUCHER](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DEPOTID] [int] NULL,
+		[PAYMENTNUMBER] [nvarchar](50) NULL,
+		[PAYMENTDATE] [date] NULL,
+		[VENDORID] [bigint] NULL,
+		[TODEPOTID] [int] NULL,
+		[RECEIVER] [nvarchar](255) NULL,
+		[TOTALAMOUNT] [numeric](19, 2) NULL,
+		[INWORDS] [nvarchar](510) NULL,
+		[DESCRIPTION] [nvarchar](510) NULL,
+		[DOCUMENTID] [bigint] NULL,
+		[ENABLE] [bit] NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_PAYMENTVOUCHER_1] PRIMARY KEY CLUSTERED 
+	(
+		[ID] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTVOUCHER]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[RECEIPTVOUCHER](
+		[ID] [bigint] IDENTITY(1,1) NOT NULL,
+		[DEPOTID] [int] NULL,
+		[RECEIPTNUMBER] [nvarchar](50) NULL,
+		[RECEIPTDATE] [date] NULL,
+		[CUSTOMERID] [int] NULL,
+		[FROMDEPOTID] [int] NULL,
+		[PAYER] [nvarchar](255) NULL,
+		[TOTALAMOUNT] [numeric](19, 2) NULL,
+		[INWORDS] [nvarchar](510) NULL,
+		[DESCRIPTION] [nvarchar](510) NULL,
+		[DOCUMENTID] [bigint] NULL,
+		[ENABLE] [bit] NULL,
+		[CREATEDDATE] [datetime] NULL,
+		[CREATEDUSER] [nvarchar](50) NULL,
+		[MODIFIEDDATE] [datetime] NULL,
+		[MODIFIEDUSER] [nvarchar](50) NULL,
+	 CONSTRAINT [PK_RECEIPTVOUCHER] PRIMARY KEY CLUSTERED 
+	(
+		[ID] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 END
