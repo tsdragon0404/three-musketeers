@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Common;
 using SMS.Business.Inventory;
 using SMS.Common.Storage;
 using SMS.Data.Dtos.Inventory;
@@ -30,14 +31,15 @@ namespace SMS.Business.Impl.Inventory
             {
                 entity.CreatedDate = DateTime.Now;
                 entity.CreatedUser = SmsCache.UserContext.UserName;
-            }
-            else
-            {
-                entity.ModifiedDate = DateTime.Now;
-                entity.ModifiedUser = SmsCache.UserContext.UserName;
+                return Mapper.Map<ItemDto>(DA.Insert(entity));
             }
 
-            return Mapper.Map<ItemDto>(DA.Save(entity));
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedUser = SmsCache.UserContext.UserName;
+            var propertyToUpdate = entity.GetPropertyNames(x => x.VNName, x => x.ENName, x => x.VNDescription, x => x.ENDescription, 
+                                                           x => x.UnitID, x => x.ProductCategoryID, x => x.IsInventory, x => x.MinQuantity, 
+                                                           x => x.SEQ, x => x.ModifiedDate, x => x.ModifiedUser);
+            return Mapper.Map<ItemDto>(DA.Update(entity, propertyToUpdate));
         }
 
         public bool Delete(long itemID)

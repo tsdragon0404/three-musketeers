@@ -17,14 +17,14 @@ namespace Core.Data.PetaPoco
             return db.SingleOrDefault<T>(cmd, args);
         }
 
-        public static T Save<T>(IConfig config, T obj)
+        public static T Insert<T>(IConfig config, T obj)
         {
             var db = new Database(config);
-            db.Save(obj);
+            db.Insert(obj);
             return obj;
         }
 
-        public static T Update<T>(IConfig config, T obj, string[] columns)
+        public static T Update<T>(IConfig config, T obj, params string[] columns)
         {
             var db = new Database(config);
             db.Update(obj, columns);

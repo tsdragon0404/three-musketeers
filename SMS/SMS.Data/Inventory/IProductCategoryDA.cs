@@ -7,8 +7,9 @@ namespace SMS.Data.Inventory
     {
         List<ProductCategory> GetList(bool isEnable = true);
         List<ProductCategory> GetListForInventory(bool isEnable = true);
-        ProductCategory GetByID(long itemID);
-        ProductCategory Save(ProductCategory item);
-        bool Delete(long itemID);
+        ProductCategory GetByID(long categoryID);
+        ProductCategory Insert(ProductCategory category);
+        ProductCategory Update(ProductCategory category, params string[] columns);
+        bool Delete(long categoryID);
     }
 }
