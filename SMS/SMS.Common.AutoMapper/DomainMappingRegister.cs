@@ -52,7 +52,7 @@ namespace SMS.Common.AutoMapper
             Map<User, UserInfoDto>();
             Map<OrderDto, OrderDataDto>();
             Map<Vendor, VendorDto>();
-            Map<Depot, DepotDto>();
+            Map<Data.Entities.Inventory.Depot, Data.Dtos.Inventory.DepotDto>();
             Map<Data.Entities.Inventory.Item, Data.Dtos.Inventory.ItemDto>();
             Map<Data.Entities.Inventory.ReceiptNote, Data.Dtos.Inventory.ReceiptNoteDto>();
             Map<Data.Entities.Inventory.ProductCategory, Data.Dtos.Inventory.ProductCategoryDto>();
