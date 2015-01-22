@@ -22,19 +22,21 @@ namespace SMS.Data.Impl.Inventory
             return DAHelper.Select<ProductCategory>(config, "SELECT * FROM PRODUCTCATEGORY WHERE BRANCHID IS NULL AND ENABLE=@0", isEnable.ToSqlValue());
         }
 
-        public ProductCategory GetByID(long itemID)
+        public ProductCategory GetByID(long ID)
         {
-            return DAHelper.SelectOne<ProductCategory>(config, "SELECT * FROM PRODUCTCATEGORY WHERE PRODUCTCATEGORYID=@0", itemID);
+            return DAHelper.SelectOne<ProductCategory>(config, "SELECT * FROM PRODUCTCATEGORY WHERE PRODUCTCATEGORYID=@0", ID);
         }
 
         public ProductCategory Save(ProductCategory item)
         {
+            if (item.ProductCategoryID > 0)
+                return DAHelper.Update(config, item, new[] { "VNNAME", "ENNAME", "VNDESCRIPTION", "ENDESCRIPTION", "SEQ", "MODIFIEDDATE", "MODIFIEDUSER" });
             return DAHelper.Save(config, item);
         }
 
-        public bool Delete(long itemID)
+        public bool Delete(long ID)
         {
-            return DAHelper.Delete<ProductCategory>(config, itemID);
+            return DAHelper.Delete<ProductCategory>(config, ID);
         }
     }
 }
