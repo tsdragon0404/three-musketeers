@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Common;
 using SMS.Common.Storage;
 using SMS.Data.Dtos.Inventory;
 using SMS.Data.Entities.Inventory;
@@ -43,14 +44,12 @@ namespace SMS.Business.Impl.Inventory
             {
                 entity.CreatedDate = DateTime.Now;
                 entity.CreatedUser = SmsCache.UserContext.UserName;
-            }
-            else
-            {
-                entity.ModifiedDate = DateTime.Now;
-                entity.ModifiedUser = SmsCache.UserContext.UserName;
+                return Mapper.Map<ProductCategoryDto>(DA.Insert(entity));
             }
 
-            return Mapper.Map<ProductCategoryDto>(DA.Save(entity));
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedUser = SmsCache.UserContext.UserName;
+            return Mapper.Map<ProductCategoryDto>(DA.Update(entity));
         }
 
         public ProductCategoryDto SaveForInventory(ProductCategoryDto item)
@@ -61,17 +60,18 @@ namespace SMS.Business.Impl.Inventory
                 entity.BranchID = null;
                 entity.CreatedDate = DateTime.Now;
                 entity.CreatedUser = SmsCache.UserContext.UserName;
-            }
-            else
-            {
-                if (entity.BranchID != null)
-                    throw new Exception();
-
-                entity.ModifiedDate = DateTime.Now;
-                entity.ModifiedUser = SmsCache.UserContext.UserName;
+                return Mapper.Map<ProductCategoryDto>(DA.Insert(entity));
             }
 
-            return Mapper.Map<ProductCategoryDto>(DA.Save(entity));
+            if (entity.BranchID != null)
+                throw new Exception();
+
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedUser = SmsCache.UserContext.UserName;
+
+            var propertyToUpdate = entity.GetPropertyNames(x => x.VNName, x => x.ENName, x => x.VNDescription, x => x.ENDescription,
+                                                           x => x.SEQ, x => x.ModifiedDate, x => x.ModifiedUser);
+            return Mapper.Map<ProductCategoryDto>(DA.Update(entity, propertyToUpdate));
         }
 
         public bool Delete(long id)

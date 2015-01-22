@@ -218,6 +218,24 @@ namespace Core.Common
         {
             return (T)Convert.ChangeType(obj, typeof(T));
         }
+
+        public static string GetPropertyName<T>(this T obj, Expression<Func<T, object>> propertySelector)
+        {
+            var me = propertySelector.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("Error when getting property name");
+            }
+
+            return me.Member.Name;
+        }
+
+        public static string[] GetPropertyNames<T>(this T obj, params Expression<Func<T, object>>[] propertySelectors)
+        {
+            return propertySelectors.Select(propertySelector => GetPropertyName(obj, propertySelector)).ToArray();
+        }
+
         #endregion
     }
 }

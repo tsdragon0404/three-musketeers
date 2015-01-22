@@ -7,7 +7,8 @@ namespace SMS.Data.Inventory
     {
         List<Depot> ListDepot(bool isEnable = true);
         Depot GetByID(long ID);
-        Depot Save(Depot item);
+        Depot Insert(Depot depot);
+        Depot Update(Depot depot, params string[] columns);
         bool Delete(long ID);
     }
 }

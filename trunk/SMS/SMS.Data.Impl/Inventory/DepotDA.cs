@@ -22,11 +22,14 @@ namespace SMS.Data.Impl.Inventory
             return DAHelper.SelectOne<Depot>(config, "SELECT * FROM DEPOT WHERE ID=@0", ID);
         }
 
-        public Depot Save(Depot item)
+        public Depot Update(Depot depot, params string[] columns)
         {
-            if(item.ID > 0)
-                return DAHelper.Update(config, item, new[] { "DEPOTNAME", "PHONE", "FAX", "EMAIL", "ADDRESS", "SEQ", "MODIFIEDDATE", "MODIFIEDUSER" });
-            return DAHelper.Save(config, item);
+            return DAHelper.Update(config, depot, columns);
+        }
+
+        public Depot Insert(Depot depot)
+        {
+            return DAHelper.Insert(config, depot);
         }
 
         public bool Delete(long ID)
