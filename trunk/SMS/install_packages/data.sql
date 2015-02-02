@@ -1,10 +1,10 @@
 ﻿SET NOCOUNT ON;
 
-INSERT INTO [User] ( UserName, Password, IsSystemAdmin )
-VALUES ( 'system', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 1)
+INSERT INTO [USER] ( ID, USERNAME, PASSWORD, ISSYSTEMADMIN )
+VALUES ( NEWID(), 'system', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 1)
 GO
 
-INSERT INTO dbo.Page ( PageID, VNTitle, ENTitle, VNDescription, ENDescription, [Type], Area, Controller, [Action], [Enable] )
+INSERT INTO dbo.PAGE ( ID, VNTITLE, ENTITLE, VNDESCRIPTION, ENDESCRIPTION, [TYPE], AREA, CONTROLLER, [ACTION], [ENABLE] )
 VALUES 
 ( 0, N'Global', N'Global', N'Global', N'Global', 0, NULL, NULL, NULL, 1 ),
 ( 1, N'Trang chủ', N'Homepage', N'Trang chủ', N'Homepage', 0, NULL, N'Home', N'Index', 1 ),
@@ -52,7 +52,7 @@ VALUES
 
 GO
 
-INSERT INTO dbo.PageMenu ( PageMenuID, GroupName, ParentID, PageID, SEQ )
+INSERT INTO dbo.PAGEMENU ( ID, GROUPNAME, PARENTID, PAGEID, SEQ )
 VALUES 
 ( 2, N'MainMenu', 0, 2, 20 ),
 ( 3, N'MainMenu', 0, 3, 30 ),
@@ -103,7 +103,7 @@ VALUES
 
 GO
 
-INSERT [dbo].[PageLabel] ([LabelID], [BranchID], [PageID], [VNText], [ENText]) 
+INSERT [DBO].[PAGELABEL] ([LABELID], [BRANCHID], [PAGEID], [VNTEXT], [ENTEXT]) 
 VALUES 
 (N'lblLanguage', 0, 0, N'Tiếng Anh', N'Vietnamese'),
 (N'lblUsername', 0, 0, N'Tên đăng nhập', N'User name'),
@@ -112,7 +112,7 @@ VALUES
 (N'lblLogin', 0, 0, N'Đăng nhập', N'Login')
 GO
 
-INSERT INTO dbo.ErrorMessage ( ErrorMessageID, MessageID, BranchID, ENMessage, VNMessage )
+INSERT INTO dbo.ERRORMESSAGE ( ID, MESSAGEID, BRANCHID, ENMESSAGE, VNMESSAGE )
 VALUES 
 ( -1, -1, 0, N'Incorrect username or password.', N'Tên đăng nhập hoặc mật khẩu không chính xác.' ),
 ( -2, -2, 0, N'This user is temporary locked, please contact administrator.', N'Tài khoản tạm khóa, vui lòng liên hệ quản trị viên.' ),
@@ -152,7 +152,7 @@ VALUES
 ( -35, -35, 0, N'This user is suspended at this branch. Please contact administrator.', N'Tài khoản này đã bị khóa tại chi nhánh này. Vui lòng liên hệ quản trị viên.' )
 GO
 
-INSERT INTO [dbo].[Currency] ([Name], [Description], [Exchange], [Enable], [SEQ], [CreatedDate], [CreatedUser]) 
+INSERT INTO [dbo].[CURRENCY] ([NAME], [DESCRIPTION], [EXCHANGE], [ENABLE], [SEQ], [CREATEDDATE], [CREATEDUSER]) 
 VALUES
 (N'₫', N'VND(₫) - Viet Nam Dong', 1, 1, 1, GETDATE(), N'system'),
 (N'$', N'USD($) - United States Dollar', 1, 1, 2, GETDATE(), N'system'),
@@ -160,11 +160,11 @@ VALUES
 (N'₩', N'KRW(₩) - Korea Won', 1, 1, 4, GETDATE(), N'system')
 GO
 
-INSERT INTO [dbo].[Tax] ([Name], [Description], [Value], [Enable], [SEQ], [CreatedDate], [CreatedUser])
+INSERT INTO [dbo].[TAX] ([NAME], [DESCRIPTION], [VALUE], [ENABLE], [SEQ], [CREATEDDATE], [CREATEDUSER])
 VALUES (N'VAT', N'Value-added tax', 10, 1, 1, GETDATE(), N'system')
 GO
 
-INSERT INTO SystemInformation(Name, Description, Value, Type)
+INSERT INTO SYSTEMINFORMATION(NAME, DESCRIPTION, VALUE, TYPE)
 VALUES
 ('ProductName', 'Product name', 'SMS - Shop management system', 1),
 ('ProductVersion', 'Product version', '1.0.0', 1),
