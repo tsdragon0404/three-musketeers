@@ -1,1372 +1,902 @@
 ﻿SET NOCOUNT ON;
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Area]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Area](
-        [AreaID] [int] IDENTITY(1,1) NOT NULL,
-        [VNName] [nvarchar](255) NULL,
-        [ENName] [nvarchar](255) NULL,
-        [BranchID] [int] NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Area] PRIMARY KEY CLUSTERED 
-    (
-        [AreaID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Branch]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Branch](
-        [BranchID] [int] IDENTITY(1,1) NOT NULL,
-        [VNName] [nvarchar](255) NULL,
-        [ENName] [nvarchar](255) NULL,
-        [CurrencyID] [int] NULL,
-        [UseServiceFee] [bit] NULL,
-        [ServiceFee] [numeric](19, 2) NULL,
-        [UseDiscountOnProduct] [bit] NULL,
-        [UseKitchenFunction] [bit] NULL,
-		[UseInventory] [bit] NULL,
-		[DepotID] [int] NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Branch] PRIMARY KEY CLUSTERED 
-    (
-        [BranchID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BranchInfo]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[BranchInfo](
-        [BranchID] [int] NOT NULL,
-        [CompanyCode] [nvarchar](255) NULL,
-        [CompanyName] [nvarchar](510) NULL,
-        [Phone] [nvarchar](50) NULL,
-        [Fax] [nvarchar](50) NULL,
-        [Email] [nvarchar](255) NULL,
-        [TaxCode] [nvarchar](50) NULL,
-        [Address] [nvarchar](510) NULL,
-        [Info1] [nvarchar](510) NULL,
-        [Info2] [nvarchar](510) NULL,
-        [Info3] [nvarchar](510) NULL,
-        [Info4] [nvarchar](510) NULL,
-        [Info5] [nvarchar](510) NULL,
-        [Info6] [nvarchar](510) NULL,
-        [Info7] [nvarchar](510) NULL,
-        [Info8] [nvarchar](510) NULL,
-        [Info9] [nvarchar](510) NULL,
-        [Info10] [nvarchar](510) NULL,
-     CONSTRAINT [PK_BranchInfo] PRIMARY KEY CLUSTERED 
-    (
-        [BranchID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BranchTax]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[BranchTax](
-        [BranchTaxID] [int] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [TaxID] [int] NULL,
-     CONSTRAINT [PK_BranchTax] PRIMARY KEY CLUSTERED 
-    (
-        [BranchTaxID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Currency]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Currency](
-        [CurrencyID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [nvarchar](50) NOT NULL,
-        [Description] [nvarchar](255) NOT NULL,
-        [Exchange] [numeric](19, 2) NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Currency] PRIMARY KEY CLUSTERED 
-    (
-        [CurrencyID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Customer](
-        [CustomerID] [int] IDENTITY(1,1) NOT NULL,
-        [CustomerCode] [nvarchar](50) NOT NULL,
-        [CustomerName] [nvarchar](255) NULL,
-        [CellPhone] [nvarchar](50) NULL,
-        [Address] [nvarchar](510) NULL,
-        [DOB] [datetime] NULL,
-        [BranchID] [int] NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
-    (
-        [CustomerID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ErrorMessage]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[ErrorMessage](
-        [ErrorMessageID] [int] NOT NULL,
-        [MessageID] [int] NULL,
-        [BranchID] [int] NULL,
-        [VNMessage] [nvarchar](1000) NULL,
-        [ENMessage] [nvarchar](1000) NULL,
-     CONSTRAINT [PK_ErrorMessage] PRIMARY KEY CLUSTERED 
-    (
-        [ErrorMessageID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Invoice](
-        [InvoiceID] [bigint] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [InvoiceNumber] [nvarchar](50) NULL,
-        [InvoiceDate] [datetime] NULL,
-		[InvoiceCreatedBy] [nvarchar](50) NULL,
-        [Comment] [nvarchar](255) NULL,
-        [CustomerID] [int] NULL,
-        [CustomerName] [nvarchar](255) NULL,
-        [CellPhone] [nvarchar](50) NULL,
-        [Address] [nvarchar](510) NULL,
-        [DOB] [datetime] NULL,
-        [ServiceFee] [numeric](19, 2) NULL,
-        [OtherFee] [numeric](19, 2) NULL,
-        [OtherFeeDescription] [nvarchar](255) NULL,
-		[TaxInfo] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-        [Currency] [nvarchar](50) NULL,
-        [PaymentMethod] [tinyint] NULL,
-		[TaxAmount] [numeric](19, 2) NULL,
-		[DiscountAmount] [numeric](19, 2) NULL,
-		[InvoiceAmount] [numeric](19, 2) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
-    (
-        [InvoiceID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceDetail]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[InvoiceDetail](
-        [InvoiceDetailID] [bigint] IDENTITY(1,1) NOT NULL,
-        [InvoiceTableID] [bigint] NULL,
-        [ProductCode] [nvarchar](50) NULL,
-        [ProductVNName] [nvarchar](1000) NULL,
-        [ProductENName] [nvarchar](1000) NULL,
-        [Quantity] [numeric](10, 2) NULL,
-        [UnitVNName] [nvarchar](255) NULL,
-        [UnitENName] [nvarchar](255) NULL,
-        [Price] [numeric](19, 2) NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-		[DiscountAmount] [numeric](19, 2) NULL,
-		[Amount] [numeric](19, 2) NULL,
-		[CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_InvoiceDetail] PRIMARY KEY CLUSTERED 
-    (
-        [InvoiceDetailID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceDiscount]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[InvoiceDiscount](
-        [InvoiceDiscountID] [bigint] IDENTITY(1,1) NOT NULL,
-        [InvoiceID] [bigint] NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-     CONSTRAINT [PK_InvoiceDiscount] PRIMARY KEY CLUSTERED 
-    (
-        [InvoiceDiscountID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceTable]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[InvoiceTable](
-        [InvoiceTableID] [bigint] IDENTITY(1,1) NOT NULL,
-        [InvoiceID] [bigint] NULL,
-        [TableID] [int] NULL,
-        [TableVNName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-        [TableENName] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-        [ServiceFee] [numeric](19, 2) NULL,
-        [OtherFee] [numeric](19, 2) NULL,
-        [OtherFeeDescription] [nvarchar](255) NULL,
-		[DetailAmount] [numeric](19, 2) NULL,
-		[DiscountAmount] [numeric](19, 2) NULL,
-		[Amount] [numeric](19, 2) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_InvoiceTable] PRIMARY KEY CLUSTERED 
-    (
-        [InvoiceTableID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Product]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Product](
-        [ProductID] [int] IDENTITY(1,1) NOT NULL,
-        [ProductCode] [nvarchar](50) NULL,
-        [VNName] [nvarchar](1000) NULL,
-        [ENName] [nvarchar](1000) NULL,
-        [VNDescription] [nvarchar](1000) NULL,
-        [ENDescription] [nvarchar](1000) NULL,
-        [UnitID] [int] NULL,
-        [ProductCategoryID] [int] NULL,
-        [Price] [numeric](19, 2) NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
-    (
-        [ProductID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductCategory]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[ProductCategory](
-        [ProductCategoryID] [int] IDENTITY(1,1) NOT NULL,
-        [ProductCategoryCode] [nvarchar](50) NULL,
-        [VNName] [nvarchar](255) NULL,
-        [ENName] [nvarchar](255) NULL,
-        [VNDescription] [nvarchar](255) NULL,
-        [ENDescription] [nvarchar](255) NULL,
-        [BranchID] [int] NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED 
-    (
-        [ProductCategoryID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductPriceHistory]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[ProductPriceHistory](
-        [ProductPriceHistoryID] [bigint] IDENTITY(1,1) NOT NULL,
-        [ProductID] [int] NULL,
-        [OldPrice] [numeric](19, 2) NULL,
-        [NewPrice] [numeric](19, 2) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_ProductPriceHistory] PRIMARY KEY CLUSTERED 
-    (
-        [ProductPriceHistoryID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SystemInformation]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[SystemInformation](
-        [SystemInformationID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [nvarchar](255) NOT NULL,
-		[Description] [nvarchar](255) NOT NULL,
-        [Value] [nvarchar](510) NULL,
-		[Type] [tinyint] NULL,
-     CONSTRAINT [PK_SystemInformation] PRIMARY KEY CLUSTERED 
-    (
-        [SystemInformationID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Table]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Table](
-        [TableID] [int] IDENTITY(1,1) NOT NULL,
-        [VNName] [nvarchar](255) NULL,
-        [ENName] [nvarchar](255) NULL,
-        [AreaID] [int] NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED 
-    (
-        [TableID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tax]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Tax](
-        [TaxID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [nvarchar](10) NOT NULL,
-        [Description] [nvarchar](255) NULL,
-        [Value] [numeric](5, 2) NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Tax] PRIMARY KEY CLUSTERED 
-    (
-        [TaxID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Unit]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Unit](
-        [UnitID] [int] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [VNName] [nvarchar](255) NULL,
-        [ENName] [nvarchar](255) NULL,
-        [Enable] [bit] NULL,
-        [SEQ] [int] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Unit] PRIMARY KEY CLUSTERED 
-    (
-        [UnitID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[User](
-        [UserID] [int] IDENTITY(1,1) NOT NULL,
-        [Username] [nvarchar](255) NOT NULL,
-        [Password] [nvarchar](1000) NOT NULL,
-        [FirstName] [nvarchar](255) NULL,
-        [LastName] [nvarchar](255) NULL,
-        [CellPhone] [nvarchar](50) NULL,
-        [Email] [nvarchar](255) NULL,
-        [Address] [nvarchar](255) NULL,
-        [LastLoginDate] [datetime] NULL,
-        [IsSystemAdmin] [bit] NOT NULL,
-        [UseSystemConfig] [bit] NOT NULL DEFAULT(0),
-        [IsLockedOut] [bit] NOT NULL,
-        [LastLockedOutDate] [datetime] NULL,
-        [FailedPasswordAttemptCount] [int] NOT NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
-    (
-        [UserID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserBranch]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[UserBranch](
-    [UserBranchID] [bigint] IDENTITY(1,1) NOT NULL,
-    [UserID] [int] NULL,
-    [BranchID] [int] NULL,
- CONSTRAINT [PK_UserBranch] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[AREA](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[BRANCHID] [int] NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_AREA] PRIMARY KEY CLUSTERED 
 (
-    [UserBranchID] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-END
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserConfig]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[UserConfig](
-        [UserConfigID] [bigint] IDENTITY(1,1) NOT NULL,
-        [UserID] [int] NULL,
-        [BranchID] [int] NULL,
-        [IsSuspended] [bit] NULL,
-        [DefaultAreaID] [bigint] NULL,
-        [ListTableHeight] [numeric](19, 2) NULL,
-        [PageSize] [int] NULL,
-        [Theme] [nvarchar](50) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_UserConfig] PRIMARY KEY CLUSTERED 
-    (
-        [UserConfigID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[BRANCH](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[CURRENCYID] [int] NULL,
+	[USESERVICEFEE] [bit] NULL,
+	[SERVICEFEE] [numeric](19, 2) NULL,
+	[USEDISCOUNTONPRODUCT] [bit] NULL,
+	[USEKITCHENFUNCTION] [bit] NULL,
+	[USEINVENTORY] [bit] NULL,
+	[DEPOTID] [int] NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_BRANCH] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UsersInRole]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[UsersInRole](
-        [UsersInRoleID] [int] IDENTITY(1,1) NOT NULL,
-        [UserID] [int] NOT NULL,
-        [RoleID] [int] NOT NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_UsersInRole] PRIMARY KEY CLUSTERED 
-    (
-        [UsersInRoleID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Page]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Page](
-        [PageID] [int] NOT NULL,
-        [VNTitle] [nvarchar](255) NULL,
-        [ENTitle] [nvarchar](255) NULL,
-        [VNDescription] [nvarchar](500) NULL,
-        [ENDescription] [nvarchar](500) NULL,
-        [Type] [tinyint] NULL,
-        [Area] [nvarchar](50) NULL,
-        [Controller] [nvarchar](50) NULL,
-        [Action] [nvarchar](50) NULL,
-		[Enable] [bit] NULL,
-    CONSTRAINT [PK_Page] PRIMARY KEY CLUSTERED 
-    (
-        [PageID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[BRANCHINFO](
+	[ID] [int] NOT NULL,
+	[COMPANYCODE] [nvarchar](255) NULL,
+	[COMPANYNAME] [nvarchar](510) NULL,
+	[PHONE] [nvarchar](50) NULL,
+	[FAX] [nvarchar](50) NULL,
+	[EMAIL] [nvarchar](255) NULL,
+	[TAXCODE] [nvarchar](50) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[INFO1] [nvarchar](510) NULL,
+	[INFO2] [nvarchar](510) NULL,
+	[INFO3] [nvarchar](510) NULL,
+	[INFO4] [nvarchar](510) NULL,
+	[INFO5] [nvarchar](510) NULL,
+	[INFO6] [nvarchar](510) NULL,
+	[INFO7] [nvarchar](510) NULL,
+	[INFO8] [nvarchar](510) NULL,
+	[INFO9] [nvarchar](510) NULL,
+	[INFO10] [nvarchar](510) NULL,
+ CONSTRAINT [PK_BRANCHINFO] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageLabel]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[PageLabel](
-        [PageLabelID] [bigint] IDENTITY(1,1) NOT NULL,
-        [LabelID] [nvarchar](50) NULL,
-        [BranchID] [int] NULL,
-        [PageID] [int] NULL,
-        [VNText] [nvarchar](500) NULL,
-        [ENText] [nvarchar](500) NULL,
-     CONSTRAINT [PK_PageLabel] PRIMARY KEY CLUSTERED 
-    (
-        [PageLabelID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[BRANCHTAX](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[TAXID] [int] NULL,
+ CONSTRAINT [PK_BRANCHTAX] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Order](
-        [OrderID] [bigint] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [OrderNumber] [nvarchar](50) NULL,
-        [Comment] [nvarchar](255) NULL,
-        [CustomerID] [int] NULL,
-        [CustomerName] [nvarchar](255) NULL,
-        [CellPhone] [nvarchar](50) NULL,
-        [Address] [nvarchar](510) NULL,
-        [DOB] [datetime] NULL,
-        [OtherFee] [numeric](19, 2) NULL,
-        [OtherFeeDescription] [nvarchar](255) NULL,
-		[OrderProgressStatus] [tinyint] NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
-    (
-        [OrderID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[BRANDINGTEXT](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[KEY] [nvarchar](100) NULL,
+	[VNVALUE] [nvarchar](1000) NULL,
+	[ENVALUE] [nvarchar](1000) NULL,
+ CONSTRAINT [PK_BRANDINGTEXT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDetail]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[OrderDetail](
-        [OrderDetailID] [bigint] IDENTITY(1,1) NOT NULL,
-        [OrderTableID] [bigint] NULL,
-        [ProductID] [int] NULL,
-        [Quantity] [numeric](10, 2) NULL,
-        [Comment] [nvarchar](255) NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-        [KitchenComment] [nvarchar] (255) NULL,
-        [OrderStatus] [tinyint] NULL,
-		[CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
-    (
-        [OrderDetailID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[CATEGORY](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CATEGORYCODE] [nvarchar](50) NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[VNDESCRIPTION] [nvarchar](255) NULL,
+	[ENDESCTIPTION] [nvarchar](255) NULL,
+	[BRANCHID] [int] NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_CATEGORY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDiscount]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[OrderDiscount](
-        [OrderDiscountID] [bigint] IDENTITY(1,1) NOT NULL,
-        [OrderID] [bigint] NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-     CONSTRAINT [PK_OrderDiscount] PRIMARY KEY CLUSTERED 
-    (
-        [OrderDiscountID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[CURRENCY](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[NAME] [nvarchar](50) NOT NULL,
+	[DESCRIPTION] [nvarchar](255) NOT NULL,
+	[EXCHANGE] [numeric](19, 2) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_CURRENCY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderTable]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[OrderTable](
-        [OrderTableID] [bigint] IDENTITY(1,1) NOT NULL,
-        [OrderID] [bigint] NULL,
-        [TableID] [int] NULL,
-        [Discount] [numeric](19, 2) NULL,
-        [DiscountType] [tinyint] NULL,
-        [DiscountCode] [nvarchar](50) NULL,
-        [DiscountComment] [nvarchar](255) NULL,
-        [UseServiceFee] [bit] NULL,
-        [OtherFee] [numeric](19, 2) NULL,
-        [OtherFeeDescription] [nvarchar](255) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-    CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
-    (
-        [OrderTableID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[CUSTOMER](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CUSTOMERCODE] [nvarchar](50) NOT NULL,
+	[CUSTOMERNAME] [nvarchar](255) NULL,
+	[CELLPHONE] [nvarchar](50) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[DOB] [datetime] NULL,
+	[BRANCHID] [int] NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_CUSTOMER] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PageMenu]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[PageMenu](
-        [PageMenuID] [int] NOT NULL,
-        [GroupName] [nvarchar](50) NULL,
-        [ParentID] [int] NULL,
-        [PageID] [int] NULL,
-        [SEQ] [int] NULL,
-    CONSTRAINT [PK_PageMenu] PRIMARY KEY CLUSTERED 
-    (
-        [PageMenuID] ASC
-    )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[DELIVERYITEM](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DELIVERYNOTEID] [bigint] NULL,
+	[ITEMID] [bigint] NULL,
+	[QUANTITY] [numeric](10, 2) NULL,
+	[UNITPRICE] [numeric](19, 2) NULL,
+	[AMOUNT] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DELIVERYITEM] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Role]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Role](
-        [RoleID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [nvarchar](64) NOT NULL,
-        [BranchID] [int] NULL,
-        [Enable] [bit] NULL,
-     CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
-    (
-        [RoleID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[DELIVERYNOTE](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPOTID] [int] NULL,
+	[DELIVERYNUMBER] [nvarchar](50) NULL,
+	[DELIVERYDATE] [datetime] NULL,
+	[DELIVERYTYPEID] [tinyint] NULL,
+	[COMMENT] [nvarchar](255) NULL,
+	[CUSTOMERID] [bigint] NULL,
+	[TODEPOTID] [bigint] NULL,
+	[DOCUMENTID] [bigint] NULL,
+	[RECEIVER] [nvarchar](255) NULL,
+	[SHIPADDRESS] [nvarchar](1000) NULL,
+	[SHIPCONTACT] [nvarchar](1000) NULL,
+	[TOTALAMOUNT] [numeric](19, 2) NULL,
+	[CURRENCY] [nvarchar](50) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DELIVERYNOTE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RolePermission]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[RolePermission](
-        [RolePermissionID] [bigint] IDENTITY(1,1) NOT NULL,
-        [RoleID] [int] NOT NULL,
-        [PageID] [int] NOT NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-        [ModifiedDate] [datetime] NULL,
-        [ModifiedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_RolePermission] PRIMARY KEY CLUSTERED 
-    (
-        [RolePermissionID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[DELIVERYTYPE](
+	[ID] [tinyint] IDENTITY(1,1) NOT NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[USEIMPORTPRICE] [bit] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DELIVERYTYPE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Report]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Report](
-        [ReportID] [int] IDENTITY(1,1) NOT NULL,
-        [Name] [nvarchar](50) NOT NULL,
-        [VNTitle] [nvarchar](100) NULL,
-        [ENTitle] [nvarchar](100) NULL,
-     CONSTRAINT [PK_Report] PRIMARY KEY CLUSTERED 
-    (
-        [ReportID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[DEPOT](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[DEPOTCODE] [nvarchar](50) NULL,
+	[DEPOTNAME] [nvarchar](1000) NULL,
+	[PHONE] [nvarchar](50) NULL,
+	[FAX] [nvarchar](50) NULL,
+	[EMAIL] [nvarchar](255) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DEPOT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReportDatasource]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[ReportDatasource](
-        [ReportDatasourceID] [int] IDENTITY(1,1) NOT NULL,
-        [ReportID] [int] NULL,
-        [Name] [nvarchar](50) NULL,
-     CONSTRAINT [PK_ReportDatasource] PRIMARY KEY CLUSTERED 
-    (
-        [ReportDatasourceID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[DOCUMENT](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[FILENAME] [nchar](10) NULL,
+	[FILETYPE] [nvarchar](50) NULL,
+	[DOCUMENTTYPE] [varchar](10) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DOCUMENT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReportDatasourceParameter]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[ReportDatasourceParameter](
-        [ReportDatasourceParameterID] [int] IDENTITY(1,1) NOT NULL,
-        [ReportDatasourceID] [int] NULL,
-        [Name] [nvarchar](50) NULL,
-        [Type] [int] NULL,
-     CONSTRAINT [PK_ReportDatasourceParameter] PRIMARY KEY CLUSTERED 
-    (
-        [ReportDatasourceParameterID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ERRORMESSAGE](
+	[ID] [int] NOT NULL,
+	[MESSAGEID] [int] NULL,
+	[BRANCHID] [int] NULL,
+	[VNMESSAGE] [nvarchar](1000) NULL,
+	[ENMESSAGE] [nvarchar](1000) NULL,
+ CONSTRAINT [PK_ERRORMESSAGE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Reject]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[Reject](
-        [RejectID] [bigint] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [ProductCode] [nvarchar](50) NULL,
-        [ProductVNName] [nvarchar](1000) NULL,
-        [ProductENName] [nvarchar](1000) NULL,
-        [Quantity] [numeric](10, 2) NULL,
-        [UnitVNName] [nvarchar](255) NULL,
-        [UnitENName] [nvarchar](255) NULL,
-        [OrderComment] [nvarchar](255) NULL,
-        [KitchenComment] [nvarchar](255) NULL,
-        [CreatedDate] [datetime] NULL,
-        [CreatedUser] [nvarchar](50) NULL,
-     CONSTRAINT [PK_Reject] PRIMARY KEY CLUSTERED 
-    (
-        [RejectID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[INVENTORY](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPOTID] [int] NULL,
+	[ITEMID] [bigint] NULL,
+	[QUANTITY] [numeric](10, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_INVENTORY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrandingText]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[BrandingText](
-        [BrandingTextID] [int] IDENTITY(1,1) NOT NULL,
-        [BranchID] [int] NULL,
-        [Key] [nvarchar](100) NULL,
-        [VNValue] [nvarchar](1000) NULL,
-        [ENValue] [nvarchar](1000) NULL,
-     CONSTRAINT [PK_BrandingText] PRIMARY KEY CLUSTERED 
-    (
-        [BrandingTextID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[INVOICE](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[INVOICENUMBER] [nvarchar](50) NULL,
+	[INVOICEDATE] [datetime] NULL,
+	[COMMENT] [nvarchar](255) NULL,
+	[CUSTOMERID] [int] NULL,
+	[CUSTOMERNAME] [nvarchar](255) NULL,
+	[CELLPHONE] [nvarchar](50) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[DOB] [datetime] NULL,
+	[SERVICEFEE] [numeric](19, 2) NULL,
+	[OTHERFEE] [numeric](19, 2) NULL,
+	[OTHERFEEDESCRIPTION] [nvarchar](255) NULL,
+	[TAXINFO] [nvarchar](255) NULL,
+	[CURRENCYID] [nvarchar](50) NULL,
+	[PAYMENTMETHOD] [tinyint] NULL,
+	[TAXMOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTADMOUNT] [numeric](19, 2) NULL,
+	[INVOICEAMOUNT] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_INVOICE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UploadedFile]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE [dbo].[UploadedFile](
-        [UploadedFileID] [int] IDENTITY(1,1) NOT NULL,
-        [Category] [tinyint] NULL,
-        [PhysicalPath] [nvarchar](100) NULL,
-        [UploadedDateTime] [datetime] NULL,
-        [UploadedBy] [nvarchar](50) NULL,
-     CONSTRAINT [PK_UploadedFile] PRIMARY KEY CLUSTERED 
-    (
-        [UploadedFileID] ASC
-    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-    ) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[INVOICEDETAIL](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[INVOICETABLEID] [bigint] NULL,
+	[PRODUCTID] [int] NULL,
+	[QUANTITY] [numeric](10, 2) NULL,
+	[UNITPRICE] [numeric](19, 2) NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+	[DISCOUNTAMOUNT] [numeric](19, 2) NULL,
+	[AMOUNT] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_INVOICEDETAIL] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DEPOT]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[DEPOT](
-		[ID] [int] IDENTITY(1,1) NOT NULL,
-		[DEPOTCODE] [nvarchar](50) NULL,
-		[DEPOTNAME] [nvarchar](1000) NULL,
-		[PHONE] [nvarchar](50) NULL,
-		[FAX] [nvarchar](50) NULL,
-		[EMAIL] [nvarchar](255) NULL,
-		[ADDRESS] [nvarchar](510) NULL,
-		[ENABLE] [bit] NULL,
-		[SEQ] [int] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DEPOT] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[INVOICEDISCOUNT](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[INVOICEID] [bigint] NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+ CONSTRAINT [PK_INVOICEDISCOUNT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ITEM]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[ITEM](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[ITEMCODE] [nvarchar](50) NULL,
-		[VNNAME] [nvarchar](1000) NULL,
-		[ENNAME] [nvarchar](1000) NULL,
-		[VNDESCRIPTION] [nvarchar](1000) NULL,
-		[ENDESCRIPTION] [nvarchar](1000) NULL,
-		[UNITID] [int] NULL,
-		[PRODUCTCATEGORYID] [int] NULL,
-		[ISINVENTORY] [bit] NULL,
-		[MINQUANTITY] [numeric](10, 2) NULL,
-		[ENABLE] [bit] NULL,
-		[SEQ] [int] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_ITEM] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[INVOICETABLE](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[INVOICEID] [bigint] NULL,
+	[TABLEID] [int] NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+	[SERVICEFEE] [numeric](19, 2) NULL,
+	[OTHERFEE] [numeric](19, 2) NULL,
+	[OTHERFEEDESCRIPTION] [nvarchar](255) NULL,
+	[DETAILAMOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTAMOUNT] [numeric](19, 2) NULL,
+	[AMOUNT] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_INVOICETABLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VENDOR]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[VENDOR](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[VENDORNUMBER] [nvarchar](50) NULL,
-		[VENDORNAME] [nvarchar](1000) NULL,
-		[PHONE] [nvarchar](50) NULL,
-		[FAX] [nvarchar](50) NULL,
-		[EMAIL] [nvarchar](255) NULL,
-		[TAXCODE] [nvarchar](50) NULL,
-		[ADDRESS] [nvarchar](510) NULL,
-		[ENABLE] [bit] NULL,
-		[SEQ] [int] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_VENDOR] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ITEM](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[ITEMCODE] [nvarchar](50) NULL,
+	[VNNAME] [nvarchar](1000) NULL,
+	[ENNAME] [nvarchar](1000) NULL,
+	[VNDESCRIPTION] [nvarchar](1000) NULL,
+	[ENDESCRIPTION] [nvarchar](1000) NULL,
+	[UNITID] [int] NULL,
+	[CATEGORYID] [int] NULL,
+	[ISINVENTORY] [bit] NULL,
+	[MINQUANTITY] [numeric](10, 2) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ITEM] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYITEM]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[DELIVERYITEM](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DELIVERYNOTEID] [bigint] NULL,
-		[ITEMID] [bigint] NULL,
-		[QUANTITY] [numeric](10, 2) NULL,
-		[UNITPRICE] [numeric](19, 2) NULL,
-		[AMOUNT] [numeric](19, 2) NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DELIVERYITEM] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ORDER](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[ORDERNUMBER] [nvarchar](50) NULL,
+	[COMMENT] [nvarchar](255) NULL,
+	[CUSTOMERID] [int] NULL,
+	[CUSTOMERNAME] [nvarchar](255) NULL,
+	[CELLPHONE] [nvarchar](50) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[DOB] [datetime] NULL,
+	[OTHERFEE] [numeric](19, 2) NULL,
+	[OTHERFEEDESCRIPTION] [nvarchar](255) NULL,
+	[ORDERPROGRESSSTATUS] [tinyint] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ORDER] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYNOTE]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[DELIVERYNOTE](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DEPOTID] [int] NULL,
-		[DELIVERYNUMBER] [nvarchar](50) NULL,
-		[DELIVERYDATE] [datetime] NULL,
-		[DELIVERYTYPEID] [tinyint] NULL,
-		[COMMENT] [nvarchar](255) NULL,
-		[CUSTOMERID] [bigint] NULL,
-		[TODEPOTID] [bigint] NULL,
-		[DOCUMENTID] [bigint] NULL,
-		[RECEIVER] [nvarchar](255) NULL,
-		[SHIPADDRESS] [nvarchar](1000) NULL,
-		[SHIPCONTACT] [nvarchar](1000) NULL,
-		[TOTALAMOUNT] [numeric](19, 2) NULL,
-		[CURRENCY] [nvarchar](50) NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DELIVERYNOTE] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ORDERDETAIL](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[ORDERTABLEID] [bigint] NULL,
+	[PRODUCTID] [int] NULL,
+	[QUANTIY] [numeric](10, 2) NULL,
+	[COMMENT] [nvarchar](255) NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+	[KITCHENCOMMENT] [nvarchar](255) NULL,
+	[ORDERSTATUS] [tinyint] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ORDERDETAIL] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DELIVERYTYPE]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[DELIVERYTYPE](
-		[ID] [tinyint] IDENTITY(1,1) NOT NULL,
-		[VNNAME] [nvarchar](255) NULL,
-		[ENNAME] [nvarchar](255) NULL,
-		[USEIMPORTPRICE] [bit] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_DELIVERYTYPE] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ORDERDISCOUNT](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[ORDERID] [bigint] NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+ CONSTRAINT [PK_ORDERDISCOUNT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[INVENTORY]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[INVENTORY](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DEPOTID] [int] NULL,
-		[ITEMID] [bigint] NULL,
-		[QUANTITY] [numeric](10, 2) NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_INVENTORY] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[ORDERTABLE](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[ORDERID] [bigint] NULL,
+	[TABLEID] [int] NULL,
+	[DISCOUNT] [numeric](19, 2) NULL,
+	[DISCOUNTTYPE] [tinyint] NULL,
+	[DISCOUNTCODE] [nvarchar](50) NULL,
+	[DISCOUNTCOMMENT] [nvarchar](255) NULL,
+	[USESERVICEFEE] [bit] NULL,
+	[OTHERFEE] [numeric](19, 2) NULL,
+	[OTHERFEEDESCRIPTION] [nvarchar](255) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ORDERTABLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTNOTE]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[RECEIPTNOTE](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DEPOTID] [int] NULL,
-		[RECEIPTNUMBER] [nvarchar](50) NULL,
-		[RECEIPTDATE] [datetime] NULL,
-		[VENDORID] [bigint] NULL,
-		[FROMDEPOTID] [int] NULL,
-		[SHIPPER] [nvarchar](255) NULL,
-		[COMMENT] [nvarchar](255) NULL,
-		[DOCUMENTID] [bigint] NULL,
-		[TOTALAMOUNT] [numeric](19, 2) NULL,
-		[CURRENCY] [nvarchar](50) NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_RECEIPTNOTE] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[PAGE](
+	[ID] [int] NOT NULL,
+	[VNTITLE] [nvarchar](255) NULL,
+	[ENTITLE] [nvarchar](255) NULL,
+	[VNDESCRIPTION] [nvarchar](500) NULL,
+	[ENDESCRIPTION] [nvarchar](500) NULL,
+	[TYPE] [tinyint] NULL,
+	[AREA] [nvarchar](50) NULL,
+	[CONTROLLER] [nvarchar](50) NULL,
+	[ACTION] [nvarchar](50) NULL,
+	[ENABLE] [bit] NULL,
+ CONSTRAINT [PK_PAGE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTITEM]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[RECEIPTITEM](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[RECEIPTNOTEID] [bigint] NULL,
-		[ITEMID] [bigint] NULL,
-		[QUANTITY] [numeric](10, 2) NULL,
-		[UNITPRICE] [numeric](19, 2) NULL,
-		[AMOUNT] [numeric](19, 2) NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_RECEIPTITEM] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[PAGELABEL](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[LABELID] [nvarchar](50) NULL,
+	[BRANCHID] [int] NULL,
+	[PAGEID] [int] NULL,
+	[VNTEXT] [nvarchar](500) NULL,
+	[ENTEXT] [nvarchar](500) NULL,
+ CONSTRAINT [PK_PAGELABEL] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PAYMENTVOUCHER]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[PAYMENTVOUCHER](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DEPOTID] [int] NULL,
-		[PAYMENTNUMBER] [nvarchar](50) NULL,
-		[PAYMENTDATE] [date] NULL,
-		[VENDORID] [bigint] NULL,
-		[TODEPOTID] [int] NULL,
-		[RECEIVER] [nvarchar](255) NULL,
-		[TOTALAMOUNT] [numeric](19, 2) NULL,
-		[INWORDS] [nvarchar](510) NULL,
-		[DESCRIPTION] [nvarchar](510) NULL,
-		[DOCUMENTID] [bigint] NULL,
-		[ENABLE] [bit] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_PAYMENTVOUCHER_1] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[PAGEMENU](
+	[ID] [int] NOT NULL,
+	[GROUPNAME] [nvarchar](50) NULL,
+	[PARENTID] [int] NULL,
+	[PAGEID] [int] NULL,
+	[SEQ] [int] NULL,
+ CONSTRAINT [PK_PAGEMENU] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RECEIPTVOUCHER]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [dbo].[RECEIPTVOUCHER](
-		[ID] [bigint] IDENTITY(1,1) NOT NULL,
-		[DEPOTID] [int] NULL,
-		[RECEIPTNUMBER] [nvarchar](50) NULL,
-		[RECEIPTDATE] [date] NULL,
-		[CUSTOMERID] [int] NULL,
-		[FROMDEPOTID] [int] NULL,
-		[PAYER] [nvarchar](255) NULL,
-		[TOTALAMOUNT] [numeric](19, 2) NULL,
-		[INWORDS] [nvarchar](510) NULL,
-		[DESCRIPTION] [nvarchar](510) NULL,
-		[DOCUMENTID] [bigint] NULL,
-		[ENABLE] [bit] NULL,
-		[CREATEDDATE] [datetime] NULL,
-		[CREATEDUSER] [nvarchar](50) NULL,
-		[MODIFIEDDATE] [datetime] NULL,
-		[MODIFIEDUSER] [nvarchar](50) NULL,
-	 CONSTRAINT [PK_RECEIPTVOUCHER] PRIMARY KEY CLUSTERED 
-	(
-		[ID] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-END
+CREATE TABLE [dbo].[PAYMENTVOUCHER](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPOTID] [int] NULL,
+	[PAYMENTNUMBER] [nvarchar](50) NULL,
+	[PAYMENTDATE] [date] NULL,
+	[VENDORID] [bigint] NULL,
+	[TODEPOTID] [int] NULL,
+	[RECEIVER] [nvarchar](255) NULL,
+	[TOTALAMOUNT] [numeric](19, 2) NULL,
+	[INWORDS] [nvarchar](510) NULL,
+	[DESCRIPTION] [nvarchar](510) NULL,
+	[DOCUMENTID] [bigint] NULL,
+	[ENABLE] [bit] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_PAYMENTVOUCHER_1] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
+
+CREATE TABLE [dbo].[PRODUCT](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[PRODUCTCODE] [nvarchar](50) NULL,
+	[VNNAME] [nvarchar](1000) NULL,
+	[ENNAME] [nvarchar](1000) NULL,
+	[VNDESCRIPTION] [nvarchar](1000) NULL,
+	[ENDESCRIPTION] [nvarchar](1000) NULL,
+	[UNITID] [int] NULL,
+	[CATEGORYID] [int] NULL,
+	[UNITPRICE] [numeric](19, 2) NULL,
+	[ENBLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_PRODUCT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PRODUCTPRICEHISTORY](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[PRODUCTID] [int] NULL,
+	[OLDUNITPRICE] [numeric](19, 2) NULL,
+	[NEWUNITPRICE] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_PRODUCTPRICEHISTORY] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[RECEIPTITEM](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[RECEIPTNOTEID] [bigint] NULL,
+	[ITEMID] [bigint] NULL,
+	[QUANTITY] [numeric](10, 2) NULL,
+	[UNITPRICE] [numeric](19, 2) NULL,
+	[AMOUNT] [numeric](19, 2) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_RECEIPTITEM] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[RECEIPTNOTE](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPOTID] [int] NULL,
+	[RECEIPTNUMBER] [nvarchar](50) NULL,
+	[RECEIPTDATE] [datetime] NULL,
+	[VENDORID] [bigint] NULL,
+	[FROMDEPOTID] [int] NULL,
+	[SHIPPER] [nvarchar](255) NULL,
+	[COMMENT] [nvarchar](255) NULL,
+	[DOCUMENTID] [bigint] NULL,
+	[TOTALAMOUNT] [numeric](19, 2) NULL,
+	[CURRENCY] [nvarchar](50) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_RECEIPTNOTE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[RECEIPTVOUCHER](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPOTID] [int] NULL,
+	[RECEIPTNUMBER] [nvarchar](50) NULL,
+	[RECEIPTDATE] [date] NULL,
+	[CUSTOMERID] [int] NULL,
+	[FROMDEPOTID] [int] NULL,
+	[PAYER] [nvarchar](255) NULL,
+	[TOTALAMOUNT] [numeric](19, 2) NULL,
+	[INWORDS] [nvarchar](510) NULL,
+	[DESCRIPTION] [nvarchar](510) NULL,
+	[DOCUMENTID] [bigint] NULL,
+	[ENABLE] [bit] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_RECEIPTVOUCHER] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[REJECT](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[PRODUCTID] [int] NULL,
+	[QUANTITY] [numeric](10, 2) NULL,
+	[ORDERCOMMENT] [nvarchar](255) NULL,
+	[KITCHENCOMMENT] [nvarchar](255) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_REJECT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ROLE](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[VNNAME] [nvarchar](510) NOT NULL,
+	[ENNAME] [nvarchar](510) NULL,
+	[BRANCHID] [int] NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ROLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ROLEPERMISSION](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[ROLEID] [int] NOT NULL,
+	[PAGEID] [int] NOT NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_ROLEPERMISSION] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[SQLSTATEMENT](
+	[NAME] [varchar](255) NOT NULL,
+	[QUERYSTRING] [nvarchar](1000) NULL,
+	[DESCRIPTION] [nvarchar](510) NULL,
+ CONSTRAINT [PK_SQLSTATEMENT] PRIMARY KEY CLUSTERED 
+(
+	[NAME] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[SYSTEMINFORMATION](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[NAME] [nvarchar](255) NOT NULL,
+	[DESCRIPTION] [nvarchar](255) NOT NULL,
+	[VALUE] [nvarchar](510) NULL,
+	[TYPE] [tinyint] NULL,
+ CONSTRAINT [PK_SYSTEMINFORMATION] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TABLE](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[AREAID] [int] NULL,
+	[ENABE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_TABLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TAX](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[NAME] [nvarchar](10) NOT NULL,
+	[DESCRIPTION] [nvarchar](255) NULL,
+	[VALUE] [numeric](5, 2) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_TAX] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[UNIT](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[BRANCHID] [int] NULL,
+	[VNNAME] [nvarchar](255) NULL,
+	[ENNAME] [nvarchar](255) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_UNIT] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[UPLOADEDFILE](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CATEGORY] [tinyint] NULL,
+	[PHYSICALPATH] [nvarchar](100) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_UPLOADEDFILE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[USER](
+	[ID] [uniqueidentifier] NOT NULL,
+	[USERNAME] [nvarchar](255) NOT NULL,
+	[PASSWORD] [nvarchar](1000) NOT NULL,
+	[FIRSTNAME] [nvarchar](255) NULL,
+	[LASTNAME] [nvarchar](255) NULL,
+	[CELLPHONE] [nvarchar](50) NULL,
+	[EMAIL] [nvarchar](255) NULL,
+	[ADDRESS] [nvarchar](255) NULL,
+	[LASTLOGINDATE] [datetime] NULL,
+	[ISSYSTEMADMIN] [bit] NULL,
+	[USESYSTEMCONFIG] [bit] NULL,
+	[ISLOCKEDOUT] [bit] NULL,
+	[LASTLOCKEDOUTDATE] [datetime] NULL,
+	[FAILEDPASSWORDATTEMPTCOUNT] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_USER] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[USERBRANCH](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[USERID] [uniqueidentifier] NULL,
+	[BRANCHID] [int] NULL,
+ CONSTRAINT [PK_USERBRANCH] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[USERCONFIG](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[USERID] [uniqueidentifier] NULL,
+	[BRANCHID] [int] NULL,
+	[ISSUSPENDED] [bit] NULL,
+	[DEFAULTAREA] [int] NULL,
+	[LISTTABLEHEIGHT] [numeric](19, 2) NULL,
+	[PAGESIZE] [int] NULL,
+	[THEME] [nvarchar](50) NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_USERCONFIG] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[USERINROLE](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[USERID] [uniqueidentifier] NULL,
+	[ROLEID] [int] NOT NULL,
+ CONSTRAINT [PK_USERINROLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[VENDOR](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[VENDORNUMBER] [nvarchar](50) NULL,
+	[VENDORNAME] [nvarchar](1000) NULL,
+	[PHONE] [nvarchar](50) NULL,
+	[FAX] [nvarchar](50) NULL,
+	[EMAIL] [nvarchar](255) NULL,
+	[TAXCODE] [nvarchar](50) NULL,
+	[ADDRESS] [nvarchar](510) NULL,
+	[ENABLE] [bit] NULL,
+	[SEQ] [int] NULL,
+	[CREATEDDATE] [datetime] NULL,
+	[CREATEDUSER] [nvarchar](50) NULL,
+	[MODIFIEDDATE] [datetime] NULL,
+	[MODIFIEDUSER] [nvarchar](50) NULL,
+ CONSTRAINT [PK_VENDOR] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
 /*************************************************************************************/
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageLabel_Page]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[PageLabel]  WITH CHECK ADD  CONSTRAINT [FK_PageLabel_Page] FOREIGN KEY([PageID])
-    REFERENCES [dbo].[Page] ([PageID])
-
-    ALTER TABLE [dbo].[PageLabel] CHECK CONSTRAINT [FK_PageLabel_Page]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Area_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Area] WITH CHECK ADD CONSTRAINT [FK_Area_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Area] CHECK CONSTRAINT [FK_Area_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Branch_Currency]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Branch] WITH CHECK ADD CONSTRAINT [FK_Branch_Currency] FOREIGN KEY([CurrencyID])
-    REFERENCES [dbo].[Currency] ([CurrencyID])
-
-    ALTER TABLE [dbo].[Branch] CHECK CONSTRAINT [FK_Branch_Currency]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_BranchTax_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[BranchTax] WITH CHECK ADD CONSTRAINT [FK_BranchTax_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[BranchTax] CHECK CONSTRAINT [FK_BranchTax_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_BranchTax_Tax]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[BranchTax] WITH CHECK ADD CONSTRAINT [FK_BranchTax_Tax] FOREIGN KEY([TaxID])
-    REFERENCES [dbo].[Tax] ([TaxID])
-
-    ALTER TABLE [dbo].[BranchTax] CHECK CONSTRAINT [FK_BranchTax_Tax]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Customer_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Customer] WITH CHECK ADD CONSTRAINT [FK_Customer_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Customer] CHECK CONSTRAINT [FK_Customer_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Invoice_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Invoice] WITH CHECK ADD CONSTRAINT [FK_Invoice_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Invoice] CHECK CONSTRAINT [FK_Invoice_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_InvoiceDetail_InvoiceTable]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[InvoiceDetail] WITH CHECK ADD CONSTRAINT [FK_InvoiceDetail_InvoiceTable] FOREIGN KEY([InvoiceTableID])
-    REFERENCES [dbo].[InvoiceTable] ([InvoiceTableID])
-
-    ALTER TABLE [dbo].[InvoiceDetail] CHECK CONSTRAINT [FK_InvoiceDetail_InvoiceTable]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_InvoiceDiscount_Invoice]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[InvoiceDiscount] WITH CHECK ADD CONSTRAINT [FK_InvoiceDiscount_Invoice] FOREIGN KEY([InvoiceID])
-    REFERENCES [dbo].[Invoice] ([InvoiceID])
-
-    ALTER TABLE [dbo].[InvoiceDiscount] CHECK CONSTRAINT [FK_InvoiceDiscount_Invoice]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_InvoiceTable_Invoice]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[InvoiceTable] WITH CHECK ADD CONSTRAINT [FK_InvoiceTable_Invoice] FOREIGN KEY([InvoiceID])
-    REFERENCES [dbo].[Invoice] ([InvoiceID])
-
-    ALTER TABLE [dbo].[InvoiceTable] CHECK CONSTRAINT [FK_InvoiceTable_Invoice]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_InvoiceTable_Table]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[InvoiceTable] WITH CHECK ADD CONSTRAINT [FK_InvoiceTable_Table] FOREIGN KEY([TableID])
-    REFERENCES [dbo].[Table] ([TableID])
-
-    ALTER TABLE [dbo].[InvoiceTable] CHECK CONSTRAINT [FK_InvoiceTable_Table]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Product_ProductCategory]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Product] WITH CHECK ADD CONSTRAINT [FK_Product_ProductCategory] FOREIGN KEY([ProductCategoryID])
-    REFERENCES [dbo].[ProductCategory] ([ProductCategoryID])
-
-    ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK_Product_ProductCategory]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Product_Unit]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Product] WITH CHECK ADD CONSTRAINT [FK_Product_Unit] FOREIGN KEY([UnitID])
-    REFERENCES [dbo].[Unit] ([UnitID])
-
-    ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK_Product_Unit]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_ProductCategory_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[ProductCategory] WITH CHECK ADD CONSTRAINT [FK_ProductCategory_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[ProductCategory] CHECK CONSTRAINT [FK_ProductCategory_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_ProductPriceHistory_Product]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[ProductPriceHistory] WITH CHECK ADD CONSTRAINT [FK_ProductPriceHistory_Product] FOREIGN KEY([ProductID])
-    REFERENCES [dbo].[Product] ([ProductID])
-
-    ALTER TABLE [dbo].[ProductPriceHistory] CHECK CONSTRAINT [FK_ProductPriceHistory_Product]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Table_Area]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Table] WITH CHECK ADD CONSTRAINT [FK_Table_Area] FOREIGN KEY([AreaID])
-    REFERENCES [dbo].[Area] ([AreaID])
-
-    ALTER TABLE [dbo].[Table] CHECK CONSTRAINT [FK_Table_Area]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Unit_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Unit] WITH CHECK ADD CONSTRAINT [FK_Unit_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Unit] CHECK CONSTRAINT [FK_Unit_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UserBranch_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[UserBranch] WITH CHECK ADD CONSTRAINT [FK_UserBranch_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[UserBranch] CHECK CONSTRAINT [FK_UserBranch_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UserBranch_User]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[UserBranch] WITH CHECK ADD CONSTRAINT [FK_UserBranch_User] FOREIGN KEY([UserID])
-    REFERENCES [dbo].[User] ([UserID])
-
-    ALTER TABLE [dbo].[UserBranch] CHECK CONSTRAINT [FK_UserBranch_User]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDetail_OrderTable]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_OrderTable] FOREIGN KEY([OrderTableID])
-    REFERENCES [dbo].[OrderTable] ([OrderTableID])
-
-    ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_OrderTable]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDetail_Product]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Product] FOREIGN KEY([ProductID])
-    REFERENCES [dbo].[Product] ([ProductID])
-
-    ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_Product]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderDiscount_Order]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[OrderDiscount]  WITH CHECK ADD  CONSTRAINT [FK_OrderDiscount_Order] FOREIGN KEY([OrderID])
-    REFERENCES [dbo].[Order] ([OrderID])
-
-    ALTER TABLE [dbo].[OrderDiscount] CHECK CONSTRAINT [FK_OrderDiscount_Order]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderTable_Order]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[OrderTable]  WITH CHECK ADD  CONSTRAINT [FK_OrderTable_Order] FOREIGN KEY([OrderID])
-    REFERENCES [dbo].[Order] ([OrderID])
-
-    ALTER TABLE [dbo].[OrderTable] CHECK CONSTRAINT [FK_OrderTable_Order]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_OrderTable_Table]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[OrderTable]  WITH CHECK ADD  CONSTRAINT [FK_OrderTable_Table] FOREIGN KEY([TableID])
-    REFERENCES [dbo].[Table] ([TableID])
-
-    ALTER TABLE [dbo].[OrderTable] CHECK CONSTRAINT [FK_OrderTable_Table]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Order_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Order] WITH CHECK ADD CONSTRAINT [FK_Order_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_Role_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[Role]  WITH CHECK ADD  CONSTRAINT [FK_Role_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[Role] CHECK CONSTRAINT [FK_Role_Branch]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_PageMenu_Page]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[PageMenu]  WITH CHECK ADD  CONSTRAINT [FK_PageMenu_Page] FOREIGN KEY([PageID])
-    REFERENCES [dbo].[Page] ([PageID])
-
-    ALTER TABLE [dbo].[PageMenu] CHECK CONSTRAINT [FK_PageMenu_Page]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_IsSystemAdmin]') AND type in (N'D'))
-BEGIN
-    ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_IsSystemAdmin]  DEFAULT ((0)) FOR [IsSystemAdmin]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_IsLockedOut]') AND type in (N'D'))
-BEGIN
-    ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_IsLockedOut]  DEFAULT ((0)) FOR [IsLockedOut]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[DF_User_FailedPasswordAttemptCount]') AND type in (N'D'))
-BEGIN
-    ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_FailedPasswordAttemptCount]  DEFAULT ((0)) FOR [FailedPasswordAttemptCount]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UsersInRole_Role]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[UsersInRole]  WITH CHECK ADD  CONSTRAINT [FK_UsersInRole_Role] FOREIGN KEY([RoleID])
-    REFERENCES [dbo].[Role] ([RoleID])
-
-    ALTER TABLE [dbo].[UsersInRole] CHECK CONSTRAINT [FK_UsersInRole_Role]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_UsersInRole_User]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[UsersInRole]  WITH CHECK ADD  CONSTRAINT [FK_UsersInRole_User] FOREIGN KEY([UserID])
-    REFERENCES [dbo].[User] ([UserID])
-
-    ALTER TABLE [dbo].[UsersInRole] CHECK CONSTRAINT [FK_UsersInRole_User]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_RolePermission_Role]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK_RolePermission_Role] FOREIGN KEY([RoleID])
-    REFERENCES [dbo].[Role] ([RoleID])
-
-    ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK_RolePermission_Role]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_RolePermission_User]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK_RolePermission_User] FOREIGN KEY([PageID])
-    REFERENCES [dbo].[Page] ([PageID])
-
-    ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK_RolePermission_User]
-END
-GO
-
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[FK_BrandingText_Branch]') AND type in (N'F'))
-BEGIN
-    ALTER TABLE [dbo].[BrandingText] WITH CHECK ADD CONSTRAINT [FK_BrandingText_Branch] FOREIGN KEY([BranchID])
-    REFERENCES [dbo].[Branch] ([BranchID])
-
-    ALTER TABLE [dbo].[BrandingText] CHECK CONSTRAINT [FK_BrandingText_Branch]
-END
-GO
-
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-
-CREATE TRIGGER [dbo].[trigger_ProductPriceLog] ON dbo.Product FOR UPDATE
+CREATE TRIGGER [dbo].[trigger_ProductPriceLog] ON [dbo].[PRODUCT] FOR UPDATE
 AS
     SET NOCOUNT ON
-    IF UPDATE(Price)
+    IF UPDATE(UNITPRICE)
     BEGIN
         DECLARE @oldPrice NUMERIC(12, 2);
-        SELECT @oldPrice = Price FROM deleted;
+        SELECT @oldPrice = UNITPRICE FROM deleted;
 
-        IF EXISTS ( SELECT TOP 1 1 FROM inserted WHERE Price <> @oldPrice )
+        IF EXISTS ( SELECT TOP 1 1 FROM inserted WHERE UNITPRICE <> @oldPrice )
         BEGIN
-            INSERT INTO dbo.ProductPriceHistory (ProductID, OldPrice, NewPrice, CreatedDate, CreatedUser )
-            SELECT ProductID, @oldPrice, Price, ModifiedDate, ModifiedUser FROM inserted
+            INSERT INTO dbo.ProductPriceHistory (PRODUCTID, OLDUNITPRICE, NEWUNITPRICE, CREATEDDATE, CREATEDUSER )
+            SELECT ID, @oldPrice, UNITPRICE, MODIFIEDDATE, MODIFIEDUSER FROM inserted
         END
     END
 GO
