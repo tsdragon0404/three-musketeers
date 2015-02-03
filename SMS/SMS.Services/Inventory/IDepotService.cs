@@ -1,6 +1,6 @@
 ﻿
 using System.Collections.Generic;
-using SMS.Data.Dtos.Inventory;
+using SMS.Data.Dtos;
 
 namespace SMS.Services.Inventory
 {

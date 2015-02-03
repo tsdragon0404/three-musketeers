@@ -1,19 +1,15 @@
-﻿using Core.Data;
+﻿using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class PageMenu : Entity, ISortableEntity
+    [TableName("PAGEMENU")]
+    [PrimaryKey("ID")]
+    public class PageMenu
     {
-        public virtual string GroupName { get; set; }
-
-        public virtual long PageID { get; set; }
-
-        public virtual long ParentID { get; set; }
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
+        public long ID { get; set; }
+        public string GroupName { get; set; }
+        public long PageID { get; set; }
+        public long ParentID { get; set; }
+        public int SEQ { get; set; }
     }
 }

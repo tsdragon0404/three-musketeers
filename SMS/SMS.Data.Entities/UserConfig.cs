@@ -1,34 +1,24 @@
 ﻿using System;
-using Core.Data;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class UserConfig : Entity, IAuditableEntity
+    [TableName("USERCONFIG")]
+    [PrimaryKey("ID")]
+    public class UserConfig
     {
-        public virtual long UserID { get; set; }
+        public long ID { get; set; }
+        public Guid UserID { get; set; }
+        public long BranchID { get; set; }
+        public long DefaultAreaID { get; set; }
+        public decimal ListTableHeight { get; set; }
+        public int PageSize { get; set; }
+        public bool IsSuspended { get; set; }
+        public string Theme { get; set; }
 
-        public virtual long BranchID { get; set; }
-
-        public virtual long DefaultAreaID { get; set; }
-
-        public virtual decimal ListTableHeight { get; set; }
-
-        public virtual int PageSize { get; set; }
-
-        public virtual bool IsSuspended { get; set; }
-
-        public virtual string Theme { get; set; }
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

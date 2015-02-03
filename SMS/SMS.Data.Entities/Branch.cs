@@ -1,58 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using Core.Data;
-using SMS.Data.Entities.Inventory;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Branch : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    [TableName("BRANCH")]
+    [PrimaryKey("ID")]
+    public class Branch
     {
-        public virtual string VNName { get; set; }
+        public long ID { get; set; }
+        public string VNName { get; set; }
+        public string ENName { get; set; }
+        public long CurrencyID { get; set; }
+        public bool UseServiceFee { get; set; }
+        public decimal ServiceFee { get; set; }
+        public bool UseDiscountOnProduct { get; set; }
+        public bool UseKitchenFunction { get; set; }
+        public bool UseInventory { get; set; }
+        public int DepotID { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
 
-        public virtual string ENName { get; set; }
-
-        public virtual Currency Currency { get; set; }
-
-        public virtual bool UseServiceFee { get; set; }
-
-        public virtual decimal ServiceFee { get; set; }
-
-        public virtual bool UseDiscountOnProduct { get; set; }
-
-        public virtual bool UseKitchenFunction { get; set; }
-
-        public virtual bool UseInventory { get; set; }
-
-        public virtual int DepotID { get; set; }
-
-        public virtual IList<Tax> Taxs { get; set; }
-
-        public virtual BranchInfo BranchInfo { get; set; }
-
-        public virtual IList<User> Users { get; set; }
-
-        #region Implementation of IEnableEntity
-
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

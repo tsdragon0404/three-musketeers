@@ -1,13 +1,15 @@
-﻿namespace SMS.Data.Entities
+﻿using Core.Data.PetaPoco;
+
+namespace SMS.Data.Entities
 {
-    public class ErrorMessage : Entity
+    [TableName("ERRORMESSAGE")]
+    [PrimaryKey("ID")]
+    public class ErrorMessage
     {
-        public virtual long MessageID { get; set; }
-
-        public virtual string VNMessage { get; set; }
-
-        public virtual string ENMessage { get; set; }
-
-        public virtual long BranchID { get; set; }
+        public long ID { get; set; }
+        public long MessageID { get; set; }
+        public string VNMessage { get; set; }
+        public string ENMessage { get; set; }
+        public long BranchID { get; set; }
     }
 }

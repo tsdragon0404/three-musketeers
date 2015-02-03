@@ -1,6 +1,6 @@
-﻿using Core.Data.PetaPoco;
+using Core.Data.PetaPoco;
 
-namespace SMS.Data.Entities.Inventory
+namespace SMS.Data.Entities
 {
     [TableName("SQLSTATEMENT")]
     [PrimaryKey("NAME")]

@@ -1,44 +1,25 @@
 ﻿using System;
-using Core.Data;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Customer : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    [TableName("CUSTOMER")]
+    [PrimaryKey("ID")]
+    public class Customer
     {
-        public virtual string CustomerCode { get; set; }
+        public long ID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string CellPhone { get; set; }
+        public string Address { get; set; }
+        public DateTime? DOB { get; set; }
+        public long? BranchID { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
 
-        public virtual string CustomerName { get; set; }
-
-        public virtual string CellPhone { get; set; }
-
-        public virtual string Address { get; set; }
-
-        public virtual DateTime? DOB { get; set; }
-
-        public virtual long BranchID { get; set; }
-
-        #region Implementation of IEnableEntity
-
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

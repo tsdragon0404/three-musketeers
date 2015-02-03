@@ -1,15 +1,16 @@
-﻿namespace SMS.Data.Entities
+﻿using Core.Data.PetaPoco;
+
+namespace SMS.Data.Entities
 {
-    public class PageLabel : Entity
+    [TableName("PAGELABEL")]
+    [PrimaryKey("ID")]
+    public class PageLabel
     {
-        public virtual long BranchID { get; set; }
-
-        public virtual string LabelID { get; set; }
-
-        public virtual Page Page { get; set; }
-
-        public virtual string VNText { get; set; }
-
-        public virtual string ENText { get; set; }
+        public long ID { get; set; }
+        public long BranchID { get; set; }
+        public string LabelID { get; set; }
+        public long PageID { get; set; }
+        public string VNText { get; set; }
+        public string ENText { get; set; }
     }
 }
