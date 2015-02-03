@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using SMS.Business.Inventory;
-using SMS.Data.Dtos.Inventory;
+using SMS.Data.Dtos;
 
 namespace SMS.Services.Impl.Inventory
 {
@@ -8,7 +8,7 @@ namespace SMS.Services.Impl.Inventory
     {
         public virtual IProductCategoryManagement Management { get; set; }
 
-        public List<ProductCategoryDto> GetList()
+        public List<CategoryDto> GetList()
         {
             return Management.GetList();
         }
@@ -18,22 +18,22 @@ namespace SMS.Services.Impl.Inventory
             return Management.GetListForInventory<TModel>();
         }
 
-        public ProductCategoryDto GetByID(long itemID)
+        public CategoryDto GetByID(long itemID)
         {
             return Management.GetByID(itemID);
         }
 
-        public ProductCategoryDto GetByIDForInventory(long itemID)
+        public CategoryDto GetByIDForInventory(long itemID)
         {
             return Management.GetByIDForInventory(itemID);
         }
 
-        public ProductCategoryDto Save(ProductCategoryDto item)
+        public CategoryDto Save(CategoryDto item)
         {
             return Management.Save(item);
         }
 
-        public ProductCategoryDto SaveForInventory(ProductCategoryDto item)
+        public CategoryDto SaveForInventory(CategoryDto item)
         {
             return Management.SaveForInventory(item);
         }

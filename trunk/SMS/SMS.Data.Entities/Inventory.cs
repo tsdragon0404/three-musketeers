@@ -3,16 +3,14 @@ using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    [TableName("CURRENCY")]
+    [TableName("INVENTORY")]
     [PrimaryKey("ID")]
-    public class Currency
+    public class Inventory
     {
         public long ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Exchange { get; set; }
-        public bool Enable { get; set; }
-        public int SEQ { get; set; }
+        public long DepotID { get; set; }
+        public long ItemID { get; set; }
+        public decimal Quantity { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }

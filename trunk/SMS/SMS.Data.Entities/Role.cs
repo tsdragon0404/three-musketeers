@@ -1,23 +1,22 @@
-﻿using System.Collections.Generic;
-using Core.Data;
-using SMS.Data.Entities.Interfaces;
+﻿using System;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Role : Entity, IEnableEntity, IBranchEntity
+    [TableName("ROLE")]
+    [PrimaryKey("ID")]
+    public class Role
     {
-        public virtual string Name { get; set; }
+        public long ID { get; set; }
+        public string VNName { get; set; }
+        public string ENName { get; set; }
+        public long BranchID { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
 
-        public virtual bool Enable { get; set; }
-
-        public virtual IList<User> UsersInRole { get; set; }
-
-        public virtual IList<Page> Pages { get; set; }
-
-        #region Implementation of IBranchEntity
-
-        public virtual Branch Branch { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

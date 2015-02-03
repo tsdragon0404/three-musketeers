@@ -1,43 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using Core.Data;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Table : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    [TableName("TABLE")]
+    [PrimaryKey("ID")]
+    public class Table
     {
-        public virtual string VNName { get; set; }
+        public long ID { get; set; }
+        public string VNName { get; set; }
+        public string ENName { get; set; }
+        public long AreaID { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
 
-        public virtual string ENName { get; set; }
-
-        public virtual Area Area { get; set; }
-
-        public virtual IList<InvoiceTable> InvoiceTables { get; set; }
-
-        public virtual IList<OrderTable> OrderTables { get; set; }
-
-        #region Implementation of IEnableEntity
-
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

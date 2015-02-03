@@ -1,17 +1,17 @@
-﻿using SMS.Common.Enums;
+﻿using Core.Data.PetaPoco;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class OrderDiscount : Entity
+    [TableName("ORDERDISCOUNT")]
+    [PrimaryKey("ID")]
+    public class OrderDiscount
     {
-        public virtual long OrderID { get; set; }
-
-        public virtual decimal Discount { get; set; }
-
-        public virtual DiscountType DiscountType { get; set; }
-
-        public virtual string DiscountCode { get; set; }
-
-        public virtual string DiscountComment { get; set; }
+        public long ID { get; set; }
+        public long OrderID { get; set; }
+        public decimal Discount { get; set; }
+        public DiscountType DiscountType { get; set; }
+        public string DiscountCode { get; set; }
+        public string DiscountComment { get; set; }
     }
 }

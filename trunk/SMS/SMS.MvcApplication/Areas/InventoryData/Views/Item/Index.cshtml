@@ -2,7 +2,7 @@
 @using SMS.Common.Constant
 @using SMS.Common.Enums
 @using SMS.Common.Storage
-@model SMS.MvcApplication.Models.AdminModel<SMS.Data.Dtos.Inventory.ItemDto>
+@model SMS.MvcApplication.Models.AdminModel<SMS.Data.Dtos.ItemDto>
 
 <script id="record-tmpl" type="text/x-jquery-tmpl">
     <tr class="admin-record-detail" style="display: none;">
@@ -53,7 +53,7 @@
                             @foreach (KeyValuePair<long, string> keyValue in ViewBag.CategoryDictionary)
                             {
                                 <text>
-                                    {{if ProductCategoryID == @keyValue.Key}}
+                                    {{if CategoryID == @keyValue.Key}}
                                     <option value="@keyValue.Key" selected>@keyValue.Value</option>
                                     {{else}}
                                     <option value="@keyValue.Key">@keyValue.Value</option>
@@ -165,7 +165,7 @@
                         <td>@dto.ENName</td>
                         <td>@dto.ENDescription</td>
                     }
-                    <td>@ViewBag.CategoryDictionary[dto.ProductCategoryID]</td>
+                    <td>@ViewBag.CategoryDictionary[dto.CategoryID]</td>
                     @if(dto.IsInventory)
                     {
                         <td>✔</td>

@@ -1,10 +1,13 @@
-﻿using System;
+using System;
+using Core.Data.PetaPoco;
 
-namespace SMS.Data.Dtos.Inventory
+namespace SMS.Data.Entities
 {
-    public class ReceiptNoteDto
+    [TableName("RECEIPTNOTE")]
+    [PrimaryKey("ID")]
+    public class ReceiptNote
     {
-        public long ReceiptNoteID { get; set; }
+        public long ID { get; set; }
         public long? BranchID { get; set; }
         public string ReceiptNumber { get; set; }
         public DateTime? ReceiptDate { get; set; }

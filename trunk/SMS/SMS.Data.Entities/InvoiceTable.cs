@@ -1,52 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using Core.Data;
+using Core.Data.PetaPoco;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class InvoiceTable : Entity, IAuditableEntity
+    [TableName("INVOICETABLE")]
+    [PrimaryKey("ID")]
+    public class InvoiceTable
     {
-        public virtual Invoice Invoice { get; set; }
+        public long ID { get; set; }
+        public long InvoiceID { get; set; }
+        public long TableID { get; set; }
+        public decimal Discount { get; set; }
+        public DiscountType DiscountType { get; set; }
+        public string DiscountCode { get; set; }
+        public string DiscountComment { get; set; }
+        public decimal ServiceFee { get; set; }
+        public decimal OtherFee { get; set; }
+        public string OtherFeeDescription { get; set; }
+        public decimal DetailAmount { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal Amount { get; set; }
 
-        public virtual long TableID { get; set; }
-
-        public virtual string TableVNName { get; set; }
-
-        public virtual string TableENName { get; set; }
-
-        public virtual decimal Discount { get; set; }
-
-        public virtual DiscountType DiscountType { get; set; }
-
-        public virtual string DiscountCode { get; set; }
-
-        public virtual string DiscountComment { get; set; }
-
-        public virtual decimal ServiceFee { get; set; }
-
-        public virtual decimal OtherFee { get; set; }
-
-        public virtual string OtherFeeDescription { get; set; }
-
-        public virtual decimal DetailAmount { get; set; }
-		
-        public virtual decimal DiscountAmount { get; set; }
-
-        public virtual decimal Amount { get; set; }
-
-        public virtual IList<InvoiceDetail> InvoiceDetails { get; set; }
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

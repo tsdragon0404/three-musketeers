@@ -1,16 +1,18 @@
 ﻿using System;
+using Core.Data.PetaPoco;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class UploadedFile : Entity
+    [TableName("UPLOADEDFILE")]
+    [PrimaryKey("ID")]
+    public class UploadedFile
     {
-        public virtual UploadedFileCategory Category { get; set; }
-
-        public virtual string PhysicalPath { get; set; }
-
-        public virtual DateTime UploadedDateTime { get; set; }
-
-        public virtual string UploadedBy { get; set; }
+        public long ID { get; set; }
+        public UploadedFileCategory Category { get; set; }
+        public string PhysicalPath { get; set; }
+        
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
     }
 }

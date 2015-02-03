@@ -1,48 +1,27 @@
 ﻿using System;
-using Core.Data;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Product : Entity, IAuditableEntity, ISortableEntity, IEnableEntity
+    [TableName("PRODUCT")]
+    [PrimaryKey("ID")]
+    public class Product
     {
-        public virtual string ProductCode { get; set; }
-
-        public virtual string VNName { get; set; }
-
-        public virtual string ENName { get; set; }
-
-        public virtual string VNDescription { get; set; }
-
-        public virtual string ENDescription { get; set; }
-
-        public virtual Unit Unit { get; set; }
-
-        public virtual ProductCategory ProductCategory { get; set; }
-
-        public virtual decimal Price { get; set; }
-
-        #region Implementation of IEnableEntity
-
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
-
-        #region Implementation of IAuditableEntity
+        public long ID { get; set; }
+        public string ProductCode { get; set; }
+        public string VNName { get; set; }
+        public string ENName { get; set; }
+        public string VNDescription { get; set; }
+        public string ENDescription { get; set; }
+        public long UnitID { get; set; }
+        public long CategoryID { get; set; }
+        public decimal UnitPrice { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
         
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

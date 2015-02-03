@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    [TableName("CURRENCY")]
+    [TableName("RECEIPTITEM")]
     [PrimaryKey("ID")]
-    public class Currency
+    public class ReceiptItem
     {
         public long ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Exchange { get; set; }
-        public bool Enable { get; set; }
-        public int SEQ { get; set; }
+        public long ReceiptNoteID { get; set; }
+        public long ItemID { get; set; }
+        public decimal Quantity{ get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal Amount { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }

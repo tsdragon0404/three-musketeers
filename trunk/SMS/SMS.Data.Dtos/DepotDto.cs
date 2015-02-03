@@ -1,21 +1,16 @@
-﻿using System;
-using Core.Data.PetaPoco;
+using System;
 
-namespace SMS.Data.Entities.Inventory
+namespace SMS.Data.Dtos
 {
-    [TableName("DEPOT")]
-    [PrimaryKey("ID")]
-    public class Depot
+    public class DepotDto : EnableSortableDto
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string DepotCode { get; set; }
         public string DepotName { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public bool Enable { get; set; }
-        public int SEQ { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }

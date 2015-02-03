@@ -1,9 +1,14 @@
-﻿namespace SMS.Data.Entities
-{
-    public class UserBranch : Entity
-    {
-        public virtual long UserID { get; set; }
+﻿using System;
+using Core.Data.PetaPoco;
 
-        public virtual long BranchID { get; set; }
+namespace SMS.Data.Entities
+{
+    [TableName("USERBRANCH")]
+    [PrimaryKey("ID")]
+    public class UserBranch
+    {
+        public long ID { get; set; }
+        public Guid UserID { get; set; }
+        public long BranchID { get; set; }
     }
 }

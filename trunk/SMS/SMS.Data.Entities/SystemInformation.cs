@@ -1,15 +1,16 @@
-﻿using SMS.Common.Enums;
+﻿using Core.Data.PetaPoco;
+using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class SystemInformation : Entity
+    [TableName("SYSTEMINFORMATION")]
+    [PrimaryKey("ID")]
+    public class SystemInformation
     {
-        public virtual string Name { get; set; }
-
-        public virtual string Description { get; set; }
-
-        public virtual string Value { get; set; }
-
-        public virtual SystemInformationType Type { get; set; }
+        public long ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Value { get; set; }
+        public SystemInformationType Type { get; set; }
     }
 }

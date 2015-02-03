@@ -1,64 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Data;
+using Core.Data.PetaPoco;
 using SMS.Common.Enums;
-using SMS.Common.Storage;
 
 namespace SMS.Data.Entities
 {
-    public class OrderTable : Entity, IAuditableEntity
+    [TableName("ORDERTABLE")]
+    [PrimaryKey("ID")]
+    public class OrderTable
     {
-        public virtual Order Order { get; set; }
+        public long ID { get; set; }
+        public long OrderID { get; set; }
+        public long TableID { get; set; }
+        public decimal Discount { get; set; }
+        public DiscountType DiscountType { get; set; }
+        public string DiscountCode { get; set; }
+        public string DiscountComment { get; set; }
+        public bool UseServiceFee { get; set; }
+        public decimal OtherFee { get; set; }
+        public string OtherFeeDescription { get; set; }
 
-        public virtual Table Table { get; set; }
-
-        public virtual decimal Discount { get; set; }
-
-        public virtual DiscountType DiscountType { get; set; }
-
-        public virtual string DiscountCode { get; set; }
-
-        public virtual string DiscountComment { get; set; }
-
-        public virtual bool UseServiceFee { get; set; }
-
-        public virtual decimal OtherFee { get; set; }
-
-        public virtual string OtherFeeDescription { get; set; }
-
-        public virtual IList<OrderDetail> OrderDetails { get; set; }
-
-        public virtual decimal ServiceFee
-        {
-            get { return SmsCache.BranchConfigs.Current.UseServiceFee ? (UseServiceFee ? SmsCache.BranchConfigs.Current.ServiceFee : 0) : 0; }
-        }
-
-        public virtual decimal DetailAmount
-        {
-            get { return !OrderDetails.Any() ? 0 : OrderDetails.Sum(x => x.Amount); }
-        }
-
-        public virtual decimal DiscountAmount
-        {
-            get { return DiscountType == DiscountType.Number ? Discount : DetailAmount * Discount / 100; }
-        }
-
-        public virtual decimal Amount
-        {
-            get { return DetailAmount + ServiceFee + OtherFee - DiscountAmount; }
-        }
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

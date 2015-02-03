@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
+using SMS.Data.Dtos;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 
@@ -19,9 +20,9 @@ namespace SMS.MvcApplication.Areas.InventoryData.Controllers
         [HttpGet]
         public virtual ActionResult Index()
         {
-            var recordList = Service.GetListForInventory<Data.Dtos.Inventory.ProductCategoryDto>();
+            var recordList = Service.GetListForInventory<CategoryDto>();
 
-            var model = new AdminModel<Data.Dtos.Inventory.ProductCategoryDto>
+            var model = new AdminModel<CategoryDto>
             {
                 ListRecord = recordList,
                 CanAdd = true,
@@ -41,11 +42,11 @@ namespace SMS.MvcApplication.Areas.InventoryData.Controllers
         [HttpPost]
         public virtual JsonResult GetSchemaForAdd()
         {
-            return Json(JsonModel.Create(new Data.Dtos.Inventory.ProductCategoryDto()));
+            return Json(JsonModel.Create(new CategoryDto()));
         }
 
         [HttpPost]
-        public virtual JsonResult SaveData(Data.Dtos.Inventory.ProductCategoryDto data)
+        public virtual JsonResult SaveData(CategoryDto data)
         {
             return Json(JsonModel.Create(Service.SaveForInventory(data)));
         }

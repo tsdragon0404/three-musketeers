@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using SMS.Common.Constant;
 using SMS.Common.CustomAttributes;
 using SMS.Data.Dtos;
-using SMS.Data.Dtos.Inventory;
 using SMS.MvcApplication.Base;
 using SMS.MvcApplication.Models;
 using SMS.Services;

@@ -1,56 +1,28 @@
 ﻿using System;
-using Core.Data;
+using Core.Data.PetaPoco;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Entities
 {
-    public class OrderDetail : Entity, IAuditableEntity
+    [TableName("ORDERDETAIL")]
+    [PrimaryKey("ID")]
+    public class OrderDetail
     {
-        public virtual OrderTable OrderTable { get; set; }
+        public long ID { get; set; }
+        public long OrderTableID { get; set; }
+        public long ProductID { get; set; }
+        public decimal Quantity { get; set; }
+        public string Comment { get; set; }
+        public decimal Discount { get; set; }
+        public DiscountType DiscountType { get; set; }
+        public string DiscountCode { get; set; }
+        public string DiscountComment { get; set; }
+        public string KitchenComment { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
-        public virtual Product Product { get; set; }
-
-        public virtual decimal Quantity { get; set; }
-
-        public virtual string Comment { get; set; }
-
-        public virtual decimal Discount { get; set; }
-
-        public virtual DiscountType DiscountType { get; set; }
-
-        public virtual string DiscountCode { get; set; }
-
-        public virtual string DiscountComment { get; set; }
-
-        public virtual string KitchenComment { get; set; }
-
-        public virtual decimal SubTotal
-        {
-            get { return Quantity * Product.Price; }
-        }
-
-        public virtual decimal DiscountAmount
-        {
-            get { return DiscountType == DiscountType.Number ? Discount : SubTotal * Discount/100; }
-        }
-
-        public virtual decimal Amount
-        {
-            get { return Quantity * Product.Price - DiscountAmount; }
-        }
-
-        public virtual OrderStatus OrderStatus { get; set; }
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

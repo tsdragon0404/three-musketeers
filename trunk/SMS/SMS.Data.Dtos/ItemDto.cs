@@ -1,11 +1,8 @@
-﻿using System;
-using Core.Data.PetaPoco;
+using System;
 
-namespace SMS.Data.Entities.Inventory
+namespace SMS.Data.Dtos
 {
-    [TableName("ITEM")]
-    [PrimaryKey("ID")]
-    public class Item
+    public class ItemDto : EnableSortableDto
     {
         public long ID { get; set; }
         public string ItemCode { get; set; }
@@ -14,11 +11,9 @@ namespace SMS.Data.Entities.Inventory
         public string VNDescription { get; set; }
         public string ENDescription { get; set; }
         public long UnitID { get; set; }
-        public long ProductCategoryID { get; set; }
+        public long CategoryID { get; set; }
         public bool IsInventory { get; set; }
         public decimal MinQuantity { get; set; }
-        public bool Enable { get; set; }
-        public int SEQ { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public string CreatedUser { get; set; }

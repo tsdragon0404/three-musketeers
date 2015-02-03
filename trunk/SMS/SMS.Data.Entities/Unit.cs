@@ -1,43 +1,22 @@
 ﻿using System;
-using Core.Data;
-using SMS.Data.Entities.Interfaces;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class Unit : Entity, IAuditableEntity, ISortableEntity, IEnableEntity, IBranchEntity
+    [TableName("UNIT")]
+    [PrimaryKey("ID")]
+    public class Unit
     {
-        public virtual string VNName { get; set; }
+        public long ID { get; set; }
+        public long BranchID { get; set; }
+        public string VNName { get; set; }
+        public string ENName { get; set; }
+        public bool Enable { get; set; }
+        public int SEQ { get; set; }
 
-        public virtual string ENName { get; set; }
-
-        #region Implementation of IBranchEntity
-
-        public virtual Branch Branch { get; set; }
-
-        #endregion
-
-        #region Implementation of IEnableEntity
-
-        public virtual bool Enable { get; set; }
-
-        #endregion
-
-        #region Implementation of ISortableEntity
-
-        public virtual int SEQ { get; set; }
-
-        #endregion
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedUser { get; set; }
     }
 }

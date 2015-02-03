@@ -1,24 +1,14 @@
 ﻿using System;
-using Core.Data;
+using Core.Data.PetaPoco;
 
 namespace SMS.Data.Entities
 {
-    public class UsersInRole: Entity, IAuditableEntity
+    [TableName("USERSINROLE")]
+    [PrimaryKey("ID")]
+    public class UsersInRole
     {
-        public virtual long UserID { get; set; }
-
-        public virtual long RoleID { get; set; }
-
-        #region Implementation of IAuditableEntity
-
-        public virtual DateTime? CreatedDate { get; set; }
-
-        public virtual string CreatedUser { get; set; }
-
-        public virtual DateTime? ModifiedDate { get; set; }
-
-        public virtual string ModifiedUser { get; set; }
-
-        #endregion
+        public long ID { get; set; }
+        public Guid UserID { get; set; }
+        public long RoleID { get; set; }
     }
 }
