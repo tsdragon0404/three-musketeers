@@ -9,7 +9,7 @@
         <td class="arrow-detail center">↳</td>
         <td colspan="6">
             <table class="no-border width500px">
-                {{if ProductCategoryID == 0}}
+                {{if CategoryID == 0}}
                 <tr>
                     <td colspan="2" class="label-custom-label">ADD NEW</td>
                 </tr>
@@ -98,8 +98,8 @@
         <tbody>
             @foreach (var dto in Model.ListRecord)
             {
-                <tr data-id="@dto.ProductCategoryID">       
-                    <td>@dto.ProductCategoryID</td>
+                <tr data-id="@dto.CategoryID">       
+                    <td>@dto.CategoryID</td>
                     <td>@dto.ProductCategoryCode</td>
                     @if(CommonObjects.Language == Language.Vietnamese)
                     {
@@ -122,8 +122,8 @@
                         <td></td>
                     }
                     <td class="center">
-                        <a href="#" class="@deleteCssClass" data-id="@dto.ProductCategoryID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
-                        <a href="#" class="@editCssClass" data-id="@dto.ProductCategoryID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
+                        <a href="#" class="@deleteCssClass" data-id="@dto.CategoryID"><img src="~/Images/IconControls/delete-icon.png" alt="delete record" /></a>
+                        <a href="#" class="@editCssClass" data-id="@dto.CategoryID"><img src="~/Images/IconControls/edit-icon.png" alt="edit record" /></a>
                     </td>
                 </tr>
             }

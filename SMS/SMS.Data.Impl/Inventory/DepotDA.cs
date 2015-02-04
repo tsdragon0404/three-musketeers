@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Data.PetaPoco;
+using SMS.Data.Entities;
 using SMS.Data.Entities.Inventory;
 using SMS.Data.Inventory;
 
