@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+/TMChat/_ReSharper.TMChat
+/TMChat/Client/TM.Client.WinFormApp/bin/Debug
+/TMChat/Client/TM.Client.WinFormApp/obj/Debug
+/TMChat/Models/TM.Chat.Models/bin/Debug
+/TMChat/Models/TM.Chat.Models/obj/Debug
+/TMChat/Server/TM.ChatServer/obj/Debug
+/TMChat/Server/TM.ChatServer/bin/Debug
+/TMChat/Server/TM.ChatServer.WinFormApp/bin/Debug
+/TMChat/Server/TM.ChatServer.WinFormApp/obj/Debug
+/TMChat/TMChat/obj/Debug
+/TMChat/TMChat/bin/Debug
