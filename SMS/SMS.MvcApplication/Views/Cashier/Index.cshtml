@@ -93,12 +93,12 @@
                         <th data-labelID="lblProductName">Product Name</th>
                         <th data-labelID="lblQuantity">Quantity</th>
                         <th data-labelID="lblUnit">Unit</th>
-                        <th data-labelID="lblPrice">Price</th>
+                        <th class="right" data-labelID="lblPrice">Price</th>
                         @if(BranchConfigs.Current.UseDiscountOnProduct)
                         {
-                            <th data-labelID="lblDiscount">Discount</th>
+                            <th class="right" data-labelID="lblDiscount">Discount</th>
                         }
-                        <th data-labelID="lblAmount">Amount</th>
+                        <th class="right" data-labelID="lblAmount">Amount</th>
                         <th data-labelID="lblRemarks">Remarks</th>
                         @if(BranchConfigs.Current.UseKitchenFunction)
                         {
