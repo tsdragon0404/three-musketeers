@@ -17,5 +17,10 @@ namespace SMS.Data.Dtos
         public virtual DiscountType DiscountType { get; set; }
         public virtual string DiscountCode { get; set; }
         public virtual string DiscountComment { get; set; }
+
+        public virtual decimal Amount
+        {
+            get { return Quantity * Price - Discount; }
+        }
     }
 }

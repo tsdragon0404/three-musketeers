@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SMS.Common.Enums;
 
 namespace SMS.Data.Dtos
@@ -21,7 +22,15 @@ namespace SMS.Data.Dtos
         public virtual decimal ServiceFee { get; set; }
         public virtual decimal OtherFee { get; set; }
         public virtual string OtherFeeDescription { get; set; }
-        public virtual decimal TableAmount { get; set; }
+
+        public virtual decimal TableAmount
+        {
+            get
+            {
+                var detailAmount = !InvoiceDetails.Any() ? 0 : InvoiceDetails.Sum(x => x.Amount);
+                return detailAmount + ServiceFee + OtherFee - Discount;
+            }
+        }
 
         public virtual DateTime? CreatedDate { get; set; }
         public virtual string CreatedUser { get; set; }

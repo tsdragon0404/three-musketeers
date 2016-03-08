@@ -50,6 +50,7 @@
     <Compile Include="BaseManagement.cs" />
     <Compile Include="BranchManagement.cs" />
     <Compile Include="BrandingTextManagement.cs" />
+    <Compile Include="InvoiceManagement.cs" />
     <Compile Include="UploadedFileManagement.cs" />
     <Compile Include="SystemInformationManagement.cs" />
     <Compile Include="UserConfigManagement.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="PageManagement.cs" />
     <Compile Include="InvoiceDetailManagement.cs" />
     <Compile Include="InvoiceTableManagement.cs" />
-    <Compile Include="InvoiceManagement.cs" />
     <Compile Include="UnitManagement.cs" />
     <Compile Include="ProductCategoryManagement.cs" />
     <Compile Include="TableManagement.cs" />

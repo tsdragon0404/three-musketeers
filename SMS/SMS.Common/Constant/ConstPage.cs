@@ -11,6 +11,7 @@
 
         public const long Cashier = 2;
         public const long Kitchen = 3;
+        public const long Invoice = 9;
         public const long EditProfile = 8;
                      
         public const long Branch_GlobalLabel = 21;

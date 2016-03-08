@@ -15,6 +15,7 @@ VALUES
 ( 6, N'Lỗi', N'Unknown error', N'Lỗi', N'Unknown Error', 0, NULL, N'Error', N'Unknown' ),
 ( 7, N'Không tìm thấy', N'File not found', N'Không tìm thấy', N'File not found', 0, NULL, N'Error', N'NotFound' ),
 ( 8, N'Thông tin cá nhân', N'Edit profile', N'Sửa thông tin cá nhân', N'Edit profile', 0, NULL, N'Account', N'Edit' ),
+( 9, N'Hóa đơn', N'Invoice', N'Hóa đơn', N'Invoice', 1, NULL, N'Invoice', N'Index' ),
 
 ( 99, N'Xem thống kê', N'Report viewer', N'Xem thống kê', N'Report viewer', 1, NULL, NULL, N'/Reports/ReportViewer.aspx' ),
 
@@ -48,6 +49,7 @@ VALUES
 /*( 1, N'MainMenu', 0, 1, 10 ), -- do not show home page on main menu */
 ( 2, N'MainMenu', 0, 2, 20 ),
 ( 3, N'MainMenu', 0, 3, 30 ),
+( 24, N'MainMenu', 0, 9, 35 ),
 ( 4, N'MainMenu', 0, 20, 40 ),
 ( 5, N'MainMenu', 4, 40, 50 ),
 ( 6, N'MainMenu', 4, 21, 60 ),

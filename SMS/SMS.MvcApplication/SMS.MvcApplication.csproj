@@ -22,6 +22,11 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>0</FileUpgradeFlags>
+    <UpgradeBackupLocation>D:\Work\Git\three-musketeers\SMS\Backup5\</UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -227,6 +232,7 @@
     <Compile Include="Base\AdminBranchBaseController.cs" />
     <Compile Include="Base\Utility.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Areas\BranchData\DataAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -254,7 +260,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\ReportViewer.aspx.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\ReportViewer.aspx.designer.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>
@@ -952,6 +957,7 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Shared\CustomerPopup.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
