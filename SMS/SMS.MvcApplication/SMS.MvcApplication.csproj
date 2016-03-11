@@ -865,6 +865,7 @@
     <Content Include="Scripts\destination-table-popup.js" />
     <Content Include="Scripts\custom-validate.js" />
     <Content Include="ScriptX\smsx.cab" />
+    <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Areas\BranchData\Views\_ViewStart.cshtml" />
     <Content Include="Areas\BranchData\Views\Web.config" />
@@ -957,7 +958,6 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Shared\CustomerPopup.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,74 @@
+﻿@using System.Collections;
+@model List<SMS.Data.Dtos.InvoiceDto>
+
+<div id="content">
+    <h4 data-labelID="lblPageName">Invoice</h4>
+    <form id="searchForm" method="GET">
+        <div class="row">
+            <div class="six columns">
+                <table class="no-border searchTable">
+                    <tr>
+                        <td class="right">Date:</td>
+                        <td><input type="text" name="fromDate" value="@ViewBag.FromDate" id="from-date" /></td>
+                        <td><input type="text" name="toDate" value="@ViewBag.ToDate" id="to-date" /></td>
+                    </tr>
+                    <tr>
+                        <td class="right">Amount:</td>
+                        <td><input type="text" name="minAmount" value="@ViewBag.MinAmount" id="min-amount" /></td>
+                        <td><input type="text" name="maxAmount" value="@ViewBag.MaxAmount" id="max-amount" /></td>
+                    </tr>
+                    <tr>
+                        <td class="right">Customer:</td>
+                        <td><input type="text" name="customerName" value="@ViewBag.CustomerName" id="customer-name" /></td>
+                        <td><button type="submit" class="small" data-globalLabelID="lblSearch">Search</button></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <table class="no-border">
+        <colgroup>
+            
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th data-labelID="lblNo">No</th>
+                <th data-labelID="lblName">Name</th>
+                <th data-labelID="lblSEQ">SEQ</th>
+                <th data-labelID="lblEnable">Enabled</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dto in Model)
+            {
+                var altClass = Model.IndexOf(dto) % 2 != 0 ? "alt" : "";
+                <tr class="@altClass" data-id="@dto.ID">
+                    <td>@dto.InvoiceNumber</td>
+                    <td>@dto.InvoiceDate</td>
+                    <td>@dto.CustomerName</td>
+                    <td>@dto.Total</td>
+                    <td>@dto.Comment</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+
+    <script type="text/javascript">
+    $(function() {
+        
+        $('#searchForm button[type="submit"]').button({
+            icons: {
+                primary: "ui-icon-search"
+            }
+        });
+
+        $('#from-date, #to-date').datepicker({ dateFormat: 'dd-mm-yy' });
+    });
+    </script>
+</div>
