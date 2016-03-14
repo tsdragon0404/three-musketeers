@@ -12,7 +12,7 @@ namespace SMS.Data.Mapping
             Map(x => x.InvoiceNumber);
             Map(x => x.InvoiceDate);
             Map(x => x.Comment);
-            Map(x => x.CustomerID);
+            References(x => x.Customer).Column("CustomerID");
             Map(x => x.CustomerName);
             Map(x => x.Address);
             Map(x => x.CellPhone);

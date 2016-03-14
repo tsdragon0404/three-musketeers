@@ -24,7 +24,7 @@
     <RestorePackages>true</RestorePackages>
     <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
     <FileUpgradeFlags>0</FileUpgradeFlags>
-    <UpgradeBackupLocation>D:\Work\Git\three-musketeers\SMS\Backup5\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>C:\Users\SonNguyen\Documents\Visual Studio 2015\Projects\SMSv100\Backup1\</UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -260,6 +260,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\ReportViewer.aspx.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\ReportViewer.aspx.designer.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>

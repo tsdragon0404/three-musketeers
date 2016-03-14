@@ -102,7 +102,7 @@ namespace SMS.Business.Impl
                                   InvoiceNumber = order.OrderNumber,
                                   InvoiceDate = DateTime.Now,
                                   Branch = new Data.Entities.Branch { ID = order.Branch.ID },
-                                  CustomerID = order.Customer.ID,
+                                  Customer = order.Customer,
                                   Currency = BranchConfigs.Current.Currency,
                                   UserID = SmsSystem.UserContext.UserID,
                                   Tax = tax,

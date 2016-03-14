@@ -1,5 +1,4 @@
-﻿@using System.Collections;
-@model List<SMS.Data.Dtos.InvoiceDto>
+﻿@model List<SMS.Data.Dtos.InvoiceDto>
 
 <div id="content">
     <h4 data-labelID="lblPageName">Invoice</h4>
@@ -48,7 +47,7 @@
                 <tr class="@altClass" data-id="@dto.ID">
                     <td>@dto.InvoiceNumber</td>
                     <td>@dto.InvoiceDate</td>
-                    <td>@dto.CustomerName</td>
+                    <td>@dto.Customer.CustomerName</td>
                     <td>@dto.Total</td>
                     <td>@dto.Comment</td>
                 </tr>

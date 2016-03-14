@@ -12,7 +12,7 @@ namespace SMS.Data.Dtos
         public virtual string InvoiceNumber { get; set; }
         public virtual DateTime InvoiceDate { get; set; }
         public virtual string Comment { get; set; }
-        public virtual long CustomerID { get; set; }
+        public virtual CustomerDto Customer { get; set; }
         public virtual string CustomerName { get; set; }
         public virtual string CellPhone { get; set; }
         public virtual string Address { get; set; }

@@ -13,7 +13,7 @@ namespace SMS.Data.Entities
 
         public virtual string Comment { get; set; }
 
-        public virtual long CustomerID { get; set; }
+        public virtual Customer Customer { get; set; }
 
         public virtual string CustomerName { get; set; }
 
