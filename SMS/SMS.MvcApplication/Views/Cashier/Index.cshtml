@@ -569,7 +569,7 @@
     $(document).on("click", "#changeCustomer", (function(){
         var orderId = $('#curOrderID').val();
         if (orderId > 0) {
-            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action("")', changeCustomer);
+            var popup = new CustomerPopup("pdtCustomer", orderId, '@Url.Action(string.Empty)', changeCustomer);
             popup.OpenPopup();
         }
     }));

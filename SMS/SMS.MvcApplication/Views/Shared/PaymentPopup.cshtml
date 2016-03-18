@@ -10,8 +10,8 @@
 <div title="@Model.PopupTitle" id="@Model.PopupID" class="hide payment-popup">
     <div class="row">
         <div class="eight columns payment-content">
-            <div class="leftContent" style="width: 175mm;">
-                <div class="page" style="width: 170mm !important">
+            <div class="leftContent" style="width: 80mm !important">
+                <div class="page">
                 </div>
             </div>
         </div>
@@ -99,26 +99,18 @@
 </div>
 <script src="@Url.Content("~/Scripts/payment-popup.js")"></script>
 <script id="payment-detail-@Model.PopupID" type="text/x-jquery-tmpl">
-    <table style="width: 100%; font-family: courier">
-        <colgroup>
-            <col style="width: 30px"/>
-            <col style="width: 150px"/>
-            <col style="width: 100px"/>
-            <col style="width: 100px"/>
-            <col style="width: 100px"/>
-        </colgroup>
+    <table style="width: 100%;">
         <thead>
             <tr>
-                <th colspan="5" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
+                <th colspan="4" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
             </tr>
             <tr>
-                <th colspan="5" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
+                <th colspan="4" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
             </tr>
             <tr style="border-top: 3px gray double">
-                <th colspan="5">TÊN BÀN</th>
+                <th colspan="4">TÊN BÀN</th>
             </tr>
             <tr>
-                <th>STT</th>
                 <th>SẢN PHẨM</th>
                 <th>SỐ LƯỢNG</th>
                 <th>ĐƠN GIÁ</th>
@@ -128,11 +120,10 @@
         <tbody id="payment-detail">
             {{each(idx) OrderTables}}
             <tr style="border-top: 1px gray solid">
-                <td colspan="5">${Table.Name}</td>
+                <td colspan="4">${Table.Name}</td>
             </tr>
             {{each(idx) OrderDetails}}
             <tr>
-                <td class="left">${idx + 1}</td>
                 <td>${Product.Name}</td>
                 <td class="right">${Quantity.formatAsMoney()}</td>
                 <td class="right">${Product.Price.formatAsMoney()}</td>
@@ -143,80 +134,19 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Tổng cộng:</td>
                 <td class="right">${SubTotal.formatAsMoney()} @BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Phí dịch vụ:</td>
                 <td class="right">${ServiceFee.formatAsMoney()} @BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="2"></td>
                 <td>Dịch vụ khác:</td>
                 <td class="right">${OtherFee.formatAsMoney()} @BranchConfigs.Current.Currency</td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td>Thuế:</td>
-                <td class="right">${Tax.formatAsMoney()} @BranchConfigs.Current.Currency</td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td>Tiền thanh toán:</td>
-                <td class="right">${TotalAmount.formatAsMoney()} @BranchConfigs.Current.Currency</td>
-            </tr>
-            <tr>
-                <td colspan="5">Ngày lập: ${CreatedDate.formatAsDate()}</td>
-            </tr>
-            <tr>
-                <td colspan="5">Người lập: @SmsSystem.UserContext.UserName</td>
-            </tr>
-            <tr>
-                <td class="center" colspan="5">----------------------</td>
-            </tr>
-            <tr>
-                <td class="center" colspan="5">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
-            </tr>
-        </tfoot>
-    </table>
-</script>
-<script id="print-tax-@Model.PopupID" type="text/x-jquery-tmpl">
-    <table style="width: 100%; font-family: courier">
-        <colgroup>
-            <col style="width: 30px"/>
-            <col style="width: 150px"/>
-            <col style="width: 100px"/>
-            <col style="width: 100px"/>
-        </colgroup>
-        <thead>
-            <tr>
-                <th colspan="4" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
-            </tr>
-            <tr>
-                <th colspan="4" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
-            </tr>
-            <tr>
-                <th>STT</th>
-                <th>SẢN PHẨM</th>
-                <th>SỐ LƯỢNG</th>
-                <th>THÀNH TIỀN</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="left">1</td>
-                <td>Đồ ăn, nước uống</td>
-                <td class="right">1.00</td>
-                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2"></td>
-                <td>Tổng cộng:</td>
-                <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()} @BranchConfigs.Current.Currency</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
@@ -240,6 +170,67 @@
             <tr>
                 <td class="center" colspan="4">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
             </tr>
-    </tfoot>
-</table>
+        </tfoot>
+    </table>
+</script>
+<script id="print-tax-@Model.PopupID" type="text/x-jquery-tmpl">
+    <table style="width: 100%;">
+        <colgroup>
+            <col/>
+            <col/>
+            <col/>
+            <col/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th colspan="4" class="center" style="font-weight: bold">${Branch.BranchInfo.CompanyName}</th>
+        </tr>
+        <tr>
+            <th colspan="4" class="center">ĐIỆN THOẠI: ${Branch.BranchInfo.Phone}</th>
+        </tr>
+        <tr>
+            <th>STT</th>
+            <th>SẢN PHẨM</th>
+            <th>SỐ LƯỢNG</th>
+            <th>THÀNH TIỀN</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="left">1</td>
+            <td>Đồ ăn, nước uống</td>
+            <td class="right">1.00</td>
+            <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2"></td>
+            <td>Tổng cộng:</td>
+            <td class="right">${(SubTotal + ServiceFee + OtherFee).formatAsMoney()} @BranchConfigs.Current.Currency</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td>Thuế:</td>
+            <td class="right">${Tax.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td>Tiền thanh toán:</td>
+            <td class="right">${TotalAmount.formatAsMoney()} @BranchConfigs.Current.Currency</td>
+        </tr>
+        <tr>
+            <td colspan="4">Ngày lập: ${CreatedDate.formatAsDate()}</td>
+        </tr>
+        <tr>
+            <td colspan="4">Người lập: @SmsSystem.UserContext.UserName</td>
+        </tr>
+        <tr>
+            <td class="center" colspan="4">----------------------</td>
+        </tr>
+        <tr>
+            <td class="center" colspan="4">XIN KÍNH CHÀO VÀ HẸN GẶP LẠI QUÝ KHÁCH</td>
+        </tr>
+        </tfoot>
+    </table>
 </script>

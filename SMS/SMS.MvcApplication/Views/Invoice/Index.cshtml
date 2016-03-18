@@ -33,11 +33,11 @@
         </colgroup>
         <thead>
             <tr>
-                <th></th>
-                <th data-labelID="lblNo">No</th>
-                <th data-labelID="lblName">Name</th>
-                <th data-labelID="lblSEQ">SEQ</th>
-                <th data-labelID="lblEnable">Enabled</th>
+                <th data-labelID="lblInvoiceNumber">Invoice Number</th>
+                <th data-labelID="lblInvoiceDate">Invoice Date</th>
+                <th data-labelID="lblCustomerName">Customer Name</th>
+                <th data-labelID="lblTotalAmount">Total Amount</th>
+                <th data-labelID="lblCreatedBy">Created By</th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +49,7 @@
                     <td>@dto.InvoiceDate</td>
                     <td>@dto.Customer.CustomerName</td>
                     <td>@dto.Total</td>
-                    <td>@dto.Comment</td>
+                    <td>@dto.CreatedUser</td>
                 </tr>
             }
 

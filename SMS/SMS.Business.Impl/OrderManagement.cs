@@ -22,6 +22,7 @@ namespace SMS.Business.Impl
         public virtual IInvoiceDetailRepository InvoiceDetailRepository { get; set; }
         public virtual IInvoiceDiscountRepository InvoiceDiscountRepository { get; set; }
         public virtual IOrderDiscountRepository OrderDiscountRepository { get; set; }
+        public virtual ICustomerRepository CustomerRepository { get; set; }
 
         #endregion
 
@@ -46,8 +47,7 @@ namespace SMS.Business.Impl
             Repository.Add(order);
             Repository.SaveAllChanges();
 
-            var text = "0000000000" + order.ID;
-            order.OrderNumber = "INV-" + text.Substring(text.Length-10, 10);
+            order.OrderNumber = "INV-" + DateTime.Now.ToString("yyMMddHHmmss");
             Repository.Update(order);
             Repository.SaveAllChanges();
 
@@ -57,7 +57,7 @@ namespace SMS.Business.Impl
         public ServiceResult DeleteByOrderTableID(long orderTableID)
         {
             var order = Repository.FindOne(x => x.OrderTables.Select(y => y.ID).Contains(orderTableID));
-            var orderID = order == null ? 0 : order.ID;
+            var orderID = order?.ID ?? 0;
 
             return ServiceResult.CreateResult(Repository.Delete(orderID));
         }
@@ -97,12 +97,30 @@ namespace SMS.Business.Impl
             if (order == null)
                 return ServiceResult.CreateFailResult();
 
+            Customer customer;
+            if (order.Customer == null) {
+                customer = new Customer
+                {
+                    CustomerName = order.CustomerName,
+                    CellPhone = order.CellPhone,
+                    Address = order.Address,
+                    Email = order.Email,
+                    BranchID = order.Branch.ID,
+                    Enable = true
+                };
+                CustomerRepository.Add(customer);
+            }
+            else
+            {
+                customer = order.Customer;
+            }
+
             var invoice = new Invoice
                               {
                                   InvoiceNumber = order.OrderNumber,
                                   InvoiceDate = DateTime.Now,
                                   Branch = new Data.Entities.Branch { ID = order.Branch.ID },
-                                  Customer = order.Customer,
+                                  Customer = customer,
                                   Currency = BranchConfigs.Current.Currency,
                                   UserID = SmsSystem.UserContext.UserID,
                                   Tax = tax,
@@ -210,7 +228,7 @@ namespace SMS.Business.Impl
             return ServiceResult.CreateSuccessResult();
         }
 
-        public ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string dob)
+        public ServiceResult ChangeCustomer(long orderID, long customerID, string customerName, string address, string cellPhone, string email)
         {
             var order = Repository.Get(orderID);
             if (order == null)
@@ -223,7 +241,7 @@ namespace SMS.Business.Impl
                 order.CustomerName = String.Empty;
                 order.Address = String.Empty;
                 order.CellPhone = String.Empty;
-                order.DOB = null;
+                order.Email = String.Empty;
             }
             else
             {
@@ -231,10 +249,7 @@ namespace SMS.Business.Impl
                 order.CustomerName = customerName;
                 order.Address = address;
                 order.CellPhone = cellPhone;
-                if (dob.Trim() != "") 
-                    order.DOB = DateTime.Parse(dob);
-                else
-                    order.DOB = null;
+                order.Email = email;
             }
             Repository.Update(order);
             return ServiceResult.CreateSuccessResult();

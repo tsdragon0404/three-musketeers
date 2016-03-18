@@ -2,9 +2,9 @@
 <div id="@Model.PopupID" title="@Model.PopupTitle" class="hide customer-popup">
     <div id="customerInfo">
         <fieldset>
-            <legend>
+            <legend id="addCustomer">
                 <input type="checkbox" id="useInputCustomer"/>
-                <span data-labelID="lblCustomerInformation">Customer information</span>
+                <span data-labelID="lblCustomerInformation">Add Customer</span>
             </legend>
             <table>
                 <tr>
@@ -16,8 +16,8 @@
                 <tr>
                     <td data-labelID="lblAddress">Address</td>
                     <td><input type="text" id="address" /></td>
-                    <td data-labelID="lblDOB">DOB</td>
-                    <td><input type="text" id="DOB" class="inputCalendar" /></td>
+                    <td data-labelID="lblEmail">Email</td>
+                    <td><input type="text" id="email" /></td>
                 </tr>
                 <tr>
                     <td colspan="4" class="center"><button id="btnOK" data-labelID="lblOK">Select</button></td>
@@ -42,7 +42,7 @@
                 <th data-labelID="lblCustomerName">Customer name</th>
                 <th data-labelID="lblCellPhone">Cell phone</th>
                 <th data-labelID="lblAddress">Address</th>
-                <th data-labelID="lblDOB">DOB</th>
+                <th data-labelID="lblEmail">Email</th>
                 <th></th>
             </tr>
         </thead>
@@ -77,10 +77,61 @@
         <td>${CustomerName}</td>
         <td>${CellPhone}</td>
         <td>${Address}</td>
-        <td>${DOB==null ? '' : DOB.formatAsDate()}</td>
+        <td>${Email}</td>
         <td class="center">
             <button id="select-${ID}">Select</button>
         </td>
     </tr>
     {{/each}}
 </script>
+<style type="text/css">
+.customer-popup .col1 {
+    width: 70px;
+}
+
+.customer-popup .col2 {
+    width: 150px;
+}
+
+.customer-popup .col3 {
+    width: 200px;
+}
+
+.customer-popup .col4 {
+    width: 120px;
+}
+
+.customer-popup .col5 {
+    width: 150px;
+}
+
+.customer-popup .col6 {
+    width: 100px;
+}
+
+.discount-popup input {
+    width: 100% !important;
+    padding: 0px !important;
+}
+
+.customer-popup fieldset legend {
+    margin-left: 20px;
+    padding-bottom: 8px;
+}
+
+.customer-popup fieldset table, .customer-popup fieldset table tr td {
+    border: none;
+}
+
+.customer-popup #customerInfo {
+    padding-bottom: 3px;
+}
+
+.customer-popup #addCustomer {
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+</style>

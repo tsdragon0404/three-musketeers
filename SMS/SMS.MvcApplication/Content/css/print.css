@@ -3,15 +3,16 @@
     /*Reset Style*/
     body {
         margin:0; 
-        padding:0; 
-        line-height: 1.4em; 
-        word-spacing:1px; 
-        letter-spacing:0.2px; 
-        font: 13px Arial, Helvetica,"Lucida Grande", serif; 
+        padding:0;
+        font: 10px Arial, Helvetica,"Lucida Grande", serif; 
         color: #000;
     }
     
     body > * { display: none; }
+
+    .ajax-loader-mask {
+        display: none !important;
+    }
 
     div[aria-describedby="pdtPayment"] {
         display: block !important;
@@ -19,40 +20,49 @@
         left: 0 !important;
         border: none !important;
         overflow: hidden !important;
+        padding: 0 !important;
+        height: 100% !important;
     }
 
     div[aria-describedby="pdtPayment"] .ui-dialog-titlebar, #print {
         display: none;
     }
 
-    #pdtPayment .payment-config {
+    #pdtPayment {
+        padding: 0 !important;
+        height: 100% !important;
+    }
+
+    #pdtPayment .row > div {
         display: none;
     }
 
     #pdtPayment {
-        height: auto !important;
         overflow: hidden !important;
+    }
+    #pdtPayment .payment-content {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     #pdtPayment .payment-content, #pdtPayment .payment-content .leftContent{
-        height: auto !important;
-        width: auto !important;
         overflow: hidden !important;
     }
 
-    div[id="pdtPayment"] .page, #pdtPayment .page table {
-        overflow: hidden !important;
-        height: auto !important;
-        width: auto !important;
-        padding: 0;
-        margin: 0;
+    #pdtPayment .page {
+        padding: 0 !important;
+        margin: 0 !important;
         box-shadow: none;
         -moz-box-shadow: none;
         -webkit-box-shadow: none;
     }
+
+    table tr td, table tbody tr td {
+        font-size: inherit !important;
+    }
 }
 
 @page {
-    size: auto;
-    margin: 0;
+    margin: 0px;
 }

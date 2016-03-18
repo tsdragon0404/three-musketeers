@@ -13,7 +13,7 @@ namespace SMS.Data.Entities
 
         public virtual string Address { get; set; }
 
-        public virtual DateTime? DOB { get; set; }
+        public virtual string Email { get; set; }
 
         public virtual long BranchID { get; set; }
 

@@ -14,7 +14,7 @@ namespace SMS.Data.Mapping
             Map(x => x.CustomerName);
             Map(x => x.Address);
             Map(x => x.CellPhone);
-            Map(x => x.DOB);
+            Map(x => x.Email);
             Map(x => x.OtherFee);
             Map(x => x.OtherFeeDescription);
             HasMany(x => x.OrderDiscounts).KeyColumn("OrderID").Inverse().Cascade.AllDeleteOrphan();

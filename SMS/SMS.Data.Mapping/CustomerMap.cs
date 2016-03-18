@@ -12,7 +12,7 @@ namespace SMS.Data.Mapping
             Map(x => x.CustomerName);
             Map(x => x.Address);
             Map(x => x.CellPhone);
-            Map(x => x.DOB);
+            Map(x => x.Email);
         }
     }
 }

@@ -36,8 +36,8 @@
         return false;
     });
     
-    $(root.popupId + ' #useInputCustomer').unbind('change');
-    $(root.popupId + ' #useInputCustomer').change(function () {
+    $(root.popupId + ' #addCustomer').unbind('click');
+    $(root.popupId + ' #addCustomer').click(function () {
         bindEvent();
     });
     
@@ -50,8 +50,8 @@
         var customerName = $(root.popupId + ' #customerName').val();
         var address = $(root.popupId + ' #address').val();
         var cellPhone = $(root.popupId + ' #cellPhone').val();
-        var dob = $(root.popupId + ' #DOB').val();
-        root.functionCallback(root.orderId, 0, customerName, address, cellPhone, dob);
+        var email = $(root.popupId + ' #email').val();
+        root.functionCallback(root.orderId, 0, customerName, address, cellPhone, email);
         $(root.popupId).dialog('close');
     });
 
@@ -67,7 +67,7 @@
                     $(root.popupId + ' #customerName').val(result.Data.CustomerName);
                     $(root.popupId + ' #address').val(result.Data.Address);
                     $(root.popupId + ' #cellPhone').val(result.Data.CellPhone);
-                    $(root.popupId + ' #DOB').val(result.Data.DOB==null ? '' : result.Data.DOB.formatAsDate());
+                    $(root.popupId + ' #email').val(result.Data.Email);
                 } else {
                     $(root.popupId + ' #useInputCustomer').prop('checked', false);
                 }
@@ -121,6 +121,7 @@
     };
 
     function bindEvent() {
+        $(root.popupId + ' #useInputCustomer').prop('checked', !$(root.popupId + ' #useInputCustomer').is(':checked'));
         if ($(root.popupId + ' #useInputCustomer').is(':checked')) {
             $(root.popupId + ' #customerInfo table *').prop("disabled", false);
             $(root.popupId + ' #customerInfo table').removeClass('icon-disable');

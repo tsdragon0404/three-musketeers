@@ -18,7 +18,7 @@ namespace SMS.Business.Impl
         {
             var query = Repository.GetQuery();
             if (!string.IsNullOrEmpty(customerName))
-                query = query.Where(x => x.CustomerName.Contains(customerName));
+                query = query.Where(x => x.Customer.CustomerName.Contains(customerName));
             if (fromDate.HasValue)
                 query = query.Where(x => x.InvoiceDate.Date >= fromDate.Value.Date);
             if (toDate.HasValue)
